@@ -3,6 +3,7 @@ export type ERC20Chain = 'NAKA';
 interface ContractParams {
   contractAddress: string;
   chain?: ERC20Chain;
+  rpc?: string;
 }
 
 interface NOSContractParams {

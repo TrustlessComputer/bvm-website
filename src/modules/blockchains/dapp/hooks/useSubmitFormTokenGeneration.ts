@@ -48,6 +48,28 @@ const useSubmitFormTokenGeneration = ({
     draggedIds2DSignal.value = [];
   };
 
+  function checkData(
+    dataMapping: Record<string, { key: string; value: string }[]>[],
+  ) {
+    const result = [];
+    for (const data of dataMapping) {
+      const d = {...data};
+
+      const _allocation = [];
+      for (const block of data?.allocation) {
+        if(!!block) {
+          _allocation.push(block);
+        }
+      }
+
+      d.allocation = _allocation
+
+      result.push(d);
+    }
+
+    return result;
+  }
+
   function validate(
     dataMapping: Record<string, { key: string; value: string }[]>[],
   ) {
@@ -55,18 +77,18 @@ const useSubmitFormTokenGeneration = ({
 
     for (const data of dataMapping) {
       if (!data?.token_name || isEmpty(data?.token_name)) {
-        errors.push({ key: 'token_name', error: 'Token Name is required!' });
+        errors.push({ key: 'token_name', error: 'Token Name' });
       }
       if (!data?.token_symbol || isEmpty(data?.token_symbol)) {
         errors.push({
           key: 'token_symbol',
-          error: 'Symbol is required!',
+          error: 'Symbol',
         });
       }
       if (!data?.token_supply || isEmpty(data?.token_supply)) {
         errors.push({
           key: 'token_supply',
-          error: 'Total Supply is required!',
+          error: 'Total Supply',
         });
       } else if (isNaN(Number(data?.token_supply))) {
         errors.push({ key: 'token_supply', error: 'Token supply is number!' });
@@ -77,7 +99,7 @@ const useSubmitFormTokenGeneration = ({
       if (!data?.receiver_address || isEmpty(data?.receiver_address)) {
         errors.push({
           key: 'receiver_address',
-          error: 'Receiver Address is required!',
+          error: 'Receiver Address',
         });
       }
 
@@ -87,39 +109,38 @@ const useSubmitFormTokenGeneration = ({
       for (const block of blocks) {
         const blockTemp = block as unknown as ITokenomics;
         const index = blocks.indexOf(block) + 1;
-        console.log('blockTemp', blockTemp);
         totalAmount = totalAmount.plus(blockTemp?.total_amount || 0);
 
         if (!blockTemp?.name || isEmpty(blockTemp?.name)) {
           errors.push({
             key: 'tokenomic_name',
-            error: `Allocation #${index} name is required!`,
+            error: `Allocation #${index} Name`,
           });
         }
         if (!blockTemp?.total_amount || isEmpty(blockTemp?.total_amount)) {
           errors.push({
             key: 'tokenomic_amount',
-            error: `Allocation #${index} amount is required!`,
+            error: `Allocation #${index} Amount`,
           });
         }
-        if (!blockTemp?.address || isEmpty(blockTemp?.address)) {
-          errors.push({
-            key: 'tokenomic_address',
-            error: `Allocation #${index} Receiver Address is required!`,
-          });
-        }
+        // if (!blockTemp?.address || isEmpty(blockTemp?.address)) {
+        //   errors.push({
+        //     key: 'tokenomic_address',
+        //     error: `Allocation #${index} Receiver Address`,
+        //   });
+        // }
 
         if (blockTemp?.is_vesting) {
           if (!blockTemp?.cliff || isEmpty(blockTemp?.cliff)) {
             errors.push({
               key: 'tokenomic_cliff',
-              error: `Allocation #${index} Cliff is required!`,
+              error: `Allocation #${index} Cliff`,
             });
           }
           if (!blockTemp?.duration || isEmpty(blockTemp?.duration)) {
             errors.push({
               key: 'tokenomic_duration',
-              error: `Allocation #${index} Duration is required!`,
+              error: `Allocation #${index} Duration`,
             });
           }
         }
@@ -183,6 +204,8 @@ const useSubmitFormTokenGeneration = ({
       dataMapping = extractedValue(formDappInBlock, formDapp, dataMapping);
       dataMapping = extractedValue(formDappInSingle, formDapp, dataMapping);
 
+      dataMapping = checkData(dataMapping);
+
       setErrorData([]);
       let errors = validate(dataMapping);
 
@@ -210,6 +233,13 @@ const useSubmitFormTokenGeneration = ({
             ] as ITokenomics[];
           }
 
+          return data?.allocation?.map(all => {
+            return {
+              ...all,
+              address: (all as unknown as ITokenomics).address || data?.receiver_address
+            }
+          })
+
           return (data?.allocation || []) as unknown as ITokenomics[];
         };
 
@@ -218,7 +248,7 @@ const useSubmitFormTokenGeneration = ({
 
         const body: IBodyCreateToken = {
           name: data?.token_name as unknown as string,
-          symbol: data.token_symbol as unknown as string,
+          symbol: (data.token_symbol as unknown as string).toUpperCase(),
           ...getTokenomics(defaultTokenomics),
         };
 

@@ -4,6 +4,7 @@ import CContract from '@/contract/contract';
 import { formatAmountToClient } from '@/utils/format';
 import { useAppDispatch } from '@/stores/hooks';
 import { setStakingPools } from '@/stores/states/dapp/reducer';
+import { store } from '@/stores';
 
 class CStakingAPI {
   private api = new CDappApiClient().api;
@@ -18,6 +19,8 @@ class CStakingAPI {
   };
 
   getStakingPools = async (): Promise<ISTToken[]> => {
+    const chain = store.getState().dapp.chain;
+
     const contract = new CContract();
     const data: any = await this.api.get(this.getUrl('sttokens'));
 
@@ -27,7 +30,10 @@ class CStakingAPI {
         let rewardTotal = '0';
         try {
           const reward = await contract
-            .getERC20Contract({ contractAddress: item.reward_token_address })
+            .getERC20Contract({
+              contractAddress: item.reward_token_address,
+              rpc: chain?.rpc,
+            })
             .balanceOf(item.reward_pool_address);
           rewardTotal = formatAmountToClient(reward.toString());
         } catch (error) {}

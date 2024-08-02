@@ -20,14 +20,14 @@ export function useAnimationOnFame({ refContent, fameIns, fameOuts }: {
 }) {
   useSignalEffect(() => {
     const fame = poFame.value;
-    if (fame < fameIns[1]) {
+    if (fame <= fameIns[1]) {
       const opacity = MathMap(fame, fameIns[0], fameIns[1], 0, 1);
       const y = MathMap(fame, fameIns[0], fameIns[1], 100, 0);
       if (refContent.current) {
         refContent.current.style.transform = `translateY(${y}%)`;
         refContent.current.style.opacity = `${opacity}`;
       }
-    } else if(fame> fameOuts[0]) {
+    } else if(fame >= fameOuts[0]) {
       const opacity = MathMap(fame, fameOuts[0], fameOuts[1], 1, 0);
       const y = MathMap(fame, fameOuts[0], fameOuts[1], 0, -100);
       if (refContent.current) {

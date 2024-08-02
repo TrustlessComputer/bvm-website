@@ -106,7 +106,7 @@ const Lego = (props: Props) => {
         <div className={styles.lego__inner}>
           {fields?.map((field) => {
             return (
-              <div style={{ display: 'flex', gap: '4px' }}>
+              <div style={{ display: 'flex', gap: '4px' }} key={field.key}>
                 <div
                   className={cn(
                     styles.lego__inner__label,

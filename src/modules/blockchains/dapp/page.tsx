@@ -35,6 +35,7 @@ import {
   FormDappUtil,
   hasValue,
   MouseSensor,
+  preDataAirdropTask,
   removeItemAtIndex,
 } from './utils';
 
@@ -49,6 +50,13 @@ import { useThisDapp } from './hooks/useThisDapp';
 import { parseStakingPools } from './parseUtils/staking';
 import styles from './styles.module.scss';
 import { DappType } from './types';
+import { IAirdrop } from '@/services/api/dapp/airdrop/interface';
+import { parseAirdrop } from './parseUtils/airdrop';
+import { Button, Flex } from '@chakra-ui/react';
+import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
+import { TABS } from '@/modules/blockchains/Buy/constants';
+import { useRouter } from 'next/navigation';
+import { isProduction } from '@/config';
 
 const RollupsDappPage = () => {
   const { setDapps } = useDappsStore();
@@ -58,8 +66,11 @@ const RollupsDappPage = () => {
   const dappState = useAppSelector(dappSelector);
   const configs = dappState?.configs;
 
+  const router = useRouter();
+
   const tokens = dappState.tokens;
   const airdropTasks = dappState.airdropTasks;
+  const airdrops = dappState.airdrops;
   const stakingPools = dappState.stakingPools;
 
   const {
@@ -80,6 +91,20 @@ const RollupsDappPage = () => {
     return result;
   };
 
+  const parseAirdropsData = (_airdrops: IAirdrop[], _tokens: IToken[]) => {
+    const result: DappModel[] = [];
+    for (const airdrop of _airdrops) {
+      const _token = tokens.find((v) =>
+        compareString(v.contract_address, airdrop.token_address),
+      );
+
+      const t = parseAirdrop(airdrop, _token as IToken);
+      result.push(t);
+    }
+
+    return result;
+  };
+
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event;
     subScribeDropEnd.value += 1;
@@ -89,11 +114,11 @@ const RollupsDappPage = () => {
     const { over, active } = event;
     subScribeDropEnd.value += 1;
 
-    // console.log(
-    //   '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
-    //   over,
-    //   active,
-    // );
+    console.log(
+      '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
+      over,
+      active,
+    );
 
     if (!over) return;
 
@@ -111,10 +136,15 @@ const RollupsDappPage = () => {
     const overIsOutput = over.id === 'output';
     const overIsABase = DragUtil.idDraggingIsABase(overId);
     const overBaseIndex = Number(DragUtil.getBaseIndex(overId));
+    const overIsABlock = DragUtil.idDraggingIsABlock(overId);
+    const overIndex = Number(DragUtil.getChildIndex(overId));
+    const overOriginalKey = DragUtil.getOriginalKey(overId);
 
     const activeFromRightSide = DragUtil.isRightSide(activeId);
     const activeFromLeftSide = DragUtil.isLeftSide(activeId);
-    const activeIsAChild = DragUtil.idDraggingIsAField(activeId);
+    const activeIsAChildOfABlock =
+      DragUtil.idDraggingIsAChildOfABlock(activeId);
+    const activeIsRightSide = DragUtil.isRightSide(activeId);
     const activeIsABase = DragUtil.idDraggingIsABase(activeId);
     const activeIsAModule = DragUtil.idDraggingIsAModule(activeId);
     const activeBaseIndex = Number(DragUtil.getBaseIndex(activeId));
@@ -123,6 +153,47 @@ const RollupsDappPage = () => {
     const activeIsABaseModule = DragUtil.idDraggingIsABaseModule(activeId);
     const activeIndex = Number(DragUtil.getChildIndex(activeId));
     const activeOriginalKey = DragUtil.getOriginalKey(activeId);
+    const activeFieldKey = active.data.current?.fieldKey;
+
+    // Case 0: Drag to the block parent
+    if (activeFromLeftSide && activeIsAChildOfABlock && overIsABlock) {
+      if (activeOriginalKey !== overOriginalKey) {
+        showValidateError('Please drag to the same block!');
+        return;
+      }
+
+      const parentComposedFieldKey = `right-${FieldKeyPrefix.BLOCK}-${activeOriginalKey}`;
+      const composedFieldKey = `right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${activeFieldKey}-${overIndex}-${overBaseIndex}`;
+      const formKey = `${overBaseIndex}-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${activeFieldKey}-${overIndex}`;
+
+      if (
+        draggedIds2D[overBaseIndex][overIndex].children.some(
+          (item) => item.name === composedFieldKey,
+        )
+      ) {
+        showValidateError('This field already exists in the block!');
+        return;
+      }
+
+      draggedIds2D[overBaseIndex][overIndex] = {
+        ...draggedIds2D[overBaseIndex][overIndex],
+        children: [
+          ...draggedIds2D[overBaseIndex][overIndex].children,
+          {
+            name: composedFieldKey,
+            value: active.data.current?.value,
+            parentNames: [],
+            children: [],
+          },
+        ],
+      };
+
+      console.log(draggedIds2D[overBaseIndex][overIndex]);
+      draggedIds2DSignal.value = [...draggedIds2D];
+    }
+
+    if (activeIsRightSide && overIsInput) {
+    }
 
     // Case 1: Drag to the right
     if (overIsOutput || overIsABase) {
@@ -158,12 +229,12 @@ const RollupsDappPage = () => {
         return;
       }
 
+      // Case 1.5: The lego just dragged is a base module
       if (activeIsABaseModule) {
         const totalPlaced = draggedIds2D.length;
-        const canPlaceMoreBaseModule =
-          baseModuleFieldMapping[activeOriginalKey].placableAmount === -1 ||
-          totalPlaced <
-            baseModuleFieldMapping[activeOriginalKey].placableAmount;
+        // prettier-ignore
+        const canPlaceMoreBaseModule = baseModuleFieldMapping[activeOriginalKey].placableAmount === -1 ||
+                                      totalPlaced < baseModuleFieldMapping[activeOriginalKey].placableAmount;
         const composedFieldKey =
           'right-' + FieldKeyPrefix.BASE_MODULE + '-' + activeOriginalKey;
 
@@ -183,6 +254,7 @@ const RollupsDappPage = () => {
               name: composedFieldKey,
               value: active.data.current?.value,
               parentNames: [],
+              children: [],
             },
           ],
         ];
@@ -201,7 +273,7 @@ const RollupsDappPage = () => {
         return;
       }
 
-      // Case 1.5: The lego just dragged is a block/single
+      // Case 1.6: The lego just dragged is a block/single
       if ((activeIsABlock || activeIsASingle) && overIsABase) {
         const totalPlaced = activeIsABlock
           ? draggedIds2D[overBaseIndex].filter((item) =>
@@ -228,9 +300,11 @@ const RollupsDappPage = () => {
         const composedFieldKey = prefix + '-' + activeOriginalKey;
 
         if (!canPlaceMore) {
-          showValidateError(
-            `You can only place one ${blockFieldMapping[activeOriginalKey].title}!`,
-          );
+          const title = activeIsABlock
+            ? blockFieldMapping[activeOriginalKey].title
+            : singleFieldMapping[activeOriginalKey].title;
+
+          showValidateError(`You can only place one ${title}!`);
           idBlockErrorSignal.value = activeOriginalKey;
 
           return;
@@ -242,6 +316,7 @@ const RollupsDappPage = () => {
             name: composedFieldKey,
             value: active.data.current?.value,
             parentNames: [],
+            children: [],
           },
         ];
 
@@ -250,6 +325,7 @@ const RollupsDappPage = () => {
         return;
       }
 
+      // Case 1.7: The lego just dragged is a module
       if (activeIsAModule && overIsABase) {
         const totalPlaced = draggedIds2D[overBaseIndex].filter((item) =>
           item.name.startsWith(
@@ -296,6 +372,7 @@ const RollupsDappPage = () => {
                 name: composedFieldKey,
                 value,
                 parentNames: [],
+                children: [],
               },
             ];
           } else {
@@ -350,6 +427,7 @@ const RollupsDappPage = () => {
               name: composedFieldKey,
               value: active.data.current?.value,
               parentNames: [],
+              children: [],
             },
           ];
         }
@@ -389,7 +467,6 @@ const RollupsDappPage = () => {
           activeBaseIndex,
         );
         formDappSignal.value = { ...formDapp };
-        draggedIds2DSignal.value = [...draggedIds2D];
 
         return;
       }
@@ -566,76 +643,14 @@ const RollupsDappPage = () => {
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   );
 
-  const preDataAirdropTask = (sortedDapps: DappModel[] = []) => {
-    const _sortedDapps = sortedDapps;
-    if (tokens.length > 0) {
-      const _airdropIndex = _sortedDapps.findIndex((v) =>
-        compareString(v.key, DappType.airdrop),
-      );
-
-      if (_airdropIndex > -1) {
-        const fieldRewardToken = _sortedDapps[
-          _airdropIndex
-        ].baseBlock.fields.findIndex((v) =>
-          compareString(v.key, 'reward_token'),
-        );
-        if (fieldRewardToken > -1) {
-          // @ts-ignore
-          _sortedDapps[_airdropIndex].baseBlock.fields[
-            fieldRewardToken
-          ].options = tokens.map((t) => ({
-            key: t.id,
-            title: t.name,
-            value: t.contract_address,
-            icon: t.image_url,
-            tooltip: '',
-            type: '',
-            options: [],
-          }));
-          if (airdropTasks.length > 0) {
-            // @ts-ignore
-            const blockFieldTasks = _sortedDapps[
-              _airdropIndex
-            ].blockFields.findIndex((v) =>
-              compareString(v.key, 'airdrop_tasks'),
-            );
-
-            if (blockFieldTasks > -1) {
-              // @ts-ignore
-              const airdropTaskIndex = _sortedDapps[_airdropIndex].blockFields[
-                blockFieldTasks
-              ].fields.findIndex((v) => compareString(v.key, 'task'));
-
-              if (airdropTaskIndex > -1) {
-                // @ts-ignore
-                _sortedDapps[_airdropIndex].blockFields[blockFieldTasks].fields[
-                  airdropTaskIndex
-                ].options = airdropTasks.map((t) => ({
-                  key: t.id,
-                  title: t.title,
-                  value: t.id,
-                  icon: '',
-                  tooltip: t.description,
-                  type: t.type,
-                  options: [],
-                }));
-              }
-            }
-          }
-        }
-      }
-    }
-    return _sortedDapps;
-  };
-
   const fetchData = async () => {
     // const dapps = configs;
 
-    const dapps = dappMockupData;
+    const dapps = isProduction ? configs : dappMockupData;
 
     const sortedDapps = [...dapps].sort((a, b) => a?.order - b?.order);
 
-    const _sortedDapps = preDataAirdropTask(sortedDapps);
+    const _sortedDapps = preDataAirdropTask(sortedDapps, tokens, airdropTasks);
 
     setDapps(_sortedDapps);
   };
@@ -673,6 +688,7 @@ const RollupsDappPage = () => {
             name: prefix + '-' + _key,
             value: '',
             parentNames: [],
+            children: [],
           },
         ];
       }
@@ -689,11 +705,11 @@ const RollupsDappPage = () => {
 
   React.useEffect(() => {
     getDataTemplateForm();
-  }, [thisDapp, tokens?.length, stakingPools]);
+  }, [thisDapp, tokens, stakingPools, airdrops]);
 
   React.useEffect(() => {
     fetchData();
-  }, [dappState]);
+  }, [dappState, tokens, airdropTasks]);
 
   const getDataTemplateForm = async () => {
     if (!thisDapp) return;
@@ -720,17 +736,20 @@ const RollupsDappPage = () => {
         break;
       }
       case DappType.airdrop: {
-        const data = parseTokensData(tokens);
-        console.log('data', data);
+        const _data = parseAirdropsData(airdrops, tokens);
+        // const _data = preDataAirdropTask(data, tokens, airdropTasks);
+
+        console.log('_data', _data);
 
         const model = parseDappModel({
           key: DappType.airdrop,
-          model: data,
+          model: _data,
         });
+
         console.log('model', model);
 
-        // setTemplateDapps(data);
-        // setTemplateForm(model);
+        setTemplateDapps(_data);
+        setTemplateForm(model);
         break;
       }
       default:
@@ -739,7 +758,7 @@ const RollupsDappPage = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <Flex className={styles.container} w={'100%'} px={['16px', '18px', '20px']}>
       <div className={styles.content}>
         {/*<div className={styles.logo}>*/}
         {/*  <Image*/}
@@ -756,7 +775,24 @@ const RollupsDappPage = () => {
       </div>
 
       <div className={styles.container__header}>
-        <div></div>
+        <Flex alignItems='center' gap="12px">
+          <div
+            className={`${styles.top_left_filter} ${styles.active}`}
+            // onClick={() => {
+            //   router.push('/studio')
+            // }}
+          >
+            <p>Dapp Studio</p>
+          </div>
+          <div
+            className={`${styles.top_left_filter}`}
+            onClick={() => {
+              router.push('/studio')
+            }}
+          >
+            <p>Chain Studio</p>
+          </div>
+        </Flex>
         <div>
           <LaunchButton />
         </div>
@@ -768,6 +804,9 @@ const RollupsDappPage = () => {
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
         >
+          <div className={styles.container__content__sidebar}>
+            <Sidebar />
+          </div>
           <div
             className={styles.container__content__droppable}
             id="left-droppable"
@@ -785,13 +824,9 @@ const RollupsDappPage = () => {
           >
             <RightDroppable />
           </div>
-
-          <div className={styles.container__content__sidebar}>
-            <Sidebar />
-          </div>
         </DndContext>
       </div>
-    </div>
+    </Flex>
   );
 };
 

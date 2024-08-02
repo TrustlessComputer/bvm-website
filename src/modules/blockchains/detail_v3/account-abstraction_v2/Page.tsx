@@ -36,6 +36,7 @@ import { useAccountAbstractionStore } from './store/hook';
 import enhance from './enhance';
 import { useAADetailHelper } from './useAADetailHelper';
 import WaitingInstallView from './components/WaitingInstallView';
+import BigNumber from 'bignumber.js';
 
 const Page = (props: any) => {
   // const modelCategories = useAppSelector(getModelCategoriesSelector);
@@ -49,6 +50,7 @@ const Page = (props: any) => {
   const { isCanEdit, isProcessing, isOnlyView, isOwner, orderDetail, aaData } =
     useAADetailHelper();
 
+  console.log('aaData ', aaData);
   const [data, setData] = React.useState<
     | (IModelCategory & {
         options: IModelCategory['options'] &
@@ -86,11 +88,6 @@ const Page = (props: any) => {
   const { idDragging, setIdDragging, rightDragging, setRightDragging } =
     useDragMask();
 
-  console.log('isProcessing, isOnlyView ::::', {
-    isProcessing,
-    isOnlyView,
-  });
-
   const [fieldsDragged, setFieldsDragged] = React.useState<string[]>([]);
   const refTime = useRef<NodeJS.Timeout>();
   const [showShadow, setShowShadow] = useState<string>('');
@@ -101,24 +98,6 @@ const Page = (props: any) => {
       resetAAStore();
     };
   }, []);
-
-  useEffect(() => {
-    if (isProcessing || isOnlyView) {
-      // setField('input_apps_address', aaData?.aaPaymasterContract || '', false);
-      // setField('input_apps_fee_rate', aaData?.aaTokenGas || '', false);
-      // setFieldsDragged((prev) => [...prev, 'input_apps']);
-      // setFieldsDragged((prev) => [...prev, 'input_apps']);
-    }
-
-    // setField('input_apps_address', aaData?.aaPaymasterContract || '', false);
-    // setField('input_apps_fee_rate', aaData?.aaTokenGas || '', false);
-
-    // setField('input_apps_address', 'A', false);
-    // setField('input_apps_fee_rate', '222', false);
-
-    // setFeeRate('123');
-    // setTokenContractAddress('ABCD');
-  }, [isProcessing, isOnlyView, orderDetail, aaData]);
 
   const handleDragStart = (event: any) => {
     const { active } = event;
@@ -312,6 +291,13 @@ const Page = (props: any) => {
     setOriginalData(modelCategories);
 
     setTemplates(availableListTemplate);
+
+    setFeeRate(
+      aaData?.aaTokenGas
+        ? new BigNumber(aaData?.aaTokenGas).dividedBy(1e18).toString()
+        : '',
+    );
+    setTokenContractAddress(aaData?.aaPaymasterTokenID || '');
   };
 
   React.useEffect(() => {
@@ -541,7 +527,7 @@ const Page = (props: any) => {
             {/* RightView */}
             <Flex
               className={s.rightViewContainer}
-              minW={'200px'}
+              minW={'250px'}
               w={'max-content'}
             >
               <AppViewer

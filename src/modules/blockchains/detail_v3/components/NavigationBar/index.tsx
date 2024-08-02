@@ -24,7 +24,7 @@ const NavigatioBar = ({ title, url }: IProps) => {
         if (!!url) {
           return router.replace(url);
         }
-        router.back();
+        router.push('/chains');
       }}
     >
       <Image src={'/icons/back_orange_ic.svg'}></Image>
@@ -33,7 +33,7 @@ const NavigatioBar = ({ title, url }: IProps) => {
         fontSize={['14px', '15px', '16px']}
         fontWeight={400}
       >
-        {title || 'Chains'}
+        {title || 'Your chain'}
       </Text>
     </Flex>
   );

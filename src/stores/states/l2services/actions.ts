@@ -48,14 +48,17 @@ const fetchOrderDetailByID = createAsyncThunk(
   `${PREFIX}/fetchOrderDetailByID`,
   async (orderId: string, { getState }) => {
     try {
-      const state = getState() as RootState;
-      const { orderDetail, isOrderDetailFetched } = state.l2Services;
-      if (!isOrderDetailFetched && !orderDetail) {
-        const data = await l2ServicesAPI.orderDetailByID(orderId);
-        return data;
-      } else {
-        return orderDetail;
-      }
+      // const state = getState() as RootState;
+      // const { orderDetail, isOrderDetailFetched } = state.l2Services;
+      // if (!isOrderDetailFetched && !orderDetail) {
+      //   const data = await l2ServicesAPI.orderDetailByID(orderId);
+      //   return data;
+      // } else {
+      //   return orderDetail;
+      // }
+
+      const data = await l2ServicesAPI.orderDetailByID(orderId);
+      return data;
     } catch (error) {
       return undefined;
     }

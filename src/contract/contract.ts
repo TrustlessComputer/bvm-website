@@ -33,11 +33,13 @@ class CContract {
   };
 
   public getERC20Contract = (params: ContractParams) => {
-    const { chain, contractAddress } = params;
+    const { chain, contractAddress, rpc } = params;
     this.erc20 = new ethers.Contract(
       contractAddress,
       ERC20ABI,
-      this.getProviderByChain(chain),
+      rpc
+        ? new ethers.providers.JsonRpcProvider(rpc)
+        : this.getProviderByChain(chain),
     ) as ERC20;
     return this.erc20;
   };

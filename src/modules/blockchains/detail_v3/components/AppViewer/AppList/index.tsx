@@ -18,20 +18,12 @@ const AppList = (props: Props) => {
   const dispatch = useAppDispatch();
 
   return (
-    <Flex
-      className={s.container}
-      flexDir={'column'}
-      w={'100%'}
-      px="12px"
-      py="8px"
-      gap={['12px']}
-    >
+    <Flex className={s.container} flexDir={'column'} w={'100%'} gap={['12px']}>
       {dAppConfigList.map((item, index) => (
         <AppItem
+          item={item}
           isSelected={dAppConfigSelected?.key === item.key}
           key={`${item.key}-${index}`}
-          name={item.title}
-          iconUrl={item.setupLogo || ''}
           onAppItemClick={() => {
             props.itemOnClick(item);
             dispatch(setDAppConfigSelected(item));

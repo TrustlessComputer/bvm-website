@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import TopupModal from '@/modules/blockchains/components/TopupModa_V2';
-import { useAppSelector } from '@/stores/hooks';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import {
   getL2ServicesStateSelector,
   getOrderDetailSelected,
@@ -18,6 +18,9 @@ import l2ServicesAPI, {
 import BigNumber from 'bignumber.js';
 import { useAccountAbstractionStore } from '@/modules/blockchains/detail_v3/account-abstraction_v2/store/hook';
 import toast from 'react-hot-toast';
+import { setOrderSelected } from '@/stores/states/l2services/reducer';
+import { useAADetailHelper } from '@/modules/blockchains/detail_v3/account-abstraction_v2/useAADetailHelper';
+import useL2Service from '@/hooks/useL2Service';
 
 const LaunchButton = () => {
   const {
@@ -26,6 +29,9 @@ const LaunchButton = () => {
     tokenContractAddress,
     tokenContractAddressErrMsg,
   } = useAccountAbstractionStore();
+  const dispatch = useAppDispatch();
+  const { getOrderDetailByID } = useL2Service();
+  const { isCanEdit, isProcessing, isOnlyView } = useAADetailHelper();
 
   const { loggedIn, login } = useWeb3Auth();
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
@@ -33,9 +39,11 @@ const LaunchButton = () => {
 
   const [isSubmiting, setSubmitting] = useState(false);
   const [priceTopupBVM, setPriceTopupBVM] = useState(9999);
+
   const isDsiabledBtn = useMemo(() => {
     return (
-      isEmpty(feeRate) ||
+      isProcessing ||
+      isOnlyView ||
       isEmpty(tokenContractAddress) ||
       !isEmpty(feeRateErrMsg) ||
       !isEmpty(tokenContractAddressErrMsg)
@@ -60,7 +68,7 @@ const LaunchButton = () => {
       return login();
     }
 
-    if (!orderDetail || !tokenContractAddress || !feeRate) {
+    if (!orderDetail || !tokenContractAddress) {
       return;
     }
 
@@ -73,7 +81,9 @@ const LaunchButton = () => {
         orderID: orderDetail.orderId,
         appName: 'account_abstraction',
         aaPaymasterTokenID: tokenContractAddress,
-        aaTokenGas: new BigNumber(feeRate || 1).multipliedBy(1e18).toFixed(),
+        aaTokenGas: feeRate
+          ? new BigNumber(feeRate || 1).multipliedBy(1e18).toFixed()
+          : '0',
       };
 
       console.log(' installDAppAAByData --- params  --- ', params);
@@ -82,10 +92,11 @@ const LaunchButton = () => {
 
       console.log('installDAppAAByData --- result --- ', result);
 
-      // TO DO CALL API
       if (result) {
         isSuccess = true;
         toast.success('Submit successfully!');
+        dispatch(setOrderSelected(result));
+        getOrderDetailByID(orderDetail.orderId);
       }
     } catch (error) {
       console.log('ERROR: ', error);
@@ -120,7 +131,7 @@ const LaunchButton = () => {
         isLoading={isSubmiting}
         disabled={isDsiabledBtn}
         isDisabled={isDsiabledBtn}
-        title="ABCE"
+        title=""
         _hover={{
           cursor: isDsiabledBtn ? 'not-allowed' : 'pointer',
           opacity: isDsiabledBtn ? '' : 0.8,

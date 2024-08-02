@@ -1,7 +1,7 @@
 import { OrderItem } from '@/stores/states/l2services/types';
 import { IToken } from '@/services/api/dapp/token_generation/interface';
 import { ISTToken } from '@/services/api/dapp/staking/interface';
-import { IAirdropTask } from '@/services/api/dapp/airdrop/interface';
+import { IAirdrop, IAirdropTask } from '@/services/api/dapp/airdrop/interface';
 
 export interface DappState {
   chain?: OrderItem | undefined;
@@ -10,4 +10,5 @@ export interface DappState {
   tokens: IToken[];
   stakingPools: ISTToken[];
   airdropTasks: IAirdropTask[];
+  airdrops: IAirdrop[]
 }

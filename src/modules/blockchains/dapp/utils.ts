@@ -3,8 +3,11 @@ import {
   TouchSensor as LibTouchSensor,
 } from '@dnd-kit/core';
 import type { MouseEvent, TouchEvent } from 'react';
-import { FieldOption } from './types';
+import { DappType, FieldOption } from './types';
 import { FieldKeyPrefix } from './contants';
+import { compareString } from '@/utils/string';
+import { IToken } from '@/services/api/dapp/token_generation/interface';
+import { IAirdropTask } from '@/services/api/dapp/airdrop/interface';
 
 const handler = ({ nativeEvent: event }: MouseEvent | TouchEvent) => {
   let cur = event.target as HTMLElement;
@@ -189,6 +192,10 @@ export const DragUtil = {
     return idDragging.split('-')[1] === FieldKeyPrefix.MODULE;
   },
 
+  idDraggingIsAChildOfABlock(idDragging: string) {
+    return idDragging.split('-')[1] === FieldKeyPrefix.CHILDREN_OF_BLOCK;
+  },
+
   idDraggingIsAField(idDragging: string) {
     return typeof idDragging.split('-')[3] !== 'undefined';
   },
@@ -202,7 +209,7 @@ export const DragUtil = {
 
     return idDragging.split('-')[4];
   },
-  // baseIndex-block-name
+
   getChildIndex(idDragging: string) {
     return idDragging.split('-')[3];
   },
@@ -248,4 +255,105 @@ export const isTwoObjectEqual = (obj1: any, obj2: any) => {
 
 export const hasValue = (value: any) => {
   return value !== null && value !== undefined;
+};
+
+export const preDataAirdropTask = (
+  sortedDapps: DappModel[] = [],
+  tokens: IToken[],
+  airdropTasks: IAirdropTask[],
+) => {
+  const _sortedDapps = cloneDeep(sortedDapps);
+
+  if (tokens.length > 0) {
+    const _airdropIndex = _sortedDapps.findIndex((v) =>
+      compareString(v.key, DappType.airdrop),
+    );
+
+    if (_airdropIndex > -1) {
+      const fieldRewardToken = _sortedDapps[
+        _airdropIndex
+      ].baseBlock.fields.findIndex((v) => compareString(v.key, 'reward_token'));
+
+      if (fieldRewardToken > -1) {
+        // // @ts-ignore
+        const options: any = tokens.map((t) => ({
+          key: t.id,
+          title: t.name,
+          value: t.contract_address,
+          icon: t.image_url,
+          tooltip: '',
+          type: '',
+          options: [],
+        }));
+
+        // @ts-ignore
+        _sortedDapps[_airdropIndex].baseBlock.fields[fieldRewardToken].options =
+          options;
+
+        if (airdropTasks.length > 0) {
+          const blockFields: BlockModel[] = [];
+
+          for (const airdropTask of airdropTasks) {
+            const fields: FieldModel[] = [
+              {
+                key: 'reward_amount',
+                title: 'Reward',
+                type: 'input',
+                icon: '',
+                value: '',
+                tooltip: '',
+                options: [],
+              },
+            ];
+
+            if (compareString(airdropTask.type, 'follow')) {
+              fields.unshift({
+                key: getAirdropTaskKey(airdropTask),
+                title: 'X Username',
+                type: 'input',
+                icon: '',
+                value: '',
+                tooltip: '',
+                options: [],
+              });
+            } else if (compareString(airdropTask.type, 'share')) {
+              fields.unshift({
+                key: getAirdropTaskKey(airdropTask),
+                title: 'Link Share X',
+                type: 'input',
+                icon: '',
+                value: '',
+                tooltip: '',
+                options: [],
+              });
+            }
+
+            blockFields.push({
+              key: getAirdropTaskKey(airdropTask),
+              title: airdropTask.title,
+              icon: '',
+              placableAmount: 1,
+              section: 'tasks',
+              preview: false,
+              fields,
+            });
+          }
+
+          _sortedDapps[_airdropIndex].blockFields = blockFields;
+        }
+      }
+    }
+  }
+  return _sortedDapps;
+};
+
+export const getAirdropTaskKey = (task: IAirdropTask) => {
+  if (compareString(task.type, 'follow') || compareString(task.id, '1')) {
+    return 'follow_twitter_username';
+  }
+  if (compareString(task.type, 'share') || compareString(task.id, '2')) {
+    return 'share_post_link';
+  }
+
+  return 'whitelist';
 };

@@ -1,9 +1,18 @@
-import { useAppSelector } from '@/stores/hooks';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import { Flex, Text } from '@chakra-ui/react';
+import { useEffect } from 'react';
 
 const enhanceValidateOrderData = (WrappedComponent: any) => (props: any) => {
+  const dispatch = useAppDispatch();
   const { orderDetail } = useAppSelector(getL2ServicesStateSelector);
+
+  useEffect(() => {
+    if (orderDetail) {
+      dispatch(setOrderSelected(orderDetail));
+    }
+  }, [orderDetail]);
 
   if (!orderDetail || orderDetail.orderId?.length < 1) {
     // OrderDetail is null or OrderDetail invalid data
@@ -25,6 +34,7 @@ const enhanceValidateOrderData = (WrappedComponent: any) => (props: any) => {
       </Flex>
     );
   }
+
   return <WrappedComponent {...props} chainDetailData={orderDetail} />;
 };
 

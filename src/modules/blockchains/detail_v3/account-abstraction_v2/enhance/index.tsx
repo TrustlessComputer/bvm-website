@@ -4,6 +4,7 @@ import enhancePrepareData from '../../enhance/enhance.prepareData';
 import enhanceValidateOrderID from '../../enhance/enhance.validateOrderID';
 import enhanceSliceOrderIDByURL from './enhance.sliceOrderIDByURL';
 import enhanceSelecteDAppConfig from './enhance.selecteDappConfig';
+import enhanceValidateOrderData from '../../enhance/enhance.validateOrderData';
 
 import withSkeleton from '../../enhance/enhance.withSkeleton';
 
@@ -17,9 +18,10 @@ export default compose<any>(
 
   enhancePrepareData,
 
-  enhanceSelecteDAppConfig,
-
   withSkeleton,
+
+  enhanceValidateOrderData,
+  enhanceSelecteDAppConfig,
 
   enhance,
 );
