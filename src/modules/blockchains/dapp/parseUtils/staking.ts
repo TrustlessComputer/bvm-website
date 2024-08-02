@@ -1,4 +1,5 @@
 import { ISTToken } from '@/services/api/dapp/staking/interface';
+import { formatCurrency } from '@/utils/format';
 import BigNumberJS from 'bignumber.js';
 import { DappType } from '../types';
 
@@ -120,7 +121,7 @@ export const parseStakingPools = (pools: ISTToken[]): DappModel[] => {
             title: 'Reward pool',
             type: 'input',
             icon: '',
-            value: item.balance,
+            value: formatCurrency(item.balance),
             tooltip: '',
             placeholder: 'eg. 100,000',
             options: [],

@@ -85,15 +85,15 @@ const useSubmitFormStaking = ({
         const info: any = form.info.find((item) => !!item);
 
         if (Number(info?.rate) <= 0) {
-          errors.push({ key: 'Rate', error: 'Rate is required!' });
+          errors.push({ key: 'Rate', error: 'Rate' });
         }
         if (Number(info?.apr) <= 0) {
-          errors.push({ key: 'APR', error: 'APR is required!' });
+          errors.push({ key: 'APR', error: 'APR' });
         }
         if (Number(info?.amount) <= 0) {
           errors.push({
             key: 'Reward amount',
-            error: 'Reward amount is required!',
+            error: 'Reward amount',
           });
         }
       }

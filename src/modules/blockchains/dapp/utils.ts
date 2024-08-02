@@ -192,6 +192,10 @@ export const DragUtil = {
     return idDragging.split('-')[1] === FieldKeyPrefix.MODULE;
   },
 
+  idDraggingIsAChildOfABlock(idDragging: string) {
+    return idDragging.split('-')[1] === FieldKeyPrefix.CHILDREN_OF_BLOCK;
+  },
+
   idDraggingIsAField(idDragging: string) {
     return typeof idDragging.split('-')[3] !== 'undefined';
   },
@@ -205,7 +209,7 @@ export const DragUtil = {
 
     return idDragging.split('-')[4];
   },
-  // baseIndex-block-name
+
   getChildIndex(idDragging: string) {
     return idDragging.split('-')[3];
   },
@@ -258,7 +262,8 @@ export const preDataAirdropTask = (
   tokens: IToken[],
   airdropTasks: IAirdropTask[],
 ) => {
-  const _sortedDapps = sortedDapps;
+  const _sortedDapps = cloneDeep(sortedDapps);
+
   if (tokens.length > 0) {
     const _airdropIndex = _sortedDapps.findIndex((v) =>
       compareString(v.key, DappType.airdrop),
@@ -268,45 +273,73 @@ export const preDataAirdropTask = (
       const fieldRewardToken = _sortedDapps[
         _airdropIndex
       ].baseBlock.fields.findIndex((v) => compareString(v.key, 'reward_token'));
+
       if (fieldRewardToken > -1) {
+        // // @ts-ignore
+        const options: any = tokens.map((t) => ({
+          key: t.id,
+          title: t.name,
+          value: t.contract_address,
+          icon: t.image_url,
+          tooltip: '',
+          type: '',
+          options: [],
+        }));
+
         // @ts-ignore
         _sortedDapps[_airdropIndex].baseBlock.fields[fieldRewardToken].options =
-          tokens.map((t) => ({
-            key: t.id,
-            title: t.name,
-            value: t.contract_address,
-            icon: t.image_url,
-            tooltip: '',
-            type: '',
-            options: [],
-          }));
+          options;
+
         if (airdropTasks.length > 0) {
-          // @ts-ignore
-          const blockFieldTasks = _sortedDapps[
-            _airdropIndex
-          ].blockFields.findIndex((v) => compareString(v.key, 'airdrop_tasks'));
+          const blockFields: BlockModel[] = [];
 
-          if (blockFieldTasks > -1) {
-            // @ts-ignore
-            const airdropTaskIndex = _sortedDapps[_airdropIndex].blockFields[
-              blockFieldTasks
-            ].fields.findIndex((v) => compareString(v.key, 'task'));
-
-            if (airdropTaskIndex > -1) {
-              // @ts-ignore
-              _sortedDapps[_airdropIndex].blockFields[blockFieldTasks].fields[
-                airdropTaskIndex
-              ].options = airdropTasks.map((t) => ({
-                key: t.id,
-                title: t.title,
-                value: t.id,
+          for (const airdropTask of airdropTasks) {
+            const fields: FieldModel[] = [
+              {
+                key: 'reward_amount',
+                title: 'Reward',
+                type: 'input',
                 icon: '',
-                tooltip: t.description,
-                type: t.type,
+                value: '',
+                tooltip: '',
                 options: [],
-              }));
+              },
+            ];
+
+            if (compareString(airdropTask.type, 'follow')) {
+              fields.unshift({
+                key: getAirdropTaskKey(airdropTask),
+                title: 'X Username',
+                type: 'input',
+                icon: '',
+                value: '',
+                tooltip: '',
+                options: [],
+              });
+            } else if (compareString(airdropTask.type, 'share')) {
+              fields.unshift({
+                key: getAirdropTaskKey(airdropTask),
+                title: 'Link Share X',
+                type: 'input',
+                icon: '',
+                value: '',
+                tooltip: '',
+                options: [],
+              });
             }
+
+            blockFields.push({
+              key: getAirdropTaskKey(airdropTask),
+              title: airdropTask.title,
+              icon: '',
+              placableAmount: 1,
+              section: 'tasks',
+              preview: false,
+              fields,
+            });
           }
+
+          _sortedDapps[_airdropIndex].blockFields = blockFields;
         }
       }
     }
@@ -315,12 +348,12 @@ export const preDataAirdropTask = (
 };
 
 export const getAirdropTaskKey = (task: IAirdropTask) => {
-  if (task.type === 'follow') {
+  if (compareString(task.type, 'follow') || compareString(task.id, '1')) {
     return 'follow_twitter_username';
   }
-  if (task.type === 'share') {
+  if (compareString(task.type, 'share') || compareString(task.id, '2')) {
     return 'share_post_link';
   }
 
-  return '';
+  return 'whitelist';
 };

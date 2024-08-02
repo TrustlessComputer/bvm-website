@@ -112,6 +112,9 @@ interface FieldModel {
   selectable?: boolean;
   background?: string;
   previewTitle?: string;
+  inputType?: 'text' | 'number' | 'file',
+  inputAccept?: 'image/*'
+  disabled?: boolean
 }
 
 interface BlockModel {
@@ -120,6 +123,7 @@ interface BlockModel {
   icon: string;
   placableAmount: number;
   fields: FieldModel[];
+  childrenFields?: FieldModel[];
   section: string;
   preview: boolean;
   background?: string;
