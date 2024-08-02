@@ -19,6 +19,8 @@ import {
   formDappToggleSignal,
 } from '../signals/useFormDappsSignal';
 import { FormDappUtil, getAirdropTaskKey } from '../utils';
+import Papa from 'papaparse';
+
 interface IProps {
   setErrorData: Dispatch<
     SetStateAction<{ key: string; error: string }[] | undefined>
@@ -113,20 +115,38 @@ const useSubmitFormAirdrop = ({
           error: 'Task Reward is required!',
         });
       } else if (_tasks.length > 0) {
-        console.log('task', _tasks);
-
         for (const task of _tasks) {
           if (compareString(task.type, 'follow')) {
             if (!task?.follow_twitter_username) {
               errors.push({
                 key: 'follow_twitter_username',
-                error: 'Follow X Username is required!',
+                error: 'Your X URL is required!',
               });
             }
             if (!(Number(task.reward_amount) > 0)) {
               errors.push({
                 key: 'reward_amount',
                 error: 'Task Reward is required!',
+              });
+            }
+          } else if (compareString(task.type, 'share')) {
+            if (!task?.share_post_link) {
+              errors.push({
+                key: 'share_post_link',
+                error: 'Link Share X is required!',
+              });
+            }
+            if (!(Number(task.reward_amount) > 0)) {
+              errors.push({
+                key: 'reward_amount',
+                error: 'Task Reward is required!',
+              });
+            }
+          } else if (compareString(task.type, 'whitelist')) {
+            if (!task?.whitelist) {
+              errors.push({
+                key: 'whitelist',
+                error: 'Receivers is required!',
               });
             }
           }
@@ -143,10 +163,33 @@ const useSubmitFormAirdrop = ({
 
       for (const form of finalFormMappings) {
         // @ts-ignore
-        const tasks: ITask[] = _tasks.map((v) => ({
-          ...v,
-          amount: v.reward_amount,
-        }));
+        const tasks: ITask[] = _tasks
+          .filter((v) => !compareString(v.type, 'whitelist'))
+          .map((v) => ({
+            ...v,
+            amount: v.reward_amount,
+          }));
+
+        if (tasks.length > 0) {
+        } else {
+          const files = (document?.getElementById?.('whitelist') as any)?.files;
+          if (files?.length > 0) {
+            const file = files[0];
+            Papa.parse(file, {
+              complete: (result) => {
+                console.log('result', result);
+              },
+              header: true,
+              dynamicTyping: true,
+              skipEmptyLines: true,
+            });
+          }
+          console.log('_tasks[0].whitelist', files);
+
+          // const csv = await fetch(_tasks[0].whitelist);
+
+          // console.log('csv', csv);
+        }
 
         // @ts-ignore
         const body: IBodySetupTask = {
@@ -161,11 +204,13 @@ const useSubmitFormAirdrop = ({
           end_time: dayjs(form.end_date as unknown as string).unix(),
         };
 
-        const data = await cAirdropAPI.setupTask(body);
+        console.log('form', form);
+
+        // const data = await cAirdropAPI.setupTask(body);
       }
-      showSuccess({ message: 'Airdrop created successfully!.' });
-      dispatch(requestReload());
-      handleReset();
+      // showSuccess({ message: 'Airdrop created successfully!.' });
+      // dispatch(requestReload());
+      // handleReset();
     } catch (error) {
       const { message } = getError(error);
       toast.error(message);

@@ -291,40 +291,71 @@ export const preDataAirdropTask = (
           options;
 
         if (airdropTasks.length > 0) {
-          const blockFields: BlockModel[] = [];
+          const blockFields: BlockModel[] = cloneDeep(
+            _sortedDapps[_airdropIndex].blockFields || [],
+          );
 
           for (const airdropTask of airdropTasks) {
-            const fields: FieldModel[] = [
-              {
-                key: 'reward_amount',
-                title: 'Reward',
-                type: 'input',
-                icon: '',
-                value: '',
-                tooltip: '',
-                options: [],
-              },
-            ];
+            const fields: FieldModel[] = [];
 
             if (compareString(airdropTask.type, 'follow')) {
-              fields.unshift({
-                key: getAirdropTaskKey(airdropTask),
-                title: 'X Username',
-                type: 'input',
-                icon: '',
-                value: '',
-                tooltip: '',
-                options: [],
-              });
+              fields.unshift(
+                {
+                  key: getAirdropTaskKey(airdropTask),
+                  title: 'Your X URL',
+                  type: 'input',
+                  icon: '',
+                  value: '',
+                  tooltip: '',
+                  options: [],
+                  placeholder: 'https://x.com/xxxx',
+                },
+                {
+                  key: 'reward_amount',
+                  title: 'Reward',
+                  type: 'input',
+                  icon: '',
+                  value: '',
+                  tooltip: '',
+                  options: [],
+                  placeholder: '100000',
+                },
+              );
             } else if (compareString(airdropTask.type, 'share')) {
+              fields.unshift(
+                {
+                  key: getAirdropTaskKey(airdropTask),
+                  title: 'Link Share X',
+                  type: 'input',
+                  icon: '',
+                  value: '',
+                  tooltip: '',
+                  options: [],
+                  placeholder: 'https://x.com/xxxx/status/yyyy',
+                },
+                {
+                  key: 'reward_amount',
+                  title: 'Reward',
+                  type: 'input',
+                  icon: '',
+                  value: '',
+                  tooltip: '',
+                  options: [],
+                  placeholder: '100000',
+                },
+              );
+            } else if (compareString(airdropTask.type, 'whitelist')) {
               fields.unshift({
                 key: getAirdropTaskKey(airdropTask),
-                title: 'Link Share X',
+                title: 'Receivers',
                 type: 'input',
+                inputType: 'file',
+                inputAccept: '.csv',
                 icon: '',
                 value: '',
                 tooltip: '',
                 options: [],
+                placeholder: 'https://x.com/xxxx/status/yyyy',
               });
             }
 
@@ -336,6 +367,7 @@ export const preDataAirdropTask = (
               section: 'tasks',
               preview: false,
               fields,
+              background: '#43766C',
             });
           }
 
