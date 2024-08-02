@@ -16,7 +16,6 @@ const TopMenu = (): ReactElement => {
           <div className={s.left}>
             <Link href={BVM_CODE_BATTLE} className={s.left_btn}>
               <img src="/icons/noto_trophy.svg" alt="noto_trophy.svg" width={24} height={24} />
-              Proof Of Code
             </Link>
           </div>
           <div className={s.right}>
