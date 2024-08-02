@@ -23,6 +23,7 @@ type Props = {
 const LeaderboardSection = (props: Props) => {
   const [isProblemPanelMaximized, setIsProblemPanelMaximized] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(true);
+  const [isShowActionPrepare, setIsShowActionPrepare] = useState<boolean>(true);
 
   const { width } = useWindowSize();
 
@@ -80,19 +81,35 @@ const LeaderboardSection = (props: Props) => {
           // layout
         >
           <div className={s.header}>
-            <p className={s.title}>Practice problem</p>
+            <p className={s.title}>Practice Session</p>
             <p className={s.desc}>
-              To improve your chances of winning the competitions, practice
-              regularly to be the best.
+              Gear up for the first official Proof-of-Code programming
+              tournament starting on August 8th!<br /> Sharpen your Solidity coding
+              skills and tackle practice problems to boost your chances of
+              winning.
             </p>
           </div>
-          <div className={s.warning}>
-            <div className={s.btn_close}></div>
-            <Flex alignItems={'center'} gap="12px" mb="24px">
+          <Box
+            className={s.warning}
+            display={isShowActionPrepare === false ? 'none' : 'block'}
+          >
+            <Flex
+              alignItems={'center'}
+              gap="12px"
+              mb="24px"
+              position="relative"
+            >
               <Image src={'/hackathon/ic-trophy.svg'} />
               <Text className={s.warning_heading}>
                 Before you start competing
               </Text>
+
+              <Box
+                className={s.warning_closeBtn}
+                onClick={() => setIsShowActionPrepare(false)}
+              >
+                <Image src={'/hackathon/ic-close.svg'} />
+              </Box>
             </Flex>
             <Flex gap="20px" direction="column">
               <Flex
@@ -125,7 +142,7 @@ const LeaderboardSection = (props: Props) => {
                 <Image src="/hackathon/ic-restore.svg" alt="add" />
               </Flex>
             </Flex>
-          </div>
+          </Box>
           <Flex className={cn(s.wrapper)} as={motion.div}>
             <Box
               as={motion.div}
@@ -167,7 +184,7 @@ const LeaderboardSection = (props: Props) => {
                 fontFamily="JetBrains Mono"
                 letterSpacing="0.72px"
               >
-                Submit
+                Submit solutions
               </Text>
               <SubmitProblem />
             </Box>
