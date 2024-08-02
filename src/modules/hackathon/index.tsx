@@ -197,9 +197,9 @@ const HackathonModule = (props: Props) => {
             </div>
             <Flex
               alignItems={'center'}
+              justifyContent={{ base: 'center', sm: 'flex-start' }}
               gap="16px"
               flexWrap={'wrap'}
-              rowGap={'24px'}
             >
               <ButtonConnected title="Let's code" className={s.reward_btn}>
                 <button
