@@ -16,6 +16,7 @@ interface IModelOption {
   key: string;
   icon: string;
   supportNetwork: 'both' | '' | 'testnet' | 'mainnet';
+  supportLayer: '' | 'layer2' | 'layer3' | 'both';
   requiredFor: string[] | null;
   order: number;
   value: string | number | IDappValue[];

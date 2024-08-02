@@ -330,6 +330,7 @@ const BuyPage = () => {
     _modelCategories.forEach((_field) => {
       setField(_field.key, null);
     });
+    console.log('_modelCategories', _modelCategories);
     setData(convertData(_modelCategories));
     setOriginalData(_modelCategories);
 
@@ -375,10 +376,16 @@ const BuyPage = () => {
 
           const isDisabled =
             !!(
+              option.supportLayer &&
+              option.supportLayer !== 'both' &&
+              option.supportLayer !== field['layers']?.value
+            ) ||
+            !!(
               option.supportNetwork &&
               option.supportNetwork !== 'both' &&
               option.supportNetwork !== field['network']?.value
-            ) || !option.selectable;
+            ) ||
+            !option.selectable;
 
           return !isDisabled;
         });
@@ -394,6 +401,9 @@ const BuyPage = () => {
 
       const newDefaultValue = item.options.find(
         (option) =>
+          (option.supportLayer === field['layers']?.value ||
+            option.supportLayer === 'both' ||
+            !option.supportLayer) &&
           (option.supportNetwork === field['network']?.value ||
             option.supportNetwork === 'both' ||
             !option.supportNetwork) &&
@@ -403,12 +413,18 @@ const BuyPage = () => {
       const currentOption = item.options.find(
         (option) => option.key === field[item.key].value,
       );
+
       if (!newDefaultValue) {
         setField(item.key, null, false);
         return;
       }
-      if (!currentOption || !newDefaultValue) return;
+
+      if (!currentOption) return;
+
       if (
+        (currentOption.supportLayer === field['layers']?.value ||
+          currentOption.supportLayer === 'both' ||
+          !currentOption.supportLayer) &&
         (currentOption.supportNetwork === field['network']?.value ||
           currentOption.supportNetwork === 'both' ||
           !currentOption.supportNetwork) &&
@@ -418,7 +434,7 @@ const BuyPage = () => {
         return;
       setField(item.key, newDefaultValue.key, field[item.key].dragged);
     });
-  }, [field['network']?.value]);
+  }, [field['network']?.value, field['layers']?.value]);
 
   React.useEffect(() => {
     fetchData();
@@ -462,6 +478,8 @@ const BuyPage = () => {
 
           const isDisabled =
             // prettier-ignore
+            !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
+            // prettier-ignore
             !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
             // prettier-ignore
             (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
@@ -488,6 +506,8 @@ const BuyPage = () => {
       if (!currentOption) return acc;
 
       const isDisabled =
+        // prettier-ignore
+        !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
         // prettier-ignore
         !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
         // prettier-ignore
@@ -516,6 +536,8 @@ const BuyPage = () => {
 
           const isDisabled =
             // prettier-ignore
+            !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
+            // prettier-ignore
             !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
             // prettier-ignore
             (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
@@ -542,6 +564,8 @@ const BuyPage = () => {
       if (!currentOption) return acc;
 
       const isDisabled =
+        // prettier-ignore
+        !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
         // prettier-ignore
         !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
         // prettier-ignore
@@ -723,11 +747,18 @@ const BuyPage = () => {
 
                                 const isDisabled =
                                   !!(
+                                    option.supportLayer &&
+                                    option.supportLayer !== 'both' &&
+                                    option.supportLayer !==
+                                      field['layers']?.value
+                                  ) ||
+                                  !!(
                                     option.supportNetwork &&
                                     option.supportNetwork !== 'both' &&
                                     option.supportNetwork !==
                                       field['network']?.value
-                                  ) || !option.selectable;
+                                  ) ||
+                                  !option.selectable;
 
                                 if (
                                   item.multiChoice &&
