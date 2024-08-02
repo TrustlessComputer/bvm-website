@@ -1,12 +1,67 @@
+.header {
+    margin-bottom: 68px;
+
+    .title {
+        color: #fff;
+        font-family: 'JetBrains Mono';
+        font-size: 60px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin-bottom: 16px;
+    }
+
+    .desc {
+        color: #fff;
+        font-family: 'SF Pro Display';
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 170%;
+        /* 34px */
+    }
+}
+
+.container {
+    padding: 100px 0;
+    margin-top: 80px;
+
+    &.maximized {
+        :global(.problem-panel) {
+            height: 800px;
+
+        }
+    }
+
+    &.minimized {
+        :global(.problem-panel) {
+            height: 503px;
+        }
+
+    }
+
+}
+
 .wrapper {
-    display: flex;
+    // display: flex;
     gap: 28px;
-    height: 100vh;
-    padding: 120px 0;
+    // height: 100vh;
+    // display: grid;
+    // grid-template-columns: 1fr 1fr;
+
+    &.wrapper__column {
+        flex-direction: column;
+    }
+
+    @include w-max(768px) {
+        flex-direction: column;
+        // padding: 60px 0;
+        gap: 100px;
+    }
 
     h4 {
-        color: #FFF;
-        font-family: "JetBrains Mono";
+        color: #fff;
+        font-family: 'JetBrains Mono';
         font-size: 24px;
         font-style: normal;
         font-weight: 700;
@@ -15,13 +70,16 @@
         letter-spacing: 0.72px;
     }
 
+    //   .left {
+    //     flex: 0.5;
+    //   }
 
     .left {
-        flex: 0.6;
+        // flex: 0.5;
     }
 
     .right {
-        flex: 0.4;
+        // flex: 0.5;
     }
 
 }

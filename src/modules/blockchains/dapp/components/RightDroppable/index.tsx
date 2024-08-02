@@ -181,20 +181,20 @@ const RightDroppable = () => {
   );
 
   const getLabel = React.useCallback(
-    (field: FieldModel, fieldOpt: FieldOption, baseIndex: number) => {
+    (field: FieldModel, fieldOpt: FieldOption, baseIndex: number, background?: string) => {
       const thisDapp = templateDapps[baseIndex];
-      const mainColor = adjustBrightness(thisDapp.color, +10);
+      const mainColor = adjustBrightness(background || thisDapp.color, +10);
 
       if (field.type === 'input') {
         return (
           <Lego
-            background={adjustBrightness(mainColor, -20)}
             first={false}
             last={false}
             titleInLeft={true}
             titleInRight={false}
             {...field}
             key={field.key}
+            background={adjustBrightness(mainColor, -20)}
           >
             <Input
               {...field}
@@ -762,6 +762,7 @@ const RightDroppable = () => {
                         baseIndex,
                       },
                       baseIndex,
+                      field?.background,
                     );
                   })}
 

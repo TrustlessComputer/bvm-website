@@ -62,4 +62,6 @@ export const NAKA_WEB: string = process.env.NEXT_PUBLIC_NAKA_WEB!;
 export const DA_SERVICE_URL: string = process.env
   .NEXT_PUBLIC_DA_SERVICE_URL! as string;
 
+export const API_ETERNAL_AI = process.env.NEXT_PUBLIC_ETERNAL_AI_API!;
+
 export { MetadataConfig, ViewportConfig };
