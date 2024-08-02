@@ -88,6 +88,12 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isNewWindow: false,
     isHide: false,
   },
+  {
+    label: 'L2 Rollup',
+    href: '/l2-rollup',
+    isNewWindow: false,
+    isHide: false,
+  },
   // {
   //   label: 'Customers',
   //   href: '/customers',
