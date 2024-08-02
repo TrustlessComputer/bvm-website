@@ -9,6 +9,7 @@ import {
   Box,
   Image,
   Flex,
+  Text,
 } from '@chakra-ui/react';
 import SubmitProblem from '../SubmitProblem';
 import IcThreeDots from '@/public/hackathon/ic-three-dots.svg';
@@ -19,11 +20,23 @@ import SvgInset from '@/components/SvgInset';
 const Problems = ({
   isProblemPanelMaximized,
   setIsProblemPanelMaximized,
+  setShowLeaderboard,
 }: {
   isProblemPanelMaximized: boolean;
   setIsProblemPanelMaximized: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowLeaderboard: (showLeaderboard: boolean) => void;
 }) => {
   const [tabIndex, setTabIndex] = useState<number>(0);
+
+  const handleExpandProblem = () => {
+    if (isProblemPanelMaximized) {
+      setIsProblemPanelMaximized(false);
+      return;
+    }
+
+    setIsProblemPanelMaximized(true);
+    setShowLeaderboard(false);
+  };
 
   return (
     <div className={s.wrapper}>
@@ -34,6 +47,7 @@ const Problems = ({
           className={s.boxControl}
           onClick={() => {
             setIsProblemPanelMaximized((prev) => !prev);
+            handleExpandProblem();
           }}
         >
           {isProblemPanelMaximized ? (

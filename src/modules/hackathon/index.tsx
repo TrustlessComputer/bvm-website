@@ -35,9 +35,9 @@ import { IUserContest } from '@/services/api/EternalServices/types';
 
 type Props = {};
 
-const START_TIME = '2024-08-01T10:00:00Z';
+const START_TIME = '2024-08-08T10:00:00Z';
 
-const END_TIME = '2024-08-06T10:00:00Z';
+const END_TIME = '2024-08-15T10:00:00Z';
 
 // export private key
 // should check wallet.privateKey first,
@@ -56,7 +56,7 @@ const TimeCounter = () => {
         flexDir={{ base: 'column', xl: 'row' }}
       >
         <Text whiteSpace={'nowrap'} opacity={0.6}>
-          Practice battle starts in
+          Competition starts in
         </Text>
         <Countdown
           className={s.countDown_time}
@@ -74,7 +74,7 @@ const TimeCounter = () => {
     return (
       <Flex alignItems={'center'} gap="4px">
         <Text whiteSpace={'nowrap'} opacity={0.6}>
-          Practice battle ends in
+          Competition ends in
         </Text>
         <Countdown
           className={s.countDown_time}
