@@ -151,6 +151,8 @@ const BoxOption = ({}: Props) => {
                                       last={false}
                                       titleInLeft={true}
                                       titleInRight={false}
+                                      preview={true}
+                                      fields={[child]}
                                     />
                                   </Draggable>
                                 );

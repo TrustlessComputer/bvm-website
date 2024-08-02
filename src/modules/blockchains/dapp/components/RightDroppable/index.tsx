@@ -31,6 +31,7 @@ import {
 import {
   formDappDropdownSignal,
   formDappInputSignal,
+  formDappSignal,
   formDappToggleSignal,
 } from '../../signals/useFormDappsSignal';
 import { useThisDapp } from '../../hooks/useThisDapp';
@@ -66,9 +67,7 @@ const RightDroppable = () => {
   );
 
   const handleReset = () => {
-    formDappInputSignal.value = {};
-    formDappDropdownSignal.value = {};
-    formDappToggleSignal.value = {};
+    formDappSignal.value = [];
     draggedIds2DSignal.value = [];
   };
 
@@ -525,8 +524,8 @@ const RightDroppable = () => {
 
                                     return (
                                       <Draggable
-                                        id={`${child.name}-${childIndex}-${itemIndex}-${baseIndex}`}
-                                        key={`${child.name}-${childIndex}-${itemIndex}-${baseIndex}`}
+                                        id={`${child.name}`}
+                                        key={`${child.name}`}
                                         value={{
                                           title: thisChildField.title,
                                           icon: thisChildField.icon,
@@ -534,6 +533,7 @@ const RightDroppable = () => {
                                           background:
                                             thisChildField.background ||
                                             mainColor,
+                                          blockKey: thisBlockKey,
                                         }}
                                         style={{
                                           display: 'flex',
@@ -550,7 +550,7 @@ const RightDroppable = () => {
                                             inBlockField: true,
                                             inSingleField: false,
                                             index: itemIndex,
-                                            level: 1,
+                                            level: 0,
                                             blockKey: thisBlockKey,
                                             baseIndex,
                                           },

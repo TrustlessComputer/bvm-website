@@ -103,6 +103,8 @@ export const parseIssuedToken = (token: IToken) => {
             options: [],
             background: '#00AA6C',
           },
+        ],
+        childrenFields: [
           {
             key: 'address',
             title: 'Receiver Address',
@@ -239,7 +241,7 @@ export const parseIssuedToken = (token: IToken) => {
               },
             ],
           },
-        ],
+        ]
       };
 
       blockFields.push(allocation);
