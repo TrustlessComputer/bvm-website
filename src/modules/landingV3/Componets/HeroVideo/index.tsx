@@ -36,7 +36,7 @@ export default function HeroVideo() {
                   router.push('/rollups/customizev2');
                 }}
               >
-                Build now
+                Let’s roll
               </div>
               <div
                 className={`${s.btn} ${s.btn__secondary}`}
