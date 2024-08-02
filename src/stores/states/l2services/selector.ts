@@ -19,6 +19,11 @@ import {
 const getL2ServicesStateSelector = (state: RootState): L2ServicesState =>
   state.l2Services;
 
+const orderSelectedSelector = createSelector(
+  getL2ServicesStateSelector,
+  (reducer) => reducer.orderSelected,
+);
+
 const accountInforSelector = createSelector(
   getL2ServicesStateSelector,
   (reducer) => {
@@ -79,11 +84,6 @@ const myOrderListFilteredByNetwork = createSelector(
       return myOrderListByNetwork.mainnetOrderList;
     else return myOrderListByNetwork.testnetOrderList;
   },
-);
-
-const orderSelectedSelector = createSelector(
-  getL2ServicesStateSelector,
-  (reducer) => reducer.orderSelected,
 );
 
 const viewModeSelector = createSelector(
@@ -277,9 +277,8 @@ const getDappSelectedSelector = createSelector(
 );
 
 const getOrderDetailSelected = createSelector(
-  getL2ServicesStateSelector,
-  (state) => {
-    const orderDetail = state.orderDetail;
+  [getL2ServicesStateSelector, orderSelectedSelector],
+  (state, orderDetail) => {
     const dAppConfigSelected = state.dAppConfigSelected;
     let dAppConfigList: IModelOption[] = [];
 
@@ -291,19 +290,24 @@ const getOrderDetailSelected = createSelector(
       });
     }) || [];
 
-    dAppConfigList = [
-      APP_BLOCKCHAIN,
-      APP_STAKING,
-      APP_AIRDROP,
-      APP_TOKEN_GERNERATION,
-      ...dAppConfigList,
-    ];
+    dAppConfigList = [APP_BLOCKCHAIN, ...dAppConfigList];
 
     return {
       orderDetail: state.orderDetail,
       dAppConfigList,
       dAppConfigSelected,
     };
+  },
+);
+
+const getDappByAppNameIDSelector = createSelector(
+  orderSelectedSelector,
+  (orderDetail) => (appName: string) => {
+    const dAppFinded = orderDetail?.dApps?.find(
+      (item) => item.appCode?.toLowerCase() === appName?.toLowerCase(),
+    );
+
+    return dAppFinded;
   },
 );
 
@@ -377,4 +381,5 @@ export {
 
   //
   getDAppConfigByKeySelector,
+  getDappByAppNameIDSelector,
 };

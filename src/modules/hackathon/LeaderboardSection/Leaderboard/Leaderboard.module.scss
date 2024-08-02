@@ -26,7 +26,6 @@
       text-transform: uppercase;
       opacity: 0.6;
       border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
       background: rgba(255, 255, 255, 0.05);
 
       > div {
@@ -41,6 +40,8 @@
       font-style: normal;
       font-weight: 500;
       height: 68px;
+
+      
 
       .name {
         white-space: nowrap;
@@ -65,12 +66,15 @@
 
       > div {
         border-left: 1px solid #232323;
-        border-bottom: 1px solid #232323;
         border-top: 1px solid #232323;
 
         &:last-child {
           border-right: 1px solid #232323;
         }
+      }
+
+      &:last-child > div {
+        border-bottom: 1px solid #232323;
       }
     }
 

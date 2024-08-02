@@ -11,15 +11,16 @@ export default function ScrollingSection() {
   const refContent = useRef<HTMLDivElement>(null);
   return <div id={'scrollingSection'} className={s.scrollingSection} ref={refContent}>
     <div className={`${s.container} containerV3`}>
-      <div className={s.inner}>
+      <div id={'scrollingSection-inner'} className={s.inner}>
         <div className={s.left}>
           <Frames
             comp={refContent}
-            width={1920}
-            height={1080}
-            totalFrames={260}
-            willLoad={260}
-            urlFrame={'https://storage.googleapis.com/bvm-network/bvm-home-fames/%d.jpg'}
+            width={1516}
+            height={926}
+            from={15}
+            totalFrames={100}
+            willLoad={100}
+            urlFrame={'https://storage.googleapis.com/bvm-network/jpeg_sequence_12fps/fame_%d.jpg'}
           />
         </div>
         <div className={`${s.right}`}>

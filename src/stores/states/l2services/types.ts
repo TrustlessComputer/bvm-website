@@ -20,7 +20,7 @@ interface IDAppInstalled {
   appName: string;
   appDescription: string;
   appImageURL: string;
-  status: string;
+  status: 'new' | 'processing' | 'done';
   statusJob: number;
   priceUsd: number;
   priceBvm: number;

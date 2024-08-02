@@ -14,16 +14,41 @@ import SubmitProblem from '../SubmitProblem';
 import IcThreeDots from '@/public/hackathon/ic-three-dots.svg';
 import ProblemTemplate from './Template';
 import ConnectedWallets from '../ConnectedWallets';
+import SvgInset from '@/components/SvgInset';
 
-const Problems = () => {
+const Problems = ({
+  isProblemPanelMaximized,
+  setIsProblemPanelMaximized,
+}: {
+  isProblemPanelMaximized: boolean;
+  setIsProblemPanelMaximized: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [tabIndex, setTabIndex] = useState<number>(0);
 
   return (
     <div className={s.wrapper}>
       <div className={s.header}>
         <Image src={'/hackathon/ic-three-dots.svg'}></Image>
+
+        <span
+          className={s.boxControl}
+          onClick={() => {
+            setIsProblemPanelMaximized((prev) => !prev);
+          }}
+        >
+          {isProblemPanelMaximized ? (
+            <SvgInset size={24} svgUrl="/images/poc/minimize-icon.svg" />
+          ) : (
+            <SvgInset size={24} svgUrl="/images/poc/maximize-icon.svg" />
+          )}
+        </span>
       </div>
-      <div className={s.body}>
+      <div
+        className={s.body}
+        style={{
+          maxWidth: isProblemPanelMaximized ? '100%' : '700px',
+        }}
+      >
         <Tabs variant="soft-rounded" onChange={(index) => setTabIndex(index)}>
           <Flex alignItems={'center'} justifyContent={'space-between'}>
             <TabList p="10px" mb="8px" gap="3px">

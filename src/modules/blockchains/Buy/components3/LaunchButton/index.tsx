@@ -7,7 +7,7 @@ import { FormOrder } from '../../stores';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
-import { useAppSelector } from '@/stores/hooks';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import {
   getL2ServicesStateSelector,
   getOrderDetailSelected,
@@ -27,6 +27,7 @@ import ErrorModal from '../ErrorModal';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { formatCurrencyV2 } from '@/utils/format';
 import toast from 'react-hot-toast';
+import { setOrderSelected } from '@/stores/states/l2services/reducer';
 
 const LaunchButton = ({
   data,
@@ -52,6 +53,7 @@ const LaunchButton = ({
   const { accountInforL2Service, availableListFetching, availableList } =
     useAppSelector(getL2ServicesStateSelector);
   const { getOrderDetailByID } = useL2Service();
+  const dispatch = useAppDispatch();
 
   const [isShowError, setShowError] = useState(false);
 
@@ -226,6 +228,7 @@ const LaunchButton = ({
       console.log('orderUpdateV2 result: ', result);
       if (result) {
         isSuccess = true;
+        dispatch(setOrderSelected(result));
       }
     } catch (error) {
       console.log('ERROR: ', error);
