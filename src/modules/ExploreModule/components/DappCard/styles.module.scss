@@ -1,0 +1,43 @@
+.wrapperDappCard {
+  width: 100%;
+  max-width: 442px;
+  border-radius: 32px;
+  background: linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%);
+  margin: 0 auto;
+  &_image {
+    width: 100%;
+  }
+  &_heading {
+    font-size: 28px;
+    font-weight: 600;
+    color: #fff;
+    line-height: calc(30 / 28)
+  }
+  &_decs {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: calc(27 / 18);
+  }
+}
+
+.wrapperDappCardContent {
+  padding: 12px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tags {
+  display: flex;
+  gap: 4px;
+  p {
+    font-size: 14px;
+    color: #fff;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 100px;
+    padding: 4px 12px;
+    line-height: calc(21 / 14);
+  }
+}
