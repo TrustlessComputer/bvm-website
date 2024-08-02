@@ -18,7 +18,22 @@ const LeaderboardSection = (props: Props) => {
   return (
     <Box bgColor={'#000'}>
       <div className="containerV3">
-        <div className={cn(s.container)}>
+        <Box
+          as={motion.div}
+          className={cn(
+            s.container,
+            {
+              [s.maximized]: isProblemPanelMaximized,
+            },
+            {
+              [s.minimized]: !isProblemPanelMaximized,
+            },
+          )}
+          transitionDelay={'400ms'}
+          transition={'all 0.3s ease'}
+          // maxHeight={isProblemPanelMaximized ? '1000px' : 'unset'}
+          // layout
+        >
           <div className={s.header}>
             <p className={s.title}>Practice Session</p>
             <p className={s.desc}>
@@ -33,6 +48,7 @@ const LeaderboardSection = (props: Props) => {
               initial={false}
               animate={{
                 width: isProblemPanelMaximized ? '100%' : '50%',
+                height: 'auto',
                 transition: {
                   type: 'keyframes',
                   delay: isProblemPanelMaximized ? 0.4 : 0,
@@ -82,7 +98,7 @@ const LeaderboardSection = (props: Props) => {
               )}
             </AnimatePresence>
           </Flex>
-        </div>
+        </Box>
       </div>
     </Box>
   );

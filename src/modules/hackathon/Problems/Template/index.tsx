@@ -6,6 +6,7 @@ import { PROBLEM_1_MARKDOWN } from './problem_1';
 import s from './ProblemTemplate.module.scss';
 import { PROBLEM_2_MARKDOWN } from './problem_2';
 import { PROBLEM_3_MARKDOWN } from './problem_3';
+import cn from 'classnames';
 
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism';
@@ -68,7 +69,7 @@ const Problem_03 = () => {
 
 const ProblemTemplate = ({ topic }: Props) => {
   return (
-    <div className={s.wrapper}>
+    <div className={cn(s.wrapper, 'problem-panel')}>
       {topic === '1' && <Problem_01 />}
       {topic === '2' && <Problem_02 />}
       {topic === '3' && <Problem_03 />}

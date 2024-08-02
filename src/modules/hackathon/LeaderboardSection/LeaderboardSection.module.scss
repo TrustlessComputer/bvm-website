@@ -25,6 +25,21 @@
 .container {
     padding: 100px 0;
     margin-top: 80px;
+
+    &.maximized {
+        :global(.problem-panel) {
+            height: 800px;
+
+        }
+    }
+
+    &.minimized {
+        :global(.problem-panel) {
+            height: 503px;
+        }
+
+    }
+
 }
 
 .wrapper {
