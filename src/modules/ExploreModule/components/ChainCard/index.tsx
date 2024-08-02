@@ -4,7 +4,7 @@ import s from "./styles.module.scss"
 import Fade from '@interactive/Fade';
 
 export type TChainCard = {
-  idx?: number;
+  idx: number;
   title: string;
   description: string;
   image: string;
@@ -28,7 +28,7 @@ export default function ChainCard({idx,...props}: TChainCard) {
                 return (
                   <div className={s.right_top_link}>
                     <a href={item.link} target={'_blank'}>
-                      <Image src={item.icon} alt={item.label} width={20} height={20} />
+                      <Image src={item.icon} alt={'icon'} width={20} height={20} />
                     </a>
                   </div>
 

@@ -1,7 +1,7 @@
 import { TDappCardProps } from '@/modules/ExploreModule/components/DappCard';
 import { TChainCard } from '@/modules/ExploreModule/components/ChainCard';
 
-export const DAPPS_DATA: TDappCardProps[] = [
+export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   {
     image: '/explore/dapp1.png',
     title: 'Imagine',
@@ -52,7 +52,7 @@ export const DAPPS_DATA: TDappCardProps[] = [
   },
 ]
 
-export const CHAIN_DATA: TChainCard[] = [
+export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
   {
     image: '/explore/octopus.jpg',
     title: 'Octopus Finance',

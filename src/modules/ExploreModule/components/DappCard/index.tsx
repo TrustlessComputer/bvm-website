@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Fade from '@interactive/Fade';
 
 export type TDappCardProps = {
-  idx?: number;
+  idx: number;
   title: string;
   description: string;
   image: string;
