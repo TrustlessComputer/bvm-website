@@ -1,0 +1,54 @@
+.supportedWallets {
+  .container {
+    .title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      text-align: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #444;
+    }
+
+    .wallets {
+      padding: 12px;
+
+      .wallets__item {
+        padding: 12px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+        border-radius: 4px;
+
+        &:hover {
+          opacity: 0.7;
+          background-color: #444;
+        }
+
+        .wallets__item__wallet {
+          display: flex;
+          gap: 12px;
+
+          img {
+            width: 24px;
+            height: auto;
+            object-fit: contain;
+            object-position: center;
+          }
+        }
+
+        .wallet__install {
+          opacity: 0.7;
+
+          a {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import { UserInfo } from '@web3auth/base';
+import { Wallet } from 'ethers';
 import { Dispatch, SetStateAction } from 'react';
 
 // ---------------------------------------------------
@@ -16,6 +17,7 @@ export type IWeb3AuthActions = {
 // Define Props
 // ---------------------------------------------------
 export type IWeb3AuthProps = {
+  wallet?: Wallet;
   userInfo?: Partial<UserInfo> | undefined;
   loggedIn?: boolean;
   l2ServiceAccessToken?: string;
