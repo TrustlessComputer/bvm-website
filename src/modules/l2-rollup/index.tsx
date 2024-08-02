@@ -78,7 +78,7 @@ const L2Rollup = () => {
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
         },
-        render(data: IRollupL2Info) {
+        render(data: IRollupL2Info, _, index) {
           return (
             <Popover>
               <PopoverTrigger>
@@ -188,6 +188,24 @@ const L2Rollup = () => {
                       <Text>Provider</Text>
                       <Text>{data.provider || '-'}</Text>
                     </Flex>
+                    {index > 2 && (
+                      <Flex direction={'row'} justifyContent={'flex-end'}>
+                        <Text
+                          cursor={'pointer'}
+                          mt={'4px'}
+                          color={'blue !important'}
+                          textDecoration={'underline'}
+                          onClick={() => {
+                            const path = data.name.split(' ')[0].toLowerCase();
+                            window.open(
+                              `https://www.bitcoinlayers.org/layers/${path}`,
+                            );
+                          }}
+                        >
+                          More detail
+                        </Text>
+                      </Flex>
+                    )}
                   </Flex>
                 </PopoverBody>
               </PopoverContent>
