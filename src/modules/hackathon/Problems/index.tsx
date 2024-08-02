@@ -37,9 +37,9 @@ const Problems = ({
           }}
         >
           {isProblemPanelMaximized ? (
-            <SvgInset size={24} svgUrl="/images/poc/minimize-icon.svg" />
+            <SvgInset size={16} svgUrl="/images/poc/minimize-icon.svg" />
           ) : (
-            <SvgInset size={24} svgUrl="/images/poc/maximize-icon.svg" />
+            <SvgInset size={16} svgUrl="/images/poc/maximize-icon.svg" />
           )}
         </span>
       </div>
