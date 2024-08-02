@@ -4,13 +4,11 @@ import { type Edge, useNodesInitialized, useReactFlow } from '@xyflow/react';
 
 import { type ElkNode } from './data';
 
-// elk layouting options can be found here:
-// https://www.eclipse.org/elk/reference/algorithms/org-eclipse-elk-layered.html
 const layoutOptions = {
   'elk.algorithm': 'layered',
   'elk.direction': 'RIGHT',
-  'elk.layered.spacing.edgeNodeBetweenLayers': '40',
-  'elk.spacing.nodeNode': '40',
+  'elk.layered.spacing.edgeNodeBetweenLayers': '120',
+  'elk.spacing.nodeNode': '120',
   'elk.layered.nodePlacement.strategy': 'SIMPLE',
 };
 
@@ -41,8 +39,8 @@ export const getLayoutedNodes = async (nodes: ElkNode[], edges: Edge[]) => {
 
       return {
         id: n.id,
-        width: n.width ?? 150,
-        height: n.height ?? 50,
+        width: n.width ?? 400,
+        height: n.height ?? 400,
         // ⚠️ we need to tell elk that the ports are fixed, in order to reduce edge crossings
         properties: {
           'org.eclipse.elk.portConstraints': 'FIXED_ORDER',
@@ -60,7 +58,7 @@ export const getLayoutedNodes = async (nodes: ElkNode[], edges: Edge[]) => {
 
   const layoutedGraph = await elk.layout(graph);
 
-  const layoutedNodes = nodes.map((node) => {
+  return nodes.map((node) => {
     const layoutedNode = layoutedGraph.children?.find(
       (lgNode) => lgNode.id === node.id,
     );
@@ -73,8 +71,6 @@ export const getLayoutedNodes = async (nodes: ElkNode[], edges: Edge[]) => {
       },
     };
   });
-
-  return layoutedNodes;
 };
 
 export default function useLayoutNodes() {

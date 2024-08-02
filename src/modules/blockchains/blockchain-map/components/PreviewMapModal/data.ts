@@ -66,9 +66,6 @@ export const FAKE_DATA_MAPPING: ElkNode[] = [
         {
           id: '1-s-3',
         },
-        // {
-        //   id: '1-s-4',
-        // },
       ],
       targetHandles: []
     },
@@ -123,9 +120,9 @@ export const FAKE_DATA_MAPPING: ElkNode[] = [
           title: 'Perpetual'
         },
       ],
-      type: 'elk',
-      position: { x: 0, y: 0 },
     },
+    type: 'elk',
+    position: { x: 0, y: 0 },
   },
   {
     id: '3',
@@ -160,9 +157,9 @@ export const FAKE_DATA_MAPPING: ElkNode[] = [
           title: 'Pool 3'
         },
       ],
-      type: 'elk',
-      position: { x: 0, y: 0 },
     },
+    type: 'elk',
+    position: { x: 0, y: 0 },
   },
 
   {
@@ -203,9 +200,9 @@ export const FAKE_DATA_MAPPING: ElkNode[] = [
           title: 'Connect'
         },
       ],
-      type: 'elk',
-      position: { x: 0, y: 0 },
     },
+    type: 'elk',
+    position: { x: 0, y: 0 },
   },
 ]
 

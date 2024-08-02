@@ -42,6 +42,7 @@
     "@react-three/drei": "^9.107.0",
     "@react-three/fiber": "^8.16.8",
     "@react-three/postprocessing": "^2.16.2",
+    "@reactflow/node-resizer": "^2.2.14",
     "@reduxjs/toolkit": "^2.0.1",
     "@splidejs/react-splide": "^0.7.12",
     "@splidejs/splide-extension-auto-scroll": "^0.5.3",
