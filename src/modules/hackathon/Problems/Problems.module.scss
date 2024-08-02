@@ -9,6 +9,9 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.07);
         background: rgba(255, 255, 255, 0.05);
         padding: 14px 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .body {

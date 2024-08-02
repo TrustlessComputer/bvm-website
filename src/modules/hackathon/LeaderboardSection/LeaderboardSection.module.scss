@@ -28,9 +28,11 @@
 }
 
 .wrapper {
-    display: flex;
+    // display: flex;
     gap: 28px;
     // height: 100vh;
+    // display: grid;
+    // grid-template-columns: 1fr 1fr;
 
 
     @include w-max(768px) {
@@ -52,11 +54,11 @@
 
 
     .left {
-        flex: 0.5;
+        // flex: 0.5;
     }
 
     .right {
-        flex: 0.5;
+        // flex: 0.5;
     }
 
 }

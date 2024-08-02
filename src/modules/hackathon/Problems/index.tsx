@@ -9,19 +9,41 @@ import {
   Box,
   Image,
   Flex,
+  Text,
 } from '@chakra-ui/react';
 import SubmitProblem from '../SubmitProblem';
 import IcThreeDots from '@/public/hackathon/ic-three-dots.svg';
 import ProblemTemplate from './Template';
 import ConnectedWallets from '../ConnectedWallets';
 
-const Problems = () => {
+const Problems = ({
+  isProblemExpand,
+  setIsProblemExpand,
+  setShowLeaderboard,
+}: {
+  isProblemExpand: boolean;
+  setIsProblemExpand: (isProblemExpand: boolean) => void;
+  setShowLeaderboard: (showLeaderboard: boolean) => void;
+}) => {
   const [tabIndex, setTabIndex] = useState<number>(0);
+
+  const handleExpandProblem = () => {
+    if (isProblemExpand) {
+      setIsProblemExpand(false);
+      return;
+    }
+
+    setIsProblemExpand(true);
+    setShowLeaderboard(false);
+  };
 
   return (
     <div className={s.wrapper}>
       <div className={s.header}>
         <Image src={'/hackathon/ic-three-dots.svg'}></Image>
+        <Text onClick={handleExpandProblem} fontSize={'12px'}>
+          {isProblemExpand ? 'Collapse' : 'Expand'}
+        </Text>
       </div>
       <div className={s.body}>
         <Tabs variant="soft-rounded" onChange={(index) => setTabIndex(index)}>
