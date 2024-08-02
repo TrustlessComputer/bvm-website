@@ -29,15 +29,15 @@ type FormValues = {
 const TOPICS = [
   {
     id: 1,
-    name: 'Topic 1',
+    name: 'Problem 1',
   },
   {
     id: 2,
-    name: 'Topic 2',
+    name: 'Problem 2',
   },
   {
     id: 3,
-    name: 'Topic 3',
+    name: 'Problem 3',
   },
 ];
 
@@ -147,7 +147,7 @@ const SubmitProblem = ({ className }: Props) => {
               disabled={isSubmitting}
               type="submit"
             >
-              {isSubmitting ? <Spinner /> : 'Submit'}
+              {isSubmitting ? <Spinner /> : 'Submit solutions'}
             </button>
           </Box>
           {errors.contractAddress &&
