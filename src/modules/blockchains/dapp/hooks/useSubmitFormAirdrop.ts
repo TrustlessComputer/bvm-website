@@ -19,6 +19,7 @@ import {
   formDappToggleSignal,
 } from '../signals/useFormDappsSignal';
 import { FormDappUtil, getAirdropTaskKey } from '../utils';
+// @ts-ignore
 import Papa from 'papaparse';
 
 interface IProps {
@@ -170,52 +171,50 @@ const useSubmitFormAirdrop = ({
             amount: v.reward_amount,
           }));
 
-        if (tasks.length > 0) {
-        } else {
-          const files = (document?.getElementById?.('whitelist') as any)?.files;
-          if (files?.length > 0) {
-            const file = files[0];
-            Papa.parse(file, {
-              complete: (result) => {
-                console.log('result', result);
-              },
-              header: true,
-              dynamicTyping: true,
-              skipEmptyLines: true,
-            });
-          }
-          console.log('_tasks[0].whitelist', files);
-
-          // const csv = await fetch(_tasks[0].whitelist);
-
-          // console.log('csv', csv);
-        }
-
-        // @ts-ignore
         const body: IBodySetupTask = {
           title: form.airdrop_title as unknown as string,
           token_address: form.reward_token as unknown as string,
           amount: form.airdrop_amount as unknown as string,
           is_bvm_shard: Boolean(form.is_bvm_shard),
-          tasks,
           start_time: form.start_date
             ? dayjs(form.start_date as unknown as string).unix()
             : dayjs().unix(),
           end_time: dayjs(form.end_date as unknown as string).unix(),
         };
 
-        console.log('form', form);
+        if (tasks.length > 0) {
+          body.tasks = tasks;
+          await cAirdropAPI.setupTask(body);
+          showSuccess({ message: 'Airdrop created successfully!.' });
+          dispatch(requestReload());
+          handleReset();
+          setLoading(false);
+        } else {
+          const files = (document?.getElementById?.('whitelist') as any)?.files;
+          if (files?.length > 0) {
+            const file = files[0];
 
-        // const data = await cAirdropAPI.setupTask(body);
+            Papa.parse(file, {
+              complete: async (result: any) => {
+                body.receivers = result.data;
+                await cAirdropAPI.setupTask(body);
+                showSuccess({ message: 'Airdrop created successfully!.' });
+                dispatch(requestReload());
+                handleReset();
+                setLoading(false);
+              },
+              header: true,
+              dynamicTyping: true,
+              skipEmptyLines: true,
+            });
+          }
+        }
       }
-      // showSuccess({ message: 'Airdrop created successfully!.' });
-      // dispatch(requestReload());
-      // handleReset();
     } catch (error) {
       const { message } = getError(error);
       toast.error(message);
-    } finally {
       setLoading(false);
+    } finally {
     }
   };
 
