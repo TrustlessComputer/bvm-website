@@ -10,6 +10,7 @@ import styles from './styles.module.scss';
 import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { DappType } from '@/modules/blockchains/dapp/types';
+import { Text } from '@chakra-ui/react';
 
 type Props = {
   zIndex?: number;
@@ -21,6 +22,7 @@ type Props = {
   children?: React.ReactNode;
   label?: DappModel['label'];
   dapp?: DappModel;
+  linkDownloadFile?: string;
 };
 
 const LegoParent = ({
@@ -33,6 +35,7 @@ const LegoParent = ({
   smallMarginHeaderTop = false,
   label,
   dapp,
+  linkDownloadFile,
   ...rest
 }: Props) => {
   const legoRef = React.useRef<HTMLDivElement | null>(null);
@@ -97,6 +100,16 @@ const LegoParent = ({
         <div className={styles.lego__header__title}>
           {icon && <Image src={icon} width={20} height={20} alt="icon" />}
           {title}
+          {linkDownloadFile && (
+            <Text
+              as={'a'}
+              href={linkDownloadFile}
+              fontSize={'14px'}
+              textDecoration={'underline'}
+            >
+              (File template)
+            </Text>
+          )}
         </div>
 
         <div
