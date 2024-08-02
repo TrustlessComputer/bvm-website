@@ -1,0 +1,33 @@
+
+
+.heading {
+  font-family: var(--font-jetbrains);
+  font-weight: 400;
+  font-size: 40px;
+  line-height: calc(52 / 40);
+  text-align: center;
+  color: #000;
+  padding-top: 188px;
+}
+
+.wrapperCardDapps {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 44px;
+  @include is_min-table {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include is-pc {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.wrapperCardChains {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 24px;
+  @include is-min-table {
+    margin-bottom: 140px !important;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

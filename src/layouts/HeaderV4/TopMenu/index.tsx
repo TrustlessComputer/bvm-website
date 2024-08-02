@@ -21,15 +21,19 @@ const TopMenu = (): ReactElement => {
           </div>
           <div className={s.right}>
             <div className={s.right_item}>
-              <Link href={'/team'}>
-                About BVM
-              </Link>
+              <div className={s.right_item_inner}>
+                <Link href={'/team'}>
+                  About BVM
+                </Link>
+              </div>
             </div>
             <div className={s.right_item}>
-              <ContactUs />
+              <div className={s.right_item_inner}>
+                <ContactUs />
+              </div>
             </div>
             <div className={s.right_item}>
-              <ButtonLoginTwitter color={'black'} />
+              <ButtonLoginTwitter color={'white'} />
             </div>
           </div>
         </div>
