@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import s from './LeaderboardSection.module.scss';
-import { Box, Flex, Grid } from '@chakra-ui/react';
+import { Box, Flex, Grid, Text } from '@chakra-ui/react';
 import cn from 'classnames';
 import Leaderboard from './Leaderboard';
 import Problems from '../Problems';
 import { AnimatePresence, motion } from 'framer-motion';
 import { IUserContest } from '@/services/api/EternalServices/types';
 import { useWindowSize } from 'usehooks-ts';
+import SubmitProblem from '@/modules/hackathon/SubmitProblem';
 import CompetitionTimer from '../CompetitionTimer';
 
 type Props = {
@@ -79,6 +80,16 @@ const LeaderboardSection = (props: Props) => {
                 setIsProblemPanelMaximized={setIsProblemPanelMaximized}
                 setShowLeaderboard={setShowLeaderboard}
               />
+              <Text
+                m="32px 0 20px 0"
+                fontSize="24px"
+                fontWeight="700"
+                fontFamily="JetBrains Mono"
+                letterSpacing="0.72px"
+              >
+                Submit
+              </Text>
+              <SubmitProblem />
             </Box>
             <AnimatePresence>
               {(showLeaderboard || width <= 768) && (
