@@ -7,6 +7,7 @@ import Problems from '../Problems';
 import { AnimatePresence, motion } from 'framer-motion';
 import { IUserContest } from '@/services/api/EternalServices/types';
 import { useWindowSize } from 'usehooks-ts';
+import CompetitionTimer from '../CompetitionTimer';
 
 type Props = {
   currentUserContest?: IUserContest;
@@ -100,8 +101,11 @@ const LeaderboardSection = (props: Props) => {
                     opacity: 0,
                   }}
                 >
-                  <h4>Leaderboard</h4>
-                  <Leaderboard />
+                  <Flex alignItems={'center'} justifyContent={'space-between'}>
+                    <h4>Leaderboard</h4>
+                    <CompetitionTimer />
+                  </Flex>
+                  <Leaderboard currentUserContest={props.currentUserContest} />
                 </motion.div>
               )}
             </AnimatePresence>
