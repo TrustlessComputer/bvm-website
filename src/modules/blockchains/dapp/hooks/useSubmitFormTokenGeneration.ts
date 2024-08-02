@@ -56,13 +56,15 @@ const useSubmitFormTokenGeneration = ({
       const d = {...data};
 
       const _allocation = [];
-      for (const block of data?.allocation) {
-        if(!!block) {
-          _allocation.push(block);
+      if(data?.allocation) {
+        for (const block of data?.allocation) {
+          if(!!block) {
+            _allocation.push(block);
+          }
         }
       }
 
-      d.allocation = _allocation
+      d.allocation = _allocation;
 
       result.push(d);
     }
@@ -286,11 +288,20 @@ const useSubmitFormTokenGeneration = ({
         console.log('calldata', calldata);
 
         const api = new CTokenGenerationAPI();
-        await api.generateNewToken({
+        const tokenInfo = await api.generateNewToken({
           data_hex: calldata,
           type: 'token',
           network_id: Number(dappState?.chain?.chainId),
         });
+
+        if(data?.logo) {
+          const logoUrl = await api.uploadImage(data?.logo_file as unknown as File);
+          await api.updateTokenLogo({
+            logo_url: logoUrl,
+            token_address: tokenInfo?.contract_address,
+            network_id: Number(dappState?.chain?.chainId)
+          });
+        }
       }
 
       showSuccess({ message: 'Generate token successfully!' });

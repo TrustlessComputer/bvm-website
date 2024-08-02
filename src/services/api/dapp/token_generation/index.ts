@@ -33,6 +33,23 @@ class CTokenGenerationAPI {
   generateNewToken = async (data: IGenerationTokenParams): Promise<any> => {
     return await this.api.post('/admin/deploy-contract', data);
   };
+
+  uploadImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const imageURL = (await this.api.post("/user/upload", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })) as string;
+
+    return imageURL;
+  };
+
+  updateTokenLogo = async (params: { logo_url: string, token_address: string, network_id: number }) => {
+    return await this.api.put('/tokens/update-logo', params);
+  }
 }
 
 export default CTokenGenerationAPI;

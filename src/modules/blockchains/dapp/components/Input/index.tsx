@@ -39,10 +39,11 @@ const Input = ({
     const formDappInput = formDappSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
     if (inputType === 'file') {
+      const keyFile = FormDappUtil.getKeyForm(props, props, `${name}_file`);
       formDappSignal.value = {
         ...formDappInput,
         [key]: e.target.value,
-        [`${key}-file`]: e.target?.files?.[0]
+        [keyFile]: e.target?.files?.[0]
       }
     } else {
       formDappSignal.value = {
