@@ -1,24 +1,49 @@
 'use client';
-import { Box, Spinner } from '@chakra-ui/react';
+import {
+  Box,
+  Image,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Spinner,
+} from '@chakra-ui/react';
+import { isAddress } from '@ethersproject/address';
 import cn from 'classnames';
 import { Formik } from 'formik';
-import { isAddress } from '@ethersproject/address';
 
-import { submitProblem } from '@/services/api/EternalServices';
 import { showError, showSuccess } from '@/components/toast';
+import { submitProblem } from '@/services/api/EternalServices';
 
+import { useState } from 'react';
 import s from './styles.module.scss';
 
 type Props = {
   className?: string;
-  code: string | number;
 };
 
 type FormValues = {
   contractAddress: string;
 };
 
-const SubmitProblem = ({ className, code }: Props) => {
+const TOPICS = [
+  {
+    id: 1,
+    name: 'Problem 1',
+  },
+  {
+    id: 2,
+    name: 'Problem 2',
+  },
+  {
+    id: 3,
+    name: 'Problem 3',
+  },
+];
+
+const SubmitProblem = ({ className }: Props) => {
+  const [currentTopic, setCurrentTopic] = useState(TOPICS[0]);
+
   const validateForm = (values: FormValues) => {
     const errors: Record<string, string> = {};
 
@@ -41,7 +66,7 @@ const SubmitProblem = ({ className, code }: Props) => {
     setSubmitting(true);
     const result = await submitProblem({
       contractAddress: values.contractAddress,
-      problemCode: `${code}`,
+      problemCode: `${currentTopic.id}`,
     });
 
     if (result?.id) {
@@ -80,6 +105,35 @@ const SubmitProblem = ({ className, code }: Props) => {
           className={cn(s.submitProblem, className)}
         >
           <Box position="relative">
+            <Menu>
+              {({ isOpen }) => (
+                <>
+                  <MenuButton
+                    className={s.submitProblem_topicMenu}
+                    type="button"
+                  >
+                    {currentTopic.name}
+                    <Image
+                      className={cn(isOpen && s.submitProblem_rotate)}
+                      src="/icons/ic_chevron_down.svg"
+                    />
+                  </MenuButton>
+                  <MenuList className={s.submitProblem_topicMenuList}>
+                    {TOPICS.map((topic) => (
+                      <MenuItem
+                        type="button"
+                        key={topic.id}
+                        onClick={() => {
+                          setCurrentTopic(topic);
+                        }}
+                      >
+                        {topic.name}
+                      </MenuItem>
+                    ))}
+                  </MenuList>
+                </>
+              )}
+            </Menu>
             <input
               type="text"
               name="contractAddress"
@@ -88,8 +142,12 @@ const SubmitProblem = ({ className, code }: Props) => {
               onBlur={handleBlur}
               value={values.contractAddress}
             />
-            <button disabled={isSubmitting} type="submit">
-              {isSubmitting ? <Spinner /> : 'Submit'}
+            <button
+              className={s.submitProblem_submitBtn}
+              disabled={isSubmitting}
+              type="submit"
+            >
+              {isSubmitting ? <Spinner /> : 'Submit solutions'}
             </button>
           </Box>
           {errors.contractAddress &&

@@ -11,7 +11,7 @@ import {
   Flex,
   Text,
 } from '@chakra-ui/react';
-import SubmitProblem from '../SubmitProblem';
+// import SubmitProblem from '../SubmitProblem';
 import IcThreeDots from '@/public/hackathon/ic-three-dots.svg';
 import ProblemTemplate from './Template';
 import ConnectedWallets from '../ConnectedWallets';
@@ -64,7 +64,11 @@ const Problems = ({
         }}
       >
         <Tabs variant="soft-rounded" onChange={(index) => setTabIndex(index)}>
-          <Flex alignItems={'center'} justifyContent={'space-between'}>
+          <Flex
+            alignItems={'center'}
+            justifyContent={'space-between'}
+            flexWrap={'wrap'}
+          >
             <TabList p="10px" mb="8px" gap="3px">
               <Tab>Problem 1</Tab>
               <Tab>Problem 2</Tab>
@@ -105,9 +109,9 @@ const Problems = ({
         </Tabs>
         {/* <ConnectedWallets /> */}
       </div>
-      <div className={s.footer}>
+      {/* <div className={s.footer}>
         <SubmitProblem code={tabIndex + 1} />
-      </div>
+      </div> */}
     </div>
   );
 };
