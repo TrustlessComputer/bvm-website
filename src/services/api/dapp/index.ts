@@ -66,8 +66,6 @@ class CDappAPI {
 
       const _chain = chain;
 
-      console.log('SANG TEST:', _chain);
-
       if (isLocalhost()) {
         _chain.chainId = '91227';
       }

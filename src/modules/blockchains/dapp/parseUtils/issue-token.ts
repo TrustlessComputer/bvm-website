@@ -1,5 +1,6 @@
 import { IToken, ITokenVesting } from '@/services/api/dapp/token_generation/interface';
 import { DappType } from '@/modules/blockchains/dapp/types';
+import { formatCurrency } from '@utils/format';
 
 export const parseIssuedToken = (token: IToken) => {
   const result = {} as DappModel;
@@ -49,7 +50,7 @@ export const parseIssuedToken = (token: IToken) => {
       title: 'Total Supply',
       type: 'input',
       icon: '',
-      value: token.total_supply as string,
+      value: formatCurrency(token.total_supply as string, 0, 2, 'BTC', true),
       tooltip: '',
       options: [],
     },
@@ -80,6 +81,7 @@ export const parseIssuedToken = (token: IToken) => {
         placableAmount: -1,
         section: 'tokenomics',
         preview: true,
+        background: '#00AA6C',
         fields: [
           {
             key: 'name',
@@ -89,15 +91,17 @@ export const parseIssuedToken = (token: IToken) => {
             value: vesting.beneficiary_name as string,
             tooltip: '',
             options: [],
+            background: '#00AA6C',
           },
           {
             key: 'total_amount',
             title: 'Amount',
             type: 'input',
             icon: '',
-            value: (Number(vesting.amount_total) > 0 ? vesting.amount_total : vesting.unvest_amount) as string,
+            value: formatCurrency((Number(vesting.amount_total) > 0 ? vesting.amount_total : vesting.unvest_amount) as string, 0, 2, 'BTC', true),
             tooltip: '',
             options: [],
+            background: '#00AA6C',
           },
           {
             key: 'address',
@@ -107,6 +111,7 @@ export const parseIssuedToken = (token: IToken) => {
             value: vesting.beneficiary as string,
             tooltip: '',
             options: [],
+            background: '#00AA6C',
           },
           {
             key: 'is_vesting',

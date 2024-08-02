@@ -95,7 +95,7 @@ export const parseAirdrop = (airdrop: IAirdrop, _token: IToken) => {
   if (airdrop.is_bvm_shard) {
     baseBlock.fields.push({
       key: 'is_bvm_shard',
-      title: 'Shared Holder',
+      title: 'Whitelisted',
       type: 'extends',
       icon: '',
       value: 1,
