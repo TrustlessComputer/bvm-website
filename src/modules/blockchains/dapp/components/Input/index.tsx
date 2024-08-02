@@ -38,11 +38,18 @@ const Input = ({
 
     const formDappInput = formDappSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
-
-    formDappSignal.value = {
-      ...formDappInput,
-      [key]: e.target.value,
-    };
+    if (inputType === 'file') {
+      formDappSignal.value = {
+        ...formDappInput,
+        [key]: e.target.value,
+        [`${key}-file`]: e.target?.files?.[0]
+      }
+    } else {
+      formDappSignal.value = {
+        ...formDappInput,
+        [key]: e.target.value,
+      };
+    }
   };
 
   useSignalEffect(() => {
