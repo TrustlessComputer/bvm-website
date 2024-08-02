@@ -21,10 +21,6 @@ const parseDappModel = (params: { model: DappModel[], key: string }): ParseResul
   const data = (model || []).filter(item => compareString(item.key, key) || compareString(item.id, key));
 
   const result = data.reduce((prev, curr, index) => {
-    // console.log('SANG TEST: prev, curr', {
-    //   prev, curr
-    // });
-
     const baseField = (curr.baseBlock?.fields || []).reduce((prevBase, currBase) => {
       return {
         ...prevBase,

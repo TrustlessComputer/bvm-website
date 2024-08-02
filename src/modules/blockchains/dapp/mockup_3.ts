@@ -141,6 +141,7 @@ export const dappMockupData: DappModel[] = [
             key: 'total_amount',
             title: 'Amount',
             type: 'input',
+            inputType: 'number',
             icon: '',
             value: '',
             tooltip: '',
