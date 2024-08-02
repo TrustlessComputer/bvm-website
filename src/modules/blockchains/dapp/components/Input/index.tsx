@@ -77,6 +77,7 @@ const Input = ({
       type={inputType}
       className={cn(styles.input, {
         [styles.input__disabled]: disabled,
+        [styles.input__file]: inputType === 'file',
       })}
       accept={inputAccept || undefined}
       onChange={handleInputChange}
