@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import s from './LeaderboardSection.module.scss';
-import { Box, Flex, Grid } from '@chakra-ui/react';
+import { Box, Flex, Grid, Text } from '@chakra-ui/react';
 import cn from 'classnames';
 import Leaderboard from './Leaderboard';
 import Problems from '../Problems';
 import { AnimatePresence, motion } from 'framer-motion';
 import { IUserContest } from '@/services/api/EternalServices/types';
 import { useWindowSize } from 'usehooks-ts';
+import SubmitProblem from '@/modules/hackathon/SubmitProblem';
 import CompetitionTimer from '../CompetitionTimer';
 
 type Props = {
@@ -41,8 +42,10 @@ const LeaderboardSection = (props: Props) => {
           <div className={s.header}>
             <p className={s.title}>Practice Session</p>
             <p className={s.desc}>
-              To improve your chances of winning the competitions, practice
-              regularly to be the best
+              Gear up for the first official Proof-of-Code programming
+              tournament starting on August 8th! <br /> Sharpen your Solidity
+              coding skills and tackle practice problems to boost your chances
+              of winning.
             </p>
           </div>
           <Flex className={cn(s.wrapper)} as={motion.div}>
@@ -79,6 +82,16 @@ const LeaderboardSection = (props: Props) => {
                 setIsProblemPanelMaximized={setIsProblemPanelMaximized}
                 setShowLeaderboard={setShowLeaderboard}
               />
+              <Text
+                m="32px 0 20px 0"
+                fontSize="24px"
+                fontWeight="700"
+                fontFamily="JetBrains Mono"
+                letterSpacing="0.72px"
+              >
+                Submit
+              </Text>
+              <SubmitProblem />
             </Box>
             <AnimatePresence>
               {(showLeaderboard || width <= 768) && (
@@ -103,7 +116,7 @@ const LeaderboardSection = (props: Props) => {
                 >
                   <Flex alignItems={'center'} justifyContent={'space-between'}>
                     <h4>Leaderboard</h4>
-                    <CompetitionTimer />
+                    {/* <CompetitionTimer /> */}
                   </Flex>
                   <Leaderboard currentUserContest={props.currentUserContest} />
                 </motion.div>

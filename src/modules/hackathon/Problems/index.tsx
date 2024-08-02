@@ -11,7 +11,7 @@ import {
   Flex,
   Text,
 } from '@chakra-ui/react';
-import SubmitProblem from '../SubmitProblem';
+// import SubmitProblem from '../SubmitProblem';
 import IcThreeDots from '@/public/hackathon/ic-three-dots.svg';
 import ProblemTemplate from './Template';
 import ConnectedWallets from '../ConnectedWallets';
@@ -109,9 +109,9 @@ const Problems = ({
         </Tabs>
         {/* <ConnectedWallets /> */}
       </div>
-      <div className={s.footer}>
+      {/* <div className={s.footer}>
         <SubmitProblem code={tabIndex + 1} />
-      </div>
+      </div> */}
     </div>
   );
 };
