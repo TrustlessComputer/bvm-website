@@ -409,6 +409,37 @@ const L2Rollup = () => {
           );
         },
       },
+      {
+        id: 'tvl',
+        label: (
+          <Flex
+            style={{
+              alignSelf: 'center',
+              width: '100%',
+            }}
+          >
+            TVL
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: IRollupL2Info) {
+          const isUnderReview = Number(data.tvl_btc) === 0;
+          return (
+            <Flex alignItems={'center'} width={'100%'}>
+              <Text className={s.title}>
+                {isUnderReview ? 'Under review' : `${data.tvl_btc} BTC`}
+              </Text>
+            </Flex>
+          );
+        },
+      },
     ];
   }, []);
 
@@ -437,7 +468,7 @@ const L2Rollup = () => {
   };
   return (
     <Box className={s.container}>
-      <Flex direction={'column'} w="100%" maxW={'1024px'} gap={'16px'}>
+      <Flex direction={'column'} w="100%" maxW={'1120px'} gap={'16px'}>
         <Flex
           className={s.totalContainer}
           bg="#FAFAFA"
