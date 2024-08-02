@@ -147,7 +147,7 @@ const SubmitProblem = ({ className }: Props) => {
               disabled={isSubmitting}
               type="submit"
             >
-              {isSubmitting ? <Spinner /> : 'Submit solutions'}
+              {isSubmitting ? <Spinner /> : 'Submit'}
             </button>
           </Box>
           {errors.contractAddress &&

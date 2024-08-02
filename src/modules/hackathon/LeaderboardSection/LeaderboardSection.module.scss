@@ -61,6 +61,13 @@
       gap: 8px;
     }
   }
+
+  &_closeBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
 }
 
 .container {
