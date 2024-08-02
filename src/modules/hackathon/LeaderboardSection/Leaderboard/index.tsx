@@ -14,6 +14,7 @@ import {
   IUserContest,
 } from '@/services/api/EternalServices/types';
 import s from './Leaderboard.module.scss';
+import { formatCurrency } from '@/utils/format';
 
 type Props = {
   currentUserContest?: IUserContest;
@@ -94,14 +95,16 @@ const Leaderboard = (props: Props) => {
                     : 'inherit',
               }}
             >
-              {data.user.name || data.user.twitter_username}
+              {data.user.name || data.user.twitter_username || data.user.email}
             </p>
           </Flex>
         </div>
         <div className={cn(s.place_center, s.third_col)}>
           {data.total_point}
         </div>
-        <div className={s.place_center}>{data.total_gas_used}</div>
+        <div className={s.place_center}>
+          {formatCurrency(data.total_gas_used)}
+        </div>
         <div className={s.place_center}>{renderTimeStatus(map?.['1'])}</div>
         <div className={s.place_center}> {renderTimeStatus(map?.['2'])}</div>
         <div className={s.place_center}> {renderTimeStatus(map?.['3'])}</div>
