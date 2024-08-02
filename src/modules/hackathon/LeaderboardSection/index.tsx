@@ -9,6 +9,12 @@ import { IUserContest } from '@/services/api/EternalServices/types';
 import { useWindowSize } from 'usehooks-ts';
 import SubmitProblem from '@/modules/hackathon/SubmitProblem';
 import CompetitionTimer from '../CompetitionTimer';
+import ExportPrivateKey, {
+  EXPORT_PRIVATE_KEY_MODAL_ID,
+} from '@/modules/hackathon/ConnectedWallets/ExportPrivateKey';
+import { openModal } from '@/stores/states/modal/reducer';
+import { useDispatch } from 'react-redux';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 
 type Props = {
   currentUserContest?: IUserContest;
@@ -19,6 +25,26 @@ const LeaderboardSection = (props: Props) => {
   const [showLeaderboard, setShowLeaderboard] = useState(true);
 
   const { width } = useWindowSize();
+
+  const { login, wallet } = useWeb3Auth();
+  const dispatch = useDispatch();
+
+  const exportPrivateKeyHandler = () => {
+    if (wallet?.privateKey) {
+      dispatch(
+        openModal({
+          id: EXPORT_PRIVATE_KEY_MODAL_ID,
+          modalProps: {
+            size: 'md',
+          },
+          className: s.modalBody,
+          render: () => <ExportPrivateKey />,
+        }),
+      );
+    } else {
+      login();
+    }
+  };
 
   return (
     <Box bgColor={'#000'}>
@@ -40,12 +66,10 @@ const LeaderboardSection = (props: Props) => {
           // layout
         >
           <div className={s.header}>
-            <p className={s.title}>Practice Session</p>
+            <p className={s.title}>Practice problem</p>
             <p className={s.desc}>
-              Gear up for the first official Proof-of-Code programming
-              tournament starting on August 8th! <br /> Sharpen your Solidity
-              coding skills and tackle practice problems to boost your chances
-              of winning.
+              To improve your chances of winning the competitions, practice
+              regularly to be the best.
             </p>
           </div>
           <div className={s.warning}>
@@ -56,17 +80,21 @@ const LeaderboardSection = (props: Props) => {
                 Before you start competing
               </Text>
             </Flex>
-            <div className={s.warning_list}>
-              <p>
+            <Flex gap="20px" direction="column">
+              <Flex gap="8px" className={s.warning_prepare}>
                 <span>1.</span> Create an account
-              </p>
-              <p>
+              </Flex>
+              <Flex gap="8px" className={s.warning_prepare}>
                 <span>2.</span> Set up your development environment
-              </p>
-              <p>
+              </Flex>
+              <Flex
+                gap="8px"
+                className={s.warning_prepare}
+                onClick={exportPrivateKeyHandler}
+              >
                 <span>3.</span> Back up your private key
-              </p>
-            </div>
+              </Flex>
+            </Flex>
           </div>
           <Flex className={cn(s.wrapper)} as={motion.div}>
             <Box
