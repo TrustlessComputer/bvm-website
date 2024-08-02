@@ -142,8 +142,8 @@ export const FOOTER_DATA = {
       target: '_blank'
     },
     {
-      icon: '/icons/ic-tele.svg',
-      link: 'https://t.me/BVMofficialcommunity',
+      icon: '/icons/GitHub.svg',
+      link: 'https://github.com/trustlessComputer/',
       target: '_blank'
     }
   ]
