@@ -64,7 +64,11 @@ const Problems = ({
         }}
       >
         <Tabs variant="soft-rounded" onChange={(index) => setTabIndex(index)}>
-          <Flex alignItems={'center'} justifyContent={'space-between'}>
+          <Flex
+            alignItems={'center'}
+            justifyContent={'space-between'}
+            flexWrap={'wrap'}
+          >
             <TabList p="10px" mb="8px" gap="3px">
               <Tab>Problem 1</Tab>
               <Tab>Problem 2</Tab>
