@@ -37,6 +37,7 @@ import enhance from './enhance';
 import { useAADetailHelper } from './useAADetailHelper';
 import WaitingInstallView from './components/WaitingInstallView';
 import BigNumber from 'bignumber.js';
+import { IModelCategory, IModelOption } from '@/types/customize-model';
 
 const Page = (props: any) => {
   // const modelCategories = useAppSelector(getModelCategoriesSelector);
@@ -281,7 +282,7 @@ const Page = (props: any) => {
     // );
     modelCategories.forEach((_field) => {
       const fieldKeys = _field.multiChoice
-        ? _field.options.map((option) => option.key)
+        ? _field.options.map((option: IModelOption) => option.key)
         : _field.options[0].key;
 
       setField(_field.key, fieldKeys, true);
