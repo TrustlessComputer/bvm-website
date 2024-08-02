@@ -146,7 +146,6 @@ export const dappMockupData: DappModel[] = [
             tooltip: '',
             options: [],
             placeholder: 'e.g 100,000,000',
-            inputType: "number",
           },
           // {
           //   background: '#F8B200',
@@ -453,7 +452,6 @@ export const dappMockupData: DappModel[] = [
             options: [],
             placeholder: 'e.g 1,000,000,000',
             background: '#00AA6C',
-            inputType: "number",
           },
         ],
         placableAmount: 1,
