@@ -16,6 +16,7 @@ import {
 import { useThisDapp } from '../../hooks/useThisDapp';
 import DateTimeInput from '../DateTimeInput';
 import { FieldModel } from '@/types/customize-model';
+import { useSignalEffect } from '@preact/signals-react';
 
 type Props = FieldModel &
   FieldOption & {
@@ -59,8 +60,6 @@ const ExtendsInput = ({
     blockKey,
     baseIndex,
   };
-
-  const _zIndex = React.useMemo(() => zIndex, []);
 
   const { thisDapp } = useThisDapp();
 
@@ -156,7 +155,7 @@ const ExtendsInput = ({
           title={title}
           titleInLeft={true}
           titleInRight={false}
-          zIndex={_zIndex}
+          zIndex={zIndex}
         >
           {getInput(props, fieldOption)}
         </Lego>
@@ -172,7 +171,7 @@ const ExtendsInput = ({
           title={title}
           titleInLeft={true}
           titleInRight={false}
-          zIndex={_zIndex}
+          zIndex={zIndex}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
             {options.map((option) => getInput(option, fieldOption))}
@@ -181,49 +180,6 @@ const ExtendsInput = ({
       </React.Fragment>
     );
   }
-
-  // if (type === 'input') {
-  //   return (
-  //     <Lego
-  //       background={background}
-  //       first={false}
-  //       last={false}
-  //       title={title}
-  //       titleInLeft={true}
-  //       titleInRight={false}
-  //     >
-  //       {getInput(props, fieldOption)}
-  //     </Lego>
-  //   );
-  // } else if (type === 'dropdown') {
-  //   return (
-  //     <Lego
-  //       background={background}
-  //       first={false}
-  //       last={false}
-  //       title={title}
-  //       titleInLeft={true}
-  //       titleInRight={false}
-  //     >
-  //       {getInput(props, fieldOption)}
-  //     </Lego>
-  //   );
-  // } else if (type === 'group') {
-  //   return (
-  //     <Lego
-  //       background={background}
-  //       first={false}
-  //       last={false}
-  //       title={title}
-  //       titleInLeft={true}
-  //       titleInRight={false}
-  //     >
-  //       <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-  //         {options.map((option) => getInput(option, fieldOption))}
-  //       </div>
-  //     </Lego>
-  //   );
-  // }
 
   return (
     <React.Fragment>
@@ -234,7 +190,7 @@ const ExtendsInput = ({
         title={title}
         titleInLeft={true}
         titleInRight={false}
-        zIndex={_zIndex + 1}
+        zIndex={zIndex}
       >
         <Toggle
           background={adjustBrightness(background, -20)}
@@ -260,7 +216,7 @@ const ExtendsInput = ({
               key={option.key}
               disabled={disabled}
               onlyLabel={onlyLabel}
-              zIndex={_zIndex + 1 - optIndex - 1}
+              zIndex={zIndex - optIndex}
             />
           ))
         : null}

@@ -84,7 +84,7 @@ const Lego = (props: Props) => {
       legoRef.current.style.zIndex = `${zIndex}`;
       legoRef.current.style.position = 'relative';
     }
-  }, [legoRef.current]);
+  }, [legoRef.current, zIndex]);
 
   return (
     <div
