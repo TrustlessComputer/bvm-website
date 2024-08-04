@@ -60,8 +60,6 @@ const ExtendsInput = ({
     baseIndex,
   };
 
-  console.log(zIndex);
-
   const _zIndex = React.useMemo(() => zIndex, []);
 
   const { thisDapp } = useThisDapp();

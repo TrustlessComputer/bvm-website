@@ -25,10 +25,6 @@ const parseDappModel = (params: {
 
   const result = data.reduce(
     (prev, curr, index) => {
-      // console.log('SANG TEST: prev, curr', {
-      //   prev, curr
-      // });
-
       const baseField = (curr.baseBlock?.fields || []).reduce(
         (prevBase, currBase) => {
           return {
