@@ -28,6 +28,7 @@ import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { formatCurrencyV2 } from '@/utils/format';
 import toast from 'react-hot-toast';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
+import { IModelCategory } from '@/types/customize-model';
 
 const LaunchButton = ({
   data,

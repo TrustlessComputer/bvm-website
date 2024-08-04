@@ -1,6 +1,7 @@
 .container {
   width: 100%;
-  height: calc(100dvh - 92px);
+  --h: 96px;
+  height: calc(100dvh - var(--h));
 
   .fontJetBrains {
     font-family: var(--font-JetBrainsMono) !important;
@@ -10,7 +11,8 @@
     font-family: var(--font-SFProDisplay) !important;
   }
 
-  --height-studio: calc(100vh - 180px);
+  --height-studio: calc(100vh - 220px);
+  padding-top: 40px;
 }
 
 .logo {
@@ -21,7 +23,7 @@
 .explorePageContainer {
   --height-studio: max-content;
   height: max-content;
-  min-height: calc(100dvh - 96px);
+  min-height: calc(100dvh - var(--h));
 }
 
 .container_text {

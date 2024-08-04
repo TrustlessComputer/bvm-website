@@ -1,3 +1,6 @@
+import { Position } from '@xyflow/react';
+import { StringKeyframeTrack } from 'three';
+
 interface IDappValue {
   key: string;
   value: string | number | { key: string; value: string | number }[];
@@ -104,7 +107,7 @@ interface FieldModel {
   icon: string;
   title: string;
   value: string | number;
-  type: 'input' | 'dropdown' | 'extends' | 'group' | 'datetime' | '';
+  type: 'input' | 'dropdown' | 'extends' | 'group' | 'datetime' | 'list' | '';
   tooltip: string;
   options: FieldModel[];
   placeholder?: string;
@@ -113,8 +116,8 @@ interface FieldModel {
   background?: string;
   previewTitle?: string;
   inputType?: 'text' | 'number' | 'file',
-  inputAccept?: 'image/*'
-  disabled?: boolean
+  inputAccept?: 'image/*' | '.csv'
+  disabled?: boolean;
 }
 
 interface BlockModel {
@@ -127,6 +130,7 @@ interface BlockModel {
   section: string;
   preview: boolean;
   background?: string;
+  linkDownloadFile?: string;
 }
 
 interface DappModel {
@@ -164,4 +168,29 @@ interface DappModel {
 interface TemplateForm {
   dappKey: string;
   fieldValue: Record<string, any>;
+}
+
+interface Connection {
+  id: string;
+  sourceHandle: string;
+  targetHandle: string;
+  target: string;
+  label: string;
+}
+
+interface Dot {
+  id: string;
+  type: 'source' | 'target';
+  position: Position;
+}
+
+interface BlockDiagram {
+  id: string;
+  dots: Dot[];
+  connections: Connection[];
+}
+
+interface BlockchainMap {
+  blockchain: OrderItem | null;
+  dapps: DappModel[];
 }

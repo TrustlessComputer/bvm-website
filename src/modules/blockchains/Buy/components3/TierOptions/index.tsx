@@ -6,6 +6,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import useOrderFormStoreV3 from '../../stores/index_v3';
 import { Select } from '@chakra-ui/react';
 import ImagePlaceholder from '@components/ImagePlaceholder';
+import { IModelCategory } from '@/types/customize-model';
 
 type Props = {
   templates: Array<IModelCategory[]> | null;
@@ -18,8 +19,9 @@ const TierOptions = ({ originalData, setValueOfPackage }: Props) => {
   const { field, setField } = useOrderFormStoreV3();
   const searchParams = useSearchParams();
   const useCase = searchParams.get('use-case');
-  const [useCaseSelected, setUseCaseSelected] = useState<number | null>(useCase ? Number(useCase) : null);
-
+  const [useCaseSelected, setUseCaseSelected] = useState<number | null>(
+    useCase ? Number(useCase) : null,
+  );
 
   const onLoadOldForm = () => {
     const oldForm = localStorage.getItem('bvm.customize-form') || `[]`;
@@ -53,7 +55,6 @@ const TierOptions = ({ originalData, setValueOfPackage }: Props) => {
 
         <div className={styles.nav}>
           <div className={styles.tier_items}>
-
             {/*<Select placeholder="Select use case" onChange={(e) => {*/}
             {/*  const tierId = Number(e.target.value);*/}
             {/*  setUseCaseSelected(tierId);*/}
@@ -67,7 +68,12 @@ const TierOptions = ({ originalData, setValueOfPackage }: Props) => {
             {/*  }*/}
             {/*</Select>*/}
             <div className={styles.btn_tier}>
-              <ImagePlaceholder src={'/lego.png'} alt={'lego'} width={32} height={24} />
+              <ImagePlaceholder
+                src={'/lego.png'}
+                alt={'lego'}
+                width={32}
+                height={24}
+              />
             </div>
             <div className={styles.box_dropdown}>
               <p className={styles.box_dropdown_title}>Favorite Architect</p>
@@ -75,20 +81,25 @@ const TierOptions = ({ originalData, setValueOfPackage }: Props) => {
                 <div className={styles.box_dropdown_item}>
                   <div className={styles.left}>
                     <div className={styles.left_logo}>
-                      <ImagePlaceholder src={'/rune.svg'} alt={'lego'} width={80} height={80} />
+                      <ImagePlaceholder
+                        src={'/rune.svg'}
+                        alt={'lego'}
+                        width={80}
+                        height={80}
+                      />
                     </div>
                     <div className={styles.content}>
                       <p className={styles.title}>Rune Chain</p>
-                      <p className={styles.description}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                      <p className={styles.description}>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.{' '}
+                      </p>
                     </div>
                   </div>
-                  <div className={styles.btn}>
-                    Clone
-                  </div>
+                  <div className={styles.btn}>Clone</div>
                 </div>
               </div>
-
             </div>
           </div>
 

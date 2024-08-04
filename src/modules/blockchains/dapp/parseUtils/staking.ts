@@ -2,6 +2,7 @@ import { ISTToken } from '@/services/api/dapp/staking/interface';
 import { formatCurrency } from '@/utils/format';
 import BigNumberJS from 'bignumber.js';
 import { DappType } from '../types';
+import { DappModel } from '@/types/customize-model';
 
 export const parseStakingPools = (pools: ISTToken[]): DappModel[] => {
   const result: DappModel[] = [];

@@ -5,6 +5,7 @@ import s from './styles.module.scss';
 import { useMemo } from 'react';
 import { useAppSelector } from '@/stores/hooks';
 import { getDappByAppNameIDSelector } from '@/stores/states/l2services/selector';
+import { IModelOption } from '@/types/customize-model';
 
 type Props = {
   item: IModelOption;

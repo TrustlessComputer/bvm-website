@@ -28,6 +28,15 @@ class CTokenAirdropAPI extends CDappApiClient {
       return [];
     }
   };
+
+  getListReceivers = async (airdrop_id: string) => {
+    try {
+      const rs = await this.api.get(`airdrop/receivers/${airdrop_id}`);
+      return rs;
+    } catch (error) {
+      return [];
+    }
+  };
 }
 
 export default CTokenAirdropAPI;

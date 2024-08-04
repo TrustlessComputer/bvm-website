@@ -16,6 +16,14 @@
   letter-spacing: 0.03em;
   text-align: center;
 
+  img {
+    margin-right: 5px;
+    line-height: 0;
+    display: inline-block;
+    margin-bottom: -4px;
+
+  }
+
   * {
     display: inline-block;
   }
@@ -29,6 +37,10 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
+
+      path {
+        animation: filterBg .8s 5s ease-in-out forwards;
+      }
     }
   }
 
@@ -36,9 +48,21 @@
 
 @keyframes bg {
   0% {
+    color: white;
     background: #FA4E0E;
   }
   100% {
-    background: #1D64F6;
+    color: black;
+    background: #FAFAFA;
   }
 }
+
+@keyframes filterBg {
+  0% {
+    stroke: white
+  }
+  100% {
+    stroke: black
+  }
+}
+

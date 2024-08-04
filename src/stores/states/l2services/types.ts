@@ -10,6 +10,7 @@ import {
 } from '@/modules/blockchains/components/BillingModal/History.types';
 import { IDApp } from '@/services/api/DAServices/types';
 import { IExploreItem } from '@/services/api/l2services/types';
+import { IModelCategory, IModelOption } from '@/types/customize-model';
 
 interface IDAppInstalled {
   orderID: string;

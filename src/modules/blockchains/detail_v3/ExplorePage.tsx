@@ -1,3 +1,4 @@
+import { IModelCategory } from '@/types/customize-model';
 import ExplorePage from '../Buy/Explore';
 
 type Props = {
