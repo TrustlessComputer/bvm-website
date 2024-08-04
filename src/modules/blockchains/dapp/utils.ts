@@ -355,7 +355,6 @@ export const preDataAirdropTask = (
                 value: '',
                 tooltip: '',
                 options: [],
-                placeholder: 'https://x.com/xxxx/status/yyyy',
               });
             }
 
