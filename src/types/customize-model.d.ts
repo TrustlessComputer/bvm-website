@@ -107,7 +107,7 @@ interface FieldModel {
   icon: string;
   title: string;
   value: string | number;
-  type: 'input' | 'dropdown' | 'extends' | 'group' | 'datetime' | '';
+  type: 'input' | 'dropdown' | 'extends' | 'group' | 'datetime' | 'list' | '';
   tooltip: string;
   options: FieldModel[];
   placeholder?: string;

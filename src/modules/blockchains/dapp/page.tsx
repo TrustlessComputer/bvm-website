@@ -92,14 +92,14 @@ const RollupsDappPage = () => {
     return result;
   };
 
-  const parseAirdropsData = (_airdrops: IAirdrop[], _tokens: IToken[]) => {
+  const parseAirdropsData = async (_airdrops: IAirdrop[], _tokens: IToken[]) => {
     const result: DappModel[] = [];
     for (const airdrop of _airdrops) {
       const _token = tokens.find((v) =>
         compareString(v.contract_address, airdrop.token_address),
       );
 
-      const t = parseAirdrop(airdrop, _token as IToken);
+      const t = await parseAirdrop(airdrop, _token as IToken);
       result.push(t);
     }
 
@@ -838,7 +838,7 @@ const RollupsDappPage = () => {
       }
 
       case DappType.airdrop: {
-        const _data = parseAirdropsData(airdrops, tokens);
+        const _data = await parseAirdropsData(airdrops, tokens);
 
         const model = parseDappModel({
           key: DappType.airdrop,
