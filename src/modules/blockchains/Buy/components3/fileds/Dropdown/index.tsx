@@ -5,6 +5,7 @@ import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 
 import styles from './styles.module.scss';
+import { FieldModel } from '@/types/customize-model';
 
 type Props = {
   background?: string;

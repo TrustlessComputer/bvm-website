@@ -1,3 +1,5 @@
+import { DappCategory } from '@/types/customize-model';
+
 const DAPP_MOCKUP_CONFIG: DappCategory[] = [
   {
     key: 'info_class',
@@ -19,10 +21,12 @@ const DAPP_MOCKUP_CONFIG: DappCategory[] = [
         type: 'dropdown',
         options: [
           {
-            key: 'teacher_cat', value: 'Teacher Cat',
+            key: 'teacher_cat',
+            value: 'Teacher Cat',
           },
           {
-            key: 'teacher_dog', value: 'Teacher Dog',
+            key: 'teacher_dog',
+            value: 'Teacher Dog',
           },
         ],
       },
@@ -85,10 +89,12 @@ const DAPP_MOCKUP_CONFIG: DappCategory[] = [
             type: 'dropdown',
             options: [
               {
-                key: 'teacher_cat', value: 'Teacher Cat',
+                key: 'teacher_cat',
+                value: 'Teacher Cat',
               },
               {
-                key: 'teacher_dog', value: 'Teacher Dog',
+                key: 'teacher_dog',
+                value: 'Teacher Dog',
               },
             ],
           },

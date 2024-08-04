@@ -1,6 +1,10 @@
-import { IToken, ITokenVesting } from '@/services/api/dapp/token_generation/interface';
+import {
+  IToken,
+  ITokenVesting,
+} from '@/services/api/dapp/token_generation/interface';
 import { DappType } from '@/modules/blockchains/dapp/types';
 import { formatCurrency } from '@utils/format';
+import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
 
 export const parseIssuedToken = (token: IToken) => {
   const result = {} as DappModel;
@@ -8,7 +12,8 @@ export const parseIssuedToken = (token: IToken) => {
   result.id = DappType.token_generation;
   result.key = DappType.token_generation;
   result.title = 'Token Generation';
-  result.icon = 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg';
+  result.icon =
+    'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg';
   result.order = 1;
   result.color = '#24704D';
   result.label = {
@@ -16,13 +21,15 @@ export const parseIssuedToken = (token: IToken) => {
     color: '#000',
     background: '#00AA6C',
     status: 'deployed',
-    actionID: token?.contract_address
+    actionID: token?.contract_address,
   };
 
   const baseBlock: BlockModel = {} as BlockModel;
   baseBlock.key = 'token_info';
   baseBlock.title = `${token.symbol}`;
-  baseBlock.icon = token.image_url || 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg';
+  baseBlock.icon =
+    token.image_url ||
+    'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg';
   baseBlock.placableAmount = -1;
   baseBlock.section = 'information';
   baseBlock.preview = true;
@@ -58,9 +65,11 @@ export const parseIssuedToken = (token: IToken) => {
 
   result.baseBlock = baseBlock;
 
-  const isFoundation = token.vestings?.length === 1 && token.vestings.findIndex(v => v.beneficiary_name === 'Foundation') >= 0;
+  const isFoundation =
+    token.vestings?.length === 1 &&
+    token.vestings.findIndex((v) => v.beneficiary_name === 'Foundation') >= 0;
 
-  if(isFoundation) {
+  if (isFoundation) {
     baseBlock.fields.push({
       key: 'receiver_address',
       title: 'Receiver Address',
@@ -69,7 +78,7 @@ export const parseIssuedToken = (token: IToken) => {
       value: (token?.vestings?.[0] as any).beneficiary as string,
       tooltip: '',
       options: [],
-    },)
+    });
   } else {
     const blockFields: BlockModel[] = [];
 
@@ -98,7 +107,15 @@ export const parseIssuedToken = (token: IToken) => {
             title: 'Amount',
             type: 'input',
             icon: '',
-            value: formatCurrency((Number(vesting.amount_total) > 0 ? vesting.amount_total : vesting.unvest_amount) as string, 0, 2, 'BTC', true),
+            value: formatCurrency(
+              (Number(vesting.amount_total) > 0
+                ? vesting.amount_total
+                : vesting.unvest_amount) as string,
+              0,
+              2,
+              'BTC',
+              true,
+            ),
             tooltip: '',
             options: [],
             background: '#00AA6C',
@@ -106,7 +123,7 @@ export const parseIssuedToken = (token: IToken) => {
         ],
       };
 
-      const childrenFields = [];
+      const childrenFields: FieldModel[] = [];
       childrenFields.push({
         key: 'address',
         title: 'Receiver Address',
@@ -116,9 +133,9 @@ export const parseIssuedToken = (token: IToken) => {
         tooltip: '',
         options: [],
         background: '#00AA6C',
-      });
+      } as FieldModel);
 
-      if(Number(vesting.amount_total) > 0) {
+      if (Number(vesting.amount_total) > 0) {
         childrenFields.push({
           key: 'is_vesting',
           title: 'Vesting?',
@@ -256,4 +273,4 @@ export const parseIssuedToken = (token: IToken) => {
   }
 
   return result;
-}
+};

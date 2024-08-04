@@ -11,7 +11,7 @@ export const FAQ_POC = [
   },
   {
     q: 'How do I register for the competition?',
-    a: `<p>To register, simply click on the “Register” button above on top of this page, put in your username & email, and you’re all set to join the competition.</p>`,
+    a: `<p>To register, simply click on the "Let's Practice" button above on top of this page, then sign in using your email. That's it, you're all set to join the competition.</p><br/><p>Don't forget to practice before the competition.</p>`,
   },
   {
     q: 'What are the prizes?',

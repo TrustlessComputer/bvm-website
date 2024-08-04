@@ -9,7 +9,6 @@ import { getModelCategories, getTemplates } from '@/services/customize-model';
 import BoxOptionV3 from './components3/BoxOptionV3';
 import ComputerNameInput from './components3/ComputerNameInput';
 import Draggable from './components3/Draggable';
-import DropdownV2 from './components3/DropdownV2';
 import DroppableV2 from './components3/DroppableV2';
 import LaunchButton from './components3/LaunchButton';
 import LegoParent from './components3/LegoParent';
@@ -26,11 +25,9 @@ import ErrorModal from './components3/ErrorModal';
 // import { mockupOptions } from './Buy.data';
 import Capture from '@/modules/blockchains/Buy/Capture';
 import Label from './components3/Label';
-import { TABS, TABS_MAP } from './constants';
+import { TABS } from './constants';
 import ExplorePage from './Explore';
-import Image from 'next/image';
-import { OrderItem } from '@/stores/states/l2services/types';
-import { mockupOptions } from './Buy.data';
+import { IModelCategory } from '@/types/customize-model';
 
 const BuyPage = () => {
   const router = useRouter();

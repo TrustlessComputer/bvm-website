@@ -21,7 +21,6 @@ const ContactUs = (props: Props): ReactElement => {
         justify={'center'}
         align={'center'}
         className={s.btn}
-        color={props?.color || 'white'}
         transition={'opacity .4s ease'}
         _hover={{
           cursor: 'pointer',

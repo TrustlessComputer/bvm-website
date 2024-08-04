@@ -23,6 +23,7 @@ import {
 } from './types';
 import uniqBy from 'lodash/uniqBy';
 import { IDApp } from '@/services/api/DAServices/types';
+import { IModelOption } from '@/types/customize-model';
 
 export const initialState: L2ServicesState = {
   isMyOrderListFetched: false,

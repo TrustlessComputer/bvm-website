@@ -6,6 +6,8 @@ import stc from 'string-to-color';
 import { DappType } from '../types';
 import { getAirdropTaskKey } from '../utils';
 import CTokenAirdropAPI from '@/services/api/dapp/airdrop';
+import { compareString } from '@/utils/string';
+import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
 
 export const parseAirdrop = async (airdrop: IAirdrop, _token: IToken) => {
   const api = new CTokenAirdropAPI();
