@@ -58,6 +58,7 @@ import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import styles from './styles.module.scss';
 import LeftDroppableV2 from './components/LeftDroppableV2';
 import AddBoxButton from '@/modules/blockchains/dapp/AddBoxButton';
+import LegoDragging from '@/modules/blockchains/dapp/ui-helper/LegoDragging';
 
 const RollupsDappPage = () => {
   const { l2ServiceUserAddress } = useWeb3Auth();
@@ -718,12 +719,9 @@ const RollupsDappPage = () => {
   );
 
   const fetchData = async () => {
-    // const dapps = configs;
 
     const dapps = isProduction ? configs : dappMockupData;
-
     const sortedDapps = [...dapps].sort((a, b) => a?.order - b?.order);
-
     const _sortedDapps = preDataAirdropTask(sortedDapps, tokens, airdropTasks);
 
     setDapps(_sortedDapps);
@@ -843,77 +841,63 @@ const RollupsDappPage = () => {
   };
 
   return (
-    <Flex className={styles.container} w={'100%'} px={['16px', '18px', '20px']}>
-      <div className={styles.content}>
-        {/*<div className={styles.logo}>*/}
-        {/*  <Image*/}
-        {/*    src={'/bvmstudio_logo.png'}*/}
-        {/*    alt={'bvmstudio_logo'}*/}
-        {/*    width={549}*/}
-        {/*    height={88}*/}
-        {/*  />*/}
-        {/*</div>*/}
-        <p className={styles.content_text}>
-          Drag and drop modules to start new blockchains, new dapps, and new
-          economies.
-        </p>
-      </div>
+   <>
+     <Flex className={styles.container} w={'100%'} px={['16px', '18px', '20px']}>
 
-      <div className={styles.container__header}>
-        <Flex alignItems="center" gap="12px">
-          <div
-            className={`${styles.top_left_filter} ${styles.active}`}
-            // onClick={() => {
-            //   router.push('/studio')
-            // }}
-          >
-            <p>Dapp Studio</p>
-          </div>
-          <div
-            className={`${styles.top_left_filter}`}
-            onClick={() => {
-              router.push('/studio');
-            }}
-          >
-            <p>Chain Studio</p>
-          </div>
-        </Flex>
-        <div>
-          <AddBoxButton />
+       <div className={styles.container__header}>
+         <Flex alignItems="center" gap="12px">
+           <div
+             className={`${styles.top_left_filter} ${styles.active}`}
+           >
+             <p>Studio</p>
+           </div>
+           <div
+             className={`${styles.top_left_filter}`}
+             onClick={() => {
+               router.push('/studio');
+             }}
+           >
+             <p>Chain Studio</p>
+           </div>
+         </Flex>
+         <div>
+           <AddBoxButton />
 
-          <LaunchButton />
-        </div>
-      </div>
+           <LaunchButton />
+         </div>
+       </div>
 
-      <div className={styles.container__content}>
-        <DndContext
-          sensors={sensors}
-          onDragStart={handleDragStart}
-          onDragEnd={handleDragEnd}
-        >
-          <div className={styles.container__content__sidebar}>
-            <SidebarV2 />
-          </div>
-          <div
-            className={styles.container__content__droppable}
-            id="left-droppable"
-          >
-            <LeftDroppableV2 />
-          </div>
+       <div className={styles.container__content}>
+         <DndContext
+           sensors={sensors}
+           onDragStart={handleDragStart}
+           onDragEnd={handleDragEnd}
+         >
+           <div className={styles.container__content__sidebar}>
+             <SidebarV2 />
+           </div>
+           <div
+             className={styles.container__content__droppable}
+             id="left-droppable"
+           >
+             <LeftDroppableV2 />
+           </div>
 
-          <DragMask />
+           <DragMask />
 
-          <div
-            className={cn(
-              styles.container__content__droppable,
-              styles.container__content__droppable__right,
-            )}
-          >
-            <RightDroppableV2 />
-          </div>
-        </DndContext>
-      </div>
-    </Flex>
+           <div
+             className={cn(
+               styles.container__content__droppable,
+               styles.container__content__droppable__right,
+             )}
+           >
+             <RightDroppableV2 />
+           </div>
+         </DndContext>
+       </div>
+     </Flex>
+     <LegoDragging />
+   </>
   );
 };
 
