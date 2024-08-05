@@ -8,6 +8,7 @@ import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import CRollupL2API from '@/services/api/dapp/rollupl2';
 import { IRollupL2Info } from '@/services/api/dapp/rollupl2/interface';
 import { formatCurrency } from '@/utils/format';
+import { compareString } from '@/utils/string';
 import {
   Box,
   Flex,
@@ -41,6 +42,10 @@ const L2Rollup = () => {
       mgas,
       kbs,
     };
+  }, [data]);
+
+  const bitcoinRollup = useMemo(() => {
+    return data.find((rollup) => compareString(rollup.name, 'bitcoin'));
   }, [data]);
 
   useEffect(() => {
@@ -270,9 +275,11 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'60px'}>
+            <Flex gap={3} alignItems={'center'} width={'98px'}>
               <Text className={s.title}>
-                {formatCurrency(data?.tps, MIN_DECIMAL, MIN_DECIMAL)}
+                {data?.tps
+                  ? formatCurrency(data?.tps, MIN_DECIMAL, MIN_DECIMAL)
+                  : '-'}
               </Text>
             </Flex>
           );
@@ -293,7 +300,9 @@ const L2Rollup = () => {
           return (
             <Flex gap={3} alignItems={'center'} width={'98px'}>
               <Text className={s.title}>
-                {formatCurrency(data?.mgas, MIN_DECIMAL, MIN_DECIMAL)}
+                {data?.mgas
+                  ? formatCurrency(data?.mgas, MIN_DECIMAL, MIN_DECIMAL)
+                  : '-'}
               </Text>
             </Flex>
           );
@@ -323,7 +332,9 @@ const L2Rollup = () => {
           return (
             <Flex gap={3} alignItems={'center'} width={'60px'}>
               <Text className={s.title}>
-                {formatCurrency(data?.kbs, MIN_DECIMAL, MIN_DECIMAL)}
+                {data?.kbs
+                  ? formatCurrency(data?.kbs, MIN_DECIMAL, MIN_DECIMAL)
+                  : '-'}
               </Text>
             </Flex>
           );
@@ -439,7 +450,7 @@ const L2Rollup = () => {
             <Flex alignItems={'center'} width={'100%'}>
               <Text className={s.title}>
                 {isUnderReview
-                  ? 'Under review'
+                  ? '-'
                   : `${formatCurrency(data.tvl_btc, 0, 3)} BTC`}
               </Text>
             </Flex>
@@ -449,7 +460,12 @@ const L2Rollup = () => {
     ];
   }, []);
 
-  const renderItemTotal = (title: string, value: string, tooltip?: string) => {
+  const renderItemTotal = (
+    title: string,
+    value: string,
+    tooltip?: string,
+    mulValue?: string,
+  ) => {
     return (
       <Flex direction={'column'} alignItems={'center'}>
         <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
@@ -469,26 +485,70 @@ const L2Rollup = () => {
         <Text fontSize={'18px'} fontWeight={'500'}>
           {value}
         </Text>
+        {mulValue && (
+          <Text color={'green'} fontSize={'16px'} fontWeight={'500'}>
+            {mulValue}
+          </Text>
+        )}
       </Flex>
     );
   };
+
   return (
     <Box className={s.container}>
-      <Flex
-        direction={'column'}
-        w="100%"
-        maxW={'1120px'}
-        alignItems={'center'}
-        gap={'16px'}
-      >
-        <Text fontSize={'40px'} lineHeight={'52px'} textAlign={'center'}>
-          Bitcoin Rollups
+      <Flex direction={'column'} w="100%" maxW={'1160px'} alignItems={'center'}>
+        <Text fontSize={'20px'} mb={'12px'}>
+          Project Heartbeat
         </Text>
-        <Text textAlign={'center'} maxW={'752px'} mb={'12px'}>
-          Dive into everything you need to know about Bitcoin rollups right here
-          with BVM! Want your project to be featured? Contact us and get on our
-          radar.
+        <Text
+          fontSize={'40px'}
+          lineHeight={'52px'}
+          textAlign={'center'}
+          mb={'20px'}
+        >
+          Welcome to the future of Bitcoin.
         </Text>
+        <Text
+          className={s.fontType2}
+          textAlign={'center'}
+          maxW={'1024px'}
+          fontSize={'20px'}
+          fontWeight={'400'}
+          color={'#494846'}
+          mb={'16px'}
+        >
+          The BVM team created Project Heartbeat to provide transparent and
+          verifiable insights into new technologies that are transforming
+          Bitcoin beyond mere currency. Follow their progress and support their
+          innovations.
+        </Text>
+
+        <Flex direction={'row'} alignItems={'center'} gap={'8px'} mb={'32px'}>
+          <Text
+            className={s.fontType2}
+            fontSize={'20px'}
+            fontWeight={'400'}
+            color={'#494846'}
+          >
+            Are you a builder?️
+          </Text>
+          <Flex
+            className={s.fontType2}
+            fontSize={'20px'}
+            fontWeight={'500'}
+            color={'#FA4E0E'}
+            cursor={'pointer'}
+            onClick={showContactUsModal}
+            _hover={{
+              opacity: 0.8,
+            }}
+            direction={'row'}
+            alignItems={'center'}
+          >
+            <Text>Submit your project</Text>
+            <Image maxW={'40px'} src={'/heartbeat/ic-submit.svg'} />
+          </Flex>
+        </Flex>
         <Flex
           className={s.totalContainer}
           bg="#FAFAFA"
@@ -504,20 +564,35 @@ const L2Rollup = () => {
               'TPS',
               formatCurrency(total.tps, MIN_DECIMAL, MIN_DECIMAL),
               'The total transactions per second',
+              bitcoinRollup
+                ? `(${formatCurrency(
+                    total.tps / bitcoinRollup.tps,
+                    MIN_DECIMAL,
+                    MIN_DECIMAL,
+                  )}x)`
+                : '-',
             )}
             {renderItemTotal(
               'Mgas/s',
               formatCurrency(total.mgas, MIN_DECIMAL, MIN_DECIMAL),
               'The total megagas (Million Gas) per second',
+              '(-)',
             )}
             {renderItemTotal(
               'KB/s',
               formatCurrency(total.kbs, MIN_DECIMAL, MIN_DECIMAL),
               'Total KB per second',
+              bitcoinRollup
+                ? `(${formatCurrency(
+                    total.kbs / bitcoinRollup.kbs,
+                    MIN_DECIMAL,
+                    MIN_DECIMAL,
+                  )}x)`
+                : '-',
             )}
           </Flex>
         </Flex>
-        <Box w="100%" bg="#FAFAFA" minH={'450px'}>
+        <Box w="100%" bg="#FAFAFA" minH={'450px'} mt={'32px'}>
           <ListTable
             data={data}
             columns={columns}
@@ -525,27 +600,6 @@ const L2Rollup = () => {
           />
         </Box>
       </Flex>
-      <Button
-        marginTop={'32px'}
-        bgColor={'#FA4E0E'}
-        color={'#fff'}
-        borderRadius={100}
-        display={'flex'}
-        justifyContent={'center'}
-        alignItems={'center'}
-        px={'24px'}
-        py={'10px'}
-        minW={['180px']}
-        height={'48px'}
-        fontWeight={400}
-        fontSize={'16px'}
-        onClick={showContactUsModal}
-        _hover={{
-          opacity: 0.8,
-        }}
-      >
-        {`Contact us`}
-      </Button>
     </Box>
   );
 };
