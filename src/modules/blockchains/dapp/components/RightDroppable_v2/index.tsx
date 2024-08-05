@@ -40,8 +40,10 @@ import styles from './styles.module.scss';
 import Image from 'next/image';
 import BottomButton from '@/modules/blockchains/dapp/components/BottomButton';
 import DateTimeInput from '../DateTimeInput';
-import { DappModel, FieldModel } from '@/types/customize-model';
+import { DappModel, FieldModel, IModelCategory } from '@/types/customize-model';
 import { Box, Text } from '@chakra-ui/react';
+import { getModelCategories, getTemplates } from '@/services/customize-model';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 
 const RightDroppableV2 = () => {
   const {
@@ -52,9 +54,23 @@ const RightDroppableV2 = () => {
     singleFieldMapping,
   } = useThisDapp();
   const { templateDapps } = useTemplateFormStore();
-
+  const { l2ServiceUserAddress } = useWeb3Auth();
   const refContainer = React.useRef<HTMLDivElement>(null);
   const refWrap = React.useRef<HTMLDivElement>(null);
+  const [templates, setTemplates] = React.useState<Array<
+    IModelCategory[]
+  > | null>(null);
+  const [data, setData] = React.useState<
+    | (IModelCategory & {
+    options: IModelCategory['options'] &
+      {
+        value: any;
+        label: string;
+        disabled: boolean;
+      }[];
+  })[]
+    | null
+  >(null);
 
   const [draggedIds2D, setDraggedIds2D] = React.useState<
     typeof draggedIds2DSignal.value
@@ -77,6 +93,47 @@ const RightDroppableV2 = () => {
     console.log(params.dapp?.action);
     alert('CLICK ME');
   };
+
+  const convertData = (data: IModelCategory[]) => {
+    const newData = data?.map((item) => {
+      return {
+        ...item,
+        options: item.options?.map((option) => {
+          return {
+            ...option,
+            value: option.key,
+            label: option.title,
+            disabled: !option.selectable || item.disable,
+          };
+        }),
+      };
+    });
+
+    return newData || [];
+  };
+
+
+  const fetchData = async () => {
+    // const modelCategories = mockupOptions;
+
+    const modelCategories =
+      (await getModelCategories(l2ServiceUserAddress)) || [];
+
+    const _modelCategories = modelCategories.sort((a, b) => a.order - b.order);
+    _modelCategories.forEach((_field) => {
+      setField(_field.key, null);
+    });
+    // setData(convertData(_modelCategories));
+    // setOriginalData(_modelCategories);
+
+    const templates = (await getTemplates()) || [];
+    setTemplates(templates);
+  };
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
+
 
   const getInput = React.useCallback(
     (
