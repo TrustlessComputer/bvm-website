@@ -10,6 +10,7 @@ import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import {
   checkRegistered,
   getContestStats,
+  registerCodeBattle,
 } from '@/services/api/EternalServices';
 import { IUserContest } from '@/services/api/EternalServices/types';
 import { openModal } from '@/stores/states/modal/reducer';
@@ -91,6 +92,31 @@ const HackathonModule = (props: Props) => {
   const [isRegistered, setIsRegistered] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
   const [currentUserContest, setCurrentUserContest] = useState<IUserContest>();
+
+  useEffect(() => {
+    let setTimeoutInstance: NodeJS.Timeout | null = null;
+    if (!!userInfo && !!wallet && !isRegistered) {
+      // call register api
+      setTimeoutInstance = setTimeout(() => {
+        const payload = {
+          team: userInfo.name || userInfo?.email || wallet.address,
+          university: '',
+          email: userInfo?.email,
+        };
+        registerCodeBattle(payload).then(() => {
+          setIsRegistered(true);
+        });
+
+        console.log('call register api');
+      }, 5000);
+    }
+
+    return () => {
+      if (setTimeoutInstance) {
+        clearTimeout(setTimeoutInstance);
+      }
+    };
+  }, [isRegistered, wallet, userInfo]);
 
   const fetchPeopleSubmitted = async () => {
     try {
