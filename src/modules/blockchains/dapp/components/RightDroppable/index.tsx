@@ -383,6 +383,14 @@ const RightDroppable = () => {
               let blockCount = 0;
 
               const { key: baseBlockKey, ...baseBlock } = thisDapp.baseBlock;
+              const totalDraggedBase = draggedIds2D.length;
+              const totalBaseFields = baseBlock.fields.length;
+              const totalBaseModuleBlock = ids.filter((id) => {
+                return DragUtil.idDraggingIsABaseModule(id.name);
+              }).length;
+              const totalDragged = ids.length - totalBaseModuleBlock;
+              const totalAll =
+                totalBaseFields + totalDragged + totalBaseModuleBlock;
 
               return (
                 <Draggable
@@ -438,7 +446,7 @@ const RightDroppable = () => {
                               last={false}
                               titleInLeft={false}
                               titleInRight={true}
-                              zIndex={ids.length * 2 - itemIndex}
+                              zIndex={totalAll - itemIndex}
                             >
                               <Label {...thisModule} />
                             </Lego>
@@ -458,14 +466,14 @@ const RightDroppable = () => {
                               blockKey: '',
                               baseIndex,
                             },
-                            thisDapp.baseBlock.fields.length +
-                              ids.length * 2 -
-                              fieldIndex,
+                            totalBaseFields + totalDragged - fieldIndex,
                           );
                         },
                       )}
 
                       {ids.map((item, itemIndex) => {
+                        const zIndex = totalDragged - itemIndex - 1;
+
                         if (DragUtil.idDraggingIsABlock(item.name)) {
                           const { key: thisBlockKey, ...thisBlock } =
                             blockFieldMapping[
@@ -500,7 +508,7 @@ const RightDroppable = () => {
                                     -10,
                                   )}
                                   smallMarginHeaderTop
-                                  zIndex={ids.length - itemIndex}
+                                  zIndex={zIndex}
                                 >
                                   {thisBlock.fields.map(
                                     (field: FieldModel, fieldIndex: number) => {
@@ -516,8 +524,7 @@ const RightDroppable = () => {
                                           baseIndex,
                                         },
                                         thisBlock.fields.length +
-                                          item.children.length +
-                                          1 -
+                                          item.children.length -
                                           fieldIndex,
                                       );
                                     },
@@ -526,17 +533,15 @@ const RightDroppable = () => {
                                   {item.children.map((child, childIndex) => {
                                     const thisChildField =
                                       thisBlock.childrenFields?.find(
-                                        (f: FieldModel) =>
-                                          f.key ===
-                                          DragUtil.getOriginalKey(child.name),
+                                        (f: FieldModel) => f.key === child.name,
                                       );
 
                                     if (!thisChildField) return null;
 
                                     return (
                                       <Draggable
-                                        id={`${child.name}`}
-                                        key={`${child.name}`}
+                                        id={`right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${child.name}-${itemIndex}-${baseIndex}`}
+                                        key={`right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${child.name}-${itemIndex}-${baseIndex}`}
                                         value={{
                                           title: thisChildField.title,
                                           icon: thisChildField.icon,
@@ -605,7 +610,7 @@ const RightDroppable = () => {
                                   blockKey: '',
                                   baseIndex,
                                 },
-                                ids.length - itemIndex,
+                                zIndex,
                               )}
                             </Draggable>
                           );
@@ -631,7 +636,7 @@ const RightDroppable = () => {
                                   {...thisModule}
                                   background={adjustBrightness(mainColor, -20)}
                                   smallMarginHeaderTop
-                                  zIndex={ids.length - itemIndex}
+                                  zIndex={zIndex}
                                 >
                                   {(item.value as string[]).map(
                                     (value, index) => {
@@ -700,7 +705,7 @@ const RightDroppable = () => {
                                   last={false}
                                   titleInLeft={false}
                                   titleInRight={true}
-                                  zIndex={ids.length - itemIndex}
+                                  zIndex={zIndex}
                                 >
                                   <Label {...thisField} />
                                 </Lego>
@@ -785,85 +790,51 @@ const RightDroppable = () => {
                       blockCount++;
 
                       return (
-                        <Draggable
-                          id={`${item.name}-${itemIndex}-${baseIndex}`}
-                          key={`${item.name}-${itemIndex}-${baseIndex}`}
-                          value={{
-                            title: thisBlock.title + ' #' + blockCount,
-                            icon: thisBlock.icon,
-                          }}
+                        <LegoParent
+                          {...thisBlock}
+                          title={thisBlock.title + ' #' + blockCount}
+                          background={adjustBrightness(mainColor, -10)}
+                          smallMarginHeaderTop
                         >
-                          <LegoParent
-                            {...thisBlock}
-                            title={thisBlock.title + ' #' + blockCount}
-                            background={adjustBrightness(mainColor, -10)}
-                            smallMarginHeaderTop
-                          >
-                            {thisBlock.fields.map((field: FieldModel) => {
-                              return getLabel(
-                                field,
-                                {
-                                  inBaseField: false,
-                                  inBlockField: true,
-                                  inSingleField: false,
-                                  index: itemIndex,
-                                  level: 0,
-                                  blockKey: thisBlockKey,
-                                  baseIndex,
-                                },
+                          {thisBlock.fields.map((field: FieldModel) => {
+                            return getLabel(
+                              field,
+                              {
+                                inBaseField: false,
+                                inBlockField: true,
+                                inSingleField: false,
+                                index: itemIndex,
+                                level: 0,
+                                blockKey: thisBlockKey,
                                 baseIndex,
+                              },
+                              baseIndex,
+                            );
+                          })}
+
+                          {item.children.map((child, childIndex) => {
+                            const thisChildField =
+                              thisBlock.childrenFields?.find(
+                                (f) => f.key === child.name,
                               );
-                            })}
 
-                            {/*{item.children.map((child, childIndex) => {
-                              const thisChildField =
-                                thisBlock.childrenFields?.find(
-                                  (f) =>
-                                    f.key ===
-                                    DragUtil.getOriginalKey(child.name),
-                                );
+                            if (!thisChildField) return null;
 
-                              if (!thisChildField) return null;
-
-                              return (
-                                <Draggable
-                                  id={`${child.name}`}
-                                  key={`${child.name}`}
-                                  value={{
-                                    title: thisChildField.title,
-                                    icon: thisChildField.icon,
-                                    fieldKey: thisChildField.key,
-                                    background:
-                                      thisChildField.background ||
-                                      mainColor,
-                                    blockKey: thisBlockKey,
-                                  }}
-                                  style={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: '0px',
-                                    zIndex:
-                                      item.children.length - childIndex,
-                                  }}
-                                >
-                                  {getLabel(
-                                    thisChildField,
-                                    {
-                                      inBaseField: false,
-                                      inBlockField: true,
-                                      inSingleField: false,
-                                      index: itemIndex,
-                                      level: 0,
-                                      blockKey: thisBlockKey,
-                                      baseIndex,
-                                    },
-                                    item.children.length - childIndex,
-                                  )}
-                                </Draggable>
-                              );
-                            })}*/}
-                          </LegoParent>
-                        </Draggable>
+                            return getLabel(
+                              thisChildField,
+                              {
+                                inBaseField: false,
+                                inBlockField: true,
+                                inSingleField: false,
+                                index: itemIndex,
+                                level: 0,
+                                blockKey: thisBlockKey,
+                                baseIndex,
+                              },
+                              item.children.length - childIndex,
+                            );
+                          })}
+                        </LegoParent>
                       );
                     } else if (DragUtil.idDraggingIsASingle(item.name)) {
                       const field =
@@ -873,29 +844,18 @@ const RightDroppable = () => {
 
                       if (!thisModule) return null;
 
-                      return (
-                        <Draggable
-                          id={`${item.name}-${itemIndex}-${baseIndex}`}
-                          key={`${item.name}-${itemIndex}-${baseIndex}`}
-                          value={{
-                            title: thisModule.title,
-                            icon: thisModule.icon,
-                          }}
-                        >
-                          {getLabel(
-                            thisModule,
-                            {
-                              inBaseField: false,
-                              inBlockField: false,
-                              inSingleField: true,
-                              index: itemIndex,
-                              level: 0,
-                              blockKey: '',
-                              baseIndex,
-                            },
-                            baseIndex,
-                          )}
-                        </Draggable>
+                      return getLabel(
+                        thisModule,
+                        {
+                          inBaseField: false,
+                          inBlockField: false,
+                          inSingleField: true,
+                          index: itemIndex,
+                          level: 0,
+                          blockKey: '',
+                          baseIndex,
+                        },
+                        baseIndex,
                       );
                     } else if (DragUtil.idDraggingIsAModule(item.name)) {
                       const thisModule =
@@ -904,53 +864,35 @@ const RightDroppable = () => {
 
                       if (isMultiple) {
                         return (
-                          <Draggable
-                            id={`${item.name}-${itemIndex}-${baseIndex}`}
-                            key={`${item.name}-${itemIndex}-${baseIndex}`}
-                            value={{
-                              title: thisModule.title,
-                              icon: thisModule.icon,
-                            }}
+                          <LegoParent
+                            {...thisModule}
+                            background={adjustBrightness(mainColor, -20)}
+                            smallMarginHeaderTop
                           >
-                            <LegoParent
-                              {...thisModule}
-                              background={adjustBrightness(mainColor, -20)}
-                              smallMarginHeaderTop
-                            >
-                              {(item.value as string[]).map((value, index) => {
-                                const thisField = thisModule.fields.find(
-                                  (f: FieldModel) => f.value === value,
-                                );
+                            {(item.value as string[]).map((value, index) => {
+                              const thisField = thisModule.fields.find(
+                                (f: FieldModel) => f.value === value,
+                              );
 
-                                if (!thisField) return null;
+                              if (!thisField) return null;
 
-                                return (
-                                  <Draggable
-                                    id={`${item.name}-${itemIndex}-${baseIndex}-${value}`}
-                                    key={`${item.name}-${itemIndex}-${baseIndex}-${value}`}
-                                    value={{
-                                      title: thisModule.title,
-                                      icon: thisModule.icon,
-                                    }}
-                                  >
-                                    <Lego
-                                      key={value}
-                                      background={adjustBrightness(
-                                        thisModule.background || mainColor,
-                                        -40,
-                                      )}
-                                      first={false}
-                                      last={false}
-                                      titleInLeft={true}
-                                      titleInRight={false}
-                                    >
-                                      <Label {...thisField} />
-                                    </Lego>
-                                  </Draggable>
-                                );
-                              })}
-                            </LegoParent>
-                          </Draggable>
+                              return (
+                                <Lego
+                                  key={value}
+                                  background={adjustBrightness(
+                                    thisModule.background || mainColor,
+                                    -40,
+                                  )}
+                                  first={false}
+                                  last={false}
+                                  titleInLeft={true}
+                                  titleInRight={false}
+                                >
+                                  <Label {...thisField} />
+                                </Lego>
+                              );
+                            })}
+                          </LegoParent>
                         );
                       } else {
                         const thisField = thisModule.fields.find(
@@ -960,29 +902,20 @@ const RightDroppable = () => {
                         if (!thisField) return null;
 
                         return (
-                          <Draggable
-                            id={`${item.name}-${itemIndex}-${baseIndex}`}
-                            key={`${item.name}-${itemIndex}-${baseIndex}`}
-                            value={{
-                              title: thisModule.title,
-                              icon: thisModule.icon,
-                            }}
+                          <Lego
+                            {...thisModule}
+                            preview={false}
+                            background={adjustBrightness(
+                              thisModule.background || mainColor,
+                              -20,
+                            )}
+                            first={false}
+                            last={false}
+                            titleInLeft={false}
+                            titleInRight={true}
                           >
-                            <Lego
-                              {...thisModule}
-                              preview={false}
-                              background={adjustBrightness(
-                                thisModule.background || mainColor,
-                                -20,
-                              )}
-                              first={false}
-                              last={false}
-                              titleInLeft={false}
-                              titleInRight={true}
-                            >
-                              <Label {...thisField} />
-                            </Lego>
-                          </Draggable>
+                            <Label {...thisField} />
+                          </Lego>
                         );
                       }
                     }

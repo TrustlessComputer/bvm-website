@@ -14,7 +14,7 @@ import {
 } from '../../signals/useFormDappsSignal';
 import DateTimeInput from '../DateTimeInput';
 import { FieldModel } from '@/types/customize-model';
-import { useThisDapp } from '../../hooks/useThisDapp';
+import { useSignalEffect } from '@preact/signals-react';
 
 type Props = FieldModel &
   FieldOption & {
@@ -59,9 +59,7 @@ const ExtendsInput = ({
     baseIndex,
   };
 
-  const _zIndex = React.useMemo(() => zIndex, []);
-
-  const { getInputWithoutLego, getInputWithLego } = useThisDapp();
+  const { thisDapp } = useThisDapp();
 
   const [toggle, setToggle] = React.useState(Boolean(value));
 
@@ -96,12 +94,36 @@ const ExtendsInput = ({
 
   if (type !== 'group' && type !== 'extends') {
     return (
-      <React.Fragment>{getInputWithoutLego(props, fieldOption)}</React.Fragment>
+      <React.Fragment>
+        <Lego
+          background={background}
+          first={false}
+          last={false}
+          title={title}
+          titleInLeft={true}
+          titleInRight={false}
+          zIndex={zIndex}
+        >
+          {getInput(props, fieldOption)}
+        </Lego>
+      </React.Fragment>
     );
   } else if (type !== 'extends') {
     return (
       <React.Fragment>
-        {getInputWithLego(props, fieldOption, _zIndex)}
+        <Lego
+          background={background}
+          first={false}
+          last={false}
+          title={title}
+          titleInLeft={true}
+          titleInRight={false}
+          zIndex={zIndex}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            {options.map((option) => getInput(option, fieldOption))}
+          </div>
+        </Lego>
       </React.Fragment>
     );
   }
@@ -115,7 +137,7 @@ const ExtendsInput = ({
         title={title}
         titleInLeft={true}
         titleInRight={false}
-        zIndex={_zIndex + 1}
+        zIndex={zIndex}
       >
         <Toggle
           background={adjustBrightness(background, -20)}
@@ -141,7 +163,7 @@ const ExtendsInput = ({
               key={option.key}
               disabled={disabled}
               onlyLabel={onlyLabel}
-              zIndex={_zIndex + 1 - optIndex - 1}
+              zIndex={zIndex - optIndex}
             />
           ))
         : null}
