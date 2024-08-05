@@ -16,10 +16,7 @@ export default function AddBoxButton({...props}): React.JSX.Element {
         status: 'Missing',
         isChain: true,
       },
-      position: {
-        x: 0,
-        y: 0
-      }
+      position: { x: 100, y: 50 },
     }])
   }
 

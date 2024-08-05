@@ -167,3 +167,7 @@ input[type='number'] {
 .react-flow__handle {
   position: unset !important;
 }
+
+.react-flow__nodes {
+  width: fit-content !important;
+}
