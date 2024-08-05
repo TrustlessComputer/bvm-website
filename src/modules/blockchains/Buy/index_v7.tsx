@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import ModalVideo from 'react-modal-video';
+import { EdgeBase, NodeBase, NodeChange } from '@xyflow/system';
 
 import { getModelCategories, getTemplates } from '@/services/customize-model';
 import BoxOptionV3 from './components3/BoxOptionV3';
@@ -29,24 +30,23 @@ import { TABS } from './constants';
 import ExplorePage from './Explore';
 import { mockupOptions } from './Buy.data';
 import { IModelCategory } from '@/types/customize-model';
+import { applyNodeChanges, ReactFlow, ReactFlowProvider } from '@xyflow/react';
+import CustomNode from './component4/CustomNode';
+import useModelCategoriesStore from './stores/useModelCategoriesStore';
+import useDragStore from './stores/useDragStore';
 
 const BuyPage = () => {
   const router = useRouter();
-  const [data, setData] = React.useState<
-    | (IModelCategory & {
-        options: IModelCategory['options'] &
-          {
-            value: any;
-            label: string;
-            disabled: boolean;
-          }[];
-      })[]
-    | null
-  >(null);
+  const [nodes, setNodes] = useState<NodeBase[]>([]);
 
-  const [originalData, setOriginalData] = React.useState<
-    IModelCategory[] | null
-  >(null);
+  const {
+    parsedCategories: data,
+    setParsedCategories: setData,
+    categories: originalData,
+    setCategories: setOriginalData,
+  } = useModelCategoriesStore();
+  const { draggedFields, setDraggedFields } = useDragStore();
+
   const [templates, setTemplates] = React.useState<Array<
     IModelCategory[]
   > | null>(null);
@@ -66,7 +66,7 @@ const BuyPage = () => {
 
   const { idDragging, setIdDragging, rightDragging, setRightDragging } =
     useDragMask();
-  const [fieldsDragged, setFieldsDragged] = React.useState<string[]>([]);
+  // const [draggedFields, setDraggedFields] = React.useState<string[]>([]);
   const searchParams = useSearchParams();
   const refTime = useRef<NodeJS.Timeout>();
   const [showShadow, setShowShadow] = useState<string>('');
@@ -85,7 +85,7 @@ const BuyPage = () => {
 
   const cloneItemCallback = (template: IModelCategory[]) => {
     setTabActive(TABS.CODE);
-    setFieldsDragged([]);
+    setDraggedFields([]);
     setIsShowModal(false);
     setTempalteDataClone(template || []);
   };
@@ -132,18 +132,18 @@ const BuyPage = () => {
     )?.multiChoice;
 
     if (rightDragging && !overIsFinalDroppable && overSuffix1 === 'right') {
-      // swap activeKey, overKey in fieldsDragged
-      const _fieldsDragged = JSON.parse(JSON.stringify(fieldsDragged));
-      const activeIndex = fieldsDragged.indexOf(activeKey);
-      const overIndex = fieldsDragged.indexOf(overKey);
+      // swap activeKey, overKey in draggedFields
+      const _draggedFields = JSON.parse(JSON.stringify(draggedFields));
+      const activeIndex = draggedFields.indexOf(activeKey);
+      const overIndex = draggedFields.indexOf(overKey);
 
       if (activeIndex === -1 || overIndex === -1) return;
 
-      const temp = _fieldsDragged[activeIndex];
-      _fieldsDragged[activeIndex] = _fieldsDragged[overIndex];
-      _fieldsDragged[overIndex] = temp;
+      const temp = _draggedFields[activeIndex];
+      _draggedFields[activeIndex] = _draggedFields[overIndex];
+      _draggedFields[overIndex] = temp;
 
-      setFieldsDragged(_fieldsDragged);
+      setDraggedFields(_draggedFields);
 
       return;
     }
@@ -188,12 +188,12 @@ const BuyPage = () => {
         setField(activeKey, active.data.current.value, true);
 
         if (field[activeKey].dragged) return;
-        setFieldsDragged((prev) => [...prev, activeKey]);
+        setDraggedFields([...draggedFields, activeKey]);
       } else {
         if (over && overIsParentDroppable) return;
 
         setField(activeKey, active.data.current.value, false);
-        setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
+        setDraggedFields(draggedFields.filter((field) => field !== activeKey));
       }
 
       return;
@@ -205,7 +205,7 @@ const BuyPage = () => {
       (!over || (over && !overIsFinalDroppable && !overIsParentDroppable))
     ) {
       setField(activeKey, [], false);
-      setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
+      setDraggedFields(draggedFields.filter((field) => field !== activeKey));
       return;
     }
 
@@ -221,7 +221,7 @@ const BuyPage = () => {
       if (currentValues.includes(active.data.current.value)) return;
 
       setField(activeKey, newValue, true);
-      isCurrentEmpty && setFieldsDragged((prev) => [...prev, activeKey]);
+      isCurrentEmpty && setDraggedFields([...draggedFields, activeKey]);
     } else {
       const currentValues = (field[activeKey].value || []) as string[];
       const newValue = currentValues.filter(
@@ -231,7 +231,7 @@ const BuyPage = () => {
 
       setField(activeKey, newValue, !isEmpty);
       isEmpty &&
-        setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
+        setDraggedFields(draggedFields.filter((field) => field !== activeKey));
     }
   }
 
@@ -259,7 +259,7 @@ const BuyPage = () => {
 
   const setValueOfPackage = (packageId: number | string | null) => {
     if (!packageId?.toString()) return;
-    setFieldsDragged([]);
+    setDraggedFields([]);
     setCurrentPackage(Number(packageId));
 
     // set default value for package
@@ -284,7 +284,8 @@ const BuyPage = () => {
         );
       }
 
-      setFieldsDragged((prev) => [...prev, _field.key]);
+      // setDraggedFields((prev) => [...prev, _field.key]);
+      setDraggedFields([...draggedFields, _field.key]);
     });
     fieldsNotInTemplate?.forEach((field) => {
       setField(field.key, null, false);
@@ -313,7 +314,8 @@ const BuyPage = () => {
         );
       }
 
-      setFieldsDragged((prev) => [...prev, _field.key]);
+      // setDraggedFields((prev) => [...prev, _field.key]);
+      setDraggedFields([...draggedFields, _field.key]);
     });
     fieldsNotInTemplate?.forEach((field) => {
       setField(field.key, null, false);
@@ -335,6 +337,18 @@ const BuyPage = () => {
 
     const templates = (await getTemplates()) || [];
     setTemplates(templates);
+
+    setNodes([
+      {
+        id: 'blockchain',
+        type: 'customBox',
+        data: {
+          label: 'Blockchain',
+          isChain: true,
+        },
+        position: { x: 0, y: 0 },
+      },
+    ]);
   };
 
   const isAnyOptionNeedContactUs = () => {
@@ -639,10 +653,16 @@ const BuyPage = () => {
   }, [idDragging]);
 
   const resetEdit = () => {
-    setFieldsDragged([]);
+    setDraggedFields([]);
     setIsShowModal(false);
     initTemplate(0);
   };
+
+  const onNodesChange = React.useCallback(
+    (changes: NodeChange[]) =>
+      setNodes((nds) => applyNodeChanges(changes, nds)),
+    [setNodes],
+  );
 
   return (
     <div
@@ -967,162 +987,14 @@ const BuyPage = () => {
                       }`}
                       id="imageCapture"
                     >
-                      <DroppableV2
-                        id="final"
-                        className={s.finalResult}
-                        style={{
-                          width: '100% !important',
-                          height: '100%',
-                          paddingLeft: '25%',
-                          paddingRight: '25%',
-                          paddingBottom: '7.5%',
-                          paddingTop: '7.5%',
-                        }}
-                      >
-                        <LegoV3
-                          background={'#FF3A3A'}
-                          label="Rollup Name"
-                          labelInLeft
-                          zIndex={45}
-                        >
-                          <ComputerNameInput />
-                        </LegoV3>
-
-                        {fieldsDragged.map((key, index) => {
-                          const item = data?.find((i) => i.key === key);
-
-                          if (!item || !data) return null;
-
-                          if (item.multiChoice) {
-                            if (!Array.isArray(field[item.key].value)) return;
-
-                            const childrenOptions = (field[item.key].value as
-                              | string[]
-                              | number[])!.map(
-                              (key: string | number, opIdx: number) => {
-                                const option = item.options.find(
-                                  (opt) => opt.key === key,
-                                );
-
-                                if (!option) return null;
-
-                                if (item.type === 'form') {
-                                  return (
-                                    <Draggable
-                                      key={item.key + '-' + option.key}
-                                      id={item.key + '-' + option.key}
-                                      useMask
-                                      isLabel={true}
-                                      value={option.key}
-                                      tooltip={option.tooltip}
-                                    >
-                                      <LegoV3
-                                        background={item.color}
-                                        zIndex={item.options.length - opIdx}
-                                      >
-                                        <div className={s.wrapInput}>
-                                          <span className={s.labelInput}>
-                                            {option.title}
-                                          </span>
-                                          <input
-                                            className={`${s.inputLabel}`}
-                                            name={item.key + '-' + option.key}
-                                            type={option.type}
-                                          />
-                                        </div>
-                                      </LegoV3>
-                                    </Draggable>
-                                  );
-                                }
-
-                                return (
-                                  <Draggable
-                                    right
-                                    key={item.key + '-' + option.key}
-                                    id={item.key + '-' + option.key}
-                                    useMask
-                                    tooltip={item.tooltip}
-                                    value={option.key}
-                                  >
-                                    <LegoV3
-                                      background={item.color}
-                                      label={item.confuseTitle}
-                                      labelInRight={
-                                        !!item.confuseTitle ||
-                                        !!item.confuseIcon
-                                      }
-                                      icon={item.confuseIcon}
-                                      zIndex={item.options.length - opIdx}
-                                    >
-                                      <Label
-                                        icon={option.icon}
-                                        title={option.title}
-                                      />
-                                    </LegoV3>
-                                  </Draggable>
-                                );
-                              },
-                            );
-
-                            return (
-                              <Draggable
-                                key={item.key + '-parent' + '-right'}
-                                id={item.key + '-parent' + '-right'}
-                                useMask
-                              >
-                                <DroppableV2 id={item.key}>
-                                  <LegoParent
-                                    parentOfNested
-                                    background={item.color}
-                                    label={item.title}
-                                    zIndex={fieldsDragged.length - index - 1}
-                                  >
-                                    {childrenOptions}
-                                  </LegoParent>
-                                </DroppableV2>
-                              </Draggable>
-                            );
-                          }
-
-                          return item.options.map((option, opIdx) => {
-                            if (option.key !== field[item.key].value)
-                              return null;
-
-                            return (
-                              <Draggable
-                                right
-                                key={item.key + '-' + option.key + '-right'}
-                                id={item.key + '-' + option.key + '-right'}
-                                useMask
-                                tooltip={item.tooltip}
-                                value={option.key}
-                              >
-                                <DroppableV2 id={item.key + '-right'}>
-                                  <LegoV3
-                                    background={item.color}
-                                    label={item.confuseTitle}
-                                    labelInRight={
-                                      !!item.confuseTitle || !!item.confuseIcon
-                                    }
-                                    zIndex={fieldsDragged.length - index}
-                                    icon={item.confuseIcon}
-                                    className={
-                                      showShadow === field[item.key].value
-                                        ? s.activeBlur
-                                        : ''
-                                    }
-                                  >
-                                    <Label
-                                      icon={option.icon}
-                                      title={option.title}
-                                    />
-                                  </LegoV3>
-                                </DroppableV2>
-                              </Draggable>
-                            );
-                          });
-                        })}
-                      </DroppableV2>
+                      <ReactFlowProvider>
+                        <ReactFlow
+                          nodes={nodes}
+                          nodeTypes={{ customBox: CustomNode }}
+                          onNodesChange={onNodesChange}
+                          fitView
+                        />
+                      </ReactFlowProvider>
                     </div>
 
                     {!isCapture && (
