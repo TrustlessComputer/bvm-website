@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import ModalVideo from 'react-modal-video';
 import { EdgeBase, NodeBase, NodeChange } from '@xyflow/system';
-
+import Image from 'next/image';
 import { getModelCategories, getTemplates } from '@/services/customize-model';
 import BoxOptionV3 from './components3/BoxOptionV3';
 import ComputerNameInput from './components3/ComputerNameInput';
@@ -35,7 +35,8 @@ import CustomNode from './component4/CustomNode';
 import useModelCategoriesStore from './stores/useModelCategoriesStore';
 import useDragStore from './stores/useDragStore';
 import AddBoxButton from '@/modules/blockchains/Buy/component4/AddBoxButton';
-
+import Button from '../dapp/components/Button';
+// import { Button } from '@chakra-ui/react';
 const BuyPage = () => {
   const router = useRouter();
   const [nodes, setNodes] = useState<NodeBase[]>([]);
@@ -231,7 +232,7 @@ const BuyPage = () => {
 
       setField(activeKey, newValue, !isEmpty);
       isEmpty &&
-        setDraggedFields(draggedFields.filter((field) => field !== activeKey));
+      setDraggedFields(draggedFields.filter((field) => field !== activeKey));
     }
   }
 
@@ -747,9 +748,9 @@ const BuyPage = () => {
                                 let suffix =
                                   Math.abs(_price) > 0
                                     ? ` (${formatCurrencyV2({
-                                        amount: _price,
-                                        decimals: 0,
-                                      })} BVM)`
+                                      amount: _price,
+                                      decimals: 0,
+                                    })} BVM)`
                                     : '';
 
                                 _price = option.priceBVM - currentPrice;
@@ -758,9 +759,9 @@ const BuyPage = () => {
                                 suffix =
                                   Math.abs(_price) > 0
                                     ? ` (${operator}${formatCurrencyV2({
-                                        amount: Math.abs(_price),
-                                        decimals: 0,
-                                      })} BVM)`
+                                      amount: Math.abs(_price),
+                                      decimals: 0,
+                                    })} BVM)`
                                     : '';
 
                                 if (
@@ -775,13 +776,13 @@ const BuyPage = () => {
                                     option.supportLayer &&
                                     option.supportLayer !== 'both' &&
                                     option.supportLayer !==
-                                      field['layers']?.value
+                                    field['layers']?.value
                                   ) ||
                                   !!(
                                     option.supportNetwork &&
                                     option.supportNetwork !== 'both' &&
                                     option.supportNetwork !==
-                                      field['network']?.value
+                                    field['network']?.value
                                   ) ||
                                   !option.selectable;
 
@@ -1011,22 +1012,41 @@ const BuyPage = () => {
                       </ReactFlowProvider>
                     </div>
 
+                    {/*{!isCapture && (*/}
+                    {/*  <div className={s.cta_wrapper}>*/}
+                    {/*    <button*/}
+                    {/*      className={`${s.reset} ${s.gray}`}*/}
+                    {/*      onClick={() => setIsShowModal(true)}*/}
+                    {/*    >*/}
+                    {/*      <div>*/}
+                    {/*        RESET*/}
+                    {/*        <ImagePlaceholder*/}
+                    {/*          src={'/icons/undo.svg'}*/}
+                    {/*          alt={'undo'}*/}
+                    {/*          width={20}*/}
+                    {/*          height={20}*/}
+                    {/*        />*/}
+                    {/*      </div>*/}
+                    {/*    </button>*/}
+                    {/*    <Capture />*/}
+                    {/*  </div>*/}
+                    {/*)}    */}
                     {!isCapture && (
-                      <div className={s.cta_wrapper}>
-                        <button
-                          className={`${s.reset} ${s.gray}`}
-                          onClick={() => setIsShowModal(true)}
-                        >
-                          <div>
-                            <ImagePlaceholder
-                              src={'/icons/undo.svg'}
-                              alt={'undo'}
-                              width={20}
-                              height={20}
-                            />
-                          </div>
-                        </button>
+                      <div className={s.resetButton}>
+                        {/*<Button element="button" type="button">*/}
+                        {/*  EXPORT{' '}*/}
+                        {/*  <Image*/}
+                        {/*    src="/icons/ic_image_2.svg"*/}
+                        {/*    alt="ic_image_2"*/}
+                        {/*    width={20}*/}
+                        {/*    height={20}*/}
+                        {/*  />*/}
+                        {/*</Button>*/}
                         <Capture />
+                        <Button element="button" type="button" onClick={() => setIsShowModal(true)}>
+                          RESET{' '}
+                          <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
+                        </Button>
                       </div>
                     )}
 

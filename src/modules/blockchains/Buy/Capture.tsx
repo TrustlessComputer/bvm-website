@@ -72,10 +72,10 @@ https://bvm.network/studio/${url}`;
 
   return (
     <div className={s.wrapper_btn_top}>
-      {/* <div className={s.reset} onClick={() => download()}>
+      {/* <div className={s.reset2} onClick={() => download()}>
         <div>
           <Image
-            src={'/icons/ic_image.svg'}
+            src={'/icons/ic_image_2.svg'}
             alt={'icon'}
             width={20}
             height={20}
@@ -83,10 +83,10 @@ https://bvm.network/studio/${url}`;
         </div>
         <p>EXPORT</p>
       </div> */}
-      <div className={s.reset} onClick={exportAsImage}>
-        <p>Share on</p>
+      <div className={s.reset2} onClick={exportAsImage}>
+        <p>SHARE</p>
         <div>
-          <Image src={'/icons/x.svg'} alt={'x'} width={20} height={20} />
+          <Image src={'/icons/ic_x_v2.svg'} alt={'x'} width={20} height={20} />
         </div>
       </div>
     </div>

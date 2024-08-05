@@ -401,6 +401,38 @@
   }
 }
 
+.reset2 {
+  background-color: #F2F2F2;
+  color: #555555;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 1000px;
+  padding-left: 16px;
+  padding-right: 16px;
+  display: flex;
+  cursor: pointer;
+
+  p {
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  &.gray {
+    background: #0000000d;
+  }
+
+  .icon {
+    max-width: 16px;
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
 .video {
   position: absolute;
   top: 22px;
