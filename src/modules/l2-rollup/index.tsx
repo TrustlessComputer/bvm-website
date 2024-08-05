@@ -188,7 +188,7 @@ const L2Rollup = () => {
                       <Text>Provider</Text>
                       <Text>{data.provider || '-'}</Text>
                     </Flex>
-                    {index > 2 && (
+                    {/* {index > 2 && (
                       <Flex direction={'row'} justifyContent={'flex-end'}>
                         <Text
                           cursor={'pointer'}
@@ -205,7 +205,7 @@ const L2Rollup = () => {
                           More detail
                         </Text>
                       </Flex>
-                    )}
+                    )} */}
                   </Flex>
                 </PopoverBody>
               </PopoverContent>
