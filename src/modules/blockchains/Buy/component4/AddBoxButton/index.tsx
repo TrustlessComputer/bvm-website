@@ -8,14 +8,18 @@ export default function AddBoxButton({...props}): React.JSX.Element {
 
   function handleAddBox() {
     props.setNodes((prev) => [...prev, {
-      id: 'dapps',
+      id: `${Math.random()}`,
       type: 'customBox',
+      dragHandle: '.drag-handle-area',
       data: {
         label: 'Blockchain',
         status: 'Missing',
         isChain: true,
       },
-      position: { x: 100, y: 100 },
+      position: {
+        x: 0,
+        y: 0
+      }
     }])
   }
 

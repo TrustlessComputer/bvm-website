@@ -52,7 +52,7 @@ export default function CustomNode({
   return (
     <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
       <div
-        className={`${s.wrapperBox_top}  ${cn(
+        className={`${s.wrapperBox_top} drag-handle-area ${cn(
           s[`borderColor_${data.status}`],
         )}`}
       >

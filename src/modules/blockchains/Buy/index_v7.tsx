@@ -352,6 +352,7 @@ const BuyPage = () => {
           status: 'Running',
           isChain: true,
         },
+        dragHandle: '.drag-handle-area',
         position: { x: 0, y: 0 },
       },
     ]);
@@ -1000,7 +1001,7 @@ const BuyPage = () => {
                         <ReactFlow
                           nodes={nodes}
                           nodeTypes={{ customBox: CustomNode }}
-                          // onNodesChange={onNodesChange}
+                          onNodesChange={onNodesChange}
                           fitView
                           draggable={false}
                         />
