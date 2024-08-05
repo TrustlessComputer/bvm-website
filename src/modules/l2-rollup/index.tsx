@@ -4,6 +4,7 @@
 
 import ListTable, { ColumnProp } from '@/components/ListTable';
 import { MIN_DECIMAL } from '@/constants/constants';
+import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import CRollupL2API from '@/services/api/dapp/rollupl2';
 import { IRollupL2Info } from '@/services/api/dapp/rollupl2/interface';
 import { formatCurrency } from '@/utils/format';
@@ -17,11 +18,14 @@ import {
   PopoverContent,
   PopoverBody,
   PopoverTrigger,
+  Button,
 } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 
 const L2Rollup = () => {
+  const { showContactUsModal } = useContactUs();
+
   const [data, setData] = useState<IRollupL2Info[]>([]);
 
   const hasIncrementedPageRef = useRef(false);
@@ -470,7 +474,21 @@ const L2Rollup = () => {
   };
   return (
     <Box className={s.container}>
-      <Flex direction={'column'} w="100%" maxW={'1120px'} gap={'16px'}>
+      <Flex
+        direction={'column'}
+        w="100%"
+        maxW={'1120px'}
+        alignItems={'center'}
+        gap={'16px'}
+      >
+        <Text fontSize={'40px'} lineHeight={'52px'} textAlign={'center'}>
+          Bitcoin Rollups
+        </Text>
+        <Text textAlign={'center'} maxW={'752px'} mb={'12px'}>
+          Dive into everything you need to know about Bitcoin rollups right here
+          with BVM! Want your project to be featured? Contact us and get on our
+          radar.
+        </Text>
         <Flex
           className={s.totalContainer}
           bg="#FAFAFA"
@@ -479,7 +497,7 @@ const L2Rollup = () => {
           gap={'8px'}
         >
           <Text fontSize={'24px'} fontWeight={'600'} textAlign={'center'}>
-            Totals
+            Total
           </Text>
           <Flex w="100%" direction={'row'} justifyContent={'space-evenly'}>
             {renderItemTotal(
@@ -507,6 +525,27 @@ const L2Rollup = () => {
           />
         </Box>
       </Flex>
+      <Button
+        marginTop={'32px'}
+        bgColor={'#FA4E0E'}
+        color={'#fff'}
+        borderRadius={100}
+        display={'flex'}
+        justifyContent={'center'}
+        alignItems={'center'}
+        px={'24px'}
+        py={'10px'}
+        minW={['180px']}
+        height={'48px'}
+        fontWeight={400}
+        fontSize={'16px'}
+        onClick={showContactUsModal}
+        _hover={{
+          opacity: 0.8,
+        }}
+      >
+        {`Contact us`}
+      </Button>
     </Box>
   );
 };
