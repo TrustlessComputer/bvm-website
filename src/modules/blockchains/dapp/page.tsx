@@ -92,7 +92,10 @@ const RollupsDappPage = () => {
     return result;
   };
 
-  const parseAirdropsData = async (_airdrops: IAirdrop[], _tokens: IToken[]) => {
+  const parseAirdropsData = async (
+    _airdrops: IAirdrop[],
+    _tokens: IToken[],
+  ) => {
     const result: DappModel[] = [];
     for (const airdrop of _airdrops) {
       const _token = tokens.find((v) =>
@@ -253,7 +256,7 @@ const RollupsDappPage = () => {
       draggedIds2D[activeBaseIndex][activeIndex] = {
         ...draggedIds2D[activeBaseIndex][activeIndex],
         children: draggedIds2D[activeBaseIndex][activeIndex].children.filter(
-          (item) => item.name !== composedFieldKey,
+          (item) => item.name !== activeFieldKey,
         ),
       };
 

@@ -85,8 +85,6 @@ const RightDroppable = () => {
       zIndex: number,
     ) => {
       if (field.type === 'input') {
-        console.log(fieldKey, zIndex);
-
         return (
           <Lego
             first={false}
