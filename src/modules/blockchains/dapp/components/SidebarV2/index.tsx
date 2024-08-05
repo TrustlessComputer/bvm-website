@@ -13,9 +13,9 @@ const SidebarV2 = ({}: Props) => {
   return (
     <React.Fragment>
       <div className={styles.header}>
-        {modelCategories.map(() => {
+        {modelCategories.map((category) => {
           return (
-            <div className={styles.header__item}>
+            <div className={styles.header__item} key={category.key}>
               <div className={styles.header__item__inner}>
                 <div className={styles.header__item__inner__icon}></div>
                 <div className={styles.header__item__inner__title}></div>

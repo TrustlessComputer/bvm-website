@@ -117,8 +117,8 @@ interface FieldModel {
   selectable?: boolean;
   background?: string;
   previewTitle?: string;
-  inputType?: 'text' | 'number' | 'file',
-  inputAccept?: 'image/*' | '.csv'
+  inputType?: 'text' | 'number' | 'file';
+  inputAccept?: 'image/*' | '.csv';
   disabled?: boolean;
 }
 
@@ -135,7 +135,7 @@ interface BlockModel {
   linkDownloadFile?: string;
 }
 
-interface  DappModel {
+interface DappModel {
   id: string;
   key: string;
   created_at: string;
@@ -196,3 +196,15 @@ interface BlockchainMap {
   blockchain: OrderItem | null;
   dapps: DappModel[];
 }
+
+type ElkNodeData = {
+  label: string;
+  positionDot: Position;
+  handleType: HandleType;
+  statusBox: 'Drafting' | 'Ready' | 'Missing' | 'Running' | 'Down';
+  legoList: [];
+  sourceHandles: { id: string }[];
+  targetHandles: { id: string }[];
+};
+
+type ElkNode = Node<ElkNodeData, 'elk'>;

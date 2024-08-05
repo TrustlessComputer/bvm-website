@@ -1,48 +1,14 @@
 import { HandleType, Position } from '@xyflow/react';
 import { type Node } from '@xyflow/react';
 
-export type ElkNodeData = {
-  label: string;
-  positionDot: Position;
-  handleType: HandleType;
-  StatusBox: 'Drafting' | 'Ready' | 'Missing' | 'Running' | 'Down' ;
-  legoList: [];
-  sourceHandles: { id: string }[];
-  targetHandles: { id: string }[];
-};
-
-export type ElkNode = Node<ElkNodeData, 'elk'>;
-
-
-export const FAKE_DATA_MAPPING: {
-  data: {
-    targetHandles: any[];
-    handleType: string;
-    StatusBox: string;
-    legoList: [{ background: string; icon: string; title: string }, {
-      background: string;
-      icon: string;
-      title: string
-    }, { background: string; icon: string; title: string }, { background: string; icon: string; title: string }, {
-      background: string;
-      icon: string;
-      title: string
-    }, { background: string; icon: string; title: string }, { background: string; icon: string; title: string }];
-    label: string;
-    positionDot: Position;
-    sourceHandles: ({ id: string } | { id: string })[]
-  };
-  id: string;
-  position: { x: number; y: number };
-  type: string
-}[] = [
+export const FAKE_DATA_MAPPING = [
   {
     id: '1',
     data: {
       label: 'Blockchain',
       positionDot: Position.Right,
-      handleType: 'source',
-      StatusBox: 'Drafting' ,
+      // handleType: 'source',
+      statusBox: 'Drafting',
       legoList: [
         {
           background: '#FF3A3A',
@@ -80,15 +46,15 @@ export const FAKE_DATA_MAPPING: {
           title: '4 hours withdrawal time',
         },
       ],
-      sourceHandles: [
-        {
-          id: '1-s-2',
-        },
-        {
-          id: '1-s-3',
-        },
-      ],
-      targetHandles: [],
+      // sourceHandles: [
+      //   {
+      //     id: '1-s-2',
+      //   },
+      //   {
+      //     id: '1-s-3',
+      //   },
+      // ],
+      // targetHandles: [],
     },
     type: 'elk',
     position: { x: 0, y: 0 },
@@ -97,16 +63,15 @@ export const FAKE_DATA_MAPPING: {
     id: '2',
     data: {
       label: 'Issue a token',
-      isRunning: false,
-      positionDot: Position.Left,
-      handleType: 'target',
-      StatusBox: 'Missing',
-      sourceHandles: [],
-      targetHandles: [
-        {
-          id: '2-t-1',
-        },
-      ],
+      // positionDot: Position.Left,
+      // handleType: 'target',
+      statusBox: 'Missing',
+      // sourceHandles: [],
+      // targetHandles: [
+      //   {
+      //     id: '2-t-1',
+      //   },
+      // ],
       legoParent: {
         background: '#F76649',
       },
@@ -151,18 +116,17 @@ export const FAKE_DATA_MAPPING: {
     data: {
       label: 'Pool ZKJ/BVM',
       positionDot: Position.Left,
-      handleType: 'target',
-      isRunning: true,
-      StatusBox: 'Running',
+      // handleType: 'target',
+      statusBox: 'Running',
       legoParent: {
         background: '#C000E6',
       },
-      sourceHandles: [],
-      targetHandles: [
-        {
-          id: '3-t-1',
-        },
-      ],
+      // sourceHandles: [],
+      // targetHandles: [
+      //   {
+      //     id: '3-t-1',
+      //   },
+      // ],
       legoList: [
         {
           background: '#AA00CC',
@@ -189,14 +153,14 @@ export const FAKE_DATA_MAPPING: {
     data: {
       label: 'Gaming apps',
       positionDot: Position.Left,
-      handleType: 'target',
-      StatusBox: 'Down',
-      sourceHandles: [],
-      targetHandles: [
-        {
-          id: '4-t-1',
-        },
-      ],
+      // handleType: 'target',
+      statusBox: 'Down',
+      // sourceHandles: [],
+      // targetHandles: [
+      //   {
+      //     id: '4-t-1',
+      //   },
+      // ],
       legoParent: {
         background: '#E6004D',
       },
@@ -231,14 +195,14 @@ export const FAKE_DATA_MAPPING: {
     data: {
       label: 'Gaming apps',
       positionDot: Position.Left,
-      handleType: 'target',
-      StatusBox: 'Ready',
-      sourceHandles: [],
-      targetHandles: [
-        {
-          id: '4-t-1',
-        },
-      ],
+      // handleType: 'target',
+      statusBox: 'Ready',
+      // sourceHandles: [],
+      // targetHandles: [
+      //   {
+      //     id: '4-t-1',
+      //   },
+      // ],
       legoParent: {
         background: '#E6004D',
       },
@@ -269,4 +233,3 @@ export const FAKE_DATA_MAPPING: {
     position: { x: 0, y: 0 },
   },
 ];
-
