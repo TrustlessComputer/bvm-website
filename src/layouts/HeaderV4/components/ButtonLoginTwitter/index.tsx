@@ -8,7 +8,7 @@ import { useAppSelector } from '@/stores/hooks';
 import { accountInforSelector } from '@/stores/states/l2services/selector';
 import { useRouter } from 'next/navigation';
 import useL2Service from '@/hooks/useL2Service';
-import { Image } from '@chakra-ui/react';
+import { Image, Skeleton } from '@chakra-ui/react';
 
 type Props = {
   color?: 'black' | 'white';
@@ -39,6 +39,7 @@ const ButtonLoginTwitter = (props: Props) => {
     }
   };
   const [isHover, setIsHover] = useState<boolean>(false);
+
   return (
     <div
       className={`${s.buttonLogin} ${
@@ -65,13 +66,15 @@ const ButtonLoginTwitter = (props: Props) => {
         )}
         <p className={`${loggedIn ? s.text : s.lowercase} text`}>
           {/* {!loggedIn ? 'Connect' : `${accInfor?.addressFormatted || '--'}`}{' '} */}
-          {!loggedIn
-            ? props?.title || 'Sign in'
-            : `${
-                accInfor?.twitterUsername ||
-                accInfor?.email ||
-                accInfor?.tcAddress
-              }`}
+          {!loggedIn ? (
+            props?.title || 'Sign in'
+          ) : (
+            <Skeleton isLoaded={loggedIn}>
+              {accInfor?.twitterUsername ||
+                accInfor?.email?.split('@')?.[0] ||
+                accInfor?.tcAddress}
+            </Skeleton>
+          )}
         </p>
       </div>
       {/* {isHover && loggedIn && (
