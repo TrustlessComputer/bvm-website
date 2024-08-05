@@ -957,7 +957,7 @@ const BuyPage = () => {
                 {/* ------------- RIGHT ------------- */}
                 <div className={s.right}>
                   <div className={s.top_right}>
-                    <AddBoxButton/>
+                    <AddBoxButton setNodes={setNodes}/>
 
                     <div className={s.right_box_footer}>
                       {!needContactUs && (
