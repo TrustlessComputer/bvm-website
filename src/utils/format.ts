@@ -280,7 +280,7 @@ export function calculateTimeAgo(date: any) {
     .replaceAll(' hours', 'h')
     .replaceAll('an hour', '1h')
     .replaceAll(' minutes', 'm')
-    .replaceAll(' minute', 'm')
+    .replaceAll('a minute', '1m')
     .replaceAll(' seconds', 's')
     .replaceAll('a few', '1');
 }
