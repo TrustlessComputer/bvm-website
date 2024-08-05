@@ -1,12 +1,5 @@
-import {
-  DndContext,
-  DragEndEvent,
-  DragStartEvent,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core';
+import { DndContext, DragEndEvent, DragStartEvent, useSensor, useSensors } from '@dnd-kit/core';
 import cn from 'classnames';
-import Image from 'next/image';
 import React from 'react';
 
 import DragMask from './components/DragMask';
@@ -16,19 +9,9 @@ import RightDroppable from './components/RightDroppable';
 import Sidebar from './components/Sidebar';
 import { FieldKeyPrefix } from './contants';
 import { dappMockupData } from './mockup_3';
-import {
-  draggedIds2DSignal,
-  idBlockErrorSignal,
-  templateIds2DSignal,
-} from './signals/useDragSignal';
-import {
-  formDappSignal,
-  formTemplateDappSignal,
-} from './signals/useFormDappsSignal';
-import useDappsStore, {
-  subScribeDropEnd,
-  useTemplateFormStore,
-} from './stores/useDappStore';
+import { draggedIds2DSignal, idBlockErrorSignal, templateIds2DSignal } from './signals/useDragSignal';
+import { formDappSignal, formTemplateDappSignal } from './signals/useFormDappsSignal';
+import useDappsStore, { subScribeDropEnd, useTemplateFormStore } from './stores/useDappStore';
 import {
   cloneDeep,
   DragUtil,
@@ -51,9 +34,7 @@ import styles from './styles.module.scss';
 import { DappType } from './types';
 import { IAirdrop } from '@/services/api/dapp/airdrop/interface';
 import { parseAirdrop } from './parseUtils/airdrop';
-import { Button, Flex } from '@chakra-ui/react';
-import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
-import { TABS } from '@/modules/blockchains/Buy/constants';
+import { Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import { isProduction } from '@/config';
 import { DappModel, FieldModel } from '@/types/customize-model';
