@@ -67,7 +67,6 @@ const BuyPage = () => {
 
   const { idDragging, setIdDragging, rightDragging, setRightDragging } =
     useDragMask();
-  // const [draggedFields, setDraggedFields] = React.useState<string[]>([]);
   const searchParams = useSearchParams();
   const refTime = useRef<NodeJS.Timeout>();
   const [showShadow, setShowShadow] = useState<string>('');
@@ -961,7 +960,7 @@ const BuyPage = () => {
                 {/* ------------- RIGHT ------------- */}
                 <div className={s.right}>
                   <div className={s.top_right}>
-                    <AddBoxButton/>
+                    <AddBoxButton />
 
                     <div className={s.right_box_footer}>
                       {!needContactUs && (
@@ -985,7 +984,6 @@ const BuyPage = () => {
                       )}
 
                       <LaunchButton data={data} originalData={originalData} />
-
                     </div>
                   </div>
 
@@ -1000,9 +998,14 @@ const BuyPage = () => {
                         <ReactFlow
                           nodes={nodes}
                           nodeTypes={{ customBox: CustomNode }}
-                          // onNodesChange={onNodesChange}
+                          onNodesChange={onNodesChange}
                           fitView
-                          draggable={false}
+                          // draggable={false}
+                          defaultViewport={{
+                            x: 0,
+                            y: 0,
+                            zoom: 1,
+                          }}
                         />
                       </ReactFlowProvider>
                     </div>
