@@ -50,7 +50,7 @@
 }
 
 .left {
-  width: 48%;
+  width: 35%;
 }
 
 .heading {
@@ -73,7 +73,13 @@
 }
 
 .right {
-  width: 52%;
+  //width: 52%;
+  width: 100%;
+  :global {
+    .react-flow__panel {
+      display: none !important;
+    }
+  }
 
   &_top {
     display: flex;
