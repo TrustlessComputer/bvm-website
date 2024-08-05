@@ -35,7 +35,7 @@ const MainLayout = ({
 
   return (
     <div style={{ backgroundColor: bodyColor }}>
-      {isHeaderCustom && <HeaderCustom />}
+      {/*{isHeaderCustom && <HeaderCustom />}*/}
       {!hideHeader && !isHeaderCustom && <HeaderV4 {...headerProps} />}
       {children}
       {!hideFooter && <Footer className={footerClassName} />}

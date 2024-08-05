@@ -99,12 +99,12 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isNewWindow: false,
     isHide: false,
   },
-  {
-    label: 'Bitcoin Rollups',
-    href: '/bitcoin-rollups',
-    isNewWindow: false,
-    isHide: false,
-  },
+  // {
+  //   label: 'Bitcoin Rollups',
+  //   href: '/bitcoin-rollups',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
   // {
   //   label: 'Customers',
   //   href: '/customers',
