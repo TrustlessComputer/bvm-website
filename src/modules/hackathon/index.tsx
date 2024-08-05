@@ -25,6 +25,7 @@ import s from './HackathonModue.module.scss';
 import LeaderboardSection from './LeaderboardSection';
 import RegisterModal, { REGISTER_MODAL } from './Register/Modal';
 import CompetitionTimer from './CompetitionTimer';
+import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 
 type Props = {};
 
@@ -87,6 +88,7 @@ const TimeCounter = () => {
 const HackathonModule = (props: Props) => {
   const { loggedIn, login, logout, userInfo, wallet } = useWeb3Auth();
   const dispatch = useDispatch();
+  const { tracking } = useL2ServiceTracking();
 
   const [peopleSubmitted, setPeopleSubmitted] = useState<number | null>(null);
   const [isRegistered, setIsRegistered] = useState(false);
@@ -241,9 +243,10 @@ const HackathonModule = (props: Props) => {
               {/* <ButtonConnected title="Let's practice" className={s.reward_btn}> */}
               <button
                 className={cn(s.reward_btn)}
-                onClick={
-                  loggedIn ? handleClickPractice : handleOpenRegisterModal
-                }
+                onClick={() => {
+                  loggedIn ? handleClickPractice() : handleOpenRegisterModal();
+                  tracking('POC_CLICK_PRACTICE');
+                }}
                 // onClick={handleClickPractice}
                 // disabled={isRegistered}
               >
@@ -257,6 +260,7 @@ const HackathonModule = (props: Props) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={s.tele_link}
+                  onClick={() => tracking('POC_CLICK_JOIN_COMMUNITY')}
                 >
                   Join the PoC community
                 </a>

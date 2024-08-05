@@ -10,9 +10,12 @@ import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import ExportPrivateKey, {
   EXPORT_PRIVATE_KEY_MODAL_ID,
 } from './ExportPrivateKey';
+import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 
 export default function ConnectedWallets() {
   const { login, wallet } = useWeb3Auth();
+
+  const { tracking } = useL2ServiceTracking();
 
   const dispatch = useDispatch();
   const addNetworkHandler = () => {
@@ -43,7 +46,9 @@ export default function ConnectedWallets() {
     } else {
       login();
     }
+    tracking('POC_EXPORT_PRIVATE_KEY');
   };
+
   return (
     <div
       style={{
