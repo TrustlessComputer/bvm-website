@@ -128,24 +128,24 @@ const RightDroppableV2 = () => {
       </div>
 
       <div className={styles.resetButton}>
-        <Button element="button" type="button" onClick={() => handleReset()}>
-          EXPORT{' '}
-          <Image
-            src="/icons/ic_image_2.svg"
-            alt="ic_image_2"
-            width={20}
-            height={20}
-          />
-        </Button>
-        <Button element="button" type="button" onClick={() => handleReset()}>
-          SHARE{' '}
-          <Image
-            src="/icons/ic_x_v2.svg"
-            alt="twitter"
-            width={20}
-            height={20}
-          />
-        </Button>
+        {/*<Button element="button" type="button" onClick={() => handleReset()}>*/}
+        {/*  EXPORT{' '}*/}
+        {/*  <Image*/}
+        {/*    src="/icons/ic_image_2.svg"*/}
+        {/*    alt="ic_image_2"*/}
+        {/*    width={20}*/}
+        {/*    height={20}*/}
+        {/*  />*/}
+        {/*</Button>*/}
+        {/*<Button element="button" type="button" onClick={() => handleReset()}>*/}
+        {/*  SHARE{' '}*/}
+        {/*  <Image*/}
+        {/*    src="/icons/ic_x_v2.svg"*/}
+        {/*    alt="twitter"*/}
+        {/*    width={20}*/}
+        {/*    height={20}*/}
+        {/*  />*/}
+        {/*</Button>*/}
         <Button element="button" type="button" onClick={() => handleReset()}>
           RESET{' '}
           <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
