@@ -3,51 +3,22 @@ import { useSignalEffect } from '@preact/signals-react';
 import Image from 'next/image';
 
 import Droppable from '../Droppable';
-import Draggable from '../Draggable';
-import DateTimeInput from '../DateTimeInput';
-import Lego from '../Lego';
-import LegoParent from '../LegoParent';
-import Input from '../Input';
-import Dropdown from '../Dropdown';
-import ExtendsInput from '../ExtendsInput';
 import Button from '../Button';
-import Label from '../Label';
-import { FieldKeyPrefix } from '../../contants';
-import { FieldOption } from '../../types';
-import {
-  adjustBrightness,
-  cloneDeep,
-  DragUtil,
-  isTwoObjectEqual,
-} from '../../utils';
-import {
-  subScribeDropEnd,
-  useTemplateFormStore,
-} from '../../stores/useDappStore';
-import {
-  draggedIds2DSignal,
-  templateIds2DSignal,
-} from '../../signals/useDragSignal';
+import DraggedItems from './DraggedItems';
+import FetchedItems from './FetchedItems';
+import { subScribeDropEnd } from '../../stores/useDappStore';
+import { draggedIds2DSignal } from '../../signals/useDragSignal';
 import { formDappSignal } from '../../signals/useFormDappsSignal';
 import { useThisDapp } from '../../hooks/useThisDapp';
 
-import BottomButton from '@/modules/blockchains/dapp/components/BottomButton';
-import { DappModel, FieldModel } from '@/types/customize-model';
+import { DappModel } from '@/types/customize-model';
+import { useChainInfor } from '@/modules/blockchains/detail_v3/hook/useChainInfor';
 
 import styles from './styles.module.scss';
-import DraggedItems from './DraggedItems';
-import FlowMapping from '@/modules/blockchains/dapp/components/RightDroppable_v2/components/FlowMapping';
-import FetchedItems from './FetchedItems';
 
 const RightDroppableV2 = () => {
-  const {
-    thisDapp,
-    blockFieldMapping,
-    baseModuleFieldMapping,
-    moduleFieldMapping,
-    singleFieldMapping,
-  } = useThisDapp();
-  // const chain = useChainInfor('6673a86fb7a831e3dd931465');
+  const { thisDapp } = useThisDapp();
+  const chain = useChainInfor('6673a86fb7a831e3dd931465');
 
   const refContainer = React.useRef<HTMLDivElement>(null);
   const refWrap = React.useRef<HTMLDivElement>(null);
@@ -79,77 +50,93 @@ const RightDroppableV2 = () => {
 
   if (!thisDapp) return null;
 
-  // return (
-  //   <div className={styles.wrapRight} ref={refContainer}>
-  //     <div className={styles.wrapRight_inner} ref={refWrap}>
-  //       <Droppable
-  //         id="output"
-  //         style={{
-  //           position: 'relative',
-  //           width: '100%',
-  //           height: '100%',
-  //         }}
-  //       >
-  //         <div
-  //           style={{
-  //             width: '100%',
-  //             height: '100%',
-  //             display: 'flex',
-  //             justifyContent: 'center',
-  //             flexDirection: 'column',
-  //             transform: 'translateX(35%)',
-  //           }}
-  //         >
-  //           <DraggedItems />
-  //           <FetchedItems />
-  //         </div>
-  //       </Droppable>
-  //     </div>
-  //
-  //     <Button
-  //       element="button"
-  //       type="button"
-  //       onClick={() => handleReset()}
-  //       className={styles.resetButton}
-  //     >
-  //       RESET <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
-  //     </Button>
-  //   </div>
-  // );
-
   return (
-    <div className={styles.wrapRight}>
-      <div className={styles.wrapRight_inner}>
-        <FlowMapping />
+    <div className={styles.wrapRight} ref={refContainer}>
+      <div className={styles.wrapRight_inner} ref={refWrap}>
+        <Droppable
+          id="output"
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: '100%',
+          }}
+        >
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              transform: 'translateX(35%)',
+            }}
+          >
+            <DraggedItems />
+            <FetchedItems />
+          </div>
+        </Droppable>
       </div>
+
       <div className={styles.resetButton}>
-        <Button
-          element="button"
-          type="button"
-          onClick={() => handleReset()}
-
-        >
-          EXPORT <Image src="/icons/ic_image_2.svg" alt="ic_image_2" width={20} height={20} />
+        <Button element="button" type="button" onClick={() => handleReset()}>
+          EXPORT{' '}
+          <Image
+            src="/icons/ic_image_2.svg"
+            alt="ic_image_2"
+            width={20}
+            height={20}
+          />
         </Button>
-        <Button
-          element="button"
-          type="button"
-          onClick={() => handleReset()}
-
-        >
-          SHARE <Image src="/icons/ic_x_v2.svg" alt="twitter" width={20} height={20} />
+        <Button element="button" type="button" onClick={() => handleReset()}>
+          SHARE{' '}
+          <Image
+            src="/icons/ic_x_v2.svg"
+            alt="twitter"
+            width={20}
+            height={20}
+          />
         </Button>
-        <Button
-          element="button"
-          type="button"
-          onClick={() => handleReset()}
-          // className={styles.resetButton}
-        >
-          RESET <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
+        <Button element="button" type="button" onClick={() => handleReset()}>
+          RESET{' '}
+          <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
         </Button>
       </div>
     </div>
-  )
+  );
+
+  // return (
+  //   <div className={styles.wrapRight}>
+  //     <div className={styles.wrapRight_inner}>
+  //       <FlowMapping />
+  //     </div>
+  //     <div className={styles.resetButton}>
+  //       <Button
+  //         element="button"
+  //         type="button"
+  //         onClick={() => handleReset()}
+
+  //       >
+  //         EXPORT <Image src="/icons/ic_image_2.svg" alt="ic_image_2" width={20} height={20} />
+  //       </Button>
+  //       <Button
+  //         element="button"
+  //         type="button"
+  //         onClick={() => handleReset()}
+
+  //       >
+  //         SHARE <Image src="/icons/ic_x_v2.svg" alt="twitter" width={20} height={20} />
+  //       </Button>
+  //       <Button
+  //         element="button"
+  //         type="button"
+  //         onClick={() => handleReset()}
+  //         // className={styles.resetButton}
+  //       >
+  //         RESET <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
+  //       </Button>
+  //     </div>
+  //   </div>
+  // )
 };
 
 export default RightDroppableV2;
