@@ -85,7 +85,7 @@ const Lego = (props: Props) => {
       legoRef.current.style.zIndex = `${zIndex}`;
       legoRef.current.style.position = 'relative';
     }
-  }, [legoRef.current]);
+  }, [legoRef.current, zIndex]);
 
   const testDragging = (e) => {
     legoDragging.value = e.target.innerHTML;
