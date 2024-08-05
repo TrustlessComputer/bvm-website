@@ -7,10 +7,9 @@ import dayjs from 'dayjs';
 
 type Props = {};
 
-const START_TIME = '2024-08-08T10:00:00Z';
+const START_TIME = '2024-08-29T10:00:00Z';
 
-const END_TIME = '2024-08-15T10:00:00Z';
-
+const END_TIME = '2024-09-20T10:00:00Z';
 const CompetitionTimer = (props: Props) => {
   const startTime = useCountdown(START_TIME);
 
