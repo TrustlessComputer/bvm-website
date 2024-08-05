@@ -56,6 +56,7 @@ import RightDroppableV2 from '@/modules/blockchains/dapp/components/RightDroppab
 import { getModelCategories, getTemplates } from '@/services/customize-model';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import styles from './styles.module.scss';
+import LeftDroppableV2 from './components/LeftDroppableV2';
 
 const RollupsDappPage = () => {
   const { l2ServiceUserAddress } = useWeb3Auth();
@@ -894,7 +895,7 @@ const RollupsDappPage = () => {
             className={styles.container__content__droppable}
             id="left-droppable"
           >
-            <LeftDroppable />
+            <LeftDroppableV2 />
           </div>
 
           <DragMask />
