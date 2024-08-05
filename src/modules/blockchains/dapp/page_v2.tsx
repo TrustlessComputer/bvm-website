@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 import DragMask from './components/DragMask';
 import LaunchButton from './components/LaunchButton';
 import LeftDroppable from './components/LeftDroppable';
-import Sidebar from './components/Sidebar';
+import SidebarV2 from './components/SidebarV2';
 import { FieldKeyPrefix } from './contants';
 import { dappMockupData } from './mockup_3';
 import {
@@ -889,7 +889,7 @@ const RollupsDappPage = () => {
           onDragEnd={handleDragEnd}
         >
           <div className={styles.container__content__sidebar}>
-            <Sidebar />
+            <SidebarV2 />
           </div>
           <div
             className={styles.container__content__droppable}

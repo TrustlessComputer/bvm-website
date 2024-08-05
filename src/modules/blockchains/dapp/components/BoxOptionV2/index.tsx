@@ -10,7 +10,6 @@ import styles from './styles.module.scss';
 type Props = {};
 
 const BoxOptionV2 = ({}: Props) => {
-  const { thisDapp } = useThisDapp();
   const { modelCategories } = useChainStore();
 
   console.log(
@@ -22,7 +21,7 @@ const BoxOptionV2 = ({}: Props) => {
     <div className={styles.container__body}>
       {modelCategories.map((category) => {
         return (
-          <div className={styles.container}>
+          <div className={styles.container} key={category.key}>
             <div className={styles.container__header}>{category.title}</div>
 
             <div className={styles.container__body__item}>
@@ -36,7 +35,6 @@ const BoxOptionV2 = ({}: Props) => {
                         title: option.title,
                         icon: option.icon,
                         background: category.color,
-                        keyDapp: thisDapp.key,
                       }}
                     >
                       <Lego
