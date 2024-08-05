@@ -106,8 +106,6 @@ const L2Rollup = () => {
         }))
         await sleep(0.1)
       }
-
-      console.log('SANG TEST: ', sortedRef.current);
       setData(data)
     } catch (error) {
     } finally {
