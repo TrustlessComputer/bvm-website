@@ -11,14 +11,14 @@ const metadataThumbnail = `/images/poc/metadata-2024-08-05-2x.jpg`; // TODO: Upd
 
 const metadataDesc = `
 Proof of Code by BVM: The Weekly Crypto Coding Competition
-
 Compete for a chance to win a share of the $500 weekly prize pool, starting with Solidity problems
-
 Register now to sharpen your coding abilities, connect with a community of like-minded developers, and prove that you are the best!
 `;
 
 export const metadata = {
-  title: 'PoC',
+  title: {
+    absolute: 'PoC | The weekly crypto coding competition',
+  },
   description: metadataDesc,
 
   icons: {
