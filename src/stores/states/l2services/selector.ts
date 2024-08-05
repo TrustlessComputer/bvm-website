@@ -74,6 +74,14 @@ const myOrderListWithNetworkSelector = createSelector(
       }
     });
 
+    result.mainnetOrderList = [...result.mainnetOrderList].sort(
+      (a, b) => a.index - b.index,
+    );
+
+    result.testnetOrderList = [...result.testnetOrderList].sort(
+      (a, b) => a.index - b.index,
+    );
+
     return result;
   },
 );
