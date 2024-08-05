@@ -272,3 +272,15 @@ export const formatAddressOrName = (name: string, length = 12): string => {
     return name?.length > length ? name.substring(0, length) + '...' : name;
   }
 };
+
+export function calculateTimeAgo(date: any) {
+  return moment(date)
+    .fromNow()
+    .replaceAll(' days', 'd')
+    .replaceAll(' hours', 'h')
+    .replaceAll('an hour', '1h')
+    .replaceAll(' minutes', 'm')
+    .replaceAll('a minute', '1m')
+    .replaceAll(' seconds', 's')
+    .replaceAll('a few', '1');
+}
