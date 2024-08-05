@@ -12,7 +12,11 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
       'Mobile',
       'L2',
       'Optimistic Rollup',
-    ]
+    ],
+    link: {
+      url: 'https://eternalai.org/',
+      target: '_blank'
+    }
   },
   {
     image: '/explore/dapp2.png',
@@ -24,7 +28,8 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
       'Mobile',
       'L3',
       'ZK Rollup',
-    ]
+    ],
+    link: {url: '/bitcoin-wars', target: '' }
   },
   {
     image: '/explore/dapp3.png',
@@ -36,7 +41,11 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
       'Web',
       'L2',
       'Optimistic Rollup',
-    ]
+    ],
+    link: {
+      url: 'https://runechain.com/',
+      target: '_blank'
+    }
   },
   {
     image: '/explore/dapp4.png',
@@ -48,7 +57,11 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
       'Mobile',
       'L2',
       'Optimistic Rollup',
-    ]
+    ],
+    link: {
+      url: 'https://nakachain.xyz/',
+      target: '_blank'
+    }
   },
 ]
 
