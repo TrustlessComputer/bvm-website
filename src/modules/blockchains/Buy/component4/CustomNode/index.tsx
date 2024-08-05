@@ -43,6 +43,9 @@ export default function CustomNode({
   isConnectable,
 }: NodeProps<DataNode>) {
   const { draggedFields } = useDragStore();
+
+  console.log('🚀 -> file: index.tsx:47 -> draggedFields ::', draggedFields);
+
   const { parsedCategories } = useModelCategoriesStore();
   const { field } = useOrderFormStoreV3();
 
@@ -91,6 +94,7 @@ export default function CustomNode({
 
         {data.isChain && (
           <DroppableV2
+            key={draggedFields.length}
             id="final"
             className={s.finalResult}
             style={{

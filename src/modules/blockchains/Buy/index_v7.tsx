@@ -270,6 +270,7 @@ const BuyPage = () => {
       (item) => !templateData.find((temp) => temp.key === item.key),
     );
 
+    const _draggedFields: string[] = [];
     templateData.forEach((_field) => {
       if (_field.multiChoice) {
         setField(
@@ -285,9 +286,10 @@ const BuyPage = () => {
         );
       }
 
-      // setDraggedFields((prev) => [...prev, _field.key]);
-      setDraggedFields([...draggedFields, _field.key]);
+      _draggedFields.push(_field.key);
     });
+    setDraggedFields(_draggedFields);
+
     fieldsNotInTemplate?.forEach((field) => {
       setField(field.key, null, false);
     });
@@ -300,6 +302,7 @@ const BuyPage = () => {
       (item) => !templateData.find((temp) => temp.key === item.key),
     );
 
+    const _draggedFields: string[] = [];
     templateData.forEach((_field) => {
       if (_field.multiChoice) {
         setField(
@@ -315,9 +318,10 @@ const BuyPage = () => {
         );
       }
 
-      // setDraggedFields((prev) => [...prev, _field.key]);
-      setDraggedFields([...draggedFields, _field.key]);
+      _draggedFields.push(_field.key);
     });
+    setDraggedFields(_draggedFields);
+
     fieldsNotInTemplate?.forEach((field) => {
       setField(field.key, null, false);
     });
@@ -996,8 +1000,9 @@ const BuyPage = () => {
                         <ReactFlow
                           nodes={nodes}
                           nodeTypes={{ customBox: CustomNode }}
-                          onNodesChange={onNodesChange}
+                          // onNodesChange={onNodesChange}
                           fitView
+                          draggable={false}
                         />
                       </ReactFlowProvider>
                     </div>
