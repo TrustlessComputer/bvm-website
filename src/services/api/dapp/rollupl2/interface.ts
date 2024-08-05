@@ -1,6 +1,7 @@
 export interface IRollupL2Info {
   name: string;
   block_number: number;
+  block_time: string;
   tps: number;
   mgas: number;
   kbs: number;

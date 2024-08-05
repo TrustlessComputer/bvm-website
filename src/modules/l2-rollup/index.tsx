@@ -7,7 +7,7 @@ import { MIN_DECIMAL } from '@/constants/constants';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import CRollupL2API from '@/services/api/dapp/rollupl2';
 import { IRollupL2Info } from '@/services/api/dapp/rollupl2/interface';
-import { formatCurrency } from '@/utils/format';
+import { calculateTimeAgo, formatCurrency } from '@/utils/format';
 import { compareString } from '@/utils/string';
 import {
   Box,
@@ -21,6 +21,7 @@ import {
   PopoverTrigger,
   Button,
 } from '@chakra-ui/react';
+import moment from 'moment';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 
@@ -61,7 +62,7 @@ const L2Rollup = () => {
   const fetchData = async () => {
     try {
       const res = await rollupL2Api.getRollupL2Info();
-      setData(res);
+      setData(res.sort((a, b) => b?.mgas - a?.mgas));
     } catch (error) {
     } finally {
       hasIncrementedPageRef.current = false;
@@ -457,6 +458,36 @@ const L2Rollup = () => {
           );
         },
       },
+      {
+        id: 'last_block',
+        label: (
+          <Flex
+            style={{
+              alignSelf: 'center',
+              width: '100%',
+            }}
+          >
+            Last block
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: IRollupL2Info) {
+          return (
+            <Flex alignItems={'center'} width={'100%'}>
+              <Text className={s.title}>
+                {calculateTimeAgo(data.block_time)}
+              </Text>
+            </Flex>
+          );
+        },
+      },
     ];
   }, []);
 
@@ -496,7 +527,7 @@ const L2Rollup = () => {
 
   return (
     <Box className={s.container}>
-      <Flex direction={'column'} w="100%" maxW={'1160px'} alignItems={'center'}>
+      <Flex direction={'column'} w="100%" maxW={'1280px'} alignItems={'center'}>
         <Text fontSize={'20px'} mb={'12px'}>
           Project Heartbeat
         </Text>
