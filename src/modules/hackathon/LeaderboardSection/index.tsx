@@ -15,6 +15,7 @@ import ExportPrivateKey, {
 import { openModal } from '@/stores/states/modal/reducer';
 import { useDispatch } from 'react-redux';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 
 type Props = {
   currentUserContest?: IUserContest;
@@ -26,6 +27,7 @@ const LeaderboardSection = (props: Props) => {
   const [isShowActionPrepare, setIsShowActionPrepare] = useState<boolean>(true);
 
   const { width } = useWindowSize();
+  const { tracking } = useL2ServiceTracking();
 
   const { loggedIn, login, wallet } = useWeb3Auth();
   const dispatch = useDispatch();
@@ -84,9 +86,9 @@ const LeaderboardSection = (props: Props) => {
             <p className={s.title}>Practice Session</p>
             <p className={s.desc}>
               Gear up for the first official Proof-of-Code programming
-              tournament starting on August 8th!<br /> Sharpen your Solidity coding
-              skills and tackle practice problems to boost your chances of
-              winning.
+              tournament starting on August 8th!
+              <br /> Sharpen your Solidity coding skills and tackle practice
+              problems to boost your chances of winning.
             </p>
           </div>
           <Box
@@ -106,7 +108,10 @@ const LeaderboardSection = (props: Props) => {
 
               <Box
                 className={s.warning_closeBtn}
-                onClick={() => setIsShowActionPrepare(false)}
+                onClick={() => {
+                  setIsShowActionPrepare(false);
+                  tracking('POC_CLICK_CLOSE_PREPARE');
+                }}
               >
                 <Image src={'/hackathon/ic-close.svg'} />
               </Box>

@@ -14,6 +14,7 @@ import { Formik } from 'formik';
 
 import { showError, showSuccess } from '@/components/toast';
 import { submitProblem } from '@/services/api/EternalServices';
+import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 
 import { useState } from 'react';
 import s from './styles.module.scss';
@@ -44,6 +45,8 @@ const TOPICS = [
 const SubmitProblem = ({ className }: Props) => {
   const [currentTopic, setCurrentTopic] = useState(TOPICS[0]);
 
+  const { tracking } = useL2ServiceTracking();
+
   const validateForm = (values: FormValues) => {
     const errors: Record<string, string> = {};
 
@@ -68,17 +71,19 @@ const SubmitProblem = ({ className }: Props) => {
       contractAddress: values.contractAddress,
       problemCode: `${currentTopic.id}`,
     });
-
+    tracking('POC_SUBMIT_PROBLEM');
     if (result?.id) {
       showSuccess({
         message: 'Your submission has been sent.',
       });
       resetForm();
+      tracking('POC_SUBMIT_PROBLEM_SUCCESS');
     } else {
       // failed
       showError({
         message: result?.message || 'Submission failed.',
       });
+      tracking('POC_SUBMIT_PROBLEM_FAIL');
     }
     setSubmitting(false);
   };
@@ -125,6 +130,7 @@ const SubmitProblem = ({ className }: Props) => {
                         key={topic.id}
                         onClick={() => {
                           setCurrentTopic(topic);
+                          tracking('POC_SUBMIT_PROBLEM_SELECT_TOPIC');
                         }}
                       >
                         {topic.name}
