@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSignalEffect } from '@preact/signals-react';
 import Image from 'next/image';
 
@@ -15,10 +15,41 @@ import { DappModel } from '@/types/customize-model';
 import { useChainInfor } from '@/modules/blockchains/detail_v3/hook/useChainInfor';
 
 import styles from './styles.module.scss';
+import { applyNodeChanges, NodeChange, ReactFlow, ReactFlowProvider } from '@xyflow/react';
+import CustomNode from 'src/modules/blockchains/Buy/component4/CustomNode';
+import { NodeBase } from '@xyflow/system';
+import { FAKE_DATA_MAPPING } from '@/modules/blockchains/Buy/data';
+
+// const initialNodes: NodeBase[] = FAKE_DATA_MAPPING.map((box) => {
+//   return {
+//     ...box,
+//     type: 'customBox',
+//   };
+// });
 
 const RightDroppableV2 = () => {
   const { thisDapp } = useThisDapp();
   const chain = useChainInfor('6673a86fb7a831e3dd931465');
+  const [nodes, setNodes] = useState<NodeBase[]>([]);
+
+  React.useEffect(() => {
+
+    const newData = {
+      id: `box-blockchain`,
+      data: {
+        status: 'Running',
+        label: 'Blockchain',
+        chain: chain.chainData,
+        dapp: null,
+      },
+      type: 'customBox',
+      position: { x: 200, y: 200 },
+    }
+
+    setNodes([newData])
+    console.log('newData', newData);
+  }, [chain])
+
 
   const refContainer = React.useRef<HTMLDivElement>(null);
   const refWrap = React.useRef<HTMLDivElement>(null);
@@ -48,33 +79,52 @@ const RightDroppableV2 = () => {
     }, 150);
   });
 
+  const onNodesChange = useCallback(
+    (changes: NodeChange[]) =>
+      setNodes((nds) => applyNodeChanges(changes, nds)),
+    [setNodes],
+  );
+
   if (!thisDapp) return null;
 
   return (
     <div className={styles.wrapRight} ref={refContainer}>
       <div className={styles.wrapRight_inner} ref={refWrap}>
-        <Droppable
-          id="output"
-          style={{
-            position: 'relative',
-            width: '100%',
-            height: '100%',
-          }}
-        >
-          <div
+        <ReactFlowProvider>
+          <ReactFlow
+
+            nodes={nodes}
+            // edges={edges}
+            // edgeTypes={{ 'custom-edge': CustomEdge }}
+            nodeTypes={{ customBox: CustomNode }}
+            onNodesChange={onNodesChange}
+            // onEdgesChange={onEdgesChange}
+            fitView
+          />
+          <Droppable
+            id="output"
             style={{
+              position: 'relative',
               width: '100%',
               height: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              transform: 'translateX(35%)',
             }}
           >
-            <DraggedItems />
-            <FetchedItems />
-          </div>
-        </Droppable>
+            <div
+              style={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                transform: 'translateX(35%)',
+              }}
+            >
+              <DraggedItems />
+              <FetchedItems />
+            </div>
+          </Droppable>
+        </ReactFlowProvider>
+
       </div>
 
       <div className={styles.resetButton}>

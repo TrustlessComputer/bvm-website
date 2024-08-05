@@ -29,6 +29,9 @@ import { TABS } from './constants';
 import ExplorePage from './Explore';
 import { mockupOptions } from './Buy.data';
 import { IModelCategory } from '@/types/customize-model';
+import styles from '@/modules/blockchains/dapp/components/RightDroppable_v2/styles.module.scss';
+import Button from '@/modules/blockchains/dapp/components/Button';
+import Image from 'next/image';
 
 const BuyPage = () => {
   const router = useRouter();
@@ -721,9 +724,9 @@ const BuyPage = () => {
                                 let suffix =
                                   Math.abs(_price) > 0
                                     ? ` (${formatCurrencyV2({
-                                        amount: _price,
-                                        decimals: 0,
-                                      })} BVM)`
+                                      amount: _price,
+                                      decimals: 0,
+                                    })} BVM)`
                                     : '';
 
                                 _price = option.priceBVM - currentPrice;
@@ -732,9 +735,9 @@ const BuyPage = () => {
                                 suffix =
                                   Math.abs(_price) > 0
                                     ? ` (${operator}${formatCurrencyV2({
-                                        amount: Math.abs(_price),
-                                        decimals: 0,
-                                      })} BVM)`
+                                      amount: Math.abs(_price),
+                                      decimals: 0,
+                                    })} BVM)`
                                     : '';
 
                                 if (
@@ -749,13 +752,13 @@ const BuyPage = () => {
                                     option.supportLayer &&
                                     option.supportLayer !== 'both' &&
                                     option.supportLayer !==
-                                      field['layers']?.value
+                                    field['layers']?.value
                                   ) ||
                                   !!(
                                     option.supportNetwork &&
                                     option.supportNetwork !== 'both' &&
                                     option.supportNetwork !==
-                                      field['network']?.value
+                                    field['network']?.value
                                   ) ||
                                   !option.selectable;
 
@@ -1229,6 +1232,31 @@ const BuyPage = () => {
           </button>
         </div>
       </ErrorModal>
+
+      {/*<div className={styles.resetButton}>*/}
+      {/*  <Button element="button" type="button" onClick={() => handleReset()}>*/}
+      {/*    EXPORT{' '}*/}
+      {/*    <Image*/}
+      {/*      src="/icons/ic_image_2.svg"*/}
+      {/*      alt="ic_image_2"*/}
+      {/*      width={20}*/}
+      {/*      height={20}*/}
+      {/*    />*/}
+      {/*  </Button>*/}
+      {/*  <Button element="button" type="button" onClick={() => handleReset()}>*/}
+      {/*    SHARE{' '}*/}
+      {/*    <Image*/}
+      {/*      src="/icons/ic_x_v2.svg"*/}
+      {/*      alt="twitter"*/}
+      {/*      width={20}*/}
+      {/*      height={20}*/}
+      {/*    />*/}
+      {/*  </Button>*/}
+      {/*  <Button element="button" type="button" onClick={() => handleReset()}>*/}
+      {/*    RESET{' '}*/}
+      {/*    <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />*/}
+      {/*  </Button>*/}
+      {/*</div>*/}
     </div>
   );
 };
