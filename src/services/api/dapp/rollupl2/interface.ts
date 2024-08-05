@@ -12,4 +12,5 @@ export interface IRollupL2Info {
   explorer: string;
   provider: string;
   tvl_btc: string;
+  index: number;
 }
