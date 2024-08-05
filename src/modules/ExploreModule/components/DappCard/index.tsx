@@ -2,6 +2,7 @@ import React from 'react';
 import s from './styles.module.scss';
 import Fade from '@interactive/Fade';
 import ImagePlaceholder from '@components/ImagePlaceholder';
+import Link from 'next/link';
 
 export type TDappCardProps = {
   idx: number;
@@ -10,14 +11,19 @@ export type TDappCardProps = {
   image: string;
   bgColor: string;
   tags: string[];
+  link: {
+    url: string;
+    target: string;
+  }
 }
 
 
 export default function DappCard({ idx, ...props }: TDappCardProps): React.JSX.Element {
   console.log('props.bgColor', props.bgColor);
+  const { link } = props;
   return (
     <Fade delayEnter={(.5 + idx / 10)}>
-      <div className={s.wrapperDappCard} style={{ background: props.bgColor }}>
+      <Link href={link.url} target={link.target} className={s.wrapperDappCard} style={{ background: props.bgColor }}>
         <div className={s.wrapperDappCard_image}>
           <ImagePlaceholder src={props.image} alt={'dapp1'} width={448} height={432} />
         </div>
@@ -32,7 +38,7 @@ export default function DappCard({ idx, ...props }: TDappCardProps): React.JSX.E
             }
           </div>
         </div>
-      </div>
+      </Link>
     </Fade>
   );
 }

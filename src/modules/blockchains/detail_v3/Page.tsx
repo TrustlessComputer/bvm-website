@@ -70,6 +70,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
   >(null);
   const [templates, setTemplates] =
     React.useState<Array<IModelCategory> | null>(null);
+  const [notUpdatableKeys, setNotUpdatableKeys] = React.useState<string[]>([]);
 
   const {
     field,
@@ -166,6 +167,20 @@ const MainPage = (props: ChainDetailComponentProps) => {
       _fieldsDragged[overIndex] = temp;
 
       setFieldsDragged(_fieldsDragged);
+
+      return;
+    }
+
+    if (notUpdatableKeys.includes(activeKey)) {
+      toast.error('This field is not updatable', {
+        icon: null,
+        style: {
+          borderColor: 'blue',
+          color: 'blue',
+        },
+        duration: 3000,
+        position: 'bottom-center',
+      });
 
       return;
     }
@@ -349,6 +364,11 @@ const MainPage = (props: ChainDetailComponentProps) => {
     console.log('modelCategories', modelCategories);
     setOriginalData(modelCategories);
     setTemplates(chainDetailData?.selectedOptions || []);
+
+    const notUpdatableKeys = (chainDetailData?.selectedOptions || [])
+      .filter((item) => !item.updatable)
+      .map((item) => item.key);
+    setNotUpdatableKeys(notUpdatableKeys);
     // setTemplates(availableListTemplate);
   };
 
@@ -383,24 +403,26 @@ const MainPage = (props: ChainDetailComponentProps) => {
     data?.forEach((item) => {
       if (item.multiChoice) {
         const currentValues = (field[item.key].value || []) as string[];
+        const newValues = currentValues.filter((value) => {
+          const option = item.options.find((opt) => opt.key === value);
 
-        let newValues: any[] = [];
+          if (!option) return false;
 
-        if (Array.isArray(currentValues))
-          newValues = currentValues?.filter((value) => {
-            const option = item.options.find((opt) => opt.key === value);
+          const isDisabled =
+            !!(
+              option.supportLayer &&
+              option.supportLayer !== 'both' &&
+              option.supportLayer !== field['layers']?.value
+            ) ||
+            !!(
+              option.supportNetwork &&
+              option.supportNetwork !== 'both' &&
+              option.supportNetwork !== field['network']?.value
+            ) ||
+            !option.selectable;
 
-            if (!option) return false;
-
-            const isDisabled =
-              !!(
-                option.supportNetwork &&
-                option.supportNetwork !== 'both' &&
-                option.supportNetwork !== field['network']?.value
-              ) || !option.selectable;
-
-            return !isDisabled;
-          });
+          return !isDisabled;
+        });
 
         if (newValues.length === 0) {
           setField(item.key, null, false);
@@ -413,6 +435,9 @@ const MainPage = (props: ChainDetailComponentProps) => {
 
       const newDefaultValue = item.options.find(
         (option) =>
+          (option.supportLayer === field['layers']?.value ||
+            option.supportLayer === 'both' ||
+            !option.supportLayer) &&
           (option.supportNetwork === field['network']?.value ||
             option.supportNetwork === 'both' ||
             !option.supportNetwork) &&
@@ -422,12 +447,18 @@ const MainPage = (props: ChainDetailComponentProps) => {
       const currentOption = item.options.find(
         (option) => option.key === field[item.key].value,
       );
+
       if (!newDefaultValue) {
         setField(item.key, null, false);
         return;
       }
-      if (!currentOption || !newDefaultValue) return;
+
+      if (!currentOption) return;
+
       if (
+        (currentOption.supportLayer === field['layers']?.value ||
+          currentOption.supportLayer === 'both' ||
+          !currentOption.supportLayer) &&
         (currentOption.supportNetwork === field['network']?.value ||
           currentOption.supportNetwork === 'both' ||
           !currentOption.supportNetwork) &&
@@ -437,7 +468,67 @@ const MainPage = (props: ChainDetailComponentProps) => {
         return;
       setField(item.key, newDefaultValue.key, field[item.key].dragged);
     });
-  }, [field['network']?.value]);
+  }, [field['network']?.value, field['layers']?.value]);
+
+  // React.useEffect(() => {
+  //   data?.forEach((item) => {
+  //     if (item.multiChoice) {
+  //       const currentValues = (field[item.key].value || []) as string[];
+
+  //       let newValues: any[] = [];
+
+  //       if (Array.isArray(currentValues))
+  //         newValues = currentValues?.filter((value) => {
+  //           const option = item.options.find((opt) => opt.key === value);
+
+  //           if (!option) return false;
+
+  //           const isDisabled =
+  //             !!(
+  //               option.supportNetwork &&
+  //               option.supportNetwork !== 'both' &&
+  //               option.supportNetwork !== field['network']?.value
+  //             ) || !option.selectable;
+
+  //           return !isDisabled;
+  //         });
+
+  //       if (newValues.length === 0) {
+  //         setField(item.key, null, false);
+  //         return;
+  //       }
+
+  //       setField(item.key, newValues, field[item.key].dragged);
+  //       return;
+  //     }
+
+  //     const newDefaultValue = item.options.find(
+  //       (option) =>
+  //         (option.supportNetwork === field['network']?.value ||
+  //           option.supportNetwork === 'both' ||
+  //           !option.supportNetwork) &&
+  //         option.selectable &&
+  //         !item.disable,
+  //     );
+  //     const currentOption = item.options.find(
+  //       (option) => option.key === field[item.key].value,
+  //     );
+  //     if (!newDefaultValue) {
+  //       setField(item.key, null, false);
+  //       return;
+  //     }
+  //     if (!currentOption || !newDefaultValue) return;
+  //     if (
+  //       (currentOption.supportNetwork === field['network']?.value ||
+  //         currentOption.supportNetwork === 'both' ||
+  //         !currentOption.supportNetwork) &&
+  //       currentOption.selectable &&
+  //       !item.disable
+  //     )
+  //       return;
+  //     setField(item.key, newDefaultValue.key, field[item.key].dragged);
+  //   });
+  // }, [field['network']?.value]);
 
   React.useEffect(() => {
     initData();
@@ -462,6 +553,8 @@ const MainPage = (props: ChainDetailComponentProps) => {
           if (!currentOption) return 0;
 
           const isDisabled =
+            // prettier-ignore
+            !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
             // prettier-ignore
             !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
             // prettier-ignore
@@ -490,6 +583,8 @@ const MainPage = (props: ChainDetailComponentProps) => {
 
       const isDisabled =
         // prettier-ignore
+        !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
+        // prettier-ignore
         !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
         // prettier-ignore
         (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
@@ -517,6 +612,8 @@ const MainPage = (props: ChainDetailComponentProps) => {
 
           const isDisabled =
             // prettier-ignore
+            !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
+            // prettier-ignore
             !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
             // prettier-ignore
             (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
@@ -543,6 +640,8 @@ const MainPage = (props: ChainDetailComponentProps) => {
       if (!currentOption) return acc;
 
       const isDisabled =
+        // prettier-ignore
+        !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
         // prettier-ignore
         !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
         // prettier-ignore
@@ -594,6 +693,154 @@ const MainPage = (props: ChainDetailComponentProps) => {
       localStorage.setItem('bvm.customize-form', JSON.stringify(dynamicForm));
     }, 100);
   }, [field]);
+
+  // React.useEffect(() => {
+  //   const priceUSD = Object.keys(field).reduce((acc, key) => {
+  //     if (Array.isArray(field[key].value)) {
+  //       const currentOptions = (field[key].value as string[])!.map((value) => {
+  //         const item = data?.find((i) => i.key === key);
+
+  //         if (!item) return 0;
+
+  //         const currentOption = item.options.find(
+  //           (option) => option.key === value,
+  //         );
+
+  //         if (!currentOption) return 0;
+
+  //         const isDisabled =
+  //           // prettier-ignore
+  //           !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
+  //           // prettier-ignore
+  //           (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
+  //           (item.required && !field[item.key].dragged) ||
+  //           item.disable ||
+  //           !currentOption.selectable;
+
+  //         if (isDisabled) return 0;
+
+  //         return currentOption.priceUSD || 0;
+  //       });
+
+  //       return acc + currentOptions.reduce((a, b) => a + b, 0);
+  //     }
+
+  //     const item = data?.find((i) => i.key === key);
+
+  //     if (!item) return acc;
+
+  //     const currentOption = item.options.find(
+  //       (option) => option.key === field[item.key].value,
+  //     );
+
+  //     if (!currentOption) return acc;
+
+  //     const isDisabled =
+  //       // prettier-ignore
+  //       !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
+  //       // prettier-ignore
+  //       (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
+  //       (item.required && !field[item.key].dragged) ||
+  //       item.disable ||
+  //       !currentOption.selectable;
+
+  //     if (isDisabled) return acc;
+
+  //     return acc + (currentOption?.priceUSD || 0);
+  //   }, 0);
+
+  //   const priceBVM = Object.keys(field).reduce((acc, key) => {
+  //     if (Array.isArray(field[key].value)) {
+  //       const currentOptions = (field[key].value as string[])!.map((value) => {
+  //         const item = data?.find((i) => i.key === key);
+
+  //         if (!item) return 0;
+
+  //         const currentOption = item.options.find(
+  //           (option) => option.key === value,
+  //         );
+
+  //         if (!currentOption) return 0;
+
+  //         const isDisabled =
+  //           // prettier-ignore
+  //           !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
+  //           // prettier-ignore
+  //           (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
+  //           (item.required && !field[item.key].dragged) ||
+  //           item.disable ||
+  //           !currentOption.selectable;
+
+  //         if (isDisabled) return 0;
+
+  //         return currentOption.priceBVM || 0;
+  //       });
+
+  //       return acc + currentOptions.reduce((a, b) => a + b, 0);
+  //     }
+
+  //     const item = data?.find((i) => i.key === key);
+
+  //     if (!item) return acc;
+
+  //     const currentOption = item.options.find(
+  //       (option) => option.key === field[item.key].value,
+  //     );
+
+  //     if (!currentOption) return acc;
+
+  //     const isDisabled =
+  //       // prettier-ignore
+  //       !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
+  //       // prettier-ignore
+  //       (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
+  //       (item.required && !field[item.key].dragged) ||
+  //       item.disable ||
+  //       !currentOption.selectable;
+
+  //     if (isDisabled) return acc;
+
+  //     return acc + (currentOption?.priceBVM || 0);
+  //   }, 0);
+
+  //   setPriceBVM(priceBVM);
+  //   setPriceUSD(priceUSD);
+  //   setNeedContactUs(isAnyOptionNeedContactUs());
+
+  //   if (!originalData) return;
+
+  //   // save history of form
+  //   const dynamicForm: any[] = [];
+  //   for (const _field of originalData) {
+  //     if (!field[_field.key].dragged) continue;
+
+  //     if (_field.multiChoice) {
+  //       dynamicForm.push({
+  //         ..._field,
+  //         options: _field.options.filter((opt) =>
+  //           (field[_field.key].value as string[])!.includes(opt.key),
+  //         ),
+  //       });
+  //       continue;
+  //     }
+
+  //     const value = _field.options.find(
+  //       (opt) => opt.key === field[_field.key].value,
+  //     );
+
+  //     const { options: _, ...rest } = _field;
+
+  //     dynamicForm.push({
+  //       ...rest,
+  //       options: [value],
+  //     });
+  //   }
+
+  //   setTimeout(() => {
+  //     if (dynamicForm.length === 0) return;
+  //     localStorage.setItem('bvm.customize-form', JSON.stringify(dynamicForm));
+  //   }, 100);
+  // }, [field]);
 
   useEffect(() => {
     const wrapper = document.getElementById('wrapper-data');
@@ -833,7 +1080,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                               useMask
                               tooltip={item.tooltip}
                               value={option.key}
-                              disabled={!updatable || option.needConfig}
+                              disabled={option.needConfig}
                             >
                               <LegoV3
                                 background={item.color}
@@ -843,7 +1090,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                                 }
                                 icon={item.confuseIcon}
                                 zIndex={item.options.length - opIdx}
-                                disabled={!updatable || option.needConfig}
+                                disabled={option.needConfig}
                               >
                                 <Label
                                   icon={option.icon}
@@ -869,6 +1116,8 @@ const MainPage = (props: ChainDetailComponentProps) => {
                               label={item.title}
                               zIndex={fieldsDragged.length - index - 1}
                               disabled={!updatable}
+                              allowShuffle
+                              updatable={updatable}
                             >
                               {childrenOptions}
                             </LegoParent>
@@ -888,10 +1137,11 @@ const MainPage = (props: ChainDetailComponentProps) => {
                           useMask
                           tooltip={item.tooltip}
                           value={option.key}
-                          disabled={!updatable || option.needConfig}
+                          disabled={option.needConfig}
                         >
                           <DroppableV2 id={item.key + '-right'}>
                             <LegoV3
+                              allowShuffle
                               updatable={updatable}
                               background={item.color}
                               label={item.confuseTitle}
@@ -905,7 +1155,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                                   ? s.activeBlur
                                   : ''
                               }
-                              disabled={!updatable || option.needConfig}
+                              disabled={option.needConfig}
                             >
                               <Label icon={option.icon} title={option.title} />
                             </LegoV3>
