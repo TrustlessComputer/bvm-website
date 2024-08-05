@@ -27,20 +27,11 @@ export type DataNode = Node<
 >;
 
 export default function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
-
-  const handleOnClick = (e: React.MouseEvent<HTMLElement> ) => {
-    e.stopPropagation();
-    alert('Edit');
-  }
-
-  console.log('data.targetHandles', data.targetHandles);
-
   return (
     <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.StatusBox}`])}`}>
       <div className={`${s.wrapperBox_top}  ${cn(s[`borderColor_${data.StatusBox}`])}`}>
         <p className={`${s.wrapperBox_top_heading}`}>
-          {/*{data.label}*/}
-          Issue a token: TOKEN NAME
+          {data.label}
         </p>
         {
           <div className={s.tag}>

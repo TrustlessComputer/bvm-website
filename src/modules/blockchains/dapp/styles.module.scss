@@ -7,7 +7,7 @@
   width: 100%;
   --wrapHeight: calc(100dvh - 240px);
   min-height: var(--wrapHeight); // 104px header and 28px padding
-
+  padding-bottom: 20px;
   > * {
     font-family: var(--font-SFProDisplay);
     font-size: 18px;
@@ -24,7 +24,7 @@
   &__content {
     flex: 1;
     display: grid;
-    grid-template-columns: 160px 0.9fr 1fr;
+    grid-template-columns: 160px 0.6fr 1.3fr;
     gap: 8px;
 
     &__droppable {

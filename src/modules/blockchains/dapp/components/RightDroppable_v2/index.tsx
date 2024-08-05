@@ -79,49 +79,77 @@ const RightDroppableV2 = () => {
 
   if (!thisDapp) return null;
 
-  return (
-    <div className={styles.wrapRight} ref={refContainer}>
-      <div className={styles.wrapRight_inner} ref={refWrap}>
-        <Droppable
-          id="output"
-          style={{
-            position: 'relative',
-            width: '100%',
-            height: '100%',
-          }}
-        >
-          <div
-            style={{
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              transform: 'translateX(35%)',
-            }}
-          >
-            <DraggedItems />
-            <FetchedItems />
-          </div>
-        </Droppable>
-      </div>
-
-      <Button
-        element="button"
-        type="button"
-        onClick={() => handleReset()}
-        className={styles.resetButton}
-      >
-        RESET <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
-      </Button>
-    </div>
-  );
-
-  // <div className={styles.wrapRight}>
-  //   <div className={styles.wrapRight_inner}>
-  //     <FlowMapping />
+  // return (
+  //   <div className={styles.wrapRight} ref={refContainer}>
+  //     <div className={styles.wrapRight_inner} ref={refWrap}>
+  //       <Droppable
+  //         id="output"
+  //         style={{
+  //           position: 'relative',
+  //           width: '100%',
+  //           height: '100%',
+  //         }}
+  //       >
+  //         <div
+  //           style={{
+  //             width: '100%',
+  //             height: '100%',
+  //             display: 'flex',
+  //             justifyContent: 'center',
+  //             flexDirection: 'column',
+  //             transform: 'translateX(35%)',
+  //           }}
+  //         >
+  //           <DraggedItems />
+  //           <FetchedItems />
+  //         </div>
+  //       </Droppable>
+  //     </div>
+  //
+  //     <Button
+  //       element="button"
+  //       type="button"
+  //       onClick={() => handleReset()}
+  //       className={styles.resetButton}
+  //     >
+  //       RESET <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
+  //     </Button>
   //   </div>
-  // </div>;
+  // );
+
+  return (
+    <div className={styles.wrapRight}>
+      <div className={styles.wrapRight_inner}>
+        <FlowMapping />
+      </div>
+      <div className={styles.resetButton}>
+        <Button
+          element="button"
+          type="button"
+          onClick={() => handleReset()}
+
+        >
+          EXPORT <Image src="/icons/ic_image_2.svg" alt="ic_image_2" width={20} height={20} />
+        </Button>
+        <Button
+          element="button"
+          type="button"
+          onClick={() => handleReset()}
+
+        >
+          SHARE <Image src="/icons/ic_x_v2.svg" alt="twitter" width={20} height={20} />
+        </Button>
+        <Button
+          element="button"
+          type="button"
+          onClick={() => handleReset()}
+          // className={styles.resetButton}
+        >
+          RESET <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
+        </Button>
+      </div>
+    </div>
+  )
 };
 
 export default RightDroppableV2;

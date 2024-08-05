@@ -18,9 +18,10 @@
     //margin-bottom: 6px;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
-    padding: 6px 8px 6px 6px;
+    padding: 6px 10px 6px 18px;
     border-bottom: 1px solid;
     &_heading {
+      font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
       font-weight: 600;
       font-size: 14px;
       color: #555;
@@ -134,11 +135,13 @@
     }
     &_Missing {
       color: #FF4747;
+      text-decoration: underline;
     }
     &_Running {
       color: #00AA6C;
     }
     &_Down {
+      text-decoration: underline;
       color: #555555;
     }
   }
