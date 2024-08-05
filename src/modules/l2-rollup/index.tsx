@@ -24,6 +24,13 @@ import {
 import moment from 'moment';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
+import { orderBy } from 'lodash';
+import sleep from '@utils/sleep';
+
+interface ICachedIndex {
+  name: string;
+  index: number
+}
 
 const L2Rollup = () => {
   const { showContactUsModal } = useContactUs();
@@ -32,8 +39,9 @@ const L2Rollup = () => {
 
   const hasIncrementedPageRef = useRef(false);
   const rollupL2Api = new CRollupL2API();
-  const sortedRef = useRef(false)
-  const loading = useRef(false)
+  const sortedRef = useRef(false);
+  const loading = useRef(false);
+  const cachedIndex = useRef<ICachedIndex[]>([])
 
   const total = useMemo(() => {
     const tps = data.reduce((accum, item) => accum + item.tps, 0);
@@ -68,12 +76,37 @@ const L2Rollup = () => {
     try {
       loading.current = true;
       const res = await rollupL2Api.getRollupL2Info();
+      let data: IRollupL2Info[] = [];
       if (sortedRef?.current) {
-        setData(res);
+        data = orderBy(res, [
+            item => compareString(item.name, 'Bitcoin')],
+          ['desc']
+        );
+
+        data = orderBy(
+          res.map((item) => {
+            const index = cachedIndex.current?.findIndex(cachedItem => compareString(item.name, cachedItem.name));
+            return {
+              ...item,
+              index
+            }
+          }),
+          [item => item.index],
+          ['asc'])
       } else {
-        setData(res.sort((a, b) => b?.mgas - a?.mgas));
         sortedRef.current = true;
+        data = orderBy(res, [
+          item => compareString(item.name, 'Bitcoin'),
+          (item) => Number(item.mgas || '0')],
+          ['desc', 'desc']
+        );
+        cachedIndex.current = data.map((item, index) => ({
+          name: item.name,
+          index
+        }))
+        await sleep(0.1)
       }
+      setData(data)
     } catch (error) {
     } finally {
       hasIncrementedPageRef.current = false;
