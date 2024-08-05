@@ -1,16 +1,20 @@
-import { DndContext, DragEndEvent, DragStartEvent, useSensor, useSensors } from '@dnd-kit/core';
+import {
+  DndContext,
+  DragEndEvent,
+  DragStartEvent,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
 import cn from 'classnames';
 import React from 'react';
-
+import { Flex } from '@chakra-ui/react';
+import { useRouter } from 'next/navigation';
 import DragMask from './components/DragMask';
 import LaunchButton from './components/LaunchButton';
 import LeftDroppable from './components/LeftDroppable';
 import Sidebar from './components/Sidebar';
 import { FieldKeyPrefix } from './contants';
 import { dappMockupData } from './mockup_3';
-import { draggedIds2DSignal, idBlockErrorSignal, templateIds2DSignal } from './signals/useDragSignal';
-import { formDappSignal, formTemplateDappSignal } from './signals/useFormDappsSignal';
-import useDappsStore, { subScribeDropEnd, useTemplateFormStore } from './stores/useDappStore';
 import {
   cloneDeep,
   DragUtil,
@@ -20,7 +24,24 @@ import {
   preDataAirdropTask,
   removeItemAtIndex,
 } from './utils';
-
+import { DappType } from './types';
+import {
+  draggedIds2DSignal,
+  idBlockErrorSignal,
+  templateIds2DSignal,
+} from './signals/useDragSignal';
+import {
+  formDappSignal,
+  formTemplateDappSignal,
+} from './signals/useFormDappsSignal';
+import useDappsStore, {
+  subScribeDropEnd,
+  useTemplateFormStore,
+} from './stores/useDappStore';
+import { useThisDapp } from './hooks/useThisDapp';
+import { parseStakingPools } from './parseUtils/staking';
+import { parseAirdrop } from './parseUtils/airdrop';
+import useChainStore from './stores/useChainStore';
 import { showValidateError } from '@/components/toast';
 import { parseIssuedToken } from '@/modules/blockchains/dapp/parseUtils/issue-token';
 import { parseDappModel } from '@/modules/blockchains/utils';
@@ -28,20 +49,19 @@ import { IToken } from '@/services/api/dapp/token_generation/interface';
 import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { compareString } from '@/utils/string';
-import { useThisDapp } from './hooks/useThisDapp';
-import { parseStakingPools } from './parseUtils/staking';
-import styles from './styles.module.scss';
-import { DappType } from './types';
 import { IAirdrop } from '@/services/api/dapp/airdrop/interface';
-import { parseAirdrop } from './parseUtils/airdrop';
-import { Flex } from '@chakra-ui/react';
-import { useRouter } from 'next/navigation';
 import { isProduction } from '@/config';
-import { DappModel, FieldModel } from '@/types/customize-model';
+import { DappModel, FieldModel, IModelCategory } from '@/types/customize-model';
 import RightDroppableV2 from '@/modules/blockchains/dapp/components/RightDroppable_v2';
+import { getModelCategories, getTemplates } from '@/services/customize-model';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import styles from './styles.module.scss';
 
 const RollupsDappPage = () => {
+  const { l2ServiceUserAddress } = useWeb3Auth();
+
   const { setDapps } = useDappsStore();
+  const { setModelCategories, setModelCategoriesTemplate } = useChainStore();
 
   const { templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
@@ -73,7 +93,10 @@ const RollupsDappPage = () => {
     return result;
   };
 
-  const parseAirdropsData = async (_airdrops: IAirdrop[], _tokens: IToken[]) => {
+  const parseAirdropsData = async (
+    _airdrops: IAirdrop[],
+    _tokens: IToken[],
+  ) => {
     const result: DappModel[] = [];
     for (const airdrop of _airdrops) {
       const _token = tokens.find((v) =>
@@ -703,6 +726,22 @@ const RollupsDappPage = () => {
 
     setDapps(_sortedDapps);
   };
+
+  const fetchChain = async () => {
+    const [modelCategories = [], templates = []] = await Promise.all([
+      getModelCategories(l2ServiceUserAddress) as Promise<IModelCategory[]>,
+      getTemplates() as Promise<IModelCategory[][]>,
+    ]);
+
+    const _modelCategories = modelCategories.sort((a, b) => a.order - b.order);
+
+    setModelCategories(_modelCategories);
+    setModelCategoriesTemplate(templates);
+  };
+
+  React.useEffect(() => {
+    fetchChain();
+  }, []);
 
   React.useEffect(() => {
     if (!templateForm) return;

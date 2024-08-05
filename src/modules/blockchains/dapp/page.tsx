@@ -46,7 +46,6 @@ import { IToken } from '@/services/api/dapp/token_generation/interface';
 import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { compareString } from '@/utils/string';
-import { useThisDapp } from './hooks/useThisDapp';
 import { parseStakingPools } from './parseUtils/staking';
 import styles from './styles.module.scss';
 import { DappType } from './types';
@@ -58,6 +57,7 @@ import { TABS } from '@/modules/blockchains/Buy/constants';
 import { useRouter } from 'next/navigation';
 import { isProduction } from '@/config';
 import { DappModel, FieldModel } from '@/types/customize-model';
+import { useThisDapp } from './hooks/useThisDapp';
 
 const RollupsDappPage = () => {
   const { setDapps } = useDappsStore();
@@ -92,7 +92,10 @@ const RollupsDappPage = () => {
     return result;
   };
 
-  const parseAirdropsData = async (_airdrops: IAirdrop[], _tokens: IToken[]) => {
+  const parseAirdropsData = async (
+    _airdrops: IAirdrop[],
+    _tokens: IToken[],
+  ) => {
     const result: DappModel[] = [];
     for (const airdrop of _airdrops) {
       const _token = tokens.find((v) =>
