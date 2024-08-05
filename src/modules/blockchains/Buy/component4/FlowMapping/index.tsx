@@ -15,7 +15,7 @@ import CustomNode from '../CustomNode';
 import { FAKE_DATA_MAPPING } from '../../data';
 import { EdgeBase, NodeBase } from '@xyflow/system';
 import { edges as initialEdges } from '../../edges';
-import useLayoutNodes from '../../useLayoutNodes';
+import useLayoutNodes from '../../../dapp/components/RightDroppable_v2/useLayoutNodes';
 import CustomEdge from '../CustomEdge';
 
 const initialNodes: NodeBase[] = FAKE_DATA_MAPPING.map((box) => {
@@ -49,7 +49,17 @@ export default function FlowMapping(): React.JSX.Element {
   return (
     <div className={s.wrapperMappingFlow}>
       <ReactFlowProvider>
-        <Flow
+        {/*<Flow*/}
+        {/*  nodes={nodes}*/}
+        {/*  // edges={edges}*/}
+        {/*  // edgeTypes={{ 'custom-edge': CustomEdge }}*/}
+        {/*  nodeTypes={{ customBox: CustomNode }}*/}
+        {/*  onNodesChange={onNodesChange}*/}
+        {/*  // onEdgesChange={onEdgesChange}*/}
+        {/*  fitView*/}
+        {/*/>*/}
+        <ReactFlow
+
           nodes={nodes}
           // edges={edges}
           // edgeTypes={{ 'custom-edge': CustomEdge }}

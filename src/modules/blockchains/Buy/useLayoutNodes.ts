@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import ELK from 'elkjs/lib/elk.bundled.js';
 import { type Edge, useNodesInitialized, useReactFlow } from '@xyflow/react';
 
-import { type ElkNode } from './data';
+import { type ElkNode } from '../../../Buy/data';
 
 const layoutOptions = {
   'elk.algorithm': 'layered',

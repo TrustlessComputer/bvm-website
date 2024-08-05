@@ -1,4 +1,4 @@
-import { BlockchainMap } from '@/types/customize-model';
+import { BlockchainMap } from '@types/customize-model';
 import { HandleType, Position } from '@xyflow/react';
 import { type Node } from '@xyflow/react';
 
