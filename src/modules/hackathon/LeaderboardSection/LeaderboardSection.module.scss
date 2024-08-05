@@ -1,27 +1,133 @@
+.header {
+  margin-bottom: 40px;
+
+  .title {
+    color: #fff;
+    font-family: 'JetBrains Mono';
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 16px;
+  }
+
+  .desc {
+    color: #fff;
+    font-family: 'SF Pro Display';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 170%;
+    /* 34px */
+  }
+}
+
+.warning {
+  margin-bottom: 68px;
+  padding: 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(90deg, rgba(255, 128, 8, 0.05) 0%, rgba(255, 200, 55, 0.05) 100%);
+
+  .warning_heading {
+    color: #FFF;
+    font-family: "SF Pro Display";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  &_prepare {
+    color: #FFF;
+    text-align: center;
+    font-family: "SF Pro Display";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    span {
+      opacity: 0.6;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  &_closeBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
+}
+
+.container {
+  padding: 100px 0;
+  margin-top: 80px;
+
+  &.maximized {
+    :global(.problem-panel) {
+      height: auto;
+    }
+  }
+
+  &.minimized {
+    :global(.problem-panel) {
+      height: 503px;
+    }
+
+  }
+
+}
+
 .wrapper {
-    display: flex;
-    gap: 28px;
-    height: 100vh;
-    padding: 120px 0;
+  // display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  // height: 100vh;
+  // display: grid;
+  // grid-template-columns: 1fr 1fr;
 
-    h4 {
-        color: #FFF;
-        font-family: "JetBrains Mono";
-        font-size: 24px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 120%;
-        /* 28.8px */
-        letter-spacing: 0.72px;
-    }
+  &.wrapper__column {
+    flex-direction: column;
+  }
 
+  @include w-max(768px) {
+    flex-direction: column;
+    // padding: 60px 0;
+    gap: 100px;
+  }
 
-    .left {
-        flex: 0.6;
-    }
+  h4 {
+    color: #fff;
+    font-family: 'JetBrains Mono';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+    /* 28.8px */
+    letter-spacing: 0.72px;
+  }
 
-    .right {
-        flex: 0.4;
-    }
+  //   .left {
+  //     flex: 0.5;
+  //   }
+
+  .left {
+    // flex: 0.5;
+  }
+
+  .right {
+    // flex: 0.5;
+  }
 
 }

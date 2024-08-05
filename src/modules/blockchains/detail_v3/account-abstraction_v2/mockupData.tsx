@@ -1,3 +1,5 @@
+import { IModelCategory } from '@/types/customize-model';
+
 export const ACCOUNT_ABSTRACTION_MOCKUP_DATA: IModelCategory[] = [
   {
     id: '668f8ec088f822fe3ebd3477',

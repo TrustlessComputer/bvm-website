@@ -1,5 +1,6 @@
 import { create, StateCreator } from 'zustand';
 import { signal } from '@preact/signals-react';
+import { DappModel, TemplateForm } from '@/types/customize-model';
 
 type UseDappsSlice = {
   currentIndexDapp: number;

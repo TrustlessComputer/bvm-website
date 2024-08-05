@@ -35,7 +35,9 @@ const Item = ({ data }: { data: any }) => {
             >
               {data?.q}
             </Text>
-            <IconPlusToMinus open={open} size={'16px'} color="#000000" />
+            <div className="faq-icon">
+              <IconPlusToMinus open={open} size={'16px'} color="#000000" />
+            </div>
           </Flex>
         </AccordionButton>
         <AccordionPanel px={0} pb={6} style={{ paddingTop: '0' }}>
@@ -51,13 +53,22 @@ const Item = ({ data }: { data: any }) => {
   );
 };
 
-const Section = ({ title, data }: { title?: any; data: any }) => {
+const Section = ({
+  title,
+  data,
+  hideViewAllBtn = false,
+}: {
+  title?: any;
+  data: any;
+  hideViewAllBtn?: boolean;
+}) => {
   const [viewAll, setViewAll] = useState(false);
 
-  const renderData =
-    viewAll || data?.length < 5
-      ? data
-      : [data[0], data[1], data[2], data[3], data[4]];
+  const renderData = hideViewAllBtn
+    ? data
+    : viewAll || data?.length < 5
+    ? data
+    : [data[0], data[1], data[2], data[3], data[4]];
 
   return (
     <Flex direction="column" w={'100%'}>
@@ -76,7 +87,7 @@ const Section = ({ title, data }: { title?: any; data: any }) => {
           <Item key={i} data={e} />
         ))}
       </Flex>
-      {data?.length > 5 && (
+      {!hideViewAllBtn && data?.length > 5 && (
         <Button
           color={'#FFFFFF'}
           mt={4}
@@ -99,12 +110,23 @@ const Section = ({ title, data }: { title?: any; data: any }) => {
   );
 };
 
-const FAQs = ({ data }: { data: any; desc?: any }) => {
+const FAQs = ({
+  data,
+  viewAll = false,
+}: {
+  data: any;
+  desc?: any;
+  viewAll?: boolean;
+}) => {
   return (
     <Flex direction="column" alignItems="center" className="faqs-wrapper">
       {/*<Heading><Flex alignItems={"center"} gap={4}>FAQs</Flex></Heading>*/}
       {/*<Text my={desc ? 8 : 5} maxW='800px' textAlign={['left', 'center']} color='#FFFFFF'>{desc}</Text>*/}
-      {data?.length > 0 ? <Section data={data} /> : <></>}
+      {data?.length > 0 ? (
+        <Section data={data} hideViewAllBtn={viewAll} />
+      ) : (
+        <></>
+      )}
     </Flex>
   );
 };

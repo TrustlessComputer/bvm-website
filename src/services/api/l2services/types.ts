@@ -1,3 +1,5 @@
+import { IModelCategory } from '@/types/customize-model';
+
 export interface IOrderBuyEstimateRespone {
   SetupCode: string;
   OperationCost: string;

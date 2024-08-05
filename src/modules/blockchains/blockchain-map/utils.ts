@@ -5,6 +5,7 @@ import {
 import type { MouseEvent, TouchEvent } from 'react';
 import { FieldOption } from './types';
 import { FieldKeyPrefix } from './contants';
+import { FieldModel } from '@/types/customize-model';
 
 const handler = ({ nativeEvent: event }: MouseEvent | TouchEvent) => {
   let cur = event.target as HTMLElement;

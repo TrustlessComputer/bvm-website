@@ -1,0 +1,42 @@
+.wrapper {
+  // max-width: 50%;
+  // height: 503px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: gray;
+    border-radius: 10px;
+  }
+
+  li {
+    list-style-position: inside;
+  }
+
+  * {
+    white-space: inherit;
+  }
+
+  p {
+    padding-right: 10px;
+  }
+}
+
+.markdown {
+  max-width: inherit;
+
+  * {
+    &::-webkit-scrollbar {
+      width: 2px;
+      height: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: gray;
+      border-radius: 10px;
+    }
+  }
+}

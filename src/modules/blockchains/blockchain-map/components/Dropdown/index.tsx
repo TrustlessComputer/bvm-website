@@ -17,6 +17,7 @@ import {
 
 import styles from './styles.module.scss';
 import { compareString } from '@/utils/string';
+import { FieldModel } from '@/types/customize-model';
 
 type Props = {
   onlyLabel?: boolean;

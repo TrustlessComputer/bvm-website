@@ -4,6 +4,7 @@ import styles from './styles.module.scss';
 import Image from 'next/image';
 import tierData from './data';
 import { useRouter } from 'next/navigation';
+import { IModelCategory } from '@/types/customize-model';
 
 type Props = {
   templates: Array<IModelCategory[]> | null;

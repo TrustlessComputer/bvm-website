@@ -1,24 +1,224 @@
-import React from 'react';
+import React, { useState } from 'react';
 import s from './LeaderboardSection.module.scss';
-import { Box } from '@chakra-ui/react';
+import { Box, Flex, Grid, Image, Text } from '@chakra-ui/react';
 import cn from 'classnames';
 import Leaderboard from './Leaderboard';
+import Problems from '../Problems';
+import { AnimatePresence, motion } from 'framer-motion';
+import { IUserContest } from '@/services/api/EternalServices/types';
+import { useWindowSize } from 'usehooks-ts';
+import SubmitProblem from '@/modules/hackathon/SubmitProblem';
+import CompetitionTimer from '../CompetitionTimer';
+import ExportPrivateKey, {
+  EXPORT_PRIVATE_KEY_MODAL_ID,
+} from '@/modules/hackathon/ConnectedWallets/ExportPrivateKey';
+import { openModal } from '@/stores/states/modal/reducer';
+import { useDispatch } from 'react-redux';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 
-type Props = {};
+type Props = {
+  currentUserContest?: IUserContest;
+};
 
 const LeaderboardSection = (props: Props) => {
+  const [isProblemPanelMaximized, setIsProblemPanelMaximized] = useState(false);
+  const [showLeaderboard, setShowLeaderboard] = useState(true);
+  const [isShowActionPrepare, setIsShowActionPrepare] = useState<boolean>(true);
+
+  const { width } = useWindowSize();
+
+  const { loggedIn, login, wallet } = useWeb3Auth();
+  const dispatch = useDispatch();
+
+  const exportPrivateKeyHandler = () => {
+    if (wallet?.privateKey) {
+      dispatch(
+        openModal({
+          id: EXPORT_PRIVATE_KEY_MODAL_ID,
+          modalProps: {
+            size: 'md',
+          },
+          className: s.modalBody,
+          render: () => <ExportPrivateKey />,
+        }),
+      );
+    } else {
+      login();
+    }
+  };
+
+  const handleClickPractice = () => {
+    // scroll to #practice-section
+    const practiceSection = document.getElementById('practice-section');
+    if (practiceSection) {
+      practiceSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleOpenRegisterModal = () => {
+    if (!loggedIn) {
+      login();
+    }
+  };
+
   return (
     <Box bgColor={'#000'}>
       <div className="containerV3">
-        <div className={cn(s.wrapper)}>
-          <div className={s.left}>
-            <h4>Examp Topic</h4>
+        <Box
+          as={motion.div}
+          className={cn(
+            s.container,
+            {
+              [s.maximized]: isProblemPanelMaximized,
+            },
+            {
+              [s.minimized]: !isProblemPanelMaximized,
+            },
+          )}
+          transitionDelay={'400ms'}
+          transition={'all 0.3s ease'}
+          // maxHeight={isProblemPanelMaximized ? '1000px' : 'unset'}
+          // layout
+        >
+          <div className={s.header}>
+            <p className={s.title}>Practice Session</p>
+            <p className={s.desc}>
+              Gear up for the first official Proof-of-Code programming
+              tournament starting on August 8th!<br /> Sharpen your Solidity coding
+              skills and tackle practice problems to boost your chances of
+              winning.
+            </p>
           </div>
-          <div className={s.right}>
-            <h4>Leaderboard</h4>
-            <Leaderboard />
-          </div>
-        </div>
+          <Box
+            className={s.warning}
+            display={isShowActionPrepare === false ? 'none' : 'block'}
+          >
+            <Flex
+              alignItems={'center'}
+              gap="12px"
+              mb="24px"
+              position="relative"
+            >
+              <Image src={'/hackathon/ic-trophy.svg'} />
+              <Text className={s.warning_heading}>
+                Before you start competing
+              </Text>
+
+              <Box
+                className={s.warning_closeBtn}
+                onClick={() => setIsShowActionPrepare(false)}
+              >
+                <Image src={'/hackathon/ic-close.svg'} />
+              </Box>
+            </Flex>
+            <Flex gap="20px" direction="column">
+              <Flex
+                gap="8px"
+                alignItems="center"
+                className={s.warning_prepare}
+                onClick={
+                  loggedIn ? handleClickPractice : handleOpenRegisterModal
+                }
+              >
+                <span>1.</span> Create an account
+                <Image src="/hackathon/ic-add.svg" alt="add" />
+              </Flex>
+              <Flex gap="8px" className={s.warning_prepare}>
+                <a
+                  href="https://github.com/TrustlessComputer/poc-practice"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>2.</span> Set up your development environment
+                  <Image src="/hackathon/ic-arrow-up.svg" alt="add" />
+                </a>
+              </Flex>
+              <Flex
+                gap="8px"
+                className={s.warning_prepare}
+                onClick={exportPrivateKeyHandler}
+              >
+                <span>3.</span> Back up your private key
+                <Image src="/hackathon/ic-restore.svg" alt="add" />
+              </Flex>
+            </Flex>
+          </Box>
+          <Flex className={cn(s.wrapper)} as={motion.div}>
+            <Box
+              as={motion.div}
+              className={s.left}
+              initial={false}
+              animate={{
+                width:
+                  width <= 768
+                    ? '100%'
+                    : isProblemPanelMaximized
+                    ? '100%'
+                    : '50%',
+                height: 'auto',
+                transition: {
+                  type: 'keyframes',
+                  delay: isProblemPanelMaximized ? 0.4 : 0,
+                  duration: 0.5,
+                },
+              }}
+              onAnimationComplete={() => {
+                if (!isProblemPanelMaximized) {
+                  setShowLeaderboard(true);
+                }
+              }}
+              // exit={{
+              //   width: '50%',
+              // }}
+            >
+              <h4>Problems</h4>
+              <Problems
+                isProblemPanelMaximized={isProblemPanelMaximized}
+                setIsProblemPanelMaximized={setIsProblemPanelMaximized}
+                setShowLeaderboard={setShowLeaderboard}
+              />
+              <Text
+                m="32px 0 20px 0"
+                fontSize="24px"
+                fontWeight="700"
+                fontFamily="JetBrains Mono"
+                letterSpacing="0.72px"
+              >
+                Submit solutions
+              </Text>
+              <SubmitProblem />
+            </Box>
+            <AnimatePresence>
+              {(showLeaderboard || width <= 768) && (
+                <motion.div
+                  key="leaderboard"
+                  className={s.right}
+                  initial={{
+                    y: 100,
+                    opacity: 0,
+                  }}
+                  animate={{
+                    y: 0,
+                    opacity: 1,
+                    transition: {
+                      // delay: 0.1,
+                    },
+                  }}
+                  exit={{
+                    y: 100,
+                    opacity: 0,
+                  }}
+                >
+                  <Flex alignItems={'center'} justifyContent={'space-between'}>
+                    <h4>Leaderboard</h4>
+                    {/* <CompetitionTimer /> */}
+                  </Flex>
+                  <Leaderboard currentUserContest={props.currentUserContest} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </Flex>
+        </Box>
       </div>
     </Box>
   );

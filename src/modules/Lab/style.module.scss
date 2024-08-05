@@ -9,7 +9,7 @@
   --active-color: #86919e;
 
   .container {
-    padding-top: 138px;
+    padding-top: calc(138px + 60px);
     padding-bottom: rem(105px);
     max-width: 1440px;
     margin-left: auto;

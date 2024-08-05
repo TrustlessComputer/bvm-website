@@ -39,6 +39,7 @@ import styles from './styles.module.scss';
 import Image from 'next/image';
 import BottomButton from '@/modules/blockchains/dapp/components/BottomButton';
 import DateTimeInput from '../DateTimeInput';
+import { DappModel, FieldModel } from '@/types/customize-model';
 
 const RightDroppable = () => {
   const {

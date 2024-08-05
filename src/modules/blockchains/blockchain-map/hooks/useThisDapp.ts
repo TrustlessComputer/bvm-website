@@ -1,5 +1,6 @@
 import React from 'react';
 import useDappsStore from '@/modules/blockchains/dapp/stores/useDappStore';
+import { BlockModel } from '@/types/customize-model';
 
 export const useThisDapp = () => {
   const { dapps, currentIndexDapp } = useDappsStore();

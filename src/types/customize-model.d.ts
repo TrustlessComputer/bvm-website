@@ -109,7 +109,7 @@ interface FieldModel {
   icon: string;
   title: string;
   value: string | number;
-  type: 'input' | 'dropdown' | 'extends' | 'group' | 'datetime' | '';
+  type: 'input' | 'dropdown' | 'extends' | 'group' | 'datetime' | 'list' | '';
   tooltip: string;
   options: FieldModel[];
   placeholder?: string;
@@ -117,8 +117,8 @@ interface FieldModel {
   selectable?: boolean;
   background?: string;
   previewTitle?: string;
-  inputType?: 'text' | 'number' | 'file';
-  inputAccept?: 'image/*';
+  inputType?: 'text' | 'number' | 'file',
+  inputAccept?: 'image/*' | '.csv'
   disabled?: boolean;
 }
 
@@ -132,6 +132,7 @@ interface BlockModel {
   section: string;
   preview: boolean;
   background?: string;
+  linkDownloadFile?: string;
 }
 
 interface DappModel {

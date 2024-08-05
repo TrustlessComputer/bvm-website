@@ -9,6 +9,7 @@ import {
 } from '../../signals/useFormDappsSignal';
 
 import s from './styles.module.scss';
+import { FieldModel } from '@/types/customize-model';
 
 type Props = {
   name: string;
