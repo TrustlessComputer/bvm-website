@@ -32,6 +32,8 @@ const L2Rollup = () => {
 
   const hasIncrementedPageRef = useRef(false);
   const rollupL2Api = new CRollupL2API();
+  const sortedRef = useRef(false)
+  const loading = useRef(false)
 
   const total = useMemo(() => {
     const tps = data.reduce((accum, item) => accum + item.tps, 0);
@@ -60,12 +62,22 @@ const L2Rollup = () => {
   }, []);
 
   const fetchData = async () => {
+
+    if (loading.current) return;
+
     try {
+      loading.current = true;
       const res = await rollupL2Api.getRollupL2Info();
-      setData(res.sort((a, b) => b?.mgas - a?.mgas));
+      if (sortedRef?.current) {
+        setData(res);
+      } else {
+        setData(res.sort((a, b) => b?.mgas - a?.mgas));
+        sortedRef.current = true;
+      }
     } catch (error) {
     } finally {
       hasIncrementedPageRef.current = false;
+      loading.current = false;
     }
   };
 
@@ -607,7 +619,7 @@ const L2Rollup = () => {
               'Mgas/s',
               formatCurrency(total.mgas, MIN_DECIMAL, MIN_DECIMAL),
               'The total megagas (Million Gas) per second',
-              '(-)',
+              '',
             )}
             {renderItemTotal(
               'KB/s',

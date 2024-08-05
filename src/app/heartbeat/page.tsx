@@ -8,6 +8,7 @@ const TITLE = 'Heartbeat | Welcome to the future of Bitcoin.'
 const DESCRIPTION = 'Provide transparent and verifiable insights into Bitcoin rollups.'
 
 export const metadata = {
+  applicationName: TITLE,
   title: TITLE,
   description: DESCRIPTION,
   openGraph: {
