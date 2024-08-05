@@ -201,7 +201,7 @@ type ElkNodeData = {
   label: string;
   positionDot: Position;
   handleType: HandleType;
-  statusBox: 'Drafting' | 'Ready' | 'Missing' | 'Running' | 'Down';
+  status: 'Drafting' | 'Ready' | 'Missing' | 'Running' | 'Down';
   legoList: [];
   sourceHandles: { id: string }[];
   targetHandles: { id: string }[];

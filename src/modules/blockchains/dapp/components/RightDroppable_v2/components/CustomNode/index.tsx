@@ -11,7 +11,7 @@ export type DataNode = Node<
     label: string;
     positionDot: Position;
     handleType: HandleType;
-    statusBox: 'Drafting' | 'Ready' | 'Missing' | 'Running ' | 'Down';
+    status: 'Drafting' | 'Ready' | 'Missing' | 'Running ' | 'Down';
     sourceHandles: [];
     targetHandles: [];
     legoParent: {
@@ -31,22 +31,18 @@ export default function CustomNode({
   isConnectable,
 }: NodeProps<DataNode>) {
   return (
-    <div
-      className={`${s.wrapperBox} ${cn(s[`borderColor_${data.statusBox}`])}`}
-    >
+    <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
       <div
         className={`${s.wrapperBox_top}  ${cn(
-          s[`borderColor_${data.statusBox}`],
+          s[`borderColor_${data.status}`],
         )}`}
       >
         <p className={`${s.wrapperBox_top_heading}`}>{data.label}</p>
         {
           <div className={s.tag}>
-            <p className={cn(s[`titleTag_${data.statusBox}`])}>
-              {data.statusBox}
-            </p>
+            <p className={cn(s[`titleTag_${data.status}`])}>{data.status}</p>
             <div
-              className={`${s.tag_dot}  ${cn(s[`tag_${data.statusBox}`])}`}
+              className={`${s.tag_dot}  ${cn(s[`tag_${data.status}`])}`}
             ></div>
           </div>
         }

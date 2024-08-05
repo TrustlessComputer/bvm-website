@@ -8,7 +8,7 @@ export const FAKE_DATA_MAPPING = [
       label: 'Blockchain',
       positionDot: Position.Right,
       // handleType: 'source',
-      statusBox: 'Drafting',
+      status: 'Drafting',
       legoList: [
         {
           background: '#FF3A3A',
@@ -65,7 +65,7 @@ export const FAKE_DATA_MAPPING = [
       label: 'Issue a token',
       // positionDot: Position.Left,
       // handleType: 'target',
-      statusBox: 'Missing',
+      status: 'Missing',
       // sourceHandles: [],
       // targetHandles: [
       //   {
@@ -117,7 +117,7 @@ export const FAKE_DATA_MAPPING = [
       label: 'Pool ZKJ/BVM',
       positionDot: Position.Left,
       // handleType: 'target',
-      statusBox: 'Running',
+      status: 'Running',
       legoParent: {
         background: '#C000E6',
       },
@@ -154,7 +154,7 @@ export const FAKE_DATA_MAPPING = [
       label: 'Gaming apps',
       positionDot: Position.Left,
       // handleType: 'target',
-      statusBox: 'Down',
+      status: 'Down',
       // sourceHandles: [],
       // targetHandles: [
       //   {
@@ -196,7 +196,7 @@ export const FAKE_DATA_MAPPING = [
       label: 'Gaming apps',
       positionDot: Position.Left,
       // handleType: 'target',
-      statusBox: 'Ready',
+      status: 'Ready',
       // sourceHandles: [],
       // targetHandles: [
       //   {

@@ -51,11 +51,11 @@ export default function FlowMapping(): React.JSX.Element {
       <ReactFlowProvider>
         <Flow
           nodes={nodes}
-          edges={edges}
-          edgeTypes={{ 'custom-edge': CustomEdge }}
+          // edges={edges}
+          // edgeTypes={{ 'custom-edge': CustomEdge }}
           nodeTypes={{ customBox: CustomNode }}
           onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
+          // onEdgesChange={onEdgesChange}
           fitView
         />
       </ReactFlowProvider>
