@@ -1,0 +1,170 @@
+.wrapperBox {
+  min-width: 366px;
+  border: 1px solid #555555;
+  border-radius: 16px;
+  //overflow: hidden;
+  padding-bottom: 10px;
+  background-color: #fff !important;
+  .inner {
+    position: relative;
+    background: white;
+
+    padding: 20px;
+  }
+  &_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    //margin-bottom: 6px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    padding: 6px 8px 6px 6px;
+    border-bottom: 1px solid;
+    &_heading {
+      font-weight: 600;
+      font-size: 14px;
+      color: #555;
+      line-height: calc(20 / 14);
+    }
+    &_left {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 4px;
+      cursor: pointer;
+
+      p {
+        color: #4185EC;
+        margin-top: 3px;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: calc(20 / 14);
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      &_icon {
+        max-width: 20px;
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+    }
+  }
+}
+
+.borderColor {
+  &_Drafting {
+    border-color: #FFC700;
+    background-color: #FFF6D8 ;
+  }
+  &_Ready {
+    border-color: #4185EC;
+    background-color: #EEF5FF;
+  }
+  &_Missing {
+    border-color: #FF4747;
+    background-color: #FFEEEE;
+  }
+  &_Running {
+    border-color: #00AA6C;
+    background-color: #EEFFF9 ;
+  }
+  &_Down {
+    border-color: #555555;
+    background-color: #ECECED;
+  }
+}
+
+.handleDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  //position: absolute;
+  border: 1px solid #555555;
+  z-index: 4;
+  :global {
+    .react-flow__handle {
+      position: relative !important;
+    }
+  }
+}
+
+
+
+.tag {
+  display: flex;
+  align-items: center;
+  &_dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    //background: #00AA6C;
+  }
+  &_Drafting {
+    background: #FFC700;
+  }
+  &_Ready {
+    background: #4185EC;
+  }
+  &_Missing {
+    background: #FF4747;
+  }
+  &_Running {
+    background: #00AA6C;
+  }
+  &_Down {
+    background: #555555;
+  }
+  p {
+    font-size: 12px;
+    font-style: italic;
+    line-height: calc(20 / 12);
+    //color: #00AA6C;
+    margin-right: 4px;
+  }
+  .titleTag {
+    &_Drafting {
+      color: #FFC700;
+    }
+    &_Ready {
+      color: #4185EC;
+    }
+    &_Missing {
+      color: #FF4747;
+    }
+    &_Running {
+      color: #00AA6C;
+    }
+    &_Down {
+      color: #555555;
+    }
+  }
+}
+
+.handles {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  //width: 10px;
+  height: 100%;
+  position: absolute;
+  :global {
+    .react-flow__handle-right {
+      //margin-bottom: 10px;
+      //position: absolute !important;
+    }
+  }
+}
+
+.handles.sources {
+  right: 0;
+  top: 0;
+}
+
+.handles.target {
+  left: 0;
+  top: 0;
+}
