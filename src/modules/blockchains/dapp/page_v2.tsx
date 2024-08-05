@@ -57,7 +57,7 @@ import { getModelCategories, getTemplates } from '@/services/customize-model';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import styles from './styles.module.scss';
 import LeftDroppableV2 from './components/LeftDroppableV2';
-import AddBoxButton from '@/modules/blockchains/dapp/AddBoxButton';
+import AddBoxButton from 'src/modules/blockchains/Buy/component4/AddBoxButton';
 import LegoDragging from '@/modules/blockchains/dapp/ui-helper/LegoDragging';
 
 const RollupsDappPage = () => {

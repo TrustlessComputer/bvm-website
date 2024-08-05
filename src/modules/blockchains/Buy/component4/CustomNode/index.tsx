@@ -96,10 +96,10 @@ export default function CustomNode({
             style={{
               width: '100% !important',
               height: '100%',
-              paddingLeft: '25%',
-              paddingRight: '25%',
-              paddingBottom: '7.5%',
-              paddingTop: '7.5%',
+              // paddingLeft: '25%',
+              // paddingRight: '25%',
+              // paddingBottom: '7.5%',
+              // paddingTop: '7.5%',
             }}
           >
             <LegoV3
