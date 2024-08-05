@@ -7,7 +7,7 @@ import AppLoading from '@/components/AppLoading';
 import { IGetParams } from '@/modules/Vote/Proposals/ListProposal';
 import cn from 'classnames';
 import Avatar from '@/components/Avatar';
-import { Box, Flex, Image } from '@chakra-ui/react';
+import { Box, CircularProgress, Flex, Image, Tooltip } from '@chakra-ui/react';
 import { getListLeaderboard } from '@/services/api/EternalServices';
 import {
   IContestProblem,
@@ -119,25 +119,33 @@ const Leaderboard = (props: Props) => {
     if (!contestProblem) {
       return null;
     }
-    // const formattedTime = getTimeText(contestProblem.duration);
+
     const isPassed =
       contestProblem.status === 'marked' && contestProblem.point > 0;
+    const isProcessing = contestProblem.status === 'processing';
 
-    if (isPassed) {
-      return (
-        <Flex
-          alignItems={'center'}
-          gap="4px"
-          w="100%"
-          h="100%"
-          justifyContent={'center'}
-          className={s.passed}
-        >
-          {formatCurrency(contestProblem.gas_used)}
-          <Image src="/hackathon/ic-check.svg" />
-        </Flex>
+    const renderContent = () => {
+      if (isPassed) {
+        return (
+          <>
+            {formatCurrency(contestProblem.gas_used)}
+            <Image src="/hackathon/ic-check.svg" />
+          </>
+        );
+      }
+
+      if (isProcessing) {
+        return <CircularProgress isIndeterminate  size="24px" />;
+      }
+
+      return contestProblem.error_msg ? (
+        <Tooltip label={contestProblem.error_msg}>
+          <Image src="/hackathon/ic-close-red.svg" />
+        </Tooltip>
+      ) : (
+        <Image src="/hackathon/ic-close-red.svg" />
       );
-    }
+    };
 
     return (
       <Flex
@@ -146,10 +154,12 @@ const Leaderboard = (props: Props) => {
         w="100%"
         h="100%"
         justifyContent={'center'}
-        className={s.failed}
-        position={'relative'}
+        className={cn({
+          [s.passed]: isPassed,
+          [s.failed]: !isPassed && !isProcessing,
+        })}
       >
-        <Image src="/hackathon/ic-close-red.svg" />
+        {renderContent()}
       </Flex>
     );
   };
