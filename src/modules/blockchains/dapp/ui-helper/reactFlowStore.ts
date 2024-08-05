@@ -1,6 +1,6 @@
 import { signal } from '@preact/signals-react';
 
-interface IBoxFlow{
+interface IBoxFlow {
   id: string,
   rect: {
     top: number,
@@ -9,4 +9,5 @@ interface IBoxFlow{
     right: number
   }
 }
-export const reactFlowStore = signal<IBoxFlow[]>([])
+
+export const reactFlowStore = signal<IBoxFlow[]>([]);

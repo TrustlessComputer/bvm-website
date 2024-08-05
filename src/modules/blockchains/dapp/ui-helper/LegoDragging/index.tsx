@@ -11,6 +11,7 @@ export default function LegoDragging(): React.ReactElement {
   const show = () => {
     if (!refInner.current) return;
     refInner.current.style.display = 'inline-block';
+    refInner.current.innerHTML = legoDragging.value;
   };
 
   const hide = () => {
@@ -19,6 +20,8 @@ export default function LegoDragging(): React.ReactElement {
   };
 
   useSignalEffect(() => {
+
+    console.log('______leo', legoDragging.value);
     legoDragging.value ? show() : hide();
   });
 
@@ -29,9 +32,10 @@ export default function LegoDragging(): React.ReactElement {
       if (!refInner.current) return;
 
       const rect = refInner.current?.getBoundingClientRect();
-      const x = e.clientX - (rect.left + rect.width / 2);
-      const y = e.clientY - (rect.top + rect.height / 2);
-      refInner.current.style.transform = `transform(${x}px, ${y}px)`;
+      const x = e.clientX - (rect.width / 2);
+      const y = e.clientY - (rect.height / 2);
+      refInner.current.style.transform = `translate(${x}px, ${y}px)`;
+
     };
 
     window.addEventListener('mousemove', onMoving);
