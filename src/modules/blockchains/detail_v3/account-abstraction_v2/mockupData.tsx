@@ -1,3 +1,5 @@
+import { IModelCategory } from '@/types/customize-model';
+
 export const ACCOUNT_ABSTRACTION_MOCKUP_DATA: IModelCategory[] = [
   {
     id: '668f8ec088f822fe3ebd3477',
@@ -24,6 +26,9 @@ export const ACCOUNT_ABSTRACTION_MOCKUP_DATA: IModelCategory[] = [
         needContactUs: false,
         needConfig: false,
         order: 0,
+        requiredFor: null,
+        supportLayer: 'both',
+        disabled: false,
       },
       {
         key: 'input_apps_fee_rate',
@@ -42,6 +47,9 @@ export const ACCOUNT_ABSTRACTION_MOCKUP_DATA: IModelCategory[] = [
         needContactUs: false,
         needConfig: false,
         order: 0,
+        requiredFor: null,
+        supportLayer: 'both',
+        disabled: false,
       },
     ],
     color: '#F76649',

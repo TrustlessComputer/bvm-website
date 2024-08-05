@@ -16,6 +16,7 @@ import IcThreeDots from '@/public/hackathon/ic-three-dots.svg';
 import ProblemTemplate from './Template';
 import ConnectedWallets from '../ConnectedWallets';
 import SvgInset from '@/components/SvgInset';
+import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 
 const Problems = ({
   isProblemPanelMaximized,
@@ -27,6 +28,8 @@ const Problems = ({
   setShowLeaderboard: (showLeaderboard: boolean) => void;
 }) => {
   const [tabIndex, setTabIndex] = useState<number>(0);
+
+  const { tracking } = useL2ServiceTracking();
 
   const handleExpandProblem = () => {
     if (isProblemPanelMaximized) {
@@ -63,7 +66,13 @@ const Problems = ({
           maxWidth: isProblemPanelMaximized ? '100%' : '700px',
         }}
       >
-        <Tabs variant="soft-rounded" onChange={(index) => setTabIndex(index)}>
+        <Tabs
+          variant="soft-rounded"
+          onChange={(index) => {
+            setTabIndex(index);
+            tracking('POC_SELECT_TAB_PROBLEM');
+          }}
+        >
           <Flex
             alignItems={'center'}
             justifyContent={'space-between'}
@@ -81,6 +90,7 @@ const Problems = ({
                   window.open(
                     'https://github.com/TrustlessComputer/poc-practice',
                   );
+                  tracking('POC_SET_UP_ENV');
                 }}
                 alignItems={'center'}
                 gap="4px"

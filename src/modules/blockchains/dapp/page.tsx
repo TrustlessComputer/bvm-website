@@ -57,6 +57,7 @@ import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
 import { TABS } from '@/modules/blockchains/Buy/constants';
 import { useRouter } from 'next/navigation';
 import { isProduction } from '@/config';
+import { DappModel, FieldModel } from '@/types/customize-model';
 
 const RollupsDappPage = () => {
   const { setDapps } = useDappsStore();
@@ -91,16 +92,34 @@ const RollupsDappPage = () => {
     return result;
   };
 
-  const parseAirdropsData = (_airdrops: IAirdrop[], _tokens: IToken[]) => {
+  const parseAirdropsData = async (_airdrops: IAirdrop[], _tokens: IToken[]) => {
     const result: DappModel[] = [];
     for (const airdrop of _airdrops) {
       const _token = tokens.find((v) =>
         compareString(v.contract_address, airdrop.token_address),
       );
 
-      const t = parseAirdrop(airdrop, _token as IToken);
+      const t = await parseAirdrop(airdrop, _token as IToken);
       result.push(t);
     }
+
+    return result;
+  };
+
+  const getAllOptionKeysOfItem = (item: FieldModel) => {
+    const result: string[] = [];
+
+    const loop = (options: FieldModel[]) => {
+      for (const option of options) {
+        if (option.type !== '') result.push(option.key);
+
+        if (option.options.length > 0) {
+          loop(option.options);
+        }
+      }
+    };
+
+    loop(item.options);
 
     return result;
   };
@@ -162,9 +181,9 @@ const RollupsDappPage = () => {
         return;
       }
 
-      const parentComposedFieldKey = `right-${FieldKeyPrefix.BLOCK}-${activeOriginalKey}`;
       const composedFieldKey = `right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${activeFieldKey}-${overIndex}-${overBaseIndex}`;
-      const formKey = `${overBaseIndex}-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${activeFieldKey}-${overIndex}`;
+
+      console.log(composedFieldKey);
 
       if (
         draggedIds2D[overBaseIndex][overIndex].children.some(
@@ -188,11 +207,60 @@ const RollupsDappPage = () => {
         ],
       };
 
-      console.log(draggedIds2D[overBaseIndex][overIndex]);
       draggedIds2DSignal.value = [...draggedIds2D];
     }
 
-    if (activeIsRightSide && overIsInput) {
+    if (activeIsRightSide && overIsInput && activeIsAChildOfABlock) {
+      const formDapp = cloneDeep(formDappSignal.value);
+      const composedFieldKey = `right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${activeFieldKey}-${activeIndex}-${activeBaseIndex}`;
+      const formKey = `${activeBaseIndex}-${FieldKeyPrefix.BLOCK}-${activeFieldKey}`;
+      const blockKey = active.data.current?.blockKey;
+      const thisBlock = blockFieldMapping[blockKey];
+      const thisChild = thisBlock.childrenFields?.find(
+        (item) => item.key === activeFieldKey,
+      );
+
+      if (!thisChild) return;
+
+      const thisChildIsExtendsInput = thisChild.type === 'extends';
+
+      if (thisChildIsExtendsInput) {
+        const allOptionKeys = getAllOptionKeysOfItem(thisChild);
+
+        allOptionKeys.forEach((key) => {
+          const optionFormKey = `${activeBaseIndex}-${FieldKeyPrefix.BLOCK}-${key}`;
+
+          for (const key in formDapp) {
+            if (
+              key.startsWith(optionFormKey) &&
+              FormDappUtil.getIndex(key) === activeIndex
+            ) {
+              delete formDapp[key];
+            }
+          }
+        });
+      }
+
+      for (const key in formDapp) {
+        if (
+          key.startsWith(formKey) &&
+          FormDappUtil.getIndex(key) === activeIndex
+        ) {
+          delete formDapp[key];
+        }
+      }
+
+      draggedIds2D[activeBaseIndex][activeIndex] = {
+        ...draggedIds2D[activeBaseIndex][activeIndex],
+        children: draggedIds2D[activeBaseIndex][activeIndex].children.filter(
+          (item) => item.name !== composedFieldKey,
+        ),
+      };
+
+      draggedIds2DSignal.value = [...draggedIds2D];
+      formDappSignal.value = { ...formDapp };
+
+      return;
     }
 
     // Case 1: Drag to the right
@@ -736,7 +804,7 @@ const RollupsDappPage = () => {
         break;
       }
       case DappType.airdrop: {
-        const _data = parseAirdropsData(airdrops, tokens);
+        const _data = await parseAirdropsData(airdrops, tokens);
 
         const model = parseDappModel({
           key: DappType.airdrop,

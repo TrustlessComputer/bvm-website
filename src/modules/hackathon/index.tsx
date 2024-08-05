@@ -10,6 +10,7 @@ import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import {
   checkRegistered,
   getContestStats,
+  registerCodeBattle,
 } from '@/services/api/EternalServices';
 import { IUserContest } from '@/services/api/EternalServices/types';
 import { openModal } from '@/stores/states/modal/reducer';
@@ -24,6 +25,7 @@ import s from './HackathonModue.module.scss';
 import LeaderboardSection from './LeaderboardSection';
 import RegisterModal, { REGISTER_MODAL } from './Register/Modal';
 import CompetitionTimer from './CompetitionTimer';
+import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 
 type Props = {};
 
@@ -86,11 +88,37 @@ const TimeCounter = () => {
 const HackathonModule = (props: Props) => {
   const { loggedIn, login, logout, userInfo, wallet } = useWeb3Auth();
   const dispatch = useDispatch();
+  const { tracking } = useL2ServiceTracking();
 
   const [peopleSubmitted, setPeopleSubmitted] = useState<number | null>(null);
   const [isRegistered, setIsRegistered] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
   const [currentUserContest, setCurrentUserContest] = useState<IUserContest>();
+
+  useEffect(() => {
+    let setTimeoutInstance: NodeJS.Timeout | null = null;
+    if (!!userInfo && !!wallet && !isRegistered) {
+      // call register api
+      setTimeoutInstance = setTimeout(() => {
+        const payload = {
+          team: userInfo.name || userInfo?.email || wallet.address,
+          university: '',
+          email: userInfo?.email,
+        };
+        registerCodeBattle(payload).then(() => {
+          setIsRegistered(true);
+        });
+
+        console.log('call register api');
+      }, 5000);
+    }
+
+    return () => {
+      if (setTimeoutInstance) {
+        clearTimeout(setTimeoutInstance);
+      }
+    };
+  }, [isRegistered, wallet, userInfo]);
 
   const fetchPeopleSubmitted = async () => {
     try {
@@ -108,22 +136,22 @@ const HackathonModule = (props: Props) => {
       login();
     }
 
-    dispatch(
-      openModal({
-        id: REGISTER_MODAL,
-        className: s.modalContent,
-        modalProps: {
-          size: 'xl',
-        },
-        theme: 'light',
-        render: () => (
-          <RegisterModal
-            userInfo={userInfo}
-            setIsRegistered={setIsRegistered}
-          />
-        ),
-      }),
-    );
+    // dispatch(
+    //   openModal({
+    //     id: REGISTER_MODAL,
+    //     className: s.modalContent,
+    //     modalProps: {
+    //       size: 'xl',
+    //     },
+    //     theme: 'light',
+    //     render: () => (
+    //       <RegisterModal
+    //         userInfo={userInfo}
+    //         setIsRegistered={setIsRegistered}
+    //       />
+    //     ),
+    //   }),
+    // );
   };
 
   const checkUserRegistered = async () => {
@@ -140,6 +168,7 @@ const HackathonModule = (props: Props) => {
   };
 
   const handleClickPractice = () => {
+    console.log('handleClickPractice');
     // scroll to #practice-section
     const practiceSection = document.getElementById('practice-section');
     if (practiceSection) {
@@ -213,14 +242,15 @@ const HackathonModule = (props: Props) => {
             >
               {/* <ButtonConnected title="Let's practice" className={s.reward_btn}> */}
               <button
-                className={cn(s.reward_btn, {
-                  [s.registered]: isRegistered,
-                })}
-                // onClick={handleOpenRegisterModal}
-                onClick={handleClickPractice}
-                disabled={isRegistered}
+                className={cn(s.reward_btn)}
+                onClick={() => {
+                  loggedIn ? handleClickPractice() : handleOpenRegisterModal();
+                  tracking('POC_CLICK_PRACTICE');
+                }}
+                // onClick={handleClickPractice}
+                // disabled={isRegistered}
               >
-                {isRegistered ? 'Registered' : "Let's practice"}
+                Let's practice
               </button>
               {/* </ButtonConnected> */}
 
@@ -230,8 +260,9 @@ const HackathonModule = (props: Props) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={s.tele_link}
+                  onClick={() => tracking('POC_CLICK_JOIN_COMMUNITY')}
                 >
-                  Join PoC community
+                  Join the PoC community
                 </a>
               </div>
 

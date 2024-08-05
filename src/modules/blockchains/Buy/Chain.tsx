@@ -24,18 +24,19 @@ import ImagePlaceholder from '@components/ImagePlaceholder';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import Capture from '@/modules/blockchains/Buy/Capture';
 import Label from './components3/Label';
+import { IModelCategory } from '@/types/customize-model';
 
 const ChainTab = () => {
   const router = useRouter();
   const [data, setData] = React.useState<
     | (IModelCategory & {
-    options: IModelCategory['options'] &
-      {
-        value: any;
-        label: string;
-        disabled: boolean;
-      }[];
-  })[]
+        options: IModelCategory['options'] &
+          {
+            value: any;
+            label: string;
+            disabled: boolean;
+          }[];
+      })[]
     | null
   >(null);
   const [originalData, setOriginalData] = React.useState<
@@ -203,7 +204,7 @@ const ChainTab = () => {
 
       setField(activeKey, newValue, !isEmpty);
       isEmpty &&
-      setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
+        setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
     }
   }
 
@@ -626,7 +627,7 @@ const ChainTab = () => {
                                   option.supportNetwork &&
                                   option.supportNetwork !== 'both' &&
                                   option.supportNetwork !==
-                                  field['network']?.value
+                                    field['network']?.value
                                 ) || !option.selectable;
 
                               if (item.multiChoice && field[item.key].dragged) {
@@ -765,7 +766,6 @@ const ChainTab = () => {
             {/* ------------- RIGHT ------------- */}
             <div className={s.right}>
               <div className={s.top_right}>
-
                 <div className={s.right_box_footer}>
                   {!needContactUs && (
                     <div className={s.right_box_footer_left}>

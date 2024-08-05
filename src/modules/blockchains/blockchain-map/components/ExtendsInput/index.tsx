@@ -15,6 +15,7 @@ import {
 } from '../../signals/useFormDappsSignal';
 import { useThisDapp } from '../../hooks/useThisDapp';
 import DateTimeInput from '../DateTimeInput';
+import { FieldModel } from '@/types/customize-model';
 
 type Props = FieldModel &
   FieldOption & {

@@ -1,15 +1,22 @@
-export const DAPPS_DATA = [
+import { TDappCardProps } from '@/modules/ExploreModule/components/DappCard';
+import { TChainCard } from '@/modules/ExploreModule/components/ChainCard';
+
+export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   {
-    image: '/explore/dapp1.png',
+    image: '/explore/dapp01.png',
     title: 'Imagine',
     description: 'Turn your thoughts into visuals directly on your phone in various styles!',
-    bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
+    bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 36%, #61FFF7 100%)',
     tags: [
       'EternalAI Chain',
       'Mobile',
       'L2',
       'Optimistic Rollup',
-    ]
+    ],
+    link: {
+      url: 'https://eternalai.org/',
+      target: '_blank'
+    }
   },
   {
     image: '/explore/dapp2.png',
@@ -21,7 +28,8 @@ export const DAPPS_DATA = [
       'Mobile',
       'L3',
       'ZK Rollup',
-    ]
+    ],
+    link: {url: '/bitcoin-wars', target: '' }
   },
   {
     image: '/explore/dapp3.png',
@@ -33,7 +41,11 @@ export const DAPPS_DATA = [
       'Web',
       'L2',
       'Optimistic Rollup',
-    ]
+    ],
+    link: {
+      url: 'https://runechain.com/',
+      target: '_blank'
+    }
   },
   {
     image: '/explore/dapp4.png',
@@ -45,11 +57,15 @@ export const DAPPS_DATA = [
       'Mobile',
       'L2',
       'Optimistic Rollup',
-    ]
+    ],
+    link: {
+      url: 'https://nakachain.xyz/',
+      target: '_blank'
+    }
   },
 ]
 
-export const CHAIN_DATA = [
+export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
   {
     image: '/explore/octopus.jpg',
     title: 'Octopus Finance',

@@ -1,13 +1,12 @@
 import MainLayout from '@/layouts/MainLayout';
 import Loader from '@/modules/builder-landing/Loader';
 
-import { CDN_URL } from '@/config';
-import { APP_NAME, IMAGE_SHARING } from '@/config/metadata';
+import { APP_NAME } from '@/config/metadata';
 import HackathonModule from '@/modules/hackathon';
 import { Box } from '@chakra-ui/react';
 import Image from 'next/image';
 
-const metadataThumbnail = `/images/poc/metadata-2x.jpg`; // TODO: Update new thumbnail
+const metadataThumbnail = `/images/poc/metadata-2024-08-05-2x.jpg`; // TODO: Update new thumbnail
 // const metadataThumbnail = IMAGE_SHARING; // TODO: Update new thumbnail
 
 const metadataDesc = `

@@ -2,6 +2,7 @@
   width: 100%;
   max-width: 442px;
   border-radius: 32px;
+  display: block;
   background: linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%);
   margin: 0 auto;
   &_image {
@@ -31,6 +32,7 @@
 .tags {
   display: flex;
   gap: 4px;
+  padding-bottom: 12px;
   p {
     font-size: 14px;
     color: #fff;

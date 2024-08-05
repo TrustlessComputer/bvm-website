@@ -1,3 +1,5 @@
+import { IModelOption } from '@/types/customize-model';
+
 export const PREFIX = 'l2Services';
 
 export const APP_BLOCKCHAIN: IModelOption = {
@@ -15,6 +17,9 @@ export const APP_BLOCKCHAIN: IModelOption = {
   value: '',
   needContactUs: false,
   needConfig: true,
+  requiredFor: null,
+  supportLayer: 'both',
+  disabled: false,
 };
 
 export const APP_STAKING: IModelOption = {
@@ -32,6 +37,9 @@ export const APP_STAKING: IModelOption = {
   value: '',
   needContactUs: false,
   needConfig: true,
+  requiredFor: null,
+  supportLayer: 'both',
+  disabled: false,
 };
 
 export const APP_TOKEN_GERNERATION: IModelOption = {
@@ -49,6 +57,9 @@ export const APP_TOKEN_GERNERATION: IModelOption = {
   value: '',
   needContactUs: false,
   needConfig: true,
+  requiredFor: null,
+  supportLayer: 'both',
+  disabled: false,
 };
 
 export const APP_AIRDROP: IModelOption = {
@@ -66,4 +77,7 @@ export const APP_AIRDROP: IModelOption = {
   value: '',
   needContactUs: false,
   needConfig: true,
+  requiredFor: null,
+  supportLayer: 'both',
+  disabled: false,
 };

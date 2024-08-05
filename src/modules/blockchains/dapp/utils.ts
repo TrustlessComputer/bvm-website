@@ -8,6 +8,7 @@ import { FieldKeyPrefix } from './contants';
 import { compareString } from '@/utils/string';
 import { IToken } from '@/services/api/dapp/token_generation/interface';
 import { IAirdropTask } from '@/services/api/dapp/airdrop/interface';
+import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
 
 const handler = ({ nativeEvent: event }: MouseEvent | TouchEvent) => {
   let cur = event.target as HTMLElement;
@@ -272,7 +273,9 @@ export const preDataAirdropTask = (
     if (_airdropIndex > -1) {
       const fieldRewardToken = _sortedDapps[
         _airdropIndex
-      ].baseBlock.fields.findIndex((v) => compareString(v.key, 'reward_token'));
+      ].baseBlock.fields.findIndex((v: FieldModel) =>
+        compareString(v.key, 'reward_token'),
+      );
 
       if (fieldRewardToken > -1) {
         // // @ts-ignore
@@ -355,7 +358,6 @@ export const preDataAirdropTask = (
                 value: '',
                 tooltip: '',
                 options: [],
-                placeholder: 'https://x.com/xxxx/status/yyyy',
               });
             }
 
@@ -368,6 +370,10 @@ export const preDataAirdropTask = (
               preview: false,
               fields,
               background: '#43766C',
+              linkDownloadFile:
+                getAirdropTaskKey(airdropTask) === 'whitelist'
+                  ? 'https://cdn.bvm.network/users/template_aidrop_3f48a00b-4571-4675-bfa7-f1c1e184c354.csv'
+                  : undefined,
             });
           }
 

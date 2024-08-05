@@ -6,7 +6,8 @@ import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import useAnimationStore from '@/stores/useAnimationStore';
 
-export default function Loader({ bgColor = 'black' }: { bgColor?: string }) {
+export default function Loader({bgColor = 'black'}:{bgColor?: string}) {
+
   const refContent = useRef<HTMLDivElement>(null);
   const { setPlay, setPlayed, fontReady } = useAnimationStore();
 

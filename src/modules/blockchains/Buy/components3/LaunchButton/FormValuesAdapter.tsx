@@ -1,4 +1,5 @@
 import { IOrderBuyReq_V3 } from '@/stores/states/l2services/types';
+import { IModelCategory } from '@/types/customize-model';
 
 type Params = {
   computerName: string;

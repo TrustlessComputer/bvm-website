@@ -15,6 +15,7 @@ import {
   APP_STAKING,
   APP_TOKEN_GERNERATION,
 } from './constants';
+import { IModelOption } from '@/types/customize-model';
 
 const getL2ServicesStateSelector = (state: RootState): L2ServicesState =>
   state.l2Services;
@@ -72,6 +73,14 @@ const myOrderListWithNetworkSelector = createSelector(
         result.testnetOrderList.push(item);
       }
     });
+
+    result.mainnetOrderList = [...result.mainnetOrderList].sort(
+      (a, b) => a.index - b.index,
+    );
+
+    result.testnetOrderList = [...result.testnetOrderList].sort(
+      (a, b) => a.index - b.index,
+    );
 
     return result;
   },

@@ -1,3 +1,4 @@
+import { IModelCategory } from '@/types/customize-model';
 import { create } from 'zustand';
 
 type UseFormOrderStore = {

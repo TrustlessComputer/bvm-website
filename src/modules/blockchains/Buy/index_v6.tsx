@@ -330,7 +330,6 @@ const BuyPage = () => {
     _modelCategories.forEach((_field) => {
       setField(_field.key, null);
     });
-    console.log('_modelCategories', _modelCategories);
     setData(convertData(_modelCategories));
     setOriginalData(_modelCategories);
 

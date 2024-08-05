@@ -1,17 +1,15 @@
+import CTokenAirdropAPI from '@/services/api/dapp/airdrop';
 import { IAirdrop, IAirdropTask } from '@/services/api/dapp/airdrop/interface';
 import { IToken } from '@/services/api/dapp/token_generation/interface';
-import { store } from '@/stores';
+import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
+import { compareString } from '@/utils/string';
 import dayjs from 'dayjs';
 import stc from 'string-to-color';
 import { DappType } from '../types';
 import { getAirdropTaskKey } from '../utils';
-import { compareString } from '@/utils/string';
 
-export const parseAirdrop = (airdrop: IAirdrop, _token: IToken) => {
-  const dappState = store.getState().dapp;
-
-  const tokens = dappState.tokens;
-  const airdropTasks = dappState.airdropTasks;
+export const parseAirdrop = async (airdrop: IAirdrop, _token: IToken) => {
+  const api = new CTokenAirdropAPI();
 
   const result = {} as DappModel;
 
@@ -107,62 +105,87 @@ export const parseAirdrop = (airdrop: IAirdrop, _token: IToken) => {
 
   result.baseBlock = baseBlock;
   const blockFields: BlockModel[] = [];
-  for (const task of airdrop.tasks as IAirdropTask[]) {
-    const fields: FieldModel[] = [
-      {
-        key: 'task',
-        title: task.type,
-        type: 'input',
-        icon: '',
-        value: task.title,
-        tooltip: '',
-        options: [],
-      },
-      {
-        key: 'reward_amount',
-        title: 'Reward',
-        type: 'input',
-        icon: '',
-        value: task.amount,
-        tooltip: '',
-        options: [],
-      },
-    ];
 
-    if (compareString(task.type, 'follow')) {
-      fields.push({
-        key: getAirdropTaskKey(task),
-        title: 'X Username',
-        type: 'input',
-        icon: '',
-        value: (task as any)[getAirdropTaskKey(task)],
-        tooltip: '',
-        options: [],
-      });
-    } else if (compareString(task.type, 'share')) {
-      fields.push({
-        key: getAirdropTaskKey(task),
-        title: 'Link Share X',
-        type: 'input',
-        icon: '',
-        value: (task as any)[getAirdropTaskKey(task)],
-        tooltip: '',
-        options: [],
-      });
-    }
-
-    const _task: BlockModel = {
-      key: getAirdropTaskKey(task),
+  if (airdrop.tasks.length === 0) {
+    const rs: any = await api.getListReceivers(airdrop.id as unknown as string);
+    console.log('getListReceivers', rs);
+    const lst = rs.rows;
+    blockFields.push({
+      key: 'whitelist',
       title: 'For tasks',
       icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-      placableAmount: -1,
+      placableAmount: 1,
       section: 'tasks',
-      preview: true,
-      fields: fields,
-    };
-    console.log('_task', _task);
+      preview: false,
+      fields: [
+        {
+          key: 'task',
+          title: 'Address listxxxx',
+          type: 'list',
+          icon: '',
+          value: '',
+          tooltip: '',
+          options: lst,
+        },
+      ],
+    });
+  } else {
+    for (const task of airdrop.tasks as IAirdropTask[]) {
+      const fields: FieldModel[] = [
+        {
+          key: 'task',
+          title: task.type,
+          type: 'input',
+          icon: '',
+          value: task.title,
+          tooltip: '',
+          options: [],
+        },
+        {
+          key: 'reward_amount',
+          title: 'Reward',
+          type: 'input',
+          icon: '',
+          value: task.amount,
+          tooltip: '',
+          options: [],
+        },
+      ];
 
-    blockFields.push(_task);
+      if (compareString(task.type, 'follow')) {
+        fields.push({
+          key: getAirdropTaskKey(task),
+          title: 'X Username',
+          type: 'input',
+          icon: '',
+          value: (task as any)[getAirdropTaskKey(task)],
+          tooltip: '',
+          options: [],
+        });
+      } else if (compareString(task.type, 'share')) {
+        fields.push({
+          key: getAirdropTaskKey(task),
+          title: 'Link Share X',
+          type: 'input',
+          icon: '',
+          value: (task as any)[getAirdropTaskKey(task)],
+          tooltip: '',
+          options: [],
+        });
+      }
+
+      const _task: BlockModel = {
+        key: getAirdropTaskKey(task),
+        title: 'For tasks',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        placableAmount: 1,
+        section: 'tasks',
+        preview: true,
+        fields: fields,
+      };
+
+      blockFields.push(_task);
+    }
   }
 
   result.blockFields = blockFields;

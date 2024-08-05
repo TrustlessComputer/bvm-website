@@ -1,16 +1,31 @@
 import React from 'react';
 import s from './styles.module.scss';
-import Image from 'next/image';
 import Fade from '@interactive/Fade';
+import ImagePlaceholder from '@components/ImagePlaceholder';
+import Link from 'next/link';
+
+export type TDappCardProps = {
+  idx: number;
+  title: string;
+  description: string;
+  image: string;
+  bgColor: string;
+  tags: string[];
+  link: {
+    url: string;
+    target: string;
+  }
+}
 
 
-export default function DappCard({ idx, ...props }): React.JSX.Element {
+export default function DappCard({ idx, ...props }: TDappCardProps): React.JSX.Element {
   console.log('props.bgColor', props.bgColor);
+  const { link } = props;
   return (
     <Fade delayEnter={(.5 + idx / 10)}>
-      <div className={s.wrapperDappCard} style={{ background: props.bgColor }}>
+      <Link href={link.url} target={link.target} className={s.wrapperDappCard} style={{ background: props.bgColor }}>
         <div className={s.wrapperDappCard_image}>
-          <Image src={props.image} alt={'dapp1'} width={448} height={432} />
+          <ImagePlaceholder src={props.image} alt={'dapp1'} width={448} height={432} />
         </div>
         <div className={s.wrapperDappCardContent}>
           <p className={s.wrapperDappCard_heading}>{props.title}</p>
@@ -23,7 +38,7 @@ export default function DappCard({ idx, ...props }): React.JSX.Element {
             }
           </div>
         </div>
-      </div>
+      </Link>
     </Fade>
   );
 }
