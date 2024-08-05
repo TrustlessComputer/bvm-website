@@ -23,6 +23,8 @@ type LegoV3 = {
   className?: string;
   zIndex: number;
   suffix?: string;
+  updatable?: boolean;
+  allowShuffle?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 function LegoV3({
@@ -38,9 +40,12 @@ function LegoV3({
   icon,
   zIndex = 0,
   className,
+  updatable = false,
+  allowShuffle = false,
   children,
   ...props
 }: LegoV3) {
+  const refTooltip = React.useRef<HTMLDivElement>(null);
   const legoRef = React.useRef<HTMLDivElement | null>(null);
   const { idDropdownCurrent, setIdDropdownCurrent } = useStoreDropDown();
   const { isCapture } = useCaptureStore();
@@ -53,6 +58,13 @@ function LegoV3({
     ) ||
     icon ||
     null;
+
+  const onHover = () => {
+    if (!refTooltip.current) return;
+
+    refTooltip.current.classList.add(styles.isBottom);
+    refTooltip.current?.classList.add(styles.isHover);
+  };
 
   React.useEffect(() => {
     let parentLego = legoRef.current?.parentElement;
@@ -70,6 +82,28 @@ function LegoV3({
     fillBackgroundAsHSB?.s || 0,
     (fillBackgroundAsHSB?.b || 100) - 20,
   )?.split('.')[0];
+
+  const haveNoti = React.useMemo(
+    () => updatable || allowShuffle,
+    [updatable, allowShuffle],
+  );
+  const notiMapping = React.useMemo(() => {
+    return {
+      updatable: {
+        Icon: (
+          <SvgInset
+            svgUrl="/landingV3/svg/up-right-bottom-left.svg"
+            size={24}
+          />
+        ),
+        tooltip: 'This block is changeable.',
+      },
+      allowShuffle: {
+        Icon: <SvgInset svgUrl="/landingV3/svg/replacable.svg" size={16} />,
+        tooltip: 'This block is shufflable.',
+      },
+    };
+  }, []);
 
   return (
     <React.Fragment>
@@ -89,6 +123,26 @@ function LegoV3({
         // @ts-ignore
         {...props}
       >
+        {haveNoti && (
+          <div
+            className={styles.updatableIcon}
+            onMouseEnter={onHover}
+            onMouseLeave={() => {
+              refTooltip.current?.classList.remove(styles.isBottom);
+              refTooltip.current?.classList.remove(styles.isHover);
+            }}
+          >
+            {updatable
+              ? notiMapping.updatable.Icon
+              : notiMapping.allowShuffle.Icon}
+            <div ref={refTooltip} className={`${styles.tooltip}`}>
+              {updatable
+                ? notiMapping.updatable.tooltip
+                : notiMapping.allowShuffle.tooltip}
+            </div>
+          </div>
+        )}
+
         <SvgInset
           svgUrl="/landingV3/svg/stud_head.svg"
           className={styles.wrapper_studHead}

@@ -8,6 +8,7 @@ import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
 import React from 'react';
 import s from './styles.module.scss';
 import { OrderItem } from '@/stores/states/l2services/types';
+import { IModelCategory } from '@/types/customize-model';
 
 type Props = {
   orderItem?: OrderItem;

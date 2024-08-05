@@ -1,6 +1,7 @@
 // import { IOrderBuyReq } from '@/stores/states/l2services/types';
 // import { IOrderBuyEstimateRespone } from '@/services/api/l2services/types';
 import { L2ServiceAPI as httpClient } from '@/services/api/clients';
+import { IModelCategory, ITemplate } from '@/types/customize-model';
 
 export async function getModelCategories(
   tcAddress: string | undefined,
@@ -60,7 +61,6 @@ export const getPictureSharing = async (
   // } catch (error: any) {
   //   throw error;
   // }
-
 
   try {
     const data = await fetch(

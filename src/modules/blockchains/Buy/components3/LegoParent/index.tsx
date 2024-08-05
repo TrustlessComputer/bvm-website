@@ -17,9 +17,13 @@ type LegoParent = {
   className?: string;
   zIndex: number;
   disabled?: boolean;
+  updatable?: boolean;
+  allowShuffle?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 function LegoParent({
+  updatable = false,
+  allowShuffle = false,
   background,
   label = null,
   parentOfNested = false,
@@ -31,7 +35,15 @@ function LegoParent({
   disabled = false,
   ...props
 }: LegoParent) {
+  const refTooltip = React.useRef<HTMLDivElement>(null);
   const legoRef = React.useRef<HTMLDivElement | null>(null);
+
+  const onHover = () => {
+    if (!refTooltip.current) return;
+
+    refTooltip.current.classList.add(styles.isBottom);
+    refTooltip.current?.classList.add(styles.isHover);
+  };
 
   React.useEffect(() => {
     let parentLego = legoRef.current?.parentElement;
@@ -54,6 +66,28 @@ function LegoParent({
     (fillBackgroundAsHSB?.b || 100) - 40,
   )?.split('.')[0];
 
+  const haveNoti = React.useMemo(
+    () => updatable || allowShuffle,
+    [updatable, allowShuffle],
+  );
+  const notiMapping = React.useMemo(() => {
+    return {
+      updatable: {
+        Icon: (
+          <SvgInset
+            svgUrl="/landingV3/svg/up-right-bottom-left.svg"
+            size={24}
+          />
+        ),
+        tooltip: 'This block is changeable.',
+      },
+      allowShuffle: {
+        Icon: <SvgInset svgUrl="/landingV3/svg/replacable.svg" size={16} />,
+        tooltip: 'This block is shufflable.',
+      },
+    };
+  }, []);
+
   return (
     <div
       className={`${styles.wrapper} ${styles[`wrapper__${background}`]} ${
@@ -69,6 +103,26 @@ function LegoParent({
       }}
       {...props}
     >
+      {haveNoti && (
+        <div
+          className={styles.updatableIcon}
+          onMouseEnter={onHover}
+          onMouseLeave={() => {
+            refTooltip.current?.classList.remove(styles.isBottom);
+            refTooltip.current?.classList.remove(styles.isHover);
+          }}
+        >
+          {updatable
+            ? notiMapping.updatable.Icon
+            : notiMapping.allowShuffle.Icon}
+          <div ref={refTooltip} className={`${styles.tooltip}`}>
+            {updatable
+              ? notiMapping.updatable.tooltip
+              : notiMapping.allowShuffle.tooltip}
+          </div>
+        </div>
+      )}
+
       <SvgInset
         svgUrl="/landingV3/svg/stud_head.svg"
         className={styles.wrapper_studHead}

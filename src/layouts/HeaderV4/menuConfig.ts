@@ -5,7 +5,6 @@ import GroupDeveloper from '@layouts/HeaderV3/components/GroupDeveloper';
 import ContactUs from '@layouts/HeaderV3/components/ContactUs';
 import GroupSolutions from './components/GroupSolutions';
 
-
 export const NAV_ITEMS: Array<NavItem> = [
   {
     label: 'Products',
@@ -31,6 +30,18 @@ export const NAV_ITEMS: Array<NavItem> = [
     groupType: 'developers',
     GroupDropDown: GroupDeveloper,
   },
+  {
+    label: 'Research',
+    href: '/research',
+    isNewWindow: false,
+    isHide: false,
+  },
+  {
+    label: 'Explore',
+    href: '/explore',
+    isNewWindow: false,
+    isHide: false,
+  },
   // {
   //   label: 'Customers',
   //   href: '/customers',
@@ -43,19 +54,13 @@ export const NAV_ITEMS: Array<NavItem> = [
     isNewWindow: false,
     isHide: false,
   },
-  {
-    label: 'Research',
-    href: '/research',
-    isNewWindow: false,
-    isHide: false,
-  },
+
   {
     label: 'About BVM',
     href: '/team',
     isNewWindow: false,
     isHide: false,
   },
-
 ];
 export const NAV_ITEMS_LEFT: Array<NavItem> = [
   {
@@ -89,8 +94,14 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'L2 Rollup',
-    href: '/l2-rollup',
+    label: 'Explore',
+    href: '/explore',
+    isNewWindow: false,
+    isHide: false,
+  },
+  {
+    label: 'Bitcoin Rollups',
+    href: '/bitcoin-rollups',
     isNewWindow: false,
     isHide: false,
   },

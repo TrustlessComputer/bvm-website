@@ -6,7 +6,7 @@ import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import useAnimationStore from '@/stores/useAnimationStore';
 
-export default function Loader() {
+export default function Loader({bgColor = 'black'}:{bgColor?: string}) {
 
   const refContent = useRef<HTMLDivElement>(null);
   const { setPlay, setPlayed, fontReady } = useAnimationStore();
@@ -31,7 +31,7 @@ export default function Loader() {
 
 
   return (
-    <div ref={refContent} className={s.loader}>
+    <div ref={refContent} style={{backgroundColor: bgColor}} className={s.loader}>
     </div>
   );
 }

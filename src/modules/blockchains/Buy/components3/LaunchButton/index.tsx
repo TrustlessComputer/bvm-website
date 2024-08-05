@@ -28,6 +28,7 @@ import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { formatCurrencyV2 } from '@/utils/format';
 import toast from 'react-hot-toast';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
+import { IModelCategory, IModelOption } from '@/types/customize-model';
 
 const LaunchButton = ({
   data,
@@ -56,6 +57,9 @@ const LaunchButton = ({
   const dispatch = useAppDispatch();
 
   const [isShowError, setShowError] = useState(false);
+  const [missingRequiredForTitles, setMissingRequiredForTitles] = useState<
+    string[]
+  >([]);
 
   const { getAccountInfor } = useL2Service();
   const { showContactUsModal } = useContactUs();
@@ -136,19 +140,9 @@ const LaunchButton = ({
   }, [isFecthingData, availableList, packageParam]);
 
   const onUpdateHandler = async () => {
-    console.log('___data_A11 ', allFilled);
-
     if (!allFilled) {
       setShowError(true);
     }
-
-    console.log('A11 ', {
-      isSubmiting,
-      allFilled,
-      hasError,
-      originalData,
-      orderDetail,
-    });
 
     if (
       isSubmiting ||
@@ -168,7 +162,7 @@ const LaunchButton = ({
       if (_field.multiChoice) {
         dynamicForm.push({
           ..._field,
-          options: _field.options.filter((opt) =>
+          options: _field.options.filter((opt: IModelOption) =>
             (field[_field.key].value as string[])!.includes(opt.key),
           ),
         });
@@ -176,7 +170,7 @@ const LaunchButton = ({
       }
 
       const value = _field.options.find(
-        (opt) => opt.key === field[_field.key].value,
+        (opt: IModelOption) => opt.key === field[_field.key].value,
       );
 
       const { options: _, ...rest } = _field;
@@ -260,23 +254,43 @@ const LaunchButton = ({
       return;
     }
 
+    let missingRequiredFor = false;
     const dynamicForm: any[] = [];
+    const optionMapping: Record<string, IModelOption> = {};
+    const allOptionKeyDragged: string[] = [];
+    const allRequiredForKey: string[] = [];
+
     for (const _field of originalData) {
+      _field.options.forEach((opt: IModelOption) => {
+        optionMapping[opt.key] = opt;
+      });
+
       if (!field[_field.key].dragged) continue;
 
       if (_field.multiChoice) {
+        const options = _field.options.filter((opt: IModelOption) =>
+          (field[_field.key].value as string[])!.includes(opt.key),
+        );
+        options.forEach((opt: IModelOption) => {
+          allOptionKeyDragged.push(opt.key);
+          allRequiredForKey.push(...(opt.requiredFor || []));
+        });
+
         dynamicForm.push({
           ..._field,
-          options: _field.options.filter((opt) =>
-            (field[_field.key].value as string[])!.includes(opt.key),
-          ),
+          options,
         });
         continue;
       }
 
       const value = _field.options.find(
-        (opt) => opt.key === field[_field.key].value,
+        (opt: IModelOption) => opt.key === field[_field.key].value,
       );
+
+      if (!value) continue;
+
+      allOptionKeyDragged.push(value.key);
+      allRequiredForKey.push(...(value.requiredFor || []));
 
       const { options: _, ...rest } = _field;
 
@@ -284,6 +298,20 @@ const LaunchButton = ({
         ...rest,
         options: [value],
       });
+    }
+
+    allRequiredForKey.forEach((key) => {
+      if (!allOptionKeyDragged.includes(key)) {
+        missingRequiredFor = true;
+      }
+    });
+
+    if (missingRequiredFor) {
+      setShowError(true);
+      setMissingRequiredForTitles(
+        allRequiredForKey.map((key) => optionMapping[key].title),
+      );
+      return;
     }
 
     if (needContactUs) {
@@ -442,7 +470,10 @@ const LaunchButton = ({
       <ErrorModal
         title="Missing Required Modules"
         show={isShowError}
-        onHide={() => setShowError(false)}
+        onHide={() => {
+          setShowError(false);
+          setMissingRequiredForTitles([]);
+        }}
         closeText="Retry"
         className={s.modalError}
       >
@@ -456,6 +487,11 @@ const LaunchButton = ({
               </li>
             );
           })}
+          {missingRequiredForTitles.map((title) => (
+            <li key={title} className={s.fields__field}>
+              {title}
+            </li>
+          ))}
         </ul>
       </ErrorModal>
     </>

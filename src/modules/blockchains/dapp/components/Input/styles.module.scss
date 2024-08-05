@@ -15,4 +15,9 @@
     pointer-events: none;
     cursor: not-allowed;
   }
+
+  &__file {
+    width: 240px;
+    font-size: 16px;
+  }
 }

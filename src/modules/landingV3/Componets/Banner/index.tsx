@@ -7,9 +7,10 @@ export default function Banner() {
   return (
     <div className={s.banner}>
       <Link href={BVM_CODE_BATTLE}>
-        Proof of Code: The Crypto Coding Competition with weekly prize pools.{' '}
+        <img src="/icons/noto_trophy.svg" alt="noto_trophy.svg" width={20} height={20} />
+        Proof of Code: Compete for glory, recognition, and monetary rewards.{' '}
         <strong>
-          Register now{' '}
+          Let's code{' '}
           <span>
             <svg
               width="20"

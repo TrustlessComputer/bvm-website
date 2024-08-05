@@ -1,3 +1,5 @@
+import { IModelOption } from '@/types/customize-model';
+
 export const PREFIX = 'l2Services';
 
 export const APP_BLOCKCHAIN: IModelOption = {

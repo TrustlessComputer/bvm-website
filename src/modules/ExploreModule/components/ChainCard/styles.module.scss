@@ -1,0 +1,74 @@
+.wrapperChainCard {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  gap: 24px;
+  padding: 24px;
+  background: rgba(250, 250, 250, 1);
+  border-radius: 12px;
+  @include is-pc {
+    flex-direction: row;
+  }
+}
+
+.left {
+  max-width: 80px;
+  width: 100%;
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  &_top {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    &_heading {
+      color: #000;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: calc(33 /24);
+    }
+    &_decs {
+      color: #000;
+      opacity: .7;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: calc(22 / 16);
+    }
+    &_link {
+      max-width: 32px;
+      width: 100%;
+      background-color: #fff;
+      border-radius: 1000px;
+      padding: 6px;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
+
+.wrapperTag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  p {
+    border-radius: 100px;
+    padding: 4px 12px;
+    color: #000;
+    font-size: 14px;
+    line-height: calc(21 / 14);
+    font-weight: 600;
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
