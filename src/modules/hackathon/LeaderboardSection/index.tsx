@@ -86,7 +86,7 @@ const LeaderboardSection = (props: Props) => {
             <p className={s.title}>Practice Session</p>
             <p className={s.desc}>
               Gear up for the first official Proof-of-Code programming
-              tournament starting on August 8th!
+              tournament starting on August 29th!
               <br /> Sharpen your Solidity coding skills and tackle practice
               problems to boost your chances of winning.
             </p>
