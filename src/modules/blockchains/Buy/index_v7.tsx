@@ -34,6 +34,7 @@ import { applyNodeChanges, ReactFlow, ReactFlowProvider } from '@xyflow/react';
 import CustomNode from './component4/CustomNode';
 import useModelCategoriesStore from './stores/useModelCategoriesStore';
 import useDragStore from './stores/useDragStore';
+import AddBoxButton from '@/modules/blockchains/Buy/component4/AddBoxButton';
 
 const BuyPage = () => {
   const router = useRouter();
@@ -348,6 +349,7 @@ const BuyPage = () => {
         type: 'customBox',
         data: {
           label: 'Blockchain',
+          status: 'Running',
           isChain: true,
         },
         position: { x: 0, y: 0 },
@@ -959,6 +961,8 @@ const BuyPage = () => {
                 {/* ------------- RIGHT ------------- */}
                 <div className={s.right}>
                   <div className={s.top_right}>
+                    <AddBoxButton/>
+
                     <div className={s.right_box_footer}>
                       {!needContactUs && (
                         <div className={s.right_box_footer_left}>
@@ -981,6 +985,7 @@ const BuyPage = () => {
                       )}
 
                       <LaunchButton data={data} originalData={originalData} />
+
                     </div>
                   </div>
 
@@ -1021,42 +1026,42 @@ const BuyPage = () => {
                       </div>
                     )}
 
-                    {!isCapture && isShowVideo && (
-                      <div className={s.video}>
-                        <ImagePlaceholder
-                          src={'/video.jpg'}
-                          alt={'video'}
-                          width={291}
-                          height={226}
-                          className={s.video_img}
-                        />
-                        <div
-                          className={s.video_play}
-                          onClick={() => setIsOpenModalVideo(true)}
-                        >
-                          <ImagePlaceholder
-                            src={'/play.svg'}
-                            alt={'video'}
-                            width={60}
-                            height={60}
-                          />
-                        </div>
-                        <div
-                          className={s.video_close}
-                          onClick={() => {
-                            setIsOpenModalVideo(false);
-                            setIsShowVideo(false);
-                          }}
-                        >
-                          <ImagePlaceholder
-                            src={'/close.svg'}
-                            alt={'close'}
-                            width={24}
-                            height={24}
-                          />
-                        </div>
-                      </div>
-                    )}
+                    {/*{!isCapture && isShowVideo && (*/}
+                    {/*  <div className={s.video}>*/}
+                    {/*    <ImagePlaceholder*/}
+                    {/*      src={'/video.jpg'}*/}
+                    {/*      alt={'video'}*/}
+                    {/*      width={291}*/}
+                    {/*      height={226}*/}
+                    {/*      className={s.video_img}*/}
+                    {/*    />*/}
+                    {/*    <div*/}
+                    {/*      className={s.video_play}*/}
+                    {/*      onClick={() => setIsOpenModalVideo(true)}*/}
+                    {/*    >*/}
+                    {/*      <ImagePlaceholder*/}
+                    {/*        src={'/play.svg'}*/}
+                    {/*        alt={'video'}*/}
+                    {/*        width={60}*/}
+                    {/*        height={60}*/}
+                    {/*      />*/}
+                    {/*    </div>*/}
+                    {/*    <div*/}
+                    {/*      className={s.video_close}*/}
+                    {/*      onClick={() => {*/}
+                    {/*        setIsOpenModalVideo(false);*/}
+                    {/*        setIsShowVideo(false);*/}
+                    {/*      }}*/}
+                    {/*    >*/}
+                    {/*      <ImagePlaceholder*/}
+                    {/*        src={'/close.svg'}*/}
+                    {/*        alt={'close'}*/}
+                    {/*        width={24}*/}
+                    {/*        height={24}*/}
+                    {/*      />*/}
+                    {/*    </div>*/}
+                    {/*  </div>*/}
+                    {/*)}*/}
                   </div>
                 </div>
               </>
