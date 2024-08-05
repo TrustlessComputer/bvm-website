@@ -67,7 +67,7 @@ const RightDroppable = () => {
     () => adjustBrightness(thisDapp?.color || '#F76649', -10),
     [thisDapp],
   );
-
+  console.log('draggedIds2D', draggedIds2D);
   const handleReset = () => {
     formDappSignal.value = [];
     draggedIds2DSignal.value = [];

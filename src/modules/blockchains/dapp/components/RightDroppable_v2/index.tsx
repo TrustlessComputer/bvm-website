@@ -43,7 +43,7 @@ import DateTimeInput from '../DateTimeInput';
 import { DappModel, FieldModel } from '@/types/customize-model';
 import { Box, Text } from '@chakra-ui/react';
 
-const RightDroppable = () => {
+const RightDroppableV2 = () => {
   const {
     thisDapp,
     blockFieldMapping,
@@ -1014,4 +1014,4 @@ const RightDroppable = () => {
   );
 };
 
-export default RightDroppable;
+export default RightDroppableV2;

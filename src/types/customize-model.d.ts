@@ -135,7 +135,7 @@ interface BlockModel {
   linkDownloadFile?: string;
 }
 
-interface DappModel {
+interface  DappModel {
   id: string;
   key: string;
   created_at: string;
