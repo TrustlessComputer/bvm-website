@@ -540,9 +540,13 @@ const L2Rollup = () => {
   return (
     <Box className={s.container}>
       <Flex direction={'column'} w="100%" maxW={'1280px'} alignItems={'center'}>
-        <Text fontSize={'20px'} mb={'12px'}>
-          Project Heartbeat
-        </Text>
+        <Flex alignItems='center' gap='8px' mb={'12px'}>
+          <img src='/icons/heartbeat.svg' alt='noto_heartbeat.svg' width={24} height={24} />
+          <Text fontSize={'20px'}>
+            Project Heartbeat
+          </Text>
+          <img src='/icons/heartbeat.svg' alt='noto_heartbeat.svg' width={24} height={24} />
+        </Flex>
         <Text
           fontSize={'40px'}
           lineHeight={'52px'}
