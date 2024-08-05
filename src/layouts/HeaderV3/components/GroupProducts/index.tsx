@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,7 +9,12 @@ export default function GroupProducts(): ReactElement {
     <div className={s.groupProduction}>
       <div className={s.inner}>
         <div className={s.left}>
-          <Flex alignItems={'start'} flexDirection={'column'} flexWrap={'wrap'} gap={{ base: '60px' }}>
+          <Flex
+            alignItems={'start'}
+            flexDirection={'column'}
+            flexWrap={'wrap'}
+            gap={{ base: '60px' }}
+          >
             <div className={s.group}>
               <h4 className={s.title}>TOOLS</h4>
               <ul className={s.group_inner}>
@@ -33,9 +38,14 @@ export default function GroupProducts(): ReactElement {
                         </span>
                         {/* <small>New</small> */}
                       </div>
-                      <span className={s.group_item_icon_text_bottom}>
-                        A fast, simple, and fun way to build your own ZK rollup on Bitcoin.
-                      </span>
+                      <Text
+                        as="span"
+                        className={s.group_item_icon_text_bottom}
+                        maxW="100%"
+                      >
+                        A fast, simple, and fun way to build your own ZK rollup
+                        on Bitcoin.
+                      </Text>
                     </div>
                   </Link>
                 </li>
@@ -56,9 +66,14 @@ export default function GroupProducts(): ReactElement {
                       <span className={s.group_item_icon_text_title}>
                         BitZK Light Node
                       </span>
-                      <span className={s.group_item_icon_text_bottom}>
-                        A simple way for anyone to validate rollup state transitions with light nodes.
-                      </span>
+                      <Text
+                        as="span"
+                        className={s.group_item_icon_text_bottom}
+                        maxW="100%"
+                      >
+                        A simple way for anyone to validate rollup state
+                        transitions with light nodes.
+                      </Text>
                     </div>
                   </Link>
                 </li>
@@ -84,10 +99,14 @@ export default function GroupProducts(): ReactElement {
                         </span>
                         <small>New</small>
                       </div>
-                      <span className={s.group_item_icon_text_bottom}>
+                      <Text
+                        as="span"
+                        className={s.group_item_icon_text_bottom}
+                        maxW="100%"
+                      >
                         ZK rollups on Bitcoin for virtually any decentralized
                         applications.
-                      </span>
+                      </Text>
                     </div>
                   </Link>
                 </li>
@@ -105,10 +124,14 @@ export default function GroupProducts(): ReactElement {
                       <span className={s.group_item_icon_text_title}>
                         Bitcoin Optimistic (BitOP)
                       </span>
-                      <span className={s.group_item_icon_text_bottom}>
+                      <Text
+                        as="span"
+                        className={s.group_item_icon_text_bottom}
+                        maxW="100%"
+                      >
                         Optimistic rollups on Bitcoin for virtually any
                         decentralized applications.
-                      </span>
+                      </Text>
                     </div>
                   </Link>
                 </li>
