@@ -42,7 +42,7 @@ export const FAKE_DATA_MAPPING: {
       label: 'Blockchain',
       positionDot: Position.Right,
       handleType: 'source',
-      StatusBox: 'Running' ,
+      StatusBox: 'Drafting' ,
       legoList: [
         {
           background: '#FF3A3A',
@@ -96,7 +96,7 @@ export const FAKE_DATA_MAPPING: {
   {
     id: '2',
     data: {
-      label: 'DeFi Apps',
+      label: 'Issue a token',
       isRunning: false,
       positionDot: Position.Left,
       handleType: 'target',
@@ -146,85 +146,127 @@ export const FAKE_DATA_MAPPING: {
     type: 'elk',
     position: { x: 0, y: 0 },
   },
-  // {
-  //   id: '3',
-  //   data: {
-  //     label: 'Staking apps',
-  //     positionDot: Position.Left,
-  //     handleType: 'target',
-  //     isRunning: true,
-  //     legoParent: {
-  //       background: '#C000E6',
-  //     },
-  //     sourceHandles: [],
-  //     targetHandles: [
-  //       {
-  //         id: '3-t-1',
-  //       },
-  //     ],
-  //     legoList: [
-  //       {
-  //         background: '#AA00CC',
-  //         icon: '/icons-tool/icon_staking.svg',
-  //         title: 'Pool 1',
-  //       },
-  //       {
-  //         background: '#AA00CC',
-  //         icon: '/icons-tool/icon_staking.svg',
-  //         title: 'Pool 2',
-  //       },
-  //       {
-  //         background: '#AA00CC',
-  //         icon: '/icons-tool/icon_staking.svg',
-  //         title: 'Pool 3',
-  //       },
-  //     ],
-  //   },
-  //   type: 'elk',
-  //   position: { x: 0, y: 0 },
-  // },
-  //
-  // {
-  //   id: '4',
-  //   data: {
-  //     label: 'Gaming apps',
-  //     positionDot: Position.Left,
-  //     handleType: 'target',
-  //     isRunning: true,
-  //     sourceHandles: [],
-  //     targetHandles: [
-  //       {
-  //         id: '4-t-1',
-  //       },
-  //     ],
-  //     legoParent: {
-  //       background: '#E6004D',
-  //     },
-  //     legoList: [
-  //       {
-  //         background: '#CC0044',
-  //         icon: '/icons-tool/icon-game.svg',
-  //         title: 'Pepe Fight',
-  //       },
-  //       {
-  //         background: '#CC0044',
-  //         icon: '/icons-tool/icon-game.svg',
-  //         title: 'Merge',
-  //       },
-  //       {
-  //         background: '#CC0044',
-  //         icon: '/icons-tool/icon-game.svg',
-  //         title: 'Blast',
-  //       },
-  //       {
-  //         background: '#CC0044',
-  //         icon: '/icons-tool/icon-game.svg',
-  //         title: 'Connect',
-  //       },
-  //     ],
-  //   },
-  //   type: 'elk',
-  //   position: { x: 0, y: 0 },
-  // },
+  {
+    id: '3',
+    data: {
+      label: 'Pool ZKJ/BVM',
+      positionDot: Position.Left,
+      handleType: 'target',
+      isRunning: true,
+      StatusBox: 'Running',
+      legoParent: {
+        background: '#C000E6',
+      },
+      sourceHandles: [],
+      targetHandles: [
+        {
+          id: '3-t-1',
+        },
+      ],
+      legoList: [
+        {
+          background: '#AA00CC',
+          icon: '/icons-tool/icon_staking.svg',
+          title: 'Pool 1',
+        },
+        {
+          background: '#AA00CC',
+          icon: '/icons-tool/icon_staking.svg',
+          title: 'Pool 2',
+        },
+        {
+          background: '#AA00CC',
+          icon: '/icons-tool/icon_staking.svg',
+          title: 'Pool 3',
+        },
+      ],
+    },
+    type: 'elk',
+    position: { x: 0, y: 0 },
+  },
+  {
+    id: '4',
+    data: {
+      label: 'Gaming apps',
+      positionDot: Position.Left,
+      handleType: 'target',
+      StatusBox: 'Down',
+      sourceHandles: [],
+      targetHandles: [
+        {
+          id: '4-t-1',
+        },
+      ],
+      legoParent: {
+        background: '#E6004D',
+      },
+      legoList: [
+        {
+          background: '#CC0044',
+          icon: '/icons-tool/icon-game.svg',
+          title: 'Pepe Fight',
+        },
+        {
+          background: '#CC0044',
+          icon: '/icons-tool/icon-game.svg',
+          title: 'Merge',
+        },
+        {
+          background: '#CC0044',
+          icon: '/icons-tool/icon-game.svg',
+          title: 'Blast',
+        },
+        {
+          background: '#CC0044',
+          icon: '/icons-tool/icon-game.svg',
+          title: 'Connect',
+        },
+      ],
+    },
+    type: 'elk',
+    position: { x: 0, y: 0 },
+  },
+  {
+    id: '5',
+    data: {
+      label: 'Gaming apps',
+      positionDot: Position.Left,
+      handleType: 'target',
+      StatusBox: 'Ready',
+      sourceHandles: [],
+      targetHandles: [
+        {
+          id: '4-t-1',
+        },
+      ],
+      legoParent: {
+        background: '#E6004D',
+      },
+      legoList: [
+        {
+          background: '#CC0044',
+          icon: '/icons-tool/icon-game.svg',
+          title: 'Pepe Fight',
+        },
+        {
+          background: '#CC0044',
+          icon: '/icons-tool/icon-game.svg',
+          title: 'Merge',
+        },
+        {
+          background: '#CC0044',
+          icon: '/icons-tool/icon-game.svg',
+          title: 'Blast',
+        },
+        {
+          background: '#CC0044',
+          icon: '/icons-tool/icon-game.svg',
+          title: 'Connect',
+        },
+      ],
+    },
+    type: 'elk',
+    position: { x: 0, y: 0 },
+  },
 ];
 
