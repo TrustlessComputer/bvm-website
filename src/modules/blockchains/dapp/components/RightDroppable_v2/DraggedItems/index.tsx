@@ -33,7 +33,7 @@ const DraggedItems = () => {
     blockFieldMapping,
     moduleFieldMapping,
     singleFieldMapping,
-    getInput,
+    getInputWithLego,
   } = useThisDapp();
 
   useSignalEffect(() => {
@@ -127,7 +127,7 @@ const DraggedItems = () => {
 
             {thisDapp.baseBlock.fields.map(
               (field: FieldModel, fieldIndex: number) => {
-                return getInput(
+                return getInputWithLego(
                   field,
                   {
                     inBaseField: true,
@@ -180,7 +180,7 @@ const DraggedItems = () => {
                       >
                         {thisBlock.fields.map(
                           (field: FieldModel, fieldIndex: number) => {
-                            return getInput(
+                            return getInputWithLego(
                               field,
                               {
                                 inBaseField: false,
@@ -226,7 +226,7 @@ const DraggedItems = () => {
                                 zIndex: item.children.length - childIndex,
                               }}
                             >
-                              {getInput(
+                              {getInputWithLego(
                                 thisChildField,
                                 {
                                   inBaseField: false,
@@ -264,7 +264,7 @@ const DraggedItems = () => {
                       fieldKey: thisModule.key,
                     }}
                   >
-                    {getInput(
+                    {getInputWithLego(
                       thisModule,
                       {
                         inBaseField: false,
