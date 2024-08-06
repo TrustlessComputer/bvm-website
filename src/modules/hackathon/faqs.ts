@@ -30,6 +30,7 @@ export const FAQ_POC = [
     a: `<p>To improve your chances of winning, regularly participate in the practice battles, stay updated with the latest Solidity developments, and engage with the community to learn from others.</p>`,
   },
   {
+    id: 'faq-sol-prepare',
     q: 'Are there any resources available to help me prepare?',
     a: `<p>Yes, we provide various resources to help you prepare for the competition. Here are some links to useful tutorials, documentation, and forums where you can discuss and collaborate with other participants:</p><ul><li>Solidity Documentation: <a href="https://docs.soliditylang.org/" target="_blank" rel="noopener noreferrer">Solidity Docs</a></li><li>Solidity Tutorials: <a href="https://cryptozombies.io/" target="_blank" rel="noopener noreferrer">CryptoZombies</a> and <a href="https://solidity-by-example.org/" target="_blank" rel="noopener noreferrer">Solidity by Example</a></li><li>Smart Contract Development: <a href="https://ethereum.org/en/developers/" target="_blank" rel="noopener noreferrer">Ethereum Developer Portal</a></li><li>Forums and Community: <a href="https://ethereum.stackexchange.com/" target="_blank" rel="noopener noreferrer">Ethereum Stack Exchange</a> and <a href="https://www.reddit.com/r/ethdev/" target="_blank" rel="noopener noreferrer">r/ethdev on Reddit</a></li></ul>`,
   },

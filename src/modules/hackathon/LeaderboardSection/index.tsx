@@ -97,7 +97,7 @@ const LeaderboardSection = (props: Props) => {
           >
             <Flex
               alignItems={'center'}
-              gap="12px"
+              gap="34px"
               mb="24px"
               position="relative"
             >
@@ -116,7 +116,7 @@ const LeaderboardSection = (props: Props) => {
                 <Image src={'/hackathon/ic-close.svg'} />
               </Box>
             </Flex>
-            <Flex gap="20px" direction="column">
+            <Flex gap="20px" flexDirection={{ md: 'row', base: 'column' }}>
               <Flex
                 gap="8px"
                 alignItems="center"
@@ -141,10 +141,37 @@ const LeaderboardSection = (props: Props) => {
               <Flex
                 gap="8px"
                 className={s.warning_prepare}
+                whiteSpace={'nowrap'}
                 onClick={exportPrivateKeyHandler}
               >
                 <span>3.</span> Back up your private key
                 <Image src="/hackathon/ic-restore.svg" alt="add" />
+              </Flex>
+              <Flex
+                gap="8px"
+                className={s.warning_prepare}
+                onClick={() => {
+                  const prepareElm = document.getElementById('faq-sol-prepare');
+                  prepareElm?.scrollIntoView({ behavior: 'smooth' });
+                  setTimeout(() => {
+                    if (
+                      prepareElm?.querySelector('.chakra-collapse')
+                        ?.clientHeight === 0
+                    ) {
+                      prepareElm?.querySelector('button')?.click();
+                    }
+                  }, 1500);
+                }}
+              >
+                <span>4.</span> New to Solidity? Learn easy about Solidity
+                <Image
+                  src="/hackathon/img-sol.png"
+                  alt="solidity"
+                  backgroundColor={'#fff'}
+                  borderRadius={'50%'}
+                  width="24px"
+                  height="24px"
+                />
               </Flex>
             </Flex>
           </Box>
@@ -159,7 +186,7 @@ const LeaderboardSection = (props: Props) => {
                     ? '100%'
                     : isProblemPanelMaximized
                     ? '100%'
-                    : '50%',
+                    : '65%',
                 height: 'auto',
                 transition: {
                   type: 'keyframes',
@@ -173,7 +200,7 @@ const LeaderboardSection = (props: Props) => {
                 }
               }}
               // exit={{
-              //   width: '50%',
+              //   width: '65%',
               // }}
             >
               <h4>Problems</h4>
@@ -182,7 +209,7 @@ const LeaderboardSection = (props: Props) => {
                 setIsProblemPanelMaximized={setIsProblemPanelMaximized}
                 setShowLeaderboard={setShowLeaderboard}
               />
-              <Text
+              {/* <Text
                 m="32px 0 20px 0"
                 fontSize="24px"
                 fontWeight="700"
@@ -191,7 +218,7 @@ const LeaderboardSection = (props: Props) => {
               >
                 Submit solutions
               </Text>
-              <SubmitProblem />
+              <SubmitProblem /> */}
             </Box>
             <AnimatePresence>
               {(showLeaderboard || width <= 768) && (
