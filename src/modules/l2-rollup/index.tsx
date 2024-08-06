@@ -421,7 +421,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'68px'} px={'4px'}>
+            <Flex gap={3} alignItems={'center'} width={'72px'} px={'4px'}>
               <Text className={s.title}>
                 {data?.kbs
                   ? formatCurrency(data?.kbs, MIN_DECIMAL, MIN_DECIMAL)
