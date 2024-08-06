@@ -19,9 +19,7 @@ import {
   PopoverContent,
   PopoverBody,
   PopoverTrigger,
-  Button,
 } from '@chakra-ui/react';
-import moment from 'moment';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import { orderBy } from 'lodash';
@@ -29,7 +27,7 @@ import sleep from '@utils/sleep';
 
 interface ICachedIndex {
   name: string;
-  index: number
+  index: number;
 }
 
 const L2Rollup = () => {
@@ -41,7 +39,7 @@ const L2Rollup = () => {
   const rollupL2Api = new CRollupL2API();
   const sortedRef = useRef(false);
   const loading = useRef(false);
-  const cachedIndex = useRef<ICachedIndex[]>([])
+  const cachedIndex = useRef<ICachedIndex[]>([]);
 
   const total = useMemo(() => {
     const tps = data.reduce((accum, item) => accum + item.tps, 0);
@@ -70,7 +68,6 @@ const L2Rollup = () => {
   }, []);
 
   const fetchData = async () => {
-
     if (loading.current) return;
 
     try {
@@ -78,35 +75,42 @@ const L2Rollup = () => {
       const res = await rollupL2Api.getRollupL2Info();
       let data: IRollupL2Info[] = [];
       if (sortedRef?.current) {
-        data = orderBy(res, [
-            item => compareString(item.name, 'Bitcoin')],
-          ['desc']
+        data = orderBy(
+          res,
+          [(item) => compareString(item.name, 'Bitcoin')],
+          ['desc'],
         );
 
         data = orderBy(
           res.map((item) => {
-            const index = cachedIndex.current?.findIndex(cachedItem => compareString(item.name, cachedItem.name));
+            const index = cachedIndex.current?.findIndex((cachedItem) =>
+              compareString(item.name, cachedItem.name),
+            );
             return {
               ...item,
-              index
-            }
+              index,
+            };
           }),
-          [item => item.index],
-          ['asc'])
+          [(item) => item.index],
+          ['asc'],
+        );
       } else {
         sortedRef.current = true;
-        data = orderBy(res, [
-          item => compareString(item.name, 'Bitcoin'),
-          (item) => Number(item.mgas || '0')],
-          ['desc', 'desc']
+        data = orderBy(
+          res,
+          [
+            (item) => compareString(item.name, 'Bitcoin'),
+            (item) => Number(item.mgas || '0'),
+          ],
+          ['desc', 'desc'],
         );
         cachedIndex.current = data.map((item, index) => ({
           name: item.name,
-          index
-        }))
-        await sleep(0.1)
+          index,
+        }));
+        await sleep(0.1);
       }
-      setData(data)
+      setData(data);
     } catch (error) {
     } finally {
       hasIncrementedPageRef.current = false;
@@ -395,7 +399,7 @@ const L2Rollup = () => {
               width: '100%',
             }}
           >
-            Stack
+            Rollup
           </Flex>
         ),
         labelConfig,
@@ -573,12 +577,20 @@ const L2Rollup = () => {
   return (
     <Box className={s.container}>
       <Flex direction={'column'} w="100%" maxW={'1280px'} alignItems={'center'}>
-        <Flex alignItems='center' gap='8px' mb={'12px'}>
-          <img src='/icons/heartbeat.svg' alt='noto_heartbeat.svg' width={24} height={24} />
-          <Text fontSize={'20px'}>
-            Project Heartbeat
-          </Text>
-          <img src='/icons/heartbeat.svg' alt='noto_heartbeat.svg' width={24} height={24} />
+        <Flex alignItems="center" gap="8px" mb={'12px'}>
+          <img
+            src="/icons/heartbeat.svg"
+            alt="noto_heartbeat.svg"
+            width={24}
+            height={24}
+          />
+          <Text fontSize={'20px'}>Project Heartbeat</Text>
+          <img
+            src="/icons/heartbeat.svg"
+            alt="noto_heartbeat.svg"
+            width={24}
+            height={24}
+          />
         </Flex>
         <Text
           fontSize={'40px'}
