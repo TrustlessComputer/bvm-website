@@ -16,24 +16,24 @@ import Hero from '@/modules/app-store/v2/Hero';
 import { DA_DUMMY_LIST } from '@/services/api/DAServices/constants';
 
 const AppStoreModule = () => {
-  const { getDappsList, getMyOrderList, getAccountInfor } = useL2Service();
+  const { getDappsList, getMyOrderList } = useL2Service();
   const { loggedIn, login } = useWeb3Auth();
   const DAppList = useAppSelector(getDAListSelector);
 
   const activeApps = useMemo(() => {
-    return DAppList.filter(da => da.status === 'active');
+    return DAppList.filter((da) => da.status === 'active');
   }, [DAppList]);
 
   const walletApps = useMemo(() => {
-    return DAppList.filter(da => da.category === 'wallet_apps');
+    return DAppList.filter((da) => da.category === 'wallet_apps');
   }, [DAppList]);
 
   const bridgeApps = useMemo(() => {
-    return DAppList.filter(da => da.category === 'bridge_apps');
+    return DAppList.filter((da) => da.category === 'bridge_apps');
   }, [DAppList]);
 
   const defiApps = useMemo(() => {
-    return DA_DUMMY_LIST.filter(da => da.category === 'defi_apps');
+    return DA_DUMMY_LIST.filter((da) => da.category === 'defi_apps');
   }, [DAppList]);
 
   const router = useRouter();
@@ -42,7 +42,6 @@ const AppStoreModule = () => {
     getDappsList();
     if (loggedIn) {
       getMyOrderList();
-      getAccountInfor();
     }
   }, [loggedIn]);
 
@@ -59,7 +58,7 @@ const AppStoreModule = () => {
             You can choose any app to install
           </Text>
         </Flex>
-        <Hero data={activeApps}/>
+        <Hero data={activeApps} />
         <Section title={'Wallet'}>
           <SimpleGrid columns={[1, 2]} gap={'24px'}>
             {walletApps?.map((d) => {

@@ -45,7 +45,6 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
   const addressL2 = accountInforL2Service?.tcAddress;
   const refCodeChain = ReferralStorage.getRefCodeChain();
 
-  const { getAccountInfor } = useL2Service();
   const { loggedIn } = useWeb3Auth();
   const { trackPageView } = useEventTracking();
 
@@ -66,10 +65,6 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
       //
     }
   };
-
-  useEffect(() => {
-    getAccountInfor();
-  }, [loggedIn]);
 
   const fetchUserInfo = async () => {
     const userInfo = await userServices.getUser();

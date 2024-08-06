@@ -57,7 +57,7 @@ export const getAPIAcessToken = () => {
 };
 
 export const register = async (idToken: string): Promise<any> => {
-  console.log('[API][register] idToken', idToken);
+  // console.log('[API][register] idToken', idToken);
   try {
     const res = await apiClient.get(`/account/register`, {
       headers: {
@@ -65,7 +65,7 @@ export const register = async (idToken: string): Promise<any> => {
         Authorization: `${idToken}`,
       },
     });
-    console.log('[API][register] res', res);
+    // console.log('[API][register] res', res);
     return res as any;
   } catch (error) {
     console.log('[API][register] ERROR', error);

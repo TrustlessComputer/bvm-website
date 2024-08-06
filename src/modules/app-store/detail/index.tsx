@@ -28,16 +28,9 @@ const AppDetailModule = () => {
     undefined,
   );
 
-  const { getAccountInfor } = useL2Service();
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
   const { loggedIn, login, userInfo } = useWeb3Auth();
   const needReload = useAppSelector(commonSelector).needReload;
-
-  useEffect(() => {
-    if (loggedIn) {
-      getAccountInfor();
-    }
-  }, [loggedIn]);
 
   useEffect(() => {
     if (params?.id) {
@@ -128,7 +121,11 @@ const AppDetailModule = () => {
           <Flex gap={'40px'} direction={'column'}>
             {data?.details.map((m) => {
               return (
-                <AppPackage data={m} app={appInforByUser || data} onInstall={handleInstall} />
+                <AppPackage
+                  data={m}
+                  app={appInforByUser || data}
+                  onInstall={handleInstall}
+                />
               );
             })}
           </Flex>

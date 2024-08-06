@@ -38,13 +38,11 @@ const Page = (props: any) => {
     setChatTabIndex(index);
   };
 
-  const { loopFetchAccountInfor, getMyOrderList, getDappsList } =
-    useL2Service();
+  const { getMyOrderList, getDappsList } = useL2Service();
   const dispatch = useAppDispatch();
   const { loggedIn, login } = useWeb3Auth();
 
   useEffect(() => {
-    loopFetchAccountInfor();
     if (loggedIn) {
       getMyOrderList();
       getDappsList();
