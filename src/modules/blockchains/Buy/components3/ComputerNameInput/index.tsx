@@ -81,7 +81,8 @@ const ComputerNameInput = (props: Props) => {
   }, [chainNameDefault, isMainnet]);
 
   return (
-    <div className={`${isCapture ? s.setLine : ''} ${s.wrapper_input}`}>
+    // <div className={`${isCapture ? s.setLine : ''} ${s.wrapper_input}`}>
+    <div className={`${s.wrapper_input}`}>
       <input
         type="text"
         placeholder="Enter chain name"

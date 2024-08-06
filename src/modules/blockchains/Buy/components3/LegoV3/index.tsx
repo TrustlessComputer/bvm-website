@@ -151,7 +151,8 @@ function LegoV3({
           {label && labelInLeft ? (
             <div className={`${styles.label} ${styles.label__left}`}>
               {_icon && <Image src={_icon} alt="icon" width={24} height={24} />}
-              <p className={isCapture ? styles.label_margin : ''}>{label} </p>
+              {/*<p className={isCapture ? styles.label_margin : ''}>{label} </p>*/}
+              <p>{label} </p>
             </div>
           ) : null}
 
@@ -160,7 +161,8 @@ function LegoV3({
           {(label || icon) && labelInRight ? (
             <div className={`${styles.label} ${styles.label__right}`}>
               {_icon && <Image src={_icon} alt="icon" width={16} height={16} />}
-              <p className={isCapture ? styles.label_margin : ''}>{label} </p>
+              {/*<p className={isCapture ? styles.label_margin : ''}>{label} </p>*/}
+              <p>{label} </p>
             </div>
           ) : null}
 

@@ -6,9 +6,16 @@ import html2canvas from 'html2canvas';
 import Image from 'next/image';
 import s from '@/modules/blockchains/Buy/styles_v5.module.scss';
 import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
+import { getNodesBounds, getViewportForBounds, useReactFlow } from '@xyflow/react';
+import { toPng } from 'html-to-image';
+
+
+const imageWidth = 1024;
+const imageHeight = 768;
 
 const Capture = () => {
   const { setIsCapture } = useCaptureStore();
+  const { getNodes } = useReactFlow();
   const handleClickShareTwitter = (url: string) => {
     try {
       // const imgEncode = encodeBase64(url);
@@ -31,13 +38,34 @@ https://bvm.network/studio/${url}`;
     }
   };
 
-  const exportBase64 = async () => {
-    setIsCapture(true);
-    const canvasDom = document.querySelector('#imageCapture') as HTMLElement;
-    const canvas = await html2canvas(canvasDom).then((res) => {
-      return res;
-    });
-    return canvas.toDataURL('image/png', 1.0);
+  const exportBase64 = async ():Promise<string> => {
+    const nodesBounds = getNodesBounds(getNodes());
+    const viewport = getViewportForBounds(
+      nodesBounds,
+      imageWidth,
+      imageHeight,
+      0.5,
+      2,
+      5
+    );
+
+    // const canvasDom = document.querySelector('#imageCapture') as HTMLElement;
+    // const canvas = await html2canvas(canvasDom).then((res) => {
+    //   return res;
+    // });
+    // return canvas.toDataURL('image/png', 1.0);
+    const canvasDom = document.querySelector('.react-flow__viewport') as HTMLElement;
+    return toPng(canvasDom, {
+      backgroundColor: '#fff',
+      width: imageWidth,
+      height: imageHeight,
+      quality: 100,
+      style: {
+        width: `${imageWidth}`,
+        height: `${imageHeight}`,
+        transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
+      },
+    }).then(res => res)
   };
 
   const exportAsImage = async () => {
@@ -57,22 +85,34 @@ https://bvm.network/studio/${url}`;
     }, 150);
   };
 
+  // async function download() {
+  //   setIsCapture(true);
+  //   const a = document.createElement('a');
+  //   setTimeout(async () => {
+  //
+  //     a.href = await exportBase64();
+  //     setIsCapture(false);
+  //     a.download = `${new Date()}.png`;
+  //     a.click();
+  //   }, 150);
+  // }
+
   async function download() {
     setIsCapture(true);
     const a = document.createElement('a');
     setTimeout(async () => {
-      console.log('capture');
 
       a.href = await exportBase64();
       setIsCapture(false);
       a.download = `${new Date()}.png`;
       a.click();
+      setIsCapture(false);
     }, 150);
   }
 
   return (
     <div className={s.wrapper_btn_top}>
-      {/* <div className={s.reset2} onClick={() => download()}>
+       <div className={s.reset2} onClick={() => download()}>
         <div>
           <Image
             src={'/icons/ic_image_2.svg'}
@@ -82,7 +122,7 @@ https://bvm.network/studio/${url}`;
           />
         </div>
         <p>EXPORT</p>
-      </div> */}
+      </div>
       <div className={s.reset2} onClick={exportAsImage}>
         <p>SHARE</p>
         <div>

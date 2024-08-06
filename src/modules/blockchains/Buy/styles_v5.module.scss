@@ -168,7 +168,9 @@
 
 .wrapper_btn_top {
   display: flex;
-  gap: 12px;
+
+  flex-direction: column;
+  gap: 8px;
 }
 
 .top_right {

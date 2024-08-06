@@ -48,7 +48,6 @@ const BuyPage = () => {
     setCategories: setOriginalData,
   } = useModelCategoriesStore();
   const { draggedFields, setDraggedFields } = useDragStore();
-
   const [templates, setTemplates] = React.useState<Array<
     IModelCategory[]
   > | null>(null);
@@ -960,43 +959,45 @@ const BuyPage = () => {
                 </DragOverlay>
 
                 {/* ------------- RIGHT ------------- */}
-                <div className={s.right}>
-                  <div className={s.top_right}>
-                    <AddBoxButton setNodes={setNodes} />
+                <ReactFlowProvider>
 
-                    <div className={s.right_box_footer}>
-                      {!needContactUs && (
-                        <div className={s.right_box_footer_left}>
-                          <h4 className={s.right_box_footer_left_content}>
-                            {formatCurrencyV2({
-                              amount: priceBVM,
-                              decimals: 0,
-                            })}{' '}
-                            BVM{'/'}month
-                          </h4>
-                          <h6 className={s.right_box_footer_left_title}>
-                            $
-                            {formatCurrencyV2({
-                              amount: priceUSD,
-                              decimals: 0,
-                            })}
-                            {'/'}month
-                          </h6>
-                        </div>
-                      )}
+                  <div className={s.right}>
+                    <div className={s.top_right}>
+                      <AddBoxButton setNodes={setNodes}/>
 
-                      <LaunchButton data={data} originalData={originalData} />
+                      <div className={s.right_box_footer}>
+                        {!needContactUs && (
+                          <div className={s.right_box_footer_left}>
+                            <h4 className={s.right_box_footer_left_content}>
+                              {formatCurrencyV2({
+                                amount: priceBVM,
+                                decimals: 0,
+                              })}{' '}
+                              BVM{'/'}month
+                            </h4>
+                            <h6 className={s.right_box_footer_left_title}>
+                              $
+                              {formatCurrencyV2({
+                                amount: priceUSD,
+                                decimals: 0,
+                              })}
+                              {'/'}month
+                            </h6>
+                          </div>
+                        )}
+
+                        <LaunchButton data={data} originalData={originalData} />
+                      </div>
                     </div>
-                  </div>
 
-                  <div className={`${s.right_box}`}>
-                    <div
-                      className={`${s.right_box_main} ${
-                        isCapture ? s.right_box_main_captured : ''
-                      }`}
-                      id="imageCapture"
-                    >
-                      <ReactFlowProvider>
+                    <div className={`${s.right_box}`}>
+                      <div
+                        // className={`${s.right_box_main} ${
+                        //   isCapture ? s.right_box_main_captured : ''
+                        // }`}
+                        className={`${s.right_box_main}`}
+                        id="imageCapture"
+                      >
                         <ReactFlow
                           nodes={nodes}
                           nodeTypes={{ customBox: CustomNode }}
@@ -1009,85 +1010,86 @@ const BuyPage = () => {
                             zoom: 1,
                           }}
                         />
-                      </ReactFlowProvider>
-                    </div>
-
-                    {/*{!isCapture && (*/}
-                    {/*  <div className={s.cta_wrapper}>*/}
-                    {/*    <button*/}
-                    {/*      className={`${s.reset} ${s.gray}`}*/}
-                    {/*      onClick={() => setIsShowModal(true)}*/}
-                    {/*    >*/}
-                    {/*      <div>*/}
-                    {/*        RESET*/}
-                    {/*        <ImagePlaceholder*/}
-                    {/*          src={'/icons/undo.svg'}*/}
-                    {/*          alt={'undo'}*/}
-                    {/*          width={20}*/}
-                    {/*          height={20}*/}
-                    {/*        />*/}
-                    {/*      </div>*/}
-                    {/*    </button>*/}
-                    {/*    <Capture />*/}
-                    {/*  </div>*/}
-                    {/*)}    */}
-                    {!isCapture && (
-                      <div className={s.resetButton}>
-                        {/*<Button element="button" type="button">*/}
-                        {/*  EXPORT{' '}*/}
-                        {/*  <Image*/}
-                        {/*    src="/icons/ic_image_2.svg"*/}
-                        {/*    alt="ic_image_2"*/}
-                        {/*    width={20}*/}
-                        {/*    height={20}*/}
-                        {/*  />*/}
-                        {/*</Button>*/}
-                        <Capture />
-                        <Button element="button" type="button" onClick={() => setIsShowModal(true)}>
-                          RESET{' '}
-                          <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
-                        </Button>
                       </div>
-                    )}
 
-                    {/*{!isCapture && isShowVideo && (*/}
-                    {/*  <div className={s.video}>*/}
-                    {/*    <ImagePlaceholder*/}
-                    {/*      src={'/video.jpg'}*/}
-                    {/*      alt={'video'}*/}
-                    {/*      width={291}*/}
-                    {/*      height={226}*/}
-                    {/*      className={s.video_img}*/}
-                    {/*    />*/}
-                    {/*    <div*/}
-                    {/*      className={s.video_play}*/}
-                    {/*      onClick={() => setIsOpenModalVideo(true)}*/}
-                    {/*    >*/}
-                    {/*      <ImagePlaceholder*/}
-                    {/*        src={'/play.svg'}*/}
-                    {/*        alt={'video'}*/}
-                    {/*        width={60}*/}
-                    {/*        height={60}*/}
-                    {/*      />*/}
-                    {/*    </div>*/}
-                    {/*    <div*/}
-                    {/*      className={s.video_close}*/}
-                    {/*      onClick={() => {*/}
-                    {/*        setIsOpenModalVideo(false);*/}
-                    {/*        setIsShowVideo(false);*/}
-                    {/*      }}*/}
-                    {/*    >*/}
-                    {/*      <ImagePlaceholder*/}
-                    {/*        src={'/close.svg'}*/}
-                    {/*        alt={'close'}*/}
-                    {/*        width={24}*/}
-                    {/*        height={24}*/}
-                    {/*      />*/}
-                    {/*    </div>*/}
-                    {/*  </div>*/}
-                    {/*)}*/}
+                      {/*{!isCapture && (*/}
+                      {/*  <div className={s.cta_wrapper}>*/}
+                      {/*    <button*/}
+                      {/*      className={`${s.reset} ${s.gray}`}*/}
+                      {/*      onClick={() => setIsShowModal(true)}*/}
+                      {/*    >*/}
+                      {/*      <div>*/}
+                      {/*        RESET*/}
+                      {/*        <ImagePlaceholder*/}
+                      {/*          src={'/icons/undo.svg'}*/}
+                      {/*          alt={'undo'}*/}
+                      {/*          width={20}*/}
+                      {/*          height={20}*/}
+                      {/*        />*/}
+                      {/*      </div>*/}
+                      {/*    </button>*/}
+                      {/*    <Capture />*/}
+                      {/*  </div>*/}
+                      {/*)}    */}
+                      {!isCapture && (
+                        <div className={s.resetButton}>
+                          {/*<Button element="button" type="button">*/}
+                          {/*  EXPORT{' '}*/}
+                          {/*  <Image*/}
+                          {/*    src="/icons/ic_image_2.svg"*/}
+                          {/*    alt="ic_image_2"*/}
+                          {/*    width={20}*/}
+                          {/*    height={20}*/}
+                          {/*  />*/}
+                          {/*</Button>*/}
+                          <Capture />
+                          <Button element="button" type="button" onClick={() => setIsShowModal(true)}>
+                            RESET{' '}
+                            <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
+                          </Button>
+                        </div>
+                      )}
+
+                      {/*{!isCapture && isShowVideo && (*/}
+                      {/*  <div className={s.video}>*/}
+                      {/*    <ImagePlaceholder*/}
+                      {/*      src={'/video.jpg'}*/}
+                      {/*      alt={'video'}*/}
+                      {/*      width={291}*/}
+                      {/*      height={226}*/}
+                      {/*      className={s.video_img}*/}
+                      {/*    />*/}
+                      {/*    <div*/}
+                      {/*      className={s.video_play}*/}
+                      {/*      onClick={() => setIsOpenModalVideo(true)}*/}
+                      {/*    >*/}
+                      {/*      <ImagePlaceholder*/}
+                      {/*        src={'/play.svg'}*/}
+                      {/*        alt={'video'}*/}
+                      {/*        width={60}*/}
+                      {/*        height={60}*/}
+                      {/*      />*/}
+                      {/*    </div>*/}
+                      {/*    <div*/}
+                      {/*      className={s.video_close}*/}
+                      {/*      onClick={() => {*/}
+                      {/*        setIsOpenModalVideo(false);*/}
+                      {/*        setIsShowVideo(false);*/}
+                      {/*      }}*/}
+                      {/*    >*/}
+                      {/*      <ImagePlaceholder*/}
+                      {/*        src={'/close.svg'}*/}
+                      {/*        alt={'close'}*/}
+                      {/*        width={24}*/}
+                      {/*        height={24}*/}
+                      {/*      />*/}
+                      {/*    </div>*/}
+                      {/*  </div>*/}
+                      {/*)}*/}
+                    </div>
                   </div>
-                </div>
+                </ReactFlowProvider>
+
               </>
             )}
           </div>
