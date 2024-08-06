@@ -17,12 +17,13 @@ const NODE_WIDTH = 16;
 const NODE_HEIGHT = 15;
 
 export default function AddBoxButton({ ...props }): React.JSX.Element {
-  // const store = useStoreApi();
-  // const {
-  //   height,
-  //   width,
-  //   transform: [transformX, transformY, zoomLevel],
-  // } = store.getState();
+  const store = useStoreApi();
+  const {
+    height,
+    width,
+    transform: [transformX, transformY, zoomLevel],
+  } = store.getState();
+  const { screenToFlowPosition } = useReactFlow();
 
   const [draggedIds2D, setDraggedIds2D] = React.useState<
     typeof draggedIds2DSignal.value
@@ -90,10 +91,15 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
     if (dragState.new) {
       handleAddBox();
     } else if (!dragState.oneD.every((v) => v === -1)) {
+      const position = screenToFlowPosition({
+        x: 0,
+        y: 0,
+      });
       props.nodes[dragState.oneD[0] + 1] = {
         ...props.nodes[dragState.oneD[0] + 1],
         data: {
           ...props.nodes[dragState.oneD[0] + 1].data,
+          position,
           ids: draggedIds2D[dragState.oneD[0]],
         },
       };
@@ -105,14 +111,19 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
   }, [dragState]);
 
   function handleAddBox() {
+
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
-    // const zoomMultiplier = 1 / zoomLevel;
-    // const centerX = -transformX * zoomMultiplier + (width * zoomMultiplier) / 2;
-    // const centerY =
-    //   -transformY * zoomMultiplier + (height * zoomMultiplier) / 2;
+    const zoomMultiplier = 1 / zoomLevel;
+    const centerX = -transformX * zoomMultiplier + (width * zoomMultiplier) / 2;
+    const centerY =
+      -transformY * zoomMultiplier + (height * zoomMultiplier) / 2;
     // const nodeWidthOffset = NODE_WIDTH / 2;
     // const nodeHeightOffset = NODE_HEIGHT / 2;
+    const position = screenToFlowPosition({
+      x: centerX,
+      y: centerY,
+    });
     props.setNodes((prev) => [
       ...prev,
       {
@@ -128,36 +139,16 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
           baseIndex: draggedIds2D.length - 1,
         },
         //TODO: center position
-        position: {
-          x: 0,
-          y: 0,
-        },
+        // position: {
+        //   x: 0,
+        //   y: 0,
+        // },
+        position
       },
     ]);
-
-    // addNodes({
-    //   id: `${Math.random()}`,
-    //   type: 'customBox',
-    //   dragHandle: '.drag-handle-area',
-    //   data: {
-    //     label: 'Blockchain',
-    //     status: 'Missing',
-    //     isChain: true,
-    //   },
-    //   position: { x: centerX - nodeWidthOffset + props.currentOverlapOffset, y: centerY - nodeHeightOffset + props.currentOverlapOffset },
-    // })
   }
 
-  // return (
-  //   <Button
-  //     // isLoading={isLoading}
-  //     className={s.button}
-  //     type={'submit'}
-  //     onClick={() => handleAddBox()}
-  //   >
-  //     Add box
-  //   </Button>
-  // );
-
-  return <></>;
+  return (
+    <></>
+  );
 }
