@@ -65,14 +65,13 @@ import RightDroppable from './component4/RightDroppable';
 import DragMask from './component4/DragMask';
 import Button from '../dapp/components/Button';
 import DroppableMask from '@/modules/blockchains/Buy/component4/DroppableMask';
+import { mouseDroppedPositionSignal } from './signals/useMouseDroppedPosition';
+import useScreenMouse from './hooks/useScreenMouse';
 // import { Button } from '@chakra-ui/react';
 const BuyPage = () => {
   const router = useRouter();
 
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  // const [nodes, setNodes] = useState<NodeBase[]>([]);
-
-  console.log('🚀 -> file: index_v7.tsx:69 -> BuyPage -> nodes ::', nodes);
 
   const {
     parsedCategories: data,
@@ -97,6 +96,7 @@ const BuyPage = () => {
     setNeedContactUs,
     needContactUs,
   } = useOrderFormStoreV3();
+  const mousePositionRef = React.useRef({ x: 0, y: 0 });
 
   const [tabActive, setTabActive] = React.useState<TABS>(TABS.CODE);
 
@@ -113,6 +113,9 @@ const BuyPage = () => {
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
   const { isCapture } = useCaptureStore();
   const { l2ServiceUserAddress } = useWeb3Auth();
+  const { addListeners, removeListeners } = useScreenMouse({
+    handleOnTick: tick,
+  });
 
   const {
     baseModuleFieldMapping,
@@ -131,6 +134,20 @@ const BuyPage = () => {
     setIsShowModal(false);
     setTemplateDataClone(template || []);
   };
+
+  function tick(
+    contentRect: DOMRect,
+    mousePosition: {
+      x: number;
+      y: number;
+    },
+    previousMousePosition: {
+      x: number;
+      y: number;
+    },
+  ) {
+    mousePositionRef.current = mousePosition;
+  }
 
   const getAllOptionKeysOfItem = (item: FieldModel) => {
     const result: string[] = [];
@@ -484,6 +501,13 @@ const BuyPage = () => {
           ...draggedDappIndexesSignal.value,
           dappIndex,
         ];
+        mouseDroppedPositionSignal.value = {
+          ...mousePositionRef.current,
+        };
+        console.log(
+          'mouseDroppedPositionSignal.value',
+          mouseDroppedPositionSignal.value,
+        );
         return;
       }
 
@@ -521,6 +545,14 @@ const BuyPage = () => {
           FieldKeyPrefix.BASE_MODULE
         }-${activeOriginalKey}-0-0`;
 
+        console.log(
+          'mouseDroppedPositionSignal.value',
+          mouseDroppedPositionSignal.value,
+        );
+
+        mouseDroppedPositionSignal.value = {
+          ...mousePositionRef.current,
+        };
         formDappSignal.value = {
           ...formDappSignal.value,
           [formKey]: active.data.current?.value,
@@ -1020,6 +1052,7 @@ const BuyPage = () => {
     setOriginalData(sortedCategories);
     setTemplates(templates);
     setNodes([
+      // @ts-ignore
       {
         id: 'blockchain',
         type: 'customBox',
@@ -1135,6 +1168,11 @@ const BuyPage = () => {
 
   React.useEffect(() => {
     fetchData();
+    addListeners();
+
+    return () => {
+      removeListeners;
+    };
   }, []);
 
   const initTemplate = (crPackage?: number) => {

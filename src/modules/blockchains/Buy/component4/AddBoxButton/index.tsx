@@ -92,9 +92,7 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
         },
       };
 
-      console.log('nodes before', props.nodes);
       props.onNodesChange(props.nodes);
-      console.log('nodes after', props.nodes);
     } else if (!dragState.twoD.every((v) => v === -1)) {
       // handleAddBox();
     }
@@ -155,7 +153,5 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
   //   </Button>
   // );
 
-  return (
-    <></>
-  );
+  return <></>;
 }
