@@ -71,7 +71,7 @@ import useScreenMouse from './hooks/useScreenMouse';
 const BuyPage = () => {
   const router = useRouter();
 
-  const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  const [nodes, setNodes, onNodesChange] = useNodesState<any>([]);
 
   const {
     parsedCategories: data,
@@ -739,6 +739,7 @@ const BuyPage = () => {
 
       // Case 2.1: Dragged lego is a base block
       if (activeIsABase) {
+        const newNodes = removeItemAtIndex(nodes, activeBaseIndex + 1);
         const formDapp = formDappSignal.value;
 
         Object.keys(formDapp).forEach((key) => {
@@ -758,6 +759,7 @@ const BuyPage = () => {
           activeBaseIndex,
         );
         formDappSignal.value = { ...formDapp };
+        setNodes(newNodes);
 
         return;
       }

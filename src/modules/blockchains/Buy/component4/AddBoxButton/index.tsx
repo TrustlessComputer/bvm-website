@@ -46,7 +46,6 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
     if (draggedIds2DSignal.value.length === draggedIds2D.length) {
       for (let i = 0; i < draggedIds2DSignal.value.length; i++) {
         if (!isTwoObjectEqual(draggedIds2DSignal.value[i], draggedIds2D[i])) {
-          // console.log('here', i);
           setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
           setDragState({
             oneD: [i],
@@ -57,24 +56,23 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
           break;
         }
 
-        for (let j = 0; j < draggedIds2DSignal.value[i].length; j++) {
-          if (
-            !isTwoObjectEqual(
-              draggedIds2DSignal.value[i][j],
-              draggedIds2D[i][j],
-            )
-          ) {
-            console.log('H@ERER');
-            setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
-            setDragState({
-              oneD: [-1],
-              twoD: [i, j],
-              new: false,
-              remove: false,
-            });
-            break;
-          }
-        }
+        // for (let j = 0; j < draggedIds2DSignal.value[i].length; j++) {
+        //   if (
+        //     !isTwoObjectEqual(
+        //       draggedIds2DSignal.value[i][j],
+        //       draggedIds2D[i][j],
+        //     )
+        //   ) {
+        //     setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
+        //     setDragState({
+        //       oneD: [-1],
+        //       twoD: [i, j],
+        //       new: false,
+        //       remove: false,
+        //     });
+        //     break;
+        //   }
+        // }
       }
     } else if (draggedIds2DSignal.value.length > draggedIds2D.length) {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
@@ -111,7 +109,6 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
   }, [dragState]);
 
   function handleAddBox() {
-
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
     const zoomMultiplier = 1 / zoomLevel;
@@ -143,12 +140,10 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
         //   x: 0,
         //   y: 0,
         // },
-        position
+        position,
       },
     ]);
   }
 
-  return (
-    <></>
-  );
+  return <></>;
 }
