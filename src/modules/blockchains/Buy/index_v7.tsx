@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import ModalVideo from 'react-modal-video';
 import { EdgeBase, NodeBase, NodeChange } from '@xyflow/system';
-
+import Image from 'next/image';
 import { getModelCategories, getTemplates } from '@/services/customize-model';
 import BoxOptionV3 from './components3/BoxOptionV3';
 import ComputerNameInput from './components3/ComputerNameInput';
@@ -57,7 +57,8 @@ import Droppable from '../dapp/components/Droppable';
 import BoxOption from './component4/BoxOption';
 import RightDroppable from './component4/RightDroppable';
 import DragMask from './component4/DragMask';
-
+import Button from '../dapp/components/Button';
+// import { Button } from '@chakra-ui/react';
 const BuyPage = () => {
   const router = useRouter();
 
@@ -1669,22 +1670,50 @@ const BuyPage = () => {
                       </Droppable>
                     </div>
 
+                    {/*{!isCapture && (*/}
+                    {/*  <div className={s.cta_wrapper}>*/}
+                    {/*    <button*/}
+                    {/*      className={`${s.reset} ${s.gray}`}*/}
+                    {/*      onClick={() => setIsShowModal(true)}*/}
+                    {/*    >*/}
+                    {/*      <div>*/}
+                    {/*        RESET*/}
+                    {/*        <ImagePlaceholder*/}
+                    {/*          src={'/icons/undo.svg'}*/}
+                    {/*          alt={'undo'}*/}
+                    {/*          width={20}*/}
+                    {/*          height={20}*/}
+                    {/*        />*/}
+                    {/*      </div>*/}
+                    {/*    </button>*/}
+                    {/*    <Capture />*/}
+                    {/*  </div>*/}
+                    {/*)}    */}
                     {!isCapture && (
-                      <div className={s.cta_wrapper}>
-                        <button
-                          className={`${s.reset} ${s.gray}`}
+                      <div className={s.resetButton}>
+                        {/*<Button element="button" type="button">*/}
+                        {/*  EXPORT{' '}*/}
+                        {/*  <Image*/}
+                        {/*    src="/icons/ic_image_2.svg"*/}
+                        {/*    alt="ic_image_2"*/}
+                        {/*    width={20}*/}
+                        {/*    height={20}*/}
+                        {/*  />*/}
+                        {/*</Button>*/}
+                        <Capture />
+                        <Button
+                          element="button"
+                          type="button"
                           onClick={() => setIsShowModal(true)}
                         >
-                          <div>
-                            <ImagePlaceholder
-                              src={'/icons/undo.svg'}
-                              alt={'undo'}
-                              width={20}
-                              height={20}
-                            />
-                          </div>
-                        </button>
-                        <Capture />
+                          RESET{' '}
+                          <Image
+                            src="/icons/undo.svg"
+                            alt="undo"
+                            width={20}
+                            height={20}
+                          />
+                        </Button>
                       </div>
                     )}
                   </div>

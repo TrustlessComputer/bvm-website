@@ -14,7 +14,7 @@ import useOrderFormStoreV3 from '../../stores/index_v3';
 import Label from '../../components3/Label';
 import LegoParent from '../../components3/LegoParent';
 import { DappModel } from '@/types/customize-model';
-
+import { memo } from 'react';
 export type DataNode = Node<
   {
     label: string;
@@ -38,7 +38,7 @@ export type DataNode = Node<
   'label'
 >;
 
-export default function CustomNode({
+ function CustomNode({
   data,
   isConnectable,
 }: NodeProps<DataNode>) {
@@ -298,3 +298,5 @@ export default function CustomNode({
     </div>
   );
 }
+
+export default memo(CustomNode)
