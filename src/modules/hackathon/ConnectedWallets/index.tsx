@@ -54,23 +54,12 @@ export default function ConnectedWallets() {
       style={{
         display: 'flex',
         justifyContent: 'flex-end',
-        gap: '12px',
+        gap: '4px',
       }}
     >
       {/* Export private key */}
-      <button
-        style={{
-          borderRadius: '8px',
-          display: 'flex',
-          alignItems: 'center',
-          padding: '7px 13px',
-          gap: '8px',
-          height: '33px',
-        }}
-        className={s.export_btn}
-        onClick={exportPrivateKeyHandler}
-      >
-        <span
+      <button className={s.export_btn} onClick={exportPrivateKeyHandler}>
+        {/* <span
           style={{
             // background: '#fff',
             borderRadius: '50%',
@@ -85,12 +74,11 @@ export default function ConnectedWallets() {
             size={14}
             svgUrl="/images/poc/wallets/export-private-key-ic.svg"
           />
-        </span>
+        </span> */}
         <span
           style={{
-            fontSize: '12px',
+            fontSize: '11px',
             fontWeight: '700',
-            lineHeight: '0px',
             color: '#fff',
             fontFamily: 'Space Mono',
           }}

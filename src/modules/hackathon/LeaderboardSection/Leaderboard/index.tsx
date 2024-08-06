@@ -7,7 +7,7 @@ import AppLoading from '@/components/AppLoading';
 import { IGetParams } from '@/modules/Vote/Proposals/ListProposal';
 import cn from 'classnames';
 import Avatar from '@/components/Avatar';
-import { Box, CircularProgress, Flex, Image, Tooltip } from '@chakra-ui/react';
+import { Box, Flex, Image, Text, Tooltip } from '@chakra-ui/react';
 import { getListLeaderboard } from '@/services/api/EternalServices';
 import {
   IContestProblem,
@@ -15,6 +15,9 @@ import {
 } from '@/services/api/EternalServices/types';
 import s from './Leaderboard.module.scss';
 import { formatCurrency } from '@/utils/format';
+import { useDispatch } from 'react-redux';
+import { openModal } from '@/stores/states/modal/reducer';
+import LeaderboardModal from './LeaderboardModal';
 
 type Props = {
   currentUserContest?: IUserContest;
@@ -24,6 +27,7 @@ const LIMIT_PAGE = 50;
 
 const Leaderboard = (props: Props) => {
   const { currentUserContest } = props;
+  const dispatch = useDispatch();
 
   const infiniteScrollRef = useRef<any>(null);
 
@@ -74,6 +78,10 @@ const Leaderboard = (props: Props) => {
       }),
       {} as Record<string, IContestProblem>,
     );
+    const lastProblem = data.contest_problems?.sort(
+      (a, b) =>
+        new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
+    )?.[0];
 
     return (
       <div
@@ -102,15 +110,17 @@ const Leaderboard = (props: Props) => {
             </p>
           </Flex>
         </div>
-        <div className={cn(s.place_center, s.third_col)}>
+        <div
+          className={cn(s.place_center, s.third_col)}
+          style={{ cursor: 'pointer', textDecoration: 'underline' }}
+          onClick={() => showLeaderboardModal(data)}
+        >
           {data.total_point}
         </div>
         <div className={s.place_center}>
           {formatCurrency(data.total_gas_used)}
         </div>
-        <div className={s.place_center}>{renderTimeStatus(map?.['1'])}</div>
-        <div className={s.place_center}> {renderTimeStatus(map?.['2'])}</div>
-        <div className={s.place_center}> {renderTimeStatus(map?.['3'])}</div>
+        <div className={s.place_center}>{renderTimeStatus(lastProblem)}</div>
       </div>
     );
   };
@@ -135,7 +145,20 @@ const Leaderboard = (props: Props) => {
       }
 
       if (isProcessing) {
-        return <CircularProgress isIndeterminate  size="24px" />;
+        return (
+          <>
+            <Image src="/icons/ic-time-forward.svg" />
+            <Text
+              position={'absolute'}
+              transform={'translateY(20px)'}
+              fontSize={'10px'}
+              color="rgba(255, 255, 255, 0.70)"
+              fontWeight={500}
+            >
+              Judging
+            </Text>
+          </>
+        );
       }
 
       return contestProblem.error_msg ? (
@@ -164,6 +187,19 @@ const Leaderboard = (props: Props) => {
     );
   };
 
+  const showLeaderboardModal = (userContest: IUserContest) => {
+    dispatch(
+      openModal({
+        id: 'leaderboard-modal',
+        modalProps: {
+          size: 'xl',
+        },
+        className: s.LeaderboardModal,
+        render: () => <LeaderboardModal userContest={userContest} />,
+      }),
+    );
+  };
+
   const dataSource = useMemo(() => {
     return (dataInfinite as IUserContest[][])?.reduce(
       (prev, current) => prev.concat(current),
@@ -187,13 +223,7 @@ const Leaderboard = (props: Props) => {
           <span>Total Gas</span>
         </div>
         <div className={s.place_center}>
-          <span>Problem 1</span>
-        </div>
-        <div className={s.place_center}>
-          <span> Problem 2</span>
-        </div>
-        <div className={s.place_center}>
-          <span> Problem 3</span>
+          <span>Last problem</span>
         </div>
       </div>
     );
@@ -204,7 +234,8 @@ const Leaderboard = (props: Props) => {
       className={s.wrapper}
       id="scrollableDiv"
       style={{
-        height: 620,
+        height: 660,
+        overflow: 'auto',
       }}
     >
       {!dataSource?.length && renderHeader()}

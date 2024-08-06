@@ -92,7 +92,7 @@
 .wrapper {
   // display: flex;
   gap: 28px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   // height: 100vh;
   // display: grid;
   // grid-template-columns: 1fr 1fr;
@@ -105,6 +105,10 @@
     flex-direction: column;
     // padding: 60px 0;
     gap: 100px;
+
+    .right {
+      width: 100%;
+    }
   }
 
   h4 {
@@ -128,6 +132,7 @@
 
   .right {
     // flex: 0.5;
+    width: 35%;
   }
 
 }

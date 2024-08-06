@@ -19,7 +19,7 @@ import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism';
 // import Library from 'raw-loader!./3_Library.md';
 
 type Props = {
-  topic: '1' | '2' | '3';
+  topic: string;
 };
 
 const MarkdownComponent = ({ children }: { children: string }) => {
