@@ -421,7 +421,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'72px'} px={'4px'}>
+            <Flex gap={3} alignItems={'center'} width={'92px'} px={'4px'}>
               <Text className={s.title}>
                 {data?.kbs
                   ? formatCurrency(data?.kbs, MIN_DECIMAL, MIN_DECIMAL)
@@ -572,7 +572,7 @@ const L2Rollup = () => {
 
   return (
     <Box className={s.container}>
-      <Flex direction={'column'} w="100%" maxW={'1320px'} alignItems={'center'}>
+      <Flex direction={'column'} w="100%" maxW={'1420px'} alignItems={'center'}>
         <Flex alignItems="center" gap="6px" my={'12px'}>
           <Text fontSize={'20px'}>Project Heartbeat</Text>
           <DotLottiePlayer
