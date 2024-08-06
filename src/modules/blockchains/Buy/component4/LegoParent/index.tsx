@@ -12,6 +12,7 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 import { DappType } from '@/modules/blockchains/dapp/types';
 import { DappModel } from '@/types/customize-model';
 import { Text } from '@chakra-ui/react';
+import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
 
 type Props = {
   zIndex?: number;
@@ -27,22 +28,22 @@ type Props = {
 };
 
 const LegoParent = ({
-  zIndex = 0,
-  background = '#A041FF',
-  disabled = false,
-  title = '',
-  icon,
-  children,
-  smallMarginHeaderTop = false,
-  label,
-  dapp,
-  linkDownloadFile,
-  ...rest
-}: Props) => {
+                      zIndex = 0,
+                      background = '#A041FF',
+                      disabled = false,
+                      title = '',
+                      icon,
+                      children,
+                      smallMarginHeaderTop = false,
+                      label,
+                      dapp,
+                      linkDownloadFile,
+                      ...rest
+                    }: Props) => {
   const legoRef = React.useRef<HTMLDivElement | null>(null);
   const headerRef = React.useRef<HTMLDivElement | null>(null);
   const footerRef = React.useRef<HTMLDivElement | null>(null);
-
+  const { isCapture } = useCaptureStore();
   const dappState = useAppSelector(dappSelector);
 
   const handleLabelClick = () => {
@@ -91,7 +92,7 @@ const LegoParent = ({
             styles.lego__header__piece__top,
             {
               [styles.lego__header__piece__top__smallMargin]:
-                smallMarginHeaderTop,
+              smallMarginHeaderTop,
             },
           )}
         >
@@ -124,10 +125,14 @@ const LegoParent = ({
 
         {label && (
           <div
-            className={cn(
-              styles.lego__header__label,
-              styles[`lego__header__label__${label.status}`],
-            )}
+            className={`${
+              cn(
+                styles.lego__header__label,
+                styles[`lego__header__label__${label.status}`],
+              )
+            } ${
+              isCapture ? styles.label_margin : ''
+            }`}
             style={{
               // @ts-ignore
               // prettier-ignore
@@ -153,7 +158,7 @@ const LegoParent = ({
             styles.lego__footer__piece__bottom,
             {
               [styles.lego__footer__piece__bottom__smallMargin]:
-                smallMarginHeaderTop,
+              smallMarginHeaderTop,
             },
           )}
         >

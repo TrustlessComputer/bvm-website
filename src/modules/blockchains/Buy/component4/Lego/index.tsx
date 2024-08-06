@@ -9,6 +9,7 @@ import styles from './styles.module.scss';
 import { Box, Image, Tooltip } from '@chakra-ui/react';
 import { FieldModel } from '@/types/customize-model';
 import { legoDragging } from '@/modules/blockchains/dapp/ui-helper/LegoDragging';
+import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
 
 type Position =
   | {
@@ -68,7 +69,7 @@ const Lego = (props: Props) => {
     fields,
     ...rest
   } = props;
-
+  const { isCapture } = useCaptureStore();
   const legoRef = React.useRef<HTMLDivElement | null>(null);
 
   React.useEffect(() => {
@@ -175,7 +176,9 @@ const Lego = (props: Props) => {
               {icon && (
                 <Image src={icon} width="20px" height="20px" alt="icon" />
               )}
-              <p>{title}</p>
+              <p className={`${
+                isCapture ? styles.label_margin : ''
+              }`}>{title}</p>
             </div>
           ) : null}
 
@@ -200,7 +203,9 @@ const Lego = (props: Props) => {
               )}
             >
               {icon && <Image src={icon} width={20} height={20} alt="icon" />}
-              <p>{title}</p>
+              <p className={`${
+                isCapture ? styles.label_margin : ''
+              }`}>{title}</p>
             </div>
           ) : null}
         </div>
