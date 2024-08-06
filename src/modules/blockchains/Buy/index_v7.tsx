@@ -1678,18 +1678,15 @@ const BuyPage = () => {
                         nodes={nodes}
                         nodeTypes={{ customBox: CustomNode }}
                         onNodesChange={onNodesChange}
-                        fitView
+                        // fitView
                         // draggable={false}
                         defaultViewport={{
-                          x: 0,
-                          y: 0,
-                          zoom: 1,
+                          x: 10,
+                          y: 20,
+                          zoom: 0.8,
                         }}
                         key={nodes.toString()}
                       />
-                      {/*<Droppable id="output">*/}
-                      {/*  <RightDroppable />*/}
-                      {/*</Droppable>*/}
                       <DroppableMask />
                     </div>
 
