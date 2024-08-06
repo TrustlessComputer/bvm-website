@@ -23,11 +23,28 @@ import {
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import { orderBy } from 'lodash';
-import sleep from '@utils/sleep';
 
-interface ICachedIndex {
-  name: string;
-  index: number;
+// interface ICachedIndex {
+//   name: string;
+//   index: number;
+// }
+
+enum SortRollupType {
+  name,
+  block,
+  tps,
+  mgas,
+  kbs,
+  rollup,
+  da,
+  settle,
+  tvl,
+  lastBlock,
+}
+
+interface ISort {
+  type: SortRollupType;
+  ascending?: boolean;
 }
 
 const L2Rollup = () => {
@@ -37,9 +54,14 @@ const L2Rollup = () => {
 
   const hasIncrementedPageRef = useRef(false);
   const rollupL2Api = new CRollupL2API();
-  const sortedRef = useRef(false);
-  const loading = useRef(false);
-  const cachedIndex = useRef<ICachedIndex[]>([]);
+  // const sortedRef = useRef(false);
+  // const loading = useRef(false);
+  // const cachedIndex = useRef<ICachedIndex[]>([]);
+
+  const [currentSort, setCurrentSort] = useState<ISort>({
+    type: SortRollupType.mgas,
+    ascending: undefined,
+  });
 
   const total = useMemo(() => {
     const tps = data.reduce((accum, item) => accum + item.tps, 0);
@@ -65,69 +87,105 @@ const L2Rollup = () => {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [currentSort]);
 
   const fetchData = async () => {
-    if (loading.current) return;
-
     try {
-      loading.current = true;
       const res = await rollupL2Api.getRollupL2Info();
       let data: IRollupL2Info[] = [];
-      if (sortedRef?.current) {
+
+      if (currentSort.ascending === undefined) {
         data = orderBy(
           res,
           [(item) => compareString(item.name, 'Bitcoin')],
           ['desc'],
         );
-
-        data = orderBy(
-          res.map((item) => {
-            const index = cachedIndex.current?.findIndex((cachedItem) =>
-              compareString(item.name, cachedItem.name),
-            );
-            return {
-              ...item,
-              index,
-            };
-          }),
-          [(item) => item.index],
-          ['asc'],
-        );
       } else {
-        sortedRef.current = true;
         data = orderBy(
           res,
           [
             (item) => compareString(item.name, 'Bitcoin'),
-            (item) => Number(item.mgas || '0'),
+            (item) => {
+              switch (currentSort.type) {
+                case SortRollupType.name:
+                  return item.name;
+                case SortRollupType.block:
+                  return Number(item.block_number || '0');
+                case SortRollupType.tps:
+                  return Number(item.tps || '0');
+                case SortRollupType.mgas:
+                  return Number(item.mgas || '0');
+                case SortRollupType.kbs:
+                  return Number(item.kbs || '0');
+                case SortRollupType.rollup:
+                  return item.stack;
+                case SortRollupType.da:
+                  return item.da;
+                case SortRollupType.settle:
+                  return item.settlement;
+                case SortRollupType.tvl:
+                  return Number(item.tvl_btc || '0');
+                case SortRollupType.lastBlock:
+                  return item.block_time;
+                default:
+                  return Number(item.mgas || '0');
+              }
+            },
           ],
-          ['desc', 'desc'],
+          ['desc', currentSort.ascending ? 'asc' : 'desc'],
         );
-        cachedIndex.current = data.map((item, index) => ({
-          name: item.name,
-          index,
-        }));
-        await sleep(0.1);
       }
+
       setData(data);
     } catch (error) {
     } finally {
       hasIncrementedPageRef.current = false;
-      loading.current = false;
     }
   };
 
   const labelConfig = {};
+
+  const renderLabel = (name: string, sortType: SortRollupType) => {
+    return (
+      <Flex
+        gap={'4px'}
+        cursor={'pointer'}
+        alignItems={'center'}
+        onClick={() =>
+          setCurrentSort({
+            type: sortType,
+            ascending:
+              currentSort.ascending === undefined ||
+              currentSort.type !== sortType
+                ? true
+                : currentSort.ascending === false
+                ? undefined
+                : !currentSort.ascending,
+          })
+        }
+      >
+        {name}
+        <Image
+          width="24px"
+          height="24px"
+          src={
+            currentSort.ascending === undefined || currentSort.type !== sortType
+              ? `/heartbeat/ic-sort.svg`
+              : `/heartbeat/ic-sort-${
+                  !currentSort.ascending ? 'asc' : 'desc'
+                }.svg`
+          }
+        />
+      </Flex>
+    );
+  };
 
   const columns: ColumnProp[] = useMemo(() => {
     return [
       {
         id: 'network',
         label: (
-          <Flex pl={'8px'} gap={'4px'}>
-            Network
-          </Flex>
+          <Box pl={'8px'}>{renderLabel('Network', SortRollupType.name)}</Box>
         ),
         labelConfig,
         config: {
@@ -274,7 +332,7 @@ const L2Rollup = () => {
       },
       {
         id: 'block',
-        label: 'Block',
+        label: renderLabel('Block', SortRollupType.block),
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -290,6 +348,7 @@ const L2Rollup = () => {
               width={'100%'}
               justifyContent={'space-between'}
               cursor="pointer"
+              px={'4px'}
               onClick={() => {
                 window.open(data.explorer);
               }}
@@ -304,17 +363,7 @@ const L2Rollup = () => {
       },
       {
         id: 'tps',
-        label: (
-          <Flex
-            style={{
-              alignSelf: 'center',
-              width: '100%',
-              textTransform: 'uppercase',
-            }}
-          >
-            TPS
-          </Flex>
-        ),
+        label: renderLabel('TPS', SortRollupType.tps),
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -325,7 +374,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'98px'}>
+            <Flex gap={3} alignItems={'center'} width={'102px'} px={'4px'}>
               <Text className={s.title}>
                 {data?.tps
                   ? formatCurrency(data?.tps, MIN_DECIMAL, MIN_DECIMAL)
@@ -337,7 +386,7 @@ const L2Rollup = () => {
       },
       {
         id: 'mgas',
-        label: <Flex width={'60px'}>Mgas/s</Flex>,
+        label: renderLabel('Mgas/s', SortRollupType.mgas),
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -348,7 +397,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'98px'}>
+            <Flex gap={3} alignItems={'center'} width={'102px'} px={'4px'}>
               <Text className={s.title}>
                 {data?.mgas
                   ? formatCurrency(data?.mgas, MIN_DECIMAL, MIN_DECIMAL)
@@ -360,16 +409,7 @@ const L2Rollup = () => {
       },
       {
         id: 'kbs',
-        label: (
-          <Flex
-            style={{
-              alignSelf: 'center',
-              width: '100%',
-            }}
-          >
-            KB/s
-          </Flex>
-        ),
+        label: renderLabel('Kb/s', SortRollupType.kbs),
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -380,7 +420,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'60px'}>
+            <Flex gap={3} alignItems={'center'} width={'68px'} px={'4px'}>
               <Text className={s.title}>
                 {data?.kbs
                   ? formatCurrency(data?.kbs, MIN_DECIMAL, MIN_DECIMAL)
@@ -392,16 +432,7 @@ const L2Rollup = () => {
       },
       {
         id: 'stack',
-        label: (
-          <Flex
-            style={{
-              alignSelf: 'center',
-              width: '100%',
-            }}
-          >
-            Rollup
-          </Flex>
-        ),
+        label: renderLabel('Rollup', SortRollupType.rollup),
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -412,7 +443,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'100%'}>
+            <Flex gap={3} alignItems={'center'} width={'100%'} px={'4px'}>
               <Text className={s.title}>{data.stack || '-'}</Text>
             </Flex>
           );
@@ -420,16 +451,7 @@ const L2Rollup = () => {
       },
       {
         id: 'da',
-        label: (
-          <Flex
-            style={{
-              alignSelf: 'center',
-              width: '100%',
-            }}
-          >
-            DA
-          </Flex>
-        ),
+        label: renderLabel('DA', SortRollupType.da),
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -440,7 +462,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'100%'}>
+            <Flex gap={3} alignItems={'center'} width={'100%'} px={'4px'}>
               <Text className={s.title}>{data.da || '-'}</Text>
             </Flex>
           );
@@ -448,16 +470,7 @@ const L2Rollup = () => {
       },
       {
         id: 'settlement',
-        label: (
-          <Flex
-            style={{
-              alignSelf: 'center',
-              width: '100%',
-            }}
-          >
-            Settlement
-          </Flex>
-        ),
+        label: renderLabel('Settlement', SortRollupType.settle),
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -468,7 +481,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex alignItems={'center'} width={'100%'}>
+            <Flex alignItems={'center'} width={'100%'} px={'4px'}>
               <Text className={s.title}>{data.settlement || '-'}</Text>
             </Flex>
           );
@@ -476,16 +489,7 @@ const L2Rollup = () => {
       },
       {
         id: 'tvl',
-        label: (
-          <Flex
-            style={{
-              alignSelf: 'center',
-              width: '100%',
-            }}
-          >
-            TVL
-          </Flex>
-        ),
+        label: renderLabel('TVL', SortRollupType.tvl),
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -497,7 +501,7 @@ const L2Rollup = () => {
         render(data: IRollupL2Info) {
           const isUnderReview = Number(data.tvl_btc) === 0;
           return (
-            <Flex alignItems={'center'} width={'100%'}>
+            <Flex alignItems={'center'} width={'100%'} px={'4px'}>
               <Text className={s.title}>
                 {isUnderReview
                   ? '-'
@@ -509,16 +513,7 @@ const L2Rollup = () => {
       },
       {
         id: 'last_block',
-        label: (
-          <Flex
-            style={{
-              alignSelf: 'center',
-              width: '100%',
-            }}
-          >
-            Last block
-          </Flex>
-        ),
+        label: renderLabel('Last Block', SortRollupType.lastBlock),
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -529,7 +524,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex alignItems={'center'} width={'100%'}>
+            <Flex alignItems={'center'} width={'100%'} pl={'4px'}>
               <Text className={s.title}>
                 {calculateTimeAgo(data.block_time)}
               </Text>
@@ -538,7 +533,7 @@ const L2Rollup = () => {
         },
       },
     ];
-  }, []);
+  }, [currentSort]);
 
   const renderItemTotal = (
     title: string,
@@ -576,14 +571,8 @@ const L2Rollup = () => {
 
   return (
     <Box className={s.container}>
-      <Flex direction={'column'} w="100%" maxW={'1280px'} alignItems={'center'}>
+      <Flex direction={'column'} w="100%" maxW={'1320px'} alignItems={'center'}>
         <Flex alignItems="center" gap="8px" mb={'12px'}>
-          <img
-            src="/icons/heartbeat.svg"
-            alt="noto_heartbeat.svg"
-            width={24}
-            height={24}
-          />
           <Text fontSize={'20px'}>Project Heartbeat</Text>
           <img
             src="/icons/heartbeat.svg"
@@ -615,7 +604,7 @@ const L2Rollup = () => {
           innovations.
         </Text>
 
-        <Flex direction={'row'} alignItems={'center'} gap={'8px'} mb={'32px'}>
+        <Flex direction={'row'} alignItems={'center'} gap={'8px'} mb={'40px'}>
           <Text
             className={s.fontType2}
             fontSize={'20px'}
@@ -684,7 +673,7 @@ const L2Rollup = () => {
             )}
           </Flex>
         </Flex>
-        <Box w="100%" bg="#FAFAFA" minH={'450px'} mt={'32px'}>
+        <Box w="100%" bg="#FAFAFA" minH={'450px'} mt={'40px'}>
           <ListTable
             data={data}
             columns={columns}

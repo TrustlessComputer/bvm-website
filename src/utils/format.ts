@@ -276,6 +276,7 @@ export const formatAddressOrName = (name: string, length = 12): string => {
 export function calculateTimeAgo(date: any) {
   return moment(date)
     .fromNow()
+    .replaceAll('a day', '1d')
     .replaceAll(' days', 'd')
     .replaceAll(' hours', 'h')
     .replaceAll('an hour', '1h')
