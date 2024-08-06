@@ -28,8 +28,18 @@ const NetworkBar = () => {
         gap={'12px'}
         mb="15px"
       >
-        <Skeleton w={'120px'} h={'45px'} borderRadius={'100px'}></Skeleton>
-        <Skeleton w={'120px'} h={'45px'} borderRadius={'100px'}></Skeleton>
+        <Skeleton
+          w={'120px'}
+          h={'45px'}
+          borderRadius={'100px'}
+          opacity={0.4}
+        ></Skeleton>
+        <Skeleton
+          w={'120px'}
+          h={'45px'}
+          borderRadius={'100px'}
+          opacity={0.4}
+        ></Skeleton>
       </Flex>
     );
 
