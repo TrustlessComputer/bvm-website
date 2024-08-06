@@ -1,0 +1,248 @@
+import React from 'react';
+
+import { adjustBrightness } from '../utils';
+import { FieldOption } from '../types';
+import useDappsStore from '../stores/useDappStore';
+import DateTimeInput from '../component4/DateTimeInput';
+import ExtendsInput from '../component4/ExtendsInput';
+import Dropdown from '../component4/Dropdown';
+import Input from '../component4/Input';
+import Lego from '../component4/Lego';
+import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
+
+const useDapps = () => {
+  const { dapps } = useDappsStore();
+
+  const blockFieldMapping = React.useMemo(() => {
+    return dapps.map((dapp) => {
+      const thisDapp = dapp;
+
+      const mapping: Record<string, BlockModel> = {};
+
+      (thisDapp?.blockFields || []).forEach((item) => {
+        mapping[item.key] = item;
+      });
+
+      return mapping;
+    });
+  }, [dapps]);
+
+  const singleFieldMapping = React.useMemo(() => {
+    return dapps.map((dapp) => {
+      const thisDapp = dapp;
+
+      const mapping: Record<string, BlockModel> = {};
+
+      (thisDapp?.singleFields || []).forEach((item) => {
+        mapping[item.key] = item;
+      });
+
+      return mapping;
+    });
+  }, [dapps]);
+
+  const moduleFieldMapping = React.useMemo(() => {
+    return dapps.map((dapp) => {
+      const thisDapp = dapp;
+
+      const mapping: Record<string, BlockModel> = {};
+
+      (thisDapp?.moduleFields || []).forEach((item) => {
+        mapping[item.key] = item;
+      });
+
+      return mapping;
+    });
+  }, [dapps]);
+
+  const baseModuleFieldMapping = React.useMemo(() => {
+    return dapps.map((dapp) => {
+      const thisDapp = dapp;
+
+      const mapping: Record<string, BlockModel> = {};
+
+      (thisDapp?.baseModuleFields || []).forEach((item) => {
+        mapping[item.key] = item;
+      });
+
+      return mapping;
+    });
+  }, [dapps]);
+
+  const getInputWithLego = React.useCallback(
+    (
+      thisDapp: DappModel,
+      { key: fieldKey, ...field }: FieldModel,
+      fieldOpt: FieldOption,
+      zIndex: number,
+    ) => {
+      if (field.type === 'input') {
+        return (
+          <Lego
+            first={false}
+            last={false}
+            titleInLeft={true}
+            titleInRight={false}
+            zIndex={zIndex}
+            {...field}
+            key={fieldKey}
+          >
+            <Input
+              {...field}
+              {...fieldOpt}
+              dappKey={thisDapp.key}
+              name={fieldKey}
+              key={fieldKey}
+            />
+          </Lego>
+        );
+      } else if (field.type === 'dropdown') {
+        return (
+          <Lego
+            key={fieldKey}
+            background={adjustBrightness(thisDapp.color, -20)}
+            first={false}
+            last={false}
+            title={field.title}
+            titleInLeft={true}
+            titleInRight={false}
+            zIndex={zIndex}
+          >
+            <Dropdown
+              {...field}
+              {...fieldOpt}
+              dappKey={thisDapp.key}
+              name={fieldKey}
+              key={fieldKey}
+              options={field.options}
+            />
+          </Lego>
+        );
+      } else if (field.type === 'extends') {
+        return (
+          <ExtendsInput
+            {...field}
+            {...fieldOpt}
+            key={fieldKey}
+            name={fieldKey}
+            dappKey={thisDapp.key}
+            zIndex={zIndex}
+          />
+        );
+      } else if (field.type === 'group') {
+        return (
+          <Lego
+            {...field}
+            key={fieldKey}
+            first={false}
+            last={false}
+            titleInLeft={true}
+            titleInRight={false}
+            zIndex={zIndex}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              {field.options.map((option, optIndex) =>
+                getInputWithoutLego(thisDapp, option, fieldOpt),
+              )}
+            </div>
+          </Lego>
+        );
+      } else if (field.type === 'datetime') {
+        return (
+          <Lego
+            {...field}
+            key={fieldKey}
+            first={false}
+            last={false}
+            titleInLeft={true}
+            titleInRight={false}
+            zIndex={zIndex}
+          >
+            <DateTimeInput
+              {...field}
+              {...fieldOpt}
+              name={fieldKey}
+              key={fieldKey}
+              dappKey={thisDapp.key}
+              placeholder={field.placeholder}
+            />
+          </Lego>
+        );
+      }
+    },
+    [dapps],
+  );
+
+  const getInputWithoutLego = React.useCallback(
+    (
+      thisDapp: DappModel,
+      { key: fieldKey, ...field }: FieldModel,
+      fieldOpt: FieldOption,
+    ) => {
+      if (field.type === 'input') {
+        return (
+          <Input
+            {...field}
+            {...fieldOpt}
+            dappKey={thisDapp.key}
+            name={fieldKey}
+            key={fieldKey}
+          />
+        );
+      } else if (field.type === 'dropdown') {
+        return (
+          <Dropdown
+            {...field}
+            {...fieldOpt}
+            dappKey={thisDapp.key}
+            name={fieldKey}
+            key={fieldKey}
+            options={field.options}
+          />
+        );
+      } else if (field.type === 'extends') {
+        return (
+          <ExtendsInput
+            {...field}
+            {...fieldOpt}
+            key={fieldKey}
+            name={fieldKey}
+            dappKey={thisDapp.key}
+          />
+        );
+      } else if (field.type === 'group') {
+        return (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            {field.options.map((option, optIndex) =>
+              getInputWithoutLego(thisDapp, option, fieldOpt),
+            )}
+          </div>
+        );
+      } else if (field.type === 'datetime') {
+        return (
+          <DateTimeInput
+            {...field}
+            {...fieldOpt}
+            name={fieldKey}
+            key={fieldKey}
+            dappKey={thisDapp.key}
+            placeholder={field.placeholder}
+          />
+        );
+      }
+    },
+    [dapps],
+  );
+
+  return {
+    dapps,
+    blockFieldMapping,
+    singleFieldMapping,
+    moduleFieldMapping,
+    baseModuleFieldMapping,
+    getInputWithLego,
+    getInputWithoutLego,
+  };
+};
+
+export default useDapps;

@@ -1,7 +1,6 @@
 'use client';
 
-// import RollupsDappPage from './page';
-import RollupsDappPage from './page_v2';
+import RollupsDappPage from './page';
 import useFetchDapp from '@/modules/blockchains/dapp/hooks/useFetchDapp';
 import AppLoading from '@components/AppLoading';
 import React from 'react';

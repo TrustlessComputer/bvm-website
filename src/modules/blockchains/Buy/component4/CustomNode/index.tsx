@@ -6,15 +6,24 @@ import cn from 'classnames';
 import { OrderItem } from '@/stores/states/l2services/types';
 import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
 import ComputerNameInput from '@/modules/blockchains/Buy/components3/ComputerNameInput';
-import Draggable from '@/modules/blockchains/Buy/components3/Draggable';
+import ChainDraggable from '@/modules/blockchains/Buy/components3/Draggable';
 import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
 import useDragStore from '../../stores/useDragStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import useOrderFormStoreV3 from '../../stores/index_v3';
 import Label from '../../components3/Label';
-import LegoParent from '../../components3/LegoParent';
-import { DappModel } from '@/types/customize-model';
+import ChainLegoParent from '../../components3/LegoParent';
+import { DappModel, FieldModel } from '@/types/customize-model';
 import { memo } from 'react';
+import { draggedDappIndexesSignal, draggedIds2DSignal } from '@/modules/blockchains/Buy/signals/useDragSignal';
+import { adjustBrightness, DragUtil } from '@/modules/blockchains/Buy/utils';
+import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
+import Droppable from '@/modules/blockchains/Buy/component4/Droppable';
+import Lego from '@/modules/blockchains/Buy/component4/Lego';
+import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
+import Draggable from '@/modules/blockchains/Buy/components3/Draggable';
+import LegoParent from '@/modules/blockchains/Buy/component4/LegoParent';
+
 export type DataNode = Node<
   {
     label: string;
@@ -26,25 +35,381 @@ export type DataNode = Node<
     isChain: boolean;
     chain: OrderItem | null;
     dapp: DappModel | null;
-    legoParent: {
-      background?: string;
-    };
-    legoList: {
-      background?: string;
-      icon?: string;
-      title: string;
-    }[];
+    ids: typeof draggedIds2DSignal.value,
+    baseIndex: number,
   },
   'label'
 >;
 
- function CustomNode({
-  data,
-  isConnectable,
-}: NodeProps<DataNode>) {
+function CustomNode({
+                      data,
+                      isConnectable,
+                    }: NodeProps<DataNode>) {
   const { draggedFields } = useDragStore();
   const { parsedCategories } = useModelCategoriesStore();
   const { field } = useOrderFormStoreV3();
+  const {
+    dapps,
+    getInputWithLego,
+    blockFieldMapping,
+    baseModuleFieldMapping,
+    getInputWithoutLego,
+    moduleFieldMapping,
+    singleFieldMapping,
+  } = useDapps();
+
+  function renderDapps() {
+    const dappIndex = draggedDappIndexesSignal.value[data.baseIndex];
+    const thisDapp = dapps[dappIndex];
+    const mainColor = adjustBrightness(thisDapp.color, -10);
+
+    let blockCount = 0;
+
+    const { key: baseBlockKey, ...baseBlock } = thisDapp.baseBlock;
+    const totalDraggedBase = 999;
+    const totalBaseFields = baseBlock.fields.length;
+    const totalBaseModuleBlock = data.ids.filter((id) => {
+      return DragUtil.idDraggingIsABaseModule(id.name);
+    }).length;
+    const totalDragged = data.ids.length - totalBaseModuleBlock;
+    const totalAll =
+      totalBaseFields + totalDragged + totalBaseModuleBlock;
+
+    return (
+      <Draggable
+        id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
+        key={data.baseIndex}
+        value={{
+          title: thisDapp.baseBlock.title,
+          icon: thisDapp.baseBlock.icon,
+          fieldKey: thisDapp.baseBlock.key,
+          background: thisDapp.color_border || mainColor,
+        }}
+      >
+        <Droppable
+          id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
+          style={{
+            width: 'max-content',
+            height: 'max-content',
+          }}
+        >
+          <LegoParent
+            {...baseBlock}
+            background={thisDapp?.color_border || mainColor}
+            label={thisDapp.label}
+            zIndex={
+              999 - data.baseIndex
+            }
+          >
+            {data.ids
+              .filter((id) => DragUtil.idDraggingIsABaseModule(id.name))
+              .map((item, itemIndex) => {
+                const thisBaseModule =
+                  baseModuleFieldMapping[dappIndex][
+                    DragUtil.getOriginalKey(item.name)
+                    ];
+                const thisModule = thisBaseModule.fields.find(
+                  (f: FieldModel) => f.value === item.value,
+                );
+
+                if (!thisModule) return null;
+
+                return (
+                  <Lego
+                    {...thisBaseModule}
+                    preview={false}
+                    key={item.name}
+                    background={adjustBrightness(
+                      thisBaseModule.background || mainColor,
+                      -20,
+                    )}
+                    first={false}
+                    last={false}
+                    titleInLeft={false}
+                    titleInRight={true}
+                    zIndex={totalAll - itemIndex}
+                  >
+                    <Label {...thisModule} />
+                  </Lego>
+                );
+              })}
+
+            {thisDapp.baseBlock.fields.map(
+              (field: FieldModel, fieldIndex: number) => {
+                return getInputWithLego(
+                  dapps[dappIndex],
+                  field,
+                  {
+                    inBaseField: true,
+                    inBlockField: false,
+                    inSingleField: false,
+                    index: undefined,
+                    level: 0,
+                    dappIndex,
+                    blockKey: '',
+                    baseIndex: data.baseIndex,
+                  },
+                  totalBaseFields + totalDragged - fieldIndex,
+                );
+              },
+            )}
+
+            {data.ids.map((item, itemIndex) => {
+              const zIndex = totalDragged - itemIndex - 1;
+
+              if (DragUtil.idDraggingIsABlock(item.name)) {
+                const { key: thisBlockKey, ...thisBlock } =
+                  blockFieldMapping[dappIndex][
+                    DragUtil.getOriginalKey(item.name)
+                    ];
+                const needSuffix = thisBlock.placableAmount === -1;
+
+                blockCount++;
+
+                return (
+                  <Draggable
+                    id={`${item.name}-${itemIndex}-${data.baseIndex}`}
+                    key={`${item.name}-${itemIndex}-${data.baseIndex}`}
+                    value={{
+                      title: thisBlock.title + ' #' + blockCount,
+                      icon: thisBlock.icon,
+                      fieldKey: thisBlockKey,
+                      background: thisBlock.background || mainColor,
+                    }}
+                  >
+                    <Droppable
+                      id={`${item.name}-${itemIndex}-${data.baseIndex}`}
+                    >
+                      <LegoParent
+                        {...thisBlock}
+                        title={
+                          thisBlock.title +
+                          (needSuffix ? ' #' + blockCount : '')
+                        }
+                        background={adjustBrightness(
+                          thisBlock.background || mainColor,
+                          -10,
+                        )}
+                        smallMarginHeaderTop
+                        zIndex={zIndex}
+                      >
+                        {thisBlock.fields.map(
+                          (field: FieldModel, fieldIndex: number) => {
+                            return getInputWithLego(
+                              dapps[dappIndex],
+                              field,
+                              {
+                                inBaseField: false,
+                                inBlockField: true,
+                                inSingleField: false,
+                                index: itemIndex,
+                                level: 0,
+                                blockKey: thisBlockKey,
+                                dappIndex,
+                                baseIndex: data.baseIndex,
+                              },
+                              thisBlock.fields.length +
+                              item.children.length -
+                              fieldIndex,
+                            );
+                          },
+                        )}
+
+                        {item.children.map((child, childIndex) => {
+                          const thisChildField =
+                            thisBlock.childrenFields?.find(
+                              (f: FieldModel) => f.key === child.name,
+                            );
+
+                          if (!thisChildField) return null;
+
+                          return (
+                            <Draggable
+                              id={`right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${child.name}-${itemIndex}-${data.baseIndex}`}
+                              key={`right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${child.name}-${itemIndex}-${data.baseIndex}`}
+                              value={{
+                                title: thisChildField.title,
+                                icon: thisChildField.icon,
+                                fieldKey: thisChildField.key,
+                                background:
+                                  thisChildField.background ||
+                                  mainColor,
+                                blockKey: thisBlockKey,
+                              }}
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '0px',
+                                zIndex:
+                                  item.children.length - childIndex,
+                              }}
+                            >
+                              {getInputWithLego(
+                                dapps[dappIndex],
+                                thisChildField,
+                                {
+                                  dappIndex,
+                                  inBaseField: false,
+                                  inBlockField: true,
+                                  inSingleField: false,
+                                  index: itemIndex,
+                                  level: 0,
+                                  blockKey: thisBlockKey,
+                                  baseIndex,
+                                },
+                                item.children.length - childIndex,
+                              )}
+                            </Draggable>
+                          );
+                        })}
+                      </LegoParent>
+                    </Droppable>
+                  </Draggable>
+                );
+              } else if (DragUtil.idDraggingIsASingle(item.name)) {
+                const field =
+                  singleFieldMapping[dappIndex][
+                    DragUtil.getOriginalKey(item.name)
+                    ];
+
+                const thisModule = field.fields[0];
+
+                if (!thisModule) return null;
+
+                return (
+                  <Draggable
+                    id={`${item.name}-${itemIndex}-${data.baseIndex}`}
+                    key={`${item.name}-${itemIndex}-${data.baseIndex}`}
+                    value={{
+                      title: thisModule.title,
+                      icon: thisModule.icon,
+                      fieldKey: thisModule.key,
+                    }}
+                  >
+                    {getInputWithLego(
+                      dapps[dappIndex],
+                      thisModule,
+                      {
+                        dappIndex,
+                        inBaseField: false,
+                        inBlockField: false,
+                        inSingleField: true,
+                        index: itemIndex,
+                        level: 0,
+                        blockKey: '',
+                        baseIndex: data.baseIndex,
+                      },
+                      zIndex,
+                    )}
+                  </Draggable>
+                );
+              } else if (DragUtil.idDraggingIsAModule(item.name)) {
+                const thisModule =
+                  moduleFieldMapping[dappIndex][
+                    DragUtil.getOriginalKey(item.name)
+                    ];
+                const isMultiple = thisModule.placableAmount === -1;
+
+                if (isMultiple) {
+                  return (
+                    <Draggable
+                      id={`${item.name}-${itemIndex}-${data.baseIndex}`}
+                      key={`${item.name}-${itemIndex}-${data.baseIndex}`}
+                      value={{
+                        title: thisModule.title,
+                        icon: thisModule.icon,
+                        fieldKey: thisModule.key,
+                      }}
+                    >
+                      <LegoParent
+                        {...thisModule}
+                        background={adjustBrightness(mainColor, -20)}
+                        smallMarginHeaderTop
+                        zIndex={zIndex}
+                      >
+                        {(item.value as string[]).map(
+                          (value, index) => {
+                            const thisValue = thisModule.fields.find(
+                              (f: FieldModel) => f.value === value,
+                            );
+
+                            if (!thisValue) return null;
+
+                            return (
+                              <Draggable
+                                id={`${item.name}-${itemIndex}-${data.baseIndex}-${value}`}
+                                key={`${item.name}-${itemIndex}-${data.baseIndex}-${value}`}
+                                value={{
+                                  title: thisValue.title,
+                                  icon: thisValue.icon,
+                                  value: thisValue.value,
+                                }}
+                              >
+                                <Lego
+                                  key={value}
+                                  background={adjustBrightness(
+                                    thisModule.background || mainColor,
+                                    -40,
+                                  )}
+                                  first={false}
+                                  last={false}
+                                  titleInLeft={true}
+                                  titleInRight={false}
+                                >
+                                  <Label {...thisValue} />
+                                </Lego>
+                              </Draggable>
+                            );
+                          },
+                        )}
+                      </LegoParent>
+                    </Draggable>
+                  );
+                } else {
+                  const thisField = thisModule.fields.find(
+                    (f: FieldModel) => f.value === item.value,
+                  );
+
+                  if (!thisField) return null;
+
+                  return (
+                    <Draggable
+                      id={`${item.name}-${itemIndex}-${data.baseIndex}`}
+                      key={`${item.name}-${itemIndex}-${data.baseIndex}`}
+                      value={{
+                        title: thisModule.title,
+                        icon: thisModule.icon,
+                        fieldKey: thisModule.key,
+                      }}
+                    >
+                      <Lego
+                        {...thisModule}
+                        preview={false}
+                        background={adjustBrightness(
+                          thisModule.background || mainColor,
+                          -20,
+                        )}
+                        first={false}
+                        last={false}
+                        titleInLeft={false}
+                        titleInRight={true}
+                        zIndex={zIndex}
+                      >
+                        <Label {...thisField} />
+                      </Lego>
+                    </Draggable>
+                  );
+                }
+              }
+
+              return null;
+            })}
+          </LegoParent>
+        </Droppable>
+      </Draggable>
+    );
+  }
+
 
   return (
     <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
@@ -64,30 +429,23 @@ export type DataNode = Node<
         }
       </div>
       <div className={s.inner}>
-        {/*<div className={s.wrapperBox_top_left} onClick={handleOnClick}>*/}
-        {/*  <p>Edit</p>*/}
-        {/*  <div className={s.wrapperBox_top_left_icon}>*/}
-        {/*    <Image src={'/icons/ic_edit.svg'} alt={'ic_edit'} width={16} height={16} />*/}
-        {/*  </div>*/}
+        {/*<div className={`${s.handles} ${s.target}`}>*/}
+        {/*   <Handle*/}
+        {/*    type={'target'}*/}
+        {/*    position={data.positionDot}*/}
+        {/*    isConnectable={isConnectable}*/}
+        {/*    className={s.handleDot}*/}
+        {/*  /> */}
+        {/*   {data.targetHandles.map((handle) => (*/}
+        {/*    <Handle*/}
+        {/*      key={handle.id}*/}
+        {/*      id={handle.id}*/}
+        {/*      type="target"*/}
+        {/*      position={Position.Left}*/}
+        {/*      className={s.handleDot}*/}
+        {/*    />*/}
+        {/*  ))} */}
         {/*</div>*/}
-
-        <div className={`${s.handles} ${s.target}`}>
-          {/* <Handle*/}
-          {/*  type={'target'}*/}
-          {/*  position={data.positionDot}*/}
-          {/*  isConnectable={isConnectable}*/}
-          {/*  className={s.handleDot}*/}
-          {/*/> */}
-          {/* {data.targetHandles.map((handle) => (
-            <Handle
-              key={handle.id}
-              id={handle.id}
-              type="target"
-              position={Position.Left}
-              className={s.handleDot}
-            />
-          ))} */}
-        </div>
 
         {data.isChain && (
           <DroppableV2
@@ -129,12 +487,15 @@ export type DataNode = Node<
 
                   if (item.type === 'form') {
                     return (
-                      <Draggable
+                      <ChainDraggable
                         key={item.key + '-' + option.key}
                         id={item.key + '-' + option.key}
                         useMask
                         isLabel={true}
-                        value={option.key}
+                        value={{
+                          isChain: true,
+                          value: option.key,
+                        }}
                         tooltip={option.tooltip}
                       >
                         <LegoV3
@@ -150,18 +511,21 @@ export type DataNode = Node<
                             />
                           </div>
                         </LegoV3>
-                      </Draggable>
+                      </ChainDraggable>
                     );
                   }
 
                   return (
-                    <Draggable
+                    <ChainDraggable
                       right
                       key={item.key + '-' + option.key}
                       id={item.key + '-' + option.key}
                       useMask
                       tooltip={item.tooltip}
-                      value={option.key}
+                      value={{
+                        isChain: true,
+                        value: option.key,
+                      }}
                     >
                       <LegoV3
                         background={item.color}
@@ -172,27 +536,30 @@ export type DataNode = Node<
                       >
                         <Label icon={option.icon} title={option.title} />
                       </LegoV3>
-                    </Draggable>
+                    </ChainDraggable>
                   );
                 });
 
                 return (
-                  <Draggable
+                  <ChainDraggable
                     key={item.key + '-parent' + '-right'}
                     id={item.key + '-parent' + '-right'}
                     useMask
+                    value={{
+                      isChain: true,
+                    }}
                   >
                     <DroppableV2 id={item.key}>
-                      <LegoParent
+                      <ChainLegoParent
                         parentOfNested
                         background={item.color}
                         label={item.title}
                         zIndex={draggedFields.length - index - 1}
                       >
                         {childrenOptions}
-                      </LegoParent>
+                      </ChainLegoParent>
                     </DroppableV2>
-                  </Draggable>
+                  </ChainDraggable>
                 );
               }
 
@@ -200,13 +567,16 @@ export type DataNode = Node<
                 if (option.key !== field[item.key].value) return null;
 
                 return (
-                  <Draggable
+                  <ChainDraggable
                     right
                     key={item.key + '-' + option.key + '-right'}
                     id={item.key + '-' + option.key + '-right'}
                     useMask
                     tooltip={item.tooltip}
-                    value={option.key}
+                    value={{
+                      isChain: true,
+                      value: option.key,
+                    }}
                   >
                     <DroppableV2 id={item.key + '-right'}>
                       <LegoV3
@@ -224,67 +594,34 @@ export type DataNode = Node<
                         <Label icon={option.icon} title={option.title} />
                       </LegoV3>
                     </DroppableV2>
-                  </Draggable>
+                  </ChainDraggable>
                 );
               });
             })}
           </DroppableV2>
         )}
 
-        {/*{data.label === 'Blockchain' ? (*/}
-        {/*  data.legoList.map((lego, index: number) => {*/}
-        {/*    return (*/}
-        {/*      <Lego*/}
-        {/*        last={false}*/}
-        {/*        titleInLeft={true}*/}
-        {/*        titleInRight={false}*/}
-        {/*        first={false}*/}
-        {/*        background={lego.background}*/}
-        {/*        zIndex={data.legoList.length - index}*/}
-        {/*      >*/}
-        {/*        <Label icon={lego.icon} title={lego.title} />*/}
-        {/*      </Lego>*/}
-        {/*    );*/}
-        {/*  })*/}
-        {/*) : (*/}
-        {/*  <LegoParent*/}
-        {/*    background={data.legoParent.background}*/}
-        {/*    title={data.label}*/}
-        {/*    disabled={true}*/}
-        {/*    zIndex={data.legoList.length}*/}
-        {/*  >*/}
-        {/*    {data.legoList.map((lego, index: number) => {*/}
-        {/*      return (*/}
-        {/*        <Lego*/}
-        {/*          last={false}*/}
-        {/*          titleInLeft={true}*/}
-        {/*          titleInRight={false}*/}
-        {/*          first={false}*/}
-        {/*          background={lego.background}*/}
-        {/*          zIndex={data.legoList.length - index}*/}
-        {/*        >*/}
-        {/*          <Label icon={lego.icon} title={lego.title} />*/}
-        {/*        </Lego>*/}
-        {/*      );*/}
-        {/*    })}*/}
-        {/*  </LegoParent>*/}
-        {/*)}*/}
 
-        <div className={`${s.handles} ${s.sources}`}>
-          {/* {data.sourceHandles.map((handle, index) => (
-            <Handle
-              key={handle.id}
-              id={handle.id}
-              type="source"
-              position={Position.Right}
-              className={s.handleDot}
-              // style={{ top: 50 * (index+1)}}
-            />
-          ))} */}
-        </div>
+        {
+          data.dapp && renderDapps()
+        }
+
+
+        {/*<div className={`${s.handles} ${s.sources}`}>*/}
+        {/*  {data.sourceHandles.map((handle, index) => (*/}
+        {/*    <Handle*/}
+        {/*      key={handle.id}*/}
+        {/*      id={handle.id}*/}
+        {/*      type="source"*/}
+        {/*      position={Position.Right}*/}
+        {/*      className={s.handleDot}*/}
+        {/*      // style={{ top: 50 * (index+1)}}*/}
+        {/*    />*/}
+        {/*  ))} */}
+        {/*</div>*/}
       </div>
     </div>
   );
 }
 
-export default memo(CustomNode)
+export default memo(CustomNode);
