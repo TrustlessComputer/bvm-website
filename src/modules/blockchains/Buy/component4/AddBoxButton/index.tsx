@@ -144,14 +144,18 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
     // })
   }
 
+  // return (
+  //   <Button
+  //     // isLoading={isLoading}
+  //     className={s.button}
+  //     type={'submit'}
+  //     onClick={() => handleAddBox()}
+  //   >
+  //     Add box
+  //   </Button>
+  // );
+
   return (
-    <Button
-      // isLoading={isLoading}
-      className={s.button}
-      type={'submit'}
-      onClick={() => handleAddBox()}
-    >
-      Add box
-    </Button>
+    <></>
   );
 }
