@@ -78,7 +78,7 @@ const BoxOption = ({ thisDapp, dappIndex }: Props) => {
               {section.key === thisDapp.baseBlock.section && (
                 <div className={styles.container__body__item}>
                   <Draggable
-                    id={`left-${FieldKeyPrefix.BASE}`}
+                    id={`left-${FieldKeyPrefix.BASE}-${thisDapp.key}`}
                     disabled={disableBaseBlock}
                     value={{
                       dappIndex,
