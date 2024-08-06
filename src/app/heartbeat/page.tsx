@@ -1,17 +1,20 @@
 import MainLayout from '@/layouts/MainLayout';
 import L2RollupModule from '@/modules/l2-rollup';
+import { Metadata } from 'next';
 import React from 'react';
 
-const TITLE = 'Heartbeat | Welcome to the future of Bitcoin.'
-const DESCRIPTION = 'Provide transparent and verifiable insights into Bitcoin rollups.'
+const TITLE = 'Heartbeat | Welcome to the future of Bitcoin.';
+const DESCRIPTION =
+  'Provide transparent and verifiable insights into Bitcoin rollups.';
 
-export const metadata = {
+export const metadata: Metadata = {
   applicationName: TITLE,
   title: {
     default: TITLE,
     template: '',
   },
   description: DESCRIPTION,
+  icons: '/icons/heartbeat.svg',
   openGraph: {
     type: 'website',
     title: {
