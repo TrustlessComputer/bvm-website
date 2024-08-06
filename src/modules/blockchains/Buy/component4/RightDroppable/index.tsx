@@ -1,0 +1,631 @@
+import React from 'react';
+import { useSignalEffect } from '@preact/signals-react';
+
+import Droppable from '../Droppable';
+import Draggable from '../Draggable';
+import Lego from '../Lego';
+import LegoParent from '../LegoParent';
+import Input from '../Input';
+import Dropdown from '../Dropdown';
+import ExtendsInput from '../ExtendsInput';
+import { FieldKeyPrefix } from '../../contants';
+import { FieldOption } from '../../types';
+import {
+  adjustBrightness,
+  cloneDeep,
+  DragUtil,
+  isTwoObjectEqual,
+} from '../../utils';
+import {
+  subScribeDropEnd,
+  useTemplateFormStore,
+} from '../../stores/useDappStore';
+import {
+  draggedDappIndexesSignal,
+  draggedIds2DSignal,
+  templateIds2DSignal,
+} from '../../signals/useDragSignal';
+import { formDappSignal } from '../../signals/useFormDappsSignal';
+
+import styles from './styles.module.scss';
+import DateTimeInput from '../DateTimeInput';
+import { DappModel, FieldModel } from '@/types/customize-model';
+import useDapps from '../../hooks/useDapps';
+import Label from '../Label';
+
+const RightDroppable = () => {
+  const {
+    dapps,
+    getInputWithLego,
+    blockFieldMapping,
+    baseModuleFieldMapping,
+    getInputWithoutLego,
+    moduleFieldMapping,
+    singleFieldMapping,
+  } = useDapps();
+  const { templateDapps } = useTemplateFormStore();
+
+  const refContainer = React.useRef<HTMLDivElement>(null);
+  const refWrap = React.useRef<HTMLDivElement>(null);
+
+  const [draggedIds2D, setDraggedIds2D] = React.useState<
+    typeof draggedIds2DSignal.value
+  >([]);
+  const [templateIds2D, setTemplateIds2D] = React.useState<
+    typeof templateIds2DSignal.value
+  >([]);
+
+  const handleReset = () => {
+    formDappSignal.value = [];
+    draggedIds2DSignal.value = [];
+  };
+
+  const onActionClick = (params: { dapp: DappModel }) => {
+    console.log(params.dapp?.action);
+    alert('CLICK ME');
+  };
+
+  const getLabel = React.useCallback(
+    (
+      field: FieldModel,
+      fieldOpt: FieldOption,
+      baseIndex: number,
+      background?: string,
+    ) => {
+      const thisDapp = templateDapps[baseIndex];
+      const mainColor = adjustBrightness(background || thisDapp.color, +10);
+
+      if (field.type === 'input') {
+        return (
+          <Lego
+            first={false}
+            last={false}
+            titleInLeft={true}
+            titleInRight={false}
+            {...field}
+            key={field.key}
+            background={adjustBrightness(mainColor, -20)}
+          >
+            <Input
+              {...field}
+              {...fieldOpt}
+              name={field.key}
+              dappKey={thisDapp.key}
+              disabled
+              onlyLabel
+            />
+          </Lego>
+        );
+      } else if (field.type === 'dropdown') {
+        return (
+          <Lego
+            key={field.key}
+            background={adjustBrightness(mainColor, -20)}
+            first={false}
+            last={false}
+            title={field.title}
+            titleInLeft={true}
+            titleInRight={false}
+          >
+            <Dropdown
+              {...field}
+              {...fieldOpt}
+              dappKey={thisDapp.key}
+              name={field.key}
+              options={field.options}
+              background={adjustBrightness(mainColor, -40)}
+              disabled
+              onlyLabel
+            />
+          </Lego>
+        );
+      } else if (field.type === 'extends') {
+        return (
+          <ExtendsInput
+            {...field}
+            {...fieldOpt}
+            key={field.key}
+            name={field.key}
+            dappKey={thisDapp.key}
+            background={adjustBrightness(mainColor, -20)}
+            disabled
+            onlyLabel
+          />
+        );
+      } else if (field.type === 'group') {
+        return (
+          <Lego
+            key={field.key}
+            background={adjustBrightness(mainColor, -20)}
+            first={false}
+            last={false}
+            title={field.title}
+            titleInLeft={true}
+            titleInRight={false}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              {field.options.map(
+                (option, optIndex) => null,
+                // getInputWithoutLego(option, fieldOpt, field.options.length - optIndex),
+              )}
+            </div>
+          </Lego>
+        );
+      } else if (field.type === 'datetime') {
+        return (
+          <Lego
+            key={field.key}
+            background={adjustBrightness(mainColor, -20)}
+            first={false}
+            last={false}
+            title={field.title}
+            titleInLeft={true}
+            titleInRight={false}
+          >
+            <DateTimeInput
+              {...field}
+              {...fieldOpt}
+              name={field.key}
+              dappKey={thisDapp.key}
+              placeholder={field.placeholder}
+              disabled
+              onlyLabel
+            />
+          </Lego>
+        );
+      }
+    },
+    [templateDapps],
+  );
+
+  useSignalEffect(() => {
+    if (draggedIds2DSignal.value.length === draggedIds2D.length) {
+      for (let i = 0; i < draggedIds2DSignal.value.length; i++) {
+        if (!isTwoObjectEqual(draggedIds2DSignal.value[i], draggedIds2D[i])) {
+          setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
+          break;
+        }
+
+        for (let j = 0; j < draggedIds2DSignal.value[i].length; j++) {
+          if (
+            !isTwoObjectEqual(
+              draggedIds2DSignal.value[i][j],
+              draggedIds2D[i][j],
+            )
+          ) {
+            setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
+            break;
+          }
+        }
+      }
+    } else {
+      setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
+    }
+
+    if (templateIds2DSignal.value.length === templateIds2D.length) {
+      for (let i = 0; i < templateIds2DSignal.value.length; i++) {
+        if (!isTwoObjectEqual(templateIds2DSignal.value[i], templateIds2D[i])) {
+          setTemplateIds2D(cloneDeep(templateIds2DSignal.value));
+          break;
+        }
+
+        for (let j = 0; j < templateIds2DSignal.value[i].length; j++) {
+          if (
+            !isTwoObjectEqual(
+              templateIds2DSignal.value[i][j],
+              templateIds2D[i][j],
+            )
+          ) {
+            setTemplateIds2D(cloneDeep(templateIds2DSignal.value));
+            break;
+          }
+        }
+      }
+    } else {
+      setTemplateIds2D(cloneDeep(templateIds2DSignal.value));
+    }
+  });
+
+  useSignalEffect(() => {
+    const isHad = subScribeDropEnd.value;
+
+    setTimeout(() => {
+      if (!refWrap.current || !refContainer.current) return;
+      if (
+        isHad &&
+        refWrap.current.scrollHeight > refContainer.current.scrollHeight
+      ) {
+        const ouputEl = refWrap.current?.querySelector<HTMLElement>('#output');
+        if (ouputEl) ouputEl.style.alignItems = 'flex-start';
+      }
+    }, 150);
+  });
+
+  return (
+    <div className={styles.wrapRight} ref={refContainer}>
+      <div className={styles.wrapRight_inner} ref={refWrap}>
+        {/* <Droppable
+          id="output"
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: '100%',
+          }}
+        > */}
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            transform: 'translateX(35%)',
+          }}
+        >
+          {draggedIds2D.map((ids, baseIndex) => {
+            const dappIndex = draggedDappIndexesSignal.value[baseIndex];
+            const thisDapp = dapps[dappIndex];
+            const mainColor = adjustBrightness(thisDapp.color, -10);
+
+            let blockCount = 0;
+
+            const { key: baseBlockKey, ...baseBlock } = thisDapp.baseBlock;
+            const totalDraggedBase = draggedIds2D.length;
+            const totalBaseFields = baseBlock.fields.length;
+            const totalBaseModuleBlock = ids.filter((id) => {
+              return DragUtil.idDraggingIsABaseModule(id.name);
+            }).length;
+            const totalDragged = ids.length - totalBaseModuleBlock;
+            const totalAll =
+              totalBaseFields + totalDragged + totalBaseModuleBlock;
+
+            return (
+              <Draggable
+                id={`right-${FieldKeyPrefix.BASE}-${baseIndex}`}
+                key={baseIndex}
+                value={{
+                  title: thisDapp.baseBlock.title,
+                  icon: thisDapp.baseBlock.icon,
+                  fieldKey: thisDapp.baseBlock.key,
+                  background: thisDapp.color_border || mainColor,
+                }}
+              >
+                <Droppable
+                  id={`right-${FieldKeyPrefix.BASE}-${baseIndex}`}
+                  style={{
+                    width: 'max-content',
+                    height: 'max-content',
+                  }}
+                >
+                  <LegoParent
+                    {...baseBlock}
+                    background={thisDapp?.color_border || mainColor}
+                    label={thisDapp.label}
+                    zIndex={
+                      draggedIds2D.length + templateIds2D?.length - baseIndex
+                    }
+                  >
+                    {ids
+                      .filter((id) => DragUtil.idDraggingIsABaseModule(id.name))
+                      .map((item, itemIndex) => {
+                        const thisBaseModule =
+                          baseModuleFieldMapping[dappIndex][
+                            DragUtil.getOriginalKey(item.name)
+                          ];
+                        const thisModule = thisBaseModule.fields.find(
+                          (f: FieldModel) => f.value === item.value,
+                        );
+
+                        if (!thisModule) return null;
+
+                        return (
+                          <Lego
+                            {...thisBaseModule}
+                            preview={false}
+                            key={item.name}
+                            background={adjustBrightness(
+                              thisBaseModule.background || mainColor,
+                              -20,
+                            )}
+                            first={false}
+                            last={false}
+                            titleInLeft={false}
+                            titleInRight={true}
+                            zIndex={totalAll - itemIndex}
+                          >
+                            <Label {...thisModule} />
+                          </Lego>
+                        );
+                      })}
+
+                    {thisDapp.baseBlock.fields.map(
+                      (field: FieldModel, fieldIndex: number) => {
+                        return getInputWithLego(
+                          dapps[dappIndex],
+                          field,
+                          {
+                            inBaseField: true,
+                            inBlockField: false,
+                            inSingleField: false,
+                            index: undefined,
+                            level: 0,
+                            dappIndex,
+                            blockKey: '',
+                            baseIndex,
+                          },
+                          totalBaseFields + totalDragged - fieldIndex,
+                        );
+                      },
+                    )}
+
+                    {ids.map((item, itemIndex) => {
+                      const zIndex = totalDragged - itemIndex - 1;
+
+                      if (DragUtil.idDraggingIsABlock(item.name)) {
+                        const { key: thisBlockKey, ...thisBlock } =
+                          blockFieldMapping[dappIndex][
+                            DragUtil.getOriginalKey(item.name)
+                          ];
+                        const needSuffix = thisBlock.placableAmount === -1;
+
+                        blockCount++;
+
+                        return (
+                          <Draggable
+                            id={`${item.name}-${itemIndex}-${baseIndex}`}
+                            key={`${item.name}-${itemIndex}-${baseIndex}`}
+                            value={{
+                              title: thisBlock.title + ' #' + blockCount,
+                              icon: thisBlock.icon,
+                              fieldKey: thisBlockKey,
+                              background: thisBlock.background || mainColor,
+                            }}
+                          >
+                            <Droppable
+                              id={`${item.name}-${itemIndex}-${baseIndex}`}
+                            >
+                              <LegoParent
+                                {...thisBlock}
+                                title={
+                                  thisBlock.title +
+                                  (needSuffix ? ' #' + blockCount : '')
+                                }
+                                background={adjustBrightness(
+                                  thisBlock.background || mainColor,
+                                  -10,
+                                )}
+                                smallMarginHeaderTop
+                                zIndex={zIndex}
+                              >
+                                {thisBlock.fields.map(
+                                  (field: FieldModel, fieldIndex: number) => {
+                                    return getInputWithLego(
+                                      dapps[dappIndex],
+                                      field,
+                                      {
+                                        inBaseField: false,
+                                        inBlockField: true,
+                                        inSingleField: false,
+                                        index: itemIndex,
+                                        level: 0,
+                                        blockKey: thisBlockKey,
+                                        dappIndex,
+                                        baseIndex,
+                                      },
+                                      thisBlock.fields.length +
+                                        item.children.length -
+                                        fieldIndex,
+                                    );
+                                  },
+                                )}
+
+                                {item.children.map((child, childIndex) => {
+                                  const thisChildField =
+                                    thisBlock.childrenFields?.find(
+                                      (f: FieldModel) => f.key === child.name,
+                                    );
+
+                                  if (!thisChildField) return null;
+
+                                  return (
+                                    <Draggable
+                                      id={`right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${child.name}-${itemIndex}-${baseIndex}`}
+                                      key={`right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${child.name}-${itemIndex}-${baseIndex}`}
+                                      value={{
+                                        title: thisChildField.title,
+                                        icon: thisChildField.icon,
+                                        fieldKey: thisChildField.key,
+                                        background:
+                                          thisChildField.background ||
+                                          mainColor,
+                                        blockKey: thisBlockKey,
+                                      }}
+                                      style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: '0px',
+                                        zIndex:
+                                          item.children.length - childIndex,
+                                      }}
+                                    >
+                                      {getInputWithLego(
+                                        dapps[dappIndex],
+                                        thisChildField,
+                                        {
+                                          dappIndex,
+                                          inBaseField: false,
+                                          inBlockField: true,
+                                          inSingleField: false,
+                                          index: itemIndex,
+                                          level: 0,
+                                          blockKey: thisBlockKey,
+                                          baseIndex,
+                                        },
+                                        item.children.length - childIndex,
+                                      )}
+                                    </Draggable>
+                                  );
+                                })}
+                              </LegoParent>
+                            </Droppable>
+                          </Draggable>
+                        );
+                      } else if (DragUtil.idDraggingIsASingle(item.name)) {
+                        const field =
+                          singleFieldMapping[dappIndex][
+                            DragUtil.getOriginalKey(item.name)
+                          ];
+
+                        const thisModule = field.fields[0];
+
+                        if (!thisModule) return null;
+
+                        return (
+                          <Draggable
+                            id={`${item.name}-${itemIndex}-${baseIndex}`}
+                            key={`${item.name}-${itemIndex}-${baseIndex}`}
+                            value={{
+                              title: thisModule.title,
+                              icon: thisModule.icon,
+                              fieldKey: thisModule.key,
+                            }}
+                          >
+                            {getInputWithLego(
+                              dapps[dappIndex],
+                              thisModule,
+                              {
+                                dappIndex,
+                                inBaseField: false,
+                                inBlockField: false,
+                                inSingleField: true,
+                                index: itemIndex,
+                                level: 0,
+                                blockKey: '',
+                                baseIndex,
+                              },
+                              zIndex,
+                            )}
+                          </Draggable>
+                        );
+                      } else if (DragUtil.idDraggingIsAModule(item.name)) {
+                        const thisModule =
+                          moduleFieldMapping[dappIndex][
+                            DragUtil.getOriginalKey(item.name)
+                          ];
+                        const isMultiple = thisModule.placableAmount === -1;
+
+                        if (isMultiple) {
+                          return (
+                            <Draggable
+                              id={`${item.name}-${itemIndex}-${baseIndex}`}
+                              key={`${item.name}-${itemIndex}-${baseIndex}`}
+                              value={{
+                                title: thisModule.title,
+                                icon: thisModule.icon,
+                                fieldKey: thisModule.key,
+                              }}
+                            >
+                              <LegoParent
+                                {...thisModule}
+                                background={adjustBrightness(mainColor, -20)}
+                                smallMarginHeaderTop
+                                zIndex={zIndex}
+                              >
+                                {(item.value as string[]).map(
+                                  (value, index) => {
+                                    const thisValue = thisModule.fields.find(
+                                      (f: FieldModel) => f.value === value,
+                                    );
+
+                                    if (!thisValue) return null;
+
+                                    return (
+                                      <Draggable
+                                        id={`${item.name}-${itemIndex}-${baseIndex}-${value}`}
+                                        key={`${item.name}-${itemIndex}-${baseIndex}-${value}`}
+                                        value={{
+                                          title: thisValue.title,
+                                          icon: thisValue.icon,
+                                          value: thisValue.value,
+                                        }}
+                                      >
+                                        <Lego
+                                          key={value}
+                                          background={adjustBrightness(
+                                            thisModule.background || mainColor,
+                                            -40,
+                                          )}
+                                          first={false}
+                                          last={false}
+                                          titleInLeft={true}
+                                          titleInRight={false}
+                                        >
+                                          <Label {...thisValue} />
+                                        </Lego>
+                                      </Draggable>
+                                    );
+                                  },
+                                )}
+                              </LegoParent>
+                            </Draggable>
+                          );
+                        } else {
+                          const thisField = thisModule.fields.find(
+                            (f: FieldModel) => f.value === item.value,
+                          );
+
+                          if (!thisField) return null;
+
+                          return (
+                            <Draggable
+                              id={`${item.name}-${itemIndex}-${baseIndex}`}
+                              key={`${item.name}-${itemIndex}-${baseIndex}`}
+                              value={{
+                                title: thisModule.title,
+                                icon: thisModule.icon,
+                                fieldKey: thisModule.key,
+                              }}
+                            >
+                              <Lego
+                                {...thisModule}
+                                preview={false}
+                                background={adjustBrightness(
+                                  thisModule.background || mainColor,
+                                  -20,
+                                )}
+                                first={false}
+                                last={false}
+                                titleInLeft={false}
+                                titleInRight={true}
+                                zIndex={zIndex}
+                              >
+                                <Label {...thisField} />
+                              </Lego>
+                            </Draggable>
+                          );
+                        }
+                      }
+
+                      return null;
+                    })}
+                  </LegoParent>
+                </Droppable>
+              </Draggable>
+            );
+          })}
+        </div>
+        {/* </Droppable> */}
+      </div>
+      {/* <Button
+        element="button"
+        type="button"
+        onClick={() => handleReset()}
+        className={styles.resetButton}
+      >
+        RESET <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
+      </Button> */}
+    </div>
+  );
+};
+
+export default RightDroppable;

@@ -39,7 +39,7 @@ const Draggable = ({
       data: value,
     });
 
-  if (isDragging) {
+  if (isDragging && blockDraggingSignal.value.id !== id) {
     blockDraggingSignal.value = {
       ...value,
       id,
@@ -61,7 +61,7 @@ const Draggable = ({
     ...props.style,
     transform: CSS.Translate.toString(transform),
     cursor: disabled ? 'not-allowed' : 'grab',
-    // opacity: isDragging ? 0 : 1,
+    opacity: isDragging ? 0 : 1,
   };
 
   const onHover = () => {

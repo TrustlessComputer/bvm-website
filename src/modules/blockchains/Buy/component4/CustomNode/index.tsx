@@ -134,7 +134,10 @@ export default function CustomNode({
                         id={item.key + '-' + option.key}
                         useMask
                         isLabel={true}
-                        value={option.key}
+                        value={{
+                          isChain: true,
+                          value: option.key,
+                        }}
                         tooltip={option.tooltip}
                       >
                         <LegoV3
@@ -161,7 +164,10 @@ export default function CustomNode({
                       id={item.key + '-' + option.key}
                       useMask
                       tooltip={item.tooltip}
-                      value={option.key}
+                      value={{
+                        isChain: true,
+                        value: option.key,
+                      }}
                     >
                       <LegoV3
                         background={item.color}
@@ -181,6 +187,9 @@ export default function CustomNode({
                     key={item.key + '-parent' + '-right'}
                     id={item.key + '-parent' + '-right'}
                     useMask
+                    value={{
+                      isChain: true,
+                    }}
                   >
                     <DroppableV2 id={item.key}>
                       <LegoParent
@@ -206,7 +215,10 @@ export default function CustomNode({
                     id={item.key + '-' + option.key + '-right'}
                     useMask
                     tooltip={item.tooltip}
-                    value={option.key}
+                    value={{
+                      isChain: true,
+                      value: option.key,
+                    }}
                   >
                     <DroppableV2 id={item.key + '-right'}>
                       <LegoV3

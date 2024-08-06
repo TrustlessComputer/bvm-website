@@ -5,7 +5,7 @@ import s from './styles.module.scss';
 
 export type DraggableProps = {
   id: string;
-  value?: string | number | null | Record<string, any>;
+  value?: string | number | null | Record<string, any> | any;
   useMask?: boolean;
   disabled?: boolean;
   index?: number;
@@ -30,7 +30,7 @@ const Draggable = ({
     useDraggable({
       id,
       disabled,
-      data: { value },
+      data: value,
     });
 
   const style = {
