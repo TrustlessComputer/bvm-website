@@ -149,8 +149,12 @@ table {
         }
       }
 
-      :hover {
-        background: #fa4e0e;
+      tr:first-child {
+        background: rgb(250, 78, 14, 0.2) !important;
+      }
+
+      tr:hover {
+        background: #fa4e0e !important;
       }
     }
 
