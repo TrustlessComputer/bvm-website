@@ -504,10 +504,7 @@ const BuyPage = () => {
         mouseDroppedPositionSignal.value = {
           ...mousePositionRef.current,
         };
-        console.log(
-          'mouseDroppedPositionSignal.value',
-          mouseDroppedPositionSignal.value,
-        );
+
         return;
       }
 
@@ -544,11 +541,6 @@ const BuyPage = () => {
         const formKey = `${draggedIds2D.length - 1}-${
           FieldKeyPrefix.BASE_MODULE
         }-${activeOriginalKey}-0-0`;
-
-        console.log(
-          'mouseDroppedPositionSignal.value',
-          mouseDroppedPositionSignal.value,
-        );
 
         mouseDroppedPositionSignal.value = {
           ...mousePositionRef.current,
