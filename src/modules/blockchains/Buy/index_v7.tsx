@@ -45,6 +45,7 @@ import { showValidateError } from '@/components/toast';
 import useDappsStore, { subScribeDropEnd } from './stores/useDappStore';
 import useDapps from './hooks/useDapps';
 import {
+  blockDraggingSignal,
   draggedDappIndexesSignal,
   draggedIds2DSignal,
   idBlockErrorSignal,
@@ -290,9 +291,9 @@ const BuyPage = () => {
 
         setField(activeKey, newValue, !isEmpty);
         isEmpty &&
-        setDraggedFields(
-          draggedFields.filter((field) => field !== activeKey),
-        );
+          setDraggedFields(
+            draggedFields.filter((field) => field !== activeKey),
+          );
       }
 
       return;
@@ -300,6 +301,13 @@ const BuyPage = () => {
 
     const { over, active } = event;
     subScribeDropEnd.value += 1;
+    blockDraggingSignal.value = {
+      id: '',
+      title: '',
+      icon: '',
+      background: '',
+      dappIndex: -1,
+    };
 
     console.log(
       '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
@@ -523,26 +531,26 @@ const BuyPage = () => {
       if ((activeIsABlock || activeIsASingle) && overIsABase) {
         const totalPlaced = activeIsABlock
           ? draggedIds2D[overBaseIndex].filter((item) =>
-            item.name.startsWith(
-              `right-${FieldKeyPrefix.BLOCK}-${activeOriginalKey}`,
-            ),
-          ).length
+              item.name.startsWith(
+                `right-${FieldKeyPrefix.BLOCK}-${activeOriginalKey}`,
+              ),
+            ).length
           : draggedIds2D[overBaseIndex].filter((item) =>
-            item.name.startsWith(
-              `right-${FieldKeyPrefix.SINGLE}-${activeOriginalKey}`,
-            ),
-          ).length;
+              item.name.startsWith(
+                `right-${FieldKeyPrefix.SINGLE}-${activeOriginalKey}`,
+              ),
+            ).length;
         const canPlaceMore =
           (activeIsABlock
             ? blockFieldMapping[dappIndex][activeOriginalKey].placableAmount ===
-            -1
+              -1
             : singleFieldMapping[dappIndex][activeOriginalKey]
-            .placableAmount === -1) ||
+                .placableAmount === -1) ||
           totalPlaced <
-          (activeIsABlock
-            ? blockFieldMapping[dappIndex][activeOriginalKey].placableAmount
-            : singleFieldMapping[dappIndex][activeOriginalKey]
-              .placableAmount);
+            (activeIsABlock
+              ? blockFieldMapping[dappIndex][activeOriginalKey].placableAmount
+              : singleFieldMapping[dappIndex][activeOriginalKey]
+                  .placableAmount);
         const prefix =
           'right-' +
           (activeIsABlock ? FieldKeyPrefix.BLOCK : FieldKeyPrefix.SINGLE);
@@ -583,9 +591,9 @@ const BuyPage = () => {
         ).length;
         const canPlaceMore =
           totalPlaced <
-          moduleFieldMapping[dappIndex][activeOriginalKey].placableAmount ||
+            moduleFieldMapping[dappIndex][activeOriginalKey].placableAmount ||
           moduleFieldMapping[dappIndex][activeOriginalKey].placableAmount ===
-          -1;
+            -1;
         const composedFieldKey =
           'right-' + FieldKeyPrefix.MODULE + '-' + activeOriginalKey;
         const thisField = moduleFieldMapping[dappIndex][activeOriginalKey];
@@ -877,7 +885,7 @@ const BuyPage = () => {
             item.value = newValue;
             formDapp[
               `${activeBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-${activeIndex}`
-              ] = newValue;
+            ] = newValue;
           }
         }
 
@@ -1332,8 +1340,6 @@ const BuyPage = () => {
     [setNodes],
   );
 
-
-
   return (
     <div
       className={`${s.container} ${isTabCode ? '' : s.explorePageContainer}`}
@@ -1411,9 +1417,9 @@ const BuyPage = () => {
                                 let suffix =
                                   Math.abs(_price) > 0
                                     ? ` (${formatCurrencyV2({
-                                      amount: _price,
-                                      decimals: 0,
-                                    })} BVM)`
+                                        amount: _price,
+                                        decimals: 0,
+                                      })} BVM)`
                                     : '';
 
                                 _price = option.priceBVM - currentPrice;
@@ -1422,9 +1428,9 @@ const BuyPage = () => {
                                 suffix =
                                   Math.abs(_price) > 0
                                     ? ` (${operator}${formatCurrencyV2({
-                                      amount: Math.abs(_price),
-                                      decimals: 0,
-                                    })} BVM)`
+                                        amount: Math.abs(_price),
+                                        decimals: 0,
+                                      })} BVM)`
                                     : '';
 
                                 if (
@@ -1439,13 +1445,13 @@ const BuyPage = () => {
                                     option.supportLayer &&
                                     option.supportLayer !== 'both' &&
                                     option.supportLayer !==
-                                    field['layers']?.value
+                                      field['layers']?.value
                                   ) ||
                                   !!(
                                     option.supportNetwork &&
                                     option.supportNetwork !== 'both' &&
                                     option.supportNetwork !==
-                                    field['network']?.value
+                                      field['network']?.value
                                   ) ||
                                   !option.selectable;
 
@@ -1671,7 +1677,7 @@ const BuyPage = () => {
                         {/*<Droppable id="output">*/}
                         {/*  <RightDroppable />*/}
                         {/*</Droppable>*/}
-                        <DroppableMask/>
+                        <DroppableMask />
                       </div>
 
                       {/*{!isCapture && (*/}
@@ -1723,7 +1729,6 @@ const BuyPage = () => {
                     </div>
                   </div>
                 </ReactFlowProvider>
-
               </>
             )}
           </div>

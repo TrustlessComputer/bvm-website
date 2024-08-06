@@ -1,6 +1,6 @@
 import { signal } from '@preact/signals-react';
 
-type Field = {
+export type Field = {
   name: string;
   value: string | number | string[] | number[];
   parentNames: string[];

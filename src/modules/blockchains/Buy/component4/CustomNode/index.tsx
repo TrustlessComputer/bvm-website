@@ -15,7 +15,11 @@ import Label from '../../components3/Label';
 import ChainLegoParent from '../../components3/LegoParent';
 import { DappModel, FieldModel } from '@/types/customize-model';
 import { memo } from 'react';
-import { draggedDappIndexesSignal, draggedIds2DSignal } from '@/modules/blockchains/Buy/signals/useDragSignal';
+import {
+  draggedDappIndexesSignal,
+  draggedIds2DSignal,
+  Field,
+} from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { adjustBrightness, DragUtil } from '@/modules/blockchains/Buy/utils';
 import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
 import Droppable from '@/modules/blockchains/Buy/component4/Droppable';
@@ -35,16 +39,13 @@ export type DataNode = Node<
     isChain: boolean;
     chain: OrderItem | null;
     dapp: DappModel | null;
-    ids: typeof draggedIds2DSignal.value,
-    baseIndex: number,
+    ids: Field[];
+    baseIndex: number;
   },
   'label'
 >;
 
-function CustomNode({
-                      data,
-                      isConnectable,
-                    }: NodeProps<DataNode>) {
+function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { draggedFields } = useDragStore();
   const { parsedCategories } = useModelCategoriesStore();
   const { field } = useOrderFormStoreV3();
@@ -72,8 +73,7 @@ function CustomNode({
       return DragUtil.idDraggingIsABaseModule(id.name);
     }).length;
     const totalDragged = data.ids.length - totalBaseModuleBlock;
-    const totalAll =
-      totalBaseFields + totalDragged + totalBaseModuleBlock;
+    const totalAll = totalBaseFields + totalDragged + totalBaseModuleBlock;
 
     return (
       <Draggable
@@ -97,9 +97,7 @@ function CustomNode({
             {...baseBlock}
             background={thisDapp?.color_border || mainColor}
             label={thisDapp.label}
-            zIndex={
-              999 - data.baseIndex
-            }
+            zIndex={999 - data.baseIndex}
           >
             {data.ids
               .filter((id) => DragUtil.idDraggingIsABaseModule(id.name))
@@ -107,7 +105,7 @@ function CustomNode({
                 const thisBaseModule =
                   baseModuleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                    ];
+                  ];
                 const thisModule = thisBaseModule.fields.find(
                   (f: FieldModel) => f.value === item.value,
                 );
@@ -161,7 +159,7 @@ function CustomNode({
                 const { key: thisBlockKey, ...thisBlock } =
                   blockFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                    ];
+                  ];
                 const needSuffix = thisBlock.placableAmount === -1;
 
                 blockCount++;
@@ -209,17 +207,16 @@ function CustomNode({
                                 baseIndex: data.baseIndex,
                               },
                               thisBlock.fields.length +
-                              item.children.length -
-                              fieldIndex,
+                                item.children.length -
+                                fieldIndex,
                             );
                           },
                         )}
 
                         {item.children.map((child, childIndex) => {
-                          const thisChildField =
-                            thisBlock.childrenFields?.find(
-                              (f: FieldModel) => f.key === child.name,
-                            );
+                          const thisChildField = thisBlock.childrenFields?.find(
+                            (f: FieldModel) => f.key === child.name,
+                          );
 
                           if (!thisChildField) return null;
 
@@ -232,16 +229,14 @@ function CustomNode({
                                 icon: thisChildField.icon,
                                 fieldKey: thisChildField.key,
                                 background:
-                                  thisChildField.background ||
-                                  mainColor,
+                                  thisChildField.background || mainColor,
                                 blockKey: thisBlockKey,
                               }}
                               style={{
                                 display: 'flex',
                                 flexDirection: 'column',
                                 gap: '0px',
-                                zIndex:
-                                  item.children.length - childIndex,
+                                zIndex: item.children.length - childIndex,
                               }}
                             >
                               {getInputWithLego(
@@ -255,7 +250,7 @@ function CustomNode({
                                   index: itemIndex,
                                   level: 0,
                                   blockKey: thisBlockKey,
-                                  baseIndex,
+                                  baseIndex: data.baseIndex,
                                 },
                                 item.children.length - childIndex,
                               )}
@@ -270,7 +265,7 @@ function CustomNode({
                 const field =
                   singleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                    ];
+                  ];
 
                 const thisModule = field.fields[0];
 
@@ -307,7 +302,7 @@ function CustomNode({
                 const thisModule =
                   moduleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                    ];
+                  ];
                 const isMultiple = thisModule.placableAmount === -1;
 
                 if (isMultiple) {
@@ -327,41 +322,39 @@ function CustomNode({
                         smallMarginHeaderTop
                         zIndex={zIndex}
                       >
-                        {(item.value as string[]).map(
-                          (value, index) => {
-                            const thisValue = thisModule.fields.find(
-                              (f: FieldModel) => f.value === value,
-                            );
+                        {(item.value as string[]).map((value, index) => {
+                          const thisValue = thisModule.fields.find(
+                            (f: FieldModel) => f.value === value,
+                          );
 
-                            if (!thisValue) return null;
+                          if (!thisValue) return null;
 
-                            return (
-                              <Draggable
-                                id={`${item.name}-${itemIndex}-${data.baseIndex}-${value}`}
-                                key={`${item.name}-${itemIndex}-${data.baseIndex}-${value}`}
-                                value={{
-                                  title: thisValue.title,
-                                  icon: thisValue.icon,
-                                  value: thisValue.value,
-                                }}
+                          return (
+                            <Draggable
+                              id={`${item.name}-${itemIndex}-${data.baseIndex}-${value}`}
+                              key={`${item.name}-${itemIndex}-${data.baseIndex}-${value}`}
+                              value={{
+                                title: thisValue.title,
+                                icon: thisValue.icon,
+                                value: thisValue.value,
+                              }}
+                            >
+                              <Lego
+                                key={value}
+                                background={adjustBrightness(
+                                  thisModule.background || mainColor,
+                                  -40,
+                                )}
+                                first={false}
+                                last={false}
+                                titleInLeft={true}
+                                titleInRight={false}
                               >
-                                <Lego
-                                  key={value}
-                                  background={adjustBrightness(
-                                    thisModule.background || mainColor,
-                                    -40,
-                                  )}
-                                  first={false}
-                                  last={false}
-                                  titleInLeft={true}
-                                  titleInRight={false}
-                                >
-                                  <Label {...thisValue} />
-                                </Lego>
-                              </Draggable>
-                            );
-                          },
-                        )}
+                                <Label {...thisValue} />
+                              </Lego>
+                            </Draggable>
+                          );
+                        })}
                       </LegoParent>
                     </Draggable>
                   );
@@ -409,7 +402,6 @@ function CustomNode({
       </Draggable>
     );
   }
-
 
   return (
     <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
@@ -601,11 +593,7 @@ function CustomNode({
           </DroppableV2>
         )}
 
-
-        {
-          data.dapp && renderDapps()
-        }
-
+        {data.dapp && renderDapps()}
 
         {/*<div className={`${s.handles} ${s.sources}`}>*/}
         {/*  {data.sourceHandles.map((handle, index) => (*/}
