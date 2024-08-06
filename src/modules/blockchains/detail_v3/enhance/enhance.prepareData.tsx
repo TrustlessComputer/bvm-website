@@ -5,12 +5,8 @@ import { useEffect } from 'react';
 const enhanceInitData = (WrappedComponent: any) => (props: any) => {
   const { orderId } = props;
 
-  const {
-    getAccountInfor,
-    getOrderDetailByID,
-    getAvailableListTemplate,
-    getModelCategories,
-  } = useL2Service();
+  const { getOrderDetailByID, getAvailableListTemplate, getModelCategories } =
+    useL2Service();
 
   const { loggedIn, l2ServiceUserAddress } = useWeb3Auth();
 
@@ -19,12 +15,6 @@ const enhanceInitData = (WrappedComponent: any) => (props: any) => {
     getOrderDetailByID(orderId);
     getModelCategories(l2ServiceUserAddress);
   }, []);
-
-  useEffect(() => {
-    if (loggedIn) {
-      getAccountInfor();
-    }
-  }, [loggedIn]);
 
   return <WrappedComponent {...props} />;
 };

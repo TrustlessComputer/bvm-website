@@ -23,15 +23,8 @@ type Props = {
 const HeaderLeftView = (props: Props) => {
   const { orderItem: item } = props;
 
-  const { getAccountInfor } = useL2Service();
   const { loggedIn, login } = useWeb3Auth();
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
-
-  useEffect(() => {
-    if (loggedIn) {
-      getAccountInfor();
-    }
-  }, [loggedIn]);
 
   const isOwner =
     item?.tcAddress?.toLowerCase() ===

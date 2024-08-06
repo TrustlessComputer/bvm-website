@@ -1,6 +1,19 @@
 import { useAppSelector } from '@/stores/hooks';
-import { getL2ServicesStateSelector, myOrderListFilteredByNetwork } from '@/stores/states/l2services/selector';
-import { Box, Button, Divider, Flex, Image, Menu, MenuButton, MenuList, Text } from '@chakra-ui/react';
+import {
+  getL2ServicesStateSelector,
+  myOrderListFilteredByNetwork,
+} from '@/stores/states/l2services/selector';
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Image,
+  Menu,
+  MenuButton,
+  MenuList,
+  Text,
+} from '@chakra-ui/react';
 import useL2Service from '@hooks/useL2Service';
 import React, { useEffect, useMemo, useState } from 'react';
 import s from './styles.module.scss';
@@ -34,7 +47,7 @@ const SettingView = ({
 }) => {
   const router = useRouter();
 
-  const { getMyOrderList, getAccountInfor } = useL2Service();
+  const { getMyOrderList } = useL2Service();
   const { loggedIn } = useWeb3Auth();
   const { accountInforL2Service, isMyOrderListFetched } = useAppSelector(
     getL2ServicesStateSelector,
@@ -76,7 +89,6 @@ const SettingView = ({
   useEffect(() => {
     if (loggedIn) {
       getMyOrderList();
-      getAccountInfor();
       getAppInforByCurentUser();
     }
   }, [loggedIn]);
@@ -221,8 +233,9 @@ const SettingView = ({
     }
 
     if (
-      isProduction && (Number(accountInforL2Service?.balanceFormatted) <
-      Number(appPackage?.price_bvm))
+      isProduction &&
+      Number(accountInforL2Service?.balanceFormatted) <
+        Number(appPackage?.price_bvm)
     ) {
       return (
         <Button
