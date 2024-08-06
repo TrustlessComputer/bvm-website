@@ -573,7 +573,7 @@ const L2Rollup = () => {
   return (
     <Box className={s.container}>
       <Flex direction={'column'} w="100%" maxW={'1320px'} alignItems={'center'}>
-        <Flex alignItems="center" gap="6px" mb={'12px'}>
+        <Flex alignItems="center" gap="6px" my={'12px'}>
           <Text fontSize={'20px'}>Project Heartbeat</Text>
           <DotLottiePlayer
             autoplay
@@ -587,7 +587,8 @@ const L2Rollup = () => {
           fontSize={'40px'}
           lineHeight={'52px'}
           textAlign={'center'}
-          mb={'20px'}
+          mb={'28px'}
+          mt={'12px'}
         >
           Welcome to the future of Bitcoin.
         </Text>
@@ -598,7 +599,7 @@ const L2Rollup = () => {
           fontSize={'20px'}
           fontWeight={'400'}
           color={'#494846'}
-          mb={'16px'}
+          mb={'24px'}
         >
           The BVM team created Project Heartbeat to provide transparent and
           verifiable insights into new technologies that are transforming
@@ -606,7 +607,7 @@ const L2Rollup = () => {
           innovations.
         </Text>
 
-        <Flex direction={'row'} alignItems={'center'} gap={'8px'} mb={'40px'}>
+        <Flex direction={'row'} alignItems={'center'} gap={'8px'} mb={'48px'}>
           <Text
             className={s.fontType2}
             fontSize={'20px'}
@@ -675,7 +676,7 @@ const L2Rollup = () => {
             )}
           </Flex>
         </Flex>
-        <Box w="100%" bg="#FAFAFA" minH={'450px'} mt={'40px'}>
+        <Box w="100%" bg="#FAFAFA" minH={'450px'} mt={'56px'}>
           <ListTable
             data={data}
             columns={columns}
