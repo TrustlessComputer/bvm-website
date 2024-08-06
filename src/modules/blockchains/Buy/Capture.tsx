@@ -6,16 +6,19 @@ import html2canvas from 'html2canvas';
 import Image from 'next/image';
 import s from '@/modules/blockchains/Buy/styles_v5.module.scss';
 import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
-import { getNodesBounds, getViewportForBounds, useReactFlow } from '@xyflow/react';
+import {
+  getNodesBounds,
+  getViewportForBounds,
+  useReactFlow,
+} from '@xyflow/react';
 import { toPng } from 'html-to-image';
-
 
 const imageWidth = 1024;
 const imageHeight = 768;
 
 const Capture = () => {
   const { setIsCapture } = useCaptureStore();
-  const { getNodes } = useReactFlow();
+  // const { getNodes } = useReactFlow();
   const handleClickShareTwitter = (url: string) => {
     try {
       // const imgEncode = encodeBase64(url);
@@ -28,9 +31,7 @@ Let's transform #Bitcoin beyond money together!
 https://bvm.network/studio/${url}`;
 
       window.open(
-        `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-          content,
-        )}`,
+        `https://twitter.com/intent/tweet?text=${encodeURIComponent(content)}`,
         '_blank',
       );
     } catch (error) {
@@ -38,7 +39,7 @@ https://bvm.network/studio/${url}`;
     }
   };
 
-  const exportBase64 = async ():Promise<string> => {
+  const exportBase64 = async (): Promise<string> => {
     // const nodesBounds = getNodesBounds(getNodes());
     // const viewport = getViewportForBounds(
     //   nodesBounds,
@@ -101,7 +102,6 @@ https://bvm.network/studio/${url}`;
     setIsCapture(true);
     const a = document.createElement('a');
     setTimeout(async () => {
-
       a.href = await exportBase64();
       a.download = `${new Date()}.png`;
       a.click();
@@ -119,7 +119,7 @@ https://bvm.network/studio/${url}`;
 
   return (
     <div className={s.wrapper_btn_top}>
-       <div className={s.reset2} onClick={() => download()}>
+      <div className={s.reset2} onClick={() => download()}>
         <div>
           <Image
             src={'/icons/ic_image_2.svg'}

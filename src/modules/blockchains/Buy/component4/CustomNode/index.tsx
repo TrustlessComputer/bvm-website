@@ -79,7 +79,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
     return (
       <Draggable
         id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
-        key={data.baseIndex}
+        // key={data.baseIndex}
         value={{
           title: thisDapp.baseBlock.title,
           icon: thisDapp.baseBlock.icon,
@@ -411,10 +411,22 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
           s[`borderColor_${data.status}`],
         )}`}
       >
-        <p className={`${s.wrapperBox_top_heading} ${isCapture ? s.label_margin : ''}`}>{data.label}</p>
+        <p
+          className={`${s.wrapperBox_top_heading} ${
+            isCapture ? s.label_margin : ''
+          }`}
+        >
+          {data.label}
+        </p>
         {
           <div className={s.tag}>
-            <p className={`${cn(s[`titleTag_${data.status}`])} ${isCapture ? s.label_margin : ''}`}>{data.status}</p>
+            <p
+              className={`${cn(s[`titleTag_${data.status}`])} ${
+                isCapture ? s.label_margin : ''
+              }`}
+            >
+              {data.status}
+            </p>
             <div
               className={`${s.tag_dot}  ${cn(s[`tag_${data.status}`])}`}
             ></div>
@@ -496,7 +508,13 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                           zIndex={item.options.length - opIdx}
                         >
                           <div className={s.wrapInput}>
-                            <span className={`${s.labelInput} ${isCapture ? s.label_margin : ''}`}>{option.title}</span>
+                            <span
+                              className={`${s.labelInput} ${
+                                isCapture ? s.label_margin : ''
+                              }`}
+                            >
+                              {option.title}
+                            </span>
                             <input
                               className={`${s.inputLabel}`}
                               name={item.key + '-' + option.key}

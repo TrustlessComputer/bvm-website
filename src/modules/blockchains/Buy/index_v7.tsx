@@ -36,7 +36,12 @@ import { TABS } from './constants';
 import ExplorePage from './Explore';
 import { mockupOptions } from './Buy.data';
 import { FieldModel, IModelCategory } from '@/types/customize-model';
-import { applyNodeChanges, ReactFlow, ReactFlowProvider } from '@xyflow/react';
+import {
+  applyNodeChanges,
+  ReactFlow,
+  ReactFlowProvider,
+  useNodesState,
+} from '@xyflow/react';
 import CustomNode from './component4/CustomNode';
 import useModelCategoriesStore from './stores/useModelCategoriesStore';
 import useDragStore from './stores/useDragStore';
@@ -64,7 +69,10 @@ import DroppableMask from '@/modules/blockchains/Buy/component4/DroppableMask';
 const BuyPage = () => {
   const router = useRouter();
 
-  const [nodes, setNodes] = useState<NodeBase[]>([]);
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  // const [nodes, setNodes] = useState<NodeBase[]>([]);
+
+  console.log('🚀 -> file: index_v7.tsx:69 -> BuyPage -> nodes ::', nodes);
 
   const {
     parsedCategories: data,
@@ -1334,11 +1342,11 @@ const BuyPage = () => {
     initTemplate(0);
   };
 
-  const onNodesChange = React.useCallback(
-    (changes: NodeChange[]) =>
-      setNodes((nds) => applyNodeChanges(changes, nds)),
-    [setNodes],
-  );
+  // const onNodesChange = React.useCallback(
+  //   (changes: NodeChange[]) =>
+  //     setNodes((nds) => applyNodeChanges(changes, nds)),
+  //   [setNodes],
+  // );
 
   return (
     <div
@@ -1624,111 +1632,116 @@ const BuyPage = () => {
                 <DragMask />
 
                 {/* ------------- RIGHT ------------- */}
-                <ReactFlowProvider>
-                  <div className={s.right}>
-                    <div className={s.top_right}>
-                      <AddBoxButton setNodes={setNodes} />
+                {/* <ReactFlowProvider> */}
+                <div className={s.right}>
+                  <div className={s.top_right}>
+                    <AddBoxButton
+                      nodes={nodes}
+                      setNodes={setNodes}
+                      onNodesChange={onNodesChange}
+                    />
 
-                      <div className={s.right_box_footer}>
-                        {!needContactUs && (
-                          <div className={s.right_box_footer_left}>
-                            <h4 className={s.right_box_footer_left_content}>
-                              {formatCurrencyV2({
-                                amount: priceBVM,
-                                decimals: 0,
-                              })}{' '}
-                              BVM{'/'}month
-                            </h4>
-                            <h6 className={s.right_box_footer_left_title}>
-                              $
-                              {formatCurrencyV2({
-                                amount: priceUSD,
-                                decimals: 0,
-                              })}
-                              {'/'}month
-                            </h6>
-                          </div>
-                        )}
-
-                        <LaunchButton data={data} originalData={originalData} />
-                      </div>
-                    </div>
-
-                    <div className={`${s.right_box}`}>
-                      <div
-                        className={`${s.right_box_main} ${
-                          isCapture ? s.right_box_main_captured : ''
-                        }`}
-                        // className={`${s.right_box_main}`}
-                        id="viewport"
-                      >
-                        <ReactFlow
-                          nodes={nodes}
-                          nodeTypes={{ customBox: CustomNode }}
-                          onNodesChange={onNodesChange}
-                          fitView
-                          // draggable={false}
-                          defaultViewport={{
-                            x: 0,
-                            y: 0,
-                            zoom: 1,
-                          }}
-                        />
-                        {/*<Droppable id="output">*/}
-                        {/*  <RightDroppable />*/}
-                        {/*</Droppable>*/}
-                        <DroppableMask />
-                      </div>
-
-                      {/*{!isCapture && (*/}
-                      {/*  <div className={s.cta_wrapper}>*/}
-                      {/*    <button*/}
-                      {/*      className={`${s.reset} ${s.gray}`}*/}
-                      {/*      onClick={() => setIsShowModal(true)}*/}
-                      {/*    >*/}
-                      {/*      <div>*/}
-                      {/*        RESET*/}
-                      {/*        <ImagePlaceholder*/}
-                      {/*          src={'/icons/undo.svg'}*/}
-                      {/*          alt={'undo'}*/}
-                      {/*          width={20}*/}
-                      {/*          height={20}*/}
-                      {/*        />*/}
-                      {/*      </div>*/}
-                      {/*    </button>*/}
-                      {/*    <Capture />*/}
-                      {/*  </div>*/}
-                      {/*)}    */}
-                      {!isCapture && (
-                        <div className={s.resetButton}>
-                          {/*<Button element="button" type="button">*/}
-                          {/*  EXPORT{' '}*/}
-                          {/*  <Image*/}
-                          {/*    src="/icons/ic_image_2.svg"*/}
-                          {/*    alt="ic_image_2"*/}
-                          {/*    width={20}*/}
-                          {/*    height={20}*/}
-                          {/*  />*/}
-                          {/*</Button>*/}
-                          <Capture />
-                          <Button
-                            element="button"
-                            type="button"
-                            onClick={() => setIsShowModal(true)}
-                          >
-                            RESET{' '}
-                            <Image
-                              src="/icons/undo.svg"
-                              alt="undo"
-                              width={20}
-                              height={20}
-                            />
-                          </Button>
+                    <div className={s.right_box_footer}>
+                      {!needContactUs && (
+                        <div className={s.right_box_footer_left}>
+                          <h4 className={s.right_box_footer_left_content}>
+                            {formatCurrencyV2({
+                              amount: priceBVM,
+                              decimals: 0,
+                            })}{' '}
+                            BVM{'/'}month
+                          </h4>
+                          <h6 className={s.right_box_footer_left_title}>
+                            $
+                            {formatCurrencyV2({
+                              amount: priceUSD,
+                              decimals: 0,
+                            })}
+                            {'/'}month
+                          </h6>
                         </div>
                       )}
+
+                      <LaunchButton data={data} originalData={originalData} />
                     </div>
                   </div>
-                </ReactFlowProvider>
+
+                  <div className={`${s.right_box}`}>
+                    <div
+                      className={`${s.right_box_main} ${
+                        isCapture ? s.right_box_main_captured : ''
+                      }`}
+                      // className={`${s.right_box_main}`}
+                      id="viewport"
+                    >
+                      <ReactFlow
+                        nodes={nodes}
+                        nodeTypes={{ customBox: CustomNode }}
+                        onNodesChange={onNodesChange}
+                        fitView
+                        // draggable={false}
+                        defaultViewport={{
+                          x: 0,
+                          y: 0,
+                          zoom: 1,
+                        }}
+                        key={nodes.toString()}
+                      />
+                      {/*<Droppable id="output">*/}
+                      {/*  <RightDroppable />*/}
+                      {/*</Droppable>*/}
+                      <DroppableMask />
+                    </div>
+
+                    {/*{!isCapture && (*/}
+                    {/*  <div className={s.cta_wrapper}>*/}
+                    {/*    <button*/}
+                    {/*      className={`${s.reset} ${s.gray}`}*/}
+                    {/*      onClick={() => setIsShowModal(true)}*/}
+                    {/*    >*/}
+                    {/*      <div>*/}
+                    {/*        RESET*/}
+                    {/*        <ImagePlaceholder*/}
+                    {/*          src={'/icons/undo.svg'}*/}
+                    {/*          alt={'undo'}*/}
+                    {/*          width={20}*/}
+                    {/*          height={20}*/}
+                    {/*        />*/}
+                    {/*      </div>*/}
+                    {/*    </button>*/}
+                    {/*    <Capture />*/}
+                    {/*  </div>*/}
+                    {/*)}    */}
+                    {!isCapture && (
+                      <div className={s.resetButton}>
+                        {/*<Button element="button" type="button">*/}
+                        {/*  EXPORT{' '}*/}
+                        {/*  <Image*/}
+                        {/*    src="/icons/ic_image_2.svg"*/}
+                        {/*    alt="ic_image_2"*/}
+                        {/*    width={20}*/}
+                        {/*    height={20}*/}
+                        {/*  />*/}
+                        {/*</Button>*/}
+                        <Capture />
+                        <Button
+                          element="button"
+                          type="button"
+                          onClick={() => setIsShowModal(true)}
+                        >
+                          RESET{' '}
+                          <Image
+                            src="/icons/undo.svg"
+                            alt="undo"
+                            width={20}
+                            height={20}
+                          />
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                {/* </ReactFlowProvider> */}
               </>
             )}
           </div>

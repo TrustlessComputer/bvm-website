@@ -17,12 +17,12 @@ const NODE_WIDTH = 16;
 const NODE_HEIGHT = 15;
 
 export default function AddBoxButton({ ...props }): React.JSX.Element {
-  const store = useStoreApi();
-  const {
-    height,
-    width,
-    transform: [transformX, transformY, zoomLevel],
-  } = store.getState();
+  // const store = useStoreApi();
+  // const {
+  //   height,
+  //   width,
+  //   transform: [transformX, transformY, zoomLevel],
+  // } = store.getState();
 
   const [draggedIds2D, setDraggedIds2D] = React.useState<
     typeof draggedIds2DSignal.value
@@ -84,17 +84,17 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
     if (dragState.new) {
       handleAddBox();
     } else if (!dragState.oneD.every((v) => v === -1)) {
-      // console.log('HERE 2', draggedIds2D[dragState.oneD[0]]);
-      const nodes = store.getState().nodes;
-      nodes[dragState.oneD[0]] = {
-        ...nodes[dragState.oneD[0]],
+      props.nodes[dragState.oneD[0] + 1] = {
+        ...props.nodes[dragState.oneD[0] + 1],
         data: {
-          ...nodes[dragState.oneD[0]].data,
+          ...props.nodes[dragState.oneD[0] + 1].data,
           ids: draggedIds2D[dragState.oneD[0]],
         },
       };
 
-      props.setNodes(nodes);
+      console.log('nodes before', props.nodes);
+      props.onNodesChange(props.nodes);
+      console.log('nodes after', props.nodes);
     } else if (!dragState.twoD.every((v) => v === -1)) {
       // handleAddBox();
     }
@@ -103,12 +103,12 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
   function handleAddBox() {
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
-    const zoomMultiplier = 1 / zoomLevel;
-    const centerX = -transformX * zoomMultiplier + (width * zoomMultiplier) / 2;
-    const centerY =
-      -transformY * zoomMultiplier + (height * zoomMultiplier) / 2;
-    const nodeWidthOffset = NODE_WIDTH / 2;
-    const nodeHeightOffset = NODE_HEIGHT / 2;
+    // const zoomMultiplier = 1 / zoomLevel;
+    // const centerX = -transformX * zoomMultiplier + (width * zoomMultiplier) / 2;
+    // const centerY =
+    //   -transformY * zoomMultiplier + (height * zoomMultiplier) / 2;
+    // const nodeWidthOffset = NODE_WIDTH / 2;
+    // const nodeHeightOffset = NODE_HEIGHT / 2;
     props.setNodes((prev) => [
       ...prev,
       {
@@ -125,8 +125,8 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
         },
         //TODO: center position
         position: {
-          x: centerX - nodeWidthOffset,
-          y: centerY - nodeHeightOffset,
+          x: 0,
+          y: 0,
         },
       },
     ]);
