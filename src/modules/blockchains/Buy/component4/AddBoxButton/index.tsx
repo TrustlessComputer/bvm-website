@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Button } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import Image from 'next/image';
-import { useReactFlow, useStoreApi } from '@xyflow/react';
+import { useNodes, useReactFlow, useStoreApi } from '@xyflow/react';
 import { useSignalEffect } from '@preact/signals-react';
 import {
   draggedDappIndexesSignal,
@@ -11,6 +11,7 @@ import {
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { cloneDeep, isTwoObjectEqual } from '@/modules/blockchains/Buy/utils';
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
+import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
 
 const OVERLAP_OFFSET = -200;
 const NODE_WIDTH = 16;
@@ -41,6 +42,7 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
   });
 
   const { dapps } = useDapps();
+  const nodes = useNodes();
 
   useSignalEffect(() => {
     if (draggedIds2DSignal.value.length === draggedIds2D.length) {
@@ -108,23 +110,30 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
     }
   }, [dragState]);
 
-  function handleAddBox() {
+  const handleAddBox = () => {
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
-    const zoomMultiplier = 1 / zoomLevel;
-    const centerX = -transformX * zoomMultiplier + (width * zoomMultiplier) / 2;
-    const centerY =
-      -transformY * zoomMultiplier + (height * zoomMultiplier) / 2;
-    // const nodeWidthOffset = NODE_WIDTH / 2;
-    // const nodeHeightOffset = NODE_HEIGHT / 2;
-    const position = screenToFlowPosition({
-      x: centerX,
-      y: centerY,
-    });
+    // const zoomMultiplier = 1 / zoomLevel;
+    // const centerX = -transformX * zoomMultiplier + (width * zoomMultiplier) / 2;
+    // const centerY =
+    //   -transformY * zoomMultiplier + (height * zoomMultiplier) / 2;
+    // // const nodeWidthOffset = NODE_WIDTH / 2;
+    // // const nodeHeightOffset = NODE_HEIGHT / 2;
+    // const position = screenToFlowPosition({
+    //   x: centerX,
+    //   y: centerY,
+    // });
+
+    const lastNode = nodes[nodes.length - 1];
+    const positionTo = {
+      x: lastNode.position.x - (lastNode.measured?.width || 0),
+      y: lastNode.position.y - (lastNode.measured?.height || 0),
+    }
+
     props.setNodes((prev) => [
       ...prev,
       {
-        id: `${Math.random()}`,
+        id: `${nodes.length}`,
         type: 'customBox',
         dragHandle: '.drag-handle-area',
         data: {
@@ -135,15 +144,34 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
           ids: draggedIds2D[draggedIds2D.length - 1],
           baseIndex: draggedIds2D.length - 1,
         },
-        //TODO: center position
-        // position: {
-        //   x: 0,
-        //   y: 0,
-        // },
-        position,
+        origin: [0.0, 0.0],
+        position: positionTo,
       },
     ]);
+
+    // addNodes({
+    //   id: `${Math.random()}`,
+    //   type: 'customBox',
+    //   dragHandle: '.drag-handle-area',
+    //   data: {
+    //     label: 'Blockchain',
+    //     status: 'Missing',
+    //     isChain: true,
+    //   },
+    //   position: { x: centerX - nodeWidthOffset + props.currentOverlapOffset, y: centerY - nodeHeightOffset + props.currentOverlapOffset },
+    // })
   }
+
+  // return (
+  //   <Button
+  //     // isLoading={isLoading}
+  //     className={s.button}
+  //     type={'submit'}
+  //     onClick={() => handleAddBox()}
+  //   >
+  //     Add box
+  //   </Button>
+  // );
 
   return <></>;
 }
