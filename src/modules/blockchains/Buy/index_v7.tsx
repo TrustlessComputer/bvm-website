@@ -1650,11 +1650,11 @@ const BuyPage = () => {
 
                     <div className={`${s.right_box}`}>
                       <div
-                        // className={`${s.right_box_main} ${
-                        //   isCapture ? s.right_box_main_captured : ''
-                        // }`}
-                        className={`${s.right_box_main}`}
-                        id="imageCapture"
+                        className={`${s.right_box_main} ${
+                          isCapture ? s.right_box_main_captured : ''
+                        }`}
+                        // className={`${s.right_box_main}`}
+                        id="viewport"
                       >
                         <ReactFlow
                           nodes={nodes}

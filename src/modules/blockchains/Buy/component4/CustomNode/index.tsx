@@ -10,7 +10,7 @@ import ChainDraggable from '@/modules/blockchains/Buy/components3/Draggable';
 import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
 import useDragStore from '../../stores/useDragStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
-import useOrderFormStoreV3 from '../../stores/index_v3';
+import useOrderFormStoreV3, { useCaptureStore } from '../../stores/index_v3';
 import Label from '../../components3/Label';
 import ChainLegoParent from '../../components3/LegoParent';
 import { DappModel, FieldModel } from '@/types/customize-model';
@@ -23,6 +23,7 @@ import Lego from '@/modules/blockchains/Buy/component4/Lego';
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import Draggable from '@/modules/blockchains/Buy/components3/Draggable';
 import LegoParent from '@/modules/blockchains/Buy/component4/LegoParent';
+import styles from '@/modules/blockchains/Buy/components3/LegoV3/styles.module.scss';
 
 export type DataNode = Node<
   {
@@ -48,6 +49,7 @@ function CustomNode({
   const { draggedFields } = useDragStore();
   const { parsedCategories } = useModelCategoriesStore();
   const { field } = useOrderFormStoreV3();
+  const { isCapture } = useCaptureStore();
   const {
     dapps,
     getInputWithLego,
@@ -62,7 +64,6 @@ function CustomNode({
     const dappIndex = draggedDappIndexesSignal.value[data.baseIndex];
     const thisDapp = dapps[dappIndex];
     const mainColor = adjustBrightness(thisDapp.color, -10);
-
     let blockCount = 0;
 
     const { key: baseBlockKey, ...baseBlock } = thisDapp.baseBlock;
@@ -418,10 +419,10 @@ function CustomNode({
           s[`borderColor_${data.status}`],
         )}`}
       >
-        <p className={`${s.wrapperBox_top_heading}`}>{data.label}</p>
+        <p className={`${s.wrapperBox_top_heading} ${isCapture ? s.label_margin : ''}`}>{data.label}</p>
         {
           <div className={s.tag}>
-            <p className={cn(s[`titleTag_${data.status}`])}>{data.status}</p>
+            <p className={`${cn(s[`titleTag_${data.status}`])} ${isCapture ? s.label_margin : ''}`}>{data.status}</p>
             <div
               className={`${s.tag_dot}  ${cn(s[`tag_${data.status}`])}`}
             ></div>
@@ -503,7 +504,7 @@ function CustomNode({
                           zIndex={item.options.length - opIdx}
                         >
                           <div className={s.wrapInput}>
-                            <span className={s.labelInput}>{option.title}</span>
+                            <span className={`${s.labelInput} ${isCapture ? s.label_margin : ''}`}>{option.title}</span>
                             <input
                               className={`${s.inputLabel}`}
                               name={item.key + '-' + option.key}

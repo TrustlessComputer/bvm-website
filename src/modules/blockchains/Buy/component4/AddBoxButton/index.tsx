@@ -87,6 +87,7 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
         ids: draggedIds2D[draggedIds2D.length-1],
         baseIndex: draggedIds2D.length-1,
       },
+      //TODO: center position
       position: { x: centerX - nodeWidthOffset, y: centerY - nodeHeightOffset },
     }]);
 
