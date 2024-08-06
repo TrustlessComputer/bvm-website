@@ -23,6 +23,7 @@ import {
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import { orderBy } from 'lodash';
+import { DotLottiePlayer } from '@dotlottie/react-player';
 
 // interface ICachedIndex {
 //   name: string;
@@ -572,13 +573,14 @@ const L2Rollup = () => {
   return (
     <Box className={s.container}>
       <Flex direction={'column'} w="100%" maxW={'1320px'} alignItems={'center'}>
-        <Flex alignItems="center" gap="8px" mb={'12px'}>
+        <Flex alignItems="center" gap="6px" mb={'12px'}>
           <Text fontSize={'20px'}>Project Heartbeat</Text>
-          <img
-            src="/icons/heartbeat.svg"
-            alt="noto_heartbeat.svg"
-            width={24}
-            height={24}
+          <DotLottiePlayer
+            autoplay
+            loop
+            className={s.lottie}
+            speed={1.8}
+            src="/heartbeat/heart.lottie"
           />
         </Flex>
         <Text
