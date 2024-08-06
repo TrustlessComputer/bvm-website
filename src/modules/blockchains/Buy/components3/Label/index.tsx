@@ -5,6 +5,7 @@ import { iconToolNames } from '../../Buy.data';
 import styles from './styles.module.scss';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import SvgInset from '@/components/SvgInset';
+import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
 
 type Props = {
   icon?: string;
@@ -12,6 +13,8 @@ type Props = {
 };
 
 const Label = ({ icon, title }: Props) => {
+  const { isCapture } = useCaptureStore();
+
   const _icon =
     iconToolNames.find(
       (item) =>
@@ -25,7 +28,7 @@ const Label = ({ icon, title }: Props) => {
     <div className={styles.label}>
       {_icon && <SvgInset svgUrl={_icon} size={24} />}
 
-      <p className={styles.label__text}>{title}</p>
+      <p className={`${styles.label__text} ${isCapture ? styles.label_margin : ''}`}>{title}</p>
     </div>
   );
 };

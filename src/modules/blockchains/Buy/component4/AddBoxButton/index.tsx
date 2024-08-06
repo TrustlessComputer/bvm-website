@@ -109,7 +109,6 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
       -transformY * zoomMultiplier + (height * zoomMultiplier) / 2;
     const nodeWidthOffset = NODE_WIDTH / 2;
     const nodeHeightOffset = NODE_HEIGHT / 2;
-
     props.setNodes((prev) => [
       ...prev,
       {
@@ -124,7 +123,11 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
           ids: draggedIds2D[draggedIds2D.length - 1],
           baseIndex: draggedIds2D.length - 1,
         },
-        position: { x: 0, y: 0 },
+        //TODO: center position
+        position: {
+          x: centerX - nodeWidthOffset,
+          y: centerY - nodeHeightOffset,
+        },
       },
     ]);
 

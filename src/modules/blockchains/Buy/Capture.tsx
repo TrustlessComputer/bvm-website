@@ -39,33 +39,33 @@ https://bvm.network/studio/${url}`;
   };
 
   const exportBase64 = async ():Promise<string> => {
-    const nodesBounds = getNodesBounds(getNodes());
-    const viewport = getViewportForBounds(
-      nodesBounds,
-      imageWidth,
-      imageHeight,
-      0.5,
-      2,
-      5
-    );
+    // const nodesBounds = getNodesBounds(getNodes());
+    // const viewport = getViewportForBounds(
+    //   nodesBounds,
+    //   imageWidth,
+    //   imageHeight,
+    //   0.5,
+    //   2,
+    //   5
+    // );
 
-    // const canvasDom = document.querySelector('#imageCapture') as HTMLElement;
-    // const canvas = await html2canvas(canvasDom).then((res) => {
-    //   return res;
-    // });
-    // return canvas.toDataURL('image/png', 1.0);
-    const canvasDom = document.querySelector('.react-flow__viewport') as HTMLElement;
-    return toPng(canvasDom, {
-      backgroundColor: '#fff',
-      width: imageWidth,
-      height: imageHeight,
-      quality: 100,
-      style: {
-        width: `${imageWidth}`,
-        height: `${imageHeight}`,
-        transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
-      },
-    }).then(res => res)
+    const canvasDom = document.querySelector('#viewport') as HTMLElement;
+    const canvas = await html2canvas(canvasDom).then((res) => {
+      return res;
+    });
+    return canvas.toDataURL('image/png', 1.0);
+    // const canvasDom = document.querySelector('.react-flow__viewport') as HTMLElement;
+    // return toPng(canvasDom, {
+    //   backgroundColor: '#fff',
+    //   width: imageWidth,
+    //   height: imageHeight,
+    //   quality: 100,
+    //   style: {
+    //     width: `${imageWidth}`,
+    //     height: `${imageHeight}`,
+    //     transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
+    //   },
+    // }).then(res => res)
   };
 
   const exportAsImage = async () => {
@@ -103,12 +103,19 @@ https://bvm.network/studio/${url}`;
     setTimeout(async () => {
 
       a.href = await exportBase64();
-      setIsCapture(false);
       a.download = `${new Date()}.png`;
       a.click();
       setIsCapture(false);
     }, 150);
   }
+
+  // function downloadImage(dataUrl) {
+  //   const a = document.createElement('a');
+  //
+  //   a.setAttribute('download', 'reactflow.png');
+  //   a.setAttribute('href', dataUrl);
+  //   a.click();
+  // }
 
   return (
     <div className={s.wrapper_btn_top}>
