@@ -25,7 +25,7 @@ import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
 import Droppable from '@/modules/blockchains/Buy/component4/Droppable';
 import Lego from '@/modules/blockchains/Buy/component4/Lego';
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
-import Draggable from '@/modules/blockchains/Buy/components3/Draggable';
+import Draggable from '@/modules/blockchains/Buy/component4/Draggable';
 import LegoParent from '@/modules/blockchains/Buy/component4/LegoParent';
 import styles from '@/modules/blockchains/Buy/components3/LegoV3/styles.module.scss';
 
@@ -81,6 +81,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
         id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
         // key={data.baseIndex}
         value={{
+          dappIndex,
           title: thisDapp.baseBlock.title,
           icon: thisDapp.baseBlock.icon,
           fieldKey: thisDapp.baseBlock.key,
@@ -170,6 +171,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                     id={`${item.name}-${itemIndex}-${data.baseIndex}`}
                     key={`${item.name}-${itemIndex}-${data.baseIndex}`}
                     value={{
+                      dappIndex,
                       title: thisBlock.title + ' #' + blockCount,
                       icon: thisBlock.icon,
                       fieldKey: thisBlockKey,
@@ -226,6 +228,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                               id={`right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${child.name}-${itemIndex}-${data.baseIndex}`}
                               key={`right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${child.name}-${itemIndex}-${data.baseIndex}`}
                               value={{
+                                dappIndex,
                                 title: thisChildField.title,
                                 icon: thisChildField.icon,
                                 fieldKey: thisChildField.key,
@@ -277,6 +280,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                     id={`${item.name}-${itemIndex}-${data.baseIndex}`}
                     key={`${item.name}-${itemIndex}-${data.baseIndex}`}
                     value={{
+                      dappIndex,
                       title: thisModule.title,
                       icon: thisModule.icon,
                       fieldKey: thisModule.key,
@@ -312,6 +316,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                       id={`${item.name}-${itemIndex}-${data.baseIndex}`}
                       key={`${item.name}-${itemIndex}-${data.baseIndex}`}
                       value={{
+                        dappIndex,
                         title: thisModule.title,
                         icon: thisModule.icon,
                         fieldKey: thisModule.key,
@@ -335,6 +340,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                               id={`${item.name}-${itemIndex}-${data.baseIndex}-${value}`}
                               key={`${item.name}-${itemIndex}-${data.baseIndex}-${value}`}
                               value={{
+                                dappIndex,
                                 title: thisValue.title,
                                 icon: thisValue.icon,
                                 value: thisValue.value,
@@ -371,6 +377,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                       id={`${item.name}-${itemIndex}-${data.baseIndex}`}
                       key={`${item.name}-${itemIndex}-${data.baseIndex}`}
                       value={{
+                        dappIndex,
                         title: thisModule.title,
                         icon: thisModule.icon,
                         fieldKey: thisModule.key,

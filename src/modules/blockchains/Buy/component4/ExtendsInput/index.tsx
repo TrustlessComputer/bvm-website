@@ -56,7 +56,7 @@ const ExtendsInput = ({
   };
 
   const { dapps, getInputWithoutLego } = useDapps();
-  const thisDapp = React.useMemo(() => dapps[dappIndex], [dappIndex]);
+  const thisDapp = dapps[dappIndex];
 
   const [toggle, setToggle] = React.useState(Boolean(value));
 
@@ -150,6 +150,7 @@ const ExtendsInput = ({
             <ExtendsInput
               name={option.key}
               dappKey={dappKey}
+              dappIndex={dappIndex}
               background={background}
               inBaseField={inBaseField}
               inBlockField={inBlockField}

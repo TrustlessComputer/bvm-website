@@ -31,10 +31,12 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
     oneD: [number];
     twoD: [number, number];
     new: boolean;
+    remove: boolean;
   }>({
     oneD: [-1],
     twoD: [-1, -1],
     new: false,
+    remove: false,
   });
 
   const { dapps } = useDapps();
@@ -49,6 +51,7 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
             oneD: [i],
             twoD: [-1, -1],
             new: false,
+            remove: false,
           });
           break;
         }
@@ -60,22 +63,25 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
               draggedIds2D[i][j],
             )
           ) {
+            console.log('H@ERER');
             setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
             setDragState({
               oneD: [-1],
               twoD: [i, j],
               new: false,
+              remove: false,
             });
             break;
           }
         }
       }
-    } else {
+    } else if (draggedIds2DSignal.value.length > draggedIds2D.length) {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
       setDragState({
         oneD: [-1],
         twoD: [-1, -1],
         new: true,
+        remove: false,
       });
     }
   });
