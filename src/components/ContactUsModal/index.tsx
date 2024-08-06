@@ -17,6 +17,7 @@ const SUBJECT_LIST = [
   `I'd like to build a Rollup on Bitcoin`,
   `I'd like to make a partnership proposal`,
   `I have an issue with the payment process`,
+  `I'd like to submit my project to Heartbeat`,
   `Others`,
 ];
 
@@ -44,24 +45,20 @@ const ContactUsModal = ({
   const { tracking } = useL2ServiceTracking();
 
   const [yourXAcc, setYourXAcc] = useState('');
-  const [yourXAccErrMsg, setYourXAccErrMsg] = useState<string | undefined>(
-    undefined,
-  );
+  const [yourXAccErrMsg, setYourXAccErrMsg] =
+    useState<string | undefined>(undefined);
 
   const [yourTelegramAcc, setYourTelegramAcc] = useState('');
-  const [yourTelegramAccErrMgs, setYourTelegramAccErrMgs] = useState<
-    string | undefined
-  >(undefined);
+  const [yourTelegramAccErrMgs, setYourTelegramAccErrMgs] =
+    useState<string | undefined>(undefined);
 
   const [yourPlan, setYouPlan] = useState('');
-  const [yourPlanErrMgs, setYourPlanErrMgs] = useState<string | undefined>(
-    undefined,
-  );
+  const [yourPlanErrMgs, setYourPlanErrMgs] =
+    useState<string | undefined>(undefined);
 
   const [methodInput, setMethodInput] = useState('');
-  const [methodInputErrMgs, setmethodInputErrMgs] = useState<
-    string | undefined
-  >(undefined);
+  const [methodInputErrMgs, setmethodInputErrMgs] =
+    useState<string | undefined>(undefined);
 
   const valideYourXAcc = (text: string) => {
     if (!text || isEmpty(text)) {
