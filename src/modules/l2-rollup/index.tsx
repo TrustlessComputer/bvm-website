@@ -563,7 +563,7 @@ const L2Rollup = () => {
                   src={'/heartbeat/ic-explorer.svg'}
                 />
               )}
-              {data.bitlayer_url && (
+              {/* {data.bitlayer_url && (
                 <Image
                   _hover={{
                     opacity: 0.8,
@@ -574,7 +574,7 @@ const L2Rollup = () => {
                   height="20px"
                   src={'/heartbeat/ic-bitcoinlayer.svg'}
                 />
-              )}
+              )} */}
             </Flex>
           );
         },
