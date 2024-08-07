@@ -1,14 +1,20 @@
-import { useNodes, useNodesState, useReactFlow, useStoreApi } from '@xyflow/react';
+import {
+  useNodes,
+  useNodesState,
+  useReactFlow,
+  useStoreApi,
+} from '@xyflow/react';
 import React, { useEffect } from 'react';
-import { draggedDappIndexesSignal, draggedIds2DSignal } from '@/modules/blockchains/Buy/signals/useDragSignal';
+import {
+  draggedDappIndexesSignal,
+  draggedIds2DSignal,
+} from '@/modules/blockchains/Buy/signals/useDragSignal';
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import { useSignalEffect } from '@preact/signals-react';
 import { cloneDeep, isTwoObjectEqual } from '@/modules/blockchains/Buy/utils';
 
 export default function useNodeFlowControl() {
-
   const [nodes, setNodes, onNodesChange] = useNodesState<any>([]);
-
 
   const store = useStoreApi();
   const {
@@ -48,7 +54,6 @@ export default function useNodeFlowControl() {
           });
           break;
         }
-
       }
     } else if (draggedIds2DSignal.value.length > draggedIds2D.length) {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
@@ -90,8 +95,8 @@ export default function useNodeFlowControl() {
 
     const lastNode = nodes[nodes.length - 1];
     const positionTo = {
-      x: lastNode.position.x - (lastNode.measured?.width || 0),
-      y: lastNode.position.y - (lastNode.measured?.height || 0),
+      x: (lastNode?.position.x || 0) - (lastNode?.measured?.width || 0),
+      y: (lastNode?.position.y || 0) - (lastNode?.measured?.height || 0),
     };
 
     setNodes((prev) => [

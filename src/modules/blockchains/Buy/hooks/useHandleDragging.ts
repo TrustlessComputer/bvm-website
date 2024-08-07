@@ -3,11 +3,18 @@
 import toast from 'react-hot-toast';
 import { subScribeDropEnd } from '@/modules/blockchains/Buy/stores/useDappStore';
 import {
-  blockDraggingSignal, draggedDappIndexesSignal,
+  blockDraggingSignal,
+  draggedDappIndexesSignal,
   draggedIds2DSignal,
   idBlockErrorSignal,
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
-import { cloneDeep, DragUtil, FormDappUtil, hasValue, MouseSensor } from '@/modules/blockchains/Buy/utils';
+import {
+  cloneDeep,
+  DragUtil,
+  FormDappUtil,
+  hasValue,
+  MouseSensor,
+} from '@/modules/blockchains/Buy/utils';
 import { showValidateError } from '@components/toast';
 import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
 import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
@@ -21,7 +28,7 @@ import React from 'react';
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import { useSensor, useSensors } from '@dnd-kit/core';
 
-export default function useHandleDragging(){
+export default function useHandleDragging() {
   const mousePositionRef = React.useRef({ x: 0, y: 0 });
   const { idDragging, setIdDragging, rightDragging, setRightDragging } =
     useDragMask();
@@ -44,12 +51,12 @@ export default function useHandleDragging(){
   } = useModelCategoriesStore();
 
   const {
+    dapps,
     baseModuleFieldMapping,
     blockFieldMapping,
     moduleFieldMapping,
     singleFieldMapping,
   } = useDapps();
-
 
   const handleDragEnd = (event: any) => {
     if (event.active.data.current.isChain) {
@@ -183,9 +190,9 @@ export default function useHandleDragging(){
 
         setField(activeKey, newValue, !isEmpty);
         isEmpty &&
-        setDraggedFields(
-          draggedFields.filter((field) => field !== activeKey),
-        );
+          setDraggedFields(
+            draggedFields.filter((field) => field !== activeKey),
+          );
       }
 
       return;
@@ -430,26 +437,26 @@ export default function useHandleDragging(){
       if ((activeIsABlock || activeIsASingle) && overIsABase) {
         const totalPlaced = activeIsABlock
           ? draggedIds2D[overBaseIndex].filter((item) =>
-            item.name.startsWith(
-              `right-${FieldKeyPrefix.BLOCK}-${activeOriginalKey}`,
-            ),
-          ).length
+              item.name.startsWith(
+                `right-${FieldKeyPrefix.BLOCK}-${activeOriginalKey}`,
+              ),
+            ).length
           : draggedIds2D[overBaseIndex].filter((item) =>
-            item.name.startsWith(
-              `right-${FieldKeyPrefix.SINGLE}-${activeOriginalKey}`,
-            ),
-          ).length;
+              item.name.startsWith(
+                `right-${FieldKeyPrefix.SINGLE}-${activeOriginalKey}`,
+              ),
+            ).length;
         const canPlaceMore =
           (activeIsABlock
             ? blockFieldMapping[dappIndex][activeOriginalKey].placableAmount ===
-            -1
+              -1
             : singleFieldMapping[dappIndex][activeOriginalKey]
-            .placableAmount === -1) ||
+                .placableAmount === -1) ||
           totalPlaced <
-          (activeIsABlock
-            ? blockFieldMapping[dappIndex][activeOriginalKey].placableAmount
-            : singleFieldMapping[dappIndex][activeOriginalKey]
-              .placableAmount);
+            (activeIsABlock
+              ? blockFieldMapping[dappIndex][activeOriginalKey].placableAmount
+              : singleFieldMapping[dappIndex][activeOriginalKey]
+                  .placableAmount);
         const prefix =
           'right-' +
           (activeIsABlock ? FieldKeyPrefix.BLOCK : FieldKeyPrefix.SINGLE);
@@ -490,9 +497,9 @@ export default function useHandleDragging(){
         ).length;
         const canPlaceMore =
           totalPlaced <
-          moduleFieldMapping[dappIndex][activeOriginalKey].placableAmount ||
+            moduleFieldMapping[dappIndex][activeOriginalKey].placableAmount ||
           moduleFieldMapping[dappIndex][activeOriginalKey].placableAmount ===
-          -1;
+            -1;
         const composedFieldKey =
           'right-' + FieldKeyPrefix.MODULE + '-' + activeOriginalKey;
         const thisField = moduleFieldMapping[dappIndex][activeOriginalKey];
@@ -786,7 +793,7 @@ export default function useHandleDragging(){
             item.value = newValue;
             formDapp[
               `${activeBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-${activeIndex}`
-              ] = newValue;
+            ] = newValue;
           }
         }
 
@@ -798,7 +805,7 @@ export default function useHandleDragging(){
 
       return;
     }
-  }
+  };
 
   const handleDragStart = (event: any) => {
     const { active } = event;
@@ -823,6 +830,6 @@ export default function useHandleDragging(){
   return {
     handleDragStart,
     handleDragEnd,
-    sensors
-  }
+    sensors,
+  };
 }

@@ -9,16 +9,18 @@ import useCheckingSupported from '@/modules/blockchains/Buy/hooks/useCheckingSup
 import { TABS } from '@/modules/blockchains/Buy/constants';
 import { useTabs } from '@/modules/blockchains/Buy/studio/useTabs';
 import useFetchingTemplate from '@/modules/blockchains/Buy/hooks/useFetchingTemplate';
+import useNodeFlowControl from './hooks/useNodeFlowControl';
 
 const BuyPage = () => {
-
   useFetchingTemplate();
   useCheckingSupported();
   useCalcPrice();
   useFixScrollOverDrag();
+  useNodeFlowControl();
+
   const { handleDragStart, handleDragEnd, sensors } = useHandleDragging();
 
-  const {tabActive} = useTabs(state => state);
+  const { tabActive } = useTabs((state) => state);
   const isTabCode = React.useMemo(() => {
     return tabActive === TABS.CODE;
   }, [tabActive]);

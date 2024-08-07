@@ -8,10 +8,9 @@ import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useDappsStore from '@/modules/blockchains/Buy/stores/useDappStore';
 import { useNodesState } from '@xyflow/react';
 import useScreenMouse from '@/modules/blockchains/Buy/hooks/useScreenMouse';
-import { IModelCategory } from '@types/customize-model';
+import { IModelCategory } from '@/types/customize-model';
 
 export default function useFetchingTemplate() {
-
   const [nodes, setNodes, onNodesChange] = useNodesState<any>([]);
 
   const mousePositionRef = React.useRef({ x: 0, y: 0 });
@@ -23,10 +22,7 @@ export default function useFetchingTemplate() {
     setCategories: setOriginalData,
   } = useModelCategoriesStore();
 
-  const {
-    field,
-    setField,
-  } = useOrderFormStoreV3();
+  const { field, setField } = useOrderFormStoreV3();
 
   const { setDapps } = useDappsStore();
   const { l2ServiceUserAddress } = useWeb3Auth();
@@ -44,7 +40,6 @@ export default function useFetchingTemplate() {
   ) => {
     mousePositionRef.current = mousePosition;
   };
-
 
   const convertData = (data: IModelCategory[]) => {
     const newData = data?.map((item) => {
@@ -82,6 +77,8 @@ export default function useFetchingTemplate() {
 
     const sortedDapps = dapps.sort((a, b) => a.order - b.order);
 
+    console.log('useFetchingTemplate -> sortedCategories', sortedCategories);
+
     setData(convertData(sortedCategories));
     setOriginalData(sortedCategories);
     setTemplates(templates);
@@ -102,6 +99,10 @@ export default function useFetchingTemplate() {
     setDapps(sortedDapps);
   };
 
+  React.useEffect(() => {
+    console.log('nodes', nodes);
+  }, [nodes]);
+
   const { addListeners, removeListeners } = useScreenMouse({
     handleOnTick: tick,
   });
@@ -115,9 +116,7 @@ export default function useFetchingTemplate() {
     };
   }, []);
 
-
   React.useEffect(() => {
     initTemplate(0);
   }, [templates]);
-
 }
