@@ -13,10 +13,11 @@ import s from './styles.module.scss';
 
 type Props = {
   option: any;
+  needValidate?: boolean;
 };
 
 const AddressInput = (props: Props) => {
-  const { option } = props;
+  const { option, needValidate = false } = props;
   // const { setChainName } = useOrderFormStore();
   // const { value, errorMessage } = computerNameField;
 
@@ -36,12 +37,14 @@ const AddressInput = (props: Props) => {
 
   const checkTokenContractAddress = (text: string | undefined) => {
     let errorMsg = undefined;
-    if (!text || text.length < 1) {
-      errorMsg = 'Address is required!';
-    } else if (!isAddress(text)) {
-      errorMsg = 'Address is invalid!';
-    } else {
-      errorMsg = undefined;
+    if (needValidate) {
+      if (!text || text.length < 1) {
+        errorMsg = 'Address is required!';
+      } else if (!isAddress(text)) {
+        errorMsg = 'Address is invalid!';
+      } else {
+        errorMsg = undefined;
+      }
     }
     setTokenContractAddressErrMsg(errorMsg);
   };
