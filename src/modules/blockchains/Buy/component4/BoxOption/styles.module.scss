@@ -8,18 +8,21 @@
   }
 
   &__header {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-family: var(--font-JetBrainsMono);
-    font-size: 24px;
-    font-weight: 500;
-    line-height: 1.4166666667;
-    margin-bottom: 16px;
+    &__title {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 20px;
+    }
   }
 
   &__body {
     width: 100%;
+
+    &__header {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 24px;
+    }
 
     &__item {
       width: 100%;

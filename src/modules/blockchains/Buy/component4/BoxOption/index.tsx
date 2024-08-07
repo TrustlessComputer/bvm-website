@@ -2,21 +2,22 @@ import React from 'react';
 import { useSignalEffect } from '@preact/signals-react';
 
 import InfoTooltip from '@components/Form/InfoTooltip';
+import { DappModel, IModelOption } from '@/types/customize-model';
 
 import Lego from '../Lego';
+import Draggable from '../Draggable';
 import { FieldKeyPrefix } from '../../contants';
 import { draggedIds2DSignal } from '../../signals/useDragSignal';
 
 import styles from './styles.module.scss';
-import { DappModel } from '@/types/customize-model';
-import Draggable from '../Draggable';
 
 type Props = {
+  info: IModelOption;
   thisDapp: DappModel;
   dappIndex: number;
 };
 
-const BoxOption = ({ thisDapp, dappIndex }: Props) => {
+const BoxOption = ({ info, thisDapp, dappIndex }: Props) => {
   const [disableBaseBlock, setDisableBaseBlock] = React.useState(false);
 
   const mainColor = React.useMemo(
@@ -42,6 +43,10 @@ const BoxOption = ({ thisDapp, dappIndex }: Props) => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.container__header}>
+        <h4 className={styles.container__header__title}>{info.title}</h4>
+      </div>
+
       <div className={styles.container__body}>
         {thisDapp?.sections?.map((section) => {
           const totalBlocks = (thisDapp.blockFields || []).filter(
@@ -62,7 +67,7 @@ const BoxOption = ({ thisDapp, dappIndex }: Props) => {
           return (
             <React.Fragment key={section.key}>
               {section?.title && (
-                <div className={styles.container__header}>
+                <div className={styles.container__body__header}>
                   {section?.title} {section?.required && <sup>*</sup>}
                   {section.tooltip && (
                     <InfoTooltip

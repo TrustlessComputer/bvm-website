@@ -9,9 +9,10 @@ import Dropdown from '../component4/Dropdown';
 import Input from '../component4/Input';
 import Lego from '../component4/Lego';
 import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
+import { accountAbstractionAsADapp, dappMockupData } from '../mockup_3';
 
 const useDapps = () => {
-  const { dapps } = useDappsStore();
+  const { dapps, setDapps } = useDappsStore();
 
   const blockFieldMapping = React.useMemo(() => {
     return dapps.map((dapp) => {
@@ -234,8 +235,24 @@ const useDapps = () => {
     [dapps],
   );
 
+  const dappMapping = React.useMemo(() => {
+    return dapps.reduce((acc, dapp) => {
+      acc[dapp.key] = dapp;
+      return acc;
+    }, {} as Record<string, DappModel>);
+  }, [dapps]);
+
+  React.useEffect(() => {
+    const dapps = dappMockupData; // defi_apps
+    dapps.push(accountAbstractionAsADapp);
+    const sortedDapps = dapps.sort((a, b) => a.order - b.order);
+
+    setDapps(sortedDapps);
+  }, []);
+
   return {
     dapps,
+    dappMapping,
     blockFieldMapping,
     singleFieldMapping,
     moduleFieldMapping,

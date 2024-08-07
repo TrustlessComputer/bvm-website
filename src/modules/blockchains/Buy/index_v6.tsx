@@ -27,7 +27,7 @@ import Capture from '@/modules/blockchains/Buy/Capture';
 import Label from './components3/Label';
 import { TABS } from './constants';
 import ExplorePage from './Explore';
-import { mockupOptions } from './Buy.data';
+import { categoriesMockup } from './Buy.data';
 import { IModelCategory } from '@/types/customize-model';
 
 const BuyPage = () => {

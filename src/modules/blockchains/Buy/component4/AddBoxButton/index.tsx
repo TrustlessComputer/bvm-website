@@ -121,7 +121,7 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
       x: centerX,
       y: centerY,
     });
-    props.setNodes((prev) => [
+    props.setNodes((prev: any) => [
       ...prev,
       {
         id: `${Math.random()}`,

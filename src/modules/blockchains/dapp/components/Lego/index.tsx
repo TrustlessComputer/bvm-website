@@ -12,31 +12,31 @@ import { legoDragging } from '@/modules/blockchains/dapp/ui-helper/LegoDragging'
 
 type Position =
   | {
-  first: true;
-  last: false;
-}
+      first: true;
+      last: false;
+    }
   | {
-  first: false;
-  last: true;
-}
+      first: false;
+      last: true;
+    }
   | {
-  first: false;
-  last: false;
-};
+      first: false;
+      last: false;
+    };
 
 type TitlePosition =
   | {
-  titleInLeft: true;
-  titleInRight: false;
-}
+      titleInLeft: true;
+      titleInRight: false;
+    }
   | {
-  titleInLeft: false;
-  titleInRight: true;
-}
+      titleInLeft: false;
+      titleInRight: true;
+    }
   | {
-  titleInLeft: false;
-  titleInRight: false;
-};
+      titleInLeft: false;
+      titleInRight: false;
+    };
 
 type Props = {
   zIndex?: number;
@@ -87,14 +87,8 @@ const Lego = (props: Props) => {
     }
   }, [legoRef.current, zIndex]);
 
-  const testDragging = (e) => {
-    legoDragging.value = e.target.innerHTML;
-    console.log('____Dsdssdsds', e);
-  };
-
   return (
     <div
-      onClick={testDragging}
       className={cn(styles.lego, {
         [styles.lego__disabled]: disabled,
         [styles.lego__preview]: preview,
@@ -138,7 +132,7 @@ const Lego = (props: Props) => {
                     src={'/icons-tool/issue-a-token/icon-input.svg'}
                   />
                 ) : field.type === 'extends' &&
-                typeof field.value === 'number' ? (
+                  typeof field.value === 'number' ? (
                   <Image
                     width="40px"
                     height="auto"
