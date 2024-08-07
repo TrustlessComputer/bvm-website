@@ -1,0 +1,31 @@
+.container {
+  position: relative;
+  display: flex;
+  margin-top: 40px;
+  padding-bottom: 40px;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f3f1e8;
+  margin-left: auto;
+  margin-right: auto;
+  color: #000;
+  width: 100%;
+  min-height: calc(100dvh - 140px);
+
+  font-family: var(--font-JetBrainsMono) !important;
+  padding-left: 14px;
+  padding-right: 14px;
+
+  @include w-max(768px) {
+    margin-top: 0px;
+    min-height: calc(100dvh - 100px);
+  }
+}
+
+.content {
+  width: 100%;
+  max-width: 896px;
+}

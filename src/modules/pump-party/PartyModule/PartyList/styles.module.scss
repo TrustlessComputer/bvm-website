@@ -1,0 +1,65 @@
+.boardItem {
+  cursor: pointer;
+  img {
+    transition: all 0.2s ease-in-out;
+  }
+  &:hover {
+    img {
+      transform: scale(1.02) !important;
+    }
+  }
+}
+
+.scroll {
+  width: 100%;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.searchInput {
+  background: rgba(243, 177, 101, 1);
+  border: 2px solid #fff;
+
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+
+  input {
+    padding: 12px 16px;
+    background: transparent;
+    width: 100%;
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      outline-width: 0;
+      -moz-box-shadow: none;
+      -webkit-box-shadow: none;
+    }
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+
+.empty {
+  margin-top: 40px;
+  flex-direction: column;
+  p {
+    margin-top: 8px;
+    text-align: center !important;
+    color: #000 !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+  }
+}
+
+.btnNewCoin {
+  border: 2px solid var(--1, #ffe259);
+  width: fit-content !important;
+}

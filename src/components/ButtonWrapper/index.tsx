@@ -1,23 +1,31 @@
-import { Box } from "@chakra-ui/react";
-import cs from "classnames";
-import React, { PropsWithChildren } from "react";
-import s from "./styles.module.scss";
+import { Box } from '@chakra-ui/react';
+import cs from 'classnames';
+import React, { PropsWithChildren } from 'react';
+import s from './styles.module.scss';
 
 interface IButtonWrapper extends PropsWithChildren {
   className?: string;
   style?: any;
-  buttonType?: "positive" | "negative";
+  buttonType?: 'positive' | 'negative' | 'pump';
 }
 
 const ButtonWrapper: React.FC<IButtonWrapper> = ({
   children,
   className,
   style,
-  buttonType = "positive",
+  buttonType = 'positive',
 }) => {
-  if (buttonType === "negative") {
+  if (buttonType === 'negative') {
     return (
       <Box className={cs(s.containerNegative, className)} style={style}>
+        {children}
+      </Box>
+    );
+  }
+
+  if (buttonType === 'pump') {
+    return (
+      <Box className={cs(s.buttonPump, className)} style={style}>
         {children}
       </Box>
     );

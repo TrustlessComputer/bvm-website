@@ -1,0 +1,97 @@
+.container {
+  max-width: rem(720px);
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.emojiBox {
+  input {
+    font-family: Arial, sans-serif !important;
+    padding-left: 32px !important;
+  }
+
+  :global {
+    .chakra-popover__body {
+      border: none !important;
+      outline: 0 !important;
+      background: transparent !important;
+      background-color: transparent !important;
+      -webkit-padding-start: unset !important;
+      padding: 0 !important;
+    }
+  }
+}
+
+.inputWrapper {
+  width: 100%;
+  color: #1b1b1b !important;
+
+  label {
+    font-size: 14px !important;
+    color: #1b1b1b !important;
+    font-weight: 400 !important;
+    text-transform: uppercase;
+  }
+
+  input,
+  textarea {
+    color: #fff !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    border: 1px solid rgba(91, 91, 91, 1);
+    border-radius: 8px !important;
+    width: 100%;
+    padding: 10px 12px;
+    background: transparent !important;
+
+    &::placeholder {
+      color: #898989 !important;
+    }
+
+    &::-ms-input-placeholder {
+      /* Edge 12 -18 */
+      color: #898989 !important;
+    }
+  }
+
+  textarea {
+    min-height: 128px !important;
+  }
+
+  :global .chakra-form-control {
+    > div:first-child {
+      border-radius: 8px !important;
+      border: 1px solid #5b5b5b !important;
+    }
+  }
+}
+
+.btnSubmit {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  width: 100%;
+  color: white !important;
+  padding: 4px !important;
+}
+
+.dropfile {
+  background: rgba(28, 28, 28, 1);
+}
+
+.warning {
+  color: #fdf692;
+  text-align: center;
+  a {
+    text-decoration: underline;
+  }
+}
+
+.modalContent {
+  background-color: #fff !important;
+  border-radius: 20px !important;
+}

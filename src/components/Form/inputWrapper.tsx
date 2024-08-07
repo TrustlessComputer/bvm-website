@@ -14,6 +14,7 @@ interface InputWrapperProps {
   theme?: 'light' | 'dark';
   labelColor?: string;
   note?: any;
+  error?: string;
 }
 
 const InputWrapper = (props: InputWrapperProps) => {
@@ -26,6 +27,7 @@ const InputWrapper = (props: InputWrapperProps) => {
     theme = 'dark',
     labelColor,
     note,
+    error,
   } = props;
 
   return (
@@ -50,6 +52,7 @@ const InputWrapper = (props: InputWrapperProps) => {
         </div>
       )}
       {children}
+      {error && <div className={styles.error}>{error}</div>}
       {note && <div className="field-note">{note}</div>}
     </div>
   );
