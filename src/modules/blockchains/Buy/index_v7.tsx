@@ -1529,6 +1529,7 @@ const BuyPage = () => {
                         {(data || [])
                           .filter((item) => !item.isChain)
                           .map((item, index) => {
+                            // TODO
                             // Special case, need to check manually
                             if (item.key === 'account_abstraction') {
                               const dapp = accountAbstractionAsADapp;
@@ -1722,7 +1723,6 @@ const BuyPage = () => {
                         nodes={nodes}
                         nodeTypes={{ customBox: CustomNode }}
                         onNodesChange={onNodesChange}
-
                         // draggable={false}
                         // defaultViewport={{
                         //   x: 0,
