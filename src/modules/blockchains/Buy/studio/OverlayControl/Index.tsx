@@ -4,9 +4,21 @@ import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
 import LegoParent from '@/modules/blockchains/Buy/components3/LegoParent';
 import { DragOverlay } from '@dnd-kit/core';
 import React from 'react';
+import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
+import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
+import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
 
-export default function OverlayControl(){
+export default function OverlayControl() {
+  const { idDragging, rightDragging } =
+    useDragMask();
+  const {
+    field,
+  } = useOrderFormStoreV3();
 
+  const {
+    parsedCategories: data,
+  } = useModelCategoriesStore();
 
   return <div>
     <DragOverlay>
@@ -111,5 +123,5 @@ export default function OverlayControl(){
           });
         })}
     </DragOverlay>
-  </div>
+  </div>;
 }

@@ -8,8 +8,18 @@ import Label from '@/modules/blockchains/Buy/components3/Label';
 import Droppable from '@/modules/blockchains/dapp/components/Droppable';
 import BoxOption from '@/modules/blockchains/Buy/component4/BoxOption';
 import React from 'react';
+import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import useDappsStore from '@/modules/blockchains/Buy/stores/useDappStore';
+import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 
 export default function StudioControls() {
+  const {
+    parsedCategories: data,
+  } = useModelCategoriesStore();
+  const { dapps } = useDappsStore();
+  const {
+    field,
+  } = useOrderFormStoreV3();
 
   return <div
     id={'wrapper-data'}
@@ -40,14 +50,6 @@ export default function StudioControls() {
             }}
           >
             {item.options.map((option, optIdx) => {
-              // let _price = formatCurrencyV2({
-              //   amount: option.priceBVM || 0,
-              //   decimals: 0,
-              // }).replace('.00', '');
-              // let suffix =
-              //   Math.abs(option.priceBVM) > 0
-              //     ? ` (${_price} BVM)`
-              //     : '';
 
               let _price = option.priceBVM;
               let operator = '+';
@@ -148,5 +150,5 @@ export default function StudioControls() {
         );
       })}
     </Droppable>
-  </div>
+  </div>;
 }

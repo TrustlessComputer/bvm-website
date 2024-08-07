@@ -1,7 +1,9 @@
 import ModalVideo from 'react-modal-video';
 import React from 'react';
+import { useVideoEducation } from '@/modules/blockchains/Buy/studio/useVideoEducation';
 
-export default function VideoEducation(){
+export default function VideoEducation() {
+  const { isShowVideo, setShowVideo } = useVideoEducation(state => state);
 
   return <div>
     <ModalVideo
@@ -9,10 +11,10 @@ export default function VideoEducation(){
       url={
         'https://storage.googleapis.com/bvm-network/icons-tool/DragnDrop_03.mp4'
       }
-      isOpen={isOpenModalVideo}
+      isOpen={isShowVideo}
       onClose={() => {
-        setIsOpenModalVideo(false);
+        setShowVideo(false);
       }}
     />
-  </div>
+  </div>;
 }
