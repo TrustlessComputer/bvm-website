@@ -5,8 +5,12 @@ import { isAddress } from 'ethers/lib/utils';
 import { useAccountAbstractionStore } from '../../store/hook';
 import { IModelOption } from '@/types/customize-model';
 
+// type Props = {
+//   option: IModelOption;
+// };
+
 type Props = {
-  option: IModelOption;
+  option: any;
 };
 
 const AddressInput = (props: Props) => {

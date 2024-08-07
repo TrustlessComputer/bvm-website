@@ -1,6 +1,6 @@
 import s from './styles.module.scss';
 import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
-import React from 'react';
+import React, { ReactElement, useMemo } from 'react';
 import Image from 'next/image';
 import cn from 'classnames';
 import { OrderItem } from '@/stores/states/l2services/types';
@@ -28,6 +28,7 @@ import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import Draggable from '@/modules/blockchains/Buy/component4/Draggable';
 import LegoParent from '@/modules/blockchains/Buy/component4/LegoParent';
 import styles from '@/modules/blockchains/Buy/components3/LegoV3/styles.module.scss';
+import AA from '@/modules/blockchains/Buy/dapp/AA';
 
 export type DataNode = Node<
   {
@@ -60,6 +61,18 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
     moduleFieldMapping,
     singleFieldMapping,
   } = useDapps();
+
+  const DappRendering = (): ReactElement => {
+    const dappIndex = draggedDappIndexesSignal.value[data.baseIndex];
+    const thisDapp = dapps[dappIndex];
+
+    switch (thisDapp.key) {
+      case 'account_abstraction':
+        return <AA dAppData={thisDapp} />;
+      default:
+        return renderDapps();
+    }
+  };
 
   function renderDapps() {
     const dappIndex = draggedDappIndexesSignal.value[data.baseIndex];
@@ -619,7 +632,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
           </DroppableV2>
         )}
 
-        {data.dapp && renderDapps()}
+        {data.dapp && <DappRendering />}
 
         {/*<div className={`${s.handles} ${s.sources}`}>*/}
         {/*  {data.sourceHandles.map((handle, index) => (*/}

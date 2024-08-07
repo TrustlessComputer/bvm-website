@@ -9,8 +9,12 @@ import { IModelOption } from '@/types/customize-model';
 const MIN_FEE_RATE = 0;
 const MAX_FEE_RATE = 1 * 1e9;
 
+// type Props = {
+//   option: IModelOption;
+// };
+
 type Props = {
-  option: IModelOption;
+  option: any;
 };
 
 const FeeRateInput = (props: Props) => {

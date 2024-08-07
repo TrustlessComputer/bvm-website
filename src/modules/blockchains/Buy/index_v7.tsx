@@ -16,13 +16,7 @@ import SidebarV2 from './components3/SideBarV2';
 import useOrderFormStoreV3, { useCaptureStore } from './stores/index_v3';
 import useDragMask from './stores/useDragMask';
 import s from './styles_v6.module.scss';
-import {
-  cloneDeep,
-  DragUtil,
-  FormDappUtil,
-  hasValue,
-  MouseSensor,
-} from './utils';
+import { cloneDeep, DragUtil, FormDappUtil, hasValue, MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import ErrorModal from './components3/ErrorModal';
@@ -1725,7 +1719,6 @@ const BuyPage = () => {
                       className={`${s.right_box_main} ${
                         isCapture ? s.right_box_main_captured : ''
                       }`}
-                      // className={`${s.right_box_main}`}
                       id="viewport"
                     >
                       <ReactFlow
@@ -1733,15 +1726,15 @@ const BuyPage = () => {
                         nodeTypes={{ customBox: CustomNode }}
                         onNodesChange={onNodesChange}
                         // draggable={false}
-                        // defaultViewport={{
-                        //   x: 0,
-                        //   y: 0,
-                        //   zoom: 1,
-                        // }}
+                        defaultViewport={{
+                          x: 10,
+                          y: 20,
+                          zoom: 0.8,
+                        }}
                         key={nodes.length.toString()}
-                        fitView
+                        // fitView
                         fitViewOptions={{ padding: 2 }}
-                        nodeOrigin={[0.5, 0]}
+                        // nodeOrigin={[0.5, 0]}
                       />
                       <DroppableMask />
                     </div>
@@ -1766,7 +1759,7 @@ const BuyPage = () => {
                     {/*  </div>*/}
                     {/*)}    */}
                     {!isCapture && (
-                      <div className={s.resetButton}>
+                      <div className={`${s.resetButton}`}>
                         {/*<Button element="button" type="button">*/}
                         {/*  EXPORT{' '}*/}
                         {/*  <Image*/}
