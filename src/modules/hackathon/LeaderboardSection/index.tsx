@@ -128,7 +128,7 @@ const LeaderboardSection = (props: Props) => {
                 <span>1.</span> Create an account
                 <Image src="/hackathon/ic-add.svg" alt="add" />
               </Flex>
-              <Flex gap="8px" className={s.warning_prepare}>
+              <Flex gap="8px" className={s.warning_prepare} alignItems="center">
                 <a
                   href="https://github.com/TrustlessComputer/poc-practice"
                   target="_blank"
@@ -141,6 +141,7 @@ const LeaderboardSection = (props: Props) => {
               <Flex
                 gap="8px"
                 className={s.warning_prepare}
+                alignItems="center"
                 whiteSpace={'nowrap'}
                 onClick={exportPrivateKeyHandler}
               >
@@ -149,6 +150,7 @@ const LeaderboardSection = (props: Props) => {
               </Flex>
               <Flex
                 gap="8px"
+                alignItems="center"
                 className={s.warning_prepare}
                 onClick={() => {
                   const prepareElm = document.getElementById('faq-sol-prepare');
@@ -163,7 +165,7 @@ const LeaderboardSection = (props: Props) => {
                   }, 1500);
                 }}
               >
-                <span>4.</span> New to Solidity? Learn easy about Solidity
+                <span>4.</span> New to Solidity? Learn it easily with these resources
                 <Image
                   src="/hackathon/img-sol.png"
                   alt="solidity"
