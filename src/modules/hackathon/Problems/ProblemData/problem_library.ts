@@ -1,4 +1,4 @@
-export const PROBLEM_3_MARKDOWN = `
+export const PROBLEM_LIBRARY_MARKDOWN = `
 ## Practice
 
 &nbsp;  

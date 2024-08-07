@@ -116,7 +116,7 @@ const LeaderboardSection = (props: Props) => {
                 <Image src={'/hackathon/ic-close.svg'} />
               </Box>
             </Flex>
-            <Flex gap="20px" flexDirection={{ md: 'row', base: 'column' }}>
+            <Flex gap="32px" flexDirection={{ md: 'row', base: 'column' }}>
               <Flex
                 gap="8px"
                 alignItems="center"
@@ -162,10 +162,11 @@ const LeaderboardSection = (props: Props) => {
                     ) {
                       prepareElm?.querySelector('button')?.click();
                     }
-                  }, 1500);
+                  }, 1000);
                 }}
               >
-                <span>4.</span> New to Solidity? Learn it easily with these resources
+                <span>4.</span> New to Solidity? Learn it easily with these
+                resources
                 <Image
                   src="/hackathon/img-sol.png"
                   alt="solidity"

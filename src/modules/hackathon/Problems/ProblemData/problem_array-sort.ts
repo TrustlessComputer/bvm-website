@@ -1,4 +1,4 @@
-export const PROBLEM_2_MARKDOWN = `## Practice
+export const PROBLEM_ARRAY_SORT_MARKDOWN = `## Practice
 
 &nbsp;  
 

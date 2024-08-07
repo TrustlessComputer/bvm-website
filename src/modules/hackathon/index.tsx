@@ -18,7 +18,7 @@ import { Box, Image as ChakraImage, Flex, Text } from '@chakra-ui/react';
 import cn from 'classnames';
 import dayjs from 'dayjs';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { FAQ_POC } from './faqs';
 import s from './HackathonModue.module.scss';
@@ -33,6 +33,7 @@ const HackathonModule = (props: Props) => {
   const { loggedIn, login, logout, userInfo, wallet } = useWeb3Auth();
   const dispatch = useDispatch();
   const { tracking } = useL2ServiceTracking();
+  const leaderboardSectionRef = useRef<HTMLDivElement | null>(null);
 
   const [peopleSubmitted, setPeopleSubmitted] = useState<number | null>(null);
   const [isRegistered, setIsRegistered] = useState(false);
@@ -120,6 +121,12 @@ const HackathonModule = (props: Props) => {
     }
   };
 
+  const scrollToLeaderboard = () => {
+    leaderboardSectionRef.current
+      ?.querySelector(`div[class*='LeaderboardSection_wrapper']`)
+      ?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   useEffect(() => {
     if (!userInfo) return;
     fetchPeopleSubmitted();
@@ -177,6 +184,13 @@ const HackathonModule = (props: Props) => {
                 glory.
               </p>
             </div>
+            <div className={s.freeToJoinWrapper} onClick={scrollToLeaderboard}>
+              <Text position="relative" transform={'translateY(3px)'}>
+                👉
+              </Text>
+              <Text className={s.freeToJoin}>Free to join.</Text>
+              <Text>All gas fees are automatically covered.</Text>
+            </div>
             <Flex
               alignItems={'center'}
               justifyContent={{ base: 'center', sm: 'flex-start' }}
@@ -185,7 +199,7 @@ const HackathonModule = (props: Props) => {
               mb="24px"
             >
               {/* <ButtonConnected title="Let's practice" className={s.reward_btn}> */}
-              <button
+              {/* <button
                 className={cn(s.reward_btn)}
                 onClick={() => {
                   loggedIn ? handleClickPractice() : handleOpenRegisterModal();
@@ -195,7 +209,7 @@ const HackathonModule = (props: Props) => {
                 // disabled={isRegistered}
               >
                 Let's practice
-              </button>
+              </button> */}
               {/* </ButtonConnected> */}
 
               <div className={s.connect_btn}>
@@ -206,7 +220,7 @@ const HackathonModule = (props: Props) => {
                   className={s.tele_link}
                   onClick={() => tracking('POC_CLICK_JOIN_COMMUNITY')}
                 >
-                  Join the PoC community
+                  Join PoC community
                 </a>
               </div>
 
@@ -252,12 +266,18 @@ const HackathonModule = (props: Props) => {
             bottom="0"
             alt="hero thumbnail"
             zIndex={1}
+            display={{ base: 'none', md: 'block' }}
             src={`${CDN_URL}/images/hero-gradient-bg.png`}
             // `}
           />
         </div>
       </div>
-      <Box zIndex={1} pos={'relative'} id={'practice-section'}>
+      <Box
+        zIndex={1}
+        pos={'relative'}
+        id={'practice-section'}
+        ref={leaderboardSectionRef}
+      >
         <LeaderboardSection currentUserContest={currentUserContest} />
       </Box>
       <Box
