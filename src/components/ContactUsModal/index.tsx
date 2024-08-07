@@ -45,20 +45,24 @@ const ContactUsModal = ({
   const { tracking } = useL2ServiceTracking();
 
   const [yourXAcc, setYourXAcc] = useState('');
-  const [yourXAccErrMsg, setYourXAccErrMsg] =
-    useState<string | undefined>(undefined);
+  const [yourXAccErrMsg, setYourXAccErrMsg] = useState<string | undefined>(
+    undefined,
+  );
 
   const [yourTelegramAcc, setYourTelegramAcc] = useState('');
-  const [yourTelegramAccErrMgs, setYourTelegramAccErrMgs] =
-    useState<string | undefined>(undefined);
+  const [yourTelegramAccErrMgs, setYourTelegramAccErrMgs] = useState<
+    string | undefined
+  >(undefined);
 
   const [yourPlan, setYouPlan] = useState('');
-  const [yourPlanErrMgs, setYourPlanErrMgs] =
-    useState<string | undefined>(undefined);
+  const [yourPlanErrMgs, setYourPlanErrMgs] = useState<string | undefined>(
+    undefined,
+  );
 
   const [methodInput, setMethodInput] = useState('');
-  const [methodInputErrMgs, setmethodInputErrMgs] =
-    useState<string | undefined>(undefined);
+  const [methodInputErrMgs, setmethodInputErrMgs] = useState<
+    string | undefined
+  >(undefined);
 
   const valideYourXAcc = (text: string) => {
     if (!text || isEmpty(text)) {
@@ -381,12 +385,16 @@ const ContactUsModal = ({
           >
             <div>
               <Text fontSize={['18px', '20px', '24px']} fontWeight={500}>
-                {params.changeText
+                {params?.title
+                  ? params.title
+                  : params.changeText
                   ? 'Finish your setup'
                   : 'Get a personalized demo'}
               </Text>
               <Text fontSize={['14', '16']} fontWeight={400}>
-                {params.changeText
+                {params?.description
+                  ? params.description
+                  : params.changeText
                   ? "You've chosen Optimistic Rollup for your blockchain and it can't be done automatically yet. We will reach out to you shortly to help complete your setup."
                   : 'Help us tailor the demo experience to your needs.'}
               </Text>
