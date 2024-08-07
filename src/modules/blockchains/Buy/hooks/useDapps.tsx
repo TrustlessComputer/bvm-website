@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { adjustBrightness } from '../utils';
+import { adjustBrightness, cloneDeep } from '../utils';
 import { FieldOption } from '../types';
 import useDappsStore from '../stores/useDappStore';
 import DateTimeInput from '../component4/DateTimeInput';
@@ -242,12 +242,17 @@ const useDapps = () => {
     }, {} as Record<string, DappModel>);
   }, [dapps]);
 
-  React.useEffect(() => {
-    const dapps = dappMockupData; // defi_apps
-    dapps.push(accountAbstractionAsADapp);
-    const sortedDapps = dapps.sort((a, b) => a.order - b.order);
+  const fetchDapps = React.useCallback(() => {
+    const _dapps = cloneDeep(dappMockupData); // defi_apps
+    _dapps.push(accountAbstractionAsADapp);
+
+    const sortedDapps = _dapps.sort((a, b) => a.order - b.order);
 
     setDapps(sortedDapps);
+  }, []);
+
+  React.useEffect(() => {
+    fetchDapps();
   }, []);
 
   return {

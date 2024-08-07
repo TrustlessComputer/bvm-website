@@ -29,6 +29,7 @@ import { formatCurrencyV2 } from '@/utils/format';
 import toast from 'react-hot-toast';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import { IModelCategory, IModelOption } from '@/types/customize-model';
+import useOneForm from '../../hooks/useOneForm';
 
 const LaunchButton = ({
   data,
@@ -63,6 +64,7 @@ const LaunchButton = ({
 
   const { getAccountInfor } = useL2Service();
   const { showContactUsModal } = useContactUs();
+  const { retrieveFormsByDappKey } = useOneForm();
 
   const router = useRouter();
   const { computerNameField, chainIdRandom } = useBuy();
@@ -246,6 +248,21 @@ const LaunchButton = ({
   };
 
   const handleOnClick = async () => {
+    // =======================================================================================
+    // Dapp forms
+    // =======================================================================================
+    const issueATokenForms = retrieveFormsByDappKey({
+      dappKey: 'token_generation',
+    });
+
+    console.log(
+      '🚀 -> file: index.tsx:278 -> handleOnClick -> issueATokenForms ::',
+      issueATokenForms,
+    );
+
+    // =======================================================================================
+    // Chain form
+    // =======================================================================================
     if (!allFilled) {
       setShowError(true);
     }

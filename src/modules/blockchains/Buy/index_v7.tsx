@@ -1528,7 +1528,7 @@ const BuyPage = () => {
                       <Droppable id="input">
                         {(data || [])
                           .filter((item) => !item.isChain)
-                          .map((item, index) => {
+                          .map((item) => {
                             // TODO
                             // Special case, need to check manually
                             if (item.key === 'account_abstraction') {
@@ -1541,21 +1541,30 @@ const BuyPage = () => {
                                   }}
                                   thisDapp={dapp}
                                   key={dapp.key}
-                                  dappIndex={index}
+                                  dappIndex={0}
                                 />
                               );
                             }
 
                             if (item.key === 'defi_apps') {
-                              return item.options.map((option) => {
+                              return item.options.map((option, dappIndex) => {
                                 const dapp = dappMapping[option.key];
+
+                                if (!dapp) return null;
+
+                                // console.log('-------------', {
+                                //   key: option.key,
+                                //   dapp,
+                                //   dappIndex: dappIndex + 1,
+                                //   dapps,
+                                // });
 
                                 return (
                                   <BoxOption
                                     info={option}
                                     thisDapp={dapp}
                                     key={dapp.key}
-                                    dappIndex={index}
+                                    dappIndex={dappIndex + 1}
                                   />
                                 );
                               });

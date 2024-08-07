@@ -30,7 +30,7 @@ export const accountAbstractionAsADapp: DappModel = {
     key: 'account_abstraction_info',
     title: 'Token Information',
     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
-    placableAmount: -1,
+    placableAmount: 1,
     section: 'information',
     preview: true,
     background: '#F76649',
