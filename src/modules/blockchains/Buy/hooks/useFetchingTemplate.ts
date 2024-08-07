@@ -9,9 +9,10 @@ import useDappsStore from '@/modules/blockchains/Buy/stores/useDappStore';
 import { useNodesState } from '@xyflow/react';
 import useScreenMouse from '@/modules/blockchains/Buy/hooks/useScreenMouse';
 import { IModelCategory } from '@/types/customize-model';
+import useFlowStore from '../stores/useFlowStore';
 
 export default function useFetchingTemplate() {
-  const [nodes, setNodes, onNodesChange] = useNodesState<any>([]);
+  const { nodes, setNodes, onNodesChange } = useFlowStore();
 
   const mousePositionRef = React.useRef({ x: 0, y: 0 });
 

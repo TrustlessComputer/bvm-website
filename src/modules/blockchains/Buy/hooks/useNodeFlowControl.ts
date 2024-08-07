@@ -12,9 +12,10 @@ import {
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import { useSignalEffect } from '@preact/signals-react';
 import { cloneDeep, isTwoObjectEqual } from '@/modules/blockchains/Buy/utils';
+import useFlowStore from '../stores/useFlowStore';
 
 export default function useNodeFlowControl() {
-  const [nodes, setNodes, onNodesChange] = useNodesState<any>([]);
+  const { nodes, setNodes, onNodesChange } = useFlowStore();
 
   const store = useStoreApi();
   const {
@@ -83,7 +84,7 @@ export default function useNodeFlowControl() {
         },
       };
 
-      onNodesChange(nodes);
+      setNodes(nodes);
     } else if (!dragState.twoD.every((v) => v === -1)) {
       // handleAddBox();
     }
@@ -99,8 +100,8 @@ export default function useNodeFlowControl() {
       y: (lastNode?.position.y || 0) - (lastNode?.measured?.height || 0),
     };
 
-    setNodes((prev) => [
-      ...prev,
+    setNodes([
+      ...nodes,
       {
         id: `${nodes.length}`,
         type: 'customBox',

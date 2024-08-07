@@ -1,11 +1,10 @@
 import CustomNode from '@/modules/blockchains/Buy/component4/CustomNode';
 import { ReactFlow, useNodesState } from '@xyflow/react';
 import React from 'react';
+import useFlowStore from '../../stores/useFlowStore';
 
 const ReactFlowRenderer = React.memo(() => {
-  const [nodes, onNodesChange] = useNodesState<any>([]);
-
-  console.log('render', nodes);
+  const { nodes, setNodes, onNodesChange } = useFlowStore();
 
   return (
     <ReactFlow

@@ -10,6 +10,7 @@ import { TABS } from '@/modules/blockchains/Buy/constants';
 import { useTabs } from '@/modules/blockchains/Buy/studio/useTabs';
 import useFetchingTemplate from '@/modules/blockchains/Buy/hooks/useFetchingTemplate';
 import useNodeFlowControl from './hooks/useNodeFlowControl';
+import { useNodesState } from '@xyflow/react';
 
 const BuyPage = () => {
   useFetchingTemplate();
