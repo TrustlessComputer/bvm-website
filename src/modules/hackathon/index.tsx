@@ -233,7 +233,7 @@ const HackathonModule = (props: Props) => {
               <Image
                 layout="fill"
                 alt="hero thumbnail"
-                src={`${CDN_URL}/images/candidate-with-result.png`}
+                src={`/hackathon/candidate-with-result.png`}
                 // srcSet={`
                 //   /images/candidate-with-result-1x.png 1x,
                 //   /images/candidate-with-result-2x.png 2x,
@@ -242,6 +242,19 @@ const HackathonModule = (props: Props) => {
               />
             </Box>
           </div>
+
+          <ChakraImage
+            pos={'absolute'}
+            maxW={'1107px'}
+            maxH={'1096px'}
+            left={'45%'}
+            transform={'translate(-25%, 50%)'}
+            bottom="0"
+            alt="hero thumbnail"
+            zIndex={1}
+            src={`${CDN_URL}/images/hero-gradient-bg.png`}
+            // `}
+          />
         </div>
       </div>
       <Box zIndex={1} pos={'relative'} id={'practice-section'}>
@@ -276,18 +289,6 @@ const HackathonModule = (props: Props) => {
           </Text>
           <FAQs data={FAQ_POC} viewAll />
         </Box>
-        <ChakraImage
-          pos={'absolute'}
-          maxW={'1107px'}
-          maxH={'1096px'}
-          left={'45%'}
-          transform={'translate(-50%, 50%)'}
-          bottom="0"
-          alt="hero thumbnail"
-          zIndex={1}
-          src={`${CDN_URL}/images/hero-gradient-bg.png`}
-          // `}
-        />
       </Box>
     </>
   );
