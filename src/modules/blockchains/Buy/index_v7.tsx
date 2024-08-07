@@ -1023,7 +1023,8 @@ const BuyPage = () => {
     ]);
 
     // Use mockup data
-    const sortedCategories = (categoriesMockup || []).sort(
+    // const sortedCategories = (categoriesMockup || []).sort(
+    const sortedCategories = (categories || []).sort(
       // Use API
       // const sortedCategories = (categories || []).sort(
       (a, b) => a.order - b.order,
@@ -1531,13 +1532,20 @@ const BuyPage = () => {
                           .map((item) => {
                             // TODO
                             // Special case, need to check manually
-                            if (item.key === 'account_abstraction') {
+                            if (item.key === 'wallet') {
                               const dapp = accountAbstractionAsADapp;
                               return (
                                 <BoxOption
                                   info={{
                                     ...item.options[0],
+                                    disabled:
+                                      item.disable ||
+                                      !item.options[0].selectable,
                                     title: item.title,
+                                    description: {
+                                      title: item.title,
+                                      content: item.tooltip,
+                                    },
                                   }}
                                   thisDapp={dapp}
                                   key={dapp.key}
@@ -1548,20 +1556,24 @@ const BuyPage = () => {
 
                             if (item.key === 'defi_apps') {
                               return item.options.map((option, dappIndex) => {
-                                const dapp = dappMapping[option.key];
+                                const dapp =
+                                  option.key === 'create_token'
+                                    ? dappMapping['token_generation']
+                                    : dappMapping[option.key];
 
                                 if (!dapp) return null;
 
-                                // console.log('-------------', {
-                                //   key: option.key,
-                                //   dapp,
-                                //   dappIndex: dappIndex + 1,
-                                //   dapps,
-                                // });
-
                                 return (
                                   <BoxOption
-                                    info={option}
+                                    info={{
+                                      ...option,
+                                      disabled:
+                                        item.disable || !option.selectable,
+                                      description: {
+                                        title: option.title,
+                                        content: option.tooltip,
+                                      },
+                                    }}
                                     thisDapp={dapp}
                                     key={dapp.key}
                                     dappIndex={dappIndex + 1}

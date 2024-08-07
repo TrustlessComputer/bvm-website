@@ -1,6 +1,11 @@
 .container {
   padding: 20px;
 
+  &__disable {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
   sup {
     font-size: 12px;
     color: #ff0000;
@@ -8,6 +13,11 @@
   }
 
   &__header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+
     &__title {
       font-size: 16px;
       font-weight: 600;
@@ -28,7 +38,7 @@
       width: 100%;
 
       &:not(:last-child) {
-        margin-bottom: 10px;
+        margin-bottom: 16px;
       }
 
       &__inner {
@@ -36,7 +46,7 @@
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 16px 8px;
       }
     }
   }
