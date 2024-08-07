@@ -262,8 +262,8 @@ const L2Rollup = () => {
                     </Flex>
                     <Flex direction={'row'} justifyContent={'space-between'}>
                       <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
-                        <Text>Stack</Text>
-                        <Tooltip label={'The tech stack used by the network.'}>
+                        <Text>Type</Text>
+                        {/* <Tooltip label={'The tech stack used by the network.'}>
                           <Image
                             cursor={'pointer'}
                             width="18px"
@@ -271,7 +271,7 @@ const L2Rollup = () => {
                             alt="tooltip"
                             src={'/icons/ic-tooltip-blue.svg'}
                           />
-                        </Tooltip>
+                        </Tooltip> */}
                       </Flex>
                       <Text>{data.stack || '-'}</Text>
                     </Flex>
@@ -425,7 +425,7 @@ const L2Rollup = () => {
       },
       {
         id: 'stack',
-        label: renderLabel('Rollup', SortRollupType.rollup),
+        label: renderLabel('Type', SortRollupType.rollup),
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -463,7 +463,7 @@ const L2Rollup = () => {
       },
       {
         id: 'settlement',
-        label: renderLabel('Settlement', SortRollupType.settle),
+        label: renderLabel('Base Layer', SortRollupType.settle),
         labelConfig,
         config: {
           borderBottom: 'none',
