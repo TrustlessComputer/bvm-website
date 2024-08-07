@@ -128,9 +128,9 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
     const positionTo = {
       x: lastNode.position.x - (lastNode.measured?.width || 0),
       y: lastNode.position.y - (lastNode.measured?.height || 0),
-    }
+    };
 
-    props.setNodes((prev) => [
+    props.setNodes((prev: any) => [
       ...prev,
       {
         id: `${nodes.length}`,
@@ -160,7 +160,7 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
     //   },
     //   position: { x: centerX - nodeWidthOffset + props.currentOverlapOffset, y: centerY - nodeHeightOffset + props.currentOverlapOffset },
     // })
-  }
+  };
 
   // return (
   //   <Button

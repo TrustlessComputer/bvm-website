@@ -20,11 +20,11 @@ import { cloneDeep, DragUtil, FormDappUtil, hasValue, MouseSensor } from './util
 import { formatCurrencyV2 } from '@/utils/format';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import ErrorModal from './components3/ErrorModal';
-// import { mockupOptions } from './Buy.data';
 import Capture from '@/modules/blockchains/Buy/Capture';
 import Label from './components3/Label';
 import { TABS } from './constants';
 import ExplorePage from './Explore';
+import { categoriesMockup } from './Buy.data';
 import { FieldModel, IModelCategory } from '@/types/customize-model';
 import { ReactFlow, useNodesState } from '@xyflow/react';
 import CustomNode from './component4/CustomNode';
@@ -40,7 +40,7 @@ import {
   draggedIds2DSignal,
   idBlockErrorSignal,
 } from './signals/useDragSignal';
-import { dappMockupData } from './mockup_3';
+import { accountAbstractionAsADapp, dappMockupData } from './mockup_3';
 import { removeItemAtIndex } from '../dapp/utils';
 import { FieldKeyPrefix } from './contants';
 import { formDappSignal } from './signals/useFormDappsSignal';
@@ -51,7 +51,8 @@ import Button from '../dapp/components/Button';
 import DroppableMask from '@/modules/blockchains/Buy/component4/DroppableMask';
 import { mouseDroppedPositionSignal } from './signals/useMouseDroppedPosition';
 import useScreenMouse from './hooks/useScreenMouse';
-// import { Button } from '@chakra-ui/react';
+import { ACCOUNT_ABSTRACTION_MOCKUP_DATA } from '../detail_v3/account-abstraction_v2/mockupData';
+
 const BuyPage = () => {
   const router = useRouter();
 
@@ -64,7 +65,6 @@ const BuyPage = () => {
     setCategories: setOriginalData,
   } = useModelCategoriesStore();
   const { draggedFields, setDraggedFields } = useDragStore();
-  const { dapps, setDapps } = useDappsStore();
 
   const [templates, setTemplates] = React.useState<Array<
     IModelCategory[]
@@ -102,6 +102,8 @@ const BuyPage = () => {
   });
 
   const {
+    dapps,
+    dappMapping,
     baseModuleFieldMapping,
     blockFieldMapping,
     moduleFieldMapping,
@@ -1009,22 +1011,20 @@ const BuyPage = () => {
   };
 
   const fetchData = async () => {
-    // const modelCategories = mockupOptions;
-
-    const dapps = dappMockupData;
     const [categories, templates] = await Promise.all([
       getModelCategories(l2ServiceUserAddress),
       getTemplates(),
     ]);
 
-    const sortedCategories = (categories || []).sort(
+    // Use mockup data
+    const sortedCategories = (categoriesMockup || []).sort(
+      // Use API
+      // const sortedCategories = (categories || []).sort(
       (a, b) => a.order - b.order,
     );
     sortedCategories.forEach((_field) => {
       setField(_field.key, null);
     });
-
-    const sortedDapps = dapps.sort((a, b) => a.order - b.order);
 
     setData(convertData(sortedCategories));
     setOriginalData(sortedCategories);
@@ -1043,7 +1043,6 @@ const BuyPage = () => {
         position: { x: 0, y: 0 },
       },
     ]);
-    setDapps(sortedDapps);
   };
 
   const isAnyOptionNeedContactUs = () => {
@@ -1397,137 +1396,167 @@ const BuyPage = () => {
                       className={s.left_box_inner_content}
                     >
                       <DroppableV2 id="data">
-                        {data?.map((item, index) => {
-                          if (item.hidden) return null;
+                        {(data || [])
+                          .filter((item) => item.isChain)
+                          .map((item, index) => {
+                            if (item.hidden) return null;
 
-                          const currentPrice =
-                            item.options.find(
-                              (opt) =>
-                                opt.key === field[item.key].value &&
-                                field[item.key].dragged,
-                            )?.priceBVM ?? 0;
+                            const currentPrice =
+                              item.options.find(
+                                (opt) =>
+                                  opt.key === field[item.key].value &&
+                                  field[item.key].dragged,
+                              )?.priceBVM ?? 0;
 
-                          return (
-                            <BoxOptionV3
-                              key={item.key}
-                              disable={item.disable}
-                              label={item.title}
-                              id={item.key}
-                              isRequired={item.required}
-                              active={field[item.key].dragged}
-                              description={{
-                                title: item.title,
-                                content: item.tooltip,
-                              }}
-                            >
-                              {item.options.map((option, optIdx) => {
-                                // let _price = formatCurrencyV2({
-                                //   amount: option.priceBVM || 0,
-                                //   decimals: 0,
-                                // }).replace('.00', '');
-                                // let suffix =
-                                //   Math.abs(option.priceBVM) > 0
-                                //     ? ` (${_price} BVM)`
-                                //     : '';
+                            return (
+                              <BoxOptionV3
+                                key={item.key}
+                                disable={item.disable}
+                                label={item.title}
+                                id={item.key}
+                                isRequired={item.required}
+                                active={field[item.key].dragged}
+                                description={{
+                                  title: item.title,
+                                  content: item.tooltip,
+                                }}
+                              >
+                                {item.options.map((option, optIdx) => {
+                                  // let _price = formatCurrencyV2({
+                                  //   amount: option.priceBVM || 0,
+                                  //   decimals: 0,
+                                  // }).replace('.00', '');
+                                  // let suffix =
+                                  //   Math.abs(option.priceBVM) > 0
+                                  //     ? ` (${_price} BVM)`
+                                  //     : '';
 
-                                let _price = option.priceBVM;
-                                let operator = '+';
-                                let suffix =
-                                  Math.abs(_price) > 0
-                                    ? ` (${formatCurrencyV2({
-                                        amount: _price,
-                                        decimals: 0,
-                                      })} BVM)`
-                                    : '';
+                                  let _price = option.priceBVM;
+                                  let operator = '+';
+                                  let suffix =
+                                    Math.abs(_price) > 0
+                                      ? ` (${formatCurrencyV2({
+                                          amount: _price,
+                                          decimals: 0,
+                                        })} BVM)`
+                                      : '';
 
-                                _price = option.priceBVM - currentPrice;
-                                operator = _price > 0 ? '+' : '-';
-                                if (item.multiChoice) operator = '';
-                                suffix =
-                                  Math.abs(_price) > 0
-                                    ? ` (${operator}${formatCurrencyV2({
-                                        amount: Math.abs(_price),
-                                        decimals: 0,
-                                      })} BVM)`
-                                    : '';
+                                  _price = option.priceBVM - currentPrice;
+                                  operator = _price > 0 ? '+' : '-';
+                                  if (item.multiChoice) operator = '';
+                                  suffix =
+                                    Math.abs(_price) > 0
+                                      ? ` (${operator}${formatCurrencyV2({
+                                          amount: Math.abs(_price),
+                                          decimals: 0,
+                                        })} BVM)`
+                                      : '';
 
-                                if (
-                                  (option.key === field[item.key].value &&
-                                    field[item.key].dragged) ||
-                                  item.type === 'dropdown'
-                                )
-                                  return null;
-
-                                const isDisabled =
-                                  !!(
-                                    option.supportLayer &&
-                                    option.supportLayer !== 'both' &&
-                                    option.supportLayer !==
-                                      field['layers']?.value
-                                  ) ||
-                                  !!(
-                                    option.supportNetwork &&
-                                    option.supportNetwork !== 'both' &&
-                                    option.supportNetwork !==
-                                      field['network']?.value
-                                  ) ||
-                                  !option.selectable;
-
-                                if (
-                                  item.multiChoice &&
-                                  field[item.key].dragged
-                                ) {
-                                  const currentValues = field[item.key]
-                                    .value as any[];
-
-                                  if (currentValues.includes(option.key)) {
+                                  if (
+                                    (option.key === field[item.key].value &&
+                                      field[item.key].dragged) ||
+                                    item.type === 'dropdown'
+                                  )
                                     return null;
-                                  }
-                                }
 
-                                return (
-                                  <Draggable
-                                    key={item.key + '-' + option.key}
-                                    id={item.key + '-' + option.key}
-                                    useMask
-                                    disabled={isDisabled}
-                                    isLabel={true}
-                                    value={{
-                                      isChain: true,
-                                      value: option.key,
-                                    }}
-                                    tooltip={option.tooltip}
-                                  >
-                                    <LegoV3
-                                      background={item.color}
-                                      zIndex={item.options.length - optIdx}
+                                  const isDisabled =
+                                    !!(
+                                      option.supportLayer &&
+                                      option.supportLayer !== 'both' &&
+                                      option.supportLayer !==
+                                        field['layers']?.value
+                                    ) ||
+                                    !!(
+                                      option.supportNetwork &&
+                                      option.supportNetwork !== 'both' &&
+                                      option.supportNetwork !==
+                                        field['network']?.value
+                                    ) ||
+                                    !option.selectable;
+
+                                  if (
+                                    item.multiChoice &&
+                                    field[item.key].dragged
+                                  ) {
+                                    const currentValues = field[item.key]
+                                      .value as any[];
+
+                                    if (currentValues.includes(option.key)) {
+                                      return null;
+                                    }
+                                  }
+
+                                  return (
+                                    <Draggable
+                                      key={item.key + '-' + option.key}
+                                      id={item.key + '-' + option.key}
+                                      useMask
                                       disabled={isDisabled}
+                                      isLabel={true}
+                                      value={{
+                                        isChain: true,
+                                        value: option.key,
+                                      }}
+                                      tooltip={option.tooltip}
                                     >
-                                      <Label
-                                        icon={option.icon}
-                                        title={option.title + suffix}
-                                      />
-                                    </LegoV3>
-                                  </Draggable>
-                                );
-                              })}
-                            </BoxOptionV3>
-                          );
-                        })}
+                                      <LegoV3
+                                        background={item.color}
+                                        zIndex={item.options.length - optIdx}
+                                        disabled={isDisabled}
+                                      >
+                                        <Label
+                                          icon={option.icon}
+                                          title={option.title + suffix}
+                                        />
+                                      </LegoV3>
+                                    </Draggable>
+                                  );
+                                })}
+                              </BoxOptionV3>
+                            );
+                          })}
 
                         {/* <div className={s.hTrigger}></div> */}
                       </DroppableV2>
 
                       <Droppable id="input">
-                        {dapps.map((dapp, index) => {
-                          return (
-                            <BoxOption
-                              thisDapp={dapp}
-                              key={dapp.key}
-                              dappIndex={index}
-                            />
-                          );
-                        })}
+                        {(data || [])
+                          .filter((item) => !item.isChain)
+                          .map((item, index) => {
+                            // TODO
+                            // Special case, need to check manually
+                            if (item.key === 'account_abstraction') {
+                              const dapp = accountAbstractionAsADapp;
+                              return (
+                                <BoxOption
+                                  info={{
+                                    ...item.options[0],
+                                    title: item.title,
+                                  }}
+                                  thisDapp={dapp}
+                                  key={dapp.key}
+                                  dappIndex={index}
+                                />
+                              );
+                            }
+
+                            if (item.key === 'defi_apps') {
+                              return item.options.map((option) => {
+                                const dapp = dappMapping[option.key];
+
+                                return (
+                                  <BoxOption
+                                    info={option}
+                                    thisDapp={dapp}
+                                    key={dapp.key}
+                                    dappIndex={index}
+                                  />
+                                );
+                              });
+                            }
+
+                            return null;
+                          })}
                       </Droppable>
                     </div>
                   </div>

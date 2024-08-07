@@ -36,7 +36,7 @@ import enhance from './enhance';
 import ButtonV1 from './components/Button';
 import { ResetModal } from './components/ResetModal';
 import useCaptureHelper from './hook/useCaptureHelper';
-import { mockupOptions } from '../Buy/Buy.data';
+import { categoriesMockup } from '../Buy/Buy.data';
 import { useOrderOwnerHelper } from '@/services/api/l2services/hook';
 import NavigatioBar from './components/NavigationBar';
 import ChainInforView from './components/ChanInforView';

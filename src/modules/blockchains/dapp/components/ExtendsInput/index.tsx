@@ -2,19 +2,14 @@ import React from 'react';
 
 import Lego from '../Lego';
 import Toggle from '../Toggle';
-import Label from '../Label';
-import Input from '../Input';
-import Dropdown from '../Dropdown';
 import { FieldOption } from '../../types';
 import { adjustBrightness, FormDappUtil } from '../../utils';
 import {
   formDappSignal,
-  formDappToggleSignal,
   formTemplateDappSignal,
 } from '../../signals/useFormDappsSignal';
-import DateTimeInput from '../DateTimeInput';
 import { FieldModel } from '@/types/customize-model';
-import { useSignalEffect } from '@preact/signals-react';
+import { useThisDapp } from '../../hooks/useThisDapp';
 
 type Props = FieldModel &
   FieldOption & {
@@ -59,7 +54,7 @@ const ExtendsInput = ({
     baseIndex,
   };
 
-  const { thisDapp } = useThisDapp();
+  const { thisDapp, getInputWithoutLego } = useThisDapp();
 
   const [toggle, setToggle] = React.useState(Boolean(value));
 
@@ -104,7 +99,7 @@ const ExtendsInput = ({
           titleInRight={false}
           zIndex={zIndex}
         >
-          {getInput(props, fieldOption)}
+          {getInputWithoutLego(props, fieldOption)}
         </Lego>
       </React.Fragment>
     );
@@ -121,7 +116,7 @@ const ExtendsInput = ({
           zIndex={zIndex}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            {options.map((option) => getInput(option, fieldOption))}
+            {options.map((option) => getInputWithoutLego(option, fieldOption))}
           </div>
         </Lego>
       </React.Fragment>
