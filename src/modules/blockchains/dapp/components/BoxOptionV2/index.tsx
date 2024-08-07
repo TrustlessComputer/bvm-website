@@ -13,7 +13,7 @@ const BoxOptionV2 = ({}: Props) => {
   const { modelCategories } = useChainStore();
 
   console.log(
-    '🚀 -> file: index.tsx:21 -> BoxOptionV2 -> modelCategories ::',
+    '🚀 -> file: page.tsx:21 -> BoxOptionV2 -> modelCategories ::',
     modelCategories,
   );
 

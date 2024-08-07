@@ -51,7 +51,13 @@ https://bvm.network/studio/${url}`;
     // );
 
     const canvasDom = document.querySelector('#viewport') as HTMLElement;
-    const canvas = await html2canvas(canvasDom).then((res) => {
+    const canvas = await html2canvas(canvasDom, {
+      width: 1920,
+      height: 1080,
+      removeContainer: false,
+      x: 0,
+      y: 0,
+    }).then((res) => {
       return res;
     });
     return canvas.toDataURL('image/png', 1.0);

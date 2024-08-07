@@ -4,11 +4,9 @@ import gsap from 'gsap';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import ModalVideo from 'react-modal-video';
-import { EdgeBase, NodeBase, NodeChange } from '@xyflow/system';
 import Image from 'next/image';
 import { getModelCategories, getTemplates } from '@/services/customize-model';
 import BoxOptionV3 from './components3/BoxOptionV3';
-import ComputerNameInput from './components3/ComputerNameInput';
 import Draggable from './components3/Draggable';
 import DroppableV2 from './components3/DroppableV2';
 import LaunchButton from './components3/LaunchButton';
@@ -18,15 +16,8 @@ import SidebarV2 from './components3/SideBarV2';
 import useOrderFormStoreV3, { useCaptureStore } from './stores/index_v3';
 import useDragMask from './stores/useDragMask';
 import s from './styles_v6.module.scss';
-import {
-  cloneDeep,
-  DragUtil,
-  FormDappUtil,
-  hasValue,
-  MouseSensor,
-} from './utils';
+import { cloneDeep, DragUtil, FormDappUtil, hasValue, MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
-import ImagePlaceholder from '@components/ImagePlaceholder';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import ErrorModal from './components3/ErrorModal';
 // import { mockupOptions } from './Buy.data';
@@ -34,14 +25,8 @@ import Capture from '@/modules/blockchains/Buy/Capture';
 import Label from './components3/Label';
 import { TABS } from './constants';
 import ExplorePage from './Explore';
-import { mockupOptions } from './Buy.data';
 import { FieldModel, IModelCategory } from '@/types/customize-model';
-import {
-  applyNodeChanges,
-  ReactFlow,
-  ReactFlowProvider,
-  useNodesState,
-} from '@xyflow/react';
+import { ReactFlow, useNodesState } from '@xyflow/react';
 import CustomNode from './component4/CustomNode';
 import useModelCategoriesStore from './stores/useModelCategoriesStore';
 import useDragStore from './stores/useDragStore';
@@ -61,7 +46,6 @@ import { FieldKeyPrefix } from './contants';
 import { formDappSignal } from './signals/useFormDappsSignal';
 import Droppable from '../dapp/components/Droppable';
 import BoxOption from './component4/BoxOption';
-import RightDroppable from './component4/RightDroppable';
 import DragMask from './component4/DragMask';
 import Button from '../dapp/components/Button';
 import DroppableMask from '@/modules/blockchains/Buy/component4/DroppableMask';
@@ -1374,12 +1358,6 @@ const BuyPage = () => {
     initTemplate(0);
   };
 
-  // const onNodesChange = React.useCallback(
-  //   (changes: NodeChange[]) =>
-  //     setNodes((nds) => applyNodeChanges(changes, nds)),
-  //   [setNodes],
-  // );
-
   return (
     <div
       className={`${s.container} ${isTabCode ? '' : s.explorePageContainer}`}
@@ -1703,24 +1681,22 @@ const BuyPage = () => {
                       className={`${s.right_box_main} ${
                         isCapture ? s.right_box_main_captured : ''
                       }`}
-                      // className={`${s.right_box_main}`}
                       id="viewport"
                     >
                       <ReactFlow
                         nodes={nodes}
                         nodeTypes={{ customBox: CustomNode }}
                         onNodesChange={onNodesChange}
-
                         // draggable={false}
-                        // defaultViewport={{
-                        //   x: 0,
-                        //   y: 0,
-                        //   zoom: 1,
-                        // }}
+                        defaultViewport={{
+                          x: 10,
+                          y: 20,
+                          zoom: 0.8,
+                        }}
                         key={nodes.length.toString()}
-                        fitView
+                        // fitView
                         fitViewOptions={{ padding: 2 }}
-                        nodeOrigin={[0.5, 0]}
+                        // nodeOrigin={[0.5, 0]}
                       />
                       <DroppableMask />
                     </div>
@@ -1745,7 +1721,7 @@ const BuyPage = () => {
                     {/*  </div>*/}
                     {/*)}    */}
                     {!isCapture && (
-                      <div className={s.resetButton}>
+                      <div className={`${s.resetButton}`}>
                         {/*<Button element="button" type="button">*/}
                         {/*  EXPORT{' '}*/}
                         {/*  <Image*/}
