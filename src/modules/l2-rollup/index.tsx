@@ -25,11 +25,6 @@ import s from './styles.module.scss';
 import { orderBy } from 'lodash';
 import { DotLottiePlayer } from '@dotlottie/react-player';
 
-// interface ICachedIndex {
-//   name: string;
-//   index: number;
-// }
-
 enum SortRollupType {
   name,
   block,
@@ -55,13 +50,10 @@ const L2Rollup = () => {
 
   const hasIncrementedPageRef = useRef(false);
   const rollupL2Api = new CRollupL2API();
-  // const sortedRef = useRef(false);
-  // const loading = useRef(false);
-  // const cachedIndex = useRef<ICachedIndex[]>([]);
 
   const [currentSort, setCurrentSort] = useState<ISort>({
-    type: SortRollupType.mgas,
-    ascending: undefined,
+    type: SortRollupType.tps,
+    ascending: false,
   });
 
   const total = useMemo(() => {
