@@ -62,6 +62,19 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
       target: '_blank',
     },
   },
+  {
+    image: '/explore/alpha.png',
+    title: 'Alpha',
+    bgColor:
+      'linear-gradient(227deg, #AE71FF -7.83%, #9456FF 23.69%, #6610E6 67.99%, #ED68FB 100%)',
+    description:
+      'The first social app on Bitcoin.<br/>$2.7M paid to creators as of today.',
+    tags: ['AlphaChain', 'Mobile', 'L2', 'Optimistic Rollup'],
+    link: {
+      url: 'https://alpha.wtf',
+      target: '_blank',
+    },
+  },
 ];
 
 export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
@@ -169,27 +182,27 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
     ],
     tags: ['L2', 'ZK Rollup'],
   },
-  {
-    image: '/explore/xally.jpg',
-    title: 'Xally Chain',
-    description:
-      'Xally ecosystem simplifies AI application development by providing cutting-edge AI models and pre-built modules, making your ideas a reality.',
-    social: [
-      {
-        icon: '/explore/x.svg',
-        link: 'https://x.com/xallyai',
-      },
-      // {
-      //   icon: '/explore/tele.svg',
-      //   link: 'https://t.me/xallyai_chat',
-      // },
-      {
-        icon: '/explore/web.svg',
-        link: 'https://xally.ai/',
-      },
-    ],
-    tags: ['L2', 'ZK Rollup'],
-  },
+  // {
+  //   image: '/explore/xally.jpg',
+  //   title: 'Xally Chain',
+  //   description:
+  //     'Xally ecosystem simplifies AI application development by providing cutting-edge AI models and pre-built modules, making your ideas a reality.',
+  //   social: [
+  //     {
+  //       icon: '/explore/x.svg',
+  //       link: 'https://x.com/xallyai',
+  //     },
+  //     // {
+  //     //   icon: '/explore/tele.svg',
+  //     //   link: 'https://t.me/xallyai_chat',
+  //     // },
+  //     {
+  //       icon: '/explore/web.svg',
+  //       link: 'https://xally.ai/',
+  //     },
+  //   ],
+  //   tags: ['L2', 'ZK Rollup'],
+  // },
   {
     image: '/explore/powd3r.jpg',
     title: 'POWD3R',
@@ -210,5 +223,56 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
       },
     ],
     tags: ['L2', 'ZK Rollup'],
+  },
+  {
+    image: '/explore/naka.png',
+    title: 'Nakachain',
+    description:
+      'A powerful Bitcoin L2 for DeFi.<br/>2-second block time. $0.0001 transaction fee. 100% permissionless.',
+    social: [
+      {
+        icon: '/explore/x.svg',
+        link: 'https://x.com/naka_chain',
+      },
+      {
+        icon: '/explore/web.svg',
+        link: 'https://nakachain.xyz',
+      },
+    ],
+    tags: ['L2', 'Optimistic Rollup'],
+  },
+  {
+    image: '/explore/eternal.png',
+    title: 'Eternal AI',
+    description:
+      'The first Bitcoin L2 for fully on-chain AI, designed to preserve AI as censorship-resistant, tamper-proof, and permissionlessly accessible to every human.',
+    social: [
+      {
+        icon: '/explore/x.svg',
+        link: 'https://x.com/CryptoEternalAI',
+      },
+      {
+        icon: '/explore/web.svg',
+        link: 'https://eternalai.org',
+      },
+    ],
+    tags: ['L2', 'Optimistic Rollup'],
+  },
+  {
+    image: '/explore/rune.png',
+    title: 'Runechain',
+    description:
+      'The Bitcoin L2 for Runes.<br/>Making Runes trading possible and easy for everyone.',
+    social: [
+      {
+        icon: '/explore/x.svg',
+        link: 'https://x.com/RuneChain_L2',
+      },
+      {
+        icon: '/explore/web.svg',
+        link: 'https://runechain.com',
+      },
+    ],
+    tags: ['L2', 'Optimistic Rollup'],
   },
 ];
