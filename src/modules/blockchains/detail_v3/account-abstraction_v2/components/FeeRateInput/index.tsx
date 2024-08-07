@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react';
 import { useAccountAbstractionStore } from '../../store/hook';
 import { IModelOption } from '@/types/customize-model';
 import Input from '../Input';
+import s from './styles.module.scss';
 
 const MIN_FEE_RATE = 0;
 const MAX_FEE_RATE = 1 * 1e9;
@@ -96,7 +97,7 @@ const FeeRateInput = (props: Props) => {
 
       <Tooltip
         hasArrow
-        label={`${option.tooltip || ''}`}
+        label={`For example, if you input 0.05 tokens per gas, a regular transfer transaction (21,000 gas) would require 1.05 tokens.`}
         bg={'#fff'}
         color={'#000'}
         p="5px"
@@ -104,34 +105,37 @@ const FeeRateInput = (props: Props) => {
         <Image src={'/icons/white_tooltip_ic.svg'} w="20px" h="20px" />
       </Tooltip>
 
-      <Input
-        type="number"
-        placeholder="0 (gasless)"
-        value={feeRate}
-        onChange={(e) => {
-          const text = e.target.value;
-          setFeeRateFocused(true);
-          onChangeHandler(text);
-        }}
-        onBlur={(e: any) => {
-          const text = e.target.value;
-          setFeeRateFocused(true);
-          checkFeeRate(text);
-        }}
-      />
-      {isError && (
-        <Text
-          position={'absolute'}
-          right={errorCode === 1 ? '-235px' : '-165px'}
-          maxWidth={'200px'}
-          flexWrap={'wrap'}
-          color={'red'}
-          fontWeight={500}
-          fontSize={['15px']}
-        >
-          {feeRateErrMsg}
-        </Text>
-      )}
+      <Flex flexDir={'column'} padding="5px" bgColor={'#fff'}>
+        <Input
+          className={s.input}
+          type="number"
+          placeholder="0 (gasless)"
+          value={feeRate}
+          onChange={(e) => {
+            const text = e.target.value;
+            setFeeRateFocused(true);
+            onChangeHandler(text);
+          }}
+          onBlur={(e: any) => {
+            const text = e.target.value;
+            setFeeRateFocused(true);
+            checkFeeRate(text);
+          }}
+        />
+        {isError && (
+          <Text
+            position={'absolute'}
+            right={errorCode === 1 ? '-235px' : '-165px'}
+            maxWidth={'200px'}
+            flexWrap={'wrap'}
+            color={'red'}
+            fontWeight={500}
+            fontSize={['15px']}
+          >
+            {feeRateErrMsg}
+          </Text>
+        )}
+      </Flex>
     </Flex>
   );
 };
