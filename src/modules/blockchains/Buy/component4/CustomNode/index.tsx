@@ -1,6 +1,6 @@
 import s from './styles.module.scss';
 import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
-import React from 'react';
+import React, { ReactElement, useMemo } from 'react';
 import Image from 'next/image';
 import cn from 'classnames';
 import { OrderItem } from '@/stores/states/l2services/types';
@@ -28,6 +28,7 @@ import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import Draggable from '@/modules/blockchains/Buy/component4/Draggable';
 import LegoParent from '@/modules/blockchains/Buy/component4/LegoParent';
 import styles from '@/modules/blockchains/Buy/components3/LegoV3/styles.module.scss';
+import AA from '@/modules/blockchains/Buy/dapp/AA';
 
 export type DataNode = Node<
   {
@@ -60,6 +61,19 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
     moduleFieldMapping,
     singleFieldMapping,
   } = useDapps();
+
+  const DappRendering = (): ReactElement => {
+
+    const dappIndex = draggedDappIndexesSignal.value[data.baseIndex];
+    const thisDapp = dapps[dappIndex];
+
+    switch (thisDapp.key) {
+      case 'account_abstraction':
+        return <AA />;
+      default :
+        return renderDapps();
+    }
+  };
 
   function renderDapps() {
     const dappIndex = draggedDappIndexesSignal.value[data.baseIndex];
@@ -107,7 +121,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const thisBaseModule =
                   baseModuleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                  ];
+                    ];
                 const thisModule = thisBaseModule.fields.find(
                   (f: FieldModel) => f.value === item.value,
                 );
@@ -161,7 +175,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const { key: thisBlockKey, ...thisBlock } =
                   blockFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                  ];
+                    ];
                 const needSuffix = thisBlock.placableAmount === -1;
 
                 blockCount++;
@@ -210,8 +224,8 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                                 baseIndex: data.baseIndex,
                               },
                               thisBlock.fields.length +
-                                item.children.length -
-                                fieldIndex,
+                              item.children.length -
+                              fieldIndex,
                             );
                           },
                         )}
@@ -269,7 +283,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const field =
                   singleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                  ];
+                    ];
 
                 const thisModule = field.fields[0];
 
@@ -307,7 +321,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const thisModule =
                   moduleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                  ];
+                    ];
                 const isMultiple = thisModule.placableAmount === -1;
 
                 if (isMultiple) {
@@ -619,7 +633,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
           </DroppableV2>
         )}
 
-        {data.dapp && renderDapps()}
+        {data.dapp && <DappRendering />}
 
         {/*<div className={`${s.handles} ${s.sources}`}>*/}
         {/*  {data.sourceHandles.map((handle, index) => (*/}
