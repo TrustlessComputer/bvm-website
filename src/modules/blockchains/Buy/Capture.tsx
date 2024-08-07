@@ -40,7 +40,6 @@ https://bvm.network/studio/${url}`;
   };
 
   const exportBase64 = async (): Promise<string> => {
-    // setIsCapture(true);
     //
     // const nodesBounds = getNodesBounds(getNodes());
     // const viewport = getViewportForBounds(
@@ -109,11 +108,14 @@ https://bvm.network/studio/${url}`;
   // }
 
   async function download() {
+    setIsCapture(true);
+
     const a = document.createElement('a');
     setTimeout(async () => {
       a.href = await exportBase64();
       a.download = `${new Date()}.png`;
       a.click();
+      setIsCapture(false);
     }, 150);
   }
 
