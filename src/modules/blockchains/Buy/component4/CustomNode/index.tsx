@@ -63,14 +63,13 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   } = useDapps();
 
   const DappRendering = (): ReactElement => {
-
     const dappIndex = draggedDappIndexesSignal.value[data.baseIndex];
     const thisDapp = dapps[dappIndex];
 
     switch (thisDapp.key) {
       case 'account_abstraction':
-        return <AA />;
-      default :
+        return <AA dAppData={thisDapp} />;
+      default:
         return renderDapps();
     }
   };
@@ -121,7 +120,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const thisBaseModule =
                   baseModuleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                    ];
+                  ];
                 const thisModule = thisBaseModule.fields.find(
                   (f: FieldModel) => f.value === item.value,
                 );
@@ -175,7 +174,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const { key: thisBlockKey, ...thisBlock } =
                   blockFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                    ];
+                  ];
                 const needSuffix = thisBlock.placableAmount === -1;
 
                 blockCount++;
@@ -224,8 +223,8 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                                 baseIndex: data.baseIndex,
                               },
                               thisBlock.fields.length +
-                              item.children.length -
-                              fieldIndex,
+                                item.children.length -
+                                fieldIndex,
                             );
                           },
                         )}
@@ -283,7 +282,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const field =
                   singleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                    ];
+                  ];
 
                 const thisModule = field.fields[0];
 
@@ -321,7 +320,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const thisModule =
                   moduleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                    ];
+                  ];
                 const isMultiple = thisModule.placableAmount === -1;
 
                 if (isMultiple) {
