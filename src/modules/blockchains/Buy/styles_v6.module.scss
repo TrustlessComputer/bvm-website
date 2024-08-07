@@ -146,9 +146,10 @@
 .left_box {
   margin-top: 15px;
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.07);
-  background: #fff;
-  border-top-left-radius: 24px;
-  border-bottom-left-radius: 24px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  background-color: #ffffff;
+  overflow: hidden;
 
   &_inner {
     width: 100%;
@@ -178,7 +179,7 @@
       }
 
       &::-webkit-scrollbar-thumb {
-        border-radius: 10px;
+        border-radius: 0px;
         background: #e0e0e0;
       }
     }
@@ -201,10 +202,11 @@
   margin-top: 16px;
   height: var(--height-studio);
   position: relative;
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
-  background-color: #fff;
+  background-color: #ffffff;
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.07);
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
