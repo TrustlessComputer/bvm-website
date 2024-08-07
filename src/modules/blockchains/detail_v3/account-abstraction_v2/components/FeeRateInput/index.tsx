@@ -1,10 +1,11 @@
 import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
 import { formatCurrencyV2 } from '@/utils/format';
-import { Flex, Input, Text, Image, Tooltip } from '@chakra-ui/react';
+import { Flex, Text, Image, Tooltip } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
 import { useMemo, useState } from 'react';
 import { useAccountAbstractionStore } from '../../store/hook';
 import { IModelOption } from '@/types/customize-model';
+import Input from '../Input';
 
 const MIN_FEE_RATE = 0;
 const MAX_FEE_RATE = 1 * 1e9;
@@ -83,7 +84,7 @@ const FeeRateInput = (props: Props) => {
       px={'8px'}
       minW={'max-content'}
     >
-      <Text
+      {/* <Text
         as="span"
         color={'white'}
         minW={'max-content'}
@@ -91,7 +92,7 @@ const FeeRateInput = (props: Props) => {
         fontSize={['18px']}
       >
         {option?.title}
-      </Text>
+      </Text> */}
 
       <Tooltip
         hasArrow
@@ -104,14 +105,6 @@ const FeeRateInput = (props: Props) => {
       </Tooltip>
 
       <Input
-        fontWeight={500}
-        fontSize={['18px']}
-        borderRadius={'18px'}
-        bgColor={'#fff'}
-        color={'#000'}
-        _placeholder={{
-          color: '#ababab',
-        }}
         type="number"
         placeholder="0 (gasless)"
         value={feeRate}

@@ -1,9 +1,11 @@
 import { useMemo, useState } from 'react';
 import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
-import { Flex, Input, Text, Image, Tooltip } from '@chakra-ui/react';
+import { Flex, Text, Image, Tooltip } from '@chakra-ui/react';
 import { isAddress } from 'ethers/lib/utils';
 import { useAccountAbstractionStore } from '../../store/hook';
 import { IModelOption } from '@/types/customize-model';
+import Input from '../Input';
+import s from './styles.module.scss';
 
 // type Props = {
 //   option: IModelOption;
@@ -51,7 +53,7 @@ const AddressInput = (props: Props) => {
 
   return (
     <Flex align={'center'} gap={'10px'} py={'4px'} px={'8px'}>
-      <Text
+      {/* <Text
         as="span"
         color={'#fff'}
         minW={'max-content'}
@@ -59,7 +61,7 @@ const AddressInput = (props: Props) => {
         fontSize={['18px']}
       >
         {option?.title}
-      </Text>
+      </Text> */}
 
       <Tooltip
         hasArrow
@@ -72,14 +74,7 @@ const AddressInput = (props: Props) => {
       </Tooltip>
 
       <Input
-        fontWeight={500}
-        fontSize={['18px']}
-        borderRadius={'18px'}
-        bgColor={'#fff'}
-        color={'#000'}
-        _placeholder={{
-          color: '#ababab',
-        }}
+        className={s.input}
         type="text"
         placeholder="Example: 0xabc...xzy"
         value={tokenContractAddress}
@@ -101,7 +96,7 @@ const AddressInput = (props: Props) => {
           color={'red'}
           minW={'max-content'}
           fontWeight={500}
-          fontSize={['15px']}
+          fontSize={['16px']}
         >
           {tokenContractAddressErrMsg}
         </Text>
