@@ -618,7 +618,7 @@ const L2Rollup = () => {
 
   return (
     <Box className={s.container}>
-      <Flex direction={'column'} w="100%" maxW={'1660px'} alignItems={'center'}>
+      <Flex direction={'column'} w="100%" maxW={'1560px'} alignItems={'center'}>
         <Flex alignItems="center" gap="6px" my={'12px'}>
           <Text fontSize={'20px'}>Project Bitcoin Heartbeat</Text>
           <DotLottiePlayer
