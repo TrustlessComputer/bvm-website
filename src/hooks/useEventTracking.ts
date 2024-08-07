@@ -1,6 +1,8 @@
+import { useCallback } from 'react';
 import axios from 'axios';
 
-import { STORAGE_KEYS } from '@/constants/storage-key';
+import { useAppSelector } from '@/stores/hooks';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import { getUuid } from '@/utils/helpers';
 
 export const BASE_URL = 'https://nbc-analytics-drwcpccxdq-as.a.run.app/api/v1';
@@ -13,27 +15,30 @@ const apiClient = axios.create({
 });
 
 export const useEventTracking = () => {
-  const userId =
-    window.localStorage.getItem(STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2) || '';
+  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+  const userId = accountInforL2Service?.tcAddress || '';
   const userUuid = getUuid();
 
-  const trackPageView = (page?: string) => {
-    try {
-      const href = page || window.location.href;
-      apiClient.post('/event_tracking', {
-        event_name: 'page_view',
-        event_timestamp: Math.floor(Date.now() / 1000),
-        data: {
-          user_id: userId,
-          user_pseudo_id: userUuid,
-          event_params: [{ key: 'page_name', value: href }],
-          platform: 'web',
-        },
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const trackPageView = useCallback(
+    (page?: string) => {
+      try {
+        const href = page || window.location.href;
+        apiClient.post('/event_tracking', {
+          event_name: 'page_view',
+          event_timestamp: Math.floor(Date.now() / 1000),
+          data: {
+            user_id: userId,
+            user_pseudo_id: userUuid,
+            event_params: [{ key: 'page_name', value: href }],
+            platform: 'web',
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [accountInforL2Service?.tcAddress],
+  );
 
   return {
     trackPageView,

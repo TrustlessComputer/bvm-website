@@ -37,6 +37,20 @@ import {
   SubmitFormParams,
 } from './types';
 import { IModelCategory } from '@/types/customize-model';
+import { isEmpty } from 'lodash';
+
+const isInValidAccessToken = () => {
+  const accessToken = LocalStorage.getItem(
+    STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2,
+  );
+  return (
+    !accessToken ||
+    isEmpty(accessToken) ||
+    typeof accessToken === 'undefined' ||
+    accessToken === undefined ||
+    accessToken === 'undefined'
+  );
+};
 
 // ------------------------------------------------------------------------
 // Access Token
@@ -161,15 +175,17 @@ export const orderBuyAPI_V3 = async (params: IOrderBuyReq_V3): Promise<any> => {
 
   console.log('orderBuyAPI_V3 -- Body Params ', bodyData);
 
-  try {
-    const data = (await httpClient.post(`/order/register-v3`, bodyData, {
-      headers: {
-        Authorization: `${getAPIAccessToken()}`,
-      },
-    })) as any;
-    return data;
-  } catch (error: any) {
-    throw error;
+  if (!isInValidAccessToken()) {
+    try {
+      const data = (await httpClient.post(`/order/register-v3`, bodyData, {
+        headers: {
+          Authorization: `${getAPIAccessToken()}`,
+        },
+      })) as any;
+      return data;
+    } catch (error: any) {
+      throw error;
+    }
   }
 };
 
@@ -184,19 +200,21 @@ export const orderUpdateV2 = async (
     orderId,
   });
 
-  try {
-    const data = (await httpClient.post(
-      `/order/update-v2/${orderId}`,
-      bodyData,
-      {
-        headers: {
-          Authorization: `${getAPIAccessToken()}`,
+  if (!isInValidAccessToken()) {
+    try {
+      const data = (await httpClient.post(
+        `/order/update-v2/${orderId}`,
+        bodyData,
+        {
+          headers: {
+            Authorization: `${getAPIAccessToken()}`,
+          },
         },
-      },
-    )) as any;
-    return data;
-  } catch (error: any) {
-    throw error;
+      )) as any;
+      return data;
+    } catch (error: any) {
+      throw error;
+    }
   }
 };
 
@@ -204,15 +222,17 @@ export const orderUpdateAPI = async (
   params: IOrderUpdate,
   orderId: string,
 ): Promise<any> => {
-  try {
-    const data = (await httpClient.put(`/order/update/${orderId}`, params, {
-      headers: {
-        Authorization: `${getAPIAccessToken()}`,
-      },
-    })) as any;
-    return data;
-  } catch (error: any) {
-    throw error;
+  if (!isInValidAccessToken()) {
+    try {
+      const data = (await httpClient.put(`/order/update/${orderId}`, params, {
+        headers: {
+          Authorization: `${getAPIAccessToken()}`,
+        },
+      })) as any;
+      return data;
+    } catch (error: any) {
+      throw error;
+    }
   }
 };
 
@@ -264,17 +284,19 @@ export const fetchOrderListAPI = async (): Promise<OrderItem[]> => {
 };
 
 export const cancelOrder = async (orderID: string) => {
-  await httpClient.post(
-    `/order/cancel`,
-    {
-      orderId: orderID,
-    },
-    {
-      headers: {
-        Authorization: `${getAPIAccessToken()}`,
+  if (!isInValidAccessToken()) {
+    await httpClient.post(
+      `/order/cancel`,
+      {
+        orderId: orderID,
       },
-    },
-  );
+      {
+        headers: {
+          Authorization: `${getAPIAccessToken()}`,
+        },
+      },
+    );
+  }
 };
 
 export const getAllOrders = async (): Promise<OrderItem[]> => {
@@ -331,7 +353,9 @@ export const getTemplateV2 = async (): Promise<IExploreItem[]> => {
 export const accountGetInfo = async (): Promise<AccountInfo | undefined> => {
   const accessToken = getAPIAccessToken();
 
-  if (!accessToken) return undefined;
+  if (isInValidAccessToken()) {
+    return undefined;
+  }
   try {
     const account = (await httpClient.get(`/account/get-info`, {
       headers: {
@@ -480,8 +504,7 @@ export const revokeAuthentication = async (): Promise<void> => {
 export const uploadLogoFile = async (
   file: File,
 ): Promise<string | undefined> => {
-  const accessToken = getAPIAccessToken();
-  if (!accessToken) return undefined;
+  if (isInValidAccessToken()) return undefined;
   try {
     let formData = new FormData();
     formData.append('file', file);
@@ -531,21 +554,19 @@ export interface IInstallAccountAbstractionByData {
 export const installDAppAAByData = async (
   data: IInstallAccountAbstractionByData,
 ): Promise<any> => {
-  try {
-    const res = await httpClient.post(`/order/dapp/install`, data, {
-      headers: {
-        Authorization: `${getAPIAccessToken()}`,
-      },
-    });
-    return res;
-  } catch (error) {
-    console.log('installDAppByData error', error);
-    throw error;
+  if (!isInValidAccessToken()) {
+    try {
+      const res = await httpClient.post(`/order/dapp/install`, data, {
+        headers: {
+          Authorization: `${getAPIAccessToken()}`,
+        },
+      });
+      return res;
+    } catch (error) {
+      console.log('installDAppByData error', error);
+      throw error;
+    }
   }
-};
-
-const setAccesTokenHeader = (accessToken: string) => {
-  // httpClient.defaults.headers.Authorization = `${accessToken}`;
 };
 
 const removeAccesTokenHeader = () => {
@@ -609,7 +630,6 @@ const l2ServicesAPI = {
   verifySignature,
   verifyAccessToken,
 
-  setAccesTokenHeader,
   removeAccesTokenHeader,
   getInstanceDetailByID,
 

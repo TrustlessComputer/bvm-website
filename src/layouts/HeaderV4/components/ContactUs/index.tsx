@@ -15,7 +15,11 @@ const ContactUs = (props: Props): ReactElement => {
     <>
       <Flex
         onClick={() => {
-          showContactUsModal({ subjectDefault: 0 });
+          showContactUsModal({
+            title: 'Contact Us',
+            description: `Have questions or need assistance? We're here to help! Please fill out the form below, and we will get back to you shortly.`,
+            subjectDefault: 0,
+          });
         }}
         flexDir={'row'}
         justify={'center'}
@@ -24,7 +28,7 @@ const ContactUs = (props: Props): ReactElement => {
         transition={'opacity .4s ease'}
         _hover={{
           cursor: 'pointer',
-          opacity: .8,
+          opacity: 0.8,
         }}
       >
         Contact us
