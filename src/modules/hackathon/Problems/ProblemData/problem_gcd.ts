@@ -1,4 +1,4 @@
-export const PROBLEM_1_MARKDOWN = `
+export const PROBLEM_GCD_MARKDOWN = `
 ## Practice
 
 &nbsp;  

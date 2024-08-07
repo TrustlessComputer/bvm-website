@@ -13,6 +13,7 @@ import ProblemTemplate from './Template';
 import ConnectedWallets from '../ConnectedWallets';
 import SvgInset from '@/components/SvgInset';
 import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
+import { PROBLEM_DATASOURCE } from './ProblemData';
 
 const Problems = ({
   isProblemPanelMaximized,
@@ -79,10 +80,10 @@ const Problems = ({
             style={{ borderRight: '1px solid #2A2A2A' }}
           >
             <TabList p="20px" gap="6px" maxHeight={'500px'} overflow="auto">
-              {Array.from({ length: 3 }).map((_, index) => (
+              {PROBLEM_DATASOURCE.map((item, index) => (
                 <Tab
                   style={{ textAlign: 'left' }}
-                  key={index}
+                  key={item.id}
                   justifyContent={'start'}
                 >
                   Problem {index + 1}
@@ -115,9 +116,9 @@ const Problems = ({
             </Flex>
           </Flex>
           <TabPanels p="16px" overflow="hidden">
-            {Array.from({ length: 3 }).map((_, index) => (
-              <TabPanel key={index}>
-                <ProblemTemplate topic={`${(index % 3) + 1}`} />
+            {PROBLEM_DATASOURCE.map((item) => (
+              <TabPanel key={item.id}>
+                <ProblemTemplate topic={item.id} />
               </TabPanel>
             ))}
           </TabPanels>

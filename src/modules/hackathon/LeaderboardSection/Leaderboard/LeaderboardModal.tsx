@@ -10,12 +10,18 @@ import {
 } from '@/services/api/EternalServices/types';
 import s from './Leaderboard.module.scss';
 import { formatCurrency } from '@/utils/format';
+import { PROBLEM_DATASOURCE } from '../../Problems/ProblemData';
 
 type Props = {
   userContest: IUserContest;
 };
 
 const LIMIT_PAGE = 50;
+const rowStyle = {
+  gridTemplateColumns: `56px 220px 62px repeat(${
+    PROBLEM_DATASOURCE.length + 1
+  }, 100px)`,
+};
 
 const LeaderboardModal = (props: Props) => {
   const { userContest } = props;
@@ -30,7 +36,7 @@ const LeaderboardModal = (props: Props) => {
     );
 
     return (
-      <div className={cn(s.item, s.table_group)}>
+      <Box className={cn(s.item, s.table_group)} style={rowStyle}>
         <Box className={s.first_col}>{data.rank}</Box>
         <div className={cn(s.second_col, s.name)}>
           <Flex alignItems={'center'} gap="8px" style={{ overflow: 'hidden' }}>
@@ -59,10 +65,12 @@ const LeaderboardModal = (props: Props) => {
         <div className={s.place_center}>
           {formatCurrency(data.total_gas_used)}
         </div>
-        <div className={s.place_center}>{renderTimeStatus(map?.['1'])}</div>
-        <div className={s.place_center}>{renderTimeStatus(map?.['2'])}</div>
-        <div className={s.place_center}>{renderTimeStatus(map?.['3'])}</div>
-      </div>
+        {PROBLEM_DATASOURCE.map((item) => (
+          <div className={s.place_center} key={`cell-${item.id}`}>
+            {renderTimeStatus(map?.[item.id])}
+          </div>
+        ))}
+      </Box>
     );
   };
 
@@ -130,7 +138,7 @@ const LeaderboardModal = (props: Props) => {
 
   const renderHeader = () => {
     return (
-      <div className={cn(s.header, s.table_group)}>
+      <Box className={cn(s.header, s.table_group)} style={rowStyle}>
         <div className={s.first_col}>
           <span>Rank</span>
         </div>
@@ -143,16 +151,12 @@ const LeaderboardModal = (props: Props) => {
         <div className={s.place_center}>
           <span>Total Gas</span>
         </div>
-        <div className={s.place_center}>
-          <span>Problem 1</span>
-        </div>
-        <div className={s.place_center}>
-          <span>Problem 2</span>
-        </div>
-        <div className={s.place_center}>
-          <span>Problem 3</span>
-        </div>
-      </div>
+        {PROBLEM_DATASOURCE.map((item, index) => (
+          <div className={s.place_center} key={`header-${item.id}`}>
+            <span>Problem {index + 1}</span>
+          </div>
+        ))}
+      </Box>
     );
   };
 
