@@ -1722,14 +1722,17 @@ const BuyPage = () => {
                         nodes={nodes}
                         nodeTypes={{ customBox: CustomNode }}
                         onNodesChange={onNodesChange}
-                        // fitView
+
                         // draggable={false}
-                        defaultViewport={{
-                          x: 10,
-                          y: 20,
-                          zoom: 0.8,
-                        }}
-                        key={nodes.toString()}
+                        // defaultViewport={{
+                        //   x: 0,
+                        //   y: 0,
+                        //   zoom: 1,
+                        // }}
+                        key={nodes.length.toString()}
+                        fitView
+                        fitViewOptions={{ padding: 2 }}
+                        nodeOrigin={[0.5, 0]}
                       />
                       <DroppableMask />
                     </div>
