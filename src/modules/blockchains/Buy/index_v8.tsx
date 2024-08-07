@@ -72,6 +72,7 @@ import OverlayControl from '@/modules/blockchains/Buy/studio/OverlayControl';
 import WorkArea from '@/modules/blockchains/Buy/studio/WorkArea';
 import ErrorMessage from '@/modules/blockchains/Buy/studio/ErrorMessage';
 import VideoEducation from '@/modules/blockchains/Buy/studio/VideoEducation';
+import useHandleDragging from '@/modules/blockchains/Buy/hooks/useHandleDragging';
 // import { Button } from '@chakra-ui/react';
 const BuyPage = () => {
   const router = useRouter();
@@ -172,27 +173,10 @@ const BuyPage = () => {
     return result;
   };
 
-  const handleDragStart = (event: any) => {
-    const { active } = event;
-
-    if (active.data.current.isChain) {
-      const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
-        active.id.split('-');
-
-      if (activeSuffix2 === 'right') {
-        setRightDragging(true);
-      }
-
-      setIdDragging(active.id);
-
-      return;
-    }
-  };
 
 
-  const sensors = useSensors(
-    useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
-  );
+
+
 
   const convertData = (data: IModelCategory[]) => {
     const newData = data?.map((item) => {
@@ -631,11 +615,8 @@ const BuyPage = () => {
     initTemplate(0);
   };
 
-  // const onNodesChange = React.useCallback(
-  //   (changes: NodeChange[]) =>
-  //     setNodes((nds) => applyNodeChanges(changes, nds)),
-  //   [setNodes],
-  // );
+
+  const {handleDragStart, handleDragEnd, sensors} = useHandleDragging();
 
   return (
     <div
@@ -646,50 +627,9 @@ const BuyPage = () => {
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
       >
-        <div className={s.wrapper}>
-          <div className={s.inner}>
-            <div className={s.left}>
-              <div className={s.top_left}>
-                <div
-                  className={`${s.top_left_filter} ${isTabCode && s.active}`}
-                  onClick={() => setTabActive(TABS.CODE)}
-                >
-                  <p>Studio</p>
-                </div>
-                <div
-                  className={`${s.top_left_filter} ${!isTabCode && s.active}`}
-                  onClick={() => setTabActive(TABS.EXPLORE)}
-                >
-                  <p>Rollups</p>
-                </div>
-              </div>
 
-              {isTabCode && (
-                <div className={s.left_box}>
-                  <div className={s.left_box_inner}>
-                    <div className={s.left_box_inner_sidebar}>
-                      <SidebarV2 items={data} />
-                    </div>
-                    <StudioControls />
-                  </div>
-                </div>
-              )}
-            </div>
-            {isTabCode && (
-              <>
-                <OverlayControl />
-                <DragMask />
-                <WorkArea />
-              </>
-            )}
-          </div>
-          {!isTabCode && <ExplorePage cloneItemCallback={cloneItemCallback} />}
-        </div>
       </DndContext>
-      {isTabCode && (<>
-        <VideoEducation />
-        <ErrorMessage />
-      </>)}
+
     </div>
   );
 };

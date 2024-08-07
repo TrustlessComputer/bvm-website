@@ -7,7 +7,7 @@ import {
   draggedIds2DSignal,
   idBlockErrorSignal,
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
-import { cloneDeep, DragUtil, FormDappUtil, hasValue } from '@/modules/blockchains/Buy/utils';
+import { cloneDeep, DragUtil, FormDappUtil, hasValue, MouseSensor } from '@/modules/blockchains/Buy/utils';
 import { showValidateError } from '@components/toast';
 import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
 import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
@@ -19,6 +19,7 @@ import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
 import React from 'react';
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
+import { useSensor, useSensors } from '@dnd-kit/core';
 
 export default function useHandleDragging(){
   const mousePositionRef = React.useRef({ x: 0, y: 0 });
@@ -799,7 +800,29 @@ export default function useHandleDragging(){
     }
   }
 
+  const handleDragStart = (event: any) => {
+    const { active } = event;
+
+    if (active.data.current.isChain) {
+      const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
+        active.id.split('-');
+
+      if (activeSuffix2 === 'right') {
+        setRightDragging(true);
+      }
+
+      setIdDragging(active.id);
+
+      return;
+    }
+  };
+  const sensors = useSensors(
+    useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
+  );
+
   return {
-    handleDragEnd
+    handleDragStart,
+    handleDragEnd,
+    sensors
   }
 }
