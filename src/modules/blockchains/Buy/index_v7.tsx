@@ -16,7 +16,13 @@ import SidebarV2 from './components3/SideBarV2';
 import useOrderFormStoreV3, { useCaptureStore } from './stores/index_v3';
 import useDragMask from './stores/useDragMask';
 import s from './styles_v6.module.scss';
-import { cloneDeep, DragUtil, FormDappUtil, hasValue, MouseSensor } from './utils';
+import {
+  cloneDeep,
+  DragUtil,
+  FormDappUtil,
+  hasValue,
+  MouseSensor,
+} from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import ErrorModal from './components3/ErrorModal';
@@ -1680,7 +1686,6 @@ const BuyPage = () => {
                 <DragMask />
 
                 {/* ------------- RIGHT ------------- */}
-                {/* <ReactFlowProvider> */}
                 <div className={s.right}>
                   <div className={s.top_right}>
                     <AddBoxButton
@@ -1739,36 +1744,8 @@ const BuyPage = () => {
                       <DroppableMask />
                     </div>
 
-                    {/*{!isCapture && (*/}
-                    {/*  <div className={s.cta_wrapper}>*/}
-                    {/*    <button*/}
-                    {/*      className={`${s.reset} ${s.gray}`}*/}
-                    {/*      onClick={() => setIsShowModal(true)}*/}
-                    {/*    >*/}
-                    {/*      <div>*/}
-                    {/*        RESET*/}
-                    {/*        <ImagePlaceholder*/}
-                    {/*          src={'/icons/undo.svg'}*/}
-                    {/*          alt={'undo'}*/}
-                    {/*          width={20}*/}
-                    {/*          height={20}*/}
-                    {/*        />*/}
-                    {/*      </div>*/}
-                    {/*    </button>*/}
-                    {/*    <Capture />*/}
-                    {/*  </div>*/}
-                    {/*)}    */}
                     {!isCapture && (
                       <div className={`${s.resetButton}`}>
-                        {/*<Button element="button" type="button">*/}
-                        {/*  EXPORT{' '}*/}
-                        {/*  <Image*/}
-                        {/*    src="/icons/ic_image_2.svg"*/}
-                        {/*    alt="ic_image_2"*/}
-                        {/*    width={20}*/}
-                        {/*    height={20}*/}
-                        {/*  />*/}
-                        {/*</Button>*/}
                         <Capture />
                         <Button
                           element="button"
@@ -1787,7 +1764,6 @@ const BuyPage = () => {
                     )}
                   </div>
                 </div>
-                {/* </ReactFlowProvider> */}
               </>
             )}
           </div>

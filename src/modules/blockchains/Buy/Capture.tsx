@@ -126,6 +126,7 @@ https://bvm.network/studio/${url}`;
   return (
     <div className={s.wrapper_btn_top}>
       <div className={s.reset2} onClick={() => download()}>
+        <p>EXPORT</p>
         <div>
           <Image
             src={'/icons/ic_image_2.svg'}
@@ -134,7 +135,6 @@ https://bvm.network/studio/${url}`;
             height={20}
           />
         </div>
-        <p>EXPORT</p>
       </div>
       <div className={s.reset2} onClick={exportAsImage}>
         <p>SHARE</p>
