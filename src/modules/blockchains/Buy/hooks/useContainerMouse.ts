@@ -1,14 +1,11 @@
 import React from 'react';
 
-import { computeVectorMagnitude } from '@/utils/mathUtils';
-
 type Props = {
   ref: React.RefObject<any | null>;
   handleOnTick: (
     contentRect: DOMRect,
     mousePosition: { x: number; y: number },
     previousMousePosition: { x: number; y: number },
-    mouseVelocity: number,
   ) => void;
 };
 
@@ -32,17 +29,12 @@ const useContainerMouse = ({ ref, handleOnTick }: Props) => {
       mousePositionRef.current.x - previousMousePositionRef.current.x;
     const deltaMouseY =
       mousePositionRef.current.y - previousMousePositionRef.current.y;
-    const mouseVelocity = Math.min(
-      computeVectorMagnitude(deltaMouseX, deltaMouseY) * 4,
-      150,
-    );
 
     const contentRect = document.documentElement.getBoundingClientRect();
     handleOnTick(
       contentRect,
       mousePositionRef.current,
       previousMousePositionRef.current,
-      mouseVelocity,
     );
 
     previousMousePositionRef.current = {
