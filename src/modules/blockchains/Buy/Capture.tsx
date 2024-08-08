@@ -18,7 +18,7 @@ const imageHeight = 768;
 
 const Capture = () => {
   const { setIsCapture } = useCaptureStore();
-  // const { getNodes } = useReactFlow();
+  const { getNodes } = useReactFlow();
   const handleClickShareTwitter = (url: string) => {
     try {
       // const imgEncode = encodeBase64(url);
@@ -40,6 +40,7 @@ https://bvm.network/studio/${url}`;
   };
 
   const exportBase64 = async (): Promise<string> => {
+    //
     // const nodesBounds = getNodesBounds(getNodes());
     // const viewport = getViewportForBounds(
     //   nodesBounds,
@@ -47,11 +48,17 @@ https://bvm.network/studio/${url}`;
     //   imageHeight,
     //   0.5,
     //   2,
-    //   5
+    //   2
     // );
 
     const canvasDom = document.querySelector('#viewport') as HTMLElement;
-    const canvas = await html2canvas(canvasDom).then((res) => {
+    const canvas = await html2canvas(canvasDom, {
+      // width: 1920,
+      // height: 1080,
+      removeContainer: false,
+      x: 0,
+      y: 0,
+    }).then((res) => {
       return res;
     });
     return canvas.toDataURL('image/png', 1.0);
@@ -60,19 +67,21 @@ https://bvm.network/studio/${url}`;
     //   backgroundColor: '#fff',
     //   width: imageWidth,
     //   height: imageHeight,
-    //   quality: 100,
+    //   quality: 1,
     //   style: {
     //     width: `${imageWidth}`,
     //     height: `${imageHeight}`,
     //     transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
     //   },
-    // }).then(res => res)
+    // }).then(res => {
+    //   // setIsCapture(false);
+    //   return res;
+    // })
   };
 
   const exportAsImage = async () => {
     setTimeout(async () => {
       const image = await exportBase64();
-      console.log('image', image);
 
       if (!image) return;
 
@@ -100,6 +109,7 @@ https://bvm.network/studio/${url}`;
 
   async function download() {
     setIsCapture(true);
+
     const a = document.createElement('a');
     setTimeout(async () => {
       a.href = await exportBase64();
@@ -120,6 +130,7 @@ https://bvm.network/studio/${url}`;
   return (
     <div className={s.wrapper_btn_top}>
       <div className={s.reset2} onClick={() => download()}>
+        <p>EXPORT</p>
         <div>
           <Image
             src={'/icons/ic_image_2.svg'}
@@ -128,7 +139,6 @@ https://bvm.network/studio/${url}`;
             height={20}
           />
         </div>
-        <p>EXPORT</p>
       </div>
       <div className={s.reset2} onClick={exportAsImage}>
         <p>SHARE</p>

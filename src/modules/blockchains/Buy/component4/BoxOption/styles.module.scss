@@ -1,6 +1,11 @@
 .container {
   padding: 20px;
 
+  &__disable {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
   sup {
     font-size: 12px;
     color: #ff0000;
@@ -10,22 +15,30 @@
   &__header {
     display: flex;
     align-items: center;
-    gap: 4px;
-    font-family: var(--font-JetBrainsMono);
-    font-size: 24px;
-    font-weight: 500;
-    line-height: 1.4166666667;
-    margin-bottom: 16px;
+    gap: 8px;
+    margin-bottom: 4px;
+
+    &__title {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 20px;
+    }
   }
 
   &__body {
     width: 100%;
 
+    &__header {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 24px;
+    }
+
     &__item {
       width: 100%;
 
       &:not(:last-child) {
-        margin-bottom: 10px;
+        margin-bottom: 16px;
       }
 
       &__inner {
@@ -33,8 +46,17 @@
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 16px 8px;
       }
+    }
+
+    &__content {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 8px 16px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
     }
   }
 }

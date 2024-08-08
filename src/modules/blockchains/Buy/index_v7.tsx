@@ -4,11 +4,9 @@ import gsap from 'gsap';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import ModalVideo from 'react-modal-video';
-import { EdgeBase, NodeBase, NodeChange } from '@xyflow/system';
 import Image from 'next/image';
 import { getModelCategories, getTemplates } from '@/services/customize-model';
 import BoxOptionV3 from './components3/BoxOptionV3';
-import ComputerNameInput from './components3/ComputerNameInput';
 import Draggable from './components3/Draggable';
 import DroppableV2 from './components3/DroppableV2';
 import LaunchButton from './components3/LaunchButton';
@@ -19,6 +17,7 @@ import useOrderFormStoreV3, { useCaptureStore } from './stores/index_v3';
 import useDragMask from './stores/useDragMask';
 import s from './styles_v6.module.scss';
 import {
+  chainKeyToDappKey,
   cloneDeep,
   DragUtil,
   FormDappUtil,
@@ -26,22 +25,19 @@ import {
   MouseSensor,
 } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
-import ImagePlaceholder from '@components/ImagePlaceholder';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import ErrorModal from './components3/ErrorModal';
-// import { mockupOptions } from './Buy.data';
 import Capture from '@/modules/blockchains/Buy/Capture';
 import Label from './components3/Label';
 import { TABS } from './constants';
 import ExplorePage from './Explore';
-import { mockupOptions } from './Buy.data';
-import { FieldModel, IModelCategory } from '@/types/customize-model';
+import { categoriesMockup } from './Buy.data';
 import {
-  applyNodeChanges,
-  ReactFlow,
-  ReactFlowProvider,
-  useNodesState,
-} from '@xyflow/react';
+  FieldModel,
+  IModelCategory,
+  IModelOption,
+} from '@/types/customize-model';
+import { ReactFlow, useNodesState } from '@xyflow/react';
 import CustomNode from './component4/CustomNode';
 import useModelCategoriesStore from './stores/useModelCategoriesStore';
 import useDragStore from './stores/useDragStore';
@@ -55,23 +51,25 @@ import {
   draggedIds2DSignal,
   idBlockErrorSignal,
 } from './signals/useDragSignal';
-import { dappMockupData } from './mockup_3';
+import { accountAbstractionAsADapp, dappMockupData } from './mockup_3';
 import { removeItemAtIndex } from '../dapp/utils';
 import { FieldKeyPrefix } from './contants';
 import { formDappSignal } from './signals/useFormDappsSignal';
 import Droppable from '../dapp/components/Droppable';
 import BoxOption from './component4/BoxOption';
-import RightDroppable from './component4/RightDroppable';
 import DragMask from './component4/DragMask';
 import Button from '../dapp/components/Button';
 import DroppableMask from '@/modules/blockchains/Buy/component4/DroppableMask';
 import { mouseDroppedPositionSignal } from './signals/useMouseDroppedPosition';
 import useScreenMouse from './hooks/useScreenMouse';
-// import { Button } from '@chakra-ui/react';
+import { ACCOUNT_ABSTRACTION_MOCKUP_DATA } from '../detail_v3/account-abstraction_v2/mockupData';
+import useFormDappToFormChain from './hooks/useFormDappToFormChain';
+import useFlowStore from './stores/useFlowStore';
+
 const BuyPage = () => {
   const router = useRouter();
 
-  const [nodes, setNodes, onNodesChange] = useNodesState<any>([]);
+  const { nodes, setNodes, onNodesChange } = useFlowStore();
 
   const {
     parsedCategories: data,
@@ -80,7 +78,6 @@ const BuyPage = () => {
     setCategories: setOriginalData,
   } = useModelCategoriesStore();
   const { draggedFields, setDraggedFields } = useDragStore();
-  const { dapps, setDapps } = useDappsStore();
 
   const [templates, setTemplates] = React.useState<Array<
     IModelCategory[]
@@ -111,18 +108,107 @@ const BuyPage = () => {
   );
   const [isShowVideo, setIsShowVideo] = React.useState<boolean>(true);
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
-  const { isCapture } = useCaptureStore();
+  // const { isCapture } = useCaptureStore();
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { addListeners, removeListeners } = useScreenMouse({
     handleOnTick: tick,
   });
 
   const {
+    dapps,
+    dappMapping,
     baseModuleFieldMapping,
     blockFieldMapping,
     moduleFieldMapping,
     singleFieldMapping,
   } = useDapps();
+
+  const renderChainLego = (
+    item: IModelCategory,
+    option: IModelOption,
+    currentPrice: any,
+    optIdx: number,
+  ) => {
+    // let _price = formatCurrencyV2({
+    //   amount: option.priceBVM || 0,
+    //   decimals: 0,
+    // }).replace('.00', '');
+    // let suffix =
+    //   Math.abs(option.priceBVM) > 0
+    //     ? ` (${_price} BVM)`
+    //     : '';
+
+    let _price = option.priceBVM;
+    let operator = '+';
+    let suffix =
+      Math.abs(_price) > 0
+        ? ` (${formatCurrencyV2({
+            amount: _price,
+            decimals: 0,
+          })} BVM)`
+        : '';
+
+    _price = option.priceBVM - currentPrice;
+    operator = _price > 0 ? '+' : '-';
+    if (item.multiChoice) operator = '';
+    suffix =
+      Math.abs(_price) > 0
+        ? ` (${operator}${formatCurrencyV2({
+            amount: Math.abs(_price),
+            decimals: 0,
+          })} BVM)`
+        : '';
+
+    if (
+      (option.key === field[item.key].value && field[item.key].dragged) ||
+      item.type === 'dropdown'
+    )
+      return null;
+
+    const isDisabled =
+      !!(
+        option.supportLayer &&
+        option.supportLayer !== 'both' &&
+        option.supportLayer !== field['layers']?.value
+      ) ||
+      !!(
+        option.supportNetwork &&
+        option.supportNetwork !== 'both' &&
+        option.supportNetwork !== field['network']?.value
+      ) ||
+      !option.selectable;
+
+    if (item.multiChoice && field[item.key].dragged) {
+      const currentValues = field[item.key].value as any[];
+
+      if (currentValues.includes(option.key)) {
+        return null;
+      }
+    }
+
+    return (
+      <Draggable
+        key={item.key + '-' + option.key}
+        id={item.key + '-' + option.key}
+        useMask
+        disabled={isDisabled}
+        isLabel={true}
+        value={{
+          isChain: true,
+          value: option.key,
+        }}
+        tooltip={option.tooltip}
+      >
+        <LegoV3
+          background={item.color}
+          zIndex={item.options.length - optIdx}
+          disabled={isDisabled}
+        >
+          <Label icon={option.icon} title={option.title + suffix} />
+        </LegoV3>
+      </Draggable>
+    );
+  };
 
   const isTabCode = React.useMemo(() => {
     return tabActive === TABS.CODE;
@@ -334,11 +420,11 @@ const BuyPage = () => {
       dappIndex: -1,
     };
 
-    console.log(
-      '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
-      over,
-      active,
-    );
+    // console.log(
+    //   '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
+    //   over,
+    //   active,
+    // );
 
     if (!over) return;
 
@@ -739,7 +825,7 @@ const BuyPage = () => {
 
       // Case 2.1: Dragged lego is a base block
       if (activeIsABase) {
-        const newNodes = removeItemAtIndex(nodes, activeBaseIndex + 1);
+        let newNodes = removeItemAtIndex(nodes, activeBaseIndex + 1);
         const formDapp = formDappSignal.value;
 
         Object.keys(formDapp).forEach((key) => {
@@ -759,6 +845,22 @@ const BuyPage = () => {
           activeBaseIndex,
         );
         formDappSignal.value = { ...formDapp };
+        draggedDappIndexesSignal.value = removeItemAtIndex(
+          draggedDappIndexesSignal.value,
+          activeBaseIndex,
+        );
+
+        newNodes = newNodes.map((node, index) => {
+          return {
+            ...node,
+            data: {
+              ...node.data,
+              ids: draggedIds2DSignal.value[index],
+              baseIndex: index,
+            },
+          };
+        });
+
         setNodes(newNodes);
 
         return;
@@ -1025,22 +1127,20 @@ const BuyPage = () => {
   };
 
   const fetchData = async () => {
-    // const modelCategories = mockupOptions;
-
-    const dapps = dappMockupData;
     const [categories, templates] = await Promise.all([
       getModelCategories(l2ServiceUserAddress),
       getTemplates(),
     ]);
 
+    // Use mockup data
+    // const sortedCategories = (categoriesMockup || []).sort(
     const sortedCategories = (categories || []).sort(
+      // Use API
       (a, b) => a.order - b.order,
     );
     sortedCategories.forEach((_field) => {
       setField(_field.key, null);
     });
-
-    const sortedDapps = dapps.sort((a, b) => a.order - b.order);
 
     setData(convertData(sortedCategories));
     setOriginalData(sortedCategories);
@@ -1059,7 +1159,6 @@ const BuyPage = () => {
         position: { x: 0, y: 0 },
       },
     ]);
-    setDapps(sortedDapps);
   };
 
   const isAnyOptionNeedContactUs = () => {
@@ -1374,12 +1473,6 @@ const BuyPage = () => {
     initTemplate(0);
   };
 
-  // const onNodesChange = React.useCallback(
-  //   (changes: NodeChange[]) =>
-  //     setNodes((nds) => applyNodeChanges(changes, nds)),
-  //   [setNodes],
-  // );
-
   return (
     <div
       className={`${s.container} ${isTabCode ? '' : s.explorePageContainer}`}
@@ -1419,137 +1512,222 @@ const BuyPage = () => {
                       className={s.left_box_inner_content}
                     >
                       <DroppableV2 id="data">
-                        {data?.map((item, index) => {
-                          if (item.hidden) return null;
+                        {(data || [])
+                          .filter((item) => item.isChain)
+                          .map((item, index) => {
+                            if (item.hidden) return null;
 
-                          const currentPrice =
-                            item.options.find(
-                              (opt) =>
-                                opt.key === field[item.key].value &&
-                                field[item.key].dragged,
-                            )?.priceBVM ?? 0;
+                            const currentPrice =
+                              item.options.find(
+                                (opt) =>
+                                  opt.key === field[item.key].value &&
+                                  field[item.key].dragged,
+                              )?.priceBVM ?? 0;
 
-                          return (
-                            <BoxOptionV3
-                              key={item.key}
-                              disable={item.disable}
-                              label={item.title}
-                              id={item.key}
-                              isRequired={item.required}
-                              active={field[item.key].dragged}
-                              description={{
-                                title: item.title,
-                                content: item.tooltip,
-                              }}
-                            >
-                              {item.options.map((option, optIdx) => {
-                                // let _price = formatCurrencyV2({
-                                //   amount: option.priceBVM || 0,
-                                //   decimals: 0,
-                                // }).replace('.00', '');
-                                // let suffix =
-                                //   Math.abs(option.priceBVM) > 0
-                                //     ? ` (${_price} BVM)`
-                                //     : '';
+                            return (
+                              <BoxOptionV3
+                                key={item.key}
+                                disable={item.disable}
+                                label={item.title}
+                                id={item.key}
+                                isRequired={item.required}
+                                active={field[item.key].dragged}
+                                description={{
+                                  title: item.title,
+                                  content: item.tooltip,
+                                }}
+                              >
+                                {item.options.map((option, optIdx) => {
+                                  // let _price = formatCurrencyV2({
+                                  //   amount: option.priceBVM || 0,
+                                  //   decimals: 0,
+                                  // }).replace('.00', '');
+                                  // let suffix =
+                                  //   Math.abs(option.priceBVM) > 0
+                                  //     ? ` (${_price} BVM)`
+                                  //     : '';
 
-                                let _price = option.priceBVM;
-                                let operator = '+';
-                                let suffix =
-                                  Math.abs(_price) > 0
-                                    ? ` (${formatCurrencyV2({
-                                        amount: _price,
-                                        decimals: 0,
-                                      })} BVM)`
-                                    : '';
+                                  let _price = option.priceBVM;
+                                  let operator = '+';
+                                  let suffix =
+                                    Math.abs(_price) > 0
+                                      ? ` (${formatCurrencyV2({
+                                          amount: _price,
+                                          decimals: 0,
+                                        })} BVM)`
+                                      : '';
 
-                                _price = option.priceBVM - currentPrice;
-                                operator = _price > 0 ? '+' : '-';
-                                if (item.multiChoice) operator = '';
-                                suffix =
-                                  Math.abs(_price) > 0
-                                    ? ` (${operator}${formatCurrencyV2({
-                                        amount: Math.abs(_price),
-                                        decimals: 0,
-                                      })} BVM)`
-                                    : '';
+                                  _price = option.priceBVM - currentPrice;
+                                  operator = _price > 0 ? '+' : '-';
+                                  if (item.multiChoice) operator = '';
+                                  suffix =
+                                    Math.abs(_price) > 0
+                                      ? ` (${operator}${formatCurrencyV2({
+                                          amount: Math.abs(_price),
+                                          decimals: 0,
+                                        })} BVM)`
+                                      : '';
 
-                                if (
-                                  (option.key === field[item.key].value &&
-                                    field[item.key].dragged) ||
-                                  item.type === 'dropdown'
-                                )
-                                  return null;
-
-                                const isDisabled =
-                                  !!(
-                                    option.supportLayer &&
-                                    option.supportLayer !== 'both' &&
-                                    option.supportLayer !==
-                                      field['layers']?.value
-                                  ) ||
-                                  !!(
-                                    option.supportNetwork &&
-                                    option.supportNetwork !== 'both' &&
-                                    option.supportNetwork !==
-                                      field['network']?.value
-                                  ) ||
-                                  !option.selectable;
-
-                                if (
-                                  item.multiChoice &&
-                                  field[item.key].dragged
-                                ) {
-                                  const currentValues = field[item.key]
-                                    .value as any[];
-
-                                  if (currentValues.includes(option.key)) {
+                                  if (
+                                    (option.key === field[item.key].value &&
+                                      field[item.key].dragged) ||
+                                    item.type === 'dropdown'
+                                  )
                                     return null;
-                                  }
-                                }
 
-                                return (
-                                  <Draggable
-                                    key={item.key + '-' + option.key}
-                                    id={item.key + '-' + option.key}
-                                    useMask
-                                    disabled={isDisabled}
-                                    isLabel={true}
-                                    value={{
-                                      isChain: true,
-                                      value: option.key,
-                                    }}
-                                    tooltip={option.tooltip}
-                                  >
-                                    <LegoV3
-                                      background={item.color}
-                                      zIndex={item.options.length - optIdx}
+                                  const isDisabled =
+                                    !!(
+                                      option.supportLayer &&
+                                      option.supportLayer !== 'both' &&
+                                      option.supportLayer !==
+                                        field['layers']?.value
+                                    ) ||
+                                    !!(
+                                      option.supportNetwork &&
+                                      option.supportNetwork !== 'both' &&
+                                      option.supportNetwork !==
+                                        field['network']?.value
+                                    ) ||
+                                    !option.selectable;
+
+                                  if (
+                                    item.multiChoice &&
+                                    field[item.key].dragged
+                                  ) {
+                                    const currentValues = field[item.key]
+                                      .value as any[];
+
+                                    if (currentValues.includes(option.key)) {
+                                      return null;
+                                    }
+                                  }
+
+                                  return (
+                                    <Draggable
+                                      key={item.key + '-' + option.key}
+                                      id={item.key + '-' + option.key}
+                                      useMask
                                       disabled={isDisabled}
+                                      isLabel={true}
+                                      value={{
+                                        isChain: true,
+                                        value: option.key,
+                                      }}
+                                      tooltip={option.tooltip}
                                     >
-                                      <Label
-                                        icon={option.icon}
-                                        title={option.title + suffix}
-                                      />
-                                    </LegoV3>
-                                  </Draggable>
-                                );
-                              })}
-                            </BoxOptionV3>
-                          );
-                        })}
+                                      <LegoV3
+                                        background={item.color}
+                                        zIndex={item.options.length - optIdx}
+                                        disabled={isDisabled}
+                                      >
+                                        <Label
+                                          icon={option.icon}
+                                          title={option.title + suffix}
+                                        />
+                                      </LegoV3>
+                                    </Draggable>
+                                  );
+                                })}
+                              </BoxOptionV3>
+                            );
+                          })}
 
                         {/* <div className={s.hTrigger}></div> */}
                       </DroppableV2>
 
                       <Droppable id="input">
-                        {dapps.map((dapp, index) => {
-                          return (
-                            <BoxOption
-                              thisDapp={dapp}
-                              key={dapp.key}
-                              dappIndex={index}
-                            />
-                          );
-                        })}
+                        {(data || [])
+                          .filter((item) => !item.isChain)
+                          .map((item) => {
+                            // TODO
+                            // Special case, need to check manually
+                            if (item.key === 'wallet') {
+                              const dapp = accountAbstractionAsADapp;
+                              return (
+                                <BoxOption
+                                  info={{
+                                    ...item.options[0],
+                                    disabled:
+                                      item.disable ||
+                                      !item.options[0].selectable,
+                                    title: item.title,
+                                    description: {
+                                      title: item.title,
+                                      content: item.tooltip,
+                                    },
+                                  }}
+                                  thisDapp={dapp}
+                                  key={dapp.key}
+                                  dappIndex={0}
+                                />
+                              );
+                            }
+
+                            if (item.key === 'defi_apps') {
+                              const currentPrice =
+                                item.options.find(
+                                  (opt) =>
+                                    opt.key === field[item.key].value &&
+                                    field[item.key].dragged,
+                                )?.priceBVM ?? 0;
+
+                              return (
+                                <BoxOptionV3
+                                  key={item.key}
+                                  disable={item.disable}
+                                  label={item.title}
+                                  id={item.key}
+                                  isRequired={item.required}
+                                  active={field[item.key].dragged}
+                                  description={{
+                                    title: item.title,
+                                    content: item.tooltip,
+                                  }}
+                                  needCheckIcon={false}
+                                >
+                                  {item.options.map((option, dappIndex) => {
+                                    const dapp =
+                                      dappMapping[
+                                        chainKeyToDappKey(option.key)
+                                      ];
+
+                                    if (!dapp) return null;
+
+                                    return (
+                                      <React.Fragment key={dapp.key}>
+                                        <BoxOption
+                                          info={{
+                                            ...option,
+                                            disabled:
+                                              item.disable ||
+                                              !option.selectable,
+                                            description: {
+                                              title: option.title,
+                                              content: option.tooltip,
+                                            },
+                                          }}
+                                          thisDapp={dapp}
+                                          key={dapp.key}
+                                          dappIndex={dappIndex + 1}
+                                          className={s.dappBoxOption}
+                                        >
+                                          {option.needInstall &&
+                                            renderChainLego(
+                                              item,
+                                              option,
+                                              currentPrice,
+                                              dappIndex,
+                                            )}
+                                        </BoxOption>
+                                      </React.Fragment>
+                                    );
+                                  })}
+                                </BoxOptionV3>
+                              );
+                            }
+
+                            return null;
+                          })}
                       </Droppable>
                     </div>
                   </div>
@@ -1664,14 +1842,9 @@ const BuyPage = () => {
                 <DragMask />
 
                 {/* ------------- RIGHT ------------- */}
-                {/* <ReactFlowProvider> */}
                 <div className={s.right}>
                   <div className={s.top_right}>
-                    <AddBoxButton
-                      nodes={nodes}
-                      setNodes={setNodes}
-                      onNodesChange={onNodesChange}
-                    />
+                    <AddBoxButton />
 
                     <div className={s.right_box_footer}>
                       {!needContactUs && (
@@ -1700,80 +1873,63 @@ const BuyPage = () => {
 
                   <div className={`${s.right_box}`}>
                     <div
-                      className={`${s.right_box_main} ${
-                        isCapture ? s.right_box_main_captured : ''
-                      }`}
-                      // className={`${s.right_box_main}`}
+                      // className={`${s.right_box_main} ${
+                      //   isCapture ? s.right_box_main_captured : ''
+                      // }`}
+                      className={`${s.right_box_main}`}
                       id="viewport"
                     >
                       <ReactFlow
                         nodes={nodes}
                         nodeTypes={{ customBox: CustomNode }}
                         onNodesChange={onNodesChange}
-
-                        // draggable={false}
-                        // defaultViewport={{
-                        //   x: 0,
-                        //   y: 0,
-                        //   zoom: 1,
-                        // }}
+                        defaultViewport={{
+                          x: 10,
+                          y: 20,
+                          zoom: 0.8,
+                        }}
                         key={nodes.length.toString()}
-                        fitView
                         fitViewOptions={{ padding: 2 }}
-                        nodeOrigin={[0.5, 0]}
                       />
                       <DroppableMask />
                     </div>
 
                     {/*{!isCapture && (*/}
-                    {/*  <div className={s.cta_wrapper}>*/}
-                    {/*    <button*/}
-                    {/*      className={`${s.reset} ${s.gray}`}*/}
+                    {/*  <div className={`${s.resetButton}`}>*/}
+                    {/*    <Capture />*/}
+                    {/*    <Button*/}
+                    {/*      element="button"*/}
+                    {/*      type="button"*/}
                     {/*      onClick={() => setIsShowModal(true)}*/}
                     {/*    >*/}
-                    {/*      <div>*/}
-                    {/*        RESET*/}
-                    {/*        <ImagePlaceholder*/}
-                    {/*          src={'/icons/undo.svg'}*/}
-                    {/*          alt={'undo'}*/}
-                    {/*          width={20}*/}
-                    {/*          height={20}*/}
-                    {/*        />*/}
-                    {/*      </div>*/}
-                    {/*    </button>*/}
-                    {/*    <Capture />*/}
+                    {/*      RESET{' '}*/}
+                    {/*      <Image*/}
+                    {/*        src="/icons/undo.svg"*/}
+                    {/*        alt="undo"*/}
+                    {/*        width={20}*/}
+                    {/*        height={20}*/}
+                    {/*      />*/}
+                    {/*    </Button>*/}
                     {/*  </div>*/}
-                    {/*)}    */}
-                    {!isCapture && (
-                      <div className={s.resetButton}>
-                        {/*<Button element="button" type="button">*/}
-                        {/*  EXPORT{' '}*/}
-                        {/*  <Image*/}
-                        {/*    src="/icons/ic_image_2.svg"*/}
-                        {/*    alt="ic_image_2"*/}
-                        {/*    width={20}*/}
-                        {/*    height={20}*/}
-                        {/*  />*/}
-                        {/*</Button>*/}
-                        <Capture />
-                        <Button
-                          element="button"
-                          type="button"
-                          onClick={() => setIsShowModal(true)}
-                        >
-                          RESET{' '}
-                          <Image
-                            src="/icons/undo.svg"
-                            alt="undo"
-                            width={20}
-                            height={20}
-                          />
-                        </Button>
-                      </div>
-                    )}
+                    {/*)}*/}
+                    <div className={`${s.resetButton}`}>
+                      <Capture />
+                      <Button
+                        element="button"
+                        type="button"
+                        onClick={() => setIsShowModal(true)}
+                      >
+                        RESET{' '}
+                        <Image
+                          src="/icons/undo.svg"
+                          alt="undo"
+                          width={20}
+                          height={20}
+                        />
+                      </Button>
+                    </div>
                   </div>
                 </div>
-                {/* </ReactFlowProvider> */}
               </>
             )}
           </div>

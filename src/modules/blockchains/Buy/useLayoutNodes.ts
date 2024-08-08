@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import ELK from 'elkjs/lib/elk.bundled.js';
 import { type Edge, useNodesInitialized, useReactFlow } from '@xyflow/react';
-
-import { type ElkNode } from '../../../Buy/data';
+import { ElkNode } from '@/types/customize-model';
 
 const layoutOptions = {
   'elk.algorithm': 'layered',
@@ -20,7 +19,7 @@ export const getLayoutedNodes = async (nodes: ElkNode[], edges: Edge[]) => {
     id: 'root',
     layoutOptions,
     children: nodes.map((n) => {
-      const targetPorts = n.data.targetHandles.map((t) => ({
+      const targetPorts = n.data.targetHandles.map((t: any) => ({
         id: t.id,
 
         // ⚠️ it's important to let elk know on which side the port is
@@ -30,7 +29,7 @@ export const getLayoutedNodes = async (nodes: ElkNode[], edges: Edge[]) => {
         },
       }));
 
-      const sourcePorts = n.data.sourceHandles.map((s) => ({
+      const sourcePorts = n.data.sourceHandles.map((s: any) => ({
         id: s.id,
         properties: {
           side: 'EAST',

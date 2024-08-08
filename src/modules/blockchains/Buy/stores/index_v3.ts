@@ -21,12 +21,6 @@ type UseOrderFormStoreV3 = {
   setPriceBVM: (price: number) => void;
   setNeedContactUs: (needContactUs: boolean) => void;
 };
-
-type CaptureStore = {
-  isCapture: boolean;
-  setIsCapture: (isCapture: boolean) => void;
-};
-
 const useOrderFormStoreV3 = create<UseOrderFormStoreV3>((set) => ({
   form: {},
 
@@ -62,6 +56,10 @@ const useOrderFormStoreV3 = create<UseOrderFormStoreV3>((set) => ({
     })),
 }));
 
+type CaptureStore = {
+  isCapture: boolean;
+  setIsCapture: (isCapture: boolean) => void;
+};
 export const useCaptureStore = create<CaptureStore>((set) => ({
   isCapture: false,
   setIsCapture: (isCapture) => set({ isCapture }),

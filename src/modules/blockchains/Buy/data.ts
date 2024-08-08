@@ -1,4 +1,3 @@
-import { BlockchainMap } from '@types/customize-model';
 import { HandleType, Position } from '@xyflow/react';
 import { type Node } from '@xyflow/react';
 
@@ -234,8 +233,3 @@ export const FAKE_DATA_MAPPING = [
     position: { x: 0, y: 0 },
   },
 ];
-
-export const blockchainMapMockup: BlockchainMap = {
-  blockchain: null,
-  dapps: [],
-};

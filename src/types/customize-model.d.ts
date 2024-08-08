@@ -28,6 +28,8 @@ interface IModelOption {
   valueStr?: string;
   type?: 'text' | 'number';
   disabled?: boolean;
+  appTemplateUrl: string;
+  needInstall?: boolean;
 }
 
 interface IModelCategory {
@@ -51,6 +53,7 @@ interface IModelCategory {
   hidden?: boolean;
   updatable?: boolean;
   whitelistAddress?: any;
+  isChain: boolean;
 }
 
 interface ITemplate {

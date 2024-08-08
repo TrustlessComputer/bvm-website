@@ -30,17 +30,15 @@ import toast from 'react-hot-toast';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import { IModelCategory, IModelOption } from '@/types/customize-model';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import useOneForm from '../../hooks/useOneForm';
+import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
+import { chainKeyToDappKey } from '../../utils';
 
-const LaunchButton = ({
-  isUpdate,
-}: {
-  isUpdate?: boolean;
-}) => {
+const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
+  const { dappCount } = useFormDappToFormChain();
 
-  const {
-    parsedCategories: data,
-    categories: originalData,
-  } = useModelCategoriesStore();
+  const { parsedCategories: data, categories: originalData } =
+    useModelCategoriesStore();
 
   const { field, priceBVM, priceUSD, needContactUs } = useOrderFormStoreV3();
   const { orderDetail } = useAppSelector(getOrderDetailSelected);
@@ -57,6 +55,7 @@ const LaunchButton = ({
 
   const { getAccountInfor } = useL2Service();
   const { showContactUsModal } = useContactUs();
+  const { retrieveFormsByDappKey } = useOneForm();
 
   const router = useRouter();
   const { computerNameField, chainIdRandom } = useBuy();
@@ -150,7 +149,6 @@ const LaunchButton = ({
 
     const dynamicForm: any[] = [];
     for (const _field of originalData) {
-      // console.log('___data filed', _field.key, field[_field.key]);
       if (!field[_field.key].dragged) continue;
 
       if (_field.multiChoice) {
@@ -173,11 +171,6 @@ const LaunchButton = ({
         ...rest,
         options: [value],
       });
-
-      // console.log('___pushing', {...{
-      //     ...rest,
-      //     options: [value],
-      //   }});
     }
 
     if (needContactUs) {
@@ -191,13 +184,6 @@ const LaunchButton = ({
       return;
     }
 
-    //test comment.
-    // if (!loggedIn) {
-    //   return login();
-    // }
-
-    console.log('____dynamicForm', dynamicForm);
-
     setSubmitting(true);
 
     let isSuccess = false;
@@ -208,12 +194,8 @@ const LaunchButton = ({
       dynamicFormValues: dynamicForm,
     });
 
-    console.log('orderUpdateV2 params: ', params);
-
     try {
-      //
       const result = await orderUpdateV2(params, orderDetail.orderId);
-      console.log('orderUpdateV2 result: ', result);
       if (result) {
         isSuccess = true;
         dispatch(setOrderSelected(result));
@@ -240,6 +222,16 @@ const LaunchButton = ({
   };
 
   const handleOnClick = async () => {
+    // =======================================================================================
+    // Dapp forms
+    // =======================================================================================
+    const issueATokenForms = retrieveFormsByDappKey({
+      dappKey: 'token_generation',
+    });
+
+    // =======================================================================================
+    // Chain form
+    // =======================================================================================
     if (!allFilled) {
       setShowError(true);
     }
@@ -293,6 +285,26 @@ const LaunchButton = ({
         options: [value],
       });
     }
+
+    for (const _field of originalData) {
+      for (const opt of _field.options) {
+        if (dappCount[chainKeyToDappKey(opt.key)]) {
+          const opts = new Array(dappCount[chainKeyToDappKey(opt.key)]).fill(
+            opt,
+          );
+
+          dynamicForm.push({
+            ..._field,
+            options: opts,
+          });
+        }
+      }
+    }
+
+    console.log(
+      '🚀 -> file: index.tsx:260 -> handleOnClick -> dynamicForm ::',
+      dynamicForm,
+    );
 
     allRequiredForKey.forEach((key) => {
       if (!allOptionKeyDragged.includes(key)) {
