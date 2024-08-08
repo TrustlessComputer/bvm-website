@@ -563,7 +563,7 @@ const L2Rollup = () => {
                   src={'/heartbeat/ic-explorer.svg'}
                 />
               )}
-              {/* {data.bitlayer_url && (
+              {data.bitlayer_url && (
                 <Image
                   _hover={{
                     opacity: 0.8,
@@ -574,7 +574,7 @@ const L2Rollup = () => {
                   height="20px"
                   src={'/heartbeat/ic-bitcoinlayer.svg'}
                 />
-              )} */}
+              )}
             </Flex>
           );
         },
@@ -618,7 +618,7 @@ const L2Rollup = () => {
 
   return (
     <Box className={s.container}>
-      <Flex direction={'column'} w="100%" maxW={'1560px'} alignItems={'center'}>
+      <Flex direction={'column'} w="100%" maxW={'1580px'} alignItems={'center'}>
         <Flex alignItems="center" gap="6px" my={'12px'}>
           <Text fontSize={'20px'}>Project Bitcoin Heartbeat</Text>
           <DotLottiePlayer
