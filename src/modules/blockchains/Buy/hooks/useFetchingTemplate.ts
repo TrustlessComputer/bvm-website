@@ -62,9 +62,9 @@ export default function useFetchingTemplate() {
     ]);
 
     // Use mockup data
-    const sortedCategories = (categoriesMockup || []).sort(
-      // Use API
-      // const sortedCategories = (categories || []).sort(
+    // const sortedCategories = (categoriesMockup || []).sort(
+    // Use API
+    const sortedCategories = (categories || []).sort(
       (a, b) => a.order - b.order,
     );
     sortedCategories.forEach((_field) => {
