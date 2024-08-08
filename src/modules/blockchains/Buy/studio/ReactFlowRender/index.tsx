@@ -12,6 +12,7 @@ const ReactFlowRenderer = React.memo(() => {
       nodes={nodes}
       nodeTypes={{ customBox: CustomNode, chainNode: ChainNode }}
       onNodesChange={onNodesChange}
+      zoomOnDoubleClick={false}
       fitView
       fitViewOptions={{ padding: 2 }}
       nodeOrigin={[0.5, 0]}
