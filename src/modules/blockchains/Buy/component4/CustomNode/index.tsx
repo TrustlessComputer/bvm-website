@@ -64,11 +64,40 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
 
   const DappRendering = (): ReactElement => {
     const dappIndex = draggedDappIndexesSignal.value[data.baseIndex];
+
+    if (typeof dappIndex === 'undefined') return <></>;
+
     const thisDapp = dapps[dappIndex];
+
+    if (!thisDapp) return <></>;
 
     switch (thisDapp.key) {
       case 'account_abstraction':
-        return <AA dAppData={thisDapp} />;
+        const mainColor = adjustBrightness(thisDapp.color, -10);
+        return (
+          <Draggable
+            id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
+            // key={data.baseIndex}
+            value={{
+              dappIndex,
+              title: thisDapp.baseBlock.title,
+              icon: thisDapp.baseBlock.icon,
+              fieldKey: thisDapp.baseBlock.key,
+              background: thisDapp.color_border || mainColor,
+            }}
+          >
+            <Droppable
+              id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
+              style={{
+                width: 'max-content',
+                height: 'max-content',
+              }}
+            >
+              <AA dAppData={thisDapp} />
+            </Droppable>
+          </Draggable>
+        );
+
       default:
         return renderDapps();
     }
@@ -76,7 +105,13 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
 
   function renderDapps() {
     const dappIndex = draggedDappIndexesSignal.value[data.baseIndex];
+
+    if (typeof dappIndex === 'undefined') return <></>;
+
     const thisDapp = dapps[dappIndex];
+
+    if (!thisDapp) return <></>;
+
     const mainColor = adjustBrightness(thisDapp.color, -10);
     let blockCount = 0;
 
@@ -121,7 +156,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                   baseModuleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
                   ];
-                const thisModule = thisBaseModule.fields.find(
+                const thisModule = (thisBaseModule?.fields || []).find(
                   (f: FieldModel) => f.value === item.value,
                 );
 

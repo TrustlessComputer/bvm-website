@@ -2,6 +2,7 @@ import React from 'react';
 import useDapps from './useDapps';
 import { formDappSignal } from '../signals/useFormDappsSignal';
 import { draggedDappIndexesSignal } from '../signals/useDragSignal';
+import { cloneDeep } from '../utils';
 
 const useOneForm = () => {
   const { dapps } = useDapps();
@@ -11,8 +12,8 @@ const useOneForm = () => {
       [key: string]: boolean | string | number;
     }[][] = [];
 
-    const oneForm = formDappSignal.value;
-    const dappIndexes = draggedDappIndexesSignal.value;
+    const oneForm = cloneDeep(formDappSignal.value);
+    const dappIndexes = cloneDeep(draggedDappIndexesSignal.value);
     const dappIndexNeedToGet = dapps.findIndex((dapp) => dapp.key === dappKey);
 
     dappIndexes.forEach((dappIndex, index) => {

@@ -391,3 +391,21 @@ export const getAirdropTaskKey = (task: IAirdropTask) => {
 
   return 'whitelist';
 };
+
+export const chainKeyToDappKey = (key: string) => {
+  switch (key) {
+    case 'create_token':
+      return 'token_generation';
+    default:
+      return key;
+  }
+};
+
+export const dappKeyToChainKey = (key: string) => {
+  switch (key) {
+    case 'token_generation':
+      return 'create_token';
+    default:
+      return key;
+  }
+};

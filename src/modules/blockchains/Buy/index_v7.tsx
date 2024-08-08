@@ -17,6 +17,7 @@ import useOrderFormStoreV3, { useCaptureStore } from './stores/index_v3';
 import useDragMask from './stores/useDragMask';
 import s from './styles_v6.module.scss';
 import {
+  chainKeyToDappKey,
   cloneDeep,
   DragUtil,
   FormDappUtil,
@@ -58,11 +59,13 @@ import DroppableMask from '@/modules/blockchains/Buy/component4/DroppableMask';
 import { mouseDroppedPositionSignal } from './signals/useMouseDroppedPosition';
 import useScreenMouse from './hooks/useScreenMouse';
 import { ACCOUNT_ABSTRACTION_MOCKUP_DATA } from '../detail_v3/account-abstraction_v2/mockupData';
+import useFormDappToFormChain from './hooks/useFormDappToFormChain';
+import useFlowStore from './stores/useFlowStore';
 
 const BuyPage = () => {
   const router = useRouter();
 
-  const [nodes, setNodes, onNodesChange] = useNodesState<any>([]);
+  const { nodes, setNodes, onNodesChange } = useFlowStore();
 
   const {
     parsedCategories: data,
@@ -326,11 +329,11 @@ const BuyPage = () => {
       dappIndex: -1,
     };
 
-    console.log(
-      '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
-      over,
-      active,
-    );
+    // console.log(
+    //   '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
+    //   over,
+    //   active,
+    // );
 
     if (!over) return;
 
@@ -731,7 +734,7 @@ const BuyPage = () => {
 
       // Case 2.1: Dragged lego is a base block
       if (activeIsABase) {
-        const newNodes = removeItemAtIndex(nodes, activeBaseIndex + 1);
+        let newNodes = removeItemAtIndex(nodes, activeBaseIndex + 1);
         const formDapp = formDappSignal.value;
 
         Object.keys(formDapp).forEach((key) => {
@@ -751,6 +754,22 @@ const BuyPage = () => {
           activeBaseIndex,
         );
         formDappSignal.value = { ...formDapp };
+        draggedDappIndexesSignal.value = removeItemAtIndex(
+          draggedDappIndexesSignal.value,
+          activeBaseIndex,
+        );
+        console.log('NEW NODES BEFORE :::: ', newNodes);
+        newNodes = newNodes.map((node, index) => {
+          return {
+            ...node,
+            data: {
+              ...node.data,
+              ids: draggedIds2DSignal.value[index],
+              baseIndex: index,
+            },
+          };
+        });
+        console.log('NEW NODES AFTER :::: ', newNodes);
         setNodes(newNodes);
 
         return;
@@ -1023,10 +1042,9 @@ const BuyPage = () => {
     ]);
 
     // Use mockup data
-    // const sortedCategories = (categoriesMockup || []).sort(
-    const sortedCategories = (categories || []).sort(
-      // Use API
+    const sortedCategories = (categoriesMockup || []).sort(
       // const sortedCategories = (categories || []).sort(
+      // Use API
       (a, b) => a.order - b.order,
     );
     sortedCategories.forEach((_field) => {
@@ -1557,9 +1575,7 @@ const BuyPage = () => {
                             if (item.key === 'defi_apps') {
                               return item.options.map((option, dappIndex) => {
                                 const dapp =
-                                  option.key === 'create_token'
-                                    ? dappMapping['token_generation']
-                                    : dappMapping[option.key];
+                                  dappMapping[chainKeyToDappKey(option.key)];
 
                                 if (!dapp) return null;
 
@@ -1700,11 +1716,7 @@ const BuyPage = () => {
                 {/* ------------- RIGHT ------------- */}
                 <div className={s.right}>
                   <div className={s.top_right}>
-                    <AddBoxButton
-                      nodes={nodes}
-                      setNodes={setNodes}
-                      onNodesChange={onNodesChange}
-                    />
+                    <AddBoxButton />
 
                     <div className={s.right_box_footer}>
                       {!needContactUs && (
@@ -1743,16 +1755,13 @@ const BuyPage = () => {
                         nodes={nodes}
                         nodeTypes={{ customBox: CustomNode }}
                         onNodesChange={onNodesChange}
-                        // draggable={false}
                         defaultViewport={{
                           x: 10,
                           y: 20,
                           zoom: 0.8,
                         }}
                         key={nodes.length.toString()}
-                        // fitView
                         fitViewOptions={{ padding: 2 }}
-                        // nodeOrigin={[0.5, 0]}
                       />
                       <DroppableMask />
                     </div>
