@@ -357,6 +357,13 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     try {
       const result = await orderBuyAPI_V3(params);
       if (result) {
+        // if (ID Issuse Token dAPP) {
+        //   If exist Issue Token dAPP have been dragged!
+        //   TODO[Leon] Call API install Issues Token after call API install Chain be succeed! )
+
+        //   const resultIssusToken = await API.[Call Install Issues Token]
+        // }
+
         isSuccess = true;
       }
     } catch (error) {
