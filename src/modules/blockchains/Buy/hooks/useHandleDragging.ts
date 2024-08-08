@@ -627,9 +627,7 @@ export default function useHandleDragging() {
 
       // Case 2.1: Dragged lego is a base block
       if (activeIsABase) {
-        console.log('nodes BEFORE 1', nodes);
         let newNodes = removeItemAtIndex(nodes, activeBaseIndex + 1);
-        console.log('nodes AFTER 1', newNodes);
         const formDapp = formDappSignal.value;
 
         Object.keys(formDapp).forEach((key) => {

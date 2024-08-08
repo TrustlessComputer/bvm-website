@@ -17,9 +17,9 @@ import { chainKeyToDappKey, isChainOptionDisabled } from '../../utils';
 import useDapps from '../../hooks/useDapps';
 
 export default function StudioControls() {
-  const { parsedCategories: data } = useModelCategoriesStore();
+  const { parsedCategories } = useModelCategoriesStore();
   const { field } = useOrderFormStoreV3();
-  const { dappMapping } = useDapps();
+  const { dapps, dappMapping } = useDapps();
 
   const renderChainLego = (
     item: IModelCategory,
@@ -91,7 +91,7 @@ export default function StudioControls() {
   return (
     <div id={'wrapper-data'} className={s.left_box_inner_content}>
       <DroppableV2 id="data">
-        {(data || [])
+        {(parsedCategories || [])
           .filter((item) => item.isChain)
           .map((item, index) => {
             if (item.hidden) return null;
@@ -197,7 +197,7 @@ export default function StudioControls() {
       </DroppableV2>
 
       <Droppable id="input">
-        {(data || [])
+        {(parsedCategories || [])
           .filter((item) => !item.isChain)
           .map((item) => {
             // TODO
@@ -244,8 +244,11 @@ export default function StudioControls() {
                   }}
                   needCheckIcon={false}
                 >
-                  {item.options.map((option, dappIndex) => {
+                  {item.options.map((option, index) => {
                     const dapp = dappMapping[chainKeyToDappKey(option.key)];
+                    const dappIndex = dapps.findIndex(
+                      (d) => d.key === chainKeyToDappKey(option.key),
+                    );
 
                     if (!dapp) return null;
 
@@ -262,16 +265,11 @@ export default function StudioControls() {
                           }}
                           thisDapp={dapp}
                           key={dapp.key}
-                          dappIndex={dappIndex + 1}
+                          dappIndex={dappIndex}
                           className={s.dappBoxOption}
                         >
                           {option.needInstall &&
-                            renderChainLego(
-                              item,
-                              option,
-                              currentPrice,
-                              dappIndex,
-                            )}
+                            renderChainLego(item, option, currentPrice, index)}
                         </BoxOption>
                       </React.Fragment>
                     );
