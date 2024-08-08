@@ -13,10 +13,11 @@ import s from './styles.module.scss';
 
 type Props = {
   option: any;
+  needValidate?: boolean;
 };
 
 const AddressInput = (props: Props) => {
-  const { option } = props;
+  const { option, needValidate = false } = props;
   // const { setChainName } = useOrderFormStore();
   // const { value, errorMessage } = computerNameField;
 
@@ -36,12 +37,14 @@ const AddressInput = (props: Props) => {
 
   const checkTokenContractAddress = (text: string | undefined) => {
     let errorMsg = undefined;
-    if (!text || text.length < 1) {
-      errorMsg = 'Address is required!';
-    } else if (!isAddress(text)) {
-      errorMsg = 'Address is invalid!';
-    } else {
-      errorMsg = undefined;
+    if (needValidate) {
+      if (!text || text.length < 1) {
+        errorMsg = 'Address is required!';
+      } else if (!isAddress(text)) {
+        errorMsg = 'Address is invalid!';
+      } else {
+        errorMsg = undefined;
+      }
     }
     setTokenContractAddressErrMsg(errorMsg);
   };
@@ -52,7 +55,14 @@ const AddressInput = (props: Props) => {
   };
 
   return (
-    <Flex align={'center'} gap={'10px'} py={'4px'} px={'8px'}>
+    <Flex
+      flexDir={'row'}
+      align={'center'}
+      justify={'center'}
+      gap={'10px'}
+      py={'4px'}
+      px={'8px'}
+    >
       {/* <Text
         as="span"
         color={'#fff'}
@@ -65,7 +75,7 @@ const AddressInput = (props: Props) => {
 
       <Tooltip
         hasArrow
-        label={`${option.tooltip || ''}`}
+        label={`The token that users can use to pay for gas fees.`}
         bg={'#fff'}
         color={'#000'}
         p="5px"
@@ -73,34 +83,36 @@ const AddressInput = (props: Props) => {
         <Image src={'/icons/white_tooltip_ic.svg'} w="20px" h="20px" />
       </Tooltip>
 
-      <Input
-        className={s.input}
-        type="text"
-        placeholder="Example: 0xabc...xzy"
-        value={tokenContractAddress}
-        onBlur={(e: any) => {
-          const text = e.target.value;
-          setTokenContractFocused(true);
-          checkTokenContractAddress(text);
-        }}
-        onChange={(e) => {
-          const text = e.target.value;
-          onChangeHandler(text);
-          setTokenContractFocused(true);
-        }}
-      />
-      {isError && (
-        <Text
-          position={'absolute'}
-          right={'-165px'}
-          color={'red'}
-          minW={'max-content'}
-          fontWeight={500}
-          fontSize={['16px']}
-        >
-          {tokenContractAddressErrMsg}
-        </Text>
-      )}
+      <Flex flexDir={'column'} padding="5px" bgColor={'#fff'}>
+        <Input
+          className={s.input}
+          type="text"
+          placeholder="Example: 0xabc...xzy"
+          value={tokenContractAddress}
+          onBlur={(e: any) => {
+            const text = e.target.value;
+            setTokenContractFocused(true);
+            checkTokenContractAddress(text);
+          }}
+          onChange={(e) => {
+            const text = e.target.value;
+            onChangeHandler(text);
+            setTokenContractFocused(true);
+          }}
+        />
+
+        {isError && (
+          <Text
+            position={'relative'}
+            color={'red'}
+            minW={'max-content'}
+            fontWeight={500}
+            fontSize={['14px']}
+          >
+            {tokenContractAddressErrMsg}
+          </Text>
+        )}
+      </Flex>
     </Flex>
   );
 };

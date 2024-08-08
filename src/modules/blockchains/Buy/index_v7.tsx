@@ -101,7 +101,7 @@ const BuyPage = () => {
   );
   const [isShowVideo, setIsShowVideo] = React.useState<boolean>(true);
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
-  const { isCapture } = useCaptureStore();
+  // const { isCapture } = useCaptureStore();
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { addListeners, removeListeners } = useScreenMouse({
     handleOnTick: tick,
@@ -1733,9 +1733,10 @@ const BuyPage = () => {
 
                   <div className={`${s.right_box}`}>
                     <div
-                      className={`${s.right_box_main} ${
-                        isCapture ? s.right_box_main_captured : ''
-                      }`}
+                      // className={`${s.right_box_main} ${
+                      //   isCapture ? s.right_box_main_captured : ''
+                      // }`}
+                      className={`${s.right_box_main}`}
                       id="viewport"
                     >
                       <ReactFlow
@@ -1756,24 +1757,40 @@ const BuyPage = () => {
                       <DroppableMask />
                     </div>
 
-                    {!isCapture && (
-                      <div className={`${s.resetButton}`}>
-                        <Capture />
-                        <Button
-                          element="button"
-                          type="button"
-                          onClick={() => setIsShowModal(true)}
-                        >
-                          RESET{' '}
-                          <Image
-                            src="/icons/undo.svg"
-                            alt="undo"
-                            width={20}
-                            height={20}
-                          />
-                        </Button>
-                      </div>
-                    )}
+                    {/*{!isCapture && (*/}
+                    {/*  <div className={`${s.resetButton}`}>*/}
+                    {/*    <Capture />*/}
+                    {/*    <Button*/}
+                    {/*      element="button"*/}
+                    {/*      type="button"*/}
+                    {/*      onClick={() => setIsShowModal(true)}*/}
+                    {/*    >*/}
+                    {/*      RESET{' '}*/}
+                    {/*      <Image*/}
+                    {/*        src="/icons/undo.svg"*/}
+                    {/*        alt="undo"*/}
+                    {/*        width={20}*/}
+                    {/*        height={20}*/}
+                    {/*      />*/}
+                    {/*    </Button>*/}
+                    {/*  </div>*/}
+                    {/*)}*/}
+                    <div className={`${s.resetButton}`}>
+                      <Capture />
+                      <Button
+                        element="button"
+                        type="button"
+                        onClick={() => setIsShowModal(true)}
+                      >
+                        RESET{' '}
+                        <Image
+                          src="/icons/undo.svg"
+                          alt="undo"
+                          width={20}
+                          height={20}
+                        />
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </>
