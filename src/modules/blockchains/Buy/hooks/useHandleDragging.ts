@@ -29,6 +29,7 @@ import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import { useSensor, useSensors } from '@dnd-kit/core';
 import { FieldModel } from '@/types/customize-model';
 import useFlowStore from '../stores/useFlowStore';
+import useScreenMouse from '@/modules/blockchains/Buy/hooks/useScreenMouse';
 
 export default function useHandleDragging() {
   const mousePositionRef = React.useRef({ x: 0, y: 0 });
@@ -45,6 +46,31 @@ export default function useHandleDragging() {
     moduleFieldMapping,
     singleFieldMapping,
   } = useDapps();
+  // const { addListeners, removeListeners } = useScreenMouse({
+  //   handleOnTick: tick,
+  // });
+
+  // function tick(
+  //   contentRect: DOMRect,
+  //   mousePosition: {
+  //     x: number;
+  //     y: number;
+  //   },
+  //   previousMousePosition: {
+  //     x: number;
+  //     y: number;
+  //   },
+  // ) {
+  //   mousePositionRef.current = mousePosition;
+  // }
+
+  // React.useEffect(() => {
+  //   addListeners();
+  //
+  //   return () => {
+  //     removeListeners;
+  //   };
+  // }, []);
 
   const getAllOptionKeysOfItem = (item: FieldModel) => {
     const result: string[] = [];
@@ -391,9 +417,9 @@ export default function useHandleDragging() {
           ...draggedDappIndexesSignal.value,
           dappIndex,
         ];
-        mouseDroppedPositionSignal.value = {
-          ...mousePositionRef.current,
-        };
+        // mouseDroppedPositionSignal.value = {
+        //   ...mousePositionRef.current,
+        // };
 
         return;
       }
@@ -432,9 +458,9 @@ export default function useHandleDragging() {
           FieldKeyPrefix.BASE_MODULE
         }-${activeOriginalKey}-0-0`;
 
-        mouseDroppedPositionSignal.value = {
-          ...mousePositionRef.current,
-        };
+        // mouseDroppedPositionSignal.value = {
+        //   ...mousePositionRef.current,
+        // };
         formDappSignal.value = {
           ...formDappSignal.value,
           [formKey]: active.data.current?.value,
