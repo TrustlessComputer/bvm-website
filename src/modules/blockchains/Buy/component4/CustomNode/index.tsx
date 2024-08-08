@@ -126,12 +126,12 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
     let blockCount = 0;
 
     const { key: baseBlockKey, ...baseBlock } = thisDapp.baseBlock;
-    const totalDraggedBase = 999;
+    const totalDraggedBase = 9999;
     const totalBaseFields = baseBlock.fields.length;
     const totalBaseModuleBlock = data.ids.filter((id) => {
       return DragUtil.idDraggingIsABaseModule(id.name);
     }).length;
-    const totalDragged = data.ids.length - totalBaseModuleBlock;
+    const totalDragged = 9999 - totalBaseModuleBlock;
     const totalAll = totalBaseFields + totalDragged + totalBaseModuleBlock;
 
     return (
