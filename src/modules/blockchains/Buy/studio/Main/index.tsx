@@ -5,7 +5,7 @@ import StudioControls from '@/modules/blockchains/Buy/studio/Controls';
 import DragMask from '@/modules/blockchains/Buy/component4/DragMask';
 import WorkArea from '@/modules/blockchains/Buy/studio/WorkArea';
 import ExplorePage from '@/modules/blockchains/Buy/Explore';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import VideoEducation from '@/modules/blockchains/Buy/studio/VideoEducation';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
 import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
@@ -15,9 +15,12 @@ import { useTabs } from '@/modules/blockchains/Buy/studio/useTabs';
 import { useErrorMessage } from '@/modules/blockchains/Buy/studio/useErrorMessage';
 import { IModelCategory } from '@/types/customize-model';
 import OverlayControl from '../OverlayControl/Index';
+import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 
 const StudioMain = (): ReactElement => {
   const { setTemplateDataClone } = useTemplate();
+  const { order } = useChainProvider();
+
   const { toggleErrorMessage } = useErrorMessage((state) => state);
   const { tabActive, setTab } = useTabs((state) => state);
   const isTabCode = React.useMemo(() => {
@@ -32,6 +35,15 @@ const StudioMain = (): ReactElement => {
     toggleErrorMessage(false);
     setTemplateDataClone(template || []);
   };
+
+  useEffect(() => {
+    if (order) {
+      setTab(TABS.CODE);
+      setDraggedFields([]);
+      toggleErrorMessage(false);
+      setTemplateDataClone(order.selectedOptions || []);
+    }
+  }, [order]);
 
   return (
     <>

@@ -7,11 +7,12 @@ import BuyPage from '../Buy/index_v8';
 // import s from './styles_v2.module.scss';
 import s from './styles_v6.module.scss';
 import { ReactFlowProvider } from '@xyflow/react';
-import { ChainProvider } from '../detail_v4/provider/ChainProvider';
+import enhance from './enhance';
+import { ChainProvider } from './provider/ChainProvider';
 
-export default () => {
+export const Page = (props: any) => {
   return (
-    <ChainProvider>
+    <ChainProvider orderData={props.chainDetailData}>
       <ReactFlowProvider>
         <Flex
           flex={1}
@@ -30,3 +31,5 @@ export default () => {
     </ChainProvider>
   );
 };
+
+export default enhance(Page);
