@@ -18,15 +18,12 @@ import OverlayControl from '../OverlayControl/Index';
 
 const StudioMain = (): ReactElement => {
   const { setTemplateDataClone } = useTemplate();
-  const { isShowErrorMessage, toggleErrorMessage } = useErrorMessage(
-    (state) => state,
-  );
+  const { toggleErrorMessage } = useErrorMessage((state) => state);
   const { tabActive, setTab } = useTabs((state) => state);
   const isTabCode = React.useMemo(() => {
     return tabActive === TABS.CODE;
   }, [tabActive]);
 
-  const { parsedCategories: data } = useModelCategoriesStore();
   const { setDraggedFields } = useDragStore();
 
   const cloneItemCallback = (template: IModelCategory[]) => {

@@ -675,7 +675,7 @@ const BuyPage = () => {
                 <div className={s.left_box}>
                   <div className={s.left_box_inner}>
                     <div className={s.left_box_inner_sidebar}>
-                      <SidebarV2 items={data} />
+                      <SidebarV2 />
                     </div>
 
                     <div
@@ -956,7 +956,7 @@ const BuyPage = () => {
                         </div>
                       )}
 
-                      <LaunchButton data={data} originalData={originalData} />
+                      <LaunchButton />
                     </div>
                   </div>
 

@@ -914,13 +914,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                       decimals: 0,
                     })}
                   />
-                  {
-                    <LaunchButton
-                      data={data}
-                      originalData={originalData}
-                      isUpdate={true}
-                    />
-                  }
+                  {<LaunchButton isUpdate={true} />}
                 </>
               )
             }
@@ -930,7 +924,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
             <Flex flexDir={'row'} mt={'20px'} gap={'10px'} w={'100%'}>
               {/* First-LeftView */}
               <Flex className={s.thumbLegosContainer}>
-                <SidebarV2 items={data} />
+                <SidebarV2 />
               </Flex>
 
               {/* Seconds-LeftView */}

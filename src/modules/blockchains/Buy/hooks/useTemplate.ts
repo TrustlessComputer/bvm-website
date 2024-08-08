@@ -3,25 +3,21 @@ import React from 'react';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import { useSearchParams } from 'next/navigation';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
-import { IModelCategory } from '@types/customize-model';
+import { IModelCategory } from '@/types/customize-model';
 
-export default function useTemplate(){
-
+export default function useTemplate() {
   const searchParams = useSearchParams();
-  const [currentPackage, setCurrentPackage] = React.useState<number | null>(null);
+  const [currentPackage, setCurrentPackage] = React.useState<number | null>(
+    null,
+  );
   const { draggedFields, setDraggedFields } = useDragStore();
   const [templates, setTemplates] = React.useState<Array<
     IModelCategory[]
   > | null>(null);
 
-  const {
-    parsedCategories: data,
-  } = useModelCategoriesStore();
+  const { parsedCategories: data } = useModelCategoriesStore();
 
-  const {
-    field,
-    setField,
-  } = useOrderFormStoreV3();
+  const { field, setField } = useOrderFormStoreV3();
 
   const setValueOfPackage = (packageId: number | string | null) => {
     if (!packageId?.toString()) return;
@@ -59,7 +55,6 @@ export default function useTemplate(){
       setField(field.key, null, false);
     });
   };
-
 
   const initTemplate = (crPackage?: number) => {
     const packageId =
@@ -115,9 +110,6 @@ export default function useTemplate(){
     templates,
     initTemplate,
     setTemplates,
-    setTemplateDataClone
-  }
-
-
-
+    setTemplateDataClone,
+  };
 }

@@ -16,13 +16,6 @@ import useFlowStore from '../stores/useFlowStore';
 
 export default function useNodeFlowControl() {
   const { nodes, setNodes, onNodesChange } = useFlowStore();
-
-  const store = useStoreApi();
-  const {
-    height,
-    width,
-    transform: [transformX, transformY, zoomLevel],
-  } = store.getState();
   const { screenToFlowPosition } = useReactFlow();
 
   const [draggedIds2D, setDraggedIds2D] = React.useState<
@@ -42,6 +35,15 @@ export default function useNodeFlowControl() {
 
   const { dapps } = useDapps();
 
+  const resetDragState = () => {
+    setDragState({
+      oneD: [-1],
+      twoD: [-1, -1],
+      new: false,
+      remove: false,
+    });
+  };
+
   useSignalEffect(() => {
     if (draggedIds2DSignal.value.length === draggedIds2D.length) {
       for (let i = 0; i < draggedIds2DSignal.value.length; i++) {
@@ -55,6 +57,24 @@ export default function useNodeFlowControl() {
           });
           break;
         }
+
+        // for (let j = 0; j < draggedIds2DSignal.value[i].length; j++) {
+        //   if (
+        //     !isTwoObjectEqual(
+        //       draggedIds2DSignal.value[i][j],
+        //       draggedIds2D[i][j],
+        //     )
+        //   ) {
+        //     setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
+        //     setDragState({
+        //       oneD: [-1],
+        //       twoD: [i, j],
+        //       new: false,
+        //       remove: false,
+        //     });
+        //     break;
+        //   }
+        // }
       }
     } else if (draggedIds2DSignal.value.length > draggedIds2D.length) {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
@@ -64,6 +84,8 @@ export default function useNodeFlowControl() {
         new: true,
         remove: false,
       });
+    } else {
+      setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
     }
   });
 
@@ -85,6 +107,7 @@ export default function useNodeFlowControl() {
       };
 
       setNodes(nodes);
+      resetDragState();
     } else if (!dragState.twoD.every((v) => v === -1)) {
       // handleAddBox();
     }
@@ -93,11 +116,10 @@ export default function useNodeFlowControl() {
   const handleAddBox = () => {
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
-
     const lastNode = nodes[nodes.length - 1];
     const positionTo = {
-      x: (lastNode?.position.x || 0) - (lastNode?.measured?.width || 0),
-      y: (lastNode?.position.y || 0) - (lastNode?.measured?.height || 0),
+      x: lastNode.position.x - (lastNode.measured?.width || 0),
+      y: lastNode.position.y - (lastNode.measured?.height || 0),
     };
 
     setNodes([
@@ -118,6 +140,7 @@ export default function useNodeFlowControl() {
         position: positionTo,
       },
     ]);
+    resetDragState();
   };
 
   return {

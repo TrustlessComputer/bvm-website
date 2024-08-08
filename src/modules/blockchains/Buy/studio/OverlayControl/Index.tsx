@@ -10,64 +10,49 @@ import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCa
 import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
 
 export default function OverlayControl() {
-  const { idDragging, rightDragging } =
-    useDragMask();
-  const {
-    field,
-  } = useOrderFormStoreV3();
+  const { idDragging, rightDragging } = useDragMask();
+  const { field } = useOrderFormStoreV3();
 
-  const {
-    parsedCategories: data,
-  } = useModelCategoriesStore();
+  const { parsedCategories: data } = useModelCategoriesStore();
 
-  return <div>
+  return (
     <DragOverlay>
       {idDragging &&
         data?.map((item, index) => {
           if (!idDragging.startsWith(item.key)) return null;
 
           if (item.multiChoice && rightDragging) {
-            const childrenOptions = item.options.map(
-              (option, opIdx) => {
-                const optionInValues = (
-                  field[item.key].value as string[]
-                ).includes(option.key);
+            const childrenOptions = item.options.map((option, opIdx) => {
+              const optionInValues = (
+                field[item.key].value as string[]
+              ).includes(option.key);
 
-                if (!optionInValues) return null;
+              if (!optionInValues) return null;
 
-                return (
-                  <Draggable
-                    useMask
-                    key={item.key + '-' + option.key}
-                    id={item.key + '-' + option.key}
-                    value={{
-                      isChain: true,
-                      value: option.key,
-                    }}
-                  >
-                    <LegoV3
-                      background={item.color}
-                      label={item.title}
-                      labelInLeft
-                      zIndex={item.options.length - opIdx}
-                    ></LegoV3>
-                  </Draggable>
-                );
-              },
-            );
+              return (
+                <Draggable
+                  useMask
+                  key={item.key + '-' + option.key}
+                  id={item.key + '-' + option.key}
+                  value={{
+                    isChain: true,
+                    value: option.key,
+                  }}
+                >
+                  <LegoV3
+                    background={item.color}
+                    label={item.title}
+                    labelInLeft
+                    zIndex={item.options.length - opIdx}
+                  ></LegoV3>
+                </Draggable>
+              );
+            });
 
             return (
               <Draggable
-                key={
-                  item.key +
-                  '-parent' +
-                  (rightDragging ? '-right' : '')
-                }
-                id={
-                  item.key +
-                  '-parent' +
-                  (rightDragging ? '-right' : '')
-                }
+                key={item.key + '-parent' + (rightDragging ? '-right' : '')}
+                id={item.key + '-parent' + (rightDragging ? '-right' : '')}
                 useMask
                 value={{
                   isChain: true,
@@ -94,16 +79,10 @@ export default function OverlayControl() {
             return (
               <Draggable
                 key={
-                  item.key +
-                  '-' +
-                  option.key +
-                  (rightDragging ? '-right' : '')
+                  item.key + '-' + option.key + (rightDragging ? '-right' : '')
                 }
                 id={
-                  item.key +
-                  '-' +
-                  option.key +
-                  (rightDragging ? '-right' : '')
+                  item.key + '-' + option.key + (rightDragging ? '-right' : '')
                 }
                 useMask
                 value={{
@@ -123,5 +102,5 @@ export default function OverlayControl() {
           });
         })}
     </DragOverlay>
-  </div>;
+  );
 }

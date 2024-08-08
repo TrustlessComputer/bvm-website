@@ -2,8 +2,7 @@ import React from 'react';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
 
-export default function useCalcPrice(){
-
+export default function useCalcPrice() {
   const {
     field,
     setField,
@@ -21,7 +20,6 @@ export default function useCalcPrice(){
     categories: originalData,
     setCategories: setOriginalData,
   } = useModelCategoriesStore();
-
 
   const isAnyOptionNeedContactUs = () => {
     if (!originalData) return false;

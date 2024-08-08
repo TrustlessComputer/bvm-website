@@ -2,9 +2,8 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
 
-export default function useFixScrollOverDrag(){
-  const { idDragging, setIdDragging, rightDragging, setRightDragging } =
-    useDragMask();
+export default function useFixScrollOverDrag() {
+  const { idDragging } = useDragMask();
   const refTime = useRef<NodeJS.Timeout>();
 
   useEffect(() => {

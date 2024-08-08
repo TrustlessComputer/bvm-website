@@ -49,7 +49,7 @@ const BoxOptionV3 = ({
 
   return (
     <React.Fragment>
-      <DroppableV2
+      <div
         id={id}
         className={`${s.boxItem} ${active && s.activeBox} ${first && s.first} ${
           disable && s.disable
@@ -101,7 +101,7 @@ const BoxOptionV3 = ({
         </div>
 
         <div className={s.options}>{children}</div>
-      </DroppableV2>
+      </div>
 
       {description?.title && (
         <DescriptionModal

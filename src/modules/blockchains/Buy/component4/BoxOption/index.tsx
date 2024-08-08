@@ -8,7 +8,10 @@ import { DappModel, IModelOption } from '@/types/customize-model';
 import Lego from '../Lego';
 import Draggable from '../Draggable';
 import { FieldKeyPrefix } from '../../contants';
-import { draggedIds2DSignal } from '../../signals/useDragSignal';
+import {
+  draggedDappIndexesSignal,
+  draggedIds2DSignal,
+} from '../../signals/useDragSignal';
 import DescriptionModal from '../../components/DescriptionModal/DescriptionModal';
 
 import styles from './styles.module.scss';
@@ -48,8 +51,9 @@ const BoxOption = ({
 
     const draggedIds2D = draggedIds2DSignal.value;
     const canPlaceMoreBase =
-      Number(thisDapp.baseBlock.placableAmount) > draggedIds2D.length ||
-      thisDapp.baseBlock.placableAmount === -1;
+      Number(thisDapp.baseBlock.placableAmount) >
+        draggedDappIndexesSignal.value.filter((index) => index === dappIndex)
+          .length || thisDapp.baseBlock.placableAmount === -1;
     // const canPlaceMoreBase = draggedIds2D.length === 0;
 
     setDisableBaseBlock(!canPlaceMoreBase);

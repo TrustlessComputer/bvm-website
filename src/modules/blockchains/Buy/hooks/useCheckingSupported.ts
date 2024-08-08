@@ -3,15 +3,9 @@ import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCa
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 
 export default function useCheckingSupported() {
-  const {
-    parsedCategories: data,
-  } = useModelCategoriesStore();
+  const { parsedCategories: data } = useModelCategoriesStore();
 
-  const {
-    field,
-    setField,
-  } = useOrderFormStoreV3();
-
+  const { field, setField } = useOrderFormStoreV3();
 
   React.useEffect(() => {
     data?.forEach((item) => {

@@ -27,28 +27,17 @@ import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCa
 import React from 'react';
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import { useSensor, useSensors } from '@dnd-kit/core';
+import { FieldModel } from '@/types/customize-model';
+import useFlowStore from '../stores/useFlowStore';
 
 export default function useHandleDragging() {
+  const { nodes, setNodes, onNodesChange } = useFlowStore();
+
   const mousePositionRef = React.useRef({ x: 0, y: 0 });
-  const { idDragging, setIdDragging, rightDragging, setRightDragging } =
-    useDragMask();
+  const { setIdDragging, rightDragging, setRightDragging } = useDragMask();
   const { draggedFields, setDraggedFields } = useDragStore();
-  const {
-    field,
-    setField,
-    priceBVM,
-    priceUSD,
-    setPriceBVM,
-    setPriceUSD,
-    setNeedContactUs,
-    needContactUs,
-  } = useOrderFormStoreV3();
-  const {
-    parsedCategories: data,
-    setParsedCategories: setData,
-    categories: originalData,
-    setCategories: setOriginalData,
-  } = useModelCategoriesStore();
+  const { field, setField } = useOrderFormStoreV3();
+  const { parsedCategories: data } = useModelCategoriesStore();
 
   const {
     dapps,
@@ -58,7 +47,25 @@ export default function useHandleDragging() {
     singleFieldMapping,
   } = useDapps();
 
-  const handleDragEnd = (event: any) => {
+  const getAllOptionKeysOfItem = (item: FieldModel) => {
+    const result: string[] = [];
+
+    const loop = (options: FieldModel[]) => {
+      for (const option of options) {
+        if (option.type !== '') result.push(option.key);
+
+        if (option.options.length > 0) {
+          loop(option.options);
+        }
+      }
+    };
+
+    loop(item.options);
+
+    return result;
+  };
+
+  function handleDragEnd(event: any) {
     if (event.active.data.current.isChain) {
       setIdDragging('');
       setRightDragging(false);
@@ -127,9 +134,9 @@ export default function useHandleDragging() {
             duration: 3000,
             position: 'bottom-center',
           });
-          // setTimeout(() => {
-          //   setShowShadow('');
-          // }, 500);
+          setTimeout(() => {
+            // setShowShadow('');
+          }, 500);
           return;
         }
 
@@ -224,12 +231,16 @@ export default function useHandleDragging() {
     let draggedIds2D = cloneDeep(draggedIds2DSignal.value);
     const noBaseBlockInOutput = draggedIds2D.length === 0;
     const canPlaceMoreBase =
-      Number(thisDapp.baseBlock.placableAmount) > draggedIds2D.length ||
-      thisDapp.baseBlock.placableAmount === -1;
+      Number(thisDapp.baseBlock.placableAmount) >
+        draggedDappIndexesSignal.value.filter((index) => index === dappIndex)
+          .length || thisDapp.baseBlock.placableAmount === -1;
+    // const canPlaceMoreBase =
+    //   Number(thisDapp.baseBlock.placableAmount) > draggedIds2D.length ||
+    //   thisDapp.baseBlock.placableAmount === -1;
     // const canPlaceMoreBase = draggedIds2D.length === 0;
 
     const overIsInput = over.id === 'input';
-    const overIsOutput = over.id === 'output';
+    const overIsOutput = over.id === 'output' || over.id === 'data-droppable';
     const overIsABase = DragUtil.idDraggingIsABase(overId);
     const overBaseIndex = Number(DragUtil.getBaseIndex(overId));
     const overIsABlock = DragUtil.idDraggingIsABlock(overId);
@@ -613,7 +624,9 @@ export default function useHandleDragging() {
 
       // Case 2.1: Dragged lego is a base block
       if (activeIsABase) {
-        const newNodes = removeItemAtIndex(nodes, activeBaseIndex + 1);
+        console.log('nodes BEFORE 1', nodes);
+        let newNodes = removeItemAtIndex(nodes, activeBaseIndex + 1);
+        console.log('nodes AFTER 1', newNodes);
         const formDapp = formDappSignal.value;
 
         Object.keys(formDapp).forEach((key) => {
@@ -633,6 +646,26 @@ export default function useHandleDragging() {
           activeBaseIndex,
         );
         formDappSignal.value = { ...formDapp };
+        draggedDappIndexesSignal.value = removeItemAtIndex(
+          draggedDappIndexesSignal.value,
+          activeBaseIndex,
+        );
+
+        console.log('nodes BEFORE 2', nodes);
+        newNodes = newNodes.map((node, index) => {
+          if (node.data.isChain) return node;
+
+          return {
+            ...node,
+            data: {
+              ...node.data,
+              ids: draggedIds2DSignal.value[index - 1],
+              baseIndex: index - 1,
+            },
+          };
+        });
+        console.log('nodes AFTER 2', newNodes);
+
         setNodes(newNodes);
 
         return;
@@ -805,7 +838,7 @@ export default function useHandleDragging() {
 
       return;
     }
-  };
+  }
 
   const handleDragStart = (event: any) => {
     const { active } = event;
