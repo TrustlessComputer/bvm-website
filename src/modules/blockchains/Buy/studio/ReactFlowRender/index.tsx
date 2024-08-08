@@ -3,7 +3,7 @@ import { ReactFlow, useNodesState } from '@xyflow/react';
 import React from 'react';
 import useFlowStore from '../../stores/useFlowStore';
 import ChainNode from '../../component4/CustomNode/ChainNode';
-
+import s from './styles.module.scss'
 const ReactFlowRenderer = React.memo(() => {
   const { nodes, setNodes, onNodesChange } = useFlowStore();
 
@@ -16,6 +16,7 @@ const ReactFlowRenderer = React.memo(() => {
       fitView
       fitViewOptions={{ padding: 2 }}
       nodeOrigin={[0.5, 0]}
+      className={s.reactFlow}
     />
   );
 });
