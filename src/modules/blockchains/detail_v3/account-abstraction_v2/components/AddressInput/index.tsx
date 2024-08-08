@@ -55,14 +55,7 @@ const AddressInput = (props: Props) => {
   };
 
   return (
-    <Flex
-      flexDir={'row'}
-      align={'center'}
-      justify={'center'}
-      gap={'10px'}
-      py={'4px'}
-      px={'8px'}
-    >
+    <Flex flexDir={'row'} align={'center'} justify={'center'} gap={'10px'}>
       {/* <Text
         as="span"
         color={'#fff'}
@@ -83,7 +76,11 @@ const AddressInput = (props: Props) => {
         <Image src={'/icons/white_tooltip_ic.svg'} w="20px" h="20px" />
       </Tooltip>
 
-      <Flex flexDir={'column'} padding="5px" bgColor={'#fff'}>
+      <Flex
+        flexDir={'column'}
+        padding={needValidate ? '5px' : '0px'}
+        bgColor={needValidate ? '#fff' : 'transparent'}
+      >
         <Input
           className={s.input}
           type="text"
