@@ -49,5 +49,14 @@
         gap: 16px 8px;
       }
     }
+
+    &__content {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 8px 16px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
   }
 }

@@ -22,9 +22,17 @@ type Props = {
   };
   thisDapp: DappModel;
   dappIndex: number;
+  className?: string;
+  children?: React.ReactNode;
 };
 
-const BoxOption = ({ info, thisDapp, dappIndex }: Props) => {
+const BoxOption = ({
+  info,
+  thisDapp,
+  dappIndex,
+  className = '',
+  children,
+}: Props) => {
   const descriptionRef = React.useRef<HTMLDivElement>(null);
 
   const [isShowModal, setIsShowModal] = React.useState(false);
@@ -60,9 +68,13 @@ const BoxOption = ({ info, thisDapp, dappIndex }: Props) => {
   return (
     <React.Fragment>
       <div
-        className={cn(styles.container, {
-          [styles.container__disable]: info.disabled,
-        })}
+        className={cn(
+          styles.container,
+          {
+            [styles.container__disable]: info.disabled,
+          },
+          className,
+        )}
       >
         <div className={styles.container__header}>
           <h4 className={styles.container__header__title}>{info.title}</h4>
@@ -88,6 +100,10 @@ const BoxOption = ({ info, thisDapp, dappIndex }: Props) => {
         </div>
 
         <div className={styles.container__body}>
+          {children && (
+            <div className={styles.container__body__content}>{children}</div>
+          )}
+
           {thisDapp?.sections?.map((section) => {
             const totalBlocks = (thisDapp.blockFields || []).filter(
               (f) => f.section === section.key,

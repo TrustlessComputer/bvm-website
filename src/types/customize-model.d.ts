@@ -30,6 +30,7 @@ interface IModelOption {
   type?: 'text' | 'number';
   disabled?: boolean;
   appTemplateUrl: string;
+  needInstall?: boolean;
 }
 
 interface IModelCategory {

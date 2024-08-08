@@ -589,3 +589,12 @@
   align-items: flex-end;
   bottom: 1%;
 }
+
+.dappBoxOption {
+  margin-left: -20px;
+  margin-top: -15px;
+
+  &:first-child {
+    margin-top: -10px;
+  }
+}

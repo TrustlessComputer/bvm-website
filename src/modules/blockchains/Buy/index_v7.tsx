@@ -32,7 +32,11 @@ import Label from './components3/Label';
 import { TABS } from './constants';
 import ExplorePage from './Explore';
 import { categoriesMockup } from './Buy.data';
-import { FieldModel, IModelCategory } from '@/types/customize-model';
+import {
+  FieldModel,
+  IModelCategory,
+  IModelOption,
+} from '@/types/customize-model';
 import { ReactFlow, useNodesState } from '@xyflow/react';
 import CustomNode from './component4/CustomNode';
 import useModelCategoriesStore from './stores/useModelCategoriesStore';
@@ -118,6 +122,93 @@ const BuyPage = () => {
     moduleFieldMapping,
     singleFieldMapping,
   } = useDapps();
+
+  const renderChainLego = (
+    item: IModelCategory,
+    option: IModelOption,
+    currentPrice: any,
+    optIdx: number,
+  ) => {
+    // let _price = formatCurrencyV2({
+    //   amount: option.priceBVM || 0,
+    //   decimals: 0,
+    // }).replace('.00', '');
+    // let suffix =
+    //   Math.abs(option.priceBVM) > 0
+    //     ? ` (${_price} BVM)`
+    //     : '';
+
+    let _price = option.priceBVM;
+    let operator = '+';
+    let suffix =
+      Math.abs(_price) > 0
+        ? ` (${formatCurrencyV2({
+            amount: _price,
+            decimals: 0,
+          })} BVM)`
+        : '';
+
+    _price = option.priceBVM - currentPrice;
+    operator = _price > 0 ? '+' : '-';
+    if (item.multiChoice) operator = '';
+    suffix =
+      Math.abs(_price) > 0
+        ? ` (${operator}${formatCurrencyV2({
+            amount: Math.abs(_price),
+            decimals: 0,
+          })} BVM)`
+        : '';
+
+    if (
+      (option.key === field[item.key].value && field[item.key].dragged) ||
+      item.type === 'dropdown'
+    )
+      return null;
+
+    const isDisabled =
+      !!(
+        option.supportLayer &&
+        option.supportLayer !== 'both' &&
+        option.supportLayer !== field['layers']?.value
+      ) ||
+      !!(
+        option.supportNetwork &&
+        option.supportNetwork !== 'both' &&
+        option.supportNetwork !== field['network']?.value
+      ) ||
+      !option.selectable;
+
+    if (item.multiChoice && field[item.key].dragged) {
+      const currentValues = field[item.key].value as any[];
+
+      if (currentValues.includes(option.key)) {
+        return null;
+      }
+    }
+
+    return (
+      <Draggable
+        key={item.key + '-' + option.key}
+        id={item.key + '-' + option.key}
+        useMask
+        disabled={isDisabled}
+        isLabel={true}
+        value={{
+          isChain: true,
+          value: option.key,
+        }}
+        tooltip={option.tooltip}
+      >
+        <LegoV3
+          background={item.color}
+          zIndex={item.options.length - optIdx}
+          disabled={isDisabled}
+        >
+          <Label icon={option.icon} title={option.title + suffix} />
+        </LegoV3>
+      </Draggable>
+    );
+  };
 
   const isTabCode = React.useMemo(() => {
     return tabActive === TABS.CODE;
@@ -1573,29 +1664,66 @@ const BuyPage = () => {
                             }
 
                             if (item.key === 'defi_apps') {
-                              return item.options.map((option, dappIndex) => {
-                                const dapp =
-                                  dappMapping[chainKeyToDappKey(option.key)];
+                              const currentPrice =
+                                item.options.find(
+                                  (opt) =>
+                                    opt.key === field[item.key].value &&
+                                    field[item.key].dragged,
+                                )?.priceBVM ?? 0;
 
-                                if (!dapp) return null;
+                              return (
+                                <BoxOptionV3
+                                  key={item.key}
+                                  disable={item.disable}
+                                  label={item.title}
+                                  id={item.key}
+                                  isRequired={item.required}
+                                  active={field[item.key].dragged}
+                                  description={{
+                                    title: item.title,
+                                    content: item.tooltip,
+                                  }}
+                                  needCheckIcon={false}
+                                >
+                                  {item.options.map((option, dappIndex) => {
+                                    const dapp =
+                                      dappMapping[
+                                        chainKeyToDappKey(option.key)
+                                      ];
 
-                                return (
-                                  <BoxOption
-                                    info={{
-                                      ...option,
-                                      disabled:
-                                        item.disable || !option.selectable,
-                                      description: {
-                                        title: option.title,
-                                        content: option.tooltip,
-                                      },
-                                    }}
-                                    thisDapp={dapp}
-                                    key={dapp.key}
-                                    dappIndex={dappIndex + 1}
-                                  />
-                                );
-                              });
+                                    if (!dapp) return null;
+
+                                    return (
+                                      <React.Fragment key={dapp.key}>
+                                        <BoxOption
+                                          info={{
+                                            ...option,
+                                            disabled:
+                                              item.disable ||
+                                              !option.selectable,
+                                            description: {
+                                              title: option.title,
+                                              content: option.tooltip,
+                                            },
+                                          }}
+                                          thisDapp={dapp}
+                                          key={dapp.key}
+                                          dappIndex={dappIndex + 1}
+                                          className={s.dappBoxOption}
+                                        >
+                                          {option.needInstall &&
+                                            renderChainLego(
+                                              item,
+                                              option,
+                                              currentPrice,
+                                              dappIndex,
+                                            )}
+                                        </BoxOption>
+                                      </React.Fragment>
+                                    );
+                                  })}
+                                </BoxOptionV3>
+                              );
                             }
 
                             return null;
