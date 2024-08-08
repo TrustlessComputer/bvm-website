@@ -668,7 +668,12 @@ const L2Rollup = () => {
             fontWeight={'500'}
             color={'#FA4E0E'}
             cursor={'pointer'}
-            onClick={showContactUsModal}
+            onClick={() =>
+              showContactUsModal({
+                title: 'Contact Us',
+                description: `Have questions or need assistance? We're here to help! Please fill out the form below, and we will get back to you shortly.`,
+              })
+            }
             _hover={{
               opacity: 0.8,
             }}
