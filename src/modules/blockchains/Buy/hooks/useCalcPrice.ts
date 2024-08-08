@@ -1,7 +1,7 @@
 import React from 'react';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
-import { isChainOptionDisabled } from '../utils';
+import { isChainOptionDisabled, shouldCalcPrice } from '../utils';
 
 export default function useCalcPrice() {
   const { field, setPriceBVM, setPriceUSD, setNeedContactUs } =
@@ -41,13 +41,18 @@ export default function useCalcPrice() {
       if (Array.isArray(field[key].value)) {
         const currentOptions = (field[key].value as string[])!.map((value) => {
           const item = parsedCategories?.find((i) => i.key === key);
+
           if (!item) return 0;
+
           const currentOption = item.options.find(
             (option) => option.key === value,
           );
+
           if (!currentOption) return 0;
-          const isDisabled = isChainOptionDisabled(field, item, currentOption);
+
+          const isDisabled = !shouldCalcPrice(field, item, currentOption);
           if (isDisabled) return 0;
+
           return currentOption.priceUSD || 0;
         });
         return acc + currentOptions.reduce((a, b) => a + b, 0);
@@ -55,12 +60,15 @@ export default function useCalcPrice() {
 
       const item = parsedCategories?.find((i) => i.key === key);
       if (!item) return acc;
+
       const currentOption = item.options.find(
         (option) => option.key === field[item.key].value,
       );
       if (!currentOption) return acc;
-      const isDisabled = isChainOptionDisabled(field, item, currentOption);
+
+      const isDisabled = !shouldCalcPrice(field, item, currentOption);
       if (isDisabled) return acc;
+
       return acc + (currentOption?.priceUSD || 0);
     }, 0);
   };
@@ -71,25 +79,32 @@ export default function useCalcPrice() {
         const currentOptions = (field[key].value as string[])!.map((value) => {
           const item = parsedCategories?.find((i) => i.key === key);
           if (!item) return 0;
+
           const currentOption = item.options.find(
             (option) => option.key === value,
           );
           if (!currentOption) return 0;
-          const isDisabled = isChainOptionDisabled(field, item, currentOption);
+
+          const isDisabled = !shouldCalcPrice(field, item, currentOption);
           if (isDisabled) return 0;
+
           return currentOption.priceBVM || 0;
         });
+
         return acc + currentOptions.reduce((a, b) => a + b, 0);
       }
 
       const item = parsedCategories?.find((i) => i.key === key);
       if (!item) return acc;
+
       const currentOption = item.options.find(
         (option) => option.key === field[item.key].value,
       );
       if (!currentOption) return acc;
-      const isDisabled = isChainOptionDisabled(field, item, currentOption);
+
+      const isDisabled = !shouldCalcPrice(field, item, currentOption);
       if (isDisabled) return acc;
+
       return acc + (currentOption?.priceBVM || 0);
     }, 0);
   };
