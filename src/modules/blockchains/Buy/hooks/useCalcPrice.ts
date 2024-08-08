@@ -1,6 +1,7 @@
 import React from 'react';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import { isChainOptionDisabled } from '../utils';
 
 export default function useCalcPrice() {
   const { field, setPriceBVM, setPriceUSD, setNeedContactUs } =
@@ -45,7 +46,7 @@ export default function useCalcPrice() {
             (option) => option.key === value,
           );
           if (!currentOption) return 0;
-          const isDisabled = isOptionDisabled(item, currentOption);
+          const isDisabled = isChainOptionDisabled(field, item, currentOption);
           if (isDisabled) return 0;
           return currentOption.priceUSD || 0;
         });
@@ -58,7 +59,7 @@ export default function useCalcPrice() {
         (option) => option.key === field[item.key].value,
       );
       if (!currentOption) return acc;
-      const isDisabled = isOptionDisabled(item, currentOption);
+      const isDisabled = isChainOptionDisabled(field, item, currentOption);
       if (isDisabled) return acc;
       return acc + (currentOption?.priceUSD || 0);
     }, 0);
@@ -74,7 +75,7 @@ export default function useCalcPrice() {
             (option) => option.key === value,
           );
           if (!currentOption) return 0;
-          const isDisabled = isOptionDisabled(item, currentOption);
+          const isDisabled = isChainOptionDisabled(field, item, currentOption);
           if (isDisabled) return 0;
           return currentOption.priceBVM || 0;
         });
@@ -87,29 +88,10 @@ export default function useCalcPrice() {
         (option) => option.key === field[item.key].value,
       );
       if (!currentOption) return acc;
-      const isDisabled = isOptionDisabled(item, currentOption);
+      const isDisabled = isChainOptionDisabled(field, item, currentOption);
       if (isDisabled) return acc;
       return acc + (currentOption?.priceBVM || 0);
     }, 0);
-  };
-
-  const isOptionDisabled = (item: any, currentOption: any) => {
-    return (
-      !!(
-        currentOption.supportLayer &&
-        currentOption.supportLayer !== 'both' &&
-        currentOption.supportLayer !== field['layers']?.value
-      ) ||
-      !!(
-        currentOption.supportNetwork &&
-        currentOption.supportNetwork !== 'both' &&
-        currentOption.supportNetwork !== field['network']?.value
-      ) ||
-      (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
-      (item.required && !field[item.key].dragged) ||
-      item.disable ||
-      !currentOption.selectable
-    );
   };
 
   React.useEffect(() => {

@@ -16,14 +16,15 @@ import ReactFlowRenderer from '@/modules/blockchains/Buy/studio/ReactFlowRender'
 import RightContent from '@/modules/blockchains/Buy/studio/WorkArea/RightContent';
 
 export default function WorkArea() {
-
-  return <div className={s.right}>
-    <div className={s.top_right}>
-      <TopWorkArea />
+  return (
+    <div className={s.right}>
+      <div className={s.top_right}>
+        <TopWorkArea />
+      </div>
+      <div className={`${s.right_box}`}>
+        <RightContent />
+        <ActionsWorkArea />
+      </div>
     </div>
-    <div className={`${s.right_box}`}>
-      <RightContent />
-      <ActionsWorkArea />
-    </div>
-  </div>;
+  );
 }

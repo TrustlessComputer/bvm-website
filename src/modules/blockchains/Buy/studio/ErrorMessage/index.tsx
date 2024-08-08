@@ -6,10 +6,11 @@ import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
 import { useErrorMessage } from '@/modules/blockchains/Buy/studio/useErrorMessage';
 
 export default function ErrorMessage() {
-
-  const { isShowErrorMessage, toggleErrorMessage } = useErrorMessage(state => state);
-  const {  setDraggedFields } = useDragStore();
-  const {initTemplate} = useTemplate();
+  const { isShowErrorMessage, toggleErrorMessage } = useErrorMessage(
+    (state) => state,
+  );
+  const { setDraggedFields } = useDragStore();
+  const { initTemplate } = useTemplate();
 
   const resetEdit = () => {
     setDraggedFields([]);
@@ -17,34 +18,36 @@ export default function ErrorMessage() {
     initTemplate(0);
   };
 
-  return <div>
-    <ErrorModal
-      title="Module Reset"
-      show={isShowErrorMessage}
-      onHide={() => {
-        toggleErrorMessage(false);
-      }}
-    >
-      <p className={s.resetDescription}>
-        Remove all selected modules and start again.
-      </p>
+  return (
+    <div>
+      <ErrorModal
+        title="Module Reset"
+        show={isShowErrorMessage}
+        onHide={() => {
+          toggleErrorMessage(false);
+        }}
+      >
+        <p className={s.resetDescription}>
+          Remove all selected modules and start again.
+        </p>
 
-      <div className={s.actions}>
-        <button
-          onClick={() => {
-            toggleErrorMessage(false);
-          }}
-          className={`${s.actions__button} ${s.actions__button__cancel}`}
-        >
-          Cancel
-        </button>
-        <button
-          onClick={resetEdit}
-          className={`${s.actions__button} ${s.actions__button__reset}`}
-        >
-          Reset
-        </button>
-      </div>
-    </ErrorModal>
-  </div>;
+        <div className={s.actions}>
+          <button
+            onClick={() => {
+              toggleErrorMessage(false);
+            }}
+            className={`${s.actions__button} ${s.actions__button__cancel}`}
+          >
+            Cancel
+          </button>
+          <button
+            onClick={resetEdit}
+            className={`${s.actions__button} ${s.actions__button__reset}`}
+          >
+            Reset
+          </button>
+        </div>
+      </ErrorModal>
+    </div>
+  );
 }

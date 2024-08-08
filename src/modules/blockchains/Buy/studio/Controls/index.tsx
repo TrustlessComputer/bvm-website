@@ -13,7 +13,7 @@ import useDappsStore from '@/modules/blockchains/Buy/stores/useDappStore';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import { IModelCategory, IModelOption } from '@/types/customize-model';
 import { accountAbstractionAsADapp } from '../../mockup_3';
-import { chainKeyToDappKey } from '../../utils';
+import { chainKeyToDappKey, isChainOptionDisabled } from '../../utils';
 import useDapps from '../../hooks/useDapps';
 
 export default function StudioControls() {
@@ -27,15 +27,6 @@ export default function StudioControls() {
     currentPrice: any,
     optIdx: number,
   ) => {
-    // let _price = formatCurrencyV2({
-    //   amount: option.priceBVM || 0,
-    //   decimals: 0,
-    // }).replace('.00', '');
-    // let suffix =
-    //   Math.abs(option.priceBVM) > 0
-    //     ? ` (${_price} BVM)`
-    //     : '';
-
     let _price = option.priceBVM;
     let operator = '+';
     let suffix =
@@ -63,18 +54,7 @@ export default function StudioControls() {
     )
       return null;
 
-    const isDisabled =
-      !!(
-        option.supportLayer &&
-        option.supportLayer !== 'both' &&
-        option.supportLayer !== field['layers']?.value
-      ) ||
-      !!(
-        option.supportNetwork &&
-        option.supportNetwork !== 'both' &&
-        option.supportNetwork !== field['network']?.value
-      ) ||
-      !option.selectable;
+    const isDisabled = isChainOptionDisabled(field, item, option);
 
     if (item.multiChoice && field[item.key].dragged) {
       const currentValues = field[item.key].value as any[];
@@ -173,18 +153,7 @@ export default function StudioControls() {
                   )
                     return null;
 
-                  const isDisabled =
-                    !!(
-                      option.supportLayer &&
-                      option.supportLayer !== 'both' &&
-                      option.supportLayer !== field['layers']?.value
-                    ) ||
-                    !!(
-                      option.supportNetwork &&
-                      option.supportNetwork !== 'both' &&
-                      option.supportNetwork !== field['network']?.value
-                    ) ||
-                    !option.selectable;
+                  const isDisabled = isChainOptionDisabled(field, item, option);
 
                   if (item.multiChoice && field[item.key].dragged) {
                     const currentValues = field[item.key].value as any[];
