@@ -758,7 +758,7 @@ const BuyPage = () => {
           draggedDappIndexesSignal.value,
           activeBaseIndex,
         );
-        console.log('NEW NODES BEFORE :::: ', newNodes);
+
         newNodes = newNodes.map((node, index) => {
           return {
             ...node,
@@ -769,7 +769,7 @@ const BuyPage = () => {
             },
           };
         });
-        console.log('NEW NODES AFTER :::: ', newNodes);
+
         setNodes(newNodes);
 
         return;
@@ -1042,8 +1042,8 @@ const BuyPage = () => {
     ]);
 
     // Use mockup data
-    const sortedCategories = (categoriesMockup || []).sort(
-      // const sortedCategories = (categories || []).sort(
+    // const sortedCategories = (categoriesMockup || []).sort(
+    const sortedCategories = (categories || []).sort(
       // Use API
       (a, b) => a.order - b.order,
     );
