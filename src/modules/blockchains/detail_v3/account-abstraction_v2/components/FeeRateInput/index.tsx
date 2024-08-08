@@ -81,8 +81,6 @@ const FeeRateInput = (props: Props) => {
       position={'relative'}
       align={'center'}
       gap={'10px'}
-      py={'4px'}
-      px={'8px'}
       minW={'max-content'}
     >
       {/* <Text
@@ -105,7 +103,7 @@ const FeeRateInput = (props: Props) => {
         <Image src={'/icons/white_tooltip_ic.svg'} w="20px" h="20px" />
       </Tooltip>
 
-      <Flex flexDir={'column'} padding="5px" bgColor={'#fff'}>
+      <Flex flexDir={'column'} padding={'0px'} bgColor={'transparent'}>
         <Input
           className={s.input}
           type="number"
