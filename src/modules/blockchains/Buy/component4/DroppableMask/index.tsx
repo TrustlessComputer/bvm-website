@@ -1,11 +1,11 @@
 import Droppable from '@/modules/blockchains/dapp/components/Droppable';
 import React, { useState } from 'react';
-import s from './styles.module.scss'
+import s from './styles.module.scss';
 import { useSignalEffect } from '@preact/signals-react';
 import { blockDraggingSignal } from '@/modules/blockchains/Buy/signals/useDragSignal';
 
 
-export default function DroppableMask() {
+const DroppableMask = () => {
   const [isShow, setIsShow] = useState(false);
   useSignalEffect(() => {
     blockDraggingSignal.subscribe((value) => {
@@ -13,6 +13,8 @@ export default function DroppableMask() {
     });
   });
   return (
-    <Droppable id="output" className={`${s.wrapperMask} ${isShow && s.show}`}/>
-  )
-}
+    <Droppable id="output" className={`${s.wrapperMask} ${isShow && s.show}`} />
+  );
+};
+
+export default React.memo(DroppableMask);

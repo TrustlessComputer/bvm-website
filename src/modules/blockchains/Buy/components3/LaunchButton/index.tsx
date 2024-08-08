@@ -29,29 +29,17 @@ import { formatCurrencyV2 } from '@/utils/format';
 import toast from 'react-hot-toast';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import { IModelCategory, IModelOption } from '@/types/customize-model';
+import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
 import useOneForm from '../../hooks/useOneForm';
 import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
 import { chainKeyToDappKey } from '../../utils';
 
-const LaunchButton = ({
-  data,
-  originalData,
-  isUpdate,
-}: {
-  data:
-    | (IModelCategory & {
-        options: IModelCategory['options'] &
-          {
-            value: any;
-            label: string;
-            disabled: boolean;
-          }[];
-      })[]
-    | null;
-  originalData: IModelCategory[] | null;
-  isUpdate?: boolean;
-}) => {
+const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { dappCount } = useFormDappToFormChain();
+
+  const { parsedCategories: data, categories: originalData } =
+    useModelCategoriesStore();
+
   const { field, priceBVM, priceUSD, needContactUs } = useOrderFormStoreV3();
   const { orderDetail } = useAppSelector(getOrderDetailSelected);
   const { loggedIn, login } = useWeb3Auth();

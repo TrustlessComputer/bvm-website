@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-type UseOrderFormStoreV3 = {
+export type UseOrderFormStoreV3 = {
   form: Record<string, any>;
   field: Record<
     string,

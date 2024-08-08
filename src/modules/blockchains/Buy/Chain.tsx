@@ -586,7 +586,7 @@ const ChainTab = () => {
               <div className={s.left_box}>
                 <div className={s.left_box_inner}>
                   <div className={s.left_box_inner_sidebar}>
-                    <SidebarV2 items={data} />
+                    <SidebarV2 />
                   </div>
 
                   <div id={'wrapper-data'} className={s.left_box_inner_content}>
@@ -787,7 +787,7 @@ const ChainTab = () => {
                     </div>
                   )}
 
-                  <LaunchButton data={data} originalData={originalData} />
+                  <LaunchButton />
                 </div>
               </div>
 

@@ -8,7 +8,14 @@ import { FieldKeyPrefix } from './contants';
 import { compareString } from '@/utils/string';
 import { IToken } from '@/services/api/dapp/token_generation/interface';
 import { IAirdropTask } from '@/services/api/dapp/airdrop/interface';
-import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
+import {
+  BlockModel,
+  DappModel,
+  FieldModel,
+  IModelCategory,
+  IModelOption,
+} from '@/types/customize-model';
+import { UseOrderFormStoreV3 } from './stores/index_v3';
 
 const handler = ({ nativeEvent: event }: MouseEvent | TouchEvent) => {
   let cur = event.target as HTMLElement;
@@ -408,4 +415,35 @@ export const dappKeyToChainKey = (key: string) => {
     default:
       return key;
   }
+};
+
+export const isChainOptionDisabled = (
+  field: UseOrderFormStoreV3['field'],
+  item: IModelCategory,
+  currentOption: IModelOption,
+) => {
+  return (
+    !!(
+      currentOption.supportLayer &&
+      currentOption.supportLayer !== 'both' &&
+      currentOption.supportLayer !== field['layers']?.value
+    ) ||
+    !!(
+      currentOption.supportNetwork &&
+      currentOption.supportNetwork !== 'both' &&
+      currentOption.supportNetwork !== field['network']?.value
+    ) ||
+    // (!item.disable && currentOption.selectable && field[item.key].dragged) ||
+    (item.required && !field[item.key].dragged) ||
+    item.disable ||
+    !currentOption.selectable
+  );
+};
+
+export const shouldCalcPrice = (
+  field: UseOrderFormStoreV3['field'],
+  item: IModelCategory,
+  currentOption: IModelOption,
+) => {
+  return field[item.key].dragged;
 };
