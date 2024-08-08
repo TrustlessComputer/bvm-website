@@ -31,14 +31,13 @@ import { FieldModel } from '@/types/customize-model';
 import useFlowStore from '../stores/useFlowStore';
 
 export default function useHandleDragging() {
-  const { nodes, setNodes, onNodesChange } = useFlowStore();
-
   const mousePositionRef = React.useRef({ x: 0, y: 0 });
+
+  const { nodes, setNodes } = useFlowStore();
   const { setIdDragging, rightDragging, setRightDragging } = useDragMask();
   const { draggedFields, setDraggedFields } = useDragStore();
   const { field, setField } = useOrderFormStoreV3();
-  const { parsedCategories: data } = useModelCategoriesStore();
-
+  const { parsedCategories } = useModelCategoriesStore();
   const {
     dapps,
     baseModuleFieldMapping,
@@ -87,11 +86,11 @@ export default function useHandleDragging() {
       const overIsParentDroppable =
         !overIsFinalDroppable &&
         overSuffix1 === 'droppable' &&
-        data?.find((item) => item.key === overKey)?.multiChoice;
+        parsedCategories?.find((item) => item.key === overKey)?.multiChoice;
       const activeIsParent =
-        data?.find((item) => item.key === activeKey)?.multiChoice &&
+        parsedCategories?.find((item) => item.key === activeKey)?.multiChoice &&
         activeSuffix1 === 'parent';
-      const isMultiChoice = data?.find(
+      const isMultiChoice = parsedCategories?.find(
         (item) => item.key === activeKey,
       )?.multiChoice;
 
@@ -119,7 +118,9 @@ export default function useHandleDragging() {
         ) {
           // setShowShadow(field[activeKey].value as string);
 
-          const currentField = data?.find((item) => item.key === activeKey);
+          const currentField = parsedCategories?.find(
+            (item) => item.key === activeKey,
+          );
           const currentOption = currentField?.options.find(
             (option) => option.key === field[activeKey].value,
           );
@@ -140,7 +141,9 @@ export default function useHandleDragging() {
           return;
         }
 
-        const isHidden = data?.find((item) => item.key === activeKey)?.hidden;
+        const isHidden = parsedCategories?.find(
+          (item) => item.key === activeKey,
+        )?.hidden;
         if (isHidden) return;
 
         // Normal case
@@ -856,6 +859,7 @@ export default function useHandleDragging() {
       return;
     }
   };
+
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   );

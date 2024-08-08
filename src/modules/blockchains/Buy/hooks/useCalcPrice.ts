@@ -3,27 +3,14 @@ import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
 
 export default function useCalcPrice() {
-  const {
-    field,
-    setField,
-    priceBVM,
-    priceUSD,
-    setPriceBVM,
-    setPriceUSD,
-    setNeedContactUs,
-    needContactUs,
-  } = useOrderFormStoreV3();
+  const { field, setPriceBVM, setPriceUSD, setNeedContactUs } =
+    useOrderFormStoreV3();
 
-  const {
-    parsedCategories: data,
-    setParsedCategories: setData,
-    categories: originalData,
-    setCategories: setOriginalData,
-  } = useModelCategoriesStore();
+  const { parsedCategories, categories } = useModelCategoriesStore();
 
   const isAnyOptionNeedContactUs = () => {
-    if (!originalData) return false;
-    for (const _field of originalData) {
+    if (!categories) return false;
+    for (const _field of categories) {
       if (!field[_field.key].dragged) continue;
 
       if (_field.multiChoice) {
@@ -48,132 +35,95 @@ export default function useCalcPrice() {
     return false;
   };
 
-  React.useEffect(() => {
-    const priceUSD = Object.keys(field).reduce((acc, key) => {
+  const calculatePriceUSD = () => {
+    return Object.keys(field).reduce((acc, key) => {
       if (Array.isArray(field[key].value)) {
         const currentOptions = (field[key].value as string[])!.map((value) => {
-          const item = data?.find((i) => i.key === key);
-
+          const item = parsedCategories?.find((i) => i.key === key);
           if (!item) return 0;
-
           const currentOption = item.options.find(
             (option) => option.key === value,
           );
-
           if (!currentOption) return 0;
-
-          const isDisabled =
-            // prettier-ignore
-            !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
-            // prettier-ignore
-            !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
-            // prettier-ignore
-            (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
-            (item.required && !field[item.key].dragged) ||
-            item.disable ||
-            !currentOption.selectable;
-
+          const isDisabled = isOptionDisabled(item, currentOption);
           if (isDisabled) return 0;
-
           return currentOption.priceUSD || 0;
         });
-
         return acc + currentOptions.reduce((a, b) => a + b, 0);
       }
 
-      const item = data?.find((i) => i.key === key);
-
+      const item = parsedCategories?.find((i) => i.key === key);
       if (!item) return acc;
-
       const currentOption = item.options.find(
         (option) => option.key === field[item.key].value,
       );
-
       if (!currentOption) return acc;
-
-      const isDisabled =
-        // prettier-ignore
-        !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
-        // prettier-ignore
-        !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
-        // prettier-ignore
-        (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
-        (item.required && !field[item.key].dragged) ||
-        item.disable ||
-        !currentOption.selectable;
-
+      const isDisabled = isOptionDisabled(item, currentOption);
       if (isDisabled) return acc;
-
       return acc + (currentOption?.priceUSD || 0);
     }, 0);
+  };
 
-    const priceBVM = Object.keys(field).reduce((acc, key) => {
+  const calculatePriceBVM = () => {
+    return Object.keys(field).reduce((acc, key) => {
       if (Array.isArray(field[key].value)) {
         const currentOptions = (field[key].value as string[])!.map((value) => {
-          const item = data?.find((i) => i.key === key);
-
+          const item = parsedCategories?.find((i) => i.key === key);
           if (!item) return 0;
-
           const currentOption = item.options.find(
             (option) => option.key === value,
           );
-
           if (!currentOption) return 0;
-
-          const isDisabled =
-            // prettier-ignore
-            !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
-            // prettier-ignore
-            !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
-            // prettier-ignore
-            (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
-            (item.required && !field[item.key].dragged) ||
-            item.disable ||
-            !currentOption.selectable;
-
+          const isDisabled = isOptionDisabled(item, currentOption);
           if (isDisabled) return 0;
-
           return currentOption.priceBVM || 0;
         });
-
         return acc + currentOptions.reduce((a, b) => a + b, 0);
       }
 
-      const item = data?.find((i) => i.key === key);
-
+      const item = parsedCategories?.find((i) => i.key === key);
       if (!item) return acc;
-
       const currentOption = item.options.find(
         (option) => option.key === field[item.key].value,
       );
-
       if (!currentOption) return acc;
-
-      const isDisabled =
-        // prettier-ignore
-        !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
-        // prettier-ignore
-        !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
-        // prettier-ignore
-        (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
-        (item.required && !field[item.key].dragged) ||
-        item.disable ||
-        !currentOption.selectable;
-
+      const isDisabled = isOptionDisabled(item, currentOption);
       if (isDisabled) return acc;
-
       return acc + (currentOption?.priceBVM || 0);
     }, 0);
+  };
 
+  const isOptionDisabled = (item: any, currentOption: any) => {
+    return (
+      !!(
+        currentOption.supportLayer &&
+        currentOption.supportLayer !== 'both' &&
+        currentOption.supportLayer !== field['layers']?.value
+      ) ||
+      !!(
+        currentOption.supportNetwork &&
+        currentOption.supportNetwork !== 'both' &&
+        currentOption.supportNetwork !== field['network']?.value
+      ) ||
+      (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
+      (item.required && !field[item.key].dragged) ||
+      item.disable ||
+      !currentOption.selectable
+    );
+  };
+
+  React.useEffect(() => {
+    const priceUSD = calculatePriceUSD();
+    const priceBVM = calculatePriceBVM();
     setPriceBVM(priceBVM);
     setPriceUSD(priceUSD);
     setNeedContactUs(isAnyOptionNeedContactUs());
 
-    if (!originalData) return;
+    if (!categories) return;
 
     // save history of form
     const dynamicForm: any[] = [];
-    for (const _field of originalData) {
+    for (const _field of categories) {
       if (!field[_field.key].dragged) continue;
 
       if (_field.multiChoice) {
