@@ -243,7 +243,9 @@ export default function useHandleDragging() {
     // const canPlaceMoreBase = draggedIds2D.length === 0;
 
     const overIsInput = over.id === 'input';
-    const overIsOutput = over.id === 'output' || over.id === 'data-droppable';
+    const overIsOutput =
+      over.id === 'output' ||
+      over.id.split('-').some((key: string) => key === 'droppable');
     const overIsABase = DragUtil.idDraggingIsABase(overId);
     const overBaseIndex = Number(DragUtil.getBaseIndex(overId));
     const overIsABlock = DragUtil.idDraggingIsABlock(overId);

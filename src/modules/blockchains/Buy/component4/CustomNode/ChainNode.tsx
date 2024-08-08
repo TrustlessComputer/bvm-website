@@ -222,22 +222,22 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
                       value: option.key,
                     }}
                   >
-                    <DroppableV2 id={item.key + '-right'}>
-                      <LegoV3
-                        background={item.color}
-                        label={item.confuseTitle}
-                        labelInRight={!!item.confuseTitle || !!item.confuseIcon}
-                        zIndex={draggedFields.length - index}
-                        icon={item.confuseIcon}
-                        // className={
-                        //   showShadow === field[item.key].value
-                        //     ? s.activeBlur
-                        //     : ''
-                        // }
-                      >
-                        <Label icon={option.icon} title={option.title} />
-                      </LegoV3>
-                    </DroppableV2>
+                    {/* <DroppableV2 id={item.key + '-right'}> */}
+                    <LegoV3
+                      background={item.color}
+                      label={item.confuseTitle}
+                      labelInRight={!!item.confuseTitle || !!item.confuseIcon}
+                      zIndex={draggedFields.length - index}
+                      icon={item.confuseIcon}
+                      // className={
+                      //   showShadow === field[item.key].value
+                      //     ? s.activeBlur
+                      //     : ''
+                      // }
+                    >
+                      <Label icon={option.icon} title={option.title} />
+                    </LegoV3>
+                    {/* </DroppableV2> */}
                   </ChainDraggable>
                 );
               });
