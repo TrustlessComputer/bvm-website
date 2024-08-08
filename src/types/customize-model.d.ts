@@ -29,6 +29,8 @@ interface IModelOption {
   valueStr?: string;
   type?: 'text' | 'number';
   disabled?: boolean;
+  appTemplateUrl: string;
+  needInstall?: boolean;
 }
 
 interface IModelCategory {
@@ -52,6 +54,7 @@ interface IModelCategory {
   hidden?: boolean;
   updatable?: boolean;
   whitelistAddress?: any;
+  isChain: boolean;
 }
 
 interface ITemplate {
@@ -117,9 +120,9 @@ interface FieldModel {
   selectable?: boolean;
   background?: string;
   previewTitle?: string;
-  inputType?: 'text' | 'number' | 'file',
-  inputAccept?: 'image/*' | '.csv',
-  disabled?: boolean
+  inputType?: 'text' | 'number' | 'file';
+  inputAccept?: 'image/*' | '.csv';
+  disabled?: boolean;
 }
 
 interface BlockModel {
@@ -196,3 +199,15 @@ interface BlockchainMap {
   blockchain: OrderItem | null;
   dapps: DappModel[];
 }
+
+type ElkNodeData = {
+  label: string;
+  positionDot: Position;
+  handleType: HandleType;
+  status: 'Drafting' | 'Ready' | 'Missing' | 'Running' | 'Down';
+  legoList: [];
+  sourceHandles: { id: string }[];
+  targetHandles: { id: string }[];
+};
+
+type ElkNode = Node<ElkNodeData, 'elk'>;
