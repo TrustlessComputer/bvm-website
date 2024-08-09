@@ -4,8 +4,9 @@ import { DappModel } from '@/types/customize-model';
 import LegoParent from '../component4/LegoParent';
 import Lego from '../component4/Lego';
 import { adjustBrightness } from '../utils';
+import { memo, ReactElement } from 'react';
 
-export default function AA({ dAppData }: { dAppData: DappModel }) {
+const  AA = memo(({ dAppData }: { dAppData: DappModel }):ReactElement => {
   return (
     <LegoParent {...dAppData} background={dAppData.color} dapp={dAppData}>
       <Lego
@@ -31,4 +32,6 @@ export default function AA({ dAppData }: { dAppData: DappModel }) {
       </Lego>
     </LegoParent>
   );
-}
+});
+
+export default AA;
