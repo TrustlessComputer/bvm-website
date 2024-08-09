@@ -170,6 +170,7 @@ interface DappModel {
 }
 
 interface TemplateForm {
+  [key: string]: any;
   dappKey: string;
   fieldValue: Record<string, any>;
 }

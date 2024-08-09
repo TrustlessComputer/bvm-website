@@ -5,12 +5,27 @@ import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useScreenMouse from '@/modules/blockchains/Buy/hooks/useScreenMouse';
-import { IModelCategory } from '@/types/customize-model';
+import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import useFlowStore from '../stores/useFlowStore';
 import { categoriesMockup } from '../Buy.data';
+import { IToken } from '@/services/api/dapp/token_generation/interface';
+import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
+import { IAirdrop } from '@/services/api/dapp/airdrop/interface';
+import { compareString } from '@/utils/string';
+import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
+import { useAppSelector } from '@/stores/hooks';
+import { dappSelector } from '@/stores/states/dapp/selector';
+import { templateIds2DSignal } from '../signals/useDragSignal';
+import { formTemplateDappSignal } from '../signals/useFormDappsSignal';
+import { FormDappUtil } from '../utils';
+import { useTemplateFormStore } from '../stores/useDappStore';
+import { parseDappModel } from '../../utils';
+import { DappType } from '../types';
+import { parseStakingPools } from '../../dapp/parseUtils/staking';
+import { commonSelector } from '@/stores/states/common/selector';
 
 export default function useFetchingTemplate() {
-  const { setNodes } = useFlowStore();
+  const { nodes, setNodes } = useFlowStore();
   const {
     setParsedCategories,
     setCategories,
@@ -20,22 +35,18 @@ export default function useFetchingTemplate() {
   const { setField } = useOrderFormStoreV3();
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { initTemplate } = useTemplate();
+  const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =
+    useTemplateFormStore();
 
-  const mousePositionRef = React.useRef({ x: 0, y: 0 });
+  const { needReload } = useAppSelector(commonSelector);
+  const dappState = useAppSelector(dappSelector);
 
-  const tick = (
-    contentRect: DOMRect,
-    mousePosition: {
-      x: number;
-      y: number;
-    },
-    previousMousePosition: {
-      x: number;
-      y: number;
-    },
-  ) => {
-    mousePositionRef.current = mousePosition;
-  };
+  const { tokens, configs, airdrops, airdropTasks, stakingPools } = dappState;
+
+  // console.log(
+  //   '🚀 -> file: useFetchingTemplate.ts:35 -> useFetchingTemplate -> dappState ::',
+  //   dappState,
+  // );
 
   const convertData = (data: IModelCategory[]) => {
     const newData = data?.map((item) => {
@@ -72,36 +83,178 @@ export default function useFetchingTemplate() {
       setField(_field.key, null);
     });
 
+    nodes.unshift({
+      id: 'blockchain',
+      type: 'chainNode',
+      data: {
+        label: 'Blockchain',
+        status: 'Ready',
+        isChain: true,
+      },
+      dragHandle: '.drag-handle-area',
+      position: { x: 30, y: 30 },
+    });
+
     setParsedCategories(convertData(sortedCategories));
     setCategories(sortedCategories);
     setCategoriesTemplates(templates);
-    setNodes([
-      {
-        id: 'blockchain',
-        type: 'chainNode',
-        data: {
-          label: 'Blockchain',
-          status: 'Ready',
-          isChain: true,
-        },
-        dragHandle: '.drag-handle-area',
-        position: { x: 30, y: 30 },
-      },
-    ]);
+    setNodes(nodes);
+
+    console.log('FIRST 2');
   };
 
-  const { addListeners, removeListeners } = useScreenMouse({
-    handleOnTick: tick,
-  });
+  const dataTemplateToBox = async () => {
+    if (!templateForm) return;
+
+    let formDapp: Record<string, any> = {};
+
+    const totalBase = new Set(
+      Object.keys(templateForm).map((fieldKey) =>
+        FormDappUtil.getBaseIndex(fieldKey),
+      ),
+    ).size;
+    const draggedIds2D: typeof templateIds2DSignal.value = Array(
+      totalBase,
+    ).fill([]);
+
+    Object.keys(templateForm).forEach((fieldKey) => {
+      const value = templateForm[fieldKey];
+      const baseIndex = FormDappUtil.getBaseIndex(fieldKey);
+      const thisDapp = templateDapps[baseIndex];
+      const blockFieldMapping = {} as Record<string, BlockModel>;
+      const key = FormDappUtil.getOriginalKey(fieldKey);
+      const index = FormDappUtil.getIndex(fieldKey);
+      const blockKey = FormDappUtil.getBlockKey(fieldKey);
+      const isInBase = FormDappUtil.isInBase(fieldKey);
+      const isInBlock = FormDappUtil.isInBlock(fieldKey);
+
+      (thisDapp?.blockFields || []).forEach((item) => {
+        blockFieldMapping[item.key] = item;
+      });
+
+      if (!draggedIds2D[baseIndex][index] && !isInBase) {
+        const _key = isInBlock ? blockKey : key;
+        const prefix = 'right-' + FormDappUtil.getBlockType(fieldKey);
+        const children = !isInBlock
+          ? []
+          : (blockFieldMapping[blockKey].childrenFields || []).map((item) => ({
+              name: item.key,
+              value: '',
+              parentNames: [],
+              children: [],
+            }));
+
+        draggedIds2D[baseIndex] = [
+          ...draggedIds2D[baseIndex],
+          {
+            name: prefix + '-' + _key,
+            value: '',
+            parentNames: [],
+            children,
+          },
+        ];
+      }
+
+      formDapp = {
+        ...formDapp,
+        [fieldKey]: value,
+      };
+    });
+
+    const newNodes: any[] = draggedIds2D.map((ids, index) => ({
+      id: Math.random().toString(),
+      type: 'dappTemplate',
+      dragHandle: '.drag-handle-area',
+      data: {
+        label: templateDapps[index].title,
+        status: 'Running',
+        isChain: false,
+        dapp: templateDapps[index],
+        ids,
+        baseIndex: index,
+      },
+      position: { x: 30 * (index + 2), y: 30 * (index + 2) },
+    }));
+
+    setNodes([...nodes, ...newNodes]);
+
+    templateIds2DSignal.value = [...draggedIds2D];
+    formTemplateDappSignal.value = { ...formDapp };
+
+    console.log('LAST 2');
+  };
+
+  const parseDappApiToDappModel = async () => {
+    const parsedStakingPoolsData = parseStakingPools(stakingPools);
+    const parsedStakingPoolsForm = parseDappModel({
+      key: DappType.staking,
+      model: parsedStakingPoolsData,
+    });
+
+    const parsedAirdropsData = await parseAirdropsData(airdrops, tokens);
+    const parsedAirdropsForm = parseDappModel({
+      key: DappType.airdrop,
+      model: parsedAirdropsData,
+    });
+
+    const parsedTokensData = parseTokensData(tokens);
+    const parsedTokensForm = parseDappModel({
+      key: DappType.token_generation,
+      model: parsedTokensData,
+    });
+
+    setTemplateDapps([
+      ...parsedStakingPoolsData,
+      ...parsedTokensData,
+      ...parsedAirdropsData,
+    ]);
+    setTemplateForm({
+      ...parsedTokensForm.fieldValue,
+      ...parsedAirdropsForm.fieldValue,
+      ...parsedStakingPoolsForm.fieldValue,
+    } as any);
+  };
+
+  const parseTokensData = (tokens: IToken[]) => {
+    const result: DappModel[] = [];
+    for (const token of tokens) {
+      const t = parseIssuedToken(token);
+      result.push(t);
+    }
+
+    return result;
+  };
+
+  const parseAirdropsData = async (
+    _airdrops: IAirdrop[],
+    _tokens: IToken[],
+  ) => {
+    const result: DappModel[] = [];
+    for (const airdrop of _airdrops) {
+      const _token = tokens.find((v) =>
+        compareString(v.contract_address, airdrop.token_address),
+      );
+
+      const t = await parseAirdrop(airdrop, _token as IToken);
+      result.push(t);
+    }
+
+    return result;
+  };
 
   React.useEffect(() => {
+    console.log('FIRST 1');
     fetchData();
-    addListeners();
-
-    return () => {
-      removeListeners;
-    };
   }, []);
+
+  React.useEffect(() => {
+    console.log('LAST 1');
+    parseDappApiToDappModel();
+  }, [airdrops, tokens, airdropTasks, stakingPools, needReload]);
+
+  React.useEffect(() => {
+    dataTemplateToBox();
+  }, [templateDapps, templateForm]);
 
   React.useEffect(() => {
     initTemplate(0);

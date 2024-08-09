@@ -21,7 +21,7 @@ export default function StudioControls() {
   const { field } = useOrderFormStoreV3();
   const { dapps, dappMapping } = useDapps();
 
-  console.log('SANG TEST: 222', parsedCategories);
+  // console.log('SANG TEST: 222', parsedCategories);
 
   const renderChainLego = (
     item: IModelCategory,
@@ -132,9 +132,9 @@ export default function StudioControls() {
                   let suffix =
                     Math.abs(_price) > 0
                       ? ` (${formatCurrencyV2({
-                        amount: _price,
-                        decimals: 0,
-                      })} BVM)`
+                          amount: _price,
+                          decimals: 0,
+                        })} BVM)`
                       : '';
 
                   _price = option.priceBVM - currentPrice;
@@ -143,9 +143,9 @@ export default function StudioControls() {
                   suffix =
                     Math.abs(_price) > 0
                       ? ` (${operator}${formatCurrencyV2({
-                        amount: Math.abs(_price),
-                        decimals: 0,
-                      })} BVM)`
+                          amount: Math.abs(_price),
+                          decimals: 0,
+                        })} BVM)`
                       : '';
 
                   if (
@@ -194,8 +194,6 @@ export default function StudioControls() {
               </BoxOptionV3>
             );
           })}
-
-
       </DroppableV2>
 
       <Droppable id="input">

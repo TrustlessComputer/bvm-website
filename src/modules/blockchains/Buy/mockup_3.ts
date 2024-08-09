@@ -28,15 +28,15 @@ export const accountAbstractionAsADapp: DappModel = {
   ],
   baseBlock: {
     key: 'account_abstraction_info',
-    title: 'Token Information',
+    title: 'Account Abstraction',
     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
     placableAmount: 1,
     section: 'information',
-    preview: true,
-    background: '#F76649',
+    preview: false,
+    background: '#00C1CD',
     fields: [
       {
-        // background: '#F76649',
+        // background: '#00C1CD',
         key: 'input_apps_address',
         title: 'Token contract address',
         previewTitle: 'Address',
