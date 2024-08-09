@@ -59,8 +59,8 @@ const BoxOptionV3 = ({
           {needCheckIcon && (
             <div className={s.boxItem_heading_icon}>
               <svg
-                width="24"
-                height="24"
+                width="16"
+                height="16"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -82,8 +82,8 @@ const BoxOptionV3 = ({
             {isHasTooltip && (
               <div className={s.info} onClick={() => setIsShowModal(true)}>
                 <svg
-                  width="20"
-                  height="20"
+                  width="16"
+                  height="16"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="#2b35e4"
