@@ -66,7 +66,7 @@ const useGettingDappLego = () => {
         continue;
 
       if (Array.isArray(newField[key].value)) {
-        newField[key].value = ((newField[key].value || []) as string[]).filter(
+        const tmp = ((newField[key].value || []) as string[]).filter(
           (keyAsAValue) => {
             return (
               typeof dappCount[chainKeyToDappKey(keyAsAValue)] === 'number'
@@ -74,7 +74,8 @@ const useGettingDappLego = () => {
           },
         );
 
-        if (newField[key].value.length === 0) {
+        newField[key].value = tmp;
+        if (tmp && tmp.length === 0) {
           newField[key].value = null;
           newField[key].dragged = false;
           newDraggedFields = newDraggedFields.filter((i) => i !== category.key);

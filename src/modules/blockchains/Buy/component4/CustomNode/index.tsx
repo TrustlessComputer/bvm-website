@@ -1,6 +1,6 @@
 import s from './styles.module.scss';
 import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
-import React, { ReactElement, useEffect, useMemo } from 'react';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import cn from 'classnames';
 import { OrderItem } from '@/stores/states/l2services/types';
@@ -73,6 +73,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { order } = useChainProvider();
   const { setComputerNameField } = useBuy();
   const [current, setCurrent] = React.useState<any>(null);
+  const [rendered, setRendered] = useState<number>(0)
 
   useSignalEffect(() => {
     if (
@@ -80,6 +81,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
       JSON.stringify(current)
     ) {
       setCurrent(draggedIds2DSignal.value[data.baseIndex]);
+      setRendered(prevState => prevState += 1)
     }
   });
 
@@ -158,7 +160,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
     return (
       <Draggable
         id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
-        key={JSON.stringify(current)}
+        key={rendered}
         value={{
           dappIndex,
           title: thisDapp.baseBlock.title,
@@ -237,6 +239,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
               const zIndex = totalDragged - itemIndex - 1;
 
               if (DragUtil.idDraggingIsABlock(item.name)) {
+
                 const { key: thisBlockKey, ...thisBlock } =
                   blockFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
@@ -513,7 +516,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   return (
     <div
       className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}
-      key={JSON.stringify(current)}
+      key={rendered}
     >
       <div
         className={`${s.wrapperBox_top} drag-handle-area ${cn(

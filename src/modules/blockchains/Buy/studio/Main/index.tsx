@@ -18,7 +18,7 @@ import OverlayControl from '../OverlayControl/Index';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 
 const StudioMain = (): ReactElement => {
-  const { setTemplateDataClone } = useTemplate();
+  // const { setTemplateDataClone } = useTemplate();
   const { order } = useChainProvider();
 
   const { toggleErrorMessage } = useErrorMessage((state) => state);
@@ -33,7 +33,7 @@ const StudioMain = (): ReactElement => {
     setTab(TABS.CODE);
     setDraggedFields([]);
     toggleErrorMessage(false);
-    setTemplateDataClone(template || []);
+    // setTemplateDataClone(template || []);
   };
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const StudioMain = (): ReactElement => {
       setTab(TABS.CODE);
       setDraggedFields([]);
       toggleErrorMessage(false);
-      setTemplateDataClone(order.selectedOptions || []);
+      // setTemplateDataClone(order.selectedOptions || []);
     }
   }, [order]);
 
