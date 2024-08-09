@@ -252,6 +252,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     const allRequiredForKey: string[] = [];
 
     for (const _field of originalData) {
+      if (!_field.isChain) continue;
+
       _field.options.forEach((opt: IModelOption) => {
         optionMapping[opt.key] = opt;
       });
@@ -292,16 +294,26 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     }
 
     for (const _field of originalData) {
+      if (_field.isChain) continue;
+
       for (const opt of _field.options) {
         if (dappCount[chainKeyToDappKey(opt.key)]) {
           const opts = new Array(dappCount[chainKeyToDappKey(opt.key)]).fill(
             opt,
           );
 
-          dynamicForm.push({
-            ..._field,
-            options: opts,
-          });
+          const fieldAlreadyInDynamicForm = dynamicForm.find(
+            (field) => field.key === _field.key,
+          );
+
+          if (fieldAlreadyInDynamicForm) {
+            fieldAlreadyInDynamicForm.options.push(...opts);
+          } else {
+            dynamicForm.push({
+              ..._field,
+              options: opts,
+            });
+          }
         }
       }
     }
@@ -391,7 +403,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       }
       setSubmitting(false);
     }
-
 
     try {
       await onSubmitStaking({ forms: stakingForms });

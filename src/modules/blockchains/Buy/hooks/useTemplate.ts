@@ -7,27 +7,22 @@ import { IModelCategory } from '@/types/customize-model';
 
 export default function useTemplate() {
   const searchParams = useSearchParams();
-  const [currentPackage, setCurrentPackage] = React.useState<number | null>(
-    null,
-  );
-  const { draggedFields, setDraggedFields } = useDragStore();
+  const { setDraggedFields } = useDragStore();
   const [templates, setTemplates] = React.useState<Array<
     IModelCategory[]
   > | null>(null);
 
-  const { parsedCategories: data } = useModelCategoriesStore();
-
+  const { parsedCategories } = useModelCategoriesStore();
   const { field, setField } = useOrderFormStoreV3();
 
   const setValueOfPackage = (packageId: number | string | null) => {
     if (!packageId?.toString()) return;
     setDraggedFields([]);
-    setCurrentPackage(Number(packageId));
 
     // set default value for package
     const templateData = (templates?.[Number(packageId)] ||
       []) as IModelCategory[];
-    const fieldsNotInTemplate = data?.filter(
+    const fieldsNotInTemplate = parsedCategories?.filter(
       (item) => !templateData.find((temp) => temp.key === item.key),
     );
 
@@ -57,17 +52,16 @@ export default function useTemplate() {
   };
 
   const initTemplate = (crPackage?: number) => {
-    const packageId =
-      typeof crPackage !== 'undefined'
-        ? crPackage
-        : searchParams.get('use-case') || '-1';
+    const packageId = crPackage ?? (searchParams.get('use-case') || '-1');
 
     const oldForm = localStorage.getItem('bvm.customize-form') || `[]`;
     const form = JSON.parse(oldForm) as IModelCategory[];
 
     if (form.length === 0 || packageId !== '-1') {
+      console.log('HERE 1');
       setValueOfPackage(Number(packageId));
     } else {
+      console.log('HERE 2');
       for (const key in field) {
         setField(key, null, false);
       }
