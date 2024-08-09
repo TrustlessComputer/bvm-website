@@ -33,7 +33,7 @@ import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCa
 import useOneForm from '../../hooks/useOneForm';
 import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
 import { chainKeyToDappKey } from '../../utils';
-import onSubmitStaking from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitStaking';
+import useSubmitStaking from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitStaking';
 import PreviewLaunchModal from '../../Preview';
 
 const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
@@ -75,6 +75,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   } = useDisclosure({
     id: 'MODAL_TOPUP',
   });
+
+  const { onSubmitStaking } = useSubmitStaking();
 
   const { chainName, dataAvaibilityChain, gasLimit, network, withdrawPeriod } =
     useOrderFormStore();
@@ -319,9 +321,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     // console.log('formValuesAdapter ----- ', params);
     // console.log('stakingDappList ----- ', stakingDappList);
     // console.log('isExistStakingDApp ----- ', isExistStakingDApp);
-
+    let result;
     try {
-      const result = await orderBuyAPI_V3(params);
+      result = await orderBuyAPI_V3(params);
+      console.log('AAAAA00 ::: result ::: ', result);
       if (result) {
         // if (ID Issuse Token dAPP) {
         //   If exist Issue Token dAPP have been dragged!
@@ -350,14 +353,18 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       // toast.error(message);
       if (message && message.toLowerCase().includes('insufficient balance')) {
         onOpenTopUpModal();
+      } else {
+        toast.error(message || 'Something went wrong');
       }
     } finally {
-      // dispatch(setViewMode('Mainnet'));
-      // dispatch(setViewPage('ManageChains'));
-      // dispatch(setShowAllChains(false));
-      await sleep(1);
       if (isSuccess) {
-        router.push('/chains');
+        toast.success('Submit Successful');
+        const orderId = result.orderId;
+        getOrderDetailByID(orderId);
+
+        await sleep(1);
+
+        router.push(`/chains/${orderId}`);
       } else {
         // router.push('/rollups?hasOrderFailed=true');
       }

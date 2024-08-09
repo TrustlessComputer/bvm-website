@@ -62,6 +62,7 @@ const RollupsDappPage = () => {
   const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
   const dappState = useAppSelector(dappSelector);
+  const stakingPools = dappState.stakingPools;
   const configs = dappState?.configs;
 
   const router = useRouter();
@@ -69,7 +70,6 @@ const RollupsDappPage = () => {
   const tokens = dappState.tokens;
   const airdropTasks = dappState.airdropTasks;
   const airdrops = dappState.airdrops;
-  const stakingPools = dappState.stakingPools;
 
   const {
     thisDapp,
