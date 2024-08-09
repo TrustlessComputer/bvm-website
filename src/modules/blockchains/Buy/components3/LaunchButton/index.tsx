@@ -137,6 +137,95 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     return result ? result[0] : undefined;
   }, [isFecthingData, availableList, packageParam]);
 
+  const getDynamicForm = () => {
+    if (!originalData)
+      return {
+        dynamicForm: [],
+        allOptionKeyDragged: [],
+        allRequiredForKey: [],
+        optionMapping: {},
+      };
+
+    const dynamicForm = [];
+    const optionMapping: Record<string, IModelOption> = {};
+    const allOptionKeyDragged: string[] = [];
+    const allRequiredForKey: string[] = [];
+
+    for (const _field of originalData) {
+      if (!_field.isChain) continue;
+
+      _field.options.forEach((opt: IModelOption) => {
+        optionMapping[opt.key] = opt;
+      });
+
+      if (!field[_field.key].dragged) continue;
+
+      if (_field.multiChoice) {
+        const options = _field.options.filter((opt: IModelOption) =>
+          (field[_field.key].value as string[])!.includes(opt.key),
+        );
+        options.forEach((opt: IModelOption) => {
+          allOptionKeyDragged.push(opt.key);
+          allRequiredForKey.push(...(opt.requiredFor || []));
+        });
+
+        dynamicForm.push({
+          ..._field,
+          options,
+        });
+        continue;
+      }
+
+      const value = _field.options.find(
+        (opt: IModelOption) => opt.key === field[_field.key].value,
+      );
+
+      if (!value) continue;
+
+      allOptionKeyDragged.push(value.key);
+      allRequiredForKey.push(...(value.requiredFor || []));
+
+      const { options: _, ...rest } = _field;
+
+      dynamicForm.push({
+        ...rest,
+        options: [value],
+      });
+    }
+
+    for (const _field of originalData) {
+      if (_field.isChain) continue;
+
+      for (const opt of _field.options) {
+        if (dappCount[chainKeyToDappKey(opt.key)]) {
+          const opts = new Array(dappCount[chainKeyToDappKey(opt.key)]).fill(
+            opt,
+          );
+
+          const fieldAlreadyInDynamicForm = dynamicForm.find(
+            (field) => field.key === _field.key,
+          );
+
+          if (fieldAlreadyInDynamicForm) {
+            fieldAlreadyInDynamicForm.options.push(...opts);
+          } else {
+            dynamicForm.push({
+              ..._field,
+              options: opts,
+            });
+          }
+        }
+      }
+    }
+
+    return {
+      dynamicForm,
+      allOptionKeyDragged,
+      allRequiredForKey,
+      optionMapping,
+    };
+  };
+
   const onUpdateHandler = async () => {
     if (!allFilled) {
       setShowError(true);
@@ -152,31 +241,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       return;
     }
 
-    const dynamicForm: any[] = [];
-    for (const _field of originalData) {
-      if (!field[_field.key].dragged) continue;
-
-      if (_field.multiChoice) {
-        dynamicForm.push({
-          ..._field,
-          options: _field.options.filter((opt: IModelOption) =>
-            (field[_field.key].value as string[])!.includes(opt.key),
-          ),
-        });
-        continue;
-      }
-
-      const value = _field.options.find(
-        (opt: IModelOption) => opt.key === field[_field.key].value,
-      );
-
-      const { options: _, ...rest } = _field;
-
-      dynamicForm.push({
-        ...rest,
-        options: [value],
-      });
-    }
+    const { dynamicForm } = getDynamicForm();
 
     if (needContactUs) {
       // showContactUsModal(dynamicForm as any);
@@ -332,77 +397,13 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     }
 
     let missingRequiredFor = false;
-    const dynamicForm: any[] = [];
-    const optionMapping: Record<string, IModelOption> = {};
-    const allOptionKeyDragged: string[] = [];
-    const allRequiredForKey: string[] = [];
+    const {
+      dynamicForm,
 
-    for (const _field of originalData) {
-      if (!_field.isChain) continue;
-
-      _field.options.forEach((opt: IModelOption) => {
-        optionMapping[opt.key] = opt;
-      });
-
-      if (!field[_field.key].dragged) continue;
-
-      if (_field.multiChoice) {
-        const options = _field.options.filter((opt: IModelOption) =>
-          (field[_field.key].value as string[])!.includes(opt.key),
-        );
-        options.forEach((opt: IModelOption) => {
-          allOptionKeyDragged.push(opt.key);
-          allRequiredForKey.push(...(opt.requiredFor || []));
-        });
-
-        dynamicForm.push({
-          ..._field,
-          options,
-        });
-        continue;
-      }
-
-      const value = _field.options.find(
-        (opt: IModelOption) => opt.key === field[_field.key].value,
-      );
-
-      if (!value) continue;
-
-      allOptionKeyDragged.push(value.key);
-      allRequiredForKey.push(...(value.requiredFor || []));
-
-      const { options: _, ...rest } = _field;
-
-      dynamicForm.push({
-        ...rest,
-        options: [value],
-      });
-    }
-
-    for (const _field of originalData) {
-      if (_field.isChain) continue;
-
-      for (const opt of _field.options) {
-        if (dappCount[chainKeyToDappKey(opt.key)]) {
-          const opts = new Array(dappCount[chainKeyToDappKey(opt.key)]).fill(
-            opt,
-          );
-
-          const fieldAlreadyInDynamicForm = dynamicForm.find(
-            (field) => field.key === _field.key,
-          );
-
-          if (fieldAlreadyInDynamicForm) {
-            fieldAlreadyInDynamicForm.options.push(...opts);
-          } else {
-            dynamicForm.push({
-              ..._field,
-              options: opts,
-            });
-          }
-        }
-      }
-    }
+      allOptionKeyDragged,
+      allRequiredForKey,
+      optionMapping,
+    } = getDynamicForm();
 
     console.log(
       '🚀 -> file: index.tsx:260 -> handleOnClick -> dynamicForm ::',
