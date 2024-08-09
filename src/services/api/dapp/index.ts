@@ -62,7 +62,7 @@ class CDappAPI {
 
     try {
       const chain = await this.getChainByOrderID({ orderID: params.orderID });
-      console.log('SANG TEST: ', chain);
+      // console.log('SANG TEST: ', chain);
       chain.dappURL = this.getDappURL(chain);
 
       const _chain = chain;

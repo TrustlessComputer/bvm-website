@@ -55,7 +55,7 @@ type Props = {
 const Lego = (props: Props) => {
   const {
     zIndex = 0,
-    background = '#A041FF',
+    background = '#c4513a',
     icon,
     title,
     tooltip,
@@ -128,8 +128,9 @@ const Lego = (props: Props) => {
                 </div>
                 {field.type === 'input' ? (
                   <Image
-                    width="30px"
-                    height="auto"
+                    width="45px"
+                    height="20px"
+                    style={{ backgroundColor: '#fff', borderRadius: '14px' }}
                     src={'/icons-tool/issue-a-token/icon-input.svg'}
                   />
                 ) : field.type === 'extends' &&

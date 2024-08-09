@@ -5,13 +5,18 @@ import '@xyflow/react/dist/style.css';
 import useFlowStore from '../../stores/useFlowStore';
 import ChainNode from '../../component4/CustomNode/ChainNode';
 import s from './styles.module.scss';
+import DappTemplateNode from '../../component4/CustomNode/DappTemplateNode';
 const ReactFlowRenderer = React.memo(() => {
   const { nodes, setNodes, onNodesChange } = useFlowStore();
 
   return (
     <ReactFlow
       nodes={nodes}
-      nodeTypes={{ customBox: CustomNode, chainNode: ChainNode }}
+      nodeTypes={{
+        customBox: CustomNode,
+        chainNode: ChainNode,
+        dappTemplate: DappTemplateNode,
+      }}
       onNodesChange={onNodesChange}
       zoomOnDoubleClick={false}
       // fitView

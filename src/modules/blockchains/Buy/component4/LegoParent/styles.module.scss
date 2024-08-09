@@ -15,7 +15,7 @@
     background-color: var(--background-color);
     border: 1px solid var(--border-color);
     border-radius: 4px 4px 4px 0px;
-    padding: 7px 8px;
+    padding: 4px 8px;
     width: max-content;
 
     &__piece {
@@ -68,6 +68,7 @@
 
     &__title {
       display: flex;
+      font-size: 14px;
       align-items: center;
       gap: 4px;
     }
@@ -91,15 +92,15 @@
       cursor: pointer;
       position: absolute;
       right: 0;
-      top: 50%;
-      transform: translateY(-50%) translateX(calc(100% + 10px));
+      top: 48%;
+      transform: translateY(-48%) translateX(calc(100% + 10px));
       background-color: var(--label-background);
       color: var(--label-color);
       border-radius: 4px;
-      padding: 0 12px;
-      font-size: 18px;
+      padding: 0 14px;
+      font-size: 14px;
       font-weight: 500;
-      line-height: 28px;
+      line-height: 24px;
     }
   }
 
