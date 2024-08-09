@@ -128,26 +128,26 @@ const Lego = (props: Props) => {
                 </div>
                 {field.type === 'input' ? (
                   <Image
-                    width="36px"
+                    width="30px"
                     height="auto"
                     src={'/icons-tool/issue-a-token/icon-input.svg'}
                   />
                 ) : field.type === 'extends' &&
                   typeof field.value === 'number' ? (
                   <Image
-                    width="40px"
+                    width="35px"
                     height="auto"
                     src={'/icons-tool/issue-a-token/icon-switch.svg'}
                   />
                 ) : field.type === 'dropdown' ? (
                   <Image
-                    width="36px"
+                    width="30px"
                     height="auto"
                     src={'/icons-tool/issue-a-token/icon-dropdown.svg'}
                   />
                 ) : field.type === 'datetime' ? (
                   <Image
-                    width="36px"
+                    width="30px"
                     height="auto"
                     src={'/icons-tool/issue-a-token/icon-datetime.svg'}
                   />
@@ -187,7 +187,7 @@ const Lego = (props: Props) => {
             </Tooltip>
           )}
 
-          {children && <div className={styles.children}>{children}</div>}
+          {children && <div clas  sName={styles.children}>{children}</div>}
 
           {title && titleInRight ? (
             <div
