@@ -22,7 +22,7 @@
     transform: translateX(37px);
     border: 1px solid var(--background);
     border-radius: 4px;
-    height: 43px;
+    height: 41.6px;
   }
 
   &_studHead {
@@ -73,12 +73,12 @@
 .label {
   p {
     color: #fff;
-    font-family: var(--font-JetBrainsMono);
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 500;
-    line-height: 28px; /* 155.556% */
-    letter-spacing: -0.18px;
+    line-height: calc(20 / 14);
+    //letter-spacing: -0.18px;
   }
 
   display: flex;

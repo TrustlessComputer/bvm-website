@@ -1,34 +1,21 @@
-import {
-  getViewportForBounds,
-  useNodes,
-  useNodesState,
-  useReactFlow,
-  useStoreApi,
-} from '@xyflow/react';
-import React, { useCallback, useEffect } from 'react';
-import {
-  draggedDappIndexesSignal,
-  draggedIds2DSignal,
-} from '@/modules/blockchains/Buy/signals/useDragSignal';
+import { useStoreApi } from '@xyflow/react';
+import React, { useEffect } from 'react';
+import { draggedDappIndexesSignal, draggedIds2DSignal } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import { useSignalEffect } from '@preact/signals-react';
 import { cloneDeep, isTwoObjectEqual } from '@/modules/blockchains/Buy/utils';
 import useFlowStore from '../stores/useFlowStore';
 
 import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
-let currentOverlapOffset = 0;
-const NODE_WIDTH = 116;
-const NODE_HEIGHT = 28;
+
 export default function useNodeFlowControl() {
   const { nodes, setNodes, onNodesChange } = useFlowStore();
   const store = useStoreApi();
-  const reactFlowInstance = useReactFlow();
   const {
     height,
     width,
     transform: [transformX, transformY, zoomLevel],
   } = store.getState();
-  const { screenToFlowPosition } = useReactFlow();
 
   const [draggedIds2D, setDraggedIds2D] = React.useState<
     typeof draggedIds2DSignal.value

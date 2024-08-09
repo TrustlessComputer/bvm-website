@@ -4,8 +4,9 @@
   width: 100%;
   padding: 0 12px;
   border-radius: 17px;
-  font-family: var(--font-JetBrainsMono);
-  font-size: 18px;
+  font-size: 14px;
+  line-height: calc(20 / 14);
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   outline: none;
   &::placeholder {
     color: red;
@@ -15,7 +16,7 @@
 .setLine {
   input {
     display: block;
-    margin-top: -7px;
+    margin-top: -10px;
   }
 }
 
