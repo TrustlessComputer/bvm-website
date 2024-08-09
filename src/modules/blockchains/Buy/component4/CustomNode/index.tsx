@@ -31,13 +31,13 @@ import styles from '@/modules/blockchains/Buy/components3/LegoV3/styles.module.s
 import AA from '@/modules/blockchains/Buy/dapp/AA';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
-
+import { useSignalEffect } from '@preact/signals-react';
 
 enum StatusBox {
   DRAFTING = 'Drafting',
   READY = 'Ready',
   MISSING = 'Missing',
-  RUNNING= 'Running',
+  RUNNING = 'Running',
   DOWN = 'Down',
 }
 
@@ -72,6 +72,23 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   } = useDapps();
   const { order } = useChainProvider();
   const { setComputerNameField } = useBuy();
+  const [current, setCurrent] = React.useState<any>(null);
+
+  useSignalEffect(() => {
+    console.log('CustomNode', {
+      index: data.baseIndex,
+      new: draggedIds2DSignal.value[data.baseIndex],
+      old: current,
+    });
+
+    if (
+      JSON.stringify(draggedIds2DSignal.value[data.baseIndex]) !==
+      JSON.stringify(current)
+    ) {
+      console.log('Change current ', data.baseIndex);
+      setCurrent(draggedIds2DSignal.value[data.baseIndex]);
+    }
+  });
 
   useEffect(() => {
     if (order) {
@@ -125,11 +142,13 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   function renderDapps() {
     const dappIndex = draggedDappIndexesSignal.value[data.baseIndex];
 
-    if (typeof dappIndex === 'undefined') return <></>;
+    if (typeof dappIndex === 'undefined')
+      return <React.Fragment key={JSON.stringify(current)}></React.Fragment>;
 
     const thisDapp = dapps[dappIndex];
 
-    if (!thisDapp) return <></>;
+    if (!thisDapp)
+      return <React.Fragment key={JSON.stringify(current)}></React.Fragment>;
 
     const mainColor = adjustBrightness(thisDapp.color, -10);
     let blockCount = 0;
@@ -146,7 +165,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
     return (
       <Draggable
         id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
-        // key={data.baseIndex}
+        key={JSON.stringify(current)}
         value={{
           dappIndex,
           title: thisDapp.baseBlock.title,
@@ -174,7 +193,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const thisBaseModule =
                   baseModuleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                    ];
+                  ];
                 const thisModule = (thisBaseModule?.fields || []).find(
                   (f: FieldModel) => f.value === item.value,
                 );
@@ -228,7 +247,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const { key: thisBlockKey, ...thisBlock } =
                   blockFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                    ];
+                  ];
                 const needSuffix = thisBlock.placableAmount === -1;
 
                 blockCount++;
@@ -277,8 +296,8 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                                 baseIndex: data.baseIndex,
                               },
                               thisBlock.fields.length +
-                              item.children.length -
-                              fieldIndex,
+                                item.children.length -
+                                fieldIndex,
                             );
                           },
                         )}
@@ -336,7 +355,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const field =
                   singleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                    ];
+                  ];
 
                 const thisModule = field.fields[0];
 
@@ -374,7 +393,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const thisModule =
                   moduleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                    ];
+                  ];
                 const isMultiple = thisModule.placableAmount === -1;
 
                 if (isMultiple) {
@@ -494,7 +513,10 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   }
 
   return (
-    <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
+    <div
+      className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}
+      key={JSON.stringify(current)}
+    >
       <div
         className={`${s.wrapperBox_top} drag-handle-area ${cn(
           s[`borderColor_${data.status}`],
@@ -541,7 +563,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
         {/*  ))} */}
         {/*</div>*/}
 
-        {data.dapp && <DappRendering />}
+        {data.dapp && <DappRendering key={JSON.stringify(current)} />}
 
         {/*<div className={`${s.handles} ${s.sources}`}>*/}
         {/*  {data.sourceHandles.map((handle, index) => (*/}
