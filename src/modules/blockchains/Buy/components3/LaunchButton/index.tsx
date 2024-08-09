@@ -34,8 +34,12 @@ import useOneForm from '../../hooks/useOneForm';
 import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
 import { chainKeyToDappKey } from '../../utils';
 import onSubmitStaking from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitStaking';
+import PreviewLaunchModal from '../../Preview';
 
 const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
+  const [showPreviewModal, setShowPreviewModal] = useState(false);
+  const [dyanmicFormAllData, setDyanmicFormAllData] = useState<any[]>([]);
+
   const { dappCount } = useFormDappToFormChain();
 
   const { parsedCategories: data, categories: originalData } =
@@ -222,16 +226,98 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     }
   };
 
-  const handleOnClick = async () => {
+  const onLaunchExecute = async () => {
+    setSubmitting(true);
+
+    let isSuccess = false;
+
+    const stakingForms = retrieveFormsByDappKey({
+      dappKey: 'staking',
+    });
+
+    const form: FormOrder = {
+      chainName,
+      network,
+      dataAvaibilityChain,
+      gasLimit,
+      withdrawPeriod,
+    };
+
+    const params = formValuesAdapter({
+      computerName: computerNameField.value || '',
+      chainId: chainId,
+      dynamicFormValues: dyanmicFormAllData,
+    });
+
+    // console.log('dyanmicFormAllData  ----- ', dyanmicFormAllData);
+    // console.log('stakingForms  ----- ', stakingForms);
+
+    const stakingDappList = dyanmicFormAllData
+      .filter((item: any) => !item.isChain)
+      .filter((dapp: any) => dapp.options[0].key === 'staking');
+
+    const isExistStakingDApp = stakingDappList && stakingDappList.length > 0;
+
+    // console.log('formValuesAdapter ----- ', params);
+    // console.log('stakingDappList ----- ', stakingDappList);
+    // console.log('isExistStakingDApp ----- ', isExistStakingDApp);
+
+    try {
+      const result = await orderBuyAPI_V3(params);
+      if (result) {
+        // if (ID Issuse Token dAPP) {
+        //   If exist Issue Token dAPP have been dragged!
+        //   TODO[Leon] Call API install Issues Token after call API install Chain be succeed! )
+
+        //   const resultIssusToken = await API.[Call Install Issues Token]
+        // }
+
+        if (isExistStakingDApp) {
+          try {
+            await onSubmitStaking({
+              forms: stakingForms,
+            });
+            isSuccess = true;
+          } catch (error) {
+            console.log('ERROR: ', error);
+          }
+        }
+
+        isSuccess = true;
+      }
+    } catch (error) {
+      console.log('ERROR: ', error);
+      isSuccess = false;
+      const { message } = getErrorMessage(error);
+      // toast.error(message);
+      if (message && message.toLowerCase().includes('insufficient balance')) {
+        onOpenTopUpModal();
+      }
+    } finally {
+      // dispatch(setViewMode('Mainnet'));
+      // dispatch(setViewPage('ManageChains'));
+      // dispatch(setShowAllChains(false));
+      await sleep(1);
+      if (isSuccess) {
+        router.push('/chains');
+      } else {
+        // router.push('/rollups?hasOrderFailed=true');
+      }
+      setSubmitting(false);
+    }
+  };
+
+  const onLaunchCallbackHandler = () => {
+    setShowPreviewModal(false);
+    onLaunchExecute();
+  };
+
+  const onLaunchHandler = async () => {
     // =======================================================================================
     // Dapp forms
     // =======================================================================================
     const issueATokenForms = retrieveFormsByDappKey({
       dappKey: 'token_generation',
-    });
-
-    const stakingForms = retrieveFormsByDappKey({
-      dappKey: 'staking',
     });
 
     // =======================================================================================
@@ -354,61 +440,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       return login();
     }
 
-    setSubmitting(true);
-
-    let isSuccess = false;
-    const form: FormOrder = {
-      chainName,
-      network,
-      dataAvaibilityChain,
-      gasLimit,
-      withdrawPeriod,
-    };
-
-    const params = formValuesAdapter({
-      computerName: computerNameField.value || '',
-      chainId: chainId,
-      dynamicFormValues: dynamicForm,
-    });
-
-    try {
-      const result = await orderBuyAPI_V3(params);
-      if (result) {
-        // if (ID Issuse Token dAPP) {
-        //   If exist Issue Token dAPP have been dragged!
-        //   TODO[Leon] Call API install Issues Token after call API install Chain be succeed! )
-
-        //   const resultIssusToken = await API.[Call Install Issues Token]
-        // }
-
-        isSuccess = true;
-      }
-    } catch (error) {
-      console.log('ERROR: ', error);
-      isSuccess = false;
-      const { message } = getErrorMessage(error);
-      // toast.error(message);
-      if (message && message.toLowerCase().includes('insufficient balance')) {
-        onOpenTopUpModal();
-      }
-    } finally {
-      // dispatch(setViewMode('Mainnet'));
-      // dispatch(setViewPage('ManageChains'));
-      // dispatch(setShowAllChains(false));
-      await sleep(1);
-      if (isSuccess) {
-        router.push('/chains');
-      } else {
-        // router.push('/rollups?hasOrderFailed=true');
-      }
-      setSubmitting(false);
-    }
-
-    try {
-      await onSubmitStaking({ forms: stakingForms });
-    } catch (error) {
-      console.log('ERROR: ', error);
-    }
+    setDyanmicFormAllData(dynamicForm);
+    setShowPreviewModal(true);
   };
 
   return (
@@ -423,7 +456,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           if (isUpdate) {
             onUpdateHandler();
           } else {
-            handleOnClick();
+            onLaunchHandler();
           }
         }}
       >
@@ -530,6 +563,16 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           ))}
         </ul>
       </ErrorModal>
+      {showPreviewModal && (
+        <PreviewLaunchModal
+          show={showPreviewModal}
+          onClose={() => {
+            setShowPreviewModal(false);
+          }}
+          onLaunchCallback={onLaunchCallbackHandler}
+          data={dyanmicFormAllData}
+        />
+      )}
     </>
   );
 };
