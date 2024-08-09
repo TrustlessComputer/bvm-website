@@ -9,9 +9,8 @@ type Props = {
 const DappNotification = ({ label, message }: Props) => {
   return (
     <div className={s.notification}>
-      <span className={s.notification__label}>{label ?? 'IMPORTANT'}</span> -
       {message ??
-        'This module needs to be configured and completed later after the chain is deployed and the payment is confirmed'}
+        'This module must be configured and completed after chain deployment and payment confirmation.'}
     </div>
   );
 };
