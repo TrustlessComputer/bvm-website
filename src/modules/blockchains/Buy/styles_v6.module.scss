@@ -53,7 +53,7 @@
 }
 
 .left {
-  width: 40%;
+  width: 34%;
 }
 
 .heading {
@@ -157,7 +157,8 @@
     overflow: hidden;
 
     &_sidebar {
-      width: 17%;
+      width: 20%;
+      border-right: 3px solid #E0E0E0;
       height: var(--height-studio);
     }
 
@@ -169,16 +170,19 @@
       overflow-x: hidden;
 
       &::-webkit-scrollbar {
-        width: 6px;
+        width: 1px;
+        display: none;
       }
 
       &::-webkit-scrollbar-track {
         background: #fff;
+        display: none;
       }
 
       &::-webkit-scrollbar-thumb {
         border-radius: 0px;
         background: #e0e0e0;
+        display: none;
       }
     }
   }
