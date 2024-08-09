@@ -187,7 +187,7 @@ const Lego = (props: Props) => {
             </Tooltip>
           )}
 
-          {children && <div className={styles.children}>{children}</div>}
+          {children && <div clas  sName={styles.children}>{children}</div>}
 
           {title && titleInRight ? (
             <div
