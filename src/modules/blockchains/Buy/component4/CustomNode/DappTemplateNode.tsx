@@ -112,326 +112,324 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
     const totalAll = totalBaseFields + totalDragged + totalBaseModuleBlock;
 
     return (
-      <Draggable
-        id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
-        value={{
-          title: thisDapp.baseBlock.title,
-          icon: thisDapp.baseBlock.icon,
-          fieldKey: thisDapp.baseBlock.key,
-          background: thisDapp.color_border || mainColor,
-        }}
+      // <Draggable
+      //   id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
+      //   value={{
+      //     title: thisDapp.baseBlock.title,
+      //     icon: thisDapp.baseBlock.icon,
+      //     fieldKey: thisDapp.baseBlock.key,
+      //     background: thisDapp.color_border || mainColor,
+      //   }}
+      // >
+      //   <Droppable
+      //     id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
+      //     style={{
+      //       width: 'max-content',
+      //       height: 'max-content',
+      //     }}
+      //   >
+      <LegoParent
+        {...baseBlock}
+        background={thisDapp?.color_border || mainColor}
+        label={thisDapp.label}
+        zIndex={999 - data.baseIndex}
       >
-        <Droppable
-          id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
-          style={{
-            width: 'max-content',
-            height: 'max-content',
-          }}
-        >
-          <LegoParent
-            {...baseBlock}
-            background={thisDapp?.color_border || mainColor}
-            label={thisDapp.label}
-            zIndex={999 - data.baseIndex}
-          >
-            {data.ids
-              .filter((id) => DragUtil.idDraggingIsABaseModule(id.name))
-              .map((item, itemIndex) => {
-                const thisBaseModule =
-                  baseModuleFieldMapping[DragUtil.getOriginalKey(item.name)];
-                const thisModule = (thisBaseModule?.fields || []).find(
-                  (f: FieldModel) => f.value === item.value,
-                );
+        {data.ids
+          .filter((id) => DragUtil.idDraggingIsABaseModule(id.name))
+          .map((item, itemIndex) => {
+            const thisBaseModule =
+              baseModuleFieldMapping[DragUtil.getOriginalKey(item.name)];
+            const thisModule = (thisBaseModule?.fields || []).find(
+              (f: FieldModel) => f.value === item.value,
+            );
 
-                if (!thisModule) return null;
+            if (!thisModule) return null;
 
-                return (
-                  <Lego
-                    {...thisBaseModule}
-                    preview={false}
-                    key={item.name}
-                    background={adjustBrightness(
-                      thisBaseModule.background || mainColor,
-                      -20,
-                    )}
-                    first={false}
-                    last={false}
-                    titleInLeft={false}
-                    titleInRight={true}
-                    zIndex={totalAll - itemIndex}
-                  >
-                    <Label {...thisModule} />
-                  </Lego>
-                );
-              })}
+            return (
+              <Lego
+                {...thisBaseModule}
+                preview={false}
+                key={item.name}
+                background={adjustBrightness(
+                  thisBaseModule.background || mainColor,
+                  -20,
+                )}
+                first={false}
+                last={false}
+                titleInLeft={false}
+                titleInRight={true}
+                zIndex={totalAll - itemIndex}
+              >
+                <Label {...thisModule} />
+              </Lego>
+            );
+          })}
 
-            {thisDapp.baseBlock.fields.map(
-              (field: FieldModel, fieldIndex: number) => {
-                return getLabelWithLego(
-                  data.dapp!,
-                  field,
-                  {
-                    dappIndex: data.baseIndex,
-                    inBaseField: true,
-                    inBlockField: false,
-                    inSingleField: false,
-                    index: undefined,
-                    level: 0,
-                    blockKey: '',
-                    baseIndex: data.baseIndex,
-                  },
-                  totalBaseFields + totalDragged - fieldIndex,
-                );
+        {thisDapp.baseBlock.fields.map(
+          (field: FieldModel, fieldIndex: number) => {
+            return getLabelWithLego(
+              data.dapp!,
+              field,
+              {
+                dappIndex: data.baseIndex,
+                inBaseField: true,
+                inBlockField: false,
+                inSingleField: false,
+                index: undefined,
+                level: 0,
+                blockKey: '',
+                baseIndex: data.baseIndex,
               },
-            )}
+              totalBaseFields + totalDragged - fieldIndex,
+            );
+          },
+        )}
 
-            {data.ids.map((item, itemIndex) => {
-              const zIndex = totalDragged - itemIndex - 1;
+        {data.ids.map((item, itemIndex) => {
+          const zIndex = totalDragged - itemIndex - 1;
 
-              if (DragUtil.idDraggingIsABlock(item.name)) {
-                const { key: thisBlockKey, ...thisBlock } =
-                  blockFieldMapping[DragUtil.getOriginalKey(item.name)];
-                const needSuffix = thisBlock.placableAmount === -1;
+          if (DragUtil.idDraggingIsABlock(item.name)) {
+            const { key: thisBlockKey, ...thisBlock } =
+              blockFieldMapping[DragUtil.getOriginalKey(item.name)];
+            const needSuffix = thisBlock.placableAmount === -1;
 
-                blockCount++;
+            blockCount++;
 
-                return (
-                  <Draggable
-                    id={`${item.name}-${itemIndex}-${data.baseIndex}`}
-                    key={`${item.name}-${itemIndex}-${data.baseIndex}`}
-                    value={{
-                      title: thisBlock.title + ' #' + blockCount,
-                      icon: thisBlock.icon,
-                      fieldKey: thisBlockKey,
-                      background: thisBlock.background || mainColor,
-                    }}
-                  >
-                    <Droppable
-                      id={`${item.name}-${itemIndex}-${data.baseIndex}`}
-                    >
-                      <LegoParent
-                        {...thisBlock}
-                        title={
-                          thisBlock.title +
-                          (needSuffix ? ' #' + blockCount : '')
-                        }
-                        background={adjustBrightness(
-                          thisBlock.background || mainColor,
-                          -10,
-                        )}
-                        smallMarginHeaderTop
-                        zIndex={zIndex}
-                      >
-                        {thisBlock.fields.map(
-                          (field: FieldModel, fieldIndex: number) => {
-                            return getLabelWithLego(
-                              data.dapp!,
-                              field,
-                              {
-                                dappIndex: data.baseIndex,
-                                inBaseField: false,
-                                inBlockField: true,
-                                inSingleField: false,
-                                index: itemIndex,
-                                level: 0,
-                                blockKey: thisBlockKey,
-                                baseIndex: data.baseIndex,
-                              },
-                              thisBlock.fields.length +
-                                item.children.length -
-                                fieldIndex,
-                            );
-                          },
-                        )}
-
-                        {item.children.map((child, childIndex) => {
-                          const thisChildField = thisBlock.childrenFields?.find(
-                            (f: FieldModel) => f.key === child.name,
-                          );
-
-                          if (!thisChildField) return null;
-
-                          return (
-                            <Draggable
-                              id={`right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${child.name}-${itemIndex}-${data.baseIndex}`}
-                              key={`right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${child.name}-${itemIndex}-${data.baseIndex}`}
-                              value={{
-                                title: thisChildField.title,
-                                icon: thisChildField.icon,
-                                fieldKey: thisChildField.key,
-                                background:
-                                  thisChildField.background || mainColor,
-                                blockKey: thisBlockKey,
-                              }}
-                              style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '0px',
-                                zIndex: item.children.length - childIndex,
-                              }}
-                            >
-                              {getLabelWithLego(
-                                data.dapp!,
-                                thisChildField,
-                                {
-                                  dappIndex: data.baseIndex,
-                                  inBaseField: false,
-                                  inBlockField: true,
-                                  inSingleField: false,
-                                  index: itemIndex,
-                                  level: 0,
-                                  blockKey: thisBlockKey,
-                                  baseIndex: data.baseIndex,
-                                },
-                                item.children.length - childIndex,
-                              )}
-                            </Draggable>
-                          );
-                        })}
-                      </LegoParent>
-                    </Droppable>
-                  </Draggable>
-                );
-              } else if (DragUtil.idDraggingIsASingle(item.name)) {
-                const field =
-                  singleFieldMapping[DragUtil.getOriginalKey(item.name)];
-
-                if (!field) return null;
-
-                const thisModule = field.fields[0];
-
-                if (!thisModule) return null;
-
-                return (
-                  <Draggable
-                    id={`${item.name}-${itemIndex}-${data.baseIndex}`}
-                    key={`${item.name}-${itemIndex}-${data.baseIndex}`}
-                    value={{
-                      title: thisModule.title,
-                      icon: thisModule.icon,
-                      fieldKey: thisModule.key,
-                    }}
-                  >
-                    {getLabelWithLego(
+            return (
+              // <Draggable
+              //   id={`${item.name}-${itemIndex}-${data.baseIndex}`}
+              //   key={`${item.name}-${itemIndex}-${data.baseIndex}`}
+              //   value={{
+              //     title: thisBlock.title + ' #' + blockCount,
+              //     icon: thisBlock.icon,
+              //     fieldKey: thisBlockKey,
+              //     background: thisBlock.background || mainColor,
+              //   }}
+              // >
+              //   <Droppable
+              //     id={`${item.name}-${itemIndex}-${data.baseIndex}`}
+              //   >
+              <LegoParent
+                {...thisBlock}
+                title={thisBlock.title + (needSuffix ? ' #' + blockCount : '')}
+                background={adjustBrightness(
+                  thisBlock.background || mainColor,
+                  -10,
+                )}
+                smallMarginHeaderTop
+                zIndex={zIndex}
+                key={`${item.name}-${itemIndex}-${data.baseIndex}`}
+              >
+                {thisBlock.fields.map(
+                  (field: FieldModel, fieldIndex: number) => {
+                    return getLabelWithLego(
                       data.dapp!,
-                      thisModule,
+                      field,
                       {
                         dappIndex: data.baseIndex,
                         inBaseField: false,
-                        inBlockField: false,
-                        inSingleField: true,
+                        inBlockField: true,
+                        inSingleField: false,
                         index: itemIndex,
                         level: 0,
-                        blockKey: '',
+                        blockKey: thisBlockKey,
                         baseIndex: data.baseIndex,
                       },
-                      zIndex,
-                    )}
-                  </Draggable>
-                );
-              } else if (DragUtil.idDraggingIsAModule(item.name)) {
-                const thisModule =
-                  moduleFieldMapping[DragUtil.getOriginalKey(item.name)];
+                      thisBlock.fields.length +
+                        item.children.length -
+                        fieldIndex,
+                    );
+                  },
+                )}
 
-                if (!thisModule) return null;
-
-                const isMultiple = thisModule.placableAmount === -1;
-
-                if (isMultiple) {
-                  return (
-                    <Draggable
-                      id={`${item.name}-${itemIndex}-${data.baseIndex}`}
-                      key={`${item.name}-${itemIndex}-${data.baseIndex}`}
-                      value={{
-                        title: thisModule.title,
-                        icon: thisModule.icon,
-                        fieldKey: thisModule.key,
-                      }}
-                    >
-                      <LegoParent
-                        {...thisModule}
-                        background={adjustBrightness(mainColor, -20)}
-                        smallMarginHeaderTop
-                        zIndex={zIndex}
-                      >
-                        {(item.value as string[]).map((value, index) => {
-                          const thisValue = thisModule.fields.find(
-                            (f: FieldModel) => f.value === value,
-                          );
-
-                          if (!thisValue) return null;
-
-                          return (
-                            <Draggable
-                              id={`${item.name}-${itemIndex}-${data.baseIndex}-${value}`}
-                              key={`${item.name}-${itemIndex}-${data.baseIndex}-${value}`}
-                              value={{
-                                title: thisValue.title,
-                                icon: thisValue.icon,
-                                value: thisValue.value,
-                              }}
-                            >
-                              <Lego
-                                key={value}
-                                background={adjustBrightness(
-                                  thisModule.background || mainColor,
-                                  -40,
-                                )}
-                                first={false}
-                                last={false}
-                                titleInLeft={true}
-                                titleInRight={false}
-                              >
-                                <Label {...thisValue} />
-                              </Lego>
-                            </Draggable>
-                          );
-                        })}
-                      </LegoParent>
-                    </Draggable>
-                  );
-                } else {
-                  const thisField = thisModule.fields.find(
-                    (f: FieldModel) => f.value === item.value,
+                {item.children.map((child, childIndex) => {
+                  const thisChildField = thisBlock.childrenFields?.find(
+                    (f: FieldModel) => f.key === child.name,
                   );
 
-                  if (!thisField) return null;
+                  if (!thisChildField) return null;
 
                   return (
-                    <Draggable
-                      id={`${item.name}-${itemIndex}-${data.baseIndex}`}
-                      key={`${item.name}-${itemIndex}-${data.baseIndex}`}
-                      value={{
-                        title: thisModule.title,
-                        icon: thisModule.icon,
-                        fieldKey: thisModule.key,
-                      }}
-                    >
+                    // <Draggable
+                    //   id={`right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${child.name}-${itemIndex}-${data.baseIndex}`}
+                    //   key={`right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${child.name}-${itemIndex}-${data.baseIndex}`}
+                    //   value={{
+                    //     title: thisChildField.title,
+                    //     icon: thisChildField.icon,
+                    //     fieldKey: thisChildField.key,
+                    //     background:
+                    //       thisChildField.background || mainColor,
+                    //     blockKey: thisBlockKey,
+                    //   }}
+                    //   style={{
+                    //     display: 'flex',
+                    //     flexDirection: 'column',
+                    //     gap: '0px',
+                    //     zIndex: item.children.length - childIndex,
+                    //   }}
+                    // >
+                    getLabelWithLego(
+                      data.dapp!,
+                      thisChildField,
+                      {
+                        dappIndex: data.baseIndex,
+                        inBaseField: false,
+                        inBlockField: true,
+                        inSingleField: false,
+                        index: itemIndex,
+                        level: 0,
+                        blockKey: thisBlockKey,
+                        baseIndex: data.baseIndex,
+                      },
+                      item.children.length - childIndex,
+                    )
+                    // </Draggable>
+                  );
+                })}
+              </LegoParent>
+              //   </Droppable>
+              // </Draggable>
+            );
+          } else if (DragUtil.idDraggingIsASingle(item.name)) {
+            const field =
+              singleFieldMapping[DragUtil.getOriginalKey(item.name)];
+
+            if (!field) return null;
+
+            const thisModule = field.fields[0];
+
+            if (!thisModule) return null;
+
+            return (
+              // <Draggable
+              //   id={`${item.name}-${itemIndex}-${data.baseIndex}`}
+              //   key={`${item.name}-${itemIndex}-${data.baseIndex}`}
+              //   value={{
+              //     title: thisModule.title,
+              //     icon: thisModule.icon,
+              //     fieldKey: thisModule.key,
+              //   }}
+              // >
+              getLabelWithLego(
+                data.dapp!,
+                thisModule,
+                {
+                  dappIndex: data.baseIndex,
+                  inBaseField: false,
+                  inBlockField: false,
+                  inSingleField: true,
+                  index: itemIndex,
+                  level: 0,
+                  blockKey: '',
+                  baseIndex: data.baseIndex,
+                },
+                zIndex,
+              )
+              // </Draggable>
+            );
+          } else if (DragUtil.idDraggingIsAModule(item.name)) {
+            const thisModule =
+              moduleFieldMapping[DragUtil.getOriginalKey(item.name)];
+
+            if (!thisModule) return null;
+
+            const isMultiple = thisModule.placableAmount === -1;
+
+            if (isMultiple) {
+              return (
+                // <Draggable
+                //   id={`${item.name}-${itemIndex}-${data.baseIndex}`}
+                //   key={`${item.name}-${itemIndex}-${data.baseIndex}`}
+                //   value={{
+                //     title: thisModule.title,
+                //     icon: thisModule.icon,
+                //     fieldKey: thisModule.key,
+                //   }}
+                // >
+                <LegoParent
+                  {...thisModule}
+                  background={adjustBrightness(mainColor, -20)}
+                  smallMarginHeaderTop
+                  zIndex={zIndex}
+                >
+                  {(item.value as string[]).map((value, index) => {
+                    const thisValue = thisModule.fields.find(
+                      (f: FieldModel) => f.value === value,
+                    );
+
+                    if (!thisValue) return null;
+
+                    return (
+                      // <Draggable
+                      //   id={`${item.name}-${itemIndex}-${data.baseIndex}-${value}`}
+                      //   key={`${item.name}-${itemIndex}-${data.baseIndex}-${value}`}
+                      //   value={{
+                      //     title: thisValue.title,
+                      //     icon: thisValue.icon,
+                      //     value: thisValue.value,
+                      //   }}
+                      // >
                       <Lego
-                        {...thisModule}
-                        preview={false}
+                        key={value}
                         background={adjustBrightness(
                           thisModule.background || mainColor,
-                          -20,
+                          -40,
                         )}
                         first={false}
                         last={false}
-                        titleInLeft={false}
-                        titleInRight={true}
-                        zIndex={zIndex}
+                        titleInLeft={true}
+                        titleInRight={false}
                       >
-                        <Label {...thisField} />
+                        <Label {...thisValue} />
                       </Lego>
-                    </Draggable>
-                  );
-                }
-              }
+                      // </Draggable>
+                    );
+                  })}
+                </LegoParent>
+                // </Draggable>
+              );
+            } else {
+              const thisField = thisModule.fields.find(
+                (f: FieldModel) => f.value === item.value,
+              );
 
-              return null;
-            })}
-          </LegoParent>
-        </Droppable>
-      </Draggable>
+              if (!thisField) return null;
+
+              return (
+                // <Draggable
+                //   id={`${item.name}-${itemIndex}-${data.baseIndex}`}
+                //   key={`${item.name}-${itemIndex}-${data.baseIndex}`}
+                //   value={{
+                //     title: thisModule.title,
+                //     icon: thisModule.icon,
+                //     fieldKey: thisModule.key,
+                //   }}
+                // >
+                <Lego
+                  {...thisModule}
+                  preview={false}
+                  background={adjustBrightness(
+                    thisModule.background || mainColor,
+                    -20,
+                  )}
+                  first={false}
+                  last={false}
+                  titleInLeft={false}
+                  titleInRight={true}
+                  zIndex={zIndex}
+                >
+                  <Label {...thisField} />
+                </Lego>
+                // </Draggable>
+              );
+            }
+          }
+
+          return null;
+        })}
+      </LegoParent>
+      // </Droppable>
+      //</Draggable>
     );
   }
 

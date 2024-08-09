@@ -43,6 +43,8 @@ export default function useFetchingTemplate() {
 
   const { tokens, configs, airdrops, airdropTasks, stakingPools } = dappState;
 
+  const [apiCount, setApiCount] = React.useState(0);
+
   // console.log(
   //   '🚀 -> file: useFetchingTemplate.ts:35 -> useFetchingTemplate -> dappState ::',
   //   dappState,
@@ -99,6 +101,7 @@ export default function useFetchingTemplate() {
     setCategories(sortedCategories);
     setCategoriesTemplates(templates);
     setNodes(nodes);
+    setApiCount((prev) => prev + 1);
 
     console.log('FIRST 2');
   };
@@ -213,6 +216,8 @@ export default function useFetchingTemplate() {
       ...parsedAirdropsForm.fieldValue,
       ...parsedStakingPoolsForm.fieldValue,
     } as any);
+
+    setApiCount((prev) => prev + 1);
   };
 
   const parseTokensData = (tokens: IToken[]) => {
@@ -243,18 +248,19 @@ export default function useFetchingTemplate() {
   };
 
   React.useEffect(() => {
-    console.log('FIRST 1');
     fetchData();
   }, []);
 
   React.useEffect(() => {
-    console.log('LAST 1');
     parseDappApiToDappModel();
   }, [airdrops, tokens, airdropTasks, stakingPools, needReload]);
 
   React.useEffect(() => {
+    // Chain API and Dapp API
+    if (apiCount < 2) return;
+
     dataTemplateToBox();
-  }, [templateDapps, templateForm]);
+  }, [apiCount]);
 
   React.useEffect(() => {
     initTemplate(0);
