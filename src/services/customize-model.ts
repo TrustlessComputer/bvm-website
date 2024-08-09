@@ -1,5 +1,6 @@
 // import { IOrderBuyReq } from '@/stores/states/l2services/types';
 // import { IOrderBuyEstimateRespone } from '@/services/api/l2services/types';
+import { APP_ENV } from '@/config';
 import { L2ServiceAPI as httpClient } from '@/services/api/clients';
 import { IModelCategory, ITemplate } from '@/types/customize-model';
 
@@ -7,11 +8,18 @@ export async function getModelCategories(
   tcAddress: string | undefined,
 ): Promise<IModelCategory[] | null> {
   try {
-    const data = await fetch(
-      `https://l2aas-api.newbitcoincity.com/api/order/available-list-v3?tcAddress=${
-        tcAddress || ''
-      }`,
-    ).then((res) => res.json());
+    let data;
+    if (APP_ENV === 'staging') {
+      data = await fetch(
+        `https://l2aas-api.newbitcoincity.com/api/order/available-list-v3?tcAddress=0x4113ed747047863Ea729f30C1164328D9Cc8CfcF`,
+      ).then((res) => res.json());
+    } else {
+      data = await fetch(
+        `https://l2aas-api.newbitcoincity.com/api/order/available-list-v3?tcAddress=${
+          tcAddress || ''
+        }`,
+      ).then((res) => res.json());
+    }
 
     return data.result;
   } catch (error) {
