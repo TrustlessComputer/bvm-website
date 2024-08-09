@@ -80,7 +80,7 @@ const BoxOption = ({
           className,
         )}
       >
-        <div className={styles.container__header}>
+        <div id={info.key} className={styles.container__header}>
           <h4 className={styles.container__header__title}>{info.title}</h4>
 
           {info.tooltip && (
