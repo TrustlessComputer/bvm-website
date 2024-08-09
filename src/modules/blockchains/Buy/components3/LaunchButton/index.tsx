@@ -33,6 +33,7 @@ import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCa
 import useOneForm from '../../hooks/useOneForm';
 import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
 import { chainKeyToDappKey } from '../../utils';
+import onSubmitStaking from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitStaking';
 
 const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { dappCount } = useFormDappToFormChain();
@@ -229,6 +230,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       dappKey: 'token_generation',
     });
 
+    const stakingForms = retrieveFormsByDappKey({
+      dappKey: 'staking',
+    });
+
     // =======================================================================================
     // Chain form
     // =======================================================================================
@@ -378,6 +383,13 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         // router.push('/rollups?hasOrderFailed=true');
       }
       setSubmitting(false);
+    }
+
+
+    try {
+      await onSubmitStaking({ forms: stakingForms });
+    } catch (error) {
+      console.log('ERROR: ', error);
     }
   };
 

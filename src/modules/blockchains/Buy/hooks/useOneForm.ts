@@ -4,13 +4,15 @@ import { formDappSignal } from '../signals/useFormDappsSignal';
 import { draggedDappIndexesSignal } from '../signals/useDragSignal';
 import { cloneDeep } from '../utils';
 
+export interface IRetrieveFormsByDappKey {
+  [key: string]: boolean | string | number;
+};
+
 const useOneForm = () => {
   const { dapps } = useDapps();
 
   const retrieveFormsByDappKey = ({ dappKey }: { dappKey: string }) => {
-    const forms: {
-      [key: string]: boolean | string | number;
-    }[][] = [];
+    const forms: IRetrieveFormsByDappKey[][] = [];
 
     const oneForm = cloneDeep(formDappSignal.value);
     const dappIndexes = cloneDeep(draggedDappIndexesSignal.value);
