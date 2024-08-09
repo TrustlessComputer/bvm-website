@@ -30,10 +30,6 @@ const useFormDappToFormChain = () => {
       }
     });
 
-    console.log(
-      '🚀 -> file: useFormDappToFormChain.ts:21 -> React.useEffect -> dappCount ::',
-      dappCount,
-    );
     setDappCount(dappCount);
   }, [dappIndexes]);
 

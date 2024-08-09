@@ -105,15 +105,10 @@ export default function useNodeFlowControl() {
     if (dragState.new) {
       handleAddBox();
     } else if (!dragState.oneD.every((v) => v === -1)) {
-      const position = screenToFlowPosition({
-        x: 0,
-        y: 0,
-      });
       nodes[dragState.oneD[0] + 1] = {
         ...nodes[dragState.oneD[0] + 1],
         data: {
           ...nodes[dragState.oneD[0] + 1].data,
-          position,
           ids: draggedIds2D[dragState.oneD[0]],
         },
       };
@@ -125,7 +120,6 @@ export default function useNodeFlowControl() {
     }
   }, [dragState]);
 
-
   const handleAddBox = () => {
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
@@ -133,10 +127,6 @@ export default function useNodeFlowControl() {
     // const positionTo = {
     //   x: lastNode.position.x - (lastNode.measured?.width || 0),
     //   y: lastNode.position.y - (lastNode.measured?.height || 0),
-    // };
-    // const positionTo = {
-    //   x: mouseDroppedPositionSignal.value.x ,
-    //   y: mouseDroppedPositionSignal.value.y ,
     // };
     const transformedX = (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
     const transformedY = (mouseDroppedPositionSignal.value.y - transformY) / zoomLevel;
@@ -163,7 +153,6 @@ export default function useNodeFlowControl() {
         },
         // origin: [0.0, 0.0],
         position: positionTo,
-
       },
     ]);
     resetDragState();

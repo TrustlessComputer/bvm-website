@@ -1,7 +1,6 @@
 import s from './styles.module.scss';
-import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
-import React, { ReactElement, useMemo } from 'react';
-import Image from 'next/image';
+import { HandleType, Node, NodeProps, Position } from '@xyflow/react';
+import React from 'react';
 import cn from 'classnames';
 import { OrderItem } from '@/stores/states/l2services/types';
 import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
@@ -13,22 +12,11 @@ import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import useOrderFormStoreV3, { useCaptureStore } from '../../stores/index_v3';
 import Label from '../../components3/Label';
 import ChainLegoParent from '../../components3/LegoParent';
-import { DappModel, FieldModel } from '@/types/customize-model';
+import { DappModel } from '@/types/customize-model';
 import { memo } from 'react';
-import {
-  draggedDappIndexesSignal,
-  draggedIds2DSignal,
-  Field,
-} from '@/modules/blockchains/Buy/signals/useDragSignal';
-import { adjustBrightness, DragUtil } from '@/modules/blockchains/Buy/utils';
-import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
-import Droppable from '@/modules/blockchains/Buy/component4/Droppable';
-import Lego from '@/modules/blockchains/Buy/component4/Lego';
-import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
-import Draggable from '@/modules/blockchains/Buy/component4/Draggable';
-import LegoParent from '@/modules/blockchains/Buy/component4/LegoParent';
-import styles from '@/modules/blockchains/Buy/components3/LegoV3/styles.module.scss';
-import AA from '@/modules/blockchains/Buy/dapp/AA';
+import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
+import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
+import { cloneDeep, dappKeyToChainKey } from '../../utils';
 
 export type DataNode = Node<
   {
@@ -48,12 +36,57 @@ export type DataNode = Node<
 >;
 
 function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
-  const { parsedCategories } = useModelCategoriesStore();
-  const { draggedFields } = useDragStore();
-  const { field } = useOrderFormStoreV3();
-  const { isCapture } = useCaptureStore();
+  const { parsedCategories, categories } = useModelCategoriesStore();
+  const { draggedFields, setDraggedFields } = useDragStore();
 
-  // TODO: Chain form
+  const { field, setField } = useOrderFormStoreV3();
+  const { isCapture } = useCaptureStore();
+  const { dappCount } = useFormDappToFormChain();
+
+  const setDappLegoToChain = () => {
+    const newDraggedFields = cloneDeep(draggedFields);
+
+    for (const key in dappCount) {
+      const _key = dappKeyToChainKey(key);
+
+      for (const _field of categories || []) {
+        for (const option of _field.options) {
+          if (option.key === _key) {
+            if (!newDraggedFields.includes(_field.key)) {
+              newDraggedFields.push(_field.key);
+
+              if (_field.multiChoice) {
+                setField(
+                  _field.key,
+                  [...((field[_field.key].value || []) as any[]), option.key],
+                  true,
+                );
+              } else {
+                setField(_field.key, option.key, true);
+              }
+            } else {
+              if (
+                _field.multiChoice &&
+                !(field[_field.key].value || ([] as any)).includes(option.key)
+              ) {
+                setField(
+                  _field.key,
+                  [...((field[_field.key].value || []) as any[]), option.key],
+                  true,
+                );
+              }
+            }
+          }
+        }
+      }
+    }
+
+    setDraggedFields(newDraggedFields);
+  };
+
+  React.useEffect(() => {
+    setDappLegoToChain();
+  }, [dappCount]);
 
   return (
     <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
@@ -123,42 +156,6 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
 
                   if (!option) return null;
 
-                  if (item.type === 'form') {
-                    return (
-                      <ChainDraggable
-                        key={item.key + '-' + option.key}
-                        id={item.key + '-' + option.key}
-                        useMask
-                        isLabel={true}
-                        value={{
-                          isChain: true,
-                          value: option.key,
-                        }}
-                        tooltip={option.tooltip}
-                      >
-                        <LegoV3
-                          background={item.color}
-                          zIndex={item.options.length - opIdx}
-                        >
-                          <div className={s.wrapInput}>
-                            <span
-                              className={`${s.labelInput} ${
-                                isCapture ? s.label_margin : ''
-                              }`}
-                            >
-                              {option.title}
-                            </span>
-                            <input
-                              className={`${s.inputLabel}`}
-                              name={item.key + '-' + option.key}
-                              type={option.type}
-                            />
-                          </div>
-                        </LegoV3>
-                      </ChainDraggable>
-                    );
-                  }
-
                   return (
                     <ChainDraggable
                       right
@@ -171,15 +168,19 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
                         value: option.key,
                       }}
                     >
-                      <LegoV3
-                        background={item.color}
-                        label={item.confuseTitle}
-                        labelInRight={!!item.confuseTitle || !!item.confuseIcon}
-                        icon={item.confuseIcon}
-                        zIndex={item.options.length - opIdx}
-                      >
-                        <Label icon={option.icon} title={option.title} />
-                      </LegoV3>
+                      <DroppableV2 id={item.key + '-right'}>
+                        <LegoV3
+                          background={item.color}
+                          label={item.confuseTitle}
+                          labelInRight={
+                            !!item.confuseTitle || !!item.confuseIcon
+                          }
+                          icon={item.confuseIcon}
+                          zIndex={item.options.length - opIdx}
+                        >
+                          <Label icon={option.icon} title={option.title} />
+                        </LegoV3>
+                      </DroppableV2>
                     </ChainDraggable>
                   );
                 });
@@ -222,22 +223,22 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
                       value: option.key,
                     }}
                   >
-                    {/* <DroppableV2 id={item.key + '-right'}> */}
-                    <LegoV3
-                      background={item.color}
-                      label={item.confuseTitle}
-                      labelInRight={!!item.confuseTitle || !!item.confuseIcon}
-                      zIndex={draggedFields.length - index}
-                      icon={item.confuseIcon}
-                      // className={
-                      //   showShadow === field[item.key].value
-                      //     ? s.activeBlur
-                      //     : ''
-                      // }
-                    >
-                      <Label icon={option.icon} title={option.title} />
-                    </LegoV3>
-                    {/* </DroppableV2> */}
+                    <DroppableV2 id={item.key + '-right'}>
+                      <LegoV3
+                        background={item.color}
+                        label={item.confuseTitle}
+                        labelInRight={!!item.confuseTitle || !!item.confuseIcon}
+                        zIndex={draggedFields.length - index}
+                        icon={item.confuseIcon}
+                        // className={
+                        //   showShadow === field[item.key].value
+                        //     ? s.activeBlur
+                        //     : ''
+                        // }
+                      >
+                        <Label icon={option.icon} title={option.title} />
+                      </LegoV3>
+                    </DroppableV2>
                   </ChainDraggable>
                 );
               });
