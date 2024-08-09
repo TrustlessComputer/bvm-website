@@ -128,8 +128,8 @@ export default function useNodeFlowControl() {
     //   y: lastNode.position.y - (lastNode.measured?.height || 0),
     // };
     const positionTo = {
-      x: mouseDroppedPositionSignal.value.x * zoomLevel,
-      y: mouseDroppedPositionSignal.value.y * zoomLevel,
+      x: mouseDroppedPositionSignal.value.x,
+      y: mouseDroppedPositionSignal.value.y,
     };
     // const zoomMultiplier = 1 / zoomLevel;
     // const centerX = -mouseDroppedPositionSignal.value.x * zoomMultiplier + (width * zoomMultiplier) / 2;
@@ -149,7 +149,7 @@ export default function useNodeFlowControl() {
         dragHandle: '.drag-handle-area',
         data: {
           label: thisDapp.title,
-          status: 'Missing',
+          status: 'Drafting',
           isChain: false,
           dapp: thisDapp,
           ids: draggedIds2D[draggedIds2D.length - 1],
