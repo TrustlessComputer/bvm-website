@@ -9,7 +9,6 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { PROBLEM_MAPPING } from '../ProblemData';
 
-
 type Props = {
   topic: string;
 };
@@ -56,7 +55,7 @@ const ProblemTemplate = ({ topic }: Props) => {
 
   return (
     <div className={cn(s.wrapper, 'problem-panel')}>
-      <MarkdownComponent>{content}</MarkdownComponent>;
+      <MarkdownComponent>{content}</MarkdownComponent>
     </div>
   );
 };
