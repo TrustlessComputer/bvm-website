@@ -55,7 +55,7 @@ type Props = {
 const Lego = (props: Props) => {
   const {
     zIndex = 0,
-    background = '#A041FF',
+    background = '#c4513a',
     icon,
     title,
     tooltip,

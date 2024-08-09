@@ -319,36 +319,37 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     // console.log('dyanmicFormAllData  ----- ', dyanmicFormAllData);
     // console.log('stakingForms  ----- ', stakingForms);
 
-    const stakingDappList = dyanmicFormAllData
+    const inssueTokenDappList = dyanmicFormAllData
       .filter((item: any) => !item.isChain)
-      .filter((dapp: any) => dapp.options[0].key === 'staking');
+      .filter(
+        (dapp: any) => dapp.options[0].key?.toLowerCase() === 'create_token',
+      );
 
-    const isExistStakingDApp = stakingDappList && stakingDappList.length > 0;
+    const isExistIssueTokenDApp =
+      inssueTokenDappList && inssueTokenDappList.length > 0;
 
-    // console.log('formValuesAdapter ----- ', params);
-    // console.log('stakingDappList ----- ', stakingDappList);
-    // console.log('isExistStakingDApp ----- ', isExistStakingDApp);
+    console.log('formValuesAdapter ----- ', params);
+    console.log('inssueTokenDappList ----- ', inssueTokenDappList);
+    console.log('isExistIssueTokenDApp ----- ', isExistIssueTokenDApp);
+
     let result;
     try {
       result = await orderBuyAPI_V3(params);
-      console.log('AAAAA00 ::: result ::: ', result);
       if (result) {
-        // if (ID Issuse Token dAPP) {
-        //   If exist Issue Token dAPP have been dragged!
-        //   TODO[Leon] Call API install Issues Token after call API install Chain be succeed! )
-
-        //   const resultIssusToken = await API.[Call Install Issues Token]
-        // }
-
-        if (isExistStakingDApp) {
-          try {
-            await onSubmitStaking({
-              forms: stakingForms,
-            });
-            isSuccess = true;
-          } catch (error) {
-            console.log('ERROR: ', error);
-          }
+        if (isExistIssueTokenDApp) {
+          // -----------------------------------------------------------
+          //   If exist Issue Token dAPP have been dragged!
+          //   TODO[Leon] Call API install Issues Token after call API install Chain be succeed! )
+          //   const resultIssusToken = await API.[Call Install Issues Token]
+          // -----------------------------------------------------------
+          // try {
+          //   await onSubmitStaking({
+          //     forms: stakingForms,
+          //   });
+          //   isSuccess = true;
+          // } catch (error) {
+          //   console.log('ERROR: ', error);
+          // }
         }
 
         isSuccess = true;

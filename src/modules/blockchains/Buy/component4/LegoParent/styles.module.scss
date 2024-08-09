@@ -15,7 +15,7 @@
     background-color: var(--background-color);
     border: 1px solid var(--border-color);
     border-radius: 4px 4px 4px 0px;
-    padding: 7px 8px;
+    padding: 4px 8px;
     width: max-content;
 
     &__piece {
@@ -68,6 +68,7 @@
 
     &__title {
       display: flex;
+      font-size: 14px;
       align-items: center;
       gap: 4px;
     }
