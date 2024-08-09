@@ -29,6 +29,7 @@ import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import { useSensor, useSensors } from '@dnd-kit/core';
 import { FieldModel } from '@/types/customize-model';
 import useFlowStore from '../stores/useFlowStore';
+import useScreenMouse from '@/modules/blockchains/Buy/hooks/useScreenMouse';
 
 export default function useHandleDragging() {
   const mousePositionRef = React.useRef({ x: 0, y: 0 });
@@ -37,7 +38,7 @@ export default function useHandleDragging() {
   const { setIdDragging, rightDragging, setRightDragging } = useDragMask();
   const { draggedFields, setDraggedFields } = useDragStore();
   const { field, setField } = useOrderFormStoreV3();
-  const { parsedCategories } = useModelCategoriesStore();
+  const { parsedCategories, categories } = useModelCategoriesStore();
   const {
     dapps,
     baseModuleFieldMapping,
@@ -45,6 +46,31 @@ export default function useHandleDragging() {
     moduleFieldMapping,
     singleFieldMapping,
   } = useDapps();
+  // const { addListeners, removeListeners } = useScreenMouse({
+  //   handleOnTick: tick,
+  // });
+
+  // function tick(
+  //   contentRect: DOMRect,
+  //   mousePosition: {
+  //     x: number;
+  //     y: number;
+  //   },
+  //   previousMousePosition: {
+  //     x: number;
+  //     y: number;
+  //   },
+  // ) {
+  //   mousePositionRef.current = mousePosition;
+  // }
+
+  // React.useEffect(() => {
+  //   addListeners();
+  //
+  //   return () => {
+  //     removeListeners;
+  //   };
+  // }, []);
 
   const getAllOptionKeysOfItem = (item: FieldModel) => {
     const result: string[] = [];
@@ -93,10 +119,13 @@ export default function useHandleDragging() {
       const isMultiChoice = parsedCategories?.find(
         (item) => item.key === activeKey,
       )?.multiChoice;
+      const activeIsNotAChainField = !categories?.find(
+        (item) => item.key === activeKey,
+      )?.isChain;
 
       if (rightDragging && !overIsFinalDroppable && overSuffix1 === 'right') {
         // swap activeKey, overKey in draggedFields
-        const _draggedFields = JSON.parse(JSON.stringify(draggedFields));
+        const _draggedFields = cloneDeep(draggedFields);
         const activeIndex = draggedFields.indexOf(activeKey);
         const overIndex = draggedFields.indexOf(overKey);
 
@@ -110,6 +139,8 @@ export default function useHandleDragging() {
 
         return;
       }
+
+      if (activeIsNotAChainField) return;
 
       if (!isMultiChoice) {
         if (
@@ -243,7 +274,9 @@ export default function useHandleDragging() {
     // const canPlaceMoreBase = draggedIds2D.length === 0;
 
     const overIsInput = over.id === 'input';
-    const overIsOutput = over.id === 'output' || over.id === 'data-droppable';
+    const overIsOutput =
+      over.id === 'output' ||
+      over.id.split('-').some((key: string) => key === 'droppable');
     const overIsABase = DragUtil.idDraggingIsABase(overId);
     const overBaseIndex = Number(DragUtil.getBaseIndex(overId));
     const overIsABlock = DragUtil.idDraggingIsABlock(overId);
@@ -389,9 +422,9 @@ export default function useHandleDragging() {
           ...draggedDappIndexesSignal.value,
           dappIndex,
         ];
-        mouseDroppedPositionSignal.value = {
-          ...mousePositionRef.current,
-        };
+        // mouseDroppedPositionSignal.value = {
+        //   ...mousePositionRef.current,
+        // };
 
         return;
       }
@@ -430,9 +463,9 @@ export default function useHandleDragging() {
           FieldKeyPrefix.BASE_MODULE
         }-${activeOriginalKey}-0-0`;
 
-        mouseDroppedPositionSignal.value = {
-          ...mousePositionRef.current,
-        };
+        // mouseDroppedPositionSignal.value = {
+        //   ...mousePositionRef.current,
+        // };
         formDappSignal.value = {
           ...formDappSignal.value,
           [formKey]: active.data.current?.value,
@@ -652,7 +685,6 @@ export default function useHandleDragging() {
           activeBaseIndex,
         );
 
-        console.log('nodes BEFORE 2', nodes);
         newNodes = newNodes.map((node, index) => {
           if (node.data.isChain) return node;
 
@@ -665,7 +697,6 @@ export default function useHandleDragging() {
             },
           };
         });
-        console.log('nodes AFTER 2', newNodes);
 
         setNodes(newNodes);
 

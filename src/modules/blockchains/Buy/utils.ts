@@ -433,8 +433,9 @@ export const isChainOptionDisabled = (
       currentOption.supportNetwork !== 'both' &&
       currentOption.supportNetwork !== field['network']?.value
     ) ||
+    field[item.key].dragged ||
     // (!item.disable && currentOption.selectable && field[item.key].dragged) ||
-    (item.required && !field[item.key].dragged) ||
+    // (item.required && !field[item.key].dragged) ||
     item.disable ||
     !currentOption.selectable
   );

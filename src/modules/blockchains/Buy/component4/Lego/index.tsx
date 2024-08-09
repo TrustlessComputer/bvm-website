@@ -170,7 +170,7 @@ const Lego = (props: Props) => {
               {icon && (
                 <Image src={icon} width="20px" height="20px" alt="icon" />
               )}
-              <p className={`${isCapture ? styles.label_margin : ''}`}>
+              <p className={`${styles.titleSingle}  ${isCapture ? styles.label_margin : ''}`}>
                 {title}
               </p>
             </div>

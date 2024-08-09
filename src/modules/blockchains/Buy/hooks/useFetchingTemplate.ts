@@ -11,10 +11,15 @@ import { categoriesMockup } from '../Buy.data';
 
 export default function useFetchingTemplate() {
   const { setNodes } = useFlowStore();
-  const { setParsedCategories, setCategories } = useModelCategoriesStore();
+  const {
+    setParsedCategories,
+    setCategories,
+    setCategoriesTemplates,
+    categoriesTemplates,
+  } = useModelCategoriesStore();
   const { setField } = useOrderFormStoreV3();
   const { l2ServiceUserAddress } = useWeb3Auth();
-  const { initTemplate, setTemplates, templates } = useTemplate();
+  const { initTemplate } = useTemplate();
 
   const mousePositionRef = React.useRef({ x: 0, y: 0 });
 
@@ -52,7 +57,8 @@ export default function useFetchingTemplate() {
 
   const fetchData = async () => {
     const [categories, templates] = await Promise.all([
-      getModelCategories(l2ServiceUserAddress),
+      // getModelCategories(l2ServiceUserAddress),
+      getModelCategories('0x4113ed747047863Ea729f30C1164328D9Cc8CfcF'),
       getTemplates(),
     ]);
 
@@ -68,18 +74,18 @@ export default function useFetchingTemplate() {
 
     setParsedCategories(convertData(sortedCategories));
     setCategories(sortedCategories);
-    setTemplates(templates);
+    setCategoriesTemplates(templates);
     setNodes([
       {
         id: 'blockchain',
-        type: 'customBox',
+        type: 'chainNode',
         data: {
           label: 'Blockchain',
-          status: 'Running',
+          status: 'Ready',
           isChain: true,
         },
         dragHandle: '.drag-handle-area',
-        position: { x: 0, y: 0 },
+        position: { x: 30, y: 30 },
       },
     ]);
   };
@@ -99,5 +105,5 @@ export default function useFetchingTemplate() {
 
   React.useEffect(() => {
     initTemplate(0);
-  }, [templates]);
+  }, [categoriesTemplates]);
 }

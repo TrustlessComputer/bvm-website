@@ -268,8 +268,8 @@ export default function StudioControls() {
                           dappIndex={dappIndex}
                           className={s.dappBoxOption}
                         >
-                          {option.needInstall &&
-                            renderChainLego(item, option, currentPrice, index)}
+                          {/* {option.needInstall &&
+                            renderChainLego(item, option, currentPrice, index)} */}
                         </BoxOption>
                       </React.Fragment>
                     );

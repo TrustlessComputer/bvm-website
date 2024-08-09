@@ -1883,6 +1883,7 @@ const BuyPage = () => {
                         nodes={nodes}
                         nodeTypes={{ customBox: CustomNode }}
                         onNodesChange={onNodesChange}
+                        zoomOnDoubleClick={false}
                         defaultViewport={{
                           x: 10,
                           y: 20,

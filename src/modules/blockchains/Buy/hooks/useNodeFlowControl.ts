@@ -1,22 +1,21 @@
-import {
-  useNodes,
-  useNodesState,
-  useReactFlow,
-  useStoreApi,
-} from '@xyflow/react';
+import { useStoreApi } from '@xyflow/react';
 import React, { useEffect } from 'react';
-import {
-  draggedDappIndexesSignal,
-  draggedIds2DSignal,
-} from '@/modules/blockchains/Buy/signals/useDragSignal';
+import { draggedDappIndexesSignal, draggedIds2DSignal } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import { useSignalEffect } from '@preact/signals-react';
 import { cloneDeep, isTwoObjectEqual } from '@/modules/blockchains/Buy/utils';
 import useFlowStore from '../stores/useFlowStore';
 
+import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
+
 export default function useNodeFlowControl() {
   const { nodes, setNodes, onNodesChange } = useFlowStore();
-  const { screenToFlowPosition } = useReactFlow();
+  const store = useStoreApi();
+  const {
+    height,
+    width,
+    transform: [transformX, transformY, zoomLevel],
+  } = store.getState();
 
   const [draggedIds2D, setDraggedIds2D] = React.useState<
     typeof draggedIds2DSignal.value
@@ -42,6 +41,27 @@ export default function useNodeFlowControl() {
       new: false,
       remove: false,
     });
+  };
+
+  const handleNewDragState = () => {
+    if (dragState.new) {
+      handleAddBox();
+    } else if (!dragState.oneD.every((v) => v === -1)) {
+      const newNodes = cloneDeep(nodes);
+
+      newNodes[dragState.oneD[0] + 1] = {
+        ...newNodes[dragState.oneD[0] + 1],
+        data: {
+          ...newNodes[dragState.oneD[0] + 1].data,
+          ids: draggedIds2D[dragState.oneD[0]],
+        },
+      };
+
+      setNodes(newNodes);
+      resetDragState();
+    } else if (!dragState.twoD.every((v) => v === -1)) {
+      // handleAddBox();
+    }
   };
 
   useSignalEffect(() => {
@@ -90,36 +110,25 @@ export default function useNodeFlowControl() {
   });
 
   useEffect(() => {
-    if (dragState.new) {
-      handleAddBox();
-    } else if (!dragState.oneD.every((v) => v === -1)) {
-      const position = screenToFlowPosition({
-        x: 0,
-        y: 0,
-      });
-      nodes[dragState.oneD[0] + 1] = {
-        ...nodes[dragState.oneD[0] + 1],
-        data: {
-          ...nodes[dragState.oneD[0] + 1].data,
-          position,
-          ids: draggedIds2D[dragState.oneD[0]],
-        },
-      };
-
-      setNodes(nodes);
-      resetDragState();
-    } else if (!dragState.twoD.every((v) => v === -1)) {
-      // handleAddBox();
-    }
+    handleNewDragState();
   }, [dragState]);
 
   const handleAddBox = () => {
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
     const lastNode = nodes[nodes.length - 1];
+    // const positionTo = {
+    //   x: lastNode.position.x - (lastNode.measured?.width || 0),
+    //   y: lastNode.position.y - (lastNode.measured?.height || 0),
+    // };
+    const transformedX =
+      (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
+    const transformedY =
+      (mouseDroppedPositionSignal.value.y - transformY) / zoomLevel;
+
     const positionTo = {
-      x: lastNode.position.x - (lastNode.measured?.width || 0),
-      y: lastNode.position.y - (lastNode.measured?.height || 0),
+      x: transformedX,
+      y: transformedY,
     };
 
     setNodes([
@@ -130,13 +139,13 @@ export default function useNodeFlowControl() {
         dragHandle: '.drag-handle-area',
         data: {
           label: thisDapp.title,
-          status: 'Missing',
+          status: 'Drafting',
           isChain: false,
           dapp: thisDapp,
           ids: draggedIds2D[draggedIds2D.length - 1],
           baseIndex: draggedIds2D.length - 1,
         },
-        origin: [0.0, 0.0],
+        // origin: [0.0, 0.0],
         position: positionTo,
       },
     ]);

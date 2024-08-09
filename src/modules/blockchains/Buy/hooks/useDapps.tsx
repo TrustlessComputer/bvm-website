@@ -77,6 +77,8 @@ const useDapps = () => {
       fieldOpt: FieldOption,
       zIndex: number,
     ) => {
+      const _zIndex = zIndex + 1;
+
       if (field.type === 'input') {
         return (
           <Lego
@@ -84,7 +86,7 @@ const useDapps = () => {
             last={false}
             titleInLeft={true}
             titleInRight={false}
-            zIndex={zIndex}
+            zIndex={_zIndex}
             {...field}
             key={fieldKey}
           >
@@ -107,7 +109,7 @@ const useDapps = () => {
             title={field.title}
             titleInLeft={true}
             titleInRight={false}
-            zIndex={zIndex}
+            zIndex={_zIndex}
           >
             <Dropdown
               {...field}
@@ -127,7 +129,7 @@ const useDapps = () => {
             key={fieldKey}
             name={fieldKey}
             dappKey={thisDapp.key}
-            zIndex={zIndex}
+            zIndex={_zIndex}
           />
         );
       } else if (field.type === 'group') {
@@ -139,7 +141,7 @@ const useDapps = () => {
             last={false}
             titleInLeft={true}
             titleInRight={false}
-            zIndex={zIndex}
+            zIndex={_zIndex}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
               {field.options.map((option, optIndex) =>
@@ -157,7 +159,7 @@ const useDapps = () => {
             last={false}
             titleInLeft={true}
             titleInRight={false}
-            zIndex={zIndex}
+            zIndex={_zIndex}
           >
             <DateTimeInput
               {...field}
