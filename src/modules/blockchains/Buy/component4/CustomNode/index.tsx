@@ -32,6 +32,7 @@ import AA from '@/modules/blockchains/Buy/dapp/AA';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 import { useSignalEffect } from '@preact/signals-react';
+import DappNotification from './DappNotification';
 
 enum StatusBox {
   DRAFTING = 'Drafting',
@@ -60,7 +61,6 @@ export type DataNode = Node<
 >;
 
 function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
-  const { draggedFields } = useDragStore();
   const { isCapture } = useCaptureStore();
   const {
     dapps,
@@ -71,17 +71,6 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
     moduleFieldMapping,
     singleFieldMapping,
   } = useDapps();
-  const { order } = useChainProvider();
-  const { setComputerNameField } = useBuy();
-  const [rendered, setRendered] = useState<number>(0);
-
-  useEffect(() => {
-    if (order) {
-      setComputerNameField({
-        value: order?.chainName,
-      });
-    }
-  }, [order]);
 
   const DappRendering = (): ReactElement => {
     const dappIndex = draggedDappIndexesSignal.value[data.baseIndex];
@@ -149,7 +138,6 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
     return (
       <Draggable
         id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
-        key={rendered}
         value={{
           dappIndex,
           title: thisDapp.baseBlock.title,
@@ -502,10 +490,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   }
 
   return (
-    <div
-      className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}
-      key={rendered}
-    >
+    <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
       <div
         className={`${s.wrapperBox_top} drag-handle-area ${cn(
           s[`borderColor_${data.status}`],
@@ -534,13 +519,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
         }
       </div>
       <div className={s.inner}>
-        {data.categoryOption.needInstall && (
-          <div className={s.notification}>
-            <span className={s.notification__label}>IMPORTANT</span> - This
-            module needs to be configured and completed later after the chain is
-            deployed and the payment is confirmed
-          </div>
-        )}
+        {data.categoryOption.needInstall && <DappNotification />}
 
         {data.dapp && <DappRendering />}
       </div>
