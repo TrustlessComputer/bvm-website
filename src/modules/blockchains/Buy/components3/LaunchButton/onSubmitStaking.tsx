@@ -2,48 +2,73 @@ import { IRetrieveFormsByDappKey } from '@/modules/blockchains/Buy/hooks/useOneF
 import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
 import { formDappSignal } from '@/modules/blockchains/dapp/signals/useFormDappsSignal';
 import { FormDappUtil } from '@/modules/blockchains/dapp/utils';
+import CStakingAPI from '@/services/api/dapp/staking';
 
-const onSubmitStaking = async ({ forms }: { forms: IRetrieveFormsByDappKey[][] }) => {
-  // const stakingForms = retrieveFormsByDappKey({
-  //   dappKey: 'staking',
-  // });
+const useSubmitStaking = () => {
+  const cStakeAPI = new CStakingAPI();
 
-  let finalFormMappings: Record<
-    string,
-    { key: string; value: string }[]
-  >[] = [];
-  const formDapp = Object.assign({}, ...forms[0]);
-  const formDappInBase = Object.keys(formDapp).filter(
-    (key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key),
-  );
-  const formDappInModule = Object.keys(formDapp).filter(
-    (key) => !FormDappUtil.isInModule(key),
-  );
-  const formDappInSingle = Object.keys(formDapp).filter(
-    FormDappUtil.isInSingle,
-  );
+  const onSubmitStaking = async ({ forms }: { forms: IRetrieveFormsByDappKey[][] }) => {
+    // const stakingForms = retrieveFormsByDappKey({
+    //   dappKey: 'staking',
+    // });
 
-  finalFormMappings = extractedValue(
-    formDappInBase,
-    formDapp,
-    finalFormMappings,
-  );
-  console.log('SANG TEST: 000', { formDapp });
+    const params = [];
 
-  finalFormMappings = extractedValue(
-    formDappInModule,
-    formDapp,
-    finalFormMappings,
-  );
-  console.log('SANG TEST: 111', { finalFormMappings });
+    for (const form of forms) {
+      console.log('SANG TEST: 111', form);
 
-  finalFormMappings = extractedValue(
-    formDappInSingle,
-    formDapp,
-    finalFormMappings,
-  );
+      let finalFormMappings: Record<
+        string,
+        { key: string; value: string }[]
+      >[] = [];
+      const formDapp = Object.assign({}, ...form);
+      const formDappInBase = Object.keys(formDapp).filter(
+        (key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key),
+      );
+      const formDappInModule = Object.keys(formDapp).filter(
+        (key) => !FormDappUtil.isInModule(key),
+      );
+      const formDappInSingle = Object.keys(formDapp).filter(
+        FormDappUtil.isInSingle,
+      );
 
-  console.log('SANG TEST: 222', { finalFormMappings });
-};
+      finalFormMappings = extractedValue(
+        formDappInBase,
+        formDapp,
+        finalFormMappings,
+      );
 
-export default onSubmitStaking;
+      finalFormMappings = extractedValue(
+        formDappInModule,
+        formDapp,
+        finalFormMappings,
+      );
+
+      finalFormMappings = extractedValue(
+        formDappInSingle,
+        formDapp,
+        finalFormMappings,
+      );
+      const formFinal = finalFormMappings.find(item => !!item);
+      const info: any = formFinal?.info.find((item) => !!item);
+      console.log('SANG TEST: ', {
+        principle_token: formFinal?.staking_token,
+        reward_token: formFinal?.reward_token,
+        base_ratio: Number(info?.apr?.replaceAll('%', '')) / 100,
+        token_price: 1 / Number(info?.rate),
+      });
+      const data = await cStakeAPI.createNewStakingPool({
+        principle_token: formFinal?.staking_token,
+        reward_token: formFinal?.reward_token,
+        base_ratio: Number(info?.apr?.replaceAll('%', '')) / 100,
+        token_price: 1 / Number(info?.rate),
+      });
+    }
+  };
+
+  return {
+    onSubmitStaking
+  }
+}
+
+export default useSubmitStaking;

@@ -157,13 +157,13 @@
     overflow: hidden;
 
     &_sidebar {
-      width: 20%;
-      border-right: 3px solid #E0E0E0;
+      max-width: 80px;
       height: var(--height-studio);
+      border-right: 3px solid #F2F2F2;
     }
 
     &_content {
-      width: 85%;
+      width: calc(100% - 80px);
       height: var(--height-studio);
       background: #fff;
       overflow-y: auto;
@@ -171,6 +171,7 @@
 
       &::-webkit-scrollbar {
         width: 1px;
+        visibility: hidden;
         display: none;
       }
 

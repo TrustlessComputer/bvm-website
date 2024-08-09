@@ -26,10 +26,6 @@ const useFetchDapp = () => {
     await dappAPI.prepareDappParams({ orderID: id as string });
   };
 
-  React.useEffect(() => {
-    fetchData();
-  }, []);
-
   const getListTask = async () => {
     try {
       const rs = await tokenAirdropAPI.getListTask();
@@ -55,6 +51,10 @@ const useFetchDapp = () => {
   const fetchStakingPoolsList = async () => {
     await stakingAPI.getStakingPools();
   };
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (dappState?.chain?.chainId) {

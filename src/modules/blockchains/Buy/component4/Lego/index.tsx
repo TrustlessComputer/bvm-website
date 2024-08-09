@@ -170,7 +170,11 @@ const Lego = (props: Props) => {
               {icon && (
                 <Image src={icon} width="20px" height="20px" alt="icon" />
               )}
-              <p className={`${styles.titleSingle}  ${isCapture ? styles.label_margin : ''}`}>
+              <p
+                className={`${styles.titleSingle}  ${
+                  isCapture ? styles.label_margin : ''
+                }`}
+              >
                 {title}
               </p>
             </div>
@@ -187,7 +191,7 @@ const Lego = (props: Props) => {
             </Tooltip>
           )}
 
-          {children && <div clas  sName={styles.children}>{children}</div>}
+          {children && <div className={styles.children}>{children}</div>}
 
           {title && titleInRight ? (
             <div
