@@ -11,10 +11,15 @@ import { categoriesMockup } from '../Buy.data';
 
 export default function useFetchingTemplate() {
   const { setNodes } = useFlowStore();
-  const { setParsedCategories, setCategories } = useModelCategoriesStore();
+  const {
+    setParsedCategories,
+    setCategories,
+    setCategoriesTemplates,
+    categoriesTemplates,
+  } = useModelCategoriesStore();
   const { setField } = useOrderFormStoreV3();
   const { l2ServiceUserAddress } = useWeb3Auth();
-  const { initTemplate, setTemplates, templates } = useTemplate();
+  const { initTemplate } = useTemplate();
 
   const mousePositionRef = React.useRef({ x: 0, y: 0 });
 
@@ -69,14 +74,14 @@ export default function useFetchingTemplate() {
 
     setParsedCategories(convertData(sortedCategories));
     setCategories(sortedCategories);
-    setTemplates(templates);
+    setCategoriesTemplates(templates);
     setNodes([
       {
         id: 'blockchain',
         type: 'chainNode',
         data: {
           label: 'Blockchain',
-          status: 'Running',
+          status: 'Ready',
           isChain: true,
         },
         dragHandle: '.drag-handle-area',
@@ -100,5 +105,5 @@ export default function useFetchingTemplate() {
 
   React.useEffect(() => {
     initTemplate(0);
-  }, [templates]);
+  }, [categoriesTemplates]);
 }

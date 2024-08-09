@@ -125,16 +125,6 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
   const handleAddBox = () => {
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
-    // const zoomMultiplier = 1 / zoomLevel;
-    // const centerX = -transformX * zoomMultiplier + (width * zoomMultiplier) / 2;
-    // const centerY =
-    //   -transformY * zoomMultiplier + (height * zoomMultiplier) / 2;
-    // // const nodeWidthOffset = NODE_WIDTH / 2;
-    // // const nodeHeightOffset = NODE_HEIGHT / 2;
-    // const position = screenToFlowPosition({
-    //   x: centerX,
-    //   y: centerY,
-    // });
 
     const lastNode = nodes[nodes.length - 1];
     const positionTo = {

@@ -1,33 +1,30 @@
-import {
-  useNodes,
-  useNodesState,
-  useReactFlow,
-  useStoreApi,
-} from '@xyflow/react';
-import React, { useCallback, useEffect } from 'react';
+import { useStoreApi } from '@xyflow/react';
+import React, { useEffect } from 'react';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import { useSignalEffect } from '@preact/signals-react';
-import { cloneDeep, isTwoObjectEqual } from '@/modules/blockchains/Buy/utils';
+import {
+  cloneDeep,
+  dappKeyToChainKey,
+  isTwoObjectEqual,
+} from '@/modules/blockchains/Buy/utils';
 import useFlowStore from '../stores/useFlowStore';
 
 import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
-let currentOverlapOffset = 0;
-const NODE_WIDTH = 116;
-const NODE_HEIGHT = 28;
+import useModelCategoriesStore from '../stores/useModelCategoriesStore';
+
 export default function useNodeFlowControl() {
+  const { categories } = useModelCategoriesStore();
   const { nodes, setNodes, onNodesChange } = useFlowStore();
   const store = useStoreApi();
-  const reactFlowInstance = useReactFlow();
   const {
     height,
     width,
     transform: [transformX, transformY, zoomLevel],
   } = store.getState();
-  const { screenToFlowPosition } = useReactFlow();
 
   const [draggedIds2D, setDraggedIds2D] = React.useState<
     typeof draggedIds2DSignal.value
@@ -53,6 +50,27 @@ export default function useNodeFlowControl() {
       new: false,
       remove: false,
     });
+  };
+
+  const handleNewDragState = () => {
+    if (dragState.new) {
+      handleAddBox();
+    } else if (!dragState.oneD.every((v) => v === -1)) {
+      const newNodes = cloneDeep(nodes);
+
+      newNodes[dragState.oneD[0] + 1] = {
+        ...newNodes[dragState.oneD[0] + 1],
+        data: {
+          ...newNodes[dragState.oneD[0] + 1].data,
+          ids: draggedIds2D[dragState.oneD[0]],
+        },
+      };
+
+      setNodes(newNodes);
+      resetDragState();
+    } else if (!dragState.twoD.every((v) => v === -1)) {
+      // handleAddBox();
+    }
   };
 
   useSignalEffect(() => {
@@ -101,45 +119,29 @@ export default function useNodeFlowControl() {
   });
 
   useEffect(() => {
-    if (dragState.new) {
-      handleAddBox();
-    } else if (!dragState.oneD.every((v) => v === -1)) {
-      nodes[dragState.oneD[0] + 1] = {
-        ...nodes[dragState.oneD[0] + 1],
-        data: {
-          ...nodes[dragState.oneD[0] + 1].data,
-          ids: draggedIds2D[dragState.oneD[0]],
-        },
-      };
-
-      setNodes(nodes);
-      resetDragState();
-    } else if (!dragState.twoD.every((v) => v === -1)) {
-      // handleAddBox();
-    }
+    handleNewDragState();
   }, [dragState]);
 
   const handleAddBox = () => {
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
-    const lastNode = nodes[nodes.length - 1];
-    // const positionTo = {
-    //   x: lastNode.position.x - (lastNode.measured?.width || 0),
-    //   y: lastNode.position.y - (lastNode.measured?.height || 0),
-    // };
-    const positionTo = {
-      x: mouseDroppedPositionSignal.value.x,
-      y: mouseDroppedPositionSignal.value.y,
-    };
-    // const zoomMultiplier = 1 / zoomLevel;
-    // const centerX = -mouseDroppedPositionSignal.value.x * zoomMultiplier + (width * zoomMultiplier) / 2;
-    // const centerY =
-    //   -mouseDroppedPositionSignal.value.y * zoomMultiplier + (height * zoomMultiplier) / 2;
+    const category = categories?.find((category) =>
+      category.options.some(
+        (option) => option.key === dappKeyToChainKey(thisDapp.key),
+      ),
+    );
+    const categoryOption = category?.options.find(
+      (option) => option.key === dappKeyToChainKey(thisDapp.key),
+    );
 
-    // const position = {
-    //   x: centerX ,
-    //   y: centerY,
-    // }
+    const transformedX =
+      (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
+    const transformedY =
+      (mouseDroppedPositionSignal.value.y - transformY) / zoomLevel;
+    const positionTo = {
+      x: transformedX,
+      y: transformedY,
+    };
 
     setNodes([
       ...nodes,
@@ -154,6 +156,7 @@ export default function useNodeFlowControl() {
           dapp: thisDapp,
           ids: draggedIds2D[draggedIds2D.length - 1],
           baseIndex: draggedIds2D.length - 1,
+          categoryOption,
         },
         // origin: [0.0, 0.0],
         position: positionTo,

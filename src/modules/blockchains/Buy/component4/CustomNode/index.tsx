@@ -1,6 +1,6 @@
 import s from './styles.module.scss';
 import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
-import React, { ReactElement, useEffect, useMemo } from 'react';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import cn from 'classnames';
 import { OrderItem } from '@/stores/states/l2services/types';
@@ -13,7 +13,7 @@ import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import useOrderFormStoreV3, { useCaptureStore } from '../../stores/index_v3';
 import Label from '../../components3/Label';
 import ChainLegoParent from '../../components3/LegoParent';
-import { DappModel, FieldModel } from '@/types/customize-model';
+import { DappModel, FieldModel, IModelOption } from '@/types/customize-model';
 import { memo } from 'react';
 import {
   draggedDappIndexesSignal,
@@ -31,13 +31,14 @@ import styles from '@/modules/blockchains/Buy/components3/LegoV3/styles.module.s
 import AA from '@/modules/blockchains/Buy/dapp/AA';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
-
+import { useSignalEffect } from '@preact/signals-react';
+import DappNotification from './DappNotification';
 
 enum StatusBox {
   DRAFTING = 'Drafting',
   READY = 'Ready',
   MISSING = 'Missing',
-  RUNNING= 'Running',
+  RUNNING = 'Running',
   DOWN = 'Down',
 }
 
@@ -54,12 +55,12 @@ export type DataNode = Node<
     dapp: DappModel | null;
     ids: Field[];
     baseIndex: number;
+    categoryOption: IModelOption;
   },
   'label'
 >;
 
 function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
-  const { draggedFields } = useDragStore();
   const { isCapture } = useCaptureStore();
   const {
     dapps,
@@ -70,16 +71,6 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
     moduleFieldMapping,
     singleFieldMapping,
   } = useDapps();
-  const { order } = useChainProvider();
-  const { setComputerNameField } = useBuy();
-
-  useEffect(() => {
-    if (order) {
-      setComputerNameField({
-        value: order?.chainName,
-      });
-    }
-  }, [order]);
 
   const DappRendering = (): ReactElement => {
     const dappIndex = draggedDappIndexesSignal.value[data.baseIndex];
@@ -125,11 +116,12 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   function renderDapps() {
     const dappIndex = draggedDappIndexesSignal.value[data.baseIndex];
 
-    if (typeof dappIndex === 'undefined') return <></>;
+    if (typeof dappIndex === 'undefined')
+      return <React.Fragment></React.Fragment>;
 
     const thisDapp = dapps[dappIndex];
 
-    if (!thisDapp) return <></>;
+    if (!thisDapp) return <React.Fragment></React.Fragment>;
 
     const mainColor = adjustBrightness(thisDapp.color, -10);
     let blockCount = 0;
@@ -146,7 +138,6 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
     return (
       <Draggable
         id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
-        // key={data.baseIndex}
         value={{
           dappIndex,
           title: thisDapp.baseBlock.title,
@@ -174,7 +165,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const thisBaseModule =
                   baseModuleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                    ];
+                  ];
                 const thisModule = (thisBaseModule?.fields || []).find(
                   (f: FieldModel) => f.value === item.value,
                 );
@@ -228,7 +219,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const { key: thisBlockKey, ...thisBlock } =
                   blockFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                    ];
+                  ];
                 const needSuffix = thisBlock.placableAmount === -1;
 
                 blockCount++;
@@ -277,8 +268,8 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                                 baseIndex: data.baseIndex,
                               },
                               thisBlock.fields.length +
-                              item.children.length -
-                              fieldIndex,
+                                item.children.length -
+                                fieldIndex,
                             );
                           },
                         )}
@@ -336,7 +327,9 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const field =
                   singleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                    ];
+                  ];
+
+                if (!field) return null;
 
                 const thisModule = field.fields[0];
 
@@ -374,7 +367,10 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const thisModule =
                   moduleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                    ];
+                  ];
+
+                if (!thisModule) return null;
+
                 const isMultiple = thisModule.placableAmount === -1;
 
                 if (isMultiple) {
@@ -523,38 +519,9 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
         }
       </div>
       <div className={s.inner}>
-        {/*<div className={`${s.handles} ${s.target}`}>*/}
-        {/*   <Handle*/}
-        {/*    type={'target'}*/}
-        {/*    position={data.positionDot}*/}
-        {/*    isConnectable={isConnectable}*/}
-        {/*    className={s.handleDot}*/}
-        {/*  /> */}
-        {/*   {data.targetHandles.map((handle) => (*/}
-        {/*    <Handle*/}
-        {/*      key={handle.id}*/}
-        {/*      id={handle.id}*/}
-        {/*      type="target"*/}
-        {/*      position={Position.Left}*/}
-        {/*      className={s.handleDot}*/}
-        {/*    />*/}
-        {/*  ))} */}
-        {/*</div>*/}
+        {data.categoryOption.needInstall && <DappNotification />}
 
         {data.dapp && <DappRendering />}
-
-        {/*<div className={`${s.handles} ${s.sources}`}>*/}
-        {/*  {data.sourceHandles.map((handle, index) => (*/}
-        {/*    <Handle*/}
-        {/*      key={handle.id}*/}
-        {/*      id={handle.id}*/}
-        {/*      type="source"*/}
-        {/*      position={Position.Right}*/}
-        {/*      className={s.handleDot}*/}
-        {/*      // style={{ top: 50 * (index+1)}}*/}
-        {/*    />*/}
-        {/*  ))} */}
-        {/*</div>*/}
       </div>
     </div>
   );

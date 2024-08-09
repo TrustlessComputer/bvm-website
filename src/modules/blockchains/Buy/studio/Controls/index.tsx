@@ -132,9 +132,9 @@ export default function StudioControls() {
                   let suffix =
                     Math.abs(_price) > 0
                       ? ` (${formatCurrencyV2({
-                          amount: _price,
-                          decimals: 0,
-                        })} BVM)`
+                        amount: _price,
+                        decimals: 0,
+                      })} BVM)`
                       : '';
 
                   _price = option.priceBVM - currentPrice;
@@ -143,9 +143,9 @@ export default function StudioControls() {
                   suffix =
                     Math.abs(_price) > 0
                       ? ` (${operator}${formatCurrencyV2({
-                          amount: Math.abs(_price),
-                          decimals: 0,
-                        })} BVM)`
+                        amount: Math.abs(_price),
+                        decimals: 0,
+                      })} BVM)`
                       : '';
 
                   if (
@@ -195,7 +195,7 @@ export default function StudioControls() {
             );
           })}
 
-        {/* <div className={s.hTrigger}></div> */}
+
       </DroppableV2>
 
       <Droppable id="input">
@@ -207,20 +207,22 @@ export default function StudioControls() {
             if (item.key === 'wallet') {
               const dapp = accountAbstractionAsADapp;
               return (
-                <BoxOption
-                  info={{
-                    ...item.options[0],
-                    disabled: item.disable || !item.options[0].selectable,
-                    title: item.title,
-                    description: {
+                <div id={item.key}>
+                  <BoxOption
+                    info={{
+                      ...item.options[0],
+                      disabled: item.disable || !item.options[0].selectable,
                       title: item.title,
-                      content: item.tooltip,
-                    },
-                  }}
-                  thisDapp={dapp}
-                  key={dapp.key}
-                  dappIndex={0}
-                />
+                      description: {
+                        title: item.title,
+                        content: item.tooltip,
+                      },
+                    }}
+                    thisDapp={dapp}
+                    key={dapp.key}
+                    dappIndex={0}
+                  />
+                </div>
               );
             }
 
@@ -283,6 +285,7 @@ export default function StudioControls() {
             return null;
           })}
       </Droppable>
+      <div className={s.hTrigger}></div>
     </div>
   );
 }

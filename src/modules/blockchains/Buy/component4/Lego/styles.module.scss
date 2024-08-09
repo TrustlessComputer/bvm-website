@@ -2,7 +2,7 @@
   position: relative;
   width: max-content;
   border-radius: 4px;
-  padding: 12px;
+  padding: 5px;
   display: flex;
   align-items: center;
   background-color: var(--background-color);
@@ -25,7 +25,6 @@
 
     &__top {
       top: -1px;
-
       svg path {
         fill: #ffffff !important;
       }
@@ -87,10 +86,13 @@
       //align-items: flex-start;
       flex-direction: row;
       .lego__inner__label {
-        font-size: 18px;
-        font-weight: 500;
-        line-height: 28px;
-        font-family: var(--font-JetBrainsMono);
+        p {
+          font-size: 14px;
+          font-weight: 500;
+          line-height: calc(20 / 14);
+          font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+        }
+
       }
     }
   }
@@ -98,4 +100,11 @@
 
 .label_margin {
   margin-top: -15px;
+}
+
+.titleSingle {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: calc(20 / 14);
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 }

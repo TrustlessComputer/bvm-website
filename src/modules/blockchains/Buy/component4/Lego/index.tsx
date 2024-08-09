@@ -128,26 +128,26 @@ const Lego = (props: Props) => {
                 </div>
                 {field.type === 'input' ? (
                   <Image
-                    width="36px"
+                    width="30px"
                     height="auto"
                     src={'/icons-tool/issue-a-token/icon-input.svg'}
                   />
                 ) : field.type === 'extends' &&
                   typeof field.value === 'number' ? (
                   <Image
-                    width="40px"
+                    width="35px"
                     height="auto"
                     src={'/icons-tool/issue-a-token/icon-switch.svg'}
                   />
                 ) : field.type === 'dropdown' ? (
                   <Image
-                    width="36px"
+                    width="30px"
                     height="auto"
                     src={'/icons-tool/issue-a-token/icon-dropdown.svg'}
                   />
                 ) : field.type === 'datetime' ? (
                   <Image
-                    width="36px"
+                    width="30px"
                     height="auto"
                     src={'/icons-tool/issue-a-token/icon-datetime.svg'}
                   />
@@ -170,7 +170,11 @@ const Lego = (props: Props) => {
               {icon && (
                 <Image src={icon} width="20px" height="20px" alt="icon" />
               )}
-              <p className={`${isCapture ? styles.label_margin : ''}`}>
+              <p
+                className={`${styles.titleSingle}  ${
+                  isCapture ? styles.label_margin : ''
+                }`}
+              >
                 {title}
               </p>
             </div>
