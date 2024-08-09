@@ -33,7 +33,8 @@
   .options {
     display: flex;
     gap: 8px 6px;
-    align-items: center;
+    align-items: start;
+    flex-direction: column;
     flex-wrap: wrap;
   }
 }
