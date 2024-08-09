@@ -1,4 +1,5 @@
 import {
+  getViewportForBounds,
   useNodes,
   useNodesState,
   useReactFlow,
@@ -125,8 +126,6 @@ export default function useNodeFlowControl() {
   }, [dragState]);
 
 
-  console.log('transformX, transformY', transformX, transformY, zoomLevel);
-
   const handleAddBox = () => {
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
@@ -135,19 +134,18 @@ export default function useNodeFlowControl() {
     //   x: lastNode.position.x - (lastNode.measured?.width || 0),
     //   y: lastNode.position.y - (lastNode.measured?.height || 0),
     // };
-    const positionTo = {
-      x: mouseDroppedPositionSignal.value.x ,
-      y: mouseDroppedPositionSignal.value.y ,
-    };
-    // const zoomMultiplier = 1 / zoomLevel;
-    // const centerX = -mouseDroppedPositionSignal.value.x * zoomMultiplier + (width * zoomMultiplier) / 2;
-    // const centerY =
-    //   -mouseDroppedPositionSignal.value.y * zoomMultiplier + (height * zoomMultiplier) / 2;
+    // const positionTo = {
+    //   x: mouseDroppedPositionSignal.value.x ,
+    //   y: mouseDroppedPositionSignal.value.y ,
+    // };
+    const transformedX = (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
+    const transformedY = (mouseDroppedPositionSignal.value.y - transformY) / zoomLevel;
 
-    // const position = {
-    //   x: centerX ,
-    //   y: centerY,
-    // }
+    const positionTo = {
+      x: transformedX ,
+      y: transformedY,
+    }
+
 
     setNodes([
       ...nodes,
