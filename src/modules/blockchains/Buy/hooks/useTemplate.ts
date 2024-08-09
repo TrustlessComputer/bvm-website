@@ -8,11 +8,7 @@ import { IModelCategory } from '@/types/customize-model';
 export default function useTemplate() {
   const searchParams = useSearchParams();
   const { setDraggedFields } = useDragStore();
-  const [templates, setTemplates] = React.useState<Array<
-    IModelCategory[]
-  > | null>(null);
-
-  const { parsedCategories } = useModelCategoriesStore();
+  const { parsedCategories, categoriesTemplates } = useModelCategoriesStore();
   const { field, setField } = useOrderFormStoreV3();
 
   const setValueOfPackage = (packageId: number | string | null) => {
@@ -20,7 +16,7 @@ export default function useTemplate() {
     setDraggedFields([]);
 
     // set default value for package
-    const templateData = (templates?.[Number(packageId)] ||
+    const templateData = (categoriesTemplates?.[Number(packageId)] ||
       []) as IModelCategory[];
     const fieldsNotInTemplate = parsedCategories?.filter(
       (item) => !templateData.find((temp) => temp.key === item.key),
@@ -32,14 +28,10 @@ export default function useTemplate() {
         setField(
           _field.key,
           _field.options.map((option) => option.key),
-          _field.options[0] ? true : false,
+          true,
         );
       } else {
-        setField(
-          _field.key,
-          _field.options[0].key || null,
-          _field.options[0] ? true : false,
-        );
+        setField(_field.key, _field.options[0].key || null, true);
       }
 
       _draggedFields.push(_field.key);
@@ -58,52 +50,47 @@ export default function useTemplate() {
     const form = JSON.parse(oldForm) as IModelCategory[];
 
     if (form.length === 0 || packageId !== '-1') {
-      console.log('HERE 1');
       setValueOfPackage(Number(packageId));
     } else {
-      console.log('HERE 2');
       for (const key in field) {
         setField(key, null, false);
       }
     }
   };
 
-  const setTemplateDataClone = (data: IModelCategory[]) => {
-    // set default value for package
-    const templateData = data;
-    const fieldsNotInTemplate = data?.filter(
-      (item) => !templateData.find((temp) => temp.key === item.key),
-    );
+  // const setTemplateDataClone = (data: IModelCategory[]) => {
+  //   // set default value for package
+  //   const templateData = data;
+  //   const fieldsNotInTemplate = data?.filter(
+  //     (item) => !templateData.find((temp) => temp.key === item.key),
+  //   );
 
-    const _draggedFields: string[] = [];
-    templateData.forEach((_field) => {
-      if (_field.multiChoice) {
-        setField(
-          _field.key,
-          _field.options.map((option) => option.key),
-          _field.options[0] ? true : false,
-        );
-      } else {
-        setField(
-          _field.key,
-          _field.options[0].key || null,
-          _field.options[0] ? true : false,
-        );
-      }
+  //   const _draggedFields: string[] = [];
+  //   templateData.forEach((_field) => {
+  //     if (_field.multiChoice) {
+  //       setField(
+  //         _field.key,
+  //         _field.options.map((option) => option.key),
+  //         _field.options[0] ? true : false,
+  //       );
+  //     } else {
+  //       setField(
+  //         _field.key,
+  //         _field.options[0].key || null,
+  //         _field.options[0] ? true : false,
+  //       );
+  //     }
 
-      _draggedFields.push(_field.key);
-    });
-    setDraggedFields(_draggedFields);
+  //     _draggedFields.push(_field.key);
+  //   });
+  //   setDraggedFields(_draggedFields);
 
-    fieldsNotInTemplate?.forEach((field) => {
-      setField(field.key, null, false);
-    });
-  };
+  //   fieldsNotInTemplate?.forEach((field) => {
+  //     setField(field.key, null, false);
+  //   });
+  // };
 
   return {
-    templates,
     initTemplate,
-    setTemplates,
-    setTemplateDataClone,
   };
 }

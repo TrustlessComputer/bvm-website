@@ -22,7 +22,6 @@ export default function ActionsWorkArea(): ReactElement {
   const { setNodes } = useFlowStore();
 
   const resetEdit = () => {
-    setDraggedFields([]);
     setIsShowModal(false);
     setNodes([
       {
