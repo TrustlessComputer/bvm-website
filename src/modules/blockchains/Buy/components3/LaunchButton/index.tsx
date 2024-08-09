@@ -33,7 +33,7 @@ import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCa
 import useOneForm from '../../hooks/useOneForm';
 import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
 import { chainKeyToDappKey } from '../../utils';
-import onSubmitStaking from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitStaking';
+import useSubmitStaking from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitStaking';
 
 const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { dappCount } = useFormDappToFormChain();
@@ -72,6 +72,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   } = useDisclosure({
     id: 'MODAL_TOPUP',
   });
+
+  const { onSubmitStaking } = useSubmitStaking();
 
   const { chainName, dataAvaibilityChain, gasLimit, network, withdrawPeriod } =
     useOrderFormStore();

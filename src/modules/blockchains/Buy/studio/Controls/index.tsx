@@ -21,6 +21,8 @@ export default function StudioControls() {
   const { field } = useOrderFormStoreV3();
   const { dapps, dappMapping } = useDapps();
 
+  console.log('SANG TEST: 222', parsedCategories);
+
   const renderChainLego = (
     item: IModelCategory,
     option: IModelOption,
