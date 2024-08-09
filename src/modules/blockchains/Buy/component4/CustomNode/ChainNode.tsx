@@ -16,7 +16,7 @@ import { DappModel } from '@/types/customize-model';
 import { memo } from 'react';
 import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
-import { cloneDeep, dappKeyToChainKey } from '../../utils';
+import { chainKeyToDappKey, cloneDeep, dappKeyToChainKey } from '../../utils';
 
 export type DataNode = Node<
   {
@@ -39,48 +39,81 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { parsedCategories, categories } = useModelCategoriesStore();
   const { draggedFields, setDraggedFields } = useDragStore();
 
-  const { field, setField } = useOrderFormStoreV3();
+  const { field, setFields } = useOrderFormStoreV3();
   const { isCapture } = useCaptureStore();
   const { dappCount } = useFormDappToFormChain();
 
   const setDappLegoToChain = () => {
-    const newDraggedFields = cloneDeep(draggedFields);
+    let newDraggedFields = cloneDeep(draggedFields);
+    const newField = cloneDeep(field);
 
     for (const key in dappCount) {
       const _key = dappKeyToChainKey(key);
 
-      for (const _field of categories || []) {
-        for (const option of _field.options) {
-          if (option.key === _key) {
-            if (!newDraggedFields.includes(_field.key)) {
-              newDraggedFields.push(_field.key);
+      for (const category of categories || []) {
+        if (category.isChain) continue;
 
-              if (_field.multiChoice) {
-                setField(
-                  _field.key,
-                  [...((field[_field.key].value || []) as any[]), option.key],
-                  true,
-                );
-              } else {
-                setField(_field.key, option.key, true);
-              }
+        for (const option of category.options) {
+          if (!dappCount[chainKeyToDappKey(_key)] || option.key !== _key)
+            continue;
+
+          if (!newDraggedFields.includes(category.key)) {
+            newDraggedFields.push(category.key);
+
+            if (category.multiChoice) {
+              newField[category.key].value = [
+                ...((newField[category.key].value || []) as any[]),
+                option.key,
+              ];
             } else {
-              if (
-                _field.multiChoice &&
-                !(field[_field.key].value || ([] as any)).includes(option.key)
-              ) {
-                setField(
-                  _field.key,
-                  [...((field[_field.key].value || []) as any[]), option.key],
-                  true,
-                );
-              }
+              newField[category.key].value = option.key;
+              newField[category.key].dragged = true;
+            }
+          } else {
+            if (
+              category.multiChoice &&
+              !(field[category.key].value || ([] as any)).includes(option.key)
+            ) {
+              newField[category.key].value = [
+                ...((newField[category.key].value || []) as any[]),
+                option.key,
+              ];
+              newField[category.key].dragged = true;
             }
           }
         }
       }
     }
 
+    for (const key in newField) {
+      const category = categories?.find((i) => i.key === key);
+
+      if (!newField[key].value || !category || category.isChain) continue;
+
+      if (Array.isArray(newField[key].value)) {
+        newField[key].value = ((newField[key].value || []) as string[]).filter(
+          (keyAsAValue) => {
+            return (
+              typeof dappCount[chainKeyToDappKey(keyAsAValue)] === 'number'
+            );
+          },
+        );
+
+        if (newField[key].value.length === 0) {
+          newField[key].value = null;
+          newField[key].dragged = false;
+          newDraggedFields = newDraggedFields.filter((i) => i !== category.key);
+        }
+      } else {
+        if (!dappCount[chainKeyToDappKey(newField[key].value as string)]) {
+          newField[key].value = null;
+          newField[key].dragged = false;
+          newDraggedFields = newDraggedFields.filter((i) => i !== category.key);
+        }
+      }
+    }
+
+    setFields(newField);
     setDraggedFields(newDraggedFields);
   };
 
