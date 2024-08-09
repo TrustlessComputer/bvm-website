@@ -34,8 +34,12 @@ import useOneForm from '../../hooks/useOneForm';
 import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
 import { chainKeyToDappKey } from '../../utils';
 import onSubmitStaking from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitStaking';
+import PreviewLaunchModal from '../../Preview';
 
 const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
+  const [showPreviewModal, setShowPreviewModal] = useState(false);
+  const [dyanmicFormAllData, setDyanmicFormAllData] = useState<any[]>([]);
+
   const { dappCount } = useFormDappToFormChain();
 
   const { parsedCategories: data, categories: originalData } =
@@ -133,6 +137,95 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     return result ? result[0] : undefined;
   }, [isFecthingData, availableList, packageParam]);
 
+  const getDynamicForm = () => {
+    if (!originalData)
+      return {
+        dynamicForm: [],
+        allOptionKeyDragged: [],
+        allRequiredForKey: [],
+        optionMapping: {},
+      };
+
+    const dynamicForm = [];
+    const optionMapping: Record<string, IModelOption> = {};
+    const allOptionKeyDragged: string[] = [];
+    const allRequiredForKey: string[] = [];
+
+    for (const _field of originalData) {
+      if (!_field.isChain) continue;
+
+      _field.options.forEach((opt: IModelOption) => {
+        optionMapping[opt.key] = opt;
+      });
+
+      if (!field[_field.key].dragged) continue;
+
+      if (_field.multiChoice) {
+        const options = _field.options.filter((opt: IModelOption) =>
+          (field[_field.key].value as string[])!.includes(opt.key),
+        );
+        options.forEach((opt: IModelOption) => {
+          allOptionKeyDragged.push(opt.key);
+          allRequiredForKey.push(...(opt.requiredFor || []));
+        });
+
+        dynamicForm.push({
+          ..._field,
+          options,
+        });
+        continue;
+      }
+
+      const value = _field.options.find(
+        (opt: IModelOption) => opt.key === field[_field.key].value,
+      );
+
+      if (!value) continue;
+
+      allOptionKeyDragged.push(value.key);
+      allRequiredForKey.push(...(value.requiredFor || []));
+
+      const { options: _, ...rest } = _field;
+
+      dynamicForm.push({
+        ...rest,
+        options: [value],
+      });
+    }
+
+    for (const _field of originalData) {
+      if (_field.isChain) continue;
+
+      for (const opt of _field.options) {
+        if (dappCount[chainKeyToDappKey(opt.key)]) {
+          const opts = new Array(dappCount[chainKeyToDappKey(opt.key)]).fill(
+            opt,
+          );
+
+          const fieldAlreadyInDynamicForm = dynamicForm.find(
+            (field) => field.key === _field.key,
+          );
+
+          if (fieldAlreadyInDynamicForm) {
+            fieldAlreadyInDynamicForm.options.push(...opts);
+          } else {
+            dynamicForm.push({
+              ..._field,
+              options: opts,
+            });
+          }
+        }
+      }
+    }
+
+    return {
+      dynamicForm,
+      allOptionKeyDragged,
+      allRequiredForKey,
+      optionMapping,
+    };
+  };
+
   const onUpdateHandler = async () => {
     if (!allFilled) {
       setShowError(true);
@@ -148,31 +241,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       return;
     }
 
-    const dynamicForm: any[] = [];
-    for (const _field of originalData) {
-      if (!field[_field.key].dragged) continue;
-
-      if (_field.multiChoice) {
-        dynamicForm.push({
-          ..._field,
-          options: _field.options.filter((opt: IModelOption) =>
-            (field[_field.key].value as string[])!.includes(opt.key),
-          ),
-        });
-        continue;
-      }
-
-      const value = _field.options.find(
-        (opt: IModelOption) => opt.key === field[_field.key].value,
-      );
-
-      const { options: _, ...rest } = _field;
-
-      dynamicForm.push({
-        ...rest,
-        options: [value],
-      });
-    }
+    const { dynamicForm } = getDynamicForm();
 
     if (needContactUs) {
       // showContactUsModal(dynamicForm as any);
@@ -222,16 +291,98 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     }
   };
 
-  const handleOnClick = async () => {
+  const onLaunchExecute = async () => {
+    setSubmitting(true);
+
+    let isSuccess = false;
+
+    const stakingForms = retrieveFormsByDappKey({
+      dappKey: 'staking',
+    });
+
+    const form: FormOrder = {
+      chainName,
+      network,
+      dataAvaibilityChain,
+      gasLimit,
+      withdrawPeriod,
+    };
+
+    const params = formValuesAdapter({
+      computerName: computerNameField.value || '',
+      chainId: chainId,
+      dynamicFormValues: dyanmicFormAllData,
+    });
+
+    // console.log('dyanmicFormAllData  ----- ', dyanmicFormAllData);
+    // console.log('stakingForms  ----- ', stakingForms);
+
+    const stakingDappList = dyanmicFormAllData
+      .filter((item: any) => !item.isChain)
+      .filter((dapp: any) => dapp.options[0].key === 'staking');
+
+    const isExistStakingDApp = stakingDappList && stakingDappList.length > 0;
+
+    // console.log('formValuesAdapter ----- ', params);
+    // console.log('stakingDappList ----- ', stakingDappList);
+    // console.log('isExistStakingDApp ----- ', isExistStakingDApp);
+
+    try {
+      const result = await orderBuyAPI_V3(params);
+      if (result) {
+        // if (ID Issuse Token dAPP) {
+        //   If exist Issue Token dAPP have been dragged!
+        //   TODO[Leon] Call API install Issues Token after call API install Chain be succeed! )
+
+        //   const resultIssusToken = await API.[Call Install Issues Token]
+        // }
+
+        if (isExistStakingDApp) {
+          try {
+            await onSubmitStaking({
+              forms: stakingForms,
+            });
+            isSuccess = true;
+          } catch (error) {
+            console.log('ERROR: ', error);
+          }
+        }
+
+        isSuccess = true;
+      }
+    } catch (error) {
+      console.log('ERROR: ', error);
+      isSuccess = false;
+      const { message } = getErrorMessage(error);
+      // toast.error(message);
+      if (message && message.toLowerCase().includes('insufficient balance')) {
+        onOpenTopUpModal();
+      }
+    } finally {
+      // dispatch(setViewMode('Mainnet'));
+      // dispatch(setViewPage('ManageChains'));
+      // dispatch(setShowAllChains(false));
+      await sleep(1);
+      if (isSuccess) {
+        router.push('/chains');
+      } else {
+        // router.push('/rollups?hasOrderFailed=true');
+      }
+      setSubmitting(false);
+    }
+  };
+
+  const onLaunchCallbackHandler = () => {
+    setShowPreviewModal(false);
+    onLaunchExecute();
+  };
+
+  const onLaunchHandler = async () => {
     // =======================================================================================
     // Dapp forms
     // =======================================================================================
     const issueATokenForms = retrieveFormsByDappKey({
       dappKey: 'token_generation',
-    });
-
-    const stakingForms = retrieveFormsByDappKey({
-      dappKey: 'staking',
     });
 
     // =======================================================================================
@@ -246,65 +397,13 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     }
 
     let missingRequiredFor = false;
-    const dynamicForm: any[] = [];
-    const optionMapping: Record<string, IModelOption> = {};
-    const allOptionKeyDragged: string[] = [];
-    const allRequiredForKey: string[] = [];
+    const {
+      dynamicForm,
 
-    for (const _field of originalData) {
-      _field.options.forEach((opt: IModelOption) => {
-        optionMapping[opt.key] = opt;
-      });
-
-      if (!field[_field.key].dragged) continue;
-
-      if (_field.multiChoice) {
-        const options = _field.options.filter((opt: IModelOption) =>
-          (field[_field.key].value as string[])!.includes(opt.key),
-        );
-        options.forEach((opt: IModelOption) => {
-          allOptionKeyDragged.push(opt.key);
-          allRequiredForKey.push(...(opt.requiredFor || []));
-        });
-
-        dynamicForm.push({
-          ..._field,
-          options,
-        });
-        continue;
-      }
-
-      const value = _field.options.find(
-        (opt: IModelOption) => opt.key === field[_field.key].value,
-      );
-
-      if (!value) continue;
-
-      allOptionKeyDragged.push(value.key);
-      allRequiredForKey.push(...(value.requiredFor || []));
-
-      const { options: _, ...rest } = _field;
-
-      dynamicForm.push({
-        ...rest,
-        options: [value],
-      });
-    }
-
-    for (const _field of originalData) {
-      for (const opt of _field.options) {
-        if (dappCount[chainKeyToDappKey(opt.key)]) {
-          const opts = new Array(dappCount[chainKeyToDappKey(opt.key)]).fill(
-            opt,
-          );
-
-          dynamicForm.push({
-            ..._field,
-            options: opts,
-          });
-        }
-      }
-    }
+      allOptionKeyDragged,
+      allRequiredForKey,
+      optionMapping,
+    } = getDynamicForm();
 
     console.log(
       '🚀 -> file: index.tsx:260 -> handleOnClick -> dynamicForm ::',
@@ -342,62 +441,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       return login();
     }
 
-    setSubmitting(true);
-
-    let isSuccess = false;
-    const form: FormOrder = {
-      chainName,
-      network,
-      dataAvaibilityChain,
-      gasLimit,
-      withdrawPeriod,
-    };
-
-    const params = formValuesAdapter({
-      computerName: computerNameField.value || '',
-      chainId: chainId,
-      dynamicFormValues: dynamicForm,
-    });
-
-    try {
-      const result = await orderBuyAPI_V3(params);
-      if (result) {
-        // if (ID Issuse Token dAPP) {
-        //   If exist Issue Token dAPP have been dragged!
-        //   TODO[Leon] Call API install Issues Token after call API install Chain be succeed! )
-
-        //   const resultIssusToken = await API.[Call Install Issues Token]
-        // }
-
-        isSuccess = true;
-      }
-    } catch (error) {
-      console.log('ERROR: ', error);
-      isSuccess = false;
-      const { message } = getErrorMessage(error);
-      // toast.error(message);
-      if (message && message.toLowerCase().includes('insufficient balance')) {
-        onOpenTopUpModal();
-      }
-    } finally {
-      // dispatch(setViewMode('Mainnet'));
-      // dispatch(setViewPage('ManageChains'));
-      // dispatch(setShowAllChains(false));
-      await sleep(1);
-      if (isSuccess) {
-        router.push('/chains');
-      } else {
-        // router.push('/rollups?hasOrderFailed=true');
-      }
-      setSubmitting(false);
-    }
-
-
-    try {
-      await onSubmitStaking({ forms: stakingForms });
-    } catch (error) {
-      console.log('ERROR: ', error);
-    }
+    setDyanmicFormAllData(dynamicForm);
+    setShowPreviewModal(true);
   };
 
   return (
@@ -412,7 +457,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           if (isUpdate) {
             onUpdateHandler();
           } else {
-            handleOnClick();
+            onLaunchHandler();
           }
         }}
       >
@@ -519,6 +564,16 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           ))}
         </ul>
       </ErrorModal>
+      {showPreviewModal && (
+        <PreviewLaunchModal
+          show={showPreviewModal}
+          onClose={() => {
+            setShowPreviewModal(false);
+          }}
+          onLaunchCallback={onLaunchCallbackHandler}
+          data={dyanmicFormAllData}
+        />
+      )}
     </>
   );
 };

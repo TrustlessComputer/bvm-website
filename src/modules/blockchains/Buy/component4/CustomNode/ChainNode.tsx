@@ -15,8 +15,6 @@ import ChainLegoParent from '../../components3/LegoParent';
 import { DappModel } from '@/types/customize-model';
 import { memo } from 'react';
 import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
-import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
-import { chainKeyToDappKey, cloneDeep, dappKeyToChainKey } from '../../utils';
 import useGettingDappLego from '../../hooks/useGettingDappLego';
 
 export type DataNode = Node<
@@ -74,6 +72,7 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
           </div>
         }
       </div>
+
       <div className={s.inner}>
         {data.isChain && (
           <DroppableV2

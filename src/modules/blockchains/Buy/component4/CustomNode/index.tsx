@@ -75,17 +75,10 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   const [current, setCurrent] = React.useState<any>(null);
 
   useSignalEffect(() => {
-    console.log('CustomNode', {
-      index: data.baseIndex,
-      new: draggedIds2DSignal.value[data.baseIndex],
-      old: current,
-    });
-
     if (
       JSON.stringify(draggedIds2DSignal.value[data.baseIndex]) !==
       JSON.stringify(current)
     ) {
-      console.log('Change current ', data.baseIndex);
       setCurrent(draggedIds2DSignal.value[data.baseIndex]);
     }
   });
