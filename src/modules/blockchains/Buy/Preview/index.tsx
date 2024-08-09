@@ -135,13 +135,13 @@ const PreviewLaunchModal = (props: IProps) => {
                   PRICE
                 </Text>
                 <Text fontSize={'18px'} fontWeight={600}>
-                  {`$${formatCurrencyV2({
-                    amount: priceUSD,
-                    decimals: 0,
-                  })}/month (${formatCurrencyV2({
+                  {`${formatCurrencyV2({
                     amount: priceBVM,
                     decimals: 0,
-                  })} BVM)`}
+                  })} BVM/month ( $${formatCurrencyV2({
+                    amount: priceUSD,
+                    decimals: 0,
+                  })}/month )`}
                 </Text>
               </Flex>
 
