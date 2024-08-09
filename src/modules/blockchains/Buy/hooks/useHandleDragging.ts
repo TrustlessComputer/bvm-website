@@ -38,7 +38,7 @@ export default function useHandleDragging() {
   const { setIdDragging, rightDragging, setRightDragging } = useDragMask();
   const { draggedFields, setDraggedFields } = useDragStore();
   const { field, setField } = useOrderFormStoreV3();
-  const { parsedCategories } = useModelCategoriesStore();
+  const { parsedCategories, categories } = useModelCategoriesStore();
   const {
     dapps,
     baseModuleFieldMapping,
@@ -119,10 +119,13 @@ export default function useHandleDragging() {
       const isMultiChoice = parsedCategories?.find(
         (item) => item.key === activeKey,
       )?.multiChoice;
+      const activeIsNotAChainField = !categories?.find(
+        (item) => item.key === activeKey,
+      )?.isChain;
 
       if (rightDragging && !overIsFinalDroppable && overSuffix1 === 'right') {
         // swap activeKey, overKey in draggedFields
-        const _draggedFields = JSON.parse(JSON.stringify(draggedFields));
+        const _draggedFields = cloneDeep(draggedFields);
         const activeIndex = draggedFields.indexOf(activeKey);
         const overIndex = draggedFields.indexOf(overKey);
 
@@ -136,6 +139,8 @@ export default function useHandleDragging() {
 
         return;
       }
+
+      if (activeIsNotAChainField) return;
 
       if (!isMultiChoice) {
         if (
