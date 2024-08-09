@@ -205,20 +205,22 @@ export default function StudioControls() {
             if (item.key === 'wallet') {
               const dapp = accountAbstractionAsADapp;
               return (
-                <BoxOption
-                  info={{
-                    ...item.options[0],
-                    disabled: item.disable || !item.options[0].selectable,
-                    title: item.title,
-                    description: {
+                <div id={item.key}>
+                  <BoxOption
+                    info={{
+                      ...item.options[0],
+                      disabled: item.disable || !item.options[0].selectable,
                       title: item.title,
-                      content: item.tooltip,
-                    },
-                  }}
-                  thisDapp={dapp}
-                  key={dapp.key}
-                  dappIndex={0}
-                />
+                      description: {
+                        title: item.title,
+                        content: item.tooltip,
+                      },
+                    }}
+                    thisDapp={dapp}
+                    key={dapp.key}
+                    dappIndex={0}
+                  />
+                </div>
               );
             }
 
