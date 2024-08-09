@@ -8,7 +8,7 @@
   position: relative;
   // background-color: var(--fillBackground);
   cursor: grabbing;
-  height: 44px;
+  height: 40px;
   display: flex;
   align-items: center;
 
@@ -22,7 +22,7 @@
     transform: translateX(37px);
     border: 1px solid var(--background);
     border-radius: 4px;
-    height: 41.6px;
+    height: 37.6px;
   }
 
   &_studHead {
@@ -34,7 +34,7 @@
     z-index: -1;
 
     svg {
-      height: 50px;
+      height: 46px;
 
       path {
         fill: var(--fillBackground);
@@ -55,7 +55,7 @@
 }
 
 .inner {
-  padding: 10px 8px;
+  padding: 8px 8px;
   display: flex;
   width: 100%;
   height: 100%;
