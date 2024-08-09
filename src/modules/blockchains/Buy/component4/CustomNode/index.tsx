@@ -350,6 +350,8 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                     DragUtil.getOriginalKey(item.name)
                   ];
 
+                if (!field) return null;
+
                 const thisModule = field.fields[0];
 
                 if (!thisModule) return null;
@@ -387,6 +389,9 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                   moduleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
                   ];
+
+                if (!thisModule) return null;
+
                 const isMultiple = thisModule.placableAmount === -1;
 
                 if (isMultiple) {

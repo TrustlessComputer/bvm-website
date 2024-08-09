@@ -57,7 +57,13 @@ const useGettingDappLego = () => {
     for (const key in newField) {
       const category = categories?.find((i) => i.key === key);
 
-      if (!newField[key].value || !category || category.isChain) continue;
+      if (
+        !newField[key] ||
+        !newField[key].value ||
+        !category ||
+        category.isChain
+      )
+        continue;
 
       if (Array.isArray(newField[key].value)) {
         newField[key].value = ((newField[key].value || []) as string[]).filter(
