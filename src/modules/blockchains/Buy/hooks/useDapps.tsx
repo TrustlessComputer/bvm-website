@@ -126,6 +126,7 @@ const useDapps = () => {
           <ExtendsInput
             {...field}
             {...fieldOpt}
+            thisDapp={thisDapp}
             key={fieldKey}
             name={fieldKey}
             dappKey={thisDapp.key}
@@ -211,6 +212,7 @@ const useDapps = () => {
             key={fieldKey}
             name={fieldKey}
             dappKey={thisDapp.key}
+            thisDapp={thisDapp}
           />
         );
       } else if (field.type === 'group') {
