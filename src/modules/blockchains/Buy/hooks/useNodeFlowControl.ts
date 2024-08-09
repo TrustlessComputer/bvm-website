@@ -56,6 +56,27 @@ export default function useNodeFlowControl() {
     });
   };
 
+  const handleNewDragState = () => {
+    if (dragState.new) {
+      handleAddBox();
+    } else if (!dragState.oneD.every((v) => v === -1)) {
+      const newNodes = cloneDeep(nodes);
+
+      newNodes[dragState.oneD[0] + 1] = {
+        ...newNodes[dragState.oneD[0] + 1],
+        data: {
+          ...newNodes[dragState.oneD[0] + 1].data,
+          ids: draggedIds2D[dragState.oneD[0]],
+        },
+      };
+
+      setNodes(newNodes);
+      resetDragState();
+    } else if (!dragState.twoD.every((v) => v === -1)) {
+      // handleAddBox();
+    }
+  };
+
   useSignalEffect(() => {
     if (draggedIds2DSignal.value.length === draggedIds2D.length) {
       for (let i = 0; i < draggedIds2DSignal.value.length; i++) {
@@ -102,22 +123,7 @@ export default function useNodeFlowControl() {
   });
 
   useEffect(() => {
-    if (dragState.new) {
-      handleAddBox();
-    } else if (!dragState.oneD.every((v) => v === -1)) {
-      nodes[dragState.oneD[0] + 1] = {
-        ...nodes[dragState.oneD[0] + 1],
-        data: {
-          ...nodes[dragState.oneD[0] + 1].data,
-          ids: draggedIds2D[dragState.oneD[0]],
-        },
-      };
-
-      setNodes(nodes);
-      resetDragState();
-    } else if (!dragState.twoD.every((v) => v === -1)) {
-      // handleAddBox();
-    }
+    handleNewDragState();
   }, [dragState]);
 
   const handleAddBox = () => {
@@ -128,14 +134,15 @@ export default function useNodeFlowControl() {
     //   x: lastNode.position.x - (lastNode.measured?.width || 0),
     //   y: lastNode.position.y - (lastNode.measured?.height || 0),
     // };
-    const transformedX = (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
-    const transformedY = (mouseDroppedPositionSignal.value.y - transformY) / zoomLevel;
+    const transformedX =
+      (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
+    const transformedY =
+      (mouseDroppedPositionSignal.value.y - transformY) / zoomLevel;
 
     const positionTo = {
-      x: transformedX ,
+      x: transformedX,
       y: transformedY,
-    }
-
+    };
 
     setNodes([
       ...nodes,
