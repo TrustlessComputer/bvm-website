@@ -73,18 +73,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   } = useDapps();
   const { order } = useChainProvider();
   const { setComputerNameField } = useBuy();
-  const [current, setCurrent] = React.useState<any>(null);
   const [rendered, setRendered] = useState<number>(0);
-
-  useSignalEffect(() => {
-    if (
-      JSON.stringify(draggedIds2DSignal.value[data.baseIndex]) !==
-      JSON.stringify(current)
-    ) {
-      setCurrent(draggedIds2DSignal.value[data.baseIndex]);
-      setRendered((prevState) => (prevState += 1));
-    }
-  });
 
   useEffect(() => {
     if (order) {
@@ -139,12 +128,11 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
     const dappIndex = draggedDappIndexesSignal.value[data.baseIndex];
 
     if (typeof dappIndex === 'undefined')
-      return <React.Fragment key={JSON.stringify(current)}></React.Fragment>;
+      return <React.Fragment></React.Fragment>;
 
     const thisDapp = dapps[dappIndex];
 
-    if (!thisDapp)
-      return <React.Fragment key={JSON.stringify(current)}></React.Fragment>;
+    if (!thisDapp) return <React.Fragment></React.Fragment>;
 
     const mainColor = adjustBrightness(thisDapp.color, -10);
     let blockCount = 0;
@@ -546,7 +534,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
         }
       </div>
       <div className={s.inner}>
-        {data.categoryOption.needConfig && (
+        {data.categoryOption.needInstall && (
           <div className={s.notification}>
             <span className={s.notification__label}>IMPORTANT</span> - This
             module needs to be configured and completed later after the chain is
@@ -554,38 +542,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
           </div>
         )}
 
-        {/*<div className={`${s.handles} ${s.target}`}>*/}
-        {/*   <Handle*/}
-        {/*    type={'target'}*/}
-        {/*    position={data.positionDot}*/}
-        {/*    isConnectable={isConnectable}*/}
-        {/*    className={s.handleDot}*/}
-        {/*  /> */}
-        {/*   {data.targetHandles.map((handle) => (*/}
-        {/*    <Handle*/}
-        {/*      key={handle.id}*/}
-        {/*      id={handle.id}*/}
-        {/*      type="target"*/}
-        {/*      position={Position.Left}*/}
-        {/*      className={s.handleDot}*/}
-        {/*    />*/}
-        {/*  ))} */}
-        {/*</div>*/}
-
-        {data.dapp && <DappRendering key={JSON.stringify(current)} />}
-
-        {/*<div className={`${s.handles} ${s.sources}`}>*/}
-        {/*  {data.sourceHandles.map((handle, index) => (*/}
-        {/*    <Handle*/}
-        {/*      key={handle.id}*/}
-        {/*      id={handle.id}*/}
-        {/*      type="source"*/}
-        {/*      position={Position.Right}*/}
-        {/*      className={s.handleDot}*/}
-        {/*      // style={{ top: 50 * (index+1)}}*/}
-        {/*    />*/}
-        {/*  ))} */}
-        {/*</div>*/}
+        {data.dapp && <DappRendering />}
       </div>
     </div>
   );
