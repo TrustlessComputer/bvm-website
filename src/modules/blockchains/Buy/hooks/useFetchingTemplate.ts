@@ -80,7 +80,7 @@ export default function useFetchingTemplate() {
           isChain: true,
         },
         dragHandle: '.drag-handle-area',
-        position: { x: 0, y: 0 },
+        position: { x: 30, y: 30 },
       },
     ]);
   };

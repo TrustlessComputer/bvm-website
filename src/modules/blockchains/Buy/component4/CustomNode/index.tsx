@@ -32,12 +32,21 @@ import AA from '@/modules/blockchains/Buy/dapp/AA';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 
+
+enum StatusBox {
+  DRAFTING = 'Drafting',
+  READY = 'Ready',
+  MISSING = 'Missing',
+  RUNNING= 'Running',
+  DOWN = 'Down',
+}
+
 export type DataNode = Node<
   {
     label: string;
     positionDot: Position;
     handleType: HandleType;
-    status: 'Drafting' | 'Ready' | 'Missing' | 'Running ' | 'Down';
+    status: StatusBox;
     sourceHandles: [];
     targetHandles: [];
     isChain: boolean;
@@ -165,7 +174,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const thisBaseModule =
                   baseModuleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                  ];
+                    ];
                 const thisModule = (thisBaseModule?.fields || []).find(
                   (f: FieldModel) => f.value === item.value,
                 );
@@ -219,7 +228,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const { key: thisBlockKey, ...thisBlock } =
                   blockFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                  ];
+                    ];
                 const needSuffix = thisBlock.placableAmount === -1;
 
                 blockCount++;
@@ -268,8 +277,8 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                                 baseIndex: data.baseIndex,
                               },
                               thisBlock.fields.length +
-                                item.children.length -
-                                fieldIndex,
+                              item.children.length -
+                              fieldIndex,
                             );
                           },
                         )}
@@ -327,7 +336,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const field =
                   singleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                  ];
+                    ];
 
                 const thisModule = field.fields[0];
 
@@ -365,7 +374,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 const thisModule =
                   moduleFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
-                  ];
+                    ];
                 const isMultiple = thisModule.placableAmount === -1;
 
                 if (isMultiple) {
@@ -469,6 +478,21 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
     );
   }
 
+  function renderTitleStatus(status: StatusBox) {
+    switch (status) {
+      case StatusBox.DOWN:
+        return 'Down temporarily';
+      case StatusBox.DRAFTING:
+        return 'Drafting modules';
+      case StatusBox.READY:
+        return 'Ready to launch';
+      case StatusBox.MISSING:
+        return 'Missing fields';
+      default:
+        return 'Running';
+    }
+  }
+
   return (
     <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
       <div
@@ -486,11 +510,11 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
         {
           <div className={s.tag}>
             <p
-              className={`${cn(s[`titleTag_${data.status}`])} ${
+              className={`${s.titleTag} ${cn(s[`titleTag_${data.status}`])} ${
                 isCapture ? s.label_margin : ''
               }`}
             >
-              {data.status}
+              {renderTitleStatus(data.status)}
             </p>
             <div
               className={`${s.tag_dot}  ${cn(s[`tag_${data.status}`])}`}
