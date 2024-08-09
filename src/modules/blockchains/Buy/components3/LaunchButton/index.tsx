@@ -326,9 +326,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     // console.log('formValuesAdapter ----- ', params);
     // console.log('stakingDappList ----- ', stakingDappList);
     // console.log('isExistStakingDApp ----- ', isExistStakingDApp);
-
+    let result;
     try {
-      const result = await orderBuyAPI_V3(params);
+      result = await orderBuyAPI_V3(params);
+      console.log('AAAAA00 ::: result ::: ', result);
       if (result) {
         // if (ID Issuse Token dAPP) {
         //   If exist Issue Token dAPP have been dragged!
@@ -357,14 +358,18 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       // toast.error(message);
       if (message && message.toLowerCase().includes('insufficient balance')) {
         onOpenTopUpModal();
+      } else {
+        toast.error(message || 'Something went wrong');
       }
     } finally {
-      // dispatch(setViewMode('Mainnet'));
-      // dispatch(setViewPage('ManageChains'));
-      // dispatch(setShowAllChains(false));
-      await sleep(1);
       if (isSuccess) {
-        router.push('/chains');
+        toast.success('Submit Successful');
+        const orderId = result.orderId;
+        getOrderDetailByID(orderId);
+
+        await sleep(1);
+
+        router.push(`/chains/${orderId}`);
       } else {
         // router.push('/rollups?hasOrderFailed=true');
       }
