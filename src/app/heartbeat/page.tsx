@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     },
     images: [
       {
-        url: '/heartbeat/heart-beat-seo.png',
+        url: '/heartbeat/metadata.png',
         width: 1200,
         height: 630,
         alt: TITLE,
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
       template: '',
     },
     description: DESCRIPTION,
-    images: '/heartbeat/heart-beat-seo.png',
+    images: '/heartbeat/metadata.png',
   },
 };
 
