@@ -57,8 +57,8 @@ export default function useFetchingTemplate() {
 
   const fetchData = async () => {
     const [categories, templates] = await Promise.all([
-      getModelCategories(l2ServiceUserAddress),
-      // getModelCategories('0x4113ed747047863Ea729f30C1164328D9Cc8CfcF'),
+      // getModelCategories(l2ServiceUserAddress),
+      getModelCategories('0x4113ed747047863Ea729f30C1164328D9Cc8CfcF'),
       getTemplates(),
     ]);
 
