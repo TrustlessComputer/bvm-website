@@ -1,16 +1,22 @@
 import s from './styles.module.scss';
 import React from 'react';
 import Link from 'next/link';
-import { BVM_CODE_BATTLE } from '@constants/route-path';
+import { HEART_BEAT } from '@constants/route-path';
 
 export default function Banner() {
   return (
     <div className={s.banner}>
-      <Link href={BVM_CODE_BATTLE}>
-        <img src="/icons/noto_trophy.svg" alt="noto_trophy.svg" width={20} height={20} />
-        Proof of Code: Compete for glory, recognition, and monetary rewards.{' '}
+      <Link href={HEART_BEAT}>
+        <img
+          src="/icons/noto_heartbeat.svg"
+          alt="heartbeat"
+          width={24}
+          height={24}
+        />
+        Bitcoin Heartbeat: Provide transparent and verifiable insights into
+        Bitcoin rollups.{' '}
         <strong>
-          Let's code{' '}
+          Let's explore{' '}
           <span>
             <svg
               width="20"
