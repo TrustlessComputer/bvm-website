@@ -129,7 +129,7 @@
   }
   .titleTag {
     font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-    letter-spacing:0.3px;
+    letter-spacing: 0.3px;
     &_Drafting {
       color: #ffc700;
     }
@@ -202,4 +202,22 @@
 
 .label_margin {
   margin-top: -15px;
+}
+
+.notification {
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #eef5ff;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 16px;
+
+  &__label {
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 16px;
+    color: #4185ec;
+  }
 }

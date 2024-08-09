@@ -13,7 +13,7 @@ import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import useOrderFormStoreV3, { useCaptureStore } from '../../stores/index_v3';
 import Label from '../../components3/Label';
 import ChainLegoParent from '../../components3/LegoParent';
-import { DappModel, FieldModel } from '@/types/customize-model';
+import { DappModel, FieldModel, IModelOption } from '@/types/customize-model';
 import { memo } from 'react';
 import {
   draggedDappIndexesSignal,
@@ -54,6 +54,7 @@ export type DataNode = Node<
     dapp: DappModel | null;
     ids: Field[];
     baseIndex: number;
+    categoryOption: IModelOption;
   },
   'label'
 >;
@@ -73,7 +74,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { order } = useChainProvider();
   const { setComputerNameField } = useBuy();
   const [current, setCurrent] = React.useState<any>(null);
-  const [rendered, setRendered] = useState<number>(0)
+  const [rendered, setRendered] = useState<number>(0);
 
   useSignalEffect(() => {
     if (
@@ -81,7 +82,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
       JSON.stringify(current)
     ) {
       setCurrent(draggedIds2DSignal.value[data.baseIndex]);
-      setRendered(prevState => prevState += 1)
+      setRendered((prevState) => (prevState += 1));
     }
   });
 
@@ -239,7 +240,6 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
               const zIndex = totalDragged - itemIndex - 1;
 
               if (DragUtil.idDraggingIsABlock(item.name)) {
-
                 const { key: thisBlockKey, ...thisBlock } =
                   blockFieldMapping[dappIndex][
                     DragUtil.getOriginalKey(item.name)
@@ -546,6 +546,14 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
         }
       </div>
       <div className={s.inner}>
+        {data.categoryOption.needConfig && (
+          <div className={s.notification}>
+            <span className={s.notification__label}>IMPORTANT</span> - This
+            module needs to be configured and completed later after the chain is
+            deployed and the payment is confirmed
+          </div>
+        )}
+
         {/*<div className={`${s.handles} ${s.target}`}>*/}
         {/*   <Handle*/}
         {/*    type={'target'}*/}
