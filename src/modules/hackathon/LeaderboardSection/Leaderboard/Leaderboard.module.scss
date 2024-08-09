@@ -14,7 +14,8 @@
 }
 
 .LeaderboardModal {
-  max-width: 740px !important;
+  max-width: calc(100vw - 200px) !important;
+
 
   :global {
     .modal-header-wrap {
