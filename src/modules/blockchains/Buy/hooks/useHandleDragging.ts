@@ -685,7 +685,6 @@ export default function useHandleDragging() {
           activeBaseIndex,
         );
 
-        console.log('nodes BEFORE 2', nodes);
         newNodes = newNodes.map((node, index) => {
           if (node.data.isChain) return node;
 
@@ -698,7 +697,6 @@ export default function useHandleDragging() {
             },
           };
         });
-        console.log('nodes AFTER 2', newNodes);
 
         setNodes(newNodes);
 

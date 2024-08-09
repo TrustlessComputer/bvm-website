@@ -12,6 +12,15 @@ export type UseOrderFormStoreV3 = {
   needContactUs: boolean;
   priceUSD: number;
   priceBVM: number;
+  setFields: (
+    fields: Record<
+      string,
+      {
+        dragged: boolean;
+        value: string | number | string[] | number[] | null;
+      }
+    >,
+  ) => void;
   setField: (
     field: string,
     value: string | number | string[] | number[] | null,
@@ -28,6 +37,7 @@ const useOrderFormStoreV3 = create<UseOrderFormStoreV3>((set) => ({
   setNeedContactUs: (needContactUs) => set({ needContactUs }),
 
   field: {},
+  setFields: (fields) => set({ field: fields }),
   setField: (field, value, dragged = false) =>
     set((state) => ({
       form: {

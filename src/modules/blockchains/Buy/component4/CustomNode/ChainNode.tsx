@@ -16,7 +16,8 @@ import { DappModel } from '@/types/customize-model';
 import { memo } from 'react';
 import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
-import { cloneDeep, dappKeyToChainKey } from '../../utils';
+import { chainKeyToDappKey, cloneDeep, dappKeyToChainKey } from '../../utils';
+import useGettingDappLego from '../../hooks/useGettingDappLego';
 
 export type DataNode = Node<
   {
@@ -36,57 +37,13 @@ export type DataNode = Node<
 >;
 
 function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
-  const { parsedCategories, categories } = useModelCategoriesStore();
-  const { draggedFields, setDraggedFields } = useDragStore();
+  useGettingDappLego();
 
-  const { field, setField } = useOrderFormStoreV3();
+  const { parsedCategories } = useModelCategoriesStore();
+  const { draggedFields } = useDragStore();
+
+  const { field } = useOrderFormStoreV3();
   const { isCapture } = useCaptureStore();
-  const { dappCount } = useFormDappToFormChain();
-
-  const setDappLegoToChain = () => {
-    const newDraggedFields = cloneDeep(draggedFields);
-
-    for (const key in dappCount) {
-      const _key = dappKeyToChainKey(key);
-
-      for (const _field of categories || []) {
-        for (const option of _field.options) {
-          if (option.key === _key) {
-            if (!newDraggedFields.includes(_field.key)) {
-              newDraggedFields.push(_field.key);
-
-              if (_field.multiChoice) {
-                setField(
-                  _field.key,
-                  [...((field[_field.key].value || []) as any[]), option.key],
-                  true,
-                );
-              } else {
-                setField(_field.key, option.key, true);
-              }
-            } else {
-              if (
-                _field.multiChoice &&
-                !(field[_field.key].value || ([] as any)).includes(option.key)
-              ) {
-                setField(
-                  _field.key,
-                  [...((field[_field.key].value || []) as any[]), option.key],
-                  true,
-                );
-              }
-            }
-          }
-        }
-      }
-    }
-
-    setDraggedFields(newDraggedFields);
-  };
-
-  React.useEffect(() => {
-    setDappLegoToChain();
-  }, [dappCount]);
 
   return (
     <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>

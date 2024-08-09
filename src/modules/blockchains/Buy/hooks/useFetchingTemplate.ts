@@ -76,7 +76,7 @@ export default function useFetchingTemplate() {
         type: 'chainNode',
         data: {
           label: 'Blockchain',
-          status: 'Running',
+          status: 'Ready',
           isChain: true,
         },
         dragHandle: '.drag-handle-area',
