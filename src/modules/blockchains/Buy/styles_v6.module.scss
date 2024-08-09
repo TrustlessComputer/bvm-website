@@ -157,12 +157,13 @@
     overflow: hidden;
 
     &_sidebar {
-      width: 17%;
+      max-width: 80px;
       height: var(--height-studio);
+      border-right: 1px solid #F2F2F2;
     }
 
     &_content {
-      width: 85%;
+      width: calc(100% - 80px);
       height: var(--height-studio);
       background: #fff;
       overflow-y: auto;
