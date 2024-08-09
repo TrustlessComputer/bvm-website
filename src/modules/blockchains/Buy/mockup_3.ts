@@ -6,8 +6,8 @@ export const accountAbstractionAsADapp: DappModel = {
   title: 'Account Abstraction',
   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
   order: 1,
-  color: '#F76649',
-  color_border: '#F76649',
+  color: '#00c1cd',
+  color_border: '#00c1cd',
   created_at: '2021-09-14T09:00:00.000Z',
   updated_at: '2021-09-14T09:00:00.000Z',
   tooltip: '',
@@ -33,7 +33,7 @@ export const accountAbstractionAsADapp: DappModel = {
     placableAmount: 1,
     section: 'information',
     preview: true,
-    background: '#F76649',
+    background: '#00c1cd',
     fields: [
       {
         // background: '#F76649',
@@ -69,8 +69,8 @@ export const dappMockupData: DappModel[] = [
     title: 'Token Generation',
     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
     order: 2,
-    color: '#F76649',
-    color_border: '#A041FF',
+    color: '#f76649',
+    color_border: '#f76649',
     created_at: '2021-09-14T09:00:00.000Z',
     updated_at: '2021-09-14T09:00:00.000Z',
     tooltip: '',
@@ -117,10 +117,10 @@ export const dappMockupData: DappModel[] = [
       placableAmount: -1,
       section: 'information',
       preview: true,
-      background: '#00AA6C',
+      background: '#f76649',
       fields: [
         {
-          background: '#00AA6C',
+          background: '#c4513a',
           key: 'token_name',
           title: 'Token Name',
           previewTitle: 'Name',
@@ -132,7 +132,7 @@ export const dappMockupData: DappModel[] = [
           placeholder: 'e.g YOUR TOKEN NO.1',
         },
         {
-          background: '#00AA6C',
+          background: '#c4513a',
           key: 'token_symbol',
           title: 'Symbol',
           type: 'input',
@@ -187,10 +187,10 @@ export const dappMockupData: DappModel[] = [
         placableAmount: -1,
         section: 'tokenomics',
         preview: true,
-        background: '#F8B200',
+        background: '#f76649',
         fields: [
           {
-            background: '#F8B200',
+            background: '#c4513a',
             key: 'name',
             title: 'Name',
             type: 'input',
@@ -201,7 +201,7 @@ export const dappMockupData: DappModel[] = [
             placeholder: 'e.g Allocation Name',
           },
           {
-            background: '#F8B200',
+            background: '#c4513a',
             key: 'total_amount',
             title: 'Amount',
             type: 'input',
@@ -356,7 +356,7 @@ export const dappMockupData: DappModel[] = [
         ],
         childrenFields: [
           {
-            background: '#F8B200',
+            background: '#c4513a',
             key: 'address',
             title: 'Receiver Address',
             type: 'input',
@@ -373,7 +373,7 @@ export const dappMockupData: DappModel[] = [
             icon: '',
             value: 1,
             tooltip: '',
-            background: '#F8B200',
+            background: '#c4513a',
             options: [
               {
                 key: 'cliff',
@@ -515,14 +515,14 @@ export const dappMockupData: DappModel[] = [
             tooltip: '',
             options: [],
             placeholder: 'e.g 1,000,000,000',
-            background: '#00AA6C',
+            background: '#c4513a',
             inputType: 'number',
           },
         ],
         placableAmount: 1,
         preview: true,
         section: 'information',
-        background: '#00AA6C',
+        background: '#c4513a',
       },
       {
         title: 'Receiver Address',
@@ -538,13 +538,13 @@ export const dappMockupData: DappModel[] = [
             tooltip: '',
             options: [],
             placeholder: 'e.g 0x0000000000000000000000000000000000000000',
-            background: '#00AA6C',
+            background: '#c4513a',
           },
         ],
         placableAmount: 1,
         preview: true,
         section: 'information',
-        background: '#00AA6C',
+        background: '#c4513a',
       },
       {
         title: 'Logo',
@@ -560,7 +560,7 @@ export const dappMockupData: DappModel[] = [
             tooltip: '',
             options: [],
             placeholder: '',
-            background: '#00AA6C',
+            background: '#c4513a',
             inputType: 'file',
             inputAccept: 'image/*',
           },
@@ -568,7 +568,7 @@ export const dappMockupData: DappModel[] = [
         placableAmount: 1,
         preview: true,
         section: 'information',
-        background: '#00AA6C',
+        background: '#c4513a',
       },
     ],
     // moduleFields: [
@@ -697,7 +697,7 @@ export const dappMockupData: DappModel[] = [
         placableAmount: -1,
         section: 'staking_token',
         preview: true,
-        background: '#A041FF',
+        background: '#de5b41',
         fields: [
           {
             key: 'bvm',
@@ -730,7 +730,7 @@ export const dappMockupData: DappModel[] = [
         preview: true,
         placableAmount: 1,
         section: 'reward_token',
-        background: '#15C888',
+        background: '#de5b41',
         fields: [
           {
             key: 'bvm',
@@ -821,7 +821,7 @@ export const dappMockupData: DappModel[] = [
     title: 'Airdrop',
     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-orderbook.svg',
     order: 4,
-    color: '#F76649',
+    color: '#f76649',
     created_at: '2021-09-14T09:00:00.000Z',
     updated_at: '2021-09-14T09:00:00.000Z',
     tooltip: '',
@@ -883,7 +883,7 @@ export const dappMockupData: DappModel[] = [
         title: 'Start Date',
         key: 'start_date',
         icon: '',
-        background: '#A041FF',
+        background: '#c4513a',
         fields: [
           {
             key: 'start_date',
@@ -895,7 +895,7 @@ export const dappMockupData: DappModel[] = [
             tooltip: '',
             options: [],
             selectable: true,
-            background: '#A041FF',
+            background: '#c4513a',
           },
         ],
         placableAmount: 1,
@@ -906,7 +906,7 @@ export const dappMockupData: DappModel[] = [
         title: 'End Date',
         key: 'end_date',
         icon: '',
-        background: '#A041FF',
+        background: '#c4513a',
         fields: [
           {
             key: 'end_date',
@@ -917,7 +917,7 @@ export const dappMockupData: DappModel[] = [
             value: '',
             tooltip: '',
             options: [],
-            background: '#A041FF',
+            background: '#c4513a',
           },
         ],
         placableAmount: 1,
@@ -928,7 +928,7 @@ export const dappMockupData: DappModel[] = [
         title: 'Shared holder',
         key: 'is_bvm_shard',
         icon: '',
-        background: '#A041FF',
+        background: '#c4513a',
         fields: [
           {
             key: 'is_bvm_shard',
@@ -939,7 +939,7 @@ export const dappMockupData: DappModel[] = [
             tooltip: '',
             options: [],
             disabled: true,
-            background: '#A041FF',
+            background: '#c4513a',
           },
         ],
         placableAmount: 1,

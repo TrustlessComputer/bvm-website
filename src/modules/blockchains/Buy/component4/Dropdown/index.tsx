@@ -32,7 +32,7 @@ type Props = {
   FieldModel;
 
 const Dropdown = ({
-  background = '#A041FF',
+  background = '#ab3d29',
   disabled,
   name,
   dappKey,
