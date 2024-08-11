@@ -1,13 +1,19 @@
 'use client';
 
-import toast from 'react-hot-toast';
-import { subScribeDropEnd } from '@/modules/blockchains/Buy/stores/useDappStore';
+import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
+import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import {
   blockDraggingSignal,
   draggedDappIndexesSignal,
   draggedIds2DSignal,
   idBlockErrorSignal,
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
+import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
+import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
+import { subScribeDropEnd } from '@/modules/blockchains/Buy/stores/useDappStore';
+import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
+import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
+import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
 import {
   cloneDeep,
   DragUtil,
@@ -15,25 +21,16 @@ import {
   hasValue,
   MouseSensor,
 } from '@/modules/blockchains/Buy/utils';
-import { showValidateError } from '@components/toast';
-import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
-import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
-import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
 import { removeItemAtIndex } from '@/modules/blockchains/dapp/utils';
-import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
-import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
-import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
-import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
-import React from 'react';
-import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
-import { useSensor, useSensors } from '@dnd-kit/core';
 import { FieldModel } from '@/types/customize-model';
+import { showValidateError } from '@components/toast';
+import { useSensor, useSensors } from '@dnd-kit/core';
+import toast from 'react-hot-toast';
 import useFlowStore from '../stores/useFlowStore';
-import useScreenMouse from '@/modules/blockchains/Buy/hooks/useScreenMouse';
+import useOverlappingChainLegoStore from '../stores/useOverlappingChainLegoStore';
 
 export default function useHandleDragging() {
-  const mousePositionRef = React.useRef({ x: 0, y: 0 });
-
+  const { setOverlappingId } = useOverlappingChainLegoStore();
   const { nodes, setNodes } = useFlowStore();
   const { setIdDragging, rightDragging, setRightDragging } = useDragMask();
   const { draggedFields, setDraggedFields } = useDragStore();
@@ -46,31 +43,6 @@ export default function useHandleDragging() {
     moduleFieldMapping,
     singleFieldMapping,
   } = useDapps();
-  // const { addListeners, removeListeners } = useScreenMouse({
-  //   handleOnTick: tick,
-  // });
-
-  // function tick(
-  //   contentRect: DOMRect,
-  //   mousePosition: {
-  //     x: number;
-  //     y: number;
-  //   },
-  //   previousMousePosition: {
-  //     x: number;
-  //     y: number;
-  //   },
-  // ) {
-  //   mousePositionRef.current = mousePosition;
-  // }
-
-  // React.useEffect(() => {
-  //   addListeners();
-  //
-  //   return () => {
-  //     removeListeners;
-  //   };
-  // }, []);
 
   const getAllOptionKeysOfItem = (item: FieldModel) => {
     const result: string[] = [];
@@ -148,6 +120,7 @@ export default function useHandleDragging() {
           field[activeKey].dragged
         ) {
           // setShowShadow(field[activeKey].value as string);
+          setOverlappingId(field[activeKey].value as string);
 
           const currentField = parsedCategories?.find(
             (item) => item.key === activeKey,
@@ -168,6 +141,7 @@ export default function useHandleDragging() {
           });
           setTimeout(() => {
             // setShowShadow('');
+            setOverlappingId('');
           }, 500);
           return;
         }

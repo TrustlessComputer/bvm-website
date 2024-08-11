@@ -1,21 +1,21 @@
-import s from './styles.module.scss';
-import { HandleType, Node, NodeProps, Position } from '@xyflow/react';
-import React from 'react';
-import cn from 'classnames';
-import { OrderItem } from '@/stores/states/l2services/types';
-import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
 import ComputerNameInput from '@/modules/blockchains/Buy/components3/ComputerNameInput';
 import ChainDraggable from '@/modules/blockchains/Buy/components3/Draggable';
 import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
-import useDragStore from '../../stores/useDragStore';
-import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
-import useOrderFormStoreV3, { useCaptureStore } from '../../stores/index_v3';
+import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
+import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
+import { OrderItem } from '@/stores/states/l2services/types';
+import { DappModel } from '@/types/customize-model';
+import { HandleType, Node, NodeProps, Position } from '@xyflow/react';
+import cn from 'classnames';
+import { memo } from 'react';
 import Label from '../../components3/Label';
 import ChainLegoParent from '../../components3/LegoParent';
-import { DappModel } from '@/types/customize-model';
-import { memo } from 'react';
-import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import useGettingDappLego from '../../hooks/useGettingDappLego';
+import useOrderFormStoreV3, { useCaptureStore } from '../../stores/index_v3';
+import useDragStore from '../../stores/useDragStore';
+import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
+import useOverlappingChainLegoStore from '../../stores/useOverlappingChainLegoStore';
+import s from './styles.module.scss';
 
 export type DataNode = Node<
   {
@@ -39,7 +39,7 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
 
   const { parsedCategories } = useModelCategoriesStore();
   const { draggedFields } = useDragStore();
-
+  const { overlappingId } = useOverlappingChainLegoStore();
   const { field } = useOrderFormStoreV3();
   const { isCapture } = useCaptureStore();
 
@@ -186,11 +186,11 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
                         labelInRight={!!item.confuseTitle || !!item.confuseIcon}
                         zIndex={draggedFields.length - index}
                         icon={item.confuseIcon}
-                        // className={
-                        //   showShadow === field[item.key].value
-                        //     ? s.activeBlur
-                        //     : ''
-                        // }
+                        className={
+                          overlappingId === field[item.key].value
+                            ? s.activeBlur
+                            : ''
+                        }
                       >
                         <Label icon={option.icon} title={option.title} />
                       </LegoV3>
