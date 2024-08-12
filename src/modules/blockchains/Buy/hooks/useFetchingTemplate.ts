@@ -97,6 +97,7 @@ export default function useFetchingTemplate() {
         status: 'Ready',
         // TODO: Status message - init
         // statusMessage: 'Status message 1',
+        sourceHandles: ['1-s-2'],
         isChain: true,
       },
       dragHandle: '.drag-handle-area',

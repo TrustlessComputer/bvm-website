@@ -6,6 +6,7 @@ import useFlowStore from '../../stores/useFlowStore';
 import ChainNode from '../../component4/CustomNode/ChainNode';
 import s from './styles.module.scss';
 import DappTemplateNode from '../../component4/CustomNode/DappTemplateNode';
+import { edges } from '@/modules/blockchains/Buy/edges';
 const ReactFlowRenderer = React.memo(() => {
   const { nodes, setNodes, onNodesChange } = useFlowStore();
 
@@ -19,6 +20,7 @@ const ReactFlowRenderer = React.memo(() => {
       }}
       onNodesChange={onNodesChange}
       zoomOnDoubleClick={false}
+      edges={edges}
       // fitView
       fitViewOptions={{ padding: 2 }}
       // nodeOrigin={[0.5, 0]}

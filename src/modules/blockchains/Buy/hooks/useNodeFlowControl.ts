@@ -156,6 +156,7 @@ export default function useNodeFlowControl() {
           status: 'Drafting',
           isChain: false,
           dapp: thisDapp,
+          targetHandles: ['2-t-1'],
           ids: draggedIds2D[draggedIds2D.length - 1],
           baseIndex: draggedIds2D.length - 1,
           categoryOption,

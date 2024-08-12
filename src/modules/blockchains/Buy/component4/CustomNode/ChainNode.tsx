@@ -5,7 +5,7 @@ import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
 import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { DappModel } from '@/types/customize-model';
-import { HandleType, Node, NodeProps, Position } from '@xyflow/react';
+import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
 import cn from 'classnames';
 import { memo } from 'react';
 import Label from '../../components3/Label';
@@ -46,17 +46,23 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { isCapture } = useCaptureStore();
   const { getBlockChainStatus } = useChainProvider();
 
-  // TO DO
   const { statusStr, statusColorStr, borderStatusStr } = getBlockChainStatus();
   console.log(' statusStr, statusColorStr, borderStatusStr',  statusStr, statusColorStr, borderStatusStr);
-  // console.log('ChainNode :: ', {
-  //   draggedFields,
-  //   field,
-  // });
 
   return (
     // <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
     <div className={`${s.wrapperBox}`} style={{borderColor: statusColorStr}}>
+      <div className={`${s.handles} ${s.target}`}>
+         {data.targetHandles?.map((handle) => (
+          <Handle
+            key={handle.id}
+            id={handle.id}
+            type="target"
+            position={Position.Left}
+            className={s.handleDot}
+          />
+        ))}
+      </div>
       {/* TODO: Change status */}
       <div
         // className={`${s.wrapperBox_top} drag-handle-area ${cn(
@@ -216,6 +222,18 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
             });
           })}
         </DroppableV2>
+      </div>
+      <div className={`${s.handles} ${s.sources}`}>
+        {data.sourceHandles?.map((handle, index) => (
+          <Handle
+            key={handle.id}
+            id={handle.id}
+            type="source"
+            position={Position.Right}
+            className={s.handleDot}
+            // style={{ top: 50 * (index+1)}}
+          />
+        ))}
       </div>
     </div>
   );

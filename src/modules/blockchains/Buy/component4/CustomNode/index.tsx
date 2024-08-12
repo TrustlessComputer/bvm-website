@@ -491,23 +491,17 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
 
   return (
     <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
-      {/*<div className={`${s.handles} ${s.target}`}>*/}
-      {/*   <Handle*/}
-      {/*    type={'target'}*/}
-      {/*    position={data.positionDot}*/}
-      {/*    isConnectable={isConnectable}*/}
-      {/*    className={s.handleDot}*/}
-      {/*  />*/}
-      {/*   {data.targetHandles.map((handle) => (*/}
-      {/*    <Handle*/}
-      {/*      key={handle.id}*/}
-      {/*      id={handle.id}*/}
-      {/*      type="target"*/}
-      {/*      position={Position.Left}*/}
-      {/*      className={s.handleDot}*/}
-      {/*    />*/}
-      {/*  ))}*/}
-      {/*</div>*/}
+      <div className={`${s.handles} ${s.target}`}>
+         {data.targetHandles?.map((handle) => (
+          <Handle
+            key={handle.id}
+            id={handle.id}
+            type="target"
+            position={Position.Left}
+            className={s.handleDot}
+          />
+        ))}
+      </div>
       <div
         className={`${s.wrapperBox_top} drag-handle-area ${cn(
           s[`borderColor_${data.status}`],
@@ -540,18 +534,18 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
 
         {data.dapp && <DappRendering />}
       </div>
-      {/*<div className={`${s.handles} ${s.sources}`}>*/}
-      {/*  {data.sourceHandles.map((handle, index) => (*/}
-      {/*    <Handle*/}
-      {/*      key={handle.id}*/}
-      {/*      id={handle.id}*/}
-      {/*      type="source"*/}
-      {/*      position={Position.Right}*/}
-      {/*      className={s.handleDot}*/}
-      {/*      // style={{ top: 50 * (index+1)}}*/}
-      {/*    />*/}
-      {/*  ))}*/}
-      {/*</div>*/}
+      <div className={`${s.handles} ${s.sources}`}>
+        {data.sourceHandles?.map((handle, index) => (
+          <Handle
+            key={handle.id}
+            id={handle.id}
+            type="source"
+            position={Position.Right}
+            className={s.handleDot}
+            // style={{ top: 50 * (index+1)}}
+          />
+        ))}
+      </div>
     </div>
   );
 }

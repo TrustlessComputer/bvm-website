@@ -9,7 +9,7 @@ import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { adjustBrightness, DragUtil } from '@/modules/blockchains/Buy/utils';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
-import { HandleType, Node, NodeProps, Position } from '@xyflow/react';
+import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
 import cn from 'classnames';
 import React, { memo, ReactElement } from 'react';
 import Label from '../../components3/Label';
@@ -518,6 +518,18 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
         {/* {data.categoryOption.needInstall && <DappNotification />} */}
 
         {data.dapp && <DappRendering />}
+      </div>
+      <div className={`${s.handles} ${s.sources}`}>
+        {data.sourceHandles?.map((handle, index) => (
+          <Handle
+            key={handle.id}
+            id={handle.id}
+            type="source"
+            position={Position.Right}
+            className={s.handleDot}
+            // style={{ top: 50 * (index+1)}}
+          />
+        ))}
       </div>
     </div>
   );

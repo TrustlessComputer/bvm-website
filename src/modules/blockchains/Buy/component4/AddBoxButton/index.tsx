@@ -21,7 +21,7 @@ const NODE_HEIGHT = 15;
 export default function AddBoxButton({ ...props }): React.JSX.Element {
   const { nodes, setNodes, onNodesChange } = useFlowStore();
   const { screenToFlowPosition } = useReactFlow();
-
+  console.log('nodes', nodes);
   const [draggedIds2D, setDraggedIds2D] = React.useState<
     typeof draggedIds2DSignal.value
   >([]);
