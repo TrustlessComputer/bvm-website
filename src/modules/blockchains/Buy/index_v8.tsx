@@ -12,13 +12,13 @@ import useNodeFlowControl from './hooks/useNodeFlowControl';
 import s from './styles_v6.module.scss';
 
 const BuyPage = () => {
+  const { handleDragStart, handleDragEnd, sensors } = useHandleDragging();
+
   useFetchingTemplate();
   useCheckingSupported();
   useCalcPrice();
   useFixScrollOverDrag();
   useNodeFlowControl();
-
-  const { handleDragStart, handleDragEnd, sensors } = useHandleDragging();
 
   const { tabActive } = useTabs((state) => state);
   const isTabCode = React.useMemo(() => {

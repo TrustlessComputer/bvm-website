@@ -38,6 +38,8 @@ export default function useFetchingTemplate() {
   } = useModelCategoriesStore();
   const { field, setFields } = useOrderFormStoreV3();
 
+  // console.log('useFetchingTemplate -> field', field);
+
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { initTemplate, setTemplate } = useTemplate();
   const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =

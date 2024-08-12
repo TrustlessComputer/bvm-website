@@ -12,15 +12,22 @@ const useGettingDappLego = () => {
   const { field, setFields } = useOrderFormStoreV3();
   const { dappCount } = useFormDappToFormChain();
 
+  // console.log('useGettingDappLego -> field', field);
+
   const setDappLegoToChain = () => {
     let newDraggedFields = cloneDeep(draggedFields);
     const newField = cloneDeep(field);
+
+    // console.log('setDappLegoToChain - 1', {
+    //   newField,
+    //   newDraggedFields,
+    // });
 
     for (const key in dappCount) {
       const _key = dappKeyToChainKey(key);
 
       for (const category of categories || []) {
-        if (category.isChain) continue;
+        // if (category.isChain) continue;
 
         for (const option of category.options) {
           if (!dappCount[chainKeyToDappKey(_key)] || option.key !== _key)
@@ -53,6 +60,11 @@ const useGettingDappLego = () => {
         }
       }
     }
+
+    // console.log('setDappLegoToChain - 2', {
+    //   newField,
+    //   newDraggedFields,
+    // });
 
     // for (const key in newField) {
     //   const category = categories?.find((i) => i.key === key);
