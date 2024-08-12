@@ -1,28 +1,26 @@
-import React from 'react';
-import { getModelCategories, getTemplates } from '@/services/customize-model';
 import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
-import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
-import useScreenMouse from '@/modules/blockchains/Buy/hooks/useScreenMouse';
-import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
-import useFlowStore from '../stores/useFlowStore';
-import { categoriesMockup } from '../Buy.data';
-import { IToken } from '@/services/api/dapp/token_generation/interface';
-import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
+import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { IAirdrop } from '@/services/api/dapp/airdrop/interface';
-import { compareString } from '@/utils/string';
-import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
+import { IToken } from '@/services/api/dapp/token_generation/interface';
+import { getModelCategories, getTemplates } from '@/services/customize-model';
 import { useAppSelector } from '@/stores/hooks';
+import { commonSelector } from '@/stores/states/common/selector';
 import { dappSelector } from '@/stores/states/dapp/selector';
+import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
+import { compareString } from '@/utils/string';
+import React from 'react';
+import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
+import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
+import { parseStakingPools } from '../../dapp/parseUtils/staking';
+import { parseDappModel } from '../../utils';
 import { templateIds2DSignal } from '../signals/useDragSignal';
 import { formTemplateDappSignal } from '../signals/useFormDappsSignal';
-import { FormDappUtil } from '../utils';
 import { useTemplateFormStore } from '../stores/useDappStore';
-import { parseDappModel } from '../../utils';
+import useFlowStore from '../stores/useFlowStore';
 import { DappType } from '../types';
-import { parseStakingPools } from '../../dapp/parseUtils/staking';
-import { commonSelector } from '@/stores/states/common/selector';
+import { FormDappUtil } from '../utils';
 
 export default function useFetchingTemplate() {
   const { nodes, setNodes } = useFlowStore();
@@ -102,8 +100,6 @@ export default function useFetchingTemplate() {
     setCategoriesTemplates(templates);
     setNodes(nodes);
     setApiCount((prev) => prev + 1);
-
-    console.log('FIRST 2');
   };
 
   const dataTemplateToBox = async () => {
@@ -183,8 +179,6 @@ export default function useFetchingTemplate() {
 
     templateIds2DSignal.value = [...draggedIds2D];
     formTemplateDappSignal.value = { ...formDapp };
-
-    console.log('LAST 2');
   };
 
   const parseDappApiToDappModel = async () => {

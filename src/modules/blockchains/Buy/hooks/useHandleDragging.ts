@@ -44,6 +44,8 @@ export default function useHandleDragging() {
     singleFieldMapping,
   } = useDapps();
 
+  // console.log('useHandleDragging -> field :: ', field);
+
   const getAllOptionKeysOfItem = (item: FieldModel) => {
     const result: string[] = [];
 
@@ -62,157 +64,150 @@ export default function useHandleDragging() {
     return result;
   };
 
-  function handleDragEnd(event: any) {
-    if (event.active.data.current.isChain) {
-      setIdDragging('');
-      setRightDragging(false);
+  const handleChainDragEnd = (event: any) => {
+    setIdDragging('');
+    setRightDragging(false);
 
-      // router.push('/rollups/customizev2');
+    const { over, active } = event;
 
-      const { over, active } = event;
+    // Format ID of single option = <key>-<value>
+    // Format ID of parent option = <key>-parent-<suffix>
+    const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
+      active.id.split('-');
+    const [overKey = '', overSuffix1 = '', overSuffix2 = ''] = (
+      over?.id || ''
+    ).split('-');
+    const overIsParentOfActiveDroppable =
+      overKey === activeKey && overSuffix1 === 'droppable';
+    const overIsFinalDroppable = overKey === 'final';
+    const overIsParentDroppable =
+      !overIsFinalDroppable &&
+      overSuffix1 === 'droppable' &&
+      parsedCategories?.find((item) => item.key === overKey)?.multiChoice;
+    const activeIsParent =
+      parsedCategories?.find((item) => item.key === activeKey)?.multiChoice &&
+      activeSuffix1 === 'parent';
+    const isMultiChoice = parsedCategories?.find(
+      (item) => item.key === activeKey,
+    )?.multiChoice;
+    const activeIsNotAChainField = !categories?.find(
+      (item) => item.key === activeKey,
+    )?.isChain;
 
-      // Format ID of single option = <key>-<value>
-      // Format ID of parent option = <key>-parent-<suffix>
-      const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
-        active.id.split('-');
-      const [overKey = '', overSuffix1 = '', overSuffix2 = ''] = (
-        over?.id || ''
-      ).split('-');
-      const overIsParentOfActiveDroppable =
-        overKey === activeKey && overSuffix1 === 'droppable';
-      const overIsFinalDroppable = overKey === 'final';
-      const overIsParentDroppable =
-        !overIsFinalDroppable &&
-        overSuffix1 === 'droppable' &&
-        parsedCategories?.find((item) => item.key === overKey)?.multiChoice;
-      const activeIsParent =
-        parsedCategories?.find((item) => item.key === activeKey)?.multiChoice &&
-        activeSuffix1 === 'parent';
-      const isMultiChoice = parsedCategories?.find(
-        (item) => item.key === activeKey,
-      )?.multiChoice;
-      const activeIsNotAChainField = !categories?.find(
-        (item) => item.key === activeKey,
-      )?.isChain;
+    if (rightDragging && !overIsFinalDroppable && overSuffix1 === 'right') {
+      // swap activeKey, overKey in draggedFields
+      const _draggedFields = cloneDeep(draggedFields);
+      const activeIndex = draggedFields.indexOf(activeKey);
+      const overIndex = draggedFields.indexOf(overKey);
 
-      if (rightDragging && !overIsFinalDroppable && overSuffix1 === 'right') {
-        // swap activeKey, overKey in draggedFields
-        const _draggedFields = cloneDeep(draggedFields);
-        const activeIndex = draggedFields.indexOf(activeKey);
-        const overIndex = draggedFields.indexOf(overKey);
+      if (activeIndex === -1 || overIndex === -1) return;
 
-        if (activeIndex === -1 || overIndex === -1) return;
+      const temp = _draggedFields[activeIndex];
+      _draggedFields[activeIndex] = _draggedFields[overIndex];
+      _draggedFields[overIndex] = temp;
 
-        const temp = _draggedFields[activeIndex];
-        _draggedFields[activeIndex] = _draggedFields[overIndex];
-        _draggedFields[overIndex] = temp;
+      setDraggedFields(_draggedFields);
 
-        setDraggedFields(_draggedFields);
+      return;
+    }
 
-        return;
-      }
+    if (activeIsNotAChainField) return;
 
-      if (activeIsNotAChainField) return;
+    if (!isMultiChoice) {
+      // Error case
+      if (
+        active.data.current.value !== field[activeKey].value &&
+        field[activeKey].dragged
+      ) {
+        setOverlappingId(field[activeKey].value as string);
 
-      if (!isMultiChoice) {
-        if (
-          active.data.current.value !== field[activeKey].value &&
-          field[activeKey].dragged
-        ) {
-          // setShowShadow(field[activeKey].value as string);
-          setOverlappingId(field[activeKey].value as string);
-
-          const currentField = parsedCategories?.find(
-            (item) => item.key === activeKey,
-          );
-          const currentOption = currentField?.options.find(
-            (option) => option.key === field[activeKey].value,
-          );
-          const msg = `You have already chosen ${currentOption?.title} as your ${currentField?.title}. Please remove it before selecting again.`;
-
-          toast.error(msg, {
-            icon: null,
-            style: {
-              borderColor: 'blue',
-              color: 'blue',
-            },
-            duration: 3000,
-            position: 'bottom-center',
-          });
-          setTimeout(() => {
-            // setShowShadow('');
-            setOverlappingId('');
-          }, 500);
-          return;
-        }
-
-        const isHidden = parsedCategories?.find(
+        const currentField = parsedCategories?.find(
           (item) => item.key === activeKey,
-        )?.hidden;
-        if (isHidden) return;
-
-        // Normal case
-        if (
-          over &&
-          (overIsFinalDroppable ||
-            (!overIsFinalDroppable && overSuffix1 === 'right'))
-        ) {
-          setField(activeKey, active.data.current.value, true);
-
-          if (field[activeKey].dragged) return;
-          setDraggedFields([...draggedFields, activeKey]);
-        } else {
-          if (over && overIsParentDroppable) return;
-
-          setField(activeKey, active.data.current.value, false);
-          setDraggedFields(
-            draggedFields.filter((field) => field !== activeKey),
-          );
-        }
-
-        return;
-      }
-
-      // Active is parent and drag to the left side
-      if (
-        activeIsParent &&
-        (!over || (over && !overIsFinalDroppable && !overIsParentDroppable))
-      ) {
-        setField(activeKey, [], false);
-        setDraggedFields(draggedFields.filter((field) => field !== activeKey));
-        return;
-      }
-
-      // Multi choice case
-      if (
-        (over && (overIsFinalDroppable || overIsParentOfActiveDroppable)) ||
-        (!overIsFinalDroppable && overSuffix1 === 'right')
-      ) {
-        const currentValues = (field[activeKey].value || []) as string[];
-        const isCurrentEmpty = currentValues.length === 0;
-        const newValue = [...currentValues, active.data.current.value];
-
-        if (currentValues.includes(active.data.current.value)) return;
-
-        setField(activeKey, newValue, true);
-        isCurrentEmpty && setDraggedFields([...draggedFields, activeKey]);
-      } else {
-        const currentValues = (field[activeKey].value || []) as string[];
-        const newValue = currentValues.filter(
-          (value) => value !== active.data.current.value,
         );
-        const isEmpty = newValue.length === 0;
+        const currentOption = currentField?.options.find(
+          (option) => option.key === field[activeKey].value,
+        );
+        const msg = `You have already chosen ${currentOption?.title} as your ${currentField?.title}. Please remove it before selecting again.`;
 
-        setField(activeKey, newValue, !isEmpty);
-        isEmpty &&
-          setDraggedFields(
-            draggedFields.filter((field) => field !== activeKey),
-          );
+        toast.error(msg, {
+          icon: null,
+          style: {
+            borderColor: 'blue',
+            color: 'blue',
+          },
+          duration: 3000,
+          position: 'bottom-center',
+        });
+
+        setTimeout(() => {
+          // setShowShadow('');
+          setOverlappingId('');
+        }, 500);
+        return;
+      }
+
+      const isHidden = parsedCategories?.find(
+        (item) => item.key === activeKey,
+      )?.hidden;
+      if (isHidden) return;
+
+      // Normal case
+      if (
+        over &&
+        (overIsFinalDroppable ||
+          (!overIsFinalDroppable && overSuffix1 === 'right'))
+      ) {
+        setField(activeKey, active.data.current.value, true);
+
+        if (field[activeKey].dragged) return;
+        setDraggedFields([...draggedFields, activeKey]);
+      } else {
+        if (over && overIsParentDroppable) return;
+
+        setField(activeKey, active.data.current.value, false);
+        setDraggedFields(draggedFields.filter((field) => field !== activeKey));
       }
 
       return;
     }
 
+    // Active is parent and drag to the left side
+    if (
+      activeIsParent &&
+      (!over || (over && !overIsFinalDroppable && !overIsParentDroppable))
+    ) {
+      setField(activeKey, [], false);
+      setDraggedFields(draggedFields.filter((field) => field !== activeKey));
+      return;
+    }
+
+    // Multi choice case
+    if (
+      (over && (overIsFinalDroppable || overIsParentOfActiveDroppable)) ||
+      (!overIsFinalDroppable && overSuffix1 === 'right')
+    ) {
+      const currentValues = (field[activeKey].value || []) as string[];
+      const isCurrentEmpty = currentValues.length === 0;
+      const newValue = [...currentValues, active.data.current.value];
+
+      if (currentValues.includes(active.data.current.value)) return;
+
+      setField(activeKey, newValue, true);
+      isCurrentEmpty && setDraggedFields([...draggedFields, activeKey]);
+    } else {
+      const currentValues = (field[activeKey].value || []) as string[];
+      const newValue = currentValues.filter(
+        (value) => value !== active.data.current.value,
+      );
+      const isEmpty = newValue.length === 0;
+
+      setField(activeKey, newValue, !isEmpty);
+      isEmpty &&
+        setDraggedFields(draggedFields.filter((field) => field !== activeKey));
+    }
+  };
+
+  const handleDappDragEnd = (event: any) => {
     const { over, active } = event;
     subScribeDropEnd.value += 1;
     blockDraggingSignal.value = {
@@ -844,7 +839,16 @@ export default function useHandleDragging() {
 
       return;
     }
-  }
+  };
+
+  const handleDragEnd = (event: any) => {
+    if (event.active.data.current.isChain) {
+      handleChainDragEnd(event);
+      return;
+    }
+
+    handleDappDragEnd(event);
+  };
 
   const handleDragStart = (event: any) => {
     const { active } = event;

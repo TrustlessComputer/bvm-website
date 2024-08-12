@@ -1,7 +1,7 @@
-import React from 'react';
-import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
+import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
 import { IModelCategory } from '@/types/customize-model';
+import React from 'react';
 import { isChainOptionDisabled } from '../utils';
 
 export default function useCheckingSupported() {
@@ -36,6 +36,8 @@ export default function useCheckingSupported() {
   }
 
   function handleSingleChoice(item: IModelCategory) {
+    if (item.key === 'network' || item.key === 'layers') return;
+
     const newDefaultValue = item.options.find(
       (option) =>
         (option.supportLayer === field['layers']?.value ||
@@ -56,9 +58,8 @@ export default function useCheckingSupported() {
       return;
     }
 
-    if (!currentOption) return;
-
-    if (isChainOptionDisabled(field, item, currentOption)) return;
+    if (!currentOption || isChainOptionDisabled(field, item, currentOption))
+      return;
 
     setField(item.key, newDefaultValue.key, field[item.key].dragged);
   }
