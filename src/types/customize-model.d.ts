@@ -23,7 +23,7 @@ interface IModelOption {
   priceUSD: number;
   priceBVM: number;
   tooltip: string;
-  key: DAppKeys;
+  key: string;
   icon: string;
   supportNetwork: 'both' | '' | 'testnet' | 'mainnet';
   supportLayer: '' | 'layer2' | 'layer3' | 'both';
