@@ -67,7 +67,13 @@ export default function Hero({
                   alignItems={'center'}
                   fontWeight={500}
                   fontSize={'14px'}
-                  onClick={showContactUsModal}
+                  onClick={() =>
+                    showContactUsModal({
+                      title: 'Contact Us',
+                      description: `Have questions or need assistance? We're here to help! Please fill out the form below, and we will get back to you shortly.`,
+                      subjectDefault: 0,
+                    })
+                  }
                 >
                   Contact us
                   <svg

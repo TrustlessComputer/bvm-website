@@ -1,17 +1,23 @@
+import { CDN_URL } from '@/config';
 import MainLayout from '@/layouts/MainLayout';
 import L2RollupModule from '@/modules/l2-rollup';
+import { Metadata } from 'next';
 import React from 'react';
 
-const TITLE = 'Heartbeat | Welcome to the future of Bitcoin.'
-const DESCRIPTION = 'Provide transparent and verifiable insights into Bitcoin rollups.'
+const TITLE = 'Bitcoin Heartbeat | Welcome to the future of Bitcoin.';
+const DESCRIPTION =
+  'Provide transparent and verifiable insights into Bitcoin rollups.';
 
-export const metadata = {
+const THUMBNAIL = `${CDN_URL}/pages/bvm-studio/bvm-heartbeat-metadata.png`;
+
+export const metadata: Metadata = {
   applicationName: TITLE,
   title: {
     default: TITLE,
     template: '',
   },
   description: DESCRIPTION,
+  icons: '/icons/heartbeat.svg',
   openGraph: {
     type: 'website',
     title: {
@@ -20,7 +26,7 @@ export const metadata = {
     },
     images: [
       {
-        url: '/heartbeat/heart-beat-seo.png',
+        url: THUMBNAIL,
         width: 1200,
         height: 630,
         alt: TITLE,
@@ -34,7 +40,7 @@ export const metadata = {
       template: '',
     },
     description: DESCRIPTION,
-    images: '/heartbeat/heart-beat-seo.png',
+    images: THUMBNAIL,
   },
 };
 

@@ -18,14 +18,7 @@ type Props = {
 const ButtonLoginTwitter = (props: Props) => {
   const router = useRouter();
   const { loggedIn, login, logout, userInfo } = useWeb3Auth();
-  const { getAccountInfor } = useL2Service();
   const accInfor = useAppSelector(accountInforSelector);
-
-  useEffect(() => {
-    if (loggedIn) {
-      getAccountInfor();
-    }
-  }, [loggedIn]);
 
   const handleConnect = async () => {
     try {

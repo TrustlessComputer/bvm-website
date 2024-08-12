@@ -1,18 +1,25 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ReactElement } from 'react';
+import { HEART_BEAT } from '@constants/route-path';
+import cn from 'classnames';
 
 export default function GroupProducts(): ReactElement {
   return (
     <div className={s.groupProduction}>
       <div className={s.inner}>
         <div className={s.left}>
-          <Flex alignItems={'start'} flexDirection={'column'} flexWrap={'wrap'} gap={{ base: '60px' }}>
+          <Flex
+            alignItems={'start'}
+            flexDirection={'column'}
+            flexWrap={'wrap'}
+            gap={{ base: '60px' }}
+          >
             <div className={s.group}>
               <h4 className={s.title}>TOOLS</h4>
-              <ul className={s.group_inner}>
+              <ul className={cn(s.group_inner, s.isFlex)}>
                 <li>
                   <Link
                     href={'/module/bvm-studio'}
@@ -33,9 +40,39 @@ export default function GroupProducts(): ReactElement {
                         </span>
                         {/* <small>New</small> */}
                       </div>
-                      <span className={s.group_item_icon_text_bottom}>
-                        A fast, simple, and fun way to build your own ZK rollup on Bitcoin.
+                      <Text
+                        as="span"
+                        className={s.group_item_icon_text_bottom}
+                        maxW="100%"
+                      >
+                        A fast, simple, and fun way to build your own ZK rollup
+                        on Bitcoin.
+                      </Text>
+                    </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link href={HEART_BEAT} className={s.group_item_icon}>
+                    <Image
+                      width={48}
+                      height={48}
+                      sizes="100vw"
+                      quality="100"
+                      src="/bvm/heartbeat.png"
+                      alt="menu-icon-op"
+                    />
+                    <div className={s.group_item_icon_text}>
+                      <span className={s.group_item_icon_text_title}>
+                        Bitcoin Heartbeat
                       </span>
+                      <Text
+                        as="span"
+                        className={s.group_item_icon_text_bottom}
+                        maxW="100%"
+                      >
+                        Provide transparent and verifiable insights into Bitcoin
+                        rollups.
+                      </Text>
                     </div>
                   </Link>
                 </li>
@@ -56,9 +93,14 @@ export default function GroupProducts(): ReactElement {
                       <span className={s.group_item_icon_text_title}>
                         BitZK Light Node
                       </span>
-                      <span className={s.group_item_icon_text_bottom}>
-                        A simple way for anyone to validate rollup state transitions with light nodes.
-                      </span>
+                      <Text
+                        as="span"
+                        className={s.group_item_icon_text_bottom}
+                        maxW="100%"
+                      >
+                        A simple way for anyone to validate rollup state
+                        transitions with light nodes.
+                      </Text>
                     </div>
                   </Link>
                 </li>
@@ -84,10 +126,14 @@ export default function GroupProducts(): ReactElement {
                         </span>
                         <small>New</small>
                       </div>
-                      <span className={s.group_item_icon_text_bottom}>
+                      <Text
+                        as="span"
+                        className={s.group_item_icon_text_bottom}
+                        maxW="100%"
+                      >
                         ZK rollups on Bitcoin for virtually any decentralized
                         applications.
-                      </span>
+                      </Text>
                     </div>
                   </Link>
                 </li>
@@ -105,10 +151,14 @@ export default function GroupProducts(): ReactElement {
                       <span className={s.group_item_icon_text_title}>
                         Bitcoin Optimistic (BitOP)
                       </span>
-                      <span className={s.group_item_icon_text_bottom}>
+                      <Text
+                        as="span"
+                        className={s.group_item_icon_text_bottom}
+                        maxW="100%"
+                      >
                         Optimistic rollups on Bitcoin for virtually any
                         decentralized applications.
-                      </span>
+                      </Text>
                     </div>
                   </Link>
                 </li>

@@ -113,6 +113,7 @@ export default function ItemCommunity({
 
       return new BigNumber(airdropAlphaUsers.vested_amount)
         .minus(airdropAlphaUsers.claimed_amount)
+        .minus(airdropAlphaUsers.expired_amount)
         .toNumber();
     } else {
       if (!airdropContent) {
@@ -120,6 +121,7 @@ export default function ItemCommunity({
       }
       return new BigNumber(airdropContent.vested_amount)
         .minus(airdropContent.claimed_amount)
+        .minus(airdropContent.expired_amount)
         .toNumber();
     }
   }, [airdropContent, airdropAlphaUsers, content]);
@@ -352,6 +354,11 @@ export default function ItemCommunity({
                           $BVM - Claimed:{' '}
                           {formatCurrency(airdropAlphaUsers?.claimed_amount)}{' '}
                           $BVM
+                          {parseFloat(airdropAlphaUsers?.expired_amount) > 0
+                            ? ` - Expired: ${formatCurrency(
+                                airdropAlphaUsers?.expired_amount,
+                              )} $BVM`
+                            : ''}
                         </Text>
                         <Text color={'#000000'}>
                           Receiver address:{' '}
@@ -413,6 +420,11 @@ export default function ItemCommunity({
                             - Claimed:{' '}
                             {formatCurrency(airdropContent?.claimed_amount)}{' '}
                             $BVM
+                            {parseFloat(airdropContent?.expired_amount) > 0
+                              ? ` - Expired: ${formatCurrency(
+                                  airdropContent?.expired_amount,
+                                )} $BVM`
+                              : ''}
                           </Text>
                           <Text color={'#000000'}>
                             Receiver address:{' '}
@@ -475,6 +487,11 @@ export default function ItemCommunity({
                             - Claimed:{' '}
                             {formatCurrency(airdropContent?.claimed_amount)}{' '}
                             $BVM
+                            {parseFloat(airdropContent?.expired_amount) > 0
+                              ? ` - Expired: ${formatCurrency(
+                                  airdropContent?.expired_amount,
+                                )} $BVM`
+                              : ''}
                           </Text>
                           <Text color={'#000000'}>
                             Receiver address:{' '}
@@ -537,6 +554,11 @@ export default function ItemCommunity({
                             - Claimed:{' '}
                             {formatCurrency(airdropContent?.claimed_amount)}{' '}
                             $BVM
+                            {parseFloat(airdropContent?.expired_amount) > 0
+                              ? ` - Expired: ${formatCurrency(
+                                  airdropContent?.expired_amount,
+                                )} $BVM`
+                              : ''}
                           </Text>
                           <Text color={'#000000'}>
                             Receiver address:{' '}

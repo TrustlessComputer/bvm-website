@@ -8,8 +8,9 @@ export interface IRollupL2Info {
   stack: string;
   da: string;
   settlement: string;
-  website: string;
-  explorer: string;
+  website?: string;
+  explorer?: string;
+  bitlayer_url?: string;
   provider: string;
   tvl_btc: string;
   index: number;

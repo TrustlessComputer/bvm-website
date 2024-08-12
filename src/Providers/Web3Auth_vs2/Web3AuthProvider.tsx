@@ -166,8 +166,6 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
           if (newL2ServiceAccessToken) {
             setL2ServiceAccessToken(newL2ServiceAccessToken);
           }
-        } else {
-          l2ServicesAPI.setAccesTokenHeader(l2ServiceAccessToken);
         }
       }
     } catch (error) {

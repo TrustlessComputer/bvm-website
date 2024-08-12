@@ -118,8 +118,8 @@ interface FieldModel {
   background?: string;
   previewTitle?: string;
   inputType?: 'text' | 'number' | 'file',
-  inputAccept?: 'image/*' | '.csv'
-  disabled?: boolean;
+  inputAccept?: 'image/*' | '.csv',
+  disabled?: boolean
 }
 
 interface BlockModel {

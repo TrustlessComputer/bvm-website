@@ -61,7 +61,6 @@ const LaunchButton = ({
     string[]
   >([]);
 
-  const { getAccountInfor } = useL2Service();
   const { showContactUsModal } = useContactUs();
 
   const router = useRouter();
@@ -96,12 +95,6 @@ const LaunchButton = ({
     }
     return 'Launch';
   }, [loggedIn, isUpdate, needContactUs]);
-
-  useEffect(() => {
-    if (loggedIn) {
-      getAccountInfor();
-    }
-  }, [loggedIn]);
 
   useEffect(() => {
     const getChainIDRandomFunc = async () => {
