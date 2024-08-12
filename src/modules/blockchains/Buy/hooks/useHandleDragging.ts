@@ -111,7 +111,7 @@ export default function useHandleDragging() {
       return;
     }
 
-    if (activeIsNotAChainField) return;
+    if (activeIsNotAChainField && activeKey !== 'bridge_apps') return;
 
     if (!isMultiChoice) {
       // Error case
@@ -155,7 +155,7 @@ export default function useHandleDragging() {
       if (
         over &&
         (overIsFinalDroppable ||
-          (!overIsFinalDroppable && overSuffix1 === 'right'))
+          (!overIsFinalDroppable && overSuffix1 === 'right')) // Each lego in right side is wrapped by droppable
       ) {
         setField(activeKey, active.data.current.value, true);
 
