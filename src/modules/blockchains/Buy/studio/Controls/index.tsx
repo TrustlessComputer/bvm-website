@@ -14,13 +14,20 @@ import React from 'react';
 import useDapps from '../../hooks/useDapps';
 import { accountAbstractionAsADapp } from '../../mockup_3';
 import { chainKeyToDappKey, isChainOptionDisabled } from '../../utils';
+import { useAppSelector } from '@/stores/hooks';
+import { dappSelector } from '@/stores/states/dapp/selector';
+import { compareString } from '@utils/string';
+import { useParams } from 'next/navigation';
 
 export default function StudioControls() {
   const { parsedCategories } = useModelCategoriesStore();
   const { field } = useOrderFormStoreV3();
   const { dapps, dappMapping } = useDapps();
+  const dappState = useAppSelector(dappSelector);
 
-  // console.log('SANG TEST: 222', parsedCategories);
+  const params = useParams()
+
+  const isUpdateChain = React.useMemo(() => !!params?.id, [params?.id]);
 
   const renderChainLego = (
     item: IModelCategory,
@@ -243,7 +250,14 @@ export default function StudioControls() {
                   needCheckIcon={false}
                 >
                   {item.options.map((option, index) => {
-                    const dapp = dappMapping[chainKeyToDappKey(option.key)];
+                    const dapp = isUpdateChain ?
+                      dappState?.configs?.find(item => compareString(item.key, chainKeyToDappKey(option.key)))
+                      :
+                      dappMapping[chainKeyToDappKey(option.key)];
+                    console.log("SANG TEST: ", {
+                      dapp,
+                      apiMppping: dappMapping[chainKeyToDappKey(option.key)]
+                    });
                     const dappIndex = dapps.findIndex(
                       (d) => d.key === chainKeyToDappKey(option.key),
                     );

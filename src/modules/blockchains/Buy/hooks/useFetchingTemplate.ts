@@ -38,7 +38,6 @@ export default function useFetchingTemplate() {
 
   const { needReload } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
-
   const { tokens, configs, airdrops, airdropTasks, stakingPools } = dappState;
 
   const [apiCount, setApiCount] = React.useState(0);
@@ -82,6 +81,8 @@ export default function useFetchingTemplate() {
     sortedCategories.forEach((_field) => {
       setField(_field.key, null);
     });
+
+    console.log('ELVIS -> sortedCategories', sortedCategories);
 
     nodes.unshift({
       id: 'blockchain',
