@@ -1,8 +1,8 @@
 import React from 'react';
-import { chainKeyToDappKey, cloneDeep, dappKeyToChainKey } from '../utils';
 import useOrderFormStoreV3 from '../stores/index_v3';
 import useDragStore from '../stores/useDragStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
+import { chainKeyToDappKey, cloneDeep, dappKeyToChainKey } from '../utils';
 import useFormDappToFormChain from './useFormDappToFormChain';
 
 const useGettingDappLego = () => {
@@ -54,40 +54,40 @@ const useGettingDappLego = () => {
       }
     }
 
-    for (const key in newField) {
-      const category = categories?.find((i) => i.key === key);
+    // for (const key in newField) {
+    //   const category = categories?.find((i) => i.key === key);
 
-      if (
-        !newField[key] ||
-        !newField[key].value ||
-        !category ||
-        category.isChain
-      )
-        continue;
+    //   if (
+    //     !newField[key] ||
+    //     !newField[key].value ||
+    //     !category ||
+    //     category.isChain
+    //   )
+    //     continue;
 
-      if (Array.isArray(newField[key].value)) {
-        const tmp = ((newField[key].value || []) as string[]).filter(
-          (keyAsAValue) => {
-            return (
-              typeof dappCount[chainKeyToDappKey(keyAsAValue)] === 'number'
-            );
-          },
-        );
+    //   if (Array.isArray(newField[key].value)) {
+    //     const tmp = ((newField[key].value || []) as string[]).filter(
+    //       (keyAsAValue) => {
+    //         return (
+    //           typeof dappCount[chainKeyToDappKey(keyAsAValue)] === 'number'
+    //         );
+    //       },
+    //     );
 
-        newField[key].value = tmp;
-        if (tmp && tmp.length === 0) {
-          newField[key].value = null;
-          newField[key].dragged = false;
-          newDraggedFields = newDraggedFields.filter((i) => i !== category.key);
-        }
-      } else {
-        if (!dappCount[chainKeyToDappKey(newField[key].value as string)]) {
-          newField[key].value = null;
-          newField[key].dragged = false;
-          newDraggedFields = newDraggedFields.filter((i) => i !== category.key);
-        }
-      }
-    }
+    //     newField[key].value = tmp;
+    //     if (tmp && tmp.length === 0) {
+    //       newField[key].value = null;
+    //       newField[key].dragged = false;
+    //       newDraggedFields = newDraggedFields.filter((i) => i !== category.key);
+    //     }
+    //   } else {
+    //     if (!dappCount[chainKeyToDappKey(newField[key].value as string)]) {
+    //       newField[key].value = null;
+    //       newField[key].dragged = false;
+    //       newDraggedFields = newDraggedFields.filter((i) => i !== category.key);
+    //     }
+    //   }
+    // }
 
     setFields(newField);
     setDraggedFields(newDraggedFields);
