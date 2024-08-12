@@ -160,6 +160,7 @@ interface HistoryItemResp {
     chainName: string;
     isMainnet: boolean;
   };
+  orderTypeVersion: number;
 }
 
 interface OrderItem extends OrderItemResp {
