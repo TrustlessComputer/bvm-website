@@ -159,20 +159,22 @@ export default function useFetchingTemplate() {
       };
     });
 
-    const newNodes: any[] = draggedIds2D.map((ids, index) => ({
-      id: Math.random().toString(),
-      type: 'dappTemplate',
-      dragHandle: '.drag-handle-area',
-      data: {
-        label: templateDapps[index].title,
-        status: 'Running',
-        isChain: false,
-        dapp: templateDapps[index],
-        ids,
-        baseIndex: index,
-      },
-      position: { x: 30 * (index + 2), y: 30 * (index + 2) },
-    }));
+    const newNodes: any[] = draggedIds2D.map((ids, index) => {
+      return {
+        id: Math.random().toString(),
+        type: 'dappTemplate',
+        dragHandle: '.drag-handle-area',
+        data: {
+          label: templateDapps[index].title,
+          status: 'Running',
+          isChain: false,
+          dapp: templateDapps[index],
+          ids,
+          baseIndex: index,
+        },
+        position: { x: 30 * (index + 2), y: 30 * (index + 2) },
+      };
+    });
 
     setNodes([...nodes, ...newNodes]);
 
@@ -181,10 +183,10 @@ export default function useFetchingTemplate() {
   };
 
   const parseDappApiToDappModel = async () => {
-    const parsedStakingPoolsData = parseStakingPools(stakingPools);
-    const parsedStakingPoolsForm = parseDappModel({
-      key: DappType.staking,
-      model: parsedStakingPoolsData,
+    const parsedTokensData = parseTokensData(tokens);
+    const parsedTokensForm = parseDappModel({
+      key: DappType.token_generation,
+      model: parsedTokensData,
       startIndex: 0,
     });
 
@@ -192,15 +194,28 @@ export default function useFetchingTemplate() {
     const parsedAirdropsForm = parseDappModel({
       key: DappType.airdrop,
       model: parsedAirdropsData,
-      startIndex: parsedStakingPoolsData.length,
+      startIndex: parsedTokensData.length,
     });
 
-    const parsedTokensData = parseTokensData(tokens);
-    const parsedTokensForm = parseDappModel({
-      key: DappType.token_generation,
-      model: parsedTokensData,
-      startIndex: parsedStakingPoolsData.length + parsedAirdropsData.length,
+    const parsedStakingPoolsData = parseStakingPools(stakingPools);
+    const parsedStakingPoolsForm = parseDappModel({
+      key: DappType.staking,
+      model: parsedStakingPoolsData,
+      startIndex: parsedTokensData.length + parsedAirdropsData.length,
     });
+
+    // console.log('parseDappApiToDappModel', {
+    //   form: {
+    //     ...parsedTokensForm.fieldValue,
+    //     ...parsedAirdropsForm.fieldValue,
+    //     ...parsedStakingPoolsForm.fieldValue,
+    //   },
+    //   dapps: {
+    //     ...parsedTokensData,
+    //     ...parsedAirdropsData,
+    //     ...parsedStakingPoolsData,
+    //   },
+    // });
 
     setTemplateDapps([
       ...parsedTokensData,

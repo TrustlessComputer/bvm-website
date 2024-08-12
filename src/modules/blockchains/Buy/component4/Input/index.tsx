@@ -69,8 +69,15 @@ const Input = ({
       : formDappSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
 
+    // console.log(
+    //   'formDappInput -> ',
+    //   key,
+    //   formTemplateDappSignal.value,
+    //   formDappInput[key],
+    // );
+
     if (typeof formDappInput[key] === 'undefined') {
-      formDappSignal.value = {
+      formDappInput.value = {
         ...formDappInput,
         [key]: '',
       };

@@ -1,18 +1,17 @@
 import React from 'react';
 
-import Lego from '../Lego';
-import Toggle from '../Toggle';
-import { FieldOption } from '../../types';
-import { adjustBrightness, FormDappUtil } from '../../utils';
+import { DappModel, FieldModel } from '@/types/customize-model';
 import {
   formDappSignal,
   formTemplateDappSignal,
 } from '../../signals/useFormDappsSignal';
-import { DappModel, FieldModel } from '@/types/customize-model';
-import useDapps from '../../hooks/useDapps';
+import { FieldOption } from '../../types';
+import { adjustBrightness, FormDappUtil } from '../../utils';
 import DateTimeInput from '../DateTimeInput';
 import Dropdown from '../Dropdown';
 import Input from '../Input';
+import Lego from '../Lego';
+import Toggle from '../Toggle';
 
 type Props = FieldModel &
   FieldOption & {
@@ -142,7 +141,7 @@ const ExtendsInput = ({
   React.useEffect(() => {
     if (type !== 'extends') return;
 
-    const formDappToggle = onlyLabel
+    let formDappToggle = onlyLabel
       ? formTemplateDappSignal.value
       : formDappSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
@@ -150,7 +149,7 @@ const ExtendsInput = ({
     if (typeof formDappToggle[key] !== 'undefined') {
       setToggle(formDappToggle[key]);
     } else {
-      formDappSignal.value = {
+      formDappToggle = {
         ...formDappToggle,
         [key]: Boolean(value),
       };

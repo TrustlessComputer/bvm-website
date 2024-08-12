@@ -1,25 +1,25 @@
-import React from 'react';
+import { useSignalEffect } from '@preact/signals-react';
 import cn from 'classnames';
 import Image from 'next/image';
-import { useSignalEffect } from '@preact/signals-react';
+import React from 'react';
 
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 
-import { DappType, FieldOption } from '../../types';
-import { adjustBrightness, FormDappUtil } from '../../utils';
-import useDappsStore from '../../stores/useDappStore';
 import {
   formDappSignal,
   formTemplateDappSignal,
 } from '../../signals/useFormDappsSignal';
+import useDappsStore from '../../stores/useDappStore';
+import { DappType, FieldOption } from '../../types';
+import { adjustBrightness, FormDappUtil } from '../../utils';
 
-import styles from './styles.module.scss';
+import { FieldModel } from '@/types/customize-model';
 import { compareString } from '@/utils/string';
 import {
   draggedIds2DSignal,
   templateIds2DSignal,
 } from '../../signals/useDragSignal';
-import { FieldModel } from '@/types/customize-model';
+import styles from './styles.module.scss';
 
 type Props = {
   onlyLabel?: boolean;
@@ -98,7 +98,7 @@ const Dropdown = ({
 
     if (props.options.length > 0) {
       if (!formDappDropdown[key]) {
-        formDappSignal.value = {
+        formDappDropdown.value = {
           ...formDappDropdown,
           [key]: props.options[0].value,
         };
