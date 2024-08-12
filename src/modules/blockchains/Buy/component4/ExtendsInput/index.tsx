@@ -72,6 +72,8 @@ const ExtendsInput = ({
             dappKey={thisDapp.key}
             name={fieldKey}
             key={fieldKey}
+            disabled={disabled}
+            onlyLabel={onlyLabel}
           />
         );
       } else if (field.type === 'dropdown') {
@@ -83,6 +85,8 @@ const ExtendsInput = ({
             name={fieldKey}
             key={fieldKey}
             options={field.options}
+            disabled={disabled}
+            onlyLabel={onlyLabel}
           />
         );
       } else if (field.type === 'extends') {
@@ -94,6 +98,8 @@ const ExtendsInput = ({
             name={fieldKey}
             dappKey={thisDapp.key}
             thisDapp={thisDapp}
+            disabled={disabled}
+            onlyLabel={onlyLabel}
           />
         );
       } else if (field.type === 'group') {
@@ -113,6 +119,8 @@ const ExtendsInput = ({
             key={fieldKey}
             dappKey={thisDapp.key}
             placeholder={field.placeholder}
+            disabled={disabled}
+            onlyLabel={onlyLabel}
           />
         );
       }

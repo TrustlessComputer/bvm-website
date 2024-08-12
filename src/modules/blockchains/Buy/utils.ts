@@ -1,13 +1,5 @@
-import {
-  MouseSensor as LibMouseSensor,
-  TouchSensor as LibTouchSensor,
-} from '@dnd-kit/core';
-import type { MouseEvent, TouchEvent } from 'react';
-import { DappType, FieldOption } from './types';
-import { FieldKeyPrefix } from './contants';
-import { compareString } from '@/utils/string';
-import { IToken } from '@/services/api/dapp/token_generation/interface';
 import { IAirdropTask } from '@/services/api/dapp/airdrop/interface';
+import { IToken } from '@/services/api/dapp/token_generation/interface';
 import {
   BlockModel,
   DappModel,
@@ -15,7 +7,15 @@ import {
   IModelCategory,
   IModelOption,
 } from '@/types/customize-model';
+import { compareString } from '@/utils/string';
+import {
+  MouseSensor as LibMouseSensor,
+  TouchSensor as LibTouchSensor,
+} from '@dnd-kit/core';
+import type { MouseEvent, TouchEvent } from 'react';
+import { FieldKeyPrefix } from './contants';
 import { UseOrderFormStoreV3 } from './stores/index_v3';
+import { DappType, FieldOption } from './types';
 
 const handler = ({ nativeEvent: event }: MouseEvent | TouchEvent) => {
   let cur = event.target as HTMLElement;
@@ -433,7 +433,7 @@ export const isChainOptionDisabled = (
       currentOption.supportNetwork !== 'both' &&
       currentOption.supportNetwork !== field['network']?.value
     ) ||
-    field[item.key].dragged ||
+    // field[item.key].dragged ||
     // (!item.disable && currentOption.selectable && field[item.key].dragged) ||
     // (item.required && !field[item.key].dragged) ||
     item.disable ||
