@@ -281,7 +281,11 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       chainId: orderDetail.chainId,
       dynamicFormValues: dynamicForm,
     });
+    const stakingForms = retrieveFormsByDappKey({
+      dappKey: 'staking',
+    });
 
+    console.log('LEON LOG: 111',stakingForms);
     try {
       // Update and Call API install (behind the scene form BE Phuong)
       const result = await orderUpdateV2(params, orderDetail.orderId);
@@ -321,10 +325,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     setSubmitting(true);
 
     let isSuccess = false;
-
-    const stakingForms = retrieveFormsByDappKey({
-      dappKey: 'staking',
-    });
 
     const form: FormOrder = {
       chainName,
