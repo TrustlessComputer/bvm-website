@@ -18,17 +18,18 @@ import { useTemplateFormStore } from '../stores/useDappStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 
 export default function useNodeFlowControl() {
+  const { dapps } = useDapps();
   const { categories } = useModelCategoriesStore();
   const { nodes, setNodes } = useFlowStore();
   const store = useStoreApi();
   const {
     transform: [transformX, transformY, zoomLevel],
   } = store.getState();
-
   const { templateDapps } = useTemplateFormStore();
   const [draggedIds2D, setDraggedIds2D] = React.useState<
     typeof draggedIds2DSignal.value
   >([]);
+
   const [dragState, setDragState] = React.useState<{
     oneD: [number];
     twoD: [number, number];
@@ -40,8 +41,6 @@ export default function useNodeFlowControl() {
     new: false,
     remove: false,
   });
-
-  const { dapps } = useDapps();
 
   const resetDragState = () => {
     setDragState({

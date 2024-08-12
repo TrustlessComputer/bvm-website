@@ -1,19 +1,27 @@
 import React from 'react';
 
-import { adjustBrightness, cloneDeep } from '../utils';
-import { FieldOption } from '../types';
-import useDappsStore, { useTemplateFormStore } from '../stores/useDappStore';
+import { useAppSelector } from '@/stores/hooks';
+import { dappSelector } from '@/stores/states/dapp/selector';
+import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
+import { useParams } from 'next/navigation';
 import DateTimeInput from '../component4/DateTimeInput';
-import ExtendsInput from '../component4/ExtendsInput';
 import Dropdown from '../component4/Dropdown';
+import ExtendsInput from '../component4/ExtendsInput';
 import Input from '../component4/Input';
 import Lego from '../component4/Lego';
-import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
 import { accountAbstractionAsADapp, dappMockupData } from '../mockup_3';
+import useDappsStore from '../stores/useDappStore';
+import { FieldOption } from '../types';
+import { adjustBrightness, cloneDeep } from '../utils';
 
 const useDapps = () => {
+  const params = useParams();
+  const isUpdateChain = React.useMemo(() => !!params?.id, [params?.id]);
+
   const { dapps, setDapps } = useDappsStore();
-  const { templateDapps } = useTemplateFormStore();
+
+  const dappState = useAppSelector(dappSelector);
+  const { configs } = dappState;
 
   const blockFieldMapping = React.useMemo(() => {
     return dapps.map((dapp) => {
@@ -432,18 +440,20 @@ const useDapps = () => {
     }, {} as Record<string, DappModel>);
   }, [dapps]);
 
-  const fetchDapps = React.useCallback(() => {
-    const _dapps = cloneDeep(dappMockupData); // defi_apps
+  const fetchDapps = () => {
+    const _dapps = isUpdateChain
+      ? cloneDeep(configs)
+      : cloneDeep(dappMockupData); // defi_apps
     _dapps.push(accountAbstractionAsADapp);
 
     const sortedDapps = _dapps.sort((a, b) => a.order - b.order);
 
     setDapps(sortedDapps);
-  }, []);
+  };
 
   React.useEffect(() => {
     fetchDapps();
-  }, []);
+  }, [configs]);
 
   return {
     dapps,

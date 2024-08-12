@@ -8,16 +8,16 @@ import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
 import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
 import Droppable from '@/modules/blockchains/dapp/components/Droppable';
+import { useAppSelector } from '@/stores/hooks';
+import { dappSelector } from '@/stores/states/dapp/selector';
 import { IModelCategory, IModelOption } from '@/types/customize-model';
 import { formatCurrencyV2 } from '@utils/format';
+import { compareString } from '@utils/string';
+import { useParams } from 'next/navigation';
 import React from 'react';
 import useDapps from '../../hooks/useDapps';
 import { accountAbstractionAsADapp } from '../../mockup_3';
 import { chainKeyToDappKey, isChainOptionDisabled } from '../../utils';
-import { useAppSelector } from '@/stores/hooks';
-import { dappSelector } from '@/stores/states/dapp/selector';
-import { compareString } from '@utils/string';
-import { useParams } from 'next/navigation';
 
 export default function StudioControls() {
   const { parsedCategories } = useModelCategoriesStore();
@@ -25,7 +25,7 @@ export default function StudioControls() {
   const { dapps, dappMapping } = useDapps();
   const dappState = useAppSelector(dappSelector);
 
-  const params = useParams()
+  const params = useParams();
 
   const isUpdateChain = React.useMemo(() => !!params?.id, [params?.id]);
 
@@ -250,14 +250,18 @@ export default function StudioControls() {
                   needCheckIcon={false}
                 >
                   {item.options.map((option, index) => {
-                    const dapp = isUpdateChain ?
-                      dappState?.configs?.find(item => compareString(item.key, chainKeyToDappKey(option.key)))
-                      :
-                      dappMapping[chainKeyToDappKey(option.key)];
-                    console.log("SANG TEST: ", {
-                      dapp,
-                      apiMppping: dappMapping[chainKeyToDappKey(option.key)]
-                    });
+                    const dapp = isUpdateChain
+                      ? dappState?.configs?.find((item) =>
+                          compareString(
+                            item.key,
+                            chainKeyToDappKey(option.key),
+                          ),
+                        )
+                      : dappMapping[chainKeyToDappKey(option.key)];
+                    // console.log("SANG TEST: ", {
+                    //   dapp,
+                    //   apiMppping: dappMapping[chainKeyToDappKey(option.key)]
+                    // });
                     const dappIndex = dapps.findIndex(
                       (d) => d.key === chainKeyToDappKey(option.key),
                     );

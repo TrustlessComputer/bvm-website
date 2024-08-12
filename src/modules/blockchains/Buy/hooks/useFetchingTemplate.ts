@@ -82,8 +82,6 @@ export default function useFetchingTemplate() {
       setField(_field.key, null);
     });
 
-    console.log('ELVIS -> sortedCategories', sortedCategories);
-
     nodes.unshift({
       id: 'blockchain',
       type: 'chainNode',
