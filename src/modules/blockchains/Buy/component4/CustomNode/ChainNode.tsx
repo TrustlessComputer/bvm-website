@@ -3,6 +3,7 @@ import ChainDraggable from '@/modules/blockchains/Buy/components3/Draggable';
 import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
 import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
 import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
+import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { DappModel } from '@/types/customize-model';
 import { HandleType, Node, NodeProps, Position } from '@xyflow/react';
@@ -16,7 +17,6 @@ import useDragStore from '../../stores/useDragStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import useOverlappingChainLegoStore from '../../stores/useOverlappingChainLegoStore';
 import s from './styles.module.scss';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 
 export type DataNode = Node<
   {
@@ -48,7 +48,7 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
 
   // TO DO
   const { statusStr, statusColorStr, borderStatusStr } = getBlockChainStatus();
-  console.log(' statusStr, statusColorStr, borderStatusStr',  statusStr, statusColorStr, borderStatusStr);
+  // console.log(' statusStr, statusColorStr, borderStatusStr',  statusStr, statusColorStr, borderStatusStr);
   // console.log('ChainNode :: ', {
   //   draggedFields,
   //   field,
@@ -56,14 +56,17 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
 
   return (
     // <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
-    <div className={`${s.wrapperBox}`} style={{borderColor: statusColorStr}}>
+    <div className={`${s.wrapperBox}`} style={{ borderColor: statusColorStr }}>
       {/* TODO: Change status */}
       <div
         // className={`${s.wrapperBox_top} drag-handle-area ${cn(
         //   s[`borderColor_${data.status}`],
         // )}`}
         className={`${s.wrapperBox_top} drag-handle-area`}
-        style={{borderColor: statusColorStr, backgroundColor: borderStatusStr}}
+        style={{
+          borderColor: statusColorStr,
+          backgroundColor: borderStatusStr,
+        }}
       >
         <p
           className={`${s.wrapperBox_top_heading} ${
@@ -78,7 +81,7 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
               className={`${cn(s[`titleTag_${data.status}`])} ${
                 isCapture ? s.label_margin : ''
               }`}
-              style={{color: statusColorStr}}
+              style={{ color: statusColorStr }}
             >
               {/*{data.statusMessage ?? data.status}*/}
               {data.statusMessage ?? statusStr}
@@ -86,7 +89,7 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
             <div
               // className={`${s.tag_dot}  ${cn(s[`tag_${data.status}`])}`}
               className={`${s.tag_dot}`}
-              style={{backgroundColor: statusColorStr}}
+              style={{ backgroundColor: statusColorStr }}
             ></div>
           </div>
         }

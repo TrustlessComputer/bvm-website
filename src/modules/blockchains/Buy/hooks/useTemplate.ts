@@ -11,6 +11,8 @@ export default function useTemplate() {
   const { parsedCategories, categoriesTemplates } = useModelCategoriesStore();
   const { field, setField, setFields } = useOrderFormStoreV3();
 
+  // console.log('useTemplate -> field', field);
+
   const setTemplate = (template: IModelCategory[]) => {
     const newFields = cloneDeep(field);
 

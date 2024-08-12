@@ -20,10 +20,15 @@ export default function useCheckingSupported() {
 
   function handleMultiChoice(item: IModelCategory) {
     const currentValues = (field[item.key].value || []) as string[];
+    if (field[item.key].value === null || !field[item.key].dragged) return;
+
     const newValues = currentValues.filter((value) => {
       const option = item.options.find((opt) => opt.key === value);
+
       if (!option) return false;
+
       const isDisabled = isChainOptionDisabled(field, item, option);
+
       return !isDisabled;
     });
 
@@ -49,12 +54,13 @@ export default function useCheckingSupported() {
         option.selectable &&
         !item.disable,
     );
+
     const currentOption = item.options.find(
       (option) => option.key === field[item.key].value,
     );
 
     if (!newDefaultValue) {
-      setField(item.key, null, false);
+      // setField(item.key, null, false);
       return;
     }
 
