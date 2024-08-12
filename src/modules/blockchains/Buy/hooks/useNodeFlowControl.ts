@@ -57,8 +57,7 @@ export default function useNodeFlowControl() {
     } else if (!dragState.oneD.every((v) => v === -1)) {
       const totalTemplateDapps = (templateDapps || []).length;
       const needSubtract = totalTemplateDapps > 0;
-      const index =
-        dragState.oneD[0] + 1 + totalTemplateDapps - (needSubtract ? 1 : 0);
+      const index = dragState.oneD[0] + 1 + totalTemplateDapps;
       const newNodes = cloneDeep(nodes);
 
       newNodes[index] = {
