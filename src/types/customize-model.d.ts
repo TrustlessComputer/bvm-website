@@ -1,5 +1,16 @@
 import { Position } from '@xyflow/react';
 
+export type DAppKeys =
+  | 'blockchain' //hard code FE (only view's purpore)
+  | 'create_token'
+  | 'staking'
+  | 'account_abstraction'
+  | 'dex'
+  | 'order_book'
+  | 'perpetual'
+  | 'btc_bridge'
+  | 'eth_bridge';
+
 interface IDappValue {
   key: string;
   value: string | number | { key: string; value: string | number }[];
@@ -12,7 +23,7 @@ interface IModelOption {
   priceUSD: number;
   priceBVM: number;
   tooltip: string;
-  key: string;
+  key: DAppKeys;
   icon: string;
   supportNetwork: 'both' | '' | 'testnet' | 'mainnet';
   supportLayer: '' | 'layer2' | 'layer3' | 'both';

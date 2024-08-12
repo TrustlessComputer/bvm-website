@@ -44,6 +44,7 @@ class CStakingAPI {
         });
       }
     }
+
     this.dispatch(setStakingPools(pools));
     return pools;
   };

@@ -15,8 +15,6 @@ const useSubmitStaking = () => {
     const params = [];
 
     for (const form of forms) {
-      console.log('SANG TEST: 111', form);
-
       let finalFormMappings: Record<
         string,
         { key: string; value: string }[]
@@ -51,12 +49,6 @@ const useSubmitStaking = () => {
       );
       const formFinal = finalFormMappings.find(item => !!item);
       const info: any = formFinal?.info.find((item) => !!item);
-      console.log('SANG TEST: ', {
-        principle_token: formFinal?.staking_token,
-        reward_token: formFinal?.reward_token,
-        base_ratio: Number(info?.apr?.replaceAll('%', '')) / 100,
-        token_price: 1 / Number(info?.rate),
-      });
       const data = await cStakeAPI.createNewStakingPool({
         principle_token: formFinal?.staking_token,
         reward_token: formFinal?.reward_token,
