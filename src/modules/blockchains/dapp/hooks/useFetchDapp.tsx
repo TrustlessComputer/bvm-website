@@ -14,6 +14,7 @@ const useFetchDapp = () => {
   const id = params?.id;
 
   const dispatch = useDispatch();
+  const [loading, setLoading] = React.useState<boolean>(false);
 
   const dappAPI = new CDappAPI();
   const stakingAPI = new CStakingAPI();
@@ -52,21 +53,36 @@ const useFetchDapp = () => {
     await stakingAPI.getStakingPools();
   };
 
+  const getDappTasks = async () => {
+    try {
+      setLoading(true);
+      await Promise.all(
+        [
+          fetchTokenList(),
+          fetchStakingPoolsList(),
+          getListTask(),
+          getListAirdrop()
+        ]
+      );
+    } catch (error) {
+      console.log('getDappTasks', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   React.useEffect(() => {
     fetchData();
   }, []);
 
   useEffect(() => {
     if (dappState?.chain?.chainId) {
-      fetchTokenList();
-      fetchStakingPoolsList();
-      getListTask();
-      getListAirdrop();
+      getDappTasks();
     }
   }, [dappState?.chain?.chainId, needReload]);
 
   return {
-    loading: dappState.loading,
+    loading: dappState.loading || loading,
     configs: dappState.configs,
   };
 };

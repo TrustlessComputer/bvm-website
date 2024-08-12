@@ -9,8 +9,8 @@ import {
 import { FieldOption } from '../../types';
 import { FormDappUtil } from '../../utils';
 
-import styles from './styles.module.scss';
 import { FieldModel } from '@/types/customize-model';
+import styles from './styles.module.scss';
 
 type Props = {
   name: string;
@@ -69,8 +69,15 @@ const Input = ({
       : formDappSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
 
+    // console.log(
+    //   'formDappInput -> ',
+    //   key,
+    //   formTemplateDappSignal.value,
+    //   formDappInput[key],
+    // );
+
     if (typeof formDappInput[key] === 'undefined') {
-      formDappSignal.value = {
+      formDappInput.value = {
         ...formDappInput,
         [key]: '',
       };
@@ -79,12 +86,30 @@ const Input = ({
     }
   }, []);
 
+  // TODO: Split file input to another component or check the above code to handle file upload
+  if (inputType === 'file') {
+    return (
+      <input
+        type={inputType}
+        className={cn(styles.input, {
+          [styles.input__disabled]: disabled,
+          [styles.input__file]: inputType === 'file',
+        })}
+        accept={inputAccept || undefined}
+        onChange={handleInputChange}
+        name={name}
+        id={name}
+        placeholder={placeholder}
+        disabled={disabled}
+      />
+    );
+  }
+
   return (
     <input
-      type={disabled ? 'text' : inputType}
+      type={inputType ?? 'text'}
       className={cn(styles.input, {
         [styles.input__disabled]: disabled,
-        [styles.input__file]: inputType === 'file',
       })}
       accept={inputAccept || undefined}
       onChange={handleInputChange}
@@ -92,6 +117,7 @@ const Input = ({
       name={name}
       id={name}
       placeholder={placeholder}
+      disabled={disabled}
     />
   );
 };

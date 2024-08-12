@@ -1,31 +1,20 @@
-import s from './styles.module.scss';
-import { HandleType, Node, NodeProps, Position } from '@xyflow/react';
-import React, { ReactElement } from 'react';
-import cn from 'classnames';
-import { OrderItem } from '@/stores/states/l2services/types';
-import { useCaptureStore } from '../../stores/index_v3';
-import Label from '../../components3/Label';
-import {
-  BlockModel,
-  DappModel,
-  FieldModel,
-  IModelOption,
-} from '@/types/customize-model';
-import { memo } from 'react';
-import {
-  draggedDappIndexesSignal,
-  Field,
-} from '@/modules/blockchains/Buy/signals/useDragSignal';
-import { adjustBrightness, DragUtil } from '@/modules/blockchains/Buy/utils';
-import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
+import Draggable from '@/modules/blockchains/Buy/component4/Draggable';
 import Droppable from '@/modules/blockchains/Buy/component4/Droppable';
 import Lego from '@/modules/blockchains/Buy/component4/Lego';
-import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
-import Draggable from '@/modules/blockchains/Buy/component4/Draggable';
 import LegoParent from '@/modules/blockchains/Buy/component4/LegoParent';
+import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
 import AA from '@/modules/blockchains/Buy/dapp/AA';
-import DappNotification from './DappNotification';
-import { useTemplateFormStore } from '../../stores/useDappStore';
+import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
+import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
+import { adjustBrightness, DragUtil } from '@/modules/blockchains/Buy/utils';
+import { OrderItem } from '@/stores/states/l2services/types';
+import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
+import { HandleType, Node, NodeProps, Position } from '@xyflow/react';
+import cn from 'classnames';
+import React, { memo, ReactElement } from 'react';
+import Label from '../../components3/Label';
+import { useCaptureStore } from '../../stores/index_v3';
+import s from './styles.module.scss';
 
 enum StatusBox {
   DRAFTING = 'Drafting',
@@ -55,7 +44,7 @@ export type DataNode = Node<
 
 function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { isCapture } = useCaptureStore();
-  const { templateDapps } = useTemplateFormStore();
+  // const { templateDapps } = useTemplateFormStore();
   const { getLabelWithLego } = useDapps();
 
   const DappRendering = (): ReactElement => {
