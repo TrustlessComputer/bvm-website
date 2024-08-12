@@ -76,8 +76,8 @@ export const useChainProvider = () => {
 
     return dAppList.map((item) => {
       const statusFactory = statusMapper(
-        getDAppInstalledByAppCode(item.key),
-        item.key,
+        getDAppInstalledByAppCode(item.key as DAppKeys),
+        item.key as DAppKeys,
       );
 
       return {
