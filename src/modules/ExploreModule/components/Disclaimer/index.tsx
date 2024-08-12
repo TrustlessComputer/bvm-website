@@ -8,7 +8,7 @@ export default function Disclaimer(): React.JSX.Element {
     <Flex gap="8px" maxW={['auto', '1000px']} className={s.disclaimer}>
       <Image src="/icons/bell.svg" alt="alert" />
       <Text className={s.disclaimer_text}>
-        The following list is dedicated to demonstrating BVM technolog. Always
+        The following list is dedicated to demonstrating BVM technology. Always
         DYOR and use this information at your own risk.
       </Text>
     </Flex>

@@ -57,9 +57,9 @@ const L2Rollup = () => {
   });
 
   const total = useMemo(() => {
-    const tps = data.reduce((accum, item) => accum + item.tps, 0);
+    const tps = data.reduce((accum, item) => accum + Math.abs(item.tps), 0);
     const mgas = data.reduce((accum, item) => accum + item.mgas, 0);
-    const kbs = data.reduce((accum, item) => accum + item.kbs, 0);
+    const kbs = data.reduce((accum, item) => accum + Math.abs(item.kbs), 0);
 
     return {
       tps,
@@ -370,7 +370,11 @@ const L2Rollup = () => {
             <Flex gap={3} alignItems={'center'} width={'102px'} px={'4px'}>
               <Text className={s.title}>
                 {data?.tps
-                  ? formatCurrency(data?.tps, MIN_DECIMAL, MIN_DECIMAL)
+                  ? formatCurrency(
+                      Math.abs(data?.tps),
+                      MIN_DECIMAL,
+                      MIN_DECIMAL,
+                    )
                   : '-'}
               </Text>
             </Flex>
@@ -416,7 +420,11 @@ const L2Rollup = () => {
             <Flex gap={3} alignItems={'center'} width={'92px'} px={'4px'}>
               <Text className={s.title}>
                 {data?.kbs
-                  ? formatCurrency(data?.kbs, MIN_DECIMAL, MIN_DECIMAL)
+                  ? formatCurrency(
+                      Math.abs(data?.kbs),
+                      MIN_DECIMAL,
+                      MIN_DECIMAL,
+                    )
                   : '-'}
               </Text>
             </Flex>
@@ -517,7 +525,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex alignItems={'center'} width={'100%'} pl={'4px'}>
+            <Flex alignItems={'center'} minW={'110px'} pl={'4px'}>
               <Text className={s.title}>
                 {calculateTimeAgo(data.block_time)}
               </Text>
@@ -538,7 +546,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex alignItems={'center'} width={'100%'} px={'8px'} gap={'12px'}>
+            <Flex alignItems={'center'} minW={'110px'} px={'8px'} gap={'12px'}>
               {data.website && (
                 <Image
                   _hover={{
@@ -563,7 +571,7 @@ const L2Rollup = () => {
                   src={'/heartbeat/ic-explorer.svg'}
                 />
               )}
-              {/* {data.bitlayer_url && (
+              {data.bitlayer_url && (
                 <Image
                   _hover={{
                     opacity: 0.8,
@@ -574,7 +582,7 @@ const L2Rollup = () => {
                   height="20px"
                   src={'/heartbeat/ic-bitcoinlayer.svg'}
                 />
-              )} */}
+              )}
             </Flex>
           );
         },
@@ -618,7 +626,7 @@ const L2Rollup = () => {
 
   return (
     <Box className={s.container}>
-      <Flex direction={'column'} w="100%" maxW={'1560px'} alignItems={'center'}>
+      <Flex direction={'column'} w="100%" maxW={'1580px'} alignItems={'center'}>
         <Flex alignItems="center" gap="6px" my={'12px'}>
           <Text fontSize={'20px'}>Project Bitcoin Heartbeat</Text>
           <DotLottiePlayer
@@ -630,8 +638,8 @@ const L2Rollup = () => {
           />
         </Flex>
         <Text
-          fontSize={'40px'}
-          lineHeight={'52px'}
+          fontSize={{ base: '32px', md: '40px' }}
+          lineHeight={{ base: '44px', md: '52px' }}
           textAlign={'center'}
           mb={'28px'}
           mt={'12px'}
@@ -653,7 +661,12 @@ const L2Rollup = () => {
           innovations.
         </Text>
 
-        <Flex direction={'row'} alignItems={'center'} gap={'8px'} mb={'48px'}>
+        <Flex
+          direction={{ base: 'column', md: 'row' }}
+          alignItems={'center'}
+          gap={{ base: '0px', md: '8px' }}
+          mb={'48px'}
+        >
           <Text
             className={s.fontType2}
             fontSize={'20px'}
@@ -701,7 +714,7 @@ const L2Rollup = () => {
               'The total transactions per second',
               bitcoinRollup
                 ? `(${formatCurrency(
-                    total.tps / bitcoinRollup.tps,
+                    Math.abs(total.tps / bitcoinRollup.tps),
                     MIN_DECIMAL,
                     MIN_DECIMAL,
                   )}x)`
@@ -719,7 +732,7 @@ const L2Rollup = () => {
               'Total KB per second',
               bitcoinRollup
                 ? `(${formatCurrency(
-                    total.kbs / bitcoinRollup.kbs,
+                    Math.abs(total.kbs / bitcoinRollup.kbs),
                     MIN_DECIMAL,
                     MIN_DECIMAL,
                   )}x)`

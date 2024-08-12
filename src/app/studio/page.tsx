@@ -3,12 +3,15 @@ import MainLayout from '@/layouts/MainLayout';
 import Page from '@/modules/blockchains/customize/index_v4';
 import { Metadata } from 'next';
 import { APP_NAME } from '@/config/metadata';
+import { CDN_URL } from '@/config';
+
+const THUMBNAIL = `${CDN_URL}/pages/bvm-studio/bvm-heartbeat-metadata.png`;
 
 export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: `https://storage.googleapis.com/bvm-network/image/metadata%202.png`,
+        url: THUMBNAIL,
         width: 1200,
         height: 630,
         alt: APP_NAME,
@@ -18,7 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     images: [
       {
-        url: `https://storage.googleapis.com/bvm-network/image/metadata%202.png`,
+        url: THUMBNAIL,
         alt: APP_NAME,
       },
     ],

@@ -3,6 +3,8 @@ import s from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ReactElement } from 'react';
+import { HEART_BEAT } from '@constants/route-path';
+import cn from 'classnames';
 
 export default function GroupProducts(): ReactElement {
   return (
@@ -17,7 +19,7 @@ export default function GroupProducts(): ReactElement {
           >
             <div className={s.group}>
               <h4 className={s.title}>TOOLS</h4>
-              <ul className={s.group_inner}>
+              <ul className={cn(s.group_inner, s.isFlex)}>
                 <li>
                   <Link
                     href={'/module/bvm-studio'}
@@ -45,6 +47,31 @@ export default function GroupProducts(): ReactElement {
                       >
                         A fast, simple, and fun way to build your own ZK rollup
                         on Bitcoin.
+                      </Text>
+                    </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link href={HEART_BEAT} className={s.group_item_icon}>
+                    <Image
+                      width={48}
+                      height={48}
+                      sizes="100vw"
+                      quality="100"
+                      src="/bvm/heartbeat.png"
+                      alt="menu-icon-op"
+                    />
+                    <div className={s.group_item_icon_text}>
+                      <span className={s.group_item_icon_text_title}>
+                        Bitcoin Heartbeat
+                      </span>
+                      <Text
+                        as="span"
+                        className={s.group_item_icon_text_bottom}
+                        maxW="100%"
+                      >
+                        Provide transparent and verifiable insights into Bitcoin
+                        rollups.
                       </Text>
                     </div>
                   </Link>
