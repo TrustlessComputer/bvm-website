@@ -16,6 +16,7 @@ import useDragStore from '../../stores/useDragStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import useOverlappingChainLegoStore from '../../stores/useOverlappingChainLegoStore';
 import s from './styles.module.scss';
+import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 
 export type DataNode = Node<
   {
@@ -43,6 +44,11 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { overlappingId } = useOverlappingChainLegoStore();
   const { field } = useOrderFormStoreV3();
   const { isCapture } = useCaptureStore();
+
+  const { getBlockChainStatus } = useChainProvider();
+
+  // TO DO
+  const { statusStr, statusColorStr, borderStatusStr } = getBlockChainStatus();
 
   // console.log('ChainNode :: ', {
   //   draggedFields,

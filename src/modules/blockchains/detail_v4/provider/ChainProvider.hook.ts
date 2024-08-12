@@ -20,48 +20,58 @@ export const useChainProvider = () => {
   }, [order]);
 
   const getBlockChainStatus = () => {
-    let status = 'Ready';
-    let statusColor = '#0ec00e';
+    let statusStr = 'Ready';
+    let statusColorStr = '#00AA6C';
+    let borderStatusStr = '#EEFFF9';
 
     if (order) {
       switch (order.status) {
         case OrderStatus.Rejected:
-          status = 'Failed';
-          statusColor = '#FF4747';
+          statusStr = 'Failed';
+          statusColorStr = '#FA4E0E';
+          borderStatusStr = '#FFF2EE';
           break;
         case OrderStatus.WaitingPayment:
-          status = 'Waiting for payment';
-          statusColor = '#FFA500';
+          statusStr = 'Waiting for payment';
+          statusColorStr = '#FFC700';
+          borderStatusStr = '#FFF6D8';
           break;
         case OrderStatus.Processing:
-          status = 'Setting up';
-          statusColor = '#FFA500';
+          statusStr = 'Setting up';
+          statusColorStr = '#FFC700';
+          borderStatusStr = '#FFF6D8';
           break;
         case OrderStatus.Started:
-          status = 'Healthy';
-          statusColor = '#0ec00e';
+          statusStr = 'Running';
+          statusColorStr = '#00AA6C';
+          borderStatusStr = '#EEFFF9';
           break;
         case OrderStatus.Resume:
-          status = 'Please wait for service to resume';
-          statusColor = '#0ec00e';
+          statusStr = 'Please wait for service to resume';
+          statusColorStr = '#00AA6C';
+          borderStatusStr = '#EEFFF9';
           break;
         case OrderStatus.InsufficientBalance:
-          status = `Must top up to your account`;
-          statusColor = '#FF4747';
+          statusStr = `Must top up to your account`;
+          statusColorStr = '#FA4E0E';
+          borderStatusStr = '#FFF2EE';
           break;
         case OrderStatus.Ended:
-          status = 'Ended';
-          statusColor = '#FF4747';
+          statusStr = 'Ended';
+          statusColorStr = '#FA4E0E';
+          borderStatusStr = '#FFF2EE';
           break;
         case OrderStatus.Canceled:
-          status = 'Canceled';
-          statusColor = '#FFA500';
+          statusStr = 'Canceled';
+          statusColorStr = '#FFC700';
+          borderStatusStr = '#FFF6D8';
           break;
       }
     }
     return {
-      status,
-      statusColor,
+      statusStr,
+      statusColorStr,
+      borderStatusStr,
     };
   };
 
