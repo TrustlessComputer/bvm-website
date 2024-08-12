@@ -45,6 +45,7 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
 
   return (
     <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
+      {/* TODO: Change status */}
       <div
         className={`${s.wrapperBox_top} drag-handle-area ${cn(
           s[`borderColor_${data.status}`],

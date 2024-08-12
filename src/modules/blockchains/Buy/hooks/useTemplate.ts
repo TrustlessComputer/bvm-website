@@ -1,9 +1,8 @@
-import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
-import React from 'react';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
-import { useSearchParams } from 'next/navigation';
+import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
 import { IModelCategory } from '@/types/customize-model';
+import { useSearchParams } from 'next/navigation';
 
 export default function useTemplate() {
   const searchParams = useSearchParams();
@@ -11,19 +10,13 @@ export default function useTemplate() {
   const { parsedCategories, categoriesTemplates } = useModelCategoriesStore();
   const { field, setField } = useOrderFormStoreV3();
 
-  const setValueOfPackage = (packageId: number | string | null) => {
-    if (!packageId?.toString()) return;
-    setDraggedFields([]);
-
-    // set default value for package
-    const templateData = (categoriesTemplates?.[Number(packageId)] ||
-      []) as IModelCategory[];
+  const setTemplate = (template: IModelCategory[]) => {
     const fieldsNotInTemplate = parsedCategories?.filter(
-      (item) => !templateData.find((temp) => temp.key === item.key),
+      (item) => !template.find((temp) => temp.key === item.key),
     );
 
     const _draggedFields: string[] = [];
-    templateData.forEach((_field) => {
+    template.forEach((_field) => {
       if (_field.multiChoice) {
         setField(
           _field.key,
@@ -41,6 +34,16 @@ export default function useTemplate() {
     fieldsNotInTemplate?.forEach((field) => {
       setField(field.key, null, false);
     });
+  };
+
+  const setValueOfPackage = (packageId: number | string | null) => {
+    if (!packageId?.toString()) return;
+    setDraggedFields([]);
+
+    // set default value for package
+    const templateData = (categoriesTemplates?.[Number(packageId)] ||
+      []) as IModelCategory[];
+    setTemplate(templateData);
   };
 
   const initTemplate = (crPackage?: number) => {
@@ -92,5 +95,6 @@ export default function useTemplate() {
 
   return {
     initTemplate,
+    setTemplate,
   };
 }
