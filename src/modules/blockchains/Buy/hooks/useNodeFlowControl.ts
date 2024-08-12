@@ -1,15 +1,8 @@
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
-import {
-  draggedDappIndexesSignal,
-  draggedIds2DSignal,
-} from '@/modules/blockchains/Buy/signals/useDragSignal';
-import {
-  cloneDeep,
-  dappKeyToChainKey,
-  isTwoObjectEqual,
-} from '@/modules/blockchains/Buy/utils';
+import { draggedDappIndexesSignal, draggedIds2DSignal } from '@/modules/blockchains/Buy/signals/useDragSignal';
+import { cloneDeep, dappKeyToChainKey, isTwoObjectEqual } from '@/modules/blockchains/Buy/utils';
 import { useSignalEffect } from '@preact/signals-react';
-import { useStoreApi } from '@xyflow/react';
+import { MarkerType, useStoreApi } from '@xyflow/react';
 import React, { useEffect } from 'react';
 import useFlowStore from '../stores/useFlowStore';
 
@@ -20,7 +13,7 @@ import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
   const { categories } = useModelCategoriesStore();
-  const { nodes, setNodes } = useFlowStore();
+  const { nodes, setNodes, setEdges, edges } = useFlowStore();
   const store = useStoreApi();
   const {
     transform: [transformX, transformY, zoomLevel],
@@ -145,8 +138,13 @@ export default function useNodeFlowControl() {
       y: transformedY,
     };
 
+
+    const getHandleNodeBlockChain = nodes.find(item => item.id === 'blockchain');
+    getHandleNodeBlockChain?.data?.sourceHandles?.push('1-s-2')
+    const newNodes: any[] = nodes?.map((item) =>  item.id === 'blockchain' ? getHandleNodeBlockChain : item)
+
     setNodes([
-      ...nodes,
+      ...newNodes,
       {
         id: `${nodes.length}`,
         type: 'customBox',
@@ -161,12 +159,59 @@ export default function useNodeFlowControl() {
           baseIndex: draggedIds2D.length - 1,
           categoryOption,
         },
-        // origin: [0.0, 0.0],
         position: positionTo,
       },
     ]);
+
+
+    // setNodes(newNodes);
+
+    setEdges([...edges, {
+      id: `${edges.length + 1}`,
+      source: "blockchain",
+      sourceHandle:  '1-s-2',
+      target: `${nodes.length}`,
+      targetHandle: '2-t-1',
+      type: 'custom-edge',
+      label: 'Output 1',
+      markerEnd: {
+        type: MarkerType.ArrowClosed,
+      },
+    }]);
+
+    // handleCreateEdge({ sourceId: '1', targetId: '2', sourceHandleId: '1-s-2', targetHandleId: '2-t-1' });
+
     resetDragState();
   };
+  console.log('edges', edges);
+  console.log('nodes', nodes);
+
+
+
+  function handleCreateEdge(handle: {
+    sourceId: string,
+    targetId: string,
+    sourceHandleId: string,
+    targetHandleId: string
+  }) {
+    const getHandleNodeBlockChain = nodes.find(item => item.id === 'blockchain')?.data?.sourceHandles;
+    getHandleNodeBlockChain?.push(handle.sourceHandleId);
+    const newNodes = nodes?.map((item) =>  item.id === 'blockchain' ? getHandleNodeBlockChain : item)
+    setNodes(newNodes);
+
+    setEdges([...edges, {
+      id: `${edges.length + 1}`,
+      source: handle.sourceId,
+      sourceHandle: handle.sourceHandleId,
+      target: handle.targetId,
+      targetHandle: handle.targetHandleId,
+      type: 'customEdge',
+      label: 'Output 1',
+      markerEnd: {
+        type: MarkerType.ArrowClosed,
+      },
+    }]);
+  }
 
   return {
     handleAddBox,

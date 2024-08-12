@@ -492,9 +492,20 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
         return 'Running';
     }
   }
-
   return (
     <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
+      <div className={`${s.handles} ${s.target}`}>
+        {data.targetHandles?.map((handle) => (
+          <Handle
+            key={handle.id}
+            id={handle.id}
+            type="target"
+            position={Position.Left}
+            className={s.handleDot}
+            isConnectable={isConnectable}
+          />
+        ))}
+      </div>
       <div
         className={`${s.wrapperBox_top} drag-handle-area ${cn(
           s[`borderColor_${data.status}`],
@@ -535,6 +546,7 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
             type="source"
             position={Position.Right}
             className={s.handleDot}
+            isConnectable={isConnectable}
             // style={{ top: 50 * (index+1)}}
           />
         ))}

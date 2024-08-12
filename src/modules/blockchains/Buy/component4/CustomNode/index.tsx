@@ -499,6 +499,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
             type="target"
             position={Position.Left}
             className={s.handleDot}
+            isConnectable={isConnectable}
           />
         ))}
       </div>
@@ -542,6 +543,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
             type="source"
             position={Position.Right}
             className={s.handleDot}
+            isConnectable={isConnectable}
             // style={{ top: 50 * (index+1)}}
           />
         ))}

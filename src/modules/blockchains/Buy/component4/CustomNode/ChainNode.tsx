@@ -47,8 +47,6 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { getBlockChainStatus } = useChainProvider();
 
   const { statusStr, statusColorStr, borderStatusStr } = getBlockChainStatus();
-  console.log(' statusStr, statusColorStr, borderStatusStr',  statusStr, statusColorStr, borderStatusStr);
-
   return (
     // <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
     <div className={`${s.wrapperBox}`} style={{borderColor: statusColorStr}}>
@@ -60,6 +58,7 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
             type="target"
             position={Position.Left}
             className={s.handleDot}
+            isConnectable={isConnectable}
           />
         ))}
       </div>
@@ -231,6 +230,7 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
             type="source"
             position={Position.Right}
             className={s.handleDot}
+            isConnectable={isConnectable}
             // style={{ top: 50 * (index+1)}}
           />
         ))}

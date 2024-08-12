@@ -14,10 +14,6 @@ import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
 import useFlowStore from '../../stores/useFlowStore';
 
-const OVERLAP_OFFSET = -200;
-const NODE_WIDTH = 16;
-const NODE_HEIGHT = 15;
-
 export default function AddBoxButton({ ...props }): React.JSX.Element {
   const { nodes, setNodes, onNodesChange } = useFlowStore();
   const { screenToFlowPosition } = useReactFlow();
@@ -49,11 +45,6 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
   };
 
   useSignalEffect(() => {
-    console.log(
-      '🚀 -> file: index.tsx:55 -> useSignalEffect -> draggedIds2DSignal.value,draggedIds2D ::',
-      { signal: draggedIds2DSignal.value, draggedIds2D },
-    );
-
     if (draggedIds2DSignal.value.length === draggedIds2D.length) {
       for (let i = 0; i < draggedIds2DSignal.value.length; i++) {
         if (!isTwoObjectEqual(draggedIds2DSignal.value[i], draggedIds2D[i])) {

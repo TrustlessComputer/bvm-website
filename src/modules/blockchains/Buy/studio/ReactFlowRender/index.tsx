@@ -6,9 +6,9 @@ import useFlowStore from '../../stores/useFlowStore';
 import ChainNode from '../../component4/CustomNode/ChainNode';
 import s from './styles.module.scss';
 import DappTemplateNode from '../../component4/CustomNode/DappTemplateNode';
-import { edges } from '@/modules/blockchains/Buy/edges';
+import CustomEdge from '@/modules/blockchains/Buy/component4/CustomEdge';
 const ReactFlowRenderer = React.memo(() => {
-  const { nodes, setNodes, onNodesChange } = useFlowStore();
+  const { nodes, setNodes, onNodesChange, edges } = useFlowStore();
 
   return (
     <ReactFlow
@@ -17,6 +17,9 @@ const ReactFlowRenderer = React.memo(() => {
         customBox: CustomNode,
         chainNode: ChainNode,
         dappTemplate: DappTemplateNode,
+      }}
+      edgeTypes={{
+        'custom-edge': CustomEdge,
       }}
       onNodesChange={onNodesChange}
       zoomOnDoubleClick={false}
