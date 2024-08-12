@@ -283,8 +283,16 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     });
 
     try {
+      // Update and Call API install (behind the scene form BE Phuong)
       const result = await orderUpdateV2(params, orderDetail.orderId);
       if (result) {
+        // TO DO [Leon]
+        // Call API Config DApp if is exist dapp (issues token, staking, ....) daragged into Data View
+
+        // try {
+        //   // const res =  await ...
+        // } catch (error) {}
+
         isSuccess = true;
         dispatch(setOrderSelected(result));
       }
