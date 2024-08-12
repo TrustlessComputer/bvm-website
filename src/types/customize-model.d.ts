@@ -211,11 +211,13 @@ interface BlockchainMap {
   dapps: DappModel[];
 }
 
+type ElkNodeStatus = 'Drafting' | 'Ready' | 'Missing' | 'Running' | 'Down';
+
 type ElkNodeData = {
   label: string;
   positionDot: Position;
   handleType: HandleType;
-  status: 'Drafting' | 'Ready' | 'Missing' | 'Running' | 'Down';
+  status: ElkNodeStatus;
   legoList: [];
   sourceHandles: { id: string }[];
   targetHandles: { id: string }[];
