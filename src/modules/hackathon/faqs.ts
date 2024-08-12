@@ -36,7 +36,7 @@ export const FAQ_POC = [
   },
   {
     q: 'How can I connect with other participants?',
-    a: `<p>Join the community on Telegram to share knowledge and connect with other developers/participants. </p><a href="${LINKS.POC_TELEGRAM_GROUP}" target="_blank" rel="noopener noreferrer">https://t.me/+jTMgmUXx1T4yMGZl</a>`,
+    a: `<p>Join the community on Telegram to share knowledge and connect with other developers/participants. </p><a href="${LINKS.POC_TELEGRAM_GROUP}" target="_blank" rel="noopener noreferrer">${LINKS.POC_TELEGRAM_GROUP}</a>`,
   },
   {
     q: 'What if I have more questions?',
