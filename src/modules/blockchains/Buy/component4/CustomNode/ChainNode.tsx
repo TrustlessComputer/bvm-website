@@ -43,6 +43,11 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { field } = useOrderFormStoreV3();
   const { isCapture } = useCaptureStore();
 
+  console.log('ChainNode :: ', {
+    draggedFields,
+    field,
+  });
+
   return (
     <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
       {/* TODO: Change status */}
@@ -75,104 +80,48 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
       </div>
 
       <div className={s.inner}>
-        {data.isChain && (
-          <DroppableV2
-            key={draggedFields.length}
-            id="final"
-            className={s.finalResult}
-            style={{
-              width: '100% !important',
-              height: '100%',
-              // paddingLeft: '25%',
-              // paddingRight: '25%',
-              // paddingBottom: '7.5%',
-              // paddingTop: '7.5%',
-            }}
+        <DroppableV2
+          key={draggedFields.length}
+          id="final"
+          className={s.finalResult}
+          style={{
+            width: '100% !important',
+            height: '100%',
+            // paddingLeft: '25%',
+            // paddingRight: '25%',
+            // paddingBottom: '7.5%',
+            // paddingTop: '7.5%',
+          }}
+        >
+          <LegoV3
+            background={'#FF3A3A'}
+            label="Rollup Name"
+            labelInLeft
+            zIndex={45}
           >
-            <LegoV3
-              background={'#FF3A3A'}
-              label="Rollup Name"
-              labelInLeft
-              zIndex={45}
-            >
-              <ComputerNameInput />
-            </LegoV3>
+            <ComputerNameInput />
+          </LegoV3>
 
-            {draggedFields.map((key, index) => {
-              const item = parsedCategories?.find((i) => i.key === key);
+          {draggedFields.map((key, index) => {
+            const item = parsedCategories?.find((i) => i.key === key);
 
-              if (!item || !parsedCategories) return null;
+            if (!item || !parsedCategories) return null;
 
-              if (item.multiChoice) {
-                if (!Array.isArray(field[item.key].value)) return;
+            if (item.multiChoice) {
+              if (!Array.isArray(field[item.key].value)) return;
 
-                const childrenOptions = (field[item.key].value as
-                  | string[]
-                  | number[])!.map((key: string | number, opIdx: number) => {
-                  const option = item.options.find((opt) => opt.key === key);
+              const childrenOptions = (field[item.key].value as
+                | string[]
+                | number[])!.map((key: string | number, opIdx: number) => {
+                const option = item.options.find((opt) => opt.key === key);
 
-                  if (!option) return null;
-
-                  return (
-                    <ChainDraggable
-                      right
-                      key={item.key + '-' + option.key}
-                      id={item.key + '-' + option.key}
-                      useMask
-                      tooltip={item.tooltip}
-                      value={{
-                        isChain: true,
-                        value: option.key,
-                      }}
-                    >
-                      <DroppableV2 id={item.key + '-right'}>
-                        <LegoV3
-                          background={item.color}
-                          label={item.confuseTitle}
-                          labelInRight={
-                            !!item.confuseTitle || !!item.confuseIcon
-                          }
-                          icon={item.confuseIcon}
-                          zIndex={item.options.length - opIdx}
-                        >
-                          <Label icon={option.icon} title={option.title} />
-                        </LegoV3>
-                      </DroppableV2>
-                    </ChainDraggable>
-                  );
-                });
-
-                return (
-                  <ChainDraggable
-                    key={item.key + '-parent' + '-right'}
-                    id={item.key + '-parent' + '-right'}
-                    useMask
-                    value={{
-                      isChain: true,
-                    }}
-                  >
-                    <DroppableV2 id={item.key}>
-                      <ChainLegoParent
-                        parentOfNested
-                        background={item.color}
-                        label={item.title}
-                        zIndex={draggedFields.length - index - 1}
-                      >
-                        {childrenOptions}
-                      </ChainLegoParent>
-                    </DroppableV2>
-                  </ChainDraggable>
-                );
-              }
-
-              return item.options.map((option, opIdx) => {
-                if (option.key !== field[item.key].value) return null;
+                if (!option) return null;
 
                 return (
                   <ChainDraggable
                     right
-                    key={item.key + '-' + option.key + '-right'}
-                    id={item.key + '-' + option.key + '-right'}
+                    key={item.key + '-' + option.key}
+                    id={item.key + '-' + option.key}
                     useMask
                     tooltip={item.tooltip}
                     value={{
@@ -185,13 +134,8 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
                         background={item.color}
                         label={item.confuseTitle}
                         labelInRight={!!item.confuseTitle || !!item.confuseIcon}
-                        zIndex={draggedFields.length - index}
                         icon={item.confuseIcon}
-                        className={
-                          overlappingId === field[item.key].value
-                            ? s.activeBlur
-                            : ''
-                        }
+                        zIndex={item.options.length - opIdx}
                       >
                         <Label icon={option.icon} title={option.title} />
                       </LegoV3>
@@ -199,9 +143,74 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
                   </ChainDraggable>
                 );
               });
-            })}
-          </DroppableV2>
-        )}
+
+              return (
+                <ChainDraggable
+                  key={item.key + '-parent' + '-right'}
+                  id={item.key + '-parent' + '-right'}
+                  useMask
+                  value={{
+                    isChain: true,
+                  }}
+                >
+                  <DroppableV2 id={item.key}>
+                    <ChainLegoParent
+                      parentOfNested
+                      background={item.color}
+                      label={item.title}
+                      zIndex={draggedFields.length - index - 1}
+                    >
+                      {childrenOptions}
+                    </ChainLegoParent>
+                  </DroppableV2>
+                </ChainDraggable>
+              );
+            }
+
+            return item.options.map((option, opIdx) => {
+              if (item.key === 'withdrawal_time') {
+                console.log('ChainNode :: ', {
+                  item,
+                  option,
+                  field: field[item.key],
+                });
+              }
+
+              if (option.key !== field[item.key].value) return null;
+
+              return (
+                <ChainDraggable
+                  right
+                  key={item.key + '-' + option.key + '-right'}
+                  id={item.key + '-' + option.key + '-right'}
+                  useMask
+                  tooltip={item.tooltip}
+                  value={{
+                    isChain: true,
+                    value: option.key,
+                  }}
+                >
+                  <DroppableV2 id={item.key + '-right'}>
+                    <LegoV3
+                      background={item.color}
+                      label={item.confuseTitle}
+                      labelInRight={!!item.confuseTitle || !!item.confuseIcon}
+                      zIndex={draggedFields.length - index}
+                      icon={item.confuseIcon}
+                      className={
+                        overlappingId === field[item.key].value
+                          ? s.activeBlur
+                          : ''
+                      }
+                    >
+                      <Label icon={option.icon} title={option.title} />
+                    </LegoV3>
+                  </DroppableV2>
+                </ChainDraggable>
+              );
+            });
+          })}
+        </DroppableV2>
       </div>
     </div>
   );

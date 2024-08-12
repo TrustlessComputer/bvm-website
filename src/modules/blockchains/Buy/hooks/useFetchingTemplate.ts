@@ -10,19 +10,25 @@ import { commonSelector } from '@/stores/states/common/selector';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { compareString } from '@/utils/string';
+import { useParams } from 'next/navigation';
 import React from 'react';
 import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
 import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
 import { parseStakingPools } from '../../dapp/parseUtils/staking';
+import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { parseDappModel } from '../../utils';
 import { templateIds2DSignal } from '../signals/useDragSignal';
 import { formTemplateDappSignal } from '../signals/useFormDappsSignal';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore from '../stores/useFlowStore';
 import { DappType } from '../types';
-import { FormDappUtil } from '../utils';
+import { cloneDeep, FormDappUtil } from '../utils';
 
 export default function useFetchingTemplate() {
+  const params = useParams();
+  const isUpdateChainPage = React.useMemo(() => !!params?.id, [params?.id]);
+
+  const { order } = useChainProvider();
   const { nodes, setNodes } = useFlowStore();
   const {
     setParsedCategories,
@@ -30,9 +36,10 @@ export default function useFetchingTemplate() {
     setCategoriesTemplates,
     categoriesTemplates,
   } = useModelCategoriesStore();
-  const { setField } = useOrderFormStoreV3();
+  const { field, setFields } = useOrderFormStoreV3();
+
   const { l2ServiceUserAddress } = useWeb3Auth();
-  const { initTemplate } = useTemplate();
+  const { initTemplate, setTemplate } = useTemplate();
   const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
 
@@ -41,11 +48,6 @@ export default function useFetchingTemplate() {
   const { tokens, configs, airdrops, airdropTasks, stakingPools } = dappState;
 
   const [apiCount, setApiCount] = React.useState(0);
-
-  // console.log(
-  //   '🚀 -> file: useFetchingTemplate.ts:35 -> useFetchingTemplate -> dappState ::',
-  //   dappState,
-  // );
 
   const convertData = (data: IModelCategory[]) => {
     const newData = data?.map((item) => {
@@ -66,6 +68,7 @@ export default function useFetchingTemplate() {
   };
 
   const fetchData = async () => {
+    const newFields = cloneDeep(field);
     const [categories, templates] = await Promise.all([
       // getModelCategories(l2ServiceUserAddress),
       getModelCategories('0x4113ed747047863Ea729f30C1164328D9Cc8CfcF'),
@@ -79,7 +82,11 @@ export default function useFetchingTemplate() {
       (a, b) => a.order - b.order,
     );
     sortedCategories.forEach((_field) => {
-      setField(_field.key, null);
+      newFields[_field.key] = {
+        value: null,
+        dragged: false,
+      };
+      // setField(_field.key, null,);
     });
 
     nodes.unshift({
@@ -98,6 +105,7 @@ export default function useFetchingTemplate() {
     setCategories(sortedCategories);
     setCategoriesTemplates(templates);
     setNodes(nodes);
+    setFields(newFields);
     setApiCount((prev) => prev + 1);
   };
 
@@ -274,6 +282,12 @@ export default function useFetchingTemplate() {
   }, [apiCount]);
 
   React.useEffect(() => {
-    initTemplate(0);
-  }, [categoriesTemplates]);
+    if (isUpdateChainPage && order) {
+      // console.log('DEBUG --- template::: ', order.selectedOptions);
+      setTemplate(order.selectedOptions || []);
+    } else {
+      // console.log("DEBUG --- template::: don't have order");
+      initTemplate(0);
+    }
+  }, [order, categoriesTemplates]);
 }
