@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 import { APP_NAME } from '@/config/metadata';
 import { CDN_URL } from '@/config';
 
-const THUMBNAIL = `${CDN_URL}/pages/bvm-studio/bvm-heartbeat-metadata.png`;
+const THUMBNAIL = `${CDN_URL}/pages/bvm-studio/bvm-studio-metadata.png`;
 
 export const metadata: Metadata = {
   openGraph: {
