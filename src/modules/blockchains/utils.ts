@@ -17,8 +17,11 @@ const getValue = (item: FieldModel) => {
 const parseDappModel = (params: {
   model: DappModel[];
   key: string;
+  startIndex?: number;
 }): ParseResult => {
   const { model, key } = params;
+  let { startIndex = 0 } = params;
+
   const data = (model || []).filter(
     (item) => compareString(item.key, key) || compareString(item.id, key),
   );
@@ -67,7 +70,9 @@ const parseDappModel = (params: {
   };
 
   const result = data.reduce(
-    (prev, curr, index) => {
+    (prev, curr) => {
+      const index = startIndex;
+
       const baseField = (curr.baseBlock?.fields || []).reduce(
         (prevBase, currBase) => {
           return {
@@ -135,6 +140,9 @@ const parseDappModel = (params: {
           ...options,
         },
       };
+
+      startIndex++;
+
       return mapper;
     },
     {

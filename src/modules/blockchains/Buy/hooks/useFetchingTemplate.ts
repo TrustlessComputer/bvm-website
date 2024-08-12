@@ -185,24 +185,27 @@ export default function useFetchingTemplate() {
     const parsedStakingPoolsForm = parseDappModel({
       key: DappType.staking,
       model: parsedStakingPoolsData,
+      startIndex: 0,
     });
 
     const parsedAirdropsData = await parseAirdropsData(airdrops, tokens);
     const parsedAirdropsForm = parseDappModel({
       key: DappType.airdrop,
       model: parsedAirdropsData,
+      startIndex: parsedStakingPoolsData.length,
     });
 
     const parsedTokensData = parseTokensData(tokens);
     const parsedTokensForm = parseDappModel({
       key: DappType.token_generation,
       model: parsedTokensData,
+      startIndex: parsedStakingPoolsData.length + parsedAirdropsData.length,
     });
 
     setTemplateDapps([
-      ...parsedStakingPoolsData,
       ...parsedTokensData,
       ...parsedAirdropsData,
+      ...parsedStakingPoolsData,
     ]);
     setTemplateForm({
       ...parsedTokensForm.fieldValue,
@@ -246,7 +249,7 @@ export default function useFetchingTemplate() {
 
   React.useEffect(() => {
     parseDappApiToDappModel();
-  }, [airdrops, tokens, airdropTasks, stakingPools, needReload]);
+  }, [needReload]);
 
   React.useEffect(() => {
     // Chain API and Dapp API
