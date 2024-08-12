@@ -1,16 +1,15 @@
-import { DndContext } from '@dnd-kit/core';
-import React from 'react';
-import s from './styles_v6.module.scss';
-import useHandleDragging from '@/modules/blockchains/Buy/hooks/useHandleDragging';
-import StudioMain from '@/modules/blockchains/Buy/studio/Main';
-import useFixScrollOverDrag from '@/modules/blockchains/Buy/hooks/useFixScrollOverDrag';
+import { TABS } from '@/modules/blockchains/Buy/constants';
 import useCalcPrice from '@/modules/blockchains/Buy/hooks/useCalcPrice';
 import useCheckingSupported from '@/modules/blockchains/Buy/hooks/useCheckingSupported';
-import { TABS } from '@/modules/blockchains/Buy/constants';
-import { useTabs } from '@/modules/blockchains/Buy/studio/useTabs';
 import useFetchingTemplate from '@/modules/blockchains/Buy/hooks/useFetchingTemplate';
+import useFixScrollOverDrag from '@/modules/blockchains/Buy/hooks/useFixScrollOverDrag';
+import useHandleDragging from '@/modules/blockchains/Buy/hooks/useHandleDragging';
+import StudioMain from '@/modules/blockchains/Buy/studio/Main';
+import { useTabs } from '@/modules/blockchains/Buy/studio/useTabs';
+import { DndContext } from '@dnd-kit/core';
+import React from 'react';
 import useNodeFlowControl from './hooks/useNodeFlowControl';
-import { useNodesState } from '@xyflow/react';
+import s from './styles_v6.module.scss';
 
 const BuyPage = () => {
   useFetchingTemplate();
