@@ -105,9 +105,9 @@ const AccountInfor = (props: IProps) => {
             onClick={() => {
               if (
                 accountInforL2Service &&
-                accountInforL2Service?.topUpWalletAddress
+                accountInforL2Service?.topupWalletAddress
               ) {
-                copy(accountInforL2Service?.topUpWalletAddress!);
+                copy(accountInforL2Service?.topupWalletAddress!);
                 toast.success('Copied successully!');
               }
             }}
@@ -125,7 +125,7 @@ const AccountInfor = (props: IProps) => {
             >
               {`${
                 formatAddressCenter(
-                  accountInforL2Service?.topUpWalletAddress || '',
+                  accountInforL2Service?.topupWalletAddress || '',
                   8,
                 ) || '--'
               }`}
