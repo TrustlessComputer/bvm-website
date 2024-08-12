@@ -27,6 +27,7 @@ const StudioMain = (): ReactElement => {
   }, [tabActive]);
 
   const { setDraggedFields } = useDragStore();
+  const { setTemplate } = useTemplate();
 
   const cloneItemCallback = (template: IModelCategory[]) => {
     setTab(TABS.CODE);
@@ -39,6 +40,9 @@ const StudioMain = (): ReactElement => {
       setTab(TABS.CODE);
       setDraggedFields([]);
       toggleErrorMessage(false);
+
+      console.log('DEBUG --- template::: ', order.selectedOptions);
+      setTemplate(order.selectedOptions || []);
     }
   }, [order]);
 
