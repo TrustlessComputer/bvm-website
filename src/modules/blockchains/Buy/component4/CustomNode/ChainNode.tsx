@@ -43,10 +43,10 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { field } = useOrderFormStoreV3();
   const { isCapture } = useCaptureStore();
 
-  console.log('ChainNode :: ', {
-    draggedFields,
-    field,
-  });
+  // console.log('ChainNode :: ', {
+  //   draggedFields,
+  //   field,
+  // });
 
   return (
     <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
@@ -168,14 +168,6 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
             }
 
             return item.options.map((option, opIdx) => {
-              if (item.key === 'withdrawal_time') {
-                console.log('ChainNode :: ', {
-                  item,
-                  option,
-                  field: field[item.key],
-                });
-              }
-
               if (option.key !== field[item.key].value) return null;
 
               return (
