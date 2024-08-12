@@ -9,8 +9,10 @@
   border: 1px solid var(--border-color);
 
   * {
-    color: #ffffff;
+    font-size: 14px;
     font-weight: 500;
+    color: #ffffff;
+    line-height: calc(28 / 14);
   }
 
   svg path {
@@ -82,17 +84,15 @@
 
   &__preview {
     .lego__inner {
-      //flex-direction: column;
-      //align-items: flex-start;
       flex-direction: row;
+
       .lego__inner__label {
         p {
-          font-size: 14px;
-          font-weight: 500;
-          line-height: calc(20 / 14);
-          font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+          //         font-size: 14px;
+          // font-weight: 500;
+          // line-height: calc(28 / 14);
+          // font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
         }
-
       }
     }
   }
@@ -103,8 +103,7 @@
 }
 
 .titleSingle {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: calc(20 / 14);
-  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  // font-size: 14px;
+  // font-weight: 500;
+  // line-height: calc(28 / 14);
 }
