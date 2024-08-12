@@ -36,6 +36,22 @@ import { chainKeyToDappKey } from '../../utils';
 import useSubmitStaking from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitStaking';
 import PreviewLaunchModal from '../../Preview';
 
+const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
+  const inssueTokenDappList = dyanmicFormAllData
+    .filter((item: any) => !item.isChain)
+    .filter(
+      (dapp: any) => dapp.options[0].key?.toLowerCase() === 'create_token',
+    );
+
+  const isExistIssueTokenDApp =
+    inssueTokenDappList && inssueTokenDappList.length > 0;
+
+  console.log('inssueTokenDappList ----- ', inssueTokenDappList);
+  console.log('isExistIssueTokenDApp ----- ', isExistIssueTokenDApp);
+
+  return isExistIssueTokenDApp;
+};
+
 const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [dyanmicFormAllData, setDyanmicFormAllData] = useState<any[]>([]);
@@ -316,41 +332,25 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       dynamicFormValues: dyanmicFormAllData,
     });
 
-    // console.log('dyanmicFormAllData  ----- ', dyanmicFormAllData);
-    // console.log('stakingForms  ----- ', stakingForms);
-
-    const inssueTokenDappList = dyanmicFormAllData
-      .filter((item: any) => !item.isChain)
-      .filter(
-        (dapp: any) => dapp.options[0].key?.toLowerCase() === 'create_token',
-      );
-
-    const isExistIssueTokenDApp =
-      inssueTokenDappList && inssueTokenDappList.length > 0;
-
-    console.log('formValuesAdapter ----- ', params);
-    console.log('inssueTokenDappList ----- ', inssueTokenDappList);
-    console.log('isExistIssueTokenDApp ----- ', isExistIssueTokenDApp);
-
     let result;
     try {
       result = await orderBuyAPI_V3(params);
       if (result) {
-        if (isExistIssueTokenDApp) {
-          // -----------------------------------------------------------
-          //   If exist Issue Token dAPP have been dragged!
-          //   TODO[Leon] Call API install Issues Token after call API install Chain be succeed! )
-          //   const resultIssusToken = await API.[Call Install Issues Token]
-          // -----------------------------------------------------------
-          // try {
-          //   await onSubmitStaking({
-          //     forms: stakingForms,
-          //   });
-          //   isSuccess = true;
-          // } catch (error) {
-          //   console.log('ERROR: ', error);
-          // }
-        }
+        // if (isExistIssueTokenDApp(dyanmicFormAllData)) {
+        // -----------------------------------------------------------
+        //   If exist Issue Token dAPP have been dragged!
+        //   TODO[Leon] Call API install Issues Token after call API install Chain be succeed! )
+        //   const resultIssusToken = await API.[Call Install Issues Token]
+        // -----------------------------------------------------------
+        // try {
+        //   await onSubmitStaking({
+        //     forms: stakingForms,
+        //   });
+        //   isSuccess = true;
+        // } catch (error) {
+        //   console.log('ERROR: ', error);
+        // }
+        // }
 
         isSuccess = true;
       }
