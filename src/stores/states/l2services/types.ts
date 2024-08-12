@@ -181,7 +181,7 @@ interface OrderItem extends OrderItemResp {
 interface AccountInfoResp {
   id: string;
   tcAddress: string;
-  topUpWalletAddress: string;
+  topupWalletAddress: string;
   balance: string;
   withdrawableBalance: string;
   needToTopupBalance: string;
