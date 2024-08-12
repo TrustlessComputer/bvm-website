@@ -11,6 +11,7 @@ import RowItem from './RowItem';
 import useOrderFormStoreV3 from '../stores/index_v3';
 import { formatCurrencyV2 } from '@/utils/format';
 import { useMemo } from 'react';
+import { DAppKeys } from '@/types/customize-model';
 
 const blockChainItem = {
   title: 'Blockchain',
@@ -39,37 +40,26 @@ const PreviewLaunchModal = (props: IProps) => {
       let dataItem: any;
 
       item?.options.map((option: any) => {
-        const dAPPKey = option.key;
+        const dAPPKey = option.key as DAppKeys;
 
-        if (dAPPKey === 'account_abstraction') {
-          dataItem = {
-            title: option.title || '',
-            status: 'Ready',
-          };
-        } else if (dAPPKey === 'create_token') {
-          dataItem = {
-            title: option.title || '',
-            status: 'Ready',
-          };
-        } else if (dAPPKey === 'staking') {
-          dataItem = {
-            title: option.title || '',
-            status: 'Drafting',
-          };
-        } else if (dAPPKey === 'airdrop') {
-          dataItem = {
-            title: option.title || '',
-            status: 'Drafting',
-          };
+        if (dAPPKey) {
+          switch (dAPPKey) {
+            case 'btc_bridge':
+            case 'eth_bridge':
+              dataItem = {
+                title: option.title || '',
+                status: 'Ready',
+              };
+              break;
+
+            default:
+              dataItem = {
+                title: option.title || '',
+                status: 'Drafting',
+              };
+              break;
+          }
         }
-
-        // TO DO
-        // else if (keyDApp === 'xyz') {
-        //   dataItem = {
-        //     title: item?.options[0]?.title || '',
-        //     status: 'Drafting',
-        //   };
-        // }
 
         if (dataItem) {
           resultList.push(dataItem);

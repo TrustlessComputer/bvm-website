@@ -3,8 +3,11 @@
 import { useAppDispatch } from '@/stores/hooks';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { PropsWithChildren, createContext, useMemo, useState } from 'react';
+import { IChainProvider } from './ChainProvider.types';
 
-export const ChainContext = createContext<any>({});
+export const ChainContext = createContext<IChainProvider>({
+  order: undefined,
+});
 
 export const ChainProvider = ({
   children,

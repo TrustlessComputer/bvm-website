@@ -25,10 +25,11 @@ const enhanceValidateOrderData = (WrappedComponent: any) => (props: any) => {
         align={'center'}
       >
         <Text color={'#000'} fontSize={['20px']} fontWeight={600}>
-          Page Not Found
+          Page Not Found.
         </Text>
 
         <Text color={'#000'} fontSize={['20px']} fontWeight={600}>
+          {/* Order Data is invalid data */}
           {`Code: [1001]`}
         </Text>
       </Flex>
