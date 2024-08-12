@@ -53,12 +53,11 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
       <div className={`${s.handles} ${s.target}`}>
          {data.targetHandles?.map((handle) => (
           <Handle
-            key={handle.id}
-            id={handle.id}
+            key={handle}
+            id={handle}
             type="target"
             position={Position.Left}
             className={s.handleDot}
-            isConnectable={isConnectable}
           />
         ))}
       </div>
@@ -228,12 +227,11 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
       <div className={`${s.handles} ${s.sources}`}>
         {data.sourceHandles?.map((handle, index) => (
           <Handle
-            key={handle.id}
-            id={handle.id}
+            key={handle}
+            id={handle}
             type="source"
             position={Position.Right}
             className={s.handleDot}
-            isConnectable={isConnectable}
             // style={{ top: 50 * (index+1)}}
           />
         ))}

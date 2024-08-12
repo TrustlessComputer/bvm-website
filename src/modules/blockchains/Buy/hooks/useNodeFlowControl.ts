@@ -138,10 +138,11 @@ export default function useNodeFlowControl() {
       y: transformedY,
     };
 
+    const rootNode = 'blockchain'
 
-    const getHandleNodeBlockChain = nodes.find(item => item.id === 'blockchain');
-    getHandleNodeBlockChain?.data?.sourceHandles?.push('1-s-2')
-    const newNodes: any[] = nodes?.map((item) =>  item.id === 'blockchain' ? getHandleNodeBlockChain : item)
+    const getHandleNodeBlockChain = nodes.find(item => item.id === rootNode);
+    getHandleNodeBlockChain?.data?.sourceHandles?.push(`${rootNode}-s-${nodes.length}`);
+    const newNodes: any[] = nodes?.map((item) =>  item.id === rootNode ? getHandleNodeBlockChain : item)
 
     setNodes([
       ...newNodes,
@@ -154,7 +155,7 @@ export default function useNodeFlowControl() {
           status: 'Drafting',
           isChain: false,
           dapp: thisDapp,
-          targetHandles: ['2-t-1'],
+          targetHandles: [`${nodes.length}-t-${rootNode}`],
           ids: draggedIds2D[draggedIds2D.length - 1],
           baseIndex: draggedIds2D.length - 1,
           categoryOption,
@@ -163,55 +164,21 @@ export default function useNodeFlowControl() {
       },
     ]);
 
-
-    // setNodes(newNodes);
-
     setEdges([...edges, {
       id: `${edges.length + 1}`,
-      source: "blockchain",
-      sourceHandle:  '1-s-2',
+      source: rootNode,
+      sourceHandle:  `${rootNode}-s-${nodes.length}`,
       target: `${nodes.length}`,
-      targetHandle: '2-t-1',
-      type: 'custom-edge',
-      label: 'Output 1',
-      markerEnd: {
-        type: MarkerType.ArrowClosed,
-      },
-    }]);
-
-    // handleCreateEdge({ sourceId: '1', targetId: '2', sourceHandleId: '1-s-2', targetHandleId: '2-t-1' });
-
-    resetDragState();
-  };
-  console.log('edges', edges);
-  console.log('nodes', nodes);
-
-
-
-  function handleCreateEdge(handle: {
-    sourceId: string,
-    targetId: string,
-    sourceHandleId: string,
-    targetHandleId: string
-  }) {
-    const getHandleNodeBlockChain = nodes.find(item => item.id === 'blockchain')?.data?.sourceHandles;
-    getHandleNodeBlockChain?.push(handle.sourceHandleId);
-    const newNodes = nodes?.map((item) =>  item.id === 'blockchain' ? getHandleNodeBlockChain : item)
-    setNodes(newNodes);
-
-    setEdges([...edges, {
-      id: `${edges.length + 1}`,
-      source: handle.sourceId,
-      sourceHandle: handle.sourceHandleId,
-      target: handle.targetId,
-      targetHandle: handle.targetHandleId,
+      targetHandle: `${nodes.length}-t-${rootNode}`,
       type: 'customEdge',
       label: 'Output 1',
       markerEnd: {
-        type: MarkerType.ArrowClosed,
+        type: MarkerType.Arrow,
       },
     }]);
-  }
+
+    resetDragState();
+  };
 
   return {
     handleAddBox,
