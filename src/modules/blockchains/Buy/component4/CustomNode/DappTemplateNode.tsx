@@ -15,6 +15,7 @@ import React, { memo, ReactElement } from 'react';
 import Label from '../../components3/Label';
 import { useCaptureStore } from '../../stores/index_v3';
 import s from './styles.module.scss';
+import BottomButton from '@/modules/blockchains/dapp/components/BottomButton';
 
 enum StatusBox {
   DRAFTING = 'Drafting',
@@ -122,6 +123,7 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
         background={thisDapp?.color_border || mainColor}
         label={thisDapp.label}
         zIndex={999 - data.baseIndex}
+        dapp={thisDapp}
       >
         {data.ids
           .filter((id) => DragUtil.idDraggingIsABaseModule(id.name))
@@ -416,6 +418,12 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
 
           return null;
         })}
+        {thisDapp.action && (
+          <BottomButton
+            color={thisDapp.action.color || mainColor}
+            dapp={thisDapp}
+          />
+        )}
       </LegoParent>
       // </Droppable>
       //</Draggable>
