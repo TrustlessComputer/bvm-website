@@ -95,6 +95,8 @@ export default function useFetchingTemplate() {
       data: {
         label: 'Blockchain',
         status: 'Ready',
+        // TODO: Status message - init
+        // statusMessage: 'Status message 1',
         isChain: true,
       },
       dragHandle: '.drag-handle-area',

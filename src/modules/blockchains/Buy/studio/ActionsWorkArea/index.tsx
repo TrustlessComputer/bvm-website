@@ -1,17 +1,17 @@
-import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
-import React, { ReactElement } from 'react';
 import Capture from '@/modules/blockchains/Buy/Capture';
-import Image from 'next/image';
 import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
+import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
+import Image from 'next/image';
+import React, { ReactElement } from 'react';
 import Button from '../../component4/Button';
 import ErrorModal from '../../components3/ErrorModal';
-import useDragStore from '../../stores/useDragStore';
+import useTemplate from '../../hooks/useTemplate';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
 } from '../../signals/useDragSignal';
 import { formDappSignal } from '../../signals/useFormDappsSignal';
-import useTemplate from '../../hooks/useTemplate';
+import useDragStore from '../../stores/useDragStore';
 import useFlowStore from '../../stores/useFlowStore';
 
 export default function ActionsWorkArea(): ReactElement {
@@ -31,6 +31,8 @@ export default function ActionsWorkArea(): ReactElement {
           label: 'Blockchain',
           status: 'Ready',
           isChain: true,
+          // TODO: Status message - Reset
+          // statusMessage: 'Status message 1',
         },
         dragHandle: '.drag-handle-area',
         position: { x: 30, y: 30 },

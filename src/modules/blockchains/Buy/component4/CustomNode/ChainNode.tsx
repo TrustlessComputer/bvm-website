@@ -23,6 +23,7 @@ export type DataNode = Node<
     positionDot: Position;
     handleType: HandleType;
     status: 'Drafting' | 'Ready' | 'Missing' | 'Running ' | 'Down';
+    statusMessage?: string;
     sourceHandles: [];
     targetHandles: [];
     isChain: boolean;
@@ -70,7 +71,7 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
                 isCapture ? s.label_margin : ''
               }`}
             >
-              {data.status}
+              {data.statusMessage ?? data.status}
             </p>
             <div
               className={`${s.tag_dot}  ${cn(s[`tag_${data.status}`])}`}
