@@ -44,24 +44,26 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { overlappingId } = useOverlappingChainLegoStore();
   const { field } = useOrderFormStoreV3();
   const { isCapture } = useCaptureStore();
-
   const { getBlockChainStatus } = useChainProvider();
 
   // TO DO
   const { statusStr, statusColorStr, borderStatusStr } = getBlockChainStatus();
-
+  console.log(' statusStr, statusColorStr, borderStatusStr',  statusStr, statusColorStr, borderStatusStr);
   // console.log('ChainNode :: ', {
   //   draggedFields,
   //   field,
   // });
 
   return (
-    <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
+    // <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
+    <div className={`${s.wrapperBox}`} style={{borderColor: statusColorStr}}>
       {/* TODO: Change status */}
       <div
-        className={`${s.wrapperBox_top} drag-handle-area ${cn(
-          s[`borderColor_${data.status}`],
-        )}`}
+        // className={`${s.wrapperBox_top} drag-handle-area ${cn(
+        //   s[`borderColor_${data.status}`],
+        // )}`}
+        className={`${s.wrapperBox_top} drag-handle-area`}
+        style={{borderColor: statusColorStr, backgroundColor: borderStatusStr}}
       >
         <p
           className={`${s.wrapperBox_top_heading} ${
@@ -76,11 +78,15 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
               className={`${cn(s[`titleTag_${data.status}`])} ${
                 isCapture ? s.label_margin : ''
               }`}
+              style={{color: statusColorStr}}
             >
-              {data.statusMessage ?? data.status}
+              {/*{data.statusMessage ?? data.status}*/}
+              {data.statusMessage ?? statusStr}
             </p>
             <div
-              className={`${s.tag_dot}  ${cn(s[`tag_${data.status}`])}`}
+              // className={`${s.tag_dot}  ${cn(s[`tag_${data.status}`])}`}
+              className={`${s.tag_dot}`}
+              style={{backgroundColor: statusColorStr}}
             ></div>
           </div>
         }
