@@ -60,12 +60,6 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
     return mapping;
   }, [order?.selectedOptions]);
 
-  console.log('ChainNode :: ', {
-    order,
-    chainData,
-    selectedOptionMapping: selectedCategoryMapping,
-  });
-
   return (
     // <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
     <div className={`${s.wrapperBox}`} style={{borderColor: statusColorStr}}>
