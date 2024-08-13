@@ -56,6 +56,17 @@ export default function RootLayout({
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "ktq824k12x");`}
         </Script>
+        <Script>
+          {`<!-- Google tag (gtag.js) -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-YYP2P7BNWB"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-YYP2P7BNWB');
+            </script>`}
+        </Script>
       </head>
       <body>
         <StoreProvider>
