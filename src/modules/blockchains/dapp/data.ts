@@ -1,4 +1,4 @@
-export const iconToolNames = [
+export const iconToolNames =  [
   '/icons-tool/icon-avail.svg',
   '/icons-tool/icon-brc20.svg',
   '/icons-tool/icon-bridge-confused.svg',
@@ -18,6 +18,7 @@ export const iconToolNames = [
   '/icons-tool/icon-gas-min.svg',
   '/icons-tool/icon-hardware.svg',
   '/icons-tool/icon-issue-a-token.svg',
+  '/icons-tool/icon-l1-v2.svg',
   '/icons-tool/icon-l1.svg',
   '/icons-tool/icon-l2.svg',
   '/icons-tool/icon-l3.svg',
@@ -31,6 +32,7 @@ export const iconToolNames = [
   '/icons-tool/icon-raffle.svg',
   '/icons-tool/icon-runes.svg',
   '/icons-tool/icon-solana.svg',
+  '/icons-tool/icon-sov.svg',
   '/icons-tool/icon-staking.svg',
   '/icons-tool/icon-testnet.svg',
   '/icons-tool/icon-time-fast.svg',

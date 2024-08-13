@@ -138,17 +138,17 @@ https://bvm.network/studio/${url}`;
       imageHeight,
       0.5,
       2,
-      1,
+      0,
     );
 
     toPng(document.querySelector('#viewport'), {
-      backgroundColor: '#1a365d',
+      backgroundColor: '#fff',
       width: imageWidth,
       height: imageHeight,
       style: {
         width: imageWidth,
         height: imageHeight,
-        transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
+        // transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
       },
     }).then(downloadImage);
   };
