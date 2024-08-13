@@ -528,7 +528,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
               // TODO: Implement this - 4
               // style={{ color: statusColorStr }}
             >
-              // TODO: Implement this - 5
+              {/* TODO: Implement this - 5 */}
               {/* {statusStr ?? renderTitleStatus(data.status)} */}
               {renderTitleStatus(data.status)}
             </p>
