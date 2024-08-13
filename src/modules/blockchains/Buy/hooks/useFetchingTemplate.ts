@@ -1,3 +1,4 @@
+import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
 import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
@@ -8,7 +9,12 @@ import { getModelCategories, getTemplates } from '@/services/customize-model';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { dappSelector } from '@/stores/states/dapp/selector';
-import { BlockModel, DappModel, IModelCategory, IModelOption } from '@/types/customize-model';
+import {
+  BlockModel,
+  DappModel,
+  IModelCategory,
+  IModelOption,
+} from '@/types/customize-model';
 import { compareString } from '@/utils/string';
 import { useParams } from 'next/navigation';
 import React from 'react';
@@ -17,9 +23,9 @@ import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
 import { parseStakingPools } from '../../dapp/parseUtils/staking';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { parseDappModel } from '../../utils';
-import { accountAbstractionAsADapp } from '../mockup_3';
 import {
   draggedDappIndexesSignal,
+  draggedIds2DSignal,
   templateIds2DSignal,
 } from '../signals/useDragSignal';
 import { formTemplateDappSignal } from '../signals/useFormDappsSignal';
@@ -27,7 +33,6 @@ import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore from '../stores/useFlowStore';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
-import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
 
 export default function useFetchingTemplate() {
   const params = useParams();
@@ -79,8 +84,8 @@ export default function useFetchingTemplate() {
 
     const newFields = cloneDeep(field);
     const [categories, templates] = await Promise.all([
-      getModelCategories(l2ServiceUserAddress),
-      // getModelCategories('0x4113ed747047863Ea729f30C1164328D9Cc8CfcF'),
+      // getModelCategories(l2ServiceUserAddress),
+      getModelCategories('0x4113ed747047863Ea729f30C1164328D9Cc8CfcF'),
       getTemplates(),
     ]);
 
@@ -99,25 +104,26 @@ export default function useFetchingTemplate() {
     });
 
     if (isAAInstalled) {
-      nodes.unshift({
-        id: '1',
-        type: 'customBox',
-        data: {
-          label: 'Account Abstraction',
-          baseIndex: 0,
-          status: StatusBox.RUNNING,
-          dapp: accountAbstractionAsADapp,
-          categoryOption: order?.selectedOptions?.find(
-            (opt) => opt.key === 'wallet',
-          )?.options[0] as IModelOption,
-          isChain: false,
-          ids: [],
-        },
-        dragHandle: '.drag-handle-area',
-        position: { x: 40, y: 40 },
-      });
+      // nodes.unshift({
+      //   id: '1',
+      //   type: 'customBox',
+      //   data: {
+      //     label: 'Account Abstraction',
+      //     baseIndex: 0,
+      //     status: StatusBox.RUNNING,
+      //     dapp: accountAbstractionAsADapp,
+      //     categoryOption: order?.selectedOptions?.find(
+      //       (opt) => opt.key === 'wallet',
+      //     )?.options[0] as IModelOption,
+      //     isChain: false,
+      //     ids: [],
+      //   },
+      //   dragHandle: '.drag-handle-area',
+      //   position: { x: 40, y: 40 },
+      // });
 
       draggedDappIndexesSignal.value = [0];
+      draggedIds2DSignal.value = [[]];
     }
 
     nodes.unshift({
@@ -131,7 +137,7 @@ export default function useFetchingTemplate() {
         ids: [],
         dapp: null,
         categoryOption: {} as IModelOption,
-        baseIndex: -1
+        baseIndex: -1,
       },
       dragHandle: '.drag-handle-area',
       position: { x: 30, y: 30 },

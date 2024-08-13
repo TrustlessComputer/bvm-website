@@ -1,16 +1,23 @@
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
-import { draggedDappIndexesSignal, draggedIds2DSignal } from '@/modules/blockchains/Buy/signals/useDragSignal';
-import { cloneDeep, dappKeyToChainKey, isTwoObjectEqual } from '@/modules/blockchains/Buy/utils';
+import {
+  draggedDappIndexesSignal,
+  draggedIds2DSignal,
+} from '@/modules/blockchains/Buy/signals/useDragSignal';
+import {
+  cloneDeep,
+  dappKeyToChainKey,
+  isTwoObjectEqual,
+} from '@/modules/blockchains/Buy/utils';
 import { useSignalEffect } from '@preact/signals-react';
 import { MarkerType, useStoreApi } from '@xyflow/react';
 import React, { useEffect } from 'react';
 import useFlowStore from '../stores/useFlowStore';
 
+import { DataNode } from '@/modules/blockchains/Buy/component4/CustomNode';
+import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
 import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
-import { DataNode } from '@/modules/blockchains/Buy/component4/CustomNode';
-import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
 
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
@@ -132,6 +139,16 @@ export default function useNodeFlowControl() {
     );
     if (!categoryOption) return;
 
+    console.log('handleAddBox', {
+      draggedIds2D,
+      indexx: draggedIds2D.length - 1,
+      dappIndex,
+      thisDapp,
+      dapps,
+      category,
+      categoryOption,
+    });
+
     const transformedX =
       (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
     const transformedY =
@@ -144,14 +161,20 @@ export default function useNodeFlowControl() {
     const rootNode = 'blockchain';
 
     // Update source handle of root node
-    const getHandleNodeBlockChain = nodes.find(item => item.id === rootNode);
+    const getHandleNodeBlockChain = nodes.find((item) => item.id === rootNode);
     // Find handle have in root node ?
-    const isHandleExists = edges.some(handle => handle.sourceHandle === `${rootNode}-s-${thisDapp.title}`);
+    const isHandleExists = edges.some(
+      (handle) => handle.sourceHandle === `${rootNode}-s-${thisDapp.title}`,
+    );
     let nodesData = nodes;
 
     if (!isHandleExists) {
-      getHandleNodeBlockChain?.data?.sourceHandles?.push(`${rootNode}-s-${thisDapp.title}`);
-      nodesData = nodes.map((item) => item.id === rootNode ? getHandleNodeBlockChain : item) as DataNode[];
+      getHandleNodeBlockChain?.data?.sourceHandles?.push(
+        `${rootNode}-s-${thisDapp.title}`,
+      );
+      nodesData = nodes.map((item) =>
+        item.id === rootNode ? getHandleNodeBlockChain : item,
+      ) as DataNode[];
     }
 
     setNodes([
@@ -174,26 +197,29 @@ export default function useNodeFlowControl() {
       },
     ]);
 
-    setEdges([...edges, {
-      id: `${edges.length + 1}`,
-      source: rootNode,
-      sourceHandle: `${rootNode}-s-${thisDapp.title}`,
-      target: `${nodes.length}`,
-      targetHandle: `${nodes.length}-t-${rootNode}`,
-      type: 'customEdge',
-      label: 'Output 1',
-      markerEnd: {
-        type: MarkerType.Arrow,
-        width: 25,
-        height: 25,
-        strokeWidth: 1,
-        color: '#AAAAAA',
+    setEdges([
+      ...edges,
+      {
+        id: `${edges.length + 1}`,
+        source: rootNode,
+        sourceHandle: `${rootNode}-s-${thisDapp.title}`,
+        target: `${nodes.length}`,
+        targetHandle: `${nodes.length}-t-${rootNode}`,
+        type: 'customEdge',
+        label: 'Output 1',
+        markerEnd: {
+          type: MarkerType.Arrow,
+          width: 25,
+          height: 25,
+          strokeWidth: 1,
+          color: '#AAAAAA',
+        },
+        style: {
+          stroke: '#AAAAAA',
+          strokeWidth: 2,
+        },
       },
-      style: {
-        stroke: '#AAAAAA',
-        strokeWidth: 2,
-      },
-    }]);
+    ]);
 
     resetDragState();
   };
