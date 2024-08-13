@@ -446,7 +446,7 @@ const useDapps = () => {
       ? cloneDeep(configs)
       : cloneDeep(dappMockupData); // defi_apps
 
-    _dapps.concat(otherDapps);
+    _dapps.push(...otherDapps);
 
     const sortedDapps = _dapps.sort((a, b) => a.order - b.order);
 

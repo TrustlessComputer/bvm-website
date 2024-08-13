@@ -49,11 +49,6 @@ export default function useTemplate() {
       newFields[field.key].dragged = false;
     });
 
-    console.log('setTemplate :: ', {
-      _draggedFields,
-      newFields,
-    });
-
     setDraggedFields(_draggedFields);
     setFields(newFields);
   };
