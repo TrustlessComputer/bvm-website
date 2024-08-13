@@ -31,20 +31,18 @@ enum StatusBox {
 export type DataNode = Node<
   {
     label: string;
-    positionDot: Position;
-    handleType: HandleType;
+    positionDot?: Position;
+    handleType?: HandleType;
     status: StatusBox;
-    sourceHandles: [];
-    targetHandles: [];
+    sourceHandles?: string[];
+    targetHandles?: string[];
     isChain: boolean;
-    chain: OrderItem | null;
+    chain?: OrderItem | null;
     dapp: DappModel | null;
     ids: Field[];
     baseIndex: number;
     categoryOption: IModelOption;
-  },
-  'label'
->;
+  }>;
 
 function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { isCapture } = useCaptureStore();

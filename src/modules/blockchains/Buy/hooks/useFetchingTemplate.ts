@@ -8,7 +8,7 @@ import { getModelCategories, getTemplates } from '@/services/customize-model';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { dappSelector } from '@/stores/states/dapp/selector';
-import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
+import { BlockModel, DappModel, IModelCategory, IModelOption } from '@/types/customize-model';
 import { compareString } from '@/utils/string';
 import { useParams } from 'next/navigation';
 import React from 'react';
@@ -27,6 +27,7 @@ import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore from '../stores/useFlowStore';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
+import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
 
 export default function useFetchingTemplate() {
   const params = useParams();
@@ -104,10 +105,11 @@ export default function useFetchingTemplate() {
         data: {
           label: 'Account Abstraction',
           baseIndex: 0,
+          status: StatusBox.RUNNING,
           dapp: accountAbstractionAsADapp,
           categoryOption: order?.selectedOptions?.find(
             (opt) => opt.key === 'wallet',
-          )?.options[0],
+          )?.options[0] as IModelOption,
           isChain: false,
           ids: [],
         },
@@ -125,6 +127,11 @@ export default function useFetchingTemplate() {
         label: 'Blockchain',
         sourceHandles: [],
         isChain: true,
+        status: StatusBox.READY,
+        ids: [],
+        dapp: null,
+        categoryOption: {} as IModelOption,
+        baseIndex: -1
       },
       dragHandle: '.drag-handle-area',
       position: { x: 30, y: 30 },
