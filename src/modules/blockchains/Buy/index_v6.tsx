@@ -970,26 +970,26 @@ const BuyPage = () => {
                 <div className={s.right}>
                   <div className={s.top_right}>
                     <div className={s.right_box_footer}>
-                      {!needContactUs && (
-                        <div className={s.right_box_footer_left}>
-                          <h4 className={s.right_box_footer_left_content}>
-                            {formatCurrencyV2({
-                              amount: priceBVM,
-                              decimals: 0,
-                            })}{' '}
-                            BVM{'/'}month
-                          </h4>
-                          <h6 className={s.right_box_footer_left_title}>
-                            $
-                            {formatCurrencyV2({
-                              amount: priceUSD,
-                              decimals: 0,
-                            })}
-                            {'/'}month
-                          </h6>
-                        </div>
-                      )}
+                      {/* {!needContactUs && (
 
+                      )} */}
+                      <div className={s.right_box_footer_left}>
+                        <h4 className={s.right_box_footer_left_content}>
+                          {formatCurrencyV2({
+                            amount: priceBVM,
+                            decimals: 0,
+                          })}{' '}
+                          BVM{'/'}month
+                        </h4>
+                        <h6 className={s.right_box_footer_left_title}>
+                          $
+                          {formatCurrencyV2({
+                            amount: priceUSD,
+                            decimals: 0,
+                          })}
+                          {'/'}month
+                        </h6>
+                      </div>
                       <LaunchButton data={data} originalData={originalData} />
                     </div>
                   </div>
