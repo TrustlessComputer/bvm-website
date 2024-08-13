@@ -96,7 +96,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
     tags: ['L2', 'Optimistic Rollup'],
   },
   {
-    image: '/explore/eternal.png',
+    image: '/explore/eternal2.png',
     title: 'Eternal AI',
     description:
       'The first Bitcoin L2 for fully on-chain AI, designed to preserve AI as censorship-resistant, tamper-proof, and permissionlessly accessible to every human.',
