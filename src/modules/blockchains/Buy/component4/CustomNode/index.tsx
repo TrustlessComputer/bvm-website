@@ -1,38 +1,24 @@
-import s from './styles.module.scss';
-import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
-import React, { ReactElement, useEffect, useMemo, useState } from 'react';
-import Image from 'next/image';
-import cn from 'classnames';
-import { OrderItem } from '@/stores/states/l2services/types';
-import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
-import ComputerNameInput from '@/modules/blockchains/Buy/components3/ComputerNameInput';
-import ChainDraggable from '@/modules/blockchains/Buy/components3/Draggable';
-import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
-import useDragStore from '../../stores/useDragStore';
-import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
-import useOrderFormStoreV3, { useCaptureStore } from '../../stores/index_v3';
-import Label from '../../components3/Label';
-import ChainLegoParent from '../../components3/LegoParent';
-import { DappModel, FieldModel, IModelOption } from '@/types/customize-model';
-import { memo } from 'react';
+import Draggable from '@/modules/blockchains/Buy/component4/Draggable';
+import Droppable from '@/modules/blockchains/Buy/component4/Droppable';
+import Lego from '@/modules/blockchains/Buy/component4/Lego';
+import LegoParent from '@/modules/blockchains/Buy/component4/LegoParent';
+import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
+import AA from '@/modules/blockchains/Buy/dapp/AA';
+import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import {
   draggedDappIndexesSignal,
-  draggedIds2DSignal,
   Field,
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { adjustBrightness, DragUtil } from '@/modules/blockchains/Buy/utils';
-import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
-import Droppable from '@/modules/blockchains/Buy/component4/Droppable';
-import Lego from '@/modules/blockchains/Buy/component4/Lego';
-import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
-import Draggable from '@/modules/blockchains/Buy/component4/Draggable';
-import LegoParent from '@/modules/blockchains/Buy/component4/LegoParent';
-import styles from '@/modules/blockchains/Buy/components3/LegoV3/styles.module.scss';
-import AA from '@/modules/blockchains/Buy/dapp/AA';
-import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
-import { useSignalEffect } from '@preact/signals-react';
+import { OrderItem } from '@/stores/states/l2services/types';
+import { DappModel, FieldModel, IModelOption } from '@/types/customize-model';
+import { HandleType, Node, NodeProps, Position } from '@xyflow/react';
+import cn from 'classnames';
+import React, { memo, ReactElement } from 'react';
+import Label from '../../components3/Label';
+import { useCaptureStore } from '../../stores/index_v3';
 import DappNotification from './DappNotification';
+import s from './styles.module.scss';
 
 enum StatusBox {
   DRAFTING = 'Drafting',
@@ -71,6 +57,10 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
     moduleFieldMapping,
     singleFieldMapping,
   } = useDapps();
+
+  // TODO: Implement this - 1
+  // const { getAAStatus } = useChainProvider();
+  // const { statusStr, statusColorStr, borderStatusStr } = getAAStatus();
 
   const DappRendering = (): ReactElement => {
     const dappIndex = draggedDappIndexesSignal.value[data.baseIndex];
@@ -490,7 +480,11 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   }
 
   return (
-    <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
+    <div
+      className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}
+      // TODO: Implement this - 2
+      // style={{ borderColor: statusColorStr }}
+    >
       {/*<div className={`${s.handles} ${s.target}`}>*/}
       {/*   <Handle*/}
       {/*    type={'target'}*/}
@@ -512,6 +506,11 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
         className={`${s.wrapperBox_top} drag-handle-area ${cn(
           s[`borderColor_${data.status}`],
         )}`}
+        // TODO: Implement this - 3
+        // style={{
+        //   borderColor: statusColorStr,
+        //   backgroundColor: borderStatusStr,
+        // }}
       >
         <p
           className={`${s.wrapperBox_top_heading} ${
@@ -526,11 +525,17 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
               className={`${s.titleTag} ${cn(s[`titleTag_${data.status}`])} ${
                 isCapture ? s.label_margin : ''
               }`}
+              // TODO: Implement this - 4
+              // style={{ color: statusColorStr }}
             >
+              // TODO: Implement this - 5
+              {/* {statusStr ?? renderTitleStatus(data.status)} */}
               {renderTitleStatus(data.status)}
             </p>
             <div
               className={`${s.tag_dot}  ${cn(s[`tag_${data.status}`])}`}
+              // TODO: Implement this - 6
+              // style={{ backgroundColor: statusColorStr }}
             ></div>
           </div>
         }
