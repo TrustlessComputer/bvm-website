@@ -180,8 +180,16 @@ export default function useNodeFlowControl() {
       type: 'customEdge',
       label: 'Output 1',
       markerEnd: {
-        type: MarkerType.ArrowClosed,
+        type: MarkerType.Arrow,
+        width: 25,
+        height: 25,
+        strokeWidth: 1,
+        color: '#AAAAAA',
       },
+      style: {
+        stroke: '#AAAAAA',
+        strokeWidth: 2,
+      }
     }]);
 
     resetDragState();
