@@ -12,7 +12,7 @@ import {
 import { adjustBrightness, DragUtil } from '@/modules/blockchains/Buy/utils';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { DappModel, FieldModel, IModelOption } from '@/types/customize-model';
-import { HandleType, Node, NodeProps, Position } from '@xyflow/react';
+import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
 import cn from 'classnames';
 import React, { memo, ReactElement } from 'react';
 import Label from '../../components3/Label';
@@ -484,23 +484,6 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
       // TODO: Implement this - 2
       // style={{ borderColor: statusColorStr }}
     >
-      {/*<div className={`${s.handles} ${s.target}`}>*/}
-      {/*   <Handle*/}
-      {/*    type={'target'}*/}
-      {/*    position={data.positionDot}*/}
-      {/*    isConnectable={isConnectable}*/}
-      {/*    className={s.handleDot}*/}
-      {/*  />*/}
-      {/*   {data.targetHandles.map((handle) => (*/}
-      {/*    <Handle*/}
-      {/*      key={handle.id}*/}
-      {/*      id={handle.id}*/}
-      {/*      type="target"*/}
-      {/*      position={Position.Left}*/}
-      {/*      className={s.handleDot}*/}
-      {/*    />*/}
-      {/*  ))}*/}
-      {/*</div>*/}
       <div className={`${s.handles} ${s.target}`}>
          {data.targetHandles?.map((handle) => (
           <Handle
