@@ -11,7 +11,7 @@ import GroupDownItem from '@layouts/HeaderV4/components/GroupDownItem';
 import { ReactElement } from 'react';
 import IconLogo from '../components/IcLogo';
 import Image from 'next/image';
-import ButtonLoginTwitter from '@/layouts/HeaderV4/components/ButtonLoginTwitter';
+import ButtonLogin from './ButtonLogin';
 
 export type TMainHeader = {
   color?: 'black' | 'white';
@@ -93,11 +93,7 @@ TMainHeader): ReactElement => {
             {/* <Link href={'/bvm'} className={s.getBVM}>
               Get BVM
             </Link> */}
-            <ButtonLoginTwitter
-              className={s.getBVM}
-              color="white"
-              title="CONNECT"
-            />
+            <ButtonLogin className={s.getBVM} color="white" title="CONNECT" />
           </div>
         ) : (
           <>

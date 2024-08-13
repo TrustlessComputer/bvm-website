@@ -135,23 +135,11 @@
 
 .getBVM {
   display: flex;
-  width: 100px;
+  min-width: 100px;
   height: 36px;
   padding: 4px;
   justify-content: center;
   align-items: center;
   gap: 10px;
   border-radius: 100px;
-  background: #FA4E0E;
-
-  p {
-    color: #FAF4ED;
-    text-align: center;
-    font-family: var(--font-JetBrainsMono);
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px;
-  }
-
 }
