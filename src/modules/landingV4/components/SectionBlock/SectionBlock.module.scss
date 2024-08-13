@@ -1,0 +1,93 @@
+.wrapper {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    background-color: #fff;
+
+    @include is-mobile {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
+
+
+    .heading {
+        color: #000;
+        font-family: "JetBrains Mono";
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 110%;
+        /* 35.2px */
+        margin-bottom: 60px;
+
+        .tag {
+            color: #FA4E0E;
+        }
+
+        @include is-mobile {
+            font-size: 28px;
+            margin-bottom: 40px;
+        }
+    }
+
+    .items_wrapper {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        scroll-snap-type: x mandatory;
+        scroll-padding: 50%;
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        .item {
+            cursor: pointer;
+            width: 30%;
+            min-width: 400px;
+            color: #000;
+            font-family: "JetBrains Mono";
+
+            @include is-mobile {
+                min-width: 85%;
+            }
+
+            .title {
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 140%;
+                /* 25.2px */
+                letter-spacing: 0.9px;
+            }
+
+            .description {
+                font-family: "SF Pro Display";
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 140%;
+                /* 22.4px */
+                letter-spacing: 0.8px;
+                opacity: 0.7;
+                white-space: pre-line;
+            }
+
+            .item_tags span {
+                color: #000;
+                text-align: center;
+                font-family: "JetBrains Mono";
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 140%;
+                /* 16.8px */
+                text-transform: uppercase;
+                border-radius: 100px;
+                background: #F6F6F6;
+                padding: 5px 8px;
+
+            }
+
+
+        }
+    }
+}

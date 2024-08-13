@@ -71,42 +71,15 @@
 .content {
   color: #000;
 
-  &_sub {
-    background: white;
-    border-radius: 24px;
-    width: fit-content;
-    font-family: var(--font-SFProDisplay);
 
-    font-weight: 500;
-    line-height: calc(24/20);
-    letter-spacing: 0.02em;
-    text-align: left;
-    padding: 6px 24px;
-    margin-bottom: 12px;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 14px;
-
-    @include is-min-table {
-      font-size: 16px;
-      margin-left: unset;
-      margin-right: unset;
-      margin-bottom: 24px;
-    }
-
-    p {
-      background: linear-gradient(180deg, #FF9776 0%, #FF8139 32.81%, #E04300 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-  }
 
   &_heading {
     font-family: var(--font-SFProDisplay);
     // color: #000;
     font-size: 48px;
+    line-height: 100%;
+
     /* 86.4px */
-    max-width: 18ch;
     // max-width: 720px;
     margin-bottom: 20px;
 

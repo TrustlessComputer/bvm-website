@@ -1,13 +1,15 @@
+import { CHAIN_DATA, DAPPS_DATA } from '../ExploreModule/data';
+import { ROLLUPS } from './../../constants/route-path';
+import { CDN_URL } from '@/config';
+
 export const APPS_SECTION = {
-  tag: 'Apps and games.',
+  tag: 'Apps and games. ',
   title: 'Experience Bitcoin like never before.',
-  item: [
-    {
-      name: 'Mint NFTs',
-      thumbnail:
-        'https://storage.googleapis.com/bvm-network/image/landing_v4/mint_nfts.png',
-      desc: 'Create, buy, and sell digital collectibles secured by Bitcoin.',
-      tags: ['NFTs', 'Bitcoin'],
-    },
-  ],
+  item: DAPPS_DATA,
+};
+
+export const ROLLUPS_SECTION = {
+  tag: 'Rollups. ',
+  title: `Explore chains backed by Bitcoin's security.`,
+  item: CHAIN_DATA,
 };
