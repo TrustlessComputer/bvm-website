@@ -65,6 +65,7 @@ import useScreenMouse from './hooks/useScreenMouse';
 import { ACCOUNT_ABSTRACTION_MOCKUP_DATA } from '../detail_v3/account-abstraction_v2/mockupData';
 import useFormDappToFormChain from './hooks/useFormDappToFormChain';
 import useFlowStore from './stores/useFlowStore';
+import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
 
 const BuyPage = () => {
   const router = useRouter();
@@ -1144,21 +1145,21 @@ const BuyPage = () => {
 
     setData(convertData(sortedCategories));
     setOriginalData(sortedCategories);
-    setTemplates(templates);
-    setNodes([
-      // @ts-ignore
-      {
-        id: 'blockchain',
-        type: 'customBox',
-        data: {
-          label: 'Blockchain',
-          status: 'Running',
-          isChain: true,
-        },
-        dragHandle: '.drag-handle-area',
-        position: { x: 0, y: 0 },
-      },
-    ]);
+    // setTemplates(templates);
+    // setNodes([
+    //   // @ts-ignore
+    //   {
+    //     id: 'blockchain',
+    //     type: 'customBox',
+    //     data: {
+    //       label: 'Blockchain',
+    //       status: StatusBox.RUNNING,
+    //       isChain: true,
+    //     },
+    //     dragHandle: '.drag-handle-area',
+    //     position: { x: 0, y: 0 },
+    //   },
+    // ]);
   };
 
   const isAnyOptionNeedContactUs = () => {

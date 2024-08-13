@@ -9,7 +9,7 @@ import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { adjustBrightness, DragUtil } from '@/modules/blockchains/Buy/utils';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
-import { HandleType, Node, NodeProps, Position } from '@xyflow/react';
+import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
 import cn from 'classnames';
 import React, { memo, ReactElement } from 'react';
 import Label from '../../components3/Label';
@@ -17,7 +17,7 @@ import { useCaptureStore } from '../../stores/index_v3';
 import s from './styles.module.scss';
 import BottomButton from '@/modules/blockchains/dapp/components/BottomButton';
 
-enum StatusBox {
+export enum StatusBox {
   DRAFTING = 'Drafting',
   READY = 'Ready',
   MISSING = 'Missing',
@@ -31,8 +31,8 @@ export type DataNode = Node<
     positionDot: Position;
     handleType: HandleType;
     status: StatusBox;
-    sourceHandles: [];
-    targetHandles: [];
+    sourceHandles: string[];
+    targetHandles: string[];
     isChain: boolean;
     chain: OrderItem | null;
     dapp: DappModel | null;
@@ -83,7 +83,6 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
         return renderDapps();
     }
   };
-
   function renderDapps() {
     const thisDapp = data.dapp;
 
@@ -492,9 +491,19 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
         return 'Running';
     }
   }
-
   return (
     <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
+      <div className={`${s.handles} ${s.target}`}>
+        {data.targetHandles?.map((handle) => (
+          <Handle
+            key={handle}
+            id={handle}
+            type="target"
+            position={Position.Left}
+            className={s.handleDot}
+          />
+        ))}
+      </div>
       <div
         className={`${s.wrapperBox_top} drag-handle-area ${cn(
           s[`borderColor_${data.status}`],
@@ -526,6 +535,18 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
         {/* {data.categoryOption.needInstall && <DappNotification />} */}
 
         {data.dapp && <DappRendering />}
+      </div>
+      <div className={`${s.handles} ${s.sources}`}>
+        {data.sourceHandles?.map((handle, index) => (
+          <Handle
+            key={handle}
+            id={handle}
+            type="source"
+            position={Position.Right}
+            className={s.handleDot}
+            // style={{ top: 50 * (index+1)}}
+          />
+        ))}
       </div>
     </div>
   );

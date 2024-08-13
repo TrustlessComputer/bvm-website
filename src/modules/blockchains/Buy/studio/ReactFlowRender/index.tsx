@@ -1,13 +1,15 @@
 import CustomNode from '@/modules/blockchains/Buy/component4/CustomNode';
-import { ReactFlow, useNodesState } from '@xyflow/react';
+import { ReactFlow } from '@xyflow/react';
 import React from 'react';
 import '@xyflow/react/dist/style.css';
 import useFlowStore from '../../stores/useFlowStore';
 import ChainNode from '../../component4/CustomNode/ChainNode';
 import s from './styles.module.scss';
 import DappTemplateNode from '../../component4/CustomNode/DappTemplateNode';
+import CustomEdge from '@/modules/blockchains/Buy/component4/CustomEdge';
+
 const ReactFlowRenderer = React.memo(() => {
-  const { nodes, setNodes, onNodesChange } = useFlowStore();
+  const { nodes, onNodesChange, edges, onEdgesChange } = useFlowStore();
 
   return (
     <ReactFlow
@@ -17,11 +19,14 @@ const ReactFlowRenderer = React.memo(() => {
         chainNode: ChainNode,
         dappTemplate: DappTemplateNode,
       }}
+      edgeTypes={{
+        customEdge: CustomEdge,
+      }}
+      onEdgesChange={onEdgesChange}
       onNodesChange={onNodesChange}
       zoomOnDoubleClick={false}
-      // fitView
+      edges={edges}
       fitViewOptions={{ padding: 2 }}
-      // nodeOrigin={[0.5, 0]}
       className={s.reactFlow}
     />
   );

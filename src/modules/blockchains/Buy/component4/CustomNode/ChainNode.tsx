@@ -6,7 +6,7 @@ import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { DappModel, IModelCategory } from '@/types/customize-model';
-import { HandleType, Node, NodeProps, Position } from '@xyflow/react';
+import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
 import cn from 'classnames';
 import React, { memo } from 'react';
 import Label from '../../components3/Label';
@@ -17,16 +17,18 @@ import useDragStore from '../../stores/useDragStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import useOverlappingChainLegoStore from '../../stores/useOverlappingChainLegoStore';
 import s from './styles.module.scss';
+import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
+
 
 export type DataNode = Node<
   {
     label: string;
     positionDot: Position;
     handleType: HandleType;
-    status: 'Drafting' | 'Ready' | 'Missing' | 'Running ' | 'Down';
+    status: StatusBox;
     statusMessage?: string;
-    sourceHandles: [];
-    targetHandles: [];
+    sourceHandles: string[];
+    targetHandles: string[];
     isChain: boolean;
     chain: OrderItem | null;
     dapp: DappModel | null;
@@ -45,7 +47,8 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { field } = useOrderFormStoreV3();
   const { isCapture } = useCaptureStore();
 
-  const { order, chainData, getBlockChainStatus } = useChainProvider();
+  const { order, chainData, getBlockChainStatus } =
+    useChainProvider();
   const { statusStr, statusColorStr, borderStatusStr } = getBlockChainStatus();
 
   const selectedCategoryMapping = React.useMemo(() => {
@@ -60,20 +63,20 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
     return mapping;
   }, [order?.selectedOptions]);
 
-  console.log('ChainNode :: ', {
-    order,
-    chainData,
-    selectedOptionMapping: selectedCategoryMapping,
-  });
-
   return (
-    // <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
-    <div className={`${s.wrapperBox}`} style={{ borderColor: statusColorStr }}>
-      {/* TODO: Change status */}
+    <div className={`${s.wrapperBox}`} style={{borderColor: statusColorStr}}>
+      <div className={`${s.handles} ${s.target}`}>
+         {data.targetHandles?.map((handle) => (
+          <Handle
+            key={handle}
+            id={handle}
+            type="target"
+            position={Position.Left}
+            className={s.handleDot}
+          />
+        ))}
+      </div>
       <div
-        // className={`${s.wrapperBox_top} drag-handle-area ${cn(
-        //   s[`borderColor_${data.status}`],
-        // )}`}
         className={`${s.wrapperBox_top} drag-handle-area`}
         style={{
           borderColor: statusColorStr,
@@ -95,11 +98,9 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
               }`}
               style={{ color: statusColorStr }}
             >
-              {/*{data.statusMessage ?? data.status}*/}
               {data.statusMessage ?? statusStr}
             </p>
             <div
-              // className={`${s.tag_dot}  ${cn(s[`tag_${data.status}`])}`}
               className={`${s.tag_dot}`}
               style={{ backgroundColor: statusColorStr }}
             ></div>
@@ -115,10 +116,6 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
           style={{
             width: '100% !important',
             height: '100%',
-            // paddingLeft: '25%',
-            // paddingRight: '25%',
-            // paddingBottom: '7.5%',
-            // paddingTop: '7.5%',
           }}
         >
           <LegoV3
@@ -133,12 +130,6 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
           {draggedFields.map((key, index) => {
             const item = parsedCategories?.find((i) => i.key === key);
             const selectedCategory = selectedCategoryMapping?.[key];
-
-            // console.log('ChainNode -> draggedField.map :: ', {
-            //   key,
-            //   item,
-            //   selectedCategory,
-            // });
 
             if (!item || !parsedCategories) return null;
 
@@ -205,14 +196,10 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
             return item.options.map((option, opIdx) => {
               if (option.key !== field[item.key].value) return null;
 
-              const isSelected =
-                selectedCategory?.options.some(
-                  (_opt) => _opt.key === option.key,
-                ) || false;
               const isUpdatable =
-                isSelected &&
-                selectedCategory?.updatable &&
-                typeof order !== 'undefined';
+                option.key !== 'account_abstraction' && // Must be hard coded
+                selectedCategory?.updatable && //
+                typeof order !== 'undefined'; // TODO: @jackie - replace this condition to isUpdateFlow from useChainProvider
 
               return (
                 <ChainDraggable
@@ -228,6 +215,8 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
                 >
                   <DroppableV2 id={item.key + '-right'}>
                     <LegoV3
+                      updatable={isUpdatable}
+                      allowShuffle
                       background={item.color}
                       label={item.confuseTitle}
                       labelInRight={!!item.confuseTitle || !!item.confuseIcon}
@@ -247,6 +236,18 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
             });
           })}
         </DroppableV2>
+      </div>
+      <div className={`${s.handles} ${s.sources}`}>
+        {data.sourceHandles?.map((handle, index) => (
+          <Handle
+            key={handle}
+            id={handle}
+            type="source"
+            position={Position.Right}
+            className={s.handleDot}
+            // style={{ top: 50 * (index+1)}}
+          />
+        ))}
       </div>
     </div>
   );

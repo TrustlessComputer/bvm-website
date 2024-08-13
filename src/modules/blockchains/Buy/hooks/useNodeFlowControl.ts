@@ -9,10 +9,12 @@ import {
   isTwoObjectEqual,
 } from '@/modules/blockchains/Buy/utils';
 import { useSignalEffect } from '@preact/signals-react';
-import { useStoreApi } from '@xyflow/react';
+import { MarkerType, useStoreApi } from '@xyflow/react';
 import React, { useEffect } from 'react';
 import useFlowStore from '../stores/useFlowStore';
 
+import { DataNode } from '@/modules/blockchains/Buy/component4/CustomNode';
+import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
 import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
@@ -20,7 +22,7 @@ import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
   const { categories } = useModelCategoriesStore();
-  const { nodes, setNodes } = useFlowStore();
+  const { nodes, setNodes, setEdges, edges } = useFlowStore();
   const store = useStoreApi();
   const {
     transform: [transformX, transformY, zoomLevel],
@@ -135,6 +137,17 @@ export default function useNodeFlowControl() {
     const categoryOption = category?.options.find(
       (option) => option.key === dappKeyToChainKey(thisDapp.key),
     );
+    if (!categoryOption) return;
+
+    // console.log('handleAddBox', {
+    //   draggedIds2D,
+    //   indexx: draggedIds2D.length - 1,
+    //   dappIndex,
+    //   thisDapp,
+    //   dapps,
+    //   category,
+    //   categoryOption,
+    // });
 
     const transformedX =
       (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
@@ -145,25 +158,69 @@ export default function useNodeFlowControl() {
       y: transformedY,
     };
 
+    const rootNode = 'blockchain';
+
+    // Update source handle of root node
+    const getHandleNodeBlockChain = nodes.find((item) => item.id === rootNode);
+    // Find handle have in root node ?
+    const isHandleExists = edges.some(
+      (handle) => handle.sourceHandle === `${rootNode}-s-${thisDapp.title}`,
+    );
+    let nodesData = nodes;
+
+    if (!isHandleExists) {
+      getHandleNodeBlockChain?.data?.sourceHandles?.push(
+        `${rootNode}-s-${thisDapp.title}`,
+      );
+      nodesData = nodes.map((item) =>
+        item.id === rootNode ? getHandleNodeBlockChain : item,
+      ) as DataNode[];
+    }
+
     setNodes([
-      ...nodes,
+      ...nodesData,
       {
         id: `${nodes.length}`,
         type: 'customBox',
         dragHandle: '.drag-handle-area',
         data: {
           label: thisDapp.title,
-          status: 'Drafting',
+          status: StatusBox.DRAFTING,
           isChain: false,
           dapp: thisDapp,
+          targetHandles: [`${nodes.length}-t-${rootNode}`],
           ids: draggedIds2D[draggedIds2D.length - 1],
           baseIndex: draggedIds2D.length - 1,
           categoryOption,
         },
-        // origin: [0.0, 0.0],
         position: positionTo,
       },
     ]);
+
+    setEdges([
+      ...edges,
+      {
+        id: `${edges.length + 1}`,
+        source: rootNode,
+        sourceHandle: `${rootNode}-s-${thisDapp.title}`,
+        target: `${nodes.length}`,
+        targetHandle: `${nodes.length}-t-${rootNode}`,
+        type: 'customEdge',
+        label: 'Output 1',
+        markerEnd: {
+          type: MarkerType.Arrow,
+          width: 25,
+          height: 25,
+          strokeWidth: 1,
+          color: '#AAAAAA',
+        },
+        style: {
+          stroke: '#AAAAAA',
+          strokeWidth: 2,
+        },
+      },
+    ]);
+
     resetDragState();
   };
 
