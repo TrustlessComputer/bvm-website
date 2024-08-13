@@ -124,7 +124,7 @@ https://bvm.network/studio/${url}`;
   function downloadImage(dataUrl) {
     const a = document.createElement('a');
 
-    a.setAttribute('download', 'reactflow.png');
+    a.setAttribute('download', `${new Date()}.png`);
     a.setAttribute('href', dataUrl);
     a.click();
   }
