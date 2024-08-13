@@ -9,6 +9,8 @@ import useFlowStore from '../stores/useFlowStore';
 import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
+import { DataNode } from '@/modules/blockchains/Buy/component4/CustomNode';
+import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
 
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
@@ -128,6 +130,7 @@ export default function useNodeFlowControl() {
     const categoryOption = category?.options.find(
       (option) => option.key === dappKeyToChainKey(thisDapp.key),
     );
+    if (!categoryOption) return;
 
     const transformedX =
       (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
@@ -138,17 +141,17 @@ export default function useNodeFlowControl() {
       y: transformedY,
     };
 
-    const rootNode = 'blockchain'
+    const rootNode = 'blockchain';
 
     // Update source handle of root node
     const getHandleNodeBlockChain = nodes.find(item => item.id === rootNode);
     // Find handle have in root node ?
-    const isHandleExists = edges.some(handle => handle.sourceHandle === `${rootNode}-s-${thisDapp.title}`)
-    let nodesData = nodes
+    const isHandleExists = edges.some(handle => handle.sourceHandle === `${rootNode}-s-${thisDapp.title}`);
+    let nodesData = nodes;
 
-    if(!isHandleExists) {
+    if (!isHandleExists) {
       getHandleNodeBlockChain?.data?.sourceHandles?.push(`${rootNode}-s-${thisDapp.title}`);
-      nodesData = nodes.map((item) =>  item.id === rootNode ? getHandleNodeBlockChain : item)
+      nodesData = nodes.map((item) => item.id === rootNode ? getHandleNodeBlockChain : item) as DataNode[];
     }
 
     setNodes([
@@ -159,7 +162,7 @@ export default function useNodeFlowControl() {
         dragHandle: '.drag-handle-area',
         data: {
           label: thisDapp.title,
-          status: 'Drafting',
+          status: StatusBox.DRAFTING,
           isChain: false,
           dapp: thisDapp,
           targetHandles: [`${nodes.length}-t-${rootNode}`],
@@ -174,7 +177,7 @@ export default function useNodeFlowControl() {
     setEdges([...edges, {
       id: `${edges.length + 1}`,
       source: rootNode,
-      sourceHandle:  `${rootNode}-s-${thisDapp.title}`,
+      sourceHandle: `${rootNode}-s-${thisDapp.title}`,
       target: `${nodes.length}`,
       targetHandle: `${nodes.length}-t-${rootNode}`,
       type: 'customEdge',
@@ -189,7 +192,7 @@ export default function useNodeFlowControl() {
       style: {
         stroke: '#AAAAAA',
         strokeWidth: 2,
-      }
+      },
     }]);
 
     resetDragState();

@@ -6,13 +6,12 @@ import React, { ReactElement } from 'react';
 import Button from '../../component4/Button';
 import ErrorModal from '../../components3/ErrorModal';
 import useTemplate from '../../hooks/useTemplate';
-import {
-  draggedDappIndexesSignal,
-  draggedIds2DSignal,
-} from '../../signals/useDragSignal';
+import { draggedDappIndexesSignal, draggedIds2DSignal } from '../../signals/useDragSignal';
 import { formDappSignal } from '../../signals/useFormDappsSignal';
 import useDragStore from '../../stores/useDragStore';
 import useFlowStore from '../../stores/useFlowStore';
+import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
+import type { IModelOption } from '@types/customize-model';
 
 export default function ActionsWorkArea(): ReactElement {
   const { isCapture } = useCaptureStore();
@@ -29,7 +28,13 @@ export default function ActionsWorkArea(): ReactElement {
         type: 'chainNode',
         data: {
           label: 'Blockchain',
-          status: 'Ready',
+          dapp: null,
+          categoryOption: {} as IModelOption,
+          baseIndex: -1,
+          targetHandles: [],
+          chain: null,
+          ids: [],
+          status: StatusBox.READY,
           isChain: true,
           // TODO: Status message - Reset
           // statusMessage: 'Status message 1',

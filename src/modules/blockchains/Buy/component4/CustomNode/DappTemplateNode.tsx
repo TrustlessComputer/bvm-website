@@ -17,7 +17,7 @@ import { useCaptureStore } from '../../stores/index_v3';
 import s from './styles.module.scss';
 import BottomButton from '@/modules/blockchains/dapp/components/BottomButton';
 
-enum StatusBox {
+export enum StatusBox {
   DRAFTING = 'Drafting',
   READY = 'Ready',
   MISSING = 'Missing',
@@ -31,8 +31,8 @@ export type DataNode = Node<
     positionDot: Position;
     handleType: HandleType;
     status: StatusBox;
-    sourceHandles: [];
-    targetHandles: [];
+    sourceHandles: string[];
+    targetHandles: string[];
     isChain: boolean;
     chain: OrderItem | null;
     dapp: DappModel | null;
