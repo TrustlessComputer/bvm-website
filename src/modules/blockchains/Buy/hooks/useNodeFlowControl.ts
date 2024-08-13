@@ -16,6 +16,7 @@ import useFlowStore from '../stores/useFlowStore';
 import { DataNode } from '@/modules/blockchains/Buy/component4/CustomNode';
 import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
 import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
+import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 
@@ -31,6 +32,7 @@ export default function useNodeFlowControl() {
   const [draggedIds2D, setDraggedIds2D] = React.useState<
     typeof draggedIds2DSignal.value
   >([]);
+  const { isAAInstalled } = useChainProvider();
 
   const [dragState, setDragState] = React.useState<{
     oneD: [number];

@@ -38,7 +38,7 @@ export default function useFetchingTemplate() {
   const params = useParams();
   const isUpdateChainPage = React.useMemo(() => !!params?.id, [params?.id]);
 
-  const { order, selectedCategoryMapping } = useChainProvider();
+  const { order, isAAInstalled } = useChainProvider();
   const { nodes, setNodes } = useFlowStore();
   const {
     setParsedCategories,
@@ -78,14 +78,10 @@ export default function useFetchingTemplate() {
   };
 
   const fetchData = async () => {
-    const isAAInstalled = order?.selectedOptions?.some(
-      (opt) => opt.key === 'wallet',
-    );
-
     const newFields = cloneDeep(field);
     const [categories, templates] = await Promise.all([
-      // getModelCategories(l2ServiceUserAddress),
-      getModelCategories('0x4113ed747047863Ea729f30C1164328D9Cc8CfcF'),
+      getModelCategories(l2ServiceUserAddress),
+      // getModelCategories('0x4113ed747047863Ea729f30C1164328D9Cc8CfcF'),
       getTemplates(),
     ]);
 

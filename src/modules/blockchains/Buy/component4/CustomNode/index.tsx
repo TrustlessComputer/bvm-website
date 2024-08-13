@@ -10,6 +10,7 @@ import {
   Field,
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { adjustBrightness, DragUtil } from '@/modules/blockchains/Buy/utils';
+import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { DappModel, FieldModel, IModelOption } from '@/types/customize-model';
 import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
@@ -19,7 +20,6 @@ import Label from '../../components3/Label';
 import { useCaptureStore } from '../../stores/index_v3';
 import DappNotification from './DappNotification';
 import s from './styles.module.scss';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 
 enum StatusBox {
   DRAFTING = 'Drafting',
@@ -56,9 +56,12 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
     singleFieldMapping,
   } = useDapps();
 
-  // TODO: Implement this - 1
-  const { getAAStatus } = useChainProvider();
+  const { getAAStatus, isUpdateFlow } = useChainProvider();
   const aaStatusData = getAAStatus();
+
+  const hideNoti = React.useMemo(() => {
+    return data.dapp?.key === 'account_abstraction' && isUpdateFlow;
+  }, [isUpdateFlow]);
 
   const styleFactory = useMemo(() => {
     switch (data.dapp?.key) {
@@ -493,7 +496,6 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   return (
     <div
       className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}
-      // TODO: Implement this - 2
       style={{
         borderColor: styleFactory && styleFactory.borderColorStr,
         backgroundColor: styleFactory && styleFactory.bgColorStr,
@@ -514,7 +516,6 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
         className={`${s.wrapperBox_top} drag-handle-area ${cn(
           s[`borderColor_${data.status}`],
         )}`}
-        // TODO: Implement this - 3
         style={{
           borderColor: styleFactory && styleFactory.borderColorStr,
           backgroundColor: styleFactory && styleFactory.bgColorStr,
@@ -533,7 +534,6 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
               className={`${s.titleTag} ${cn(s[`titleTag_${data.status}`])} ${
                 isCapture ? s.label_margin : ''
               }`}
-              // TODO: Implement this - 4
               style={{
                 color: styleFactory && styleFactory.statusColorStr,
                 fontStyle: styleFactory && styleFactory.fontStyle,
@@ -548,7 +548,6 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
             </p>
             <div
               className={`${s.tag_dot}  ${cn(s[`tag_${data.status}`])}`}
-              // TODO: Implement this - 6
               style={{
                 backgroundColor: styleFactory && styleFactory.bgColorStr,
               }}
@@ -557,7 +556,9 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
         }
       </div>
       <div className={s.inner}>
-        {data.categoryOption.needInstall && <DappNotification />}
+        {data.categoryOption.needInstall && !hideNoti ? (
+          <DappNotification />
+        ) : null}
 
         {data.dapp && <DappRendering />}
       </div>

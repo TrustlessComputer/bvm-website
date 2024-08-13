@@ -229,6 +229,11 @@ export const useChainProvider = () => {
     }
   };
 
+  const isAAInstalled = useMemo(
+    () => order?.selectedOptions?.some((opt) => opt.key === 'wallet'),
+    [order?.selectedOptions],
+  );
+
   return {
     ...context,
     isUpdateFlow,
@@ -237,6 +242,7 @@ export const useChainProvider = () => {
     dAppListAvailable,
     isBlockChainReady,
     selectedCategoryMapping,
+    isAAInstalled,
 
     //
     getBlockChainStatus,
