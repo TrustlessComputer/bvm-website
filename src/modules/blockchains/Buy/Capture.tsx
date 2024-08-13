@@ -12,13 +12,15 @@ import {
   useReactFlow,
 } from '@xyflow/react';
 import { toPng } from 'html-to-image';
+import { useState } from 'react';
 
-const imageWidth = 1024;
-const imageHeight = 768;
+const imageWidth = 1920;
+const imageHeight = 1080;
 
 const Capture = () => {
   const { setIsCapture } = useCaptureStore();
   const { getNodes } = useReactFlow();
+  const [isCapturing, setIsCapturing] = useState<boolean>(false);
   const handleClickShareTwitter = (url: string) => {
     try {
       // const imgEncode = encodeBase64(url);
@@ -128,6 +130,8 @@ https://bvm.network/studio/${url}`;
   }
 
   const onClick = () => {
+    if(isCapturing) return;
+    setIsCapturing(true)
     // we calculate a transform for the nodes so that all nodes are visible
     // we then overwrite the transform of the `.react-flow__viewport` element
     // with the style option of the html-to-image library
@@ -145,18 +149,21 @@ https://bvm.network/studio/${url}`;
       backgroundColor: '#fff',
       width: imageWidth,
       height: imageHeight,
+      canvasWidth: imageWidth,
+      canvasHeight: imageHeight,
+      quality: 1,
       style: {
         width: imageWidth,
         height: imageHeight,
         // transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
       },
-    }).then(downloadImage);
+    }).then(downloadImage).then(()=> setIsCapturing(false));
   };
 
   return (
     <div className={s.wrapper_btn_top}>
       {/*<div className={s.reset2} onClick={() => download()}>*/}
-      <div className={s.reset2} onClick={onClick}>
+      <div className={`${s.reset2} ${isCapturing && s.isCapturing}`} onClick={onClick}>
         <p>EXPORT</p>
         <div>
           <Image
