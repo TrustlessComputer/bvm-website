@@ -64,11 +64,6 @@ export default function useNodeFlowControl() {
       const index = dragState.oneD[0] + 1 + totalTemplateDapps;
       const newNodes = cloneDeep(nodes);
 
-      console.log('handleNewDragState', {
-        newNodes,
-        index,
-      });
-
       newNodes[index] = {
         ...newNodes[index],
         data: {
