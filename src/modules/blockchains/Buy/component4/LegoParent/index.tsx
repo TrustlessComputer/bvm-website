@@ -13,6 +13,7 @@ import { DappType } from '@/modules/blockchains/dapp/types';
 import { DappModel } from '@/types/customize-model';
 import { Text } from '@chakra-ui/react';
 import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
+import { iconToolNames } from '@/modules/blockchains/Buy/Buy.data';
 
 type Props = {
   zIndex?: number;
@@ -75,6 +76,15 @@ const LegoParent = ({
     footerRef.current.style.width = `${headerWidth}px`;
   }, [title]);
 
+  const _icon =
+    iconToolNames.find(
+      (item) =>
+        icon?.replace('https://storage.googleapis.com/bvm-network', '') ===
+        item,
+    ) ||
+    icon ||
+    null;
+
   return (
     <div
       className={styles.lego}
@@ -100,7 +110,7 @@ const LegoParent = ({
         </div>
 
         <div className={styles.lego__header__title}>
-          {icon && <Image src={icon} width={20} height={20} alt="icon" />}
+          {_icon && <Image src={_icon} width={20} height={20} alt="_icon" />}
           {title}
           {linkDownloadFile && (
             <Text

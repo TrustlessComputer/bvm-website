@@ -20,6 +20,7 @@ import {
   templateIds2DSignal,
 } from '../../signals/useDragSignal';
 import styles from './styles.module.scss';
+import { iconToolNames } from '@/modules/blockchains/Buy/Buy.data';
 
 type Props = {
   onlyLabel?: boolean;
@@ -152,6 +153,15 @@ const Dropdown = ({
     return null;
   }
 
+  const _icon =
+    iconToolNames.find(
+      (item) =>
+        currentValue.icon?.replace('https://storage.googleapis.com/bvm-network', '') ===
+        item,
+    ) ||
+    currentValue.icon ||
+    null;
+
   return (
     <div
       className={cn(styles.dropdown, {
@@ -170,8 +180,8 @@ const Dropdown = ({
           className={styles.dropdown__inner__content}
           onClick={() => setIsOpenDropdown(!isOpenDropdown)}
         >
-          {currentValue.icon && (
-            <Image src={currentValue.icon} width={16} height={16} alt="icon" />
+          {_icon && (
+            <Image src={_icon} width={16} height={16} alt="icon" />
           )}
 
           <p className={styles.dropdown__inner__content__text}>
@@ -194,22 +204,32 @@ const Dropdown = ({
           [styles.dropdown__list__open]: isOpenDropdown,
         })}
       >
-        {props.options.map((item) => (
-          <li
-            key={item.key}
-            className={cn(styles.dropdown__list__item, {
-              [styles.dropdown__list__item__active]:
+        {props.options.map((item) => {
+          const _icon2 =
+            iconToolNames.find(
+              (iconName) =>
+                item.icon?.replace('https://storage.googleapis.com/bvm-network', '') ===
+                iconName,
+            ) ||
+            item.icon ||
+            null;
+          return (
+            <li
+              key={item.key}
+              className={cn(styles.dropdown__list__item, {
+                [styles.dropdown__list__item__active]:
                 currentValue.key === item.key,
-            })}
-            onClick={() => handleOnClickOption(item)}
-          >
-            {item.icon && (
-              <Image src={item.icon} width={16} height={16} alt="icon" />
-            )}
+              })}
+              onClick={() => handleOnClickOption(item)}
+            >
+              {_icon2 && (
+                <Image src={_icon2} width={16} height={16} alt="icon" />
+              )}
 
-            <p className={styles.dropdown__list__item__text}>{item.title}</p>
-          </li>
-        ))}
+              <p className={styles.dropdown__list__item__text}>{item.title}</p>
+            </li>
+          )
+        })}
       </ul>
     </div>
   );
