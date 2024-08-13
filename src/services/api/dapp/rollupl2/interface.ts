@@ -15,3 +15,10 @@ export interface IRollupL2Info {
   tvl_btc: string;
   index: number;
 }
+
+export interface IRollupChart1D {
+  timestamp: number;
+  fee_usd: string;
+  tx_count: number;
+  address_actived: number;
+}

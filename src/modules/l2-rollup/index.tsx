@@ -6,24 +6,30 @@ import ListTable, { ColumnProp } from '@/components/ListTable';
 import { MIN_DECIMAL } from '@/constants/constants';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import CRollupL2API from '@/services/api/dapp/rollupl2';
-import { IRollupL2Info } from '@/services/api/dapp/rollupl2/interface';
+import {
+  IRollupChart1D,
+  IRollupL2Info,
+} from '@/services/api/dapp/rollupl2/interface';
 import { calculateTimeAgo, formatCurrency } from '@/utils/format';
 import { compareString } from '@/utils/string';
 import {
   Box,
   Flex,
-  Text,
-  Tooltip,
   Image,
   Popover,
-  PopoverContent,
   PopoverBody,
+  PopoverContent,
   PopoverTrigger,
+  SimpleGrid,
+  Text,
+  Tooltip,
 } from '@chakra-ui/react';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import s from './styles.module.scss';
-import { orderBy } from 'lodash';
 import { DotLottiePlayer } from '@dotlottie/react-player';
+import { orderBy } from 'lodash';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import L2RollupFee from './fees';
+import s from './styles.module.scss';
 
 enum SortRollupType {
   name,
@@ -45,8 +51,10 @@ interface ISort {
 
 const L2Rollup = () => {
   const { showContactUsModal } = useContactUs();
+  const dispatch = useDispatch();
 
   const [data, setData] = useState<IRollupL2Info[]>([]);
+  const [dataChart, setDataChart] = useState<IRollupChart1D[]>([]);
 
   const hasIncrementedPageRef = useRef(false);
   const rollupL2Api = new CRollupL2API();
@@ -72,6 +80,24 @@ const L2Rollup = () => {
     return data.find((rollup) => compareString(rollup.name, 'bitcoin'));
   }, [data]);
 
+  const _dataChart: {
+    fees: number[];
+    txs: number[];
+    addresses: number[];
+  } = useMemo(() => {
+    const fees: any[] = [];
+    const txs: any[] = [];
+    const addresses: any[] = [];
+
+    dataChart.forEach((d) => {
+      fees.push([d.timestamp, parseFloat(d.fee_usd)] as any[]);
+      txs.push([d.timestamp, d.tx_count]);
+      addresses.push([Number(d.timestamp), Number(d.address_actived)]);
+    });
+
+    return { fees, txs, addresses };
+  }, [dataChart]);
+
   useEffect(() => {
     fetchData();
     const interval = setInterval(() => {
@@ -84,7 +110,12 @@ const L2Rollup = () => {
 
   const fetchData = async () => {
     try {
-      const res = await rollupL2Api.getRollupL2Info();
+      const [res, res2] = await Promise.all([
+        rollupL2Api.getRollupL2Info(),
+        rollupL2Api.getFeeAddress1D(),
+      ]);
+
+      setDataChart(res2);
       let data: IRollupL2Info[] = [];
 
       if (currentSort.ascending === undefined) {
@@ -697,6 +728,39 @@ const L2Rollup = () => {
             <Image maxW={'40px'} src={'/heartbeat/ic-submit.svg'} />
           </Flex>
         </Flex>
+        <SimpleGrid columns={3} gap={'16px'} mb={'32px'}>
+          <L2RollupFee
+            data={_dataChart.txs}
+            prefix='Ξ'
+            title={`<p>Transaction Count</p><p>Ξ${formatCurrency(
+              (_dataChart.txs?.[_dataChart.txs.length - 1] as any)?.[1] as any,
+              0,
+              2,
+            )}</p>`}
+          />
+          <L2RollupFee
+            data={_dataChart.addresses}
+            prefix='Ξ'
+            title={`<p>Active Addresses</p><p>Ξ${formatCurrency(
+              (
+                _dataChart.addresses?.[_dataChart.addresses.length - 1] as any
+              )?.[1] as any,
+              0,
+              2,
+            )}</p>`}
+          />
+          <L2RollupFee
+            data={_dataChart.fees}
+            prefix='$'
+            title={`<p>Fees Paid by Users</p><p>$${formatCurrency(
+              (
+                _dataChart.fees?.[_dataChart.fees.length - 1] as any
+              )?.[1] as any,
+              0,
+              2,
+            )}</p>`}
+          />
+        </SimpleGrid>
         <Flex
           className={s.totalContainer}
           bg="#FAFAFA"

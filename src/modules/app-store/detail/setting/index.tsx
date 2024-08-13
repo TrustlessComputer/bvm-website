@@ -338,7 +338,7 @@ const SettingView = ({
         <TopupModal
           show={showTopupModal}
           infor={{
-            paymentAddress: `${accountInforL2Service?.topUpWalletAddress}`,
+            paymentAddress: `${accountInforL2Service?.topupWalletAddress}`,
           }}
           onClose={() => {
             setShowTopupModal(false);
