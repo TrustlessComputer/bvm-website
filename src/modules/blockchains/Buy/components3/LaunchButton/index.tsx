@@ -88,10 +88,10 @@ const LaunchButton = ({
       return 'Connect';
     }
     if (needContactUs) {
-      return 'Contact Us';
+      return 'Launch';
     }
     if (isUpdate) {
-      return 'Update';
+      return 'Update'; //Update ?? (flow Update)
     }
     return 'Launch';
   }, [loggedIn, isUpdate, needContactUs]);
@@ -412,14 +412,14 @@ const LaunchButton = ({
               <div className={s.top}>
                 {isSubmiting ? <Spinner color="#fff" /> : <p>{titleButton}</p>}
 
-                {needContactUs && (
+                {/* {needContactUs && (
                   <img
                     src={'/icons/info-circle.svg'}
                     alt="icon"
                     width={24}
                     height={24}
                   />
-                )}
+                )} */}
 
                 {!needContactUs && (
                   <div className={`${s.icon}`}>
