@@ -14,7 +14,7 @@ import {
 } from '@/stores/states/l2services/selector';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import sleep from '@/utils/sleep';
-import { Spinner, Text, useDisclosure } from '@chakra-ui/react';
+import { Spinner, Text, useDisclosure, Image } from '@chakra-ui/react';
 import { useOrderFormStore } from '../../stores/index_v2';
 import useOrderFormStoreV3 from '../../stores/index_v3';
 import { formValuesAdapter } from './FormValuesAdapter';
@@ -412,14 +412,16 @@ const LaunchButton = ({
               <div className={s.top}>
                 {isSubmiting ? <Spinner color="#fff" /> : <p>{titleButton}</p>}
 
-                {/* {needContactUs && (
-                  <img
-                    src={'/icons/info-circle.svg'}
-                    alt="icon"
-                    width={24}
-                    height={24}
-                  />
-                )} */}
+                {needContactUs && (
+                  <div className={`${s.icon}`}>
+                    <ImagePlaceholder
+                      src={'/launch.png'}
+                      alt={'launch'}
+                      width={48}
+                      height={48}
+                    />
+                  </div>
+                )}
 
                 {!needContactUs && (
                   <div className={`${s.icon}`}>
