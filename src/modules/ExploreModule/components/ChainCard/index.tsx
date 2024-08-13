@@ -11,6 +11,7 @@ export type TChainCard = {
   image: string;
   social: Array<{ link: string; icon: string }>;
   tags: Array<string>;
+  homeImage?: string;
 };
 
 export default function ChainCard({ idx, ...props }: TChainCard) {

@@ -1,5 +1,6 @@
 import { TDappCardProps } from '@/modules/ExploreModule/components/DappCard';
 import { TChainCard } from '@/modules/ExploreModule/components/ChainCard';
+import { CDN_URL } from '@/config';
 
 export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   {
@@ -13,6 +14,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
       url: 'https://eternalai.org/app',
       target: '_blank',
     },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-imagine.png`,
   },
   {
     image: '/explore/dapp2.png',
@@ -22,6 +24,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
     bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%);',
     tags: ['Bitcoin Wars Chain'],
     link: { url: '/bitcoin-wars', target: '' },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   },
   {
     image: '/explore/dapp3.png',
@@ -35,6 +38,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
       url: 'https://runechain.com/',
       target: '_blank',
     },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-runedex.png`,
   },
   {
     image: '/explore/dapp4.png',
@@ -48,6 +52,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
       url: 'https://nakachain.xyz/',
       target: '_blank',
     },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-nakadex.png`,
   },
   {
     image: '/explore/runfun.png',
@@ -61,6 +66,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
       url: 'https://runes-fun.runechain.com',
       target: '_blank',
     },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-runefun.png`,
   },
   {
     image: '/explore/alpha.png',
@@ -74,6 +80,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
       url: 'https://alpha.wtf',
       target: '_blank',
     },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-alpha.png`,
   },
 ];
 
@@ -94,6 +101,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
       },
     ],
     tags: ['L2', 'Optimistic Rollup'],
+    homeImage: `${CDN_URL}/pages/landing-v4/home-rollups-nakachain.png`,
   },
   {
     image: '/explore/eternal.png',

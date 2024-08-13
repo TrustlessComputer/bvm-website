@@ -15,6 +15,7 @@ export type TDappCardProps = {
     url: string;
     target: string;
   };
+  homeImage: string;
 };
 
 export default function DappCard({
