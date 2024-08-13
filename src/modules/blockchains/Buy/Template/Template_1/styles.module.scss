@@ -1,0 +1,29 @@
+.container {
+  //flex-direction: column;
+  //padding: calc(env(safe-area-inset-top)) env(safe-area-inset-right)
+  //env(safe-area-inset-bottom) env(safe-area-inset-left);
+  //min-height: 100dvh;
+  //overflow: hidden;
+  //width: 100%;
+  //position: relative;
+  //
+  //@include is-mobile {
+  //  padding-top: calc(
+  //          0px + var(--contact-height) + var(--banner-height) +
+  //          env(safe-area-inset-top)
+  //  );
+  //  padding-left: env(safe-area-inset-left);
+  //  padding-right: env(safe-area-inset-right);
+  //  padding-bottom: var(--footer-height);
+  //}
+
+  display: grid;
+  grid-template-columns: 1fr 432px;
+  width: 100%;
+  gap: 55px;
+  .template_wrapper {
+    background: black;
+    border-radius: 12px;
+    padding: var(--container-padding);
+  }
+}

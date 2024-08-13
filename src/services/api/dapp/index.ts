@@ -3,15 +3,17 @@ import { API_BASE_URL, isLocal } from '@/config';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import {
   setChain,
-  setConfigs,
+  setConfigs, setDappConfigs,
   setLoading,
   setTokens,
 } from '@/stores/states/dapp/reducer';
-import { IReqDapp } from '@/services/api/dapp/types';
+import { IDappConfigs, IReqDapp } from '@/services/api/dapp/types';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import CDappApiClient from '@/services/api/dapp/dapp.client';
 import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 import { isLocalhost } from '@/utils/helpers';
+import { templateMapper } from '@/services/api/dapp/utils';
+import { capitalizeFirstLetter } from '@web3auth/ui';
 
 class CDappAPI {
   private dappState = useAppSelector(dappSelector);
@@ -57,6 +59,25 @@ class CDappAPI {
     }
   };
 
+  getDappConfigs = async ({ dappURL }: { dappURL: string }): Promise<IDappConfigs | undefined> => {
+    try {
+      let configs = (await this.http.get(
+        `${dappURL}/api/configs`,
+      )) as any;
+      configs = {
+        ...configs,
+        app_name: capitalizeFirstLetter(configs?.app_name || configs?.bvm_domain || "")
+      };
+      configs = {
+        ...configs,
+        template: templateMapper(configs),
+      }
+      return configs;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   prepareDappParams = async (params: IReqDapp) => {
     this.dispatch(setLoading(true));
 
@@ -89,7 +110,10 @@ class CDappAPI {
         })
         .filter((item) => !!item);
 
+      const dappConfigs = await this.getDappConfigs({ dappURL: chain.dappURL });
+
       this.dispatch(setConfigs(configs));
+      this.dispatch(setDappConfigs(dappConfigs));
     } catch (error) {
       console.log(error);
     } finally {

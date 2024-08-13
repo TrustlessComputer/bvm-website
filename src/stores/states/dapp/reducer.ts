@@ -9,6 +9,7 @@ const initialState: DappState = {
   stakingPools: [],
   airdropTasks: [],
   airdrops: [],
+  dappConfigs: undefined,
 };
 
 const slice = createSlice({
@@ -36,6 +37,9 @@ const slice = createSlice({
     setAirdrops: (state, actions) => {
       state.airdrops = actions.payload;
     },
+    setDappConfigs: (state, actions) => {
+      state.dappConfigs = actions.payload;
+    }
   },
 });
 
@@ -47,6 +51,7 @@ export const {
   setStakingPools,
   setAirdropTasks,
   setAirdrops,
+  setDappConfigs
 } = slice.actions;
 
 export default slice.reducer;
