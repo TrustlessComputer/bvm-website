@@ -441,10 +441,12 @@ const useDapps = () => {
   }, [dapps]);
 
   const fetchDapps = () => {
-    const _dapps = isUpdateChain
+    const _dapps = [accountAbstractionAsADapp];
+    const otherDapps = isUpdateChain
       ? cloneDeep(configs)
       : cloneDeep(dappMockupData); // defi_apps
-    _dapps.push(accountAbstractionAsADapp);
+
+    _dapps.push(...otherDapps);
 
     const sortedDapps = _dapps.sort((a, b) => a.order - b.order);
 

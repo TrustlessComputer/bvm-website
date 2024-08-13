@@ -10,7 +10,7 @@
     position: relative;
     background: white;
     //padding: 20px;
-    padding: 15px 30px 10px 10px;
+    padding: 15px 30px 20px 35px;
   }
 
   &_top {
@@ -92,6 +92,7 @@
   z-index: 4;
   :global {
     .react-flow__handle {
+      background-color: #777777 !important;
       position: relative !important;
     }
   }

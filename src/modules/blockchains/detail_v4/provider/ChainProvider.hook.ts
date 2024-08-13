@@ -1,8 +1,11 @@
 'use client';
 
-import { APP_BLOCKCHAIN } from '@/stores/states/l2services/constants';
-import { IDAppInstalled } from '@/stores/states/l2services/types';
-import { DAppKeys, IModelOption } from '@/types/customize-model';
+import { IDAppInstalled, OrderStatus } from '@/stores/states/l2services/types';
+import {
+  DAppKeys,
+  IModelCategory,
+  IModelOption,
+} from '@/types/customize-model';
 import { useContext, useMemo } from 'react';
 import { ChainContext } from './ChainProvider';
 
@@ -16,6 +19,106 @@ export const useChainProvider = () => {
 
   const { order } = context;
 
+  const isUpdateFlow = useMemo(() => {
+    return !!order;
+  }, [order]);
+
+  const isBlockChainReady = useMemo(() => {
+    return order?.status === OrderStatus.Started;
+  }, [order]);
+
+  const getBlockChainStatus = () => {
+    let statusStr = 'Ready';
+    let statusColorStr = '#00AA6C';
+    let borderStatusStr = '#EEFFF9';
+
+    if (order) {
+      switch (order.status) {
+        case OrderStatus.Rejected:
+          statusStr = 'Failed';
+          statusColorStr = '#FA4E0E';
+          borderStatusStr = '#FFF2EE';
+          break;
+        case OrderStatus.WaitingPayment:
+          statusStr = 'Waiting for payment';
+          statusColorStr = '#FFC700';
+          borderStatusStr = '#FFF6D8';
+          break;
+        case OrderStatus.Processing:
+          statusStr = 'Setting up';
+          statusColorStr = '#FFC700';
+          borderStatusStr = '#FFF6D8';
+          break;
+        case OrderStatus.Started:
+          statusStr = 'Running';
+          statusColorStr = '#00AA6C';
+          borderStatusStr = '#EEFFF9';
+          break;
+        case OrderStatus.Resume:
+          statusStr = 'Please wait for service to resume';
+          statusColorStr = '#00AA6C';
+          borderStatusStr = '#EEFFF9';
+          break;
+        case OrderStatus.InsufficientBalance:
+          statusStr = `Must top up to your account`;
+          statusColorStr = '#FA4E0E';
+          borderStatusStr = '#FFF2EE';
+          break;
+        case OrderStatus.Ended:
+          statusStr = 'Ended';
+          statusColorStr = '#FA4E0E';
+          borderStatusStr = '#FFF2EE';
+          break;
+        case OrderStatus.Canceled:
+          statusStr = 'Canceled';
+          statusColorStr = '#FFC700';
+          borderStatusStr = '#FFF6D8';
+          break;
+        case OrderStatus.IsDown:
+          statusStr = 'Down';
+          statusColorStr = '#ECECED';
+          borderStatusStr = '#B6B6B6';
+          break;
+      }
+    }
+    return {
+      statusStr,
+      statusColorStr,
+      borderStatusStr,
+    };
+  };
+
+  const getDAppStatus = (dAppKey: DAppKeys) => {
+    switch (dAppKey) {
+      //
+      case 'blockchain':
+        return getBlockChainStatus();
+
+      //
+      case 'btc_bridge':
+        break;
+      case 'eth_bridge':
+        break;
+
+      //
+      case 'account_abstraction':
+        break;
+      case 'create_token':
+        break;
+      case 'staking':
+        break;
+      case 'dex':
+        break;
+      case 'order_book':
+        break;
+      case 'perpetual':
+        break;
+
+      default:
+        break;
+    }
+  };
+
   const getDAppInstalledByAppCode = (dAppName: DAppKeys) => {
     return order?.dApps?.find(
       (item) => item.appCode?.toLowerCase() === dAppName?.toLowerCase(),
@@ -26,24 +129,29 @@ export const useChainProvider = () => {
     dAppInstalled?: IDAppInstalled,
     dAppName?: DAppKeys,
   ) => {
-    let statusStr = '';
-    let statusColor = 'transparent';
+    let statusCode = 'need_config';
+    let statusStr = 'Need config';
+    let statusColor = '#FF4747';
 
     if (dAppName === 'blockchain') {
+      statusCode = 'Running';
       statusStr = 'Running';
       statusColor = '#00AA6C';
     } else if (dAppInstalled) {
       switch (dAppInstalled.status) {
         case 'new':
+          statusCode = 'new';
           statusStr = 'New'; // Map text if needed (Ex: Setting up)
           statusColor = '#F9D03F';
           break;
         case 'processing':
+          statusCode = 'processing';
           statusStr = 'Processing'; // Map text if needed
           statusColor = '#F9D03F';
           break;
 
         case 'done':
+          statusCode = 'done';
           statusStr = 'Done'; // Map text if needed
           statusColor = '#00AA6C';
           break;
@@ -51,18 +159,20 @@ export const useChainProvider = () => {
           break;
       }
     } else {
+      statusCode = 'need_config';
       statusStr = 'Need config';
       statusColor = '#FF4747';
     }
 
     return {
+      statusCode,
       statusStr,
       statusColor,
     };
   };
 
   const dAppListAvailable = useMemo(() => {
-    let dAppList: IModelOption[] = [APP_BLOCKCHAIN];
+    let dAppList: IModelOption[] = [];
     if (order) {
       order.selectedOptions?.filter((item: { options: IModelOption[] }) => {
         item.options.map((option: IModelOption) => {
@@ -87,8 +197,29 @@ export const useChainProvider = () => {
     });
   }, [order]);
 
+  const selectedCategoryMapping = useMemo(() => {
+    if (!order?.selectedOptions) return undefined;
+
+    const mapping: Record<string, IModelCategory> = {};
+
+    order.selectedOptions.forEach((category) => {
+      mapping[category.key] = category;
+    });
+
+    return mapping;
+  }, [order?.selectedOptions]);
+
   return {
     ...context,
+    isUpdateFlow,
+    chainData: order,
+    order,
     dAppListAvailable,
+    isBlockChainReady,
+    selectedCategoryMapping,
+
+    //
+    getDAppStatus,
+    getBlockChainStatus,
   };
 };

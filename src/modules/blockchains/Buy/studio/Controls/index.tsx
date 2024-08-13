@@ -26,8 +26,9 @@ export default function StudioControls() {
   const dappState = useAppSelector(dappSelector);
 
   const params = useParams();
-
   const isUpdateChain = React.useMemo(() => !!params?.id, [params?.id]);
+
+  // console.log('dappMapping :: ', dappMapping);
 
   const renderChainLego = (
     item: IModelCategory,
@@ -258,10 +259,9 @@ export default function StudioControls() {
                           ),
                         )
                       : dappMapping[chainKeyToDappKey(option.key)];
-                    // console.log("SANG TEST: ", {
-                    //   dapp,
-                    //   apiMppping: dappMapping[chainKeyToDappKey(option.key)]
-                    // });
+
+                    // console.log('dapp', dapp);
+
                     const dappIndex = dapps.findIndex(
                       (d) => d.key === chainKeyToDappKey(option.key),
                     );

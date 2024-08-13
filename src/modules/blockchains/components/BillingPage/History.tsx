@@ -48,7 +48,8 @@ export default () => {
   };
 
   const renderItem = (item: HistoryItemResp, index: number) => {
-    const { created_at, amount, status, type, instanceInfo } = item;
+    const { created_at, amount, status, type, instanceInfo, orderTypeVersion } =
+      item;
 
     const formatAmountColor = () => {
       const result = {
@@ -97,7 +98,11 @@ export default () => {
           textTransform={'capitalize'}
           className={s.font}
         >
-          {HistoryTypeMap[type] || '--'}
+          {type === 3
+            ? orderTypeVersion != 3
+              ? 'Monthly Fee'
+              : 'Daily Fee'
+            : HistoryTypeMap[type] || '--'}
         </Th>
         <Th
           width="20%"

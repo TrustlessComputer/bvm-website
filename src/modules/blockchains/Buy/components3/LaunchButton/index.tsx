@@ -274,10 +274,28 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       chainId: orderDetail.chainId,
       dynamicFormValues: dynamicForm,
     });
+    const stakingForms = retrieveFormsByDappKey({
+      dappKey: 'staking',
+    });
 
+    console.log('LEON LOG: 111',stakingForms);
     try {
+      // Update and Call API install (behind the scene form BE Phuong)
       const result = await orderUpdateV2(params, orderDetail.orderId);
       if (result) {
+        if (stakingForms && stakingForms.length > 0) {
+          await onSubmitStaking({
+            forms: stakingForms,
+          });
+        }
+
+        // TO DO [Leon]
+        // Call API Config DApp if is exist dapp (issues token, staking, ....) daragged into Data View
+
+        // try {
+        //   // const res =  await ...
+        // } catch (error) {}
+
         isSuccess = true;
         dispatch(setOrderSelected(result));
       }
@@ -306,10 +324,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     setSubmitting(true);
 
     let isSuccess = false;
-
-    const stakingForms = retrieveFormsByDappKey({
-      dappKey: 'staking',
-    });
 
     const form: FormOrder = {
       chainName,
@@ -526,7 +540,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           show={isOpenTopUpModal}
           infor={{
             paymentAddress: `${
-              accountInforL2Service?.topUpWalletAddress || '--'
+              accountInforL2Service?.topupWalletAddress || '--'
             }`,
           }}
           onClose={onCloseTopUpModal}

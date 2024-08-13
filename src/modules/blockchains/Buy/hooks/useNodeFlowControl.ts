@@ -1,15 +1,8 @@
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
-import {
-  draggedDappIndexesSignal,
-  draggedIds2DSignal,
-} from '@/modules/blockchains/Buy/signals/useDragSignal';
-import {
-  cloneDeep,
-  dappKeyToChainKey,
-  isTwoObjectEqual,
-} from '@/modules/blockchains/Buy/utils';
+import { draggedDappIndexesSignal, draggedIds2DSignal } from '@/modules/blockchains/Buy/signals/useDragSignal';
+import { cloneDeep, dappKeyToChainKey, isTwoObjectEqual } from '@/modules/blockchains/Buy/utils';
 import { useSignalEffect } from '@preact/signals-react';
-import { useStoreApi } from '@xyflow/react';
+import { MarkerType, useStoreApi } from '@xyflow/react';
 import React, { useEffect } from 'react';
 import useFlowStore from '../stores/useFlowStore';
 
@@ -20,7 +13,7 @@ import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
   const { categories } = useModelCategoriesStore();
-  const { nodes, setNodes } = useFlowStore();
+  const { nodes, setNodes, setEdges, edges } = useFlowStore();
   const store = useStoreApi();
   const {
     transform: [transformX, transformY, zoomLevel],
@@ -57,8 +50,7 @@ export default function useNodeFlowControl() {
     } else if (!dragState.oneD.every((v) => v === -1)) {
       const totalTemplateDapps = (templateDapps || []).length;
       const needSubtract = totalTemplateDapps > 0;
-      const index =
-        dragState.oneD[0] + 1 + totalTemplateDapps - (needSubtract ? 1 : 0);
+      const index = dragState.oneD[0] + 1 + totalTemplateDapps;
       const newNodes = cloneDeep(nodes);
 
       newNodes[index] = {
@@ -146,8 +138,21 @@ export default function useNodeFlowControl() {
       y: transformedY,
     };
 
+    const rootNode = 'blockchain'
+
+    // Update source handle of root node
+    const getHandleNodeBlockChain = nodes.find(item => item.id === rootNode);
+    // Find handle have in root node ?
+    const isHandleExists = edges.some(handle => handle.sourceHandle === `${rootNode}-s-${thisDapp.title}`)
+    let nodesData = nodes
+
+    if(!isHandleExists) {
+      getHandleNodeBlockChain?.data?.sourceHandles?.push(`${rootNode}-s-${thisDapp.title}`);
+      nodesData = nodes.map((item) =>  item.id === rootNode ? getHandleNodeBlockChain : item)
+    }
+
     setNodes([
-      ...nodes,
+      ...nodesData,
       {
         id: `${nodes.length}`,
         type: 'customBox',
@@ -157,14 +162,36 @@ export default function useNodeFlowControl() {
           status: 'Drafting',
           isChain: false,
           dapp: thisDapp,
+          targetHandles: [`${nodes.length}-t-${rootNode}`],
           ids: draggedIds2D[draggedIds2D.length - 1],
           baseIndex: draggedIds2D.length - 1,
           categoryOption,
         },
-        // origin: [0.0, 0.0],
         position: positionTo,
       },
     ]);
+
+    setEdges([...edges, {
+      id: `${edges.length + 1}`,
+      source: rootNode,
+      sourceHandle:  `${rootNode}-s-${thisDapp.title}`,
+      target: `${nodes.length}`,
+      targetHandle: `${nodes.length}-t-${rootNode}`,
+      type: 'customEdge',
+      label: 'Output 1',
+      markerEnd: {
+        type: MarkerType.Arrow,
+        width: 25,
+        height: 25,
+        strokeWidth: 1,
+        color: '#AAAAAA',
+      },
+      style: {
+        stroke: '#AAAAAA',
+        strokeWidth: 2,
+      }
+    }]);
+
     resetDragState();
   };
 

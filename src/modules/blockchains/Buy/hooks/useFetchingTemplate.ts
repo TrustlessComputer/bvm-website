@@ -10,19 +10,30 @@ import { commonSelector } from '@/stores/states/common/selector';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { compareString } from '@/utils/string';
+import { useParams } from 'next/navigation';
 import React from 'react';
 import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
 import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
 import { parseStakingPools } from '../../dapp/parseUtils/staking';
+import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { parseDappModel } from '../../utils';
-import { templateIds2DSignal } from '../signals/useDragSignal';
+import { accountAbstractionAsADapp } from '../mockup_3';
+import {
+  draggedDappIndexesSignal,
+  templateIds2DSignal,
+} from '../signals/useDragSignal';
 import { formTemplateDappSignal } from '../signals/useFormDappsSignal';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore from '../stores/useFlowStore';
 import { DappType } from '../types';
-import { FormDappUtil } from '../utils';
+import { cloneDeep, FormDappUtil } from '../utils';
+import { categoriesMockup } from '@/modules/blockchains/Buy/Buy.data';
 
 export default function useFetchingTemplate() {
+  const params = useParams();
+  const isUpdateChainPage = React.useMemo(() => !!params?.id, [params?.id]);
+
+  const { order, selectedCategoryMapping } = useChainProvider();
   const { nodes, setNodes } = useFlowStore();
   const {
     setParsedCategories,
@@ -30,9 +41,10 @@ export default function useFetchingTemplate() {
     setCategoriesTemplates,
     categoriesTemplates,
   } = useModelCategoriesStore();
-  const { setField } = useOrderFormStoreV3();
+  const { field, setFields } = useOrderFormStoreV3();
+
   const { l2ServiceUserAddress } = useWeb3Auth();
-  const { initTemplate } = useTemplate();
+  const { initTemplate, setTemplate } = useTemplate();
   const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
 
@@ -41,11 +53,6 @@ export default function useFetchingTemplate() {
   const { tokens, configs, airdrops, airdropTasks, stakingPools } = dappState;
 
   const [apiCount, setApiCount] = React.useState(0);
-
-  // console.log(
-  //   '🚀 -> file: useFetchingTemplate.ts:35 -> useFetchingTemplate -> dappState ::',
-  //   dappState,
-  // );
 
   const convertData = (data: IModelCategory[]) => {
     const newData = data?.map((item) => {
@@ -66,6 +73,11 @@ export default function useFetchingTemplate() {
   };
 
   const fetchData = async () => {
+    const isAAInstalled = order?.selectedOptions?.some(
+      (opt) => opt.key === 'wallet',
+    );
+
+    const newFields = cloneDeep(field);
     const [categories, templates] = await Promise.all([
       // getModelCategories(l2ServiceUserAddress),
       getModelCategories('0x4113ed747047863Ea729f30C1164328D9Cc8CfcF'),
@@ -73,21 +85,46 @@ export default function useFetchingTemplate() {
     ]);
 
     // Use mockup data
-    // const sortedCategories = (categoriesMockup || []).sort(
+    const sortedCategories = (categoriesMockup || []).sort(
     // Use API
-    const sortedCategories = (categories || []).sort(
+    // const sortedCategories = (categories || []).sort(
       (a, b) => a.order - b.order,
     );
+    console.log('JSON.stringify(sortedCategories)', JSON.stringify(sortedCategories));
     sortedCategories.forEach((_field) => {
-      setField(_field.key, null);
+      newFields[_field.key] = {
+        value: null,
+        dragged: false,
+      };
     });
+
+    if (isAAInstalled) {
+      nodes.unshift({
+        id: '1',
+        type: 'customBox',
+        data: {
+          label: 'Account Abstraction',
+          baseIndex: 0,
+          dapp: accountAbstractionAsADapp,
+          categoryOption: order?.selectedOptions?.find(
+            (opt) => opt.key === 'wallet',
+          )?.options[0],
+          isChain: false,
+          ids: [],
+        },
+        dragHandle: '.drag-handle-area',
+        position: { x: 40, y: 40 },
+      });
+
+      draggedDappIndexesSignal.value = [0];
+    }
 
     nodes.unshift({
       id: 'blockchain',
       type: 'chainNode',
       data: {
         label: 'Blockchain',
-        status: 'Ready',
+        sourceHandles: [],
         isChain: true,
       },
       dragHandle: '.drag-handle-area',
@@ -98,6 +135,7 @@ export default function useFetchingTemplate() {
     setCategories(sortedCategories);
     setCategoriesTemplates(templates);
     setNodes(nodes);
+    setFields(newFields);
     setApiCount((prev) => prev + 1);
   };
 
@@ -204,19 +242,6 @@ export default function useFetchingTemplate() {
       startIndex: parsedTokensData.length + parsedAirdropsData.length,
     });
 
-    // console.log('parseDappApiToDappModel', {
-    //   form: {
-    //     ...parsedTokensForm.fieldValue,
-    //     ...parsedAirdropsForm.fieldValue,
-    //     ...parsedStakingPoolsForm.fieldValue,
-    //   },
-    //   dapps: {
-    //     ...parsedTokensData,
-    //     ...parsedAirdropsData,
-    //     ...parsedStakingPoolsData,
-    //   },
-    // });
-
     setTemplateDapps([
       ...parsedTokensData,
       ...parsedAirdropsData,
@@ -260,7 +285,7 @@ export default function useFetchingTemplate() {
 
   React.useEffect(() => {
     fetchData();
-  }, []);
+  }, [order]);
 
   React.useEffect(() => {
     parseDappApiToDappModel();
@@ -274,6 +299,10 @@ export default function useFetchingTemplate() {
   }, [apiCount]);
 
   React.useEffect(() => {
-    initTemplate(0);
-  }, [categoriesTemplates]);
+    if (isUpdateChainPage && order) {
+      setTemplate(order.selectedOptions || []);
+    } else {
+      initTemplate(0);
+    }
+  }, [order, categoriesTemplates]);
 }

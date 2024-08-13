@@ -14,10 +14,15 @@ import {
   IUserContest,
 } from '@/services/api/EternalServices/types';
 import s from './Leaderboard.module.scss';
-import { formatCurrency } from '@/utils/format';
+import { formatAddressOrName, formatCurrency } from '@/utils/format';
 import { useDispatch } from 'react-redux';
 import { openModal } from '@/stores/states/modal/reducer';
 import LeaderboardModal from './LeaderboardModal';
+import SvgInset from '@/components/SvgInset';
+import copy from 'copy-to-clipboard';
+import toast from 'react-hot-toast';
+import { isAddress } from 'ethers/lib/utils';
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 
 type Props = {
   currentUserContest?: IUserContest;
@@ -70,18 +75,15 @@ const Leaderboard = (props: Props) => {
     if (index >= 0 && isCurrentUser) {
       return null;
     }
-
-    const map = data.contest_problems?.reduce(
-      (prev, item) => ({
-        ...prev,
-        [item.code]: item,
-      }),
-      {} as Record<string, IContestProblem>,
-    );
     const lastProblem = data.contest_problems?.sort(
       (a, b) =>
         new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
     )?.[0];
+
+    const nameText =
+      data.user.name ||
+      data.user.twitter_username ||
+      data.user.email?.split('@')?.[0];
 
     return (
       <div
@@ -90,23 +92,40 @@ const Leaderboard = (props: Props) => {
         <Box className={s.first_col}>{data.rank}</Box>
         <div className={cn(s.second_col, s.name)}>
           <Flex alignItems={'center'} gap="8px" style={{ overflow: 'hidden' }}>
-            <Avatar
-              url={data.user.profile_image}
-              width={20}
-              circle
-              className={s.avatar}
-            />
+            {isAddress(data.user.profile_image) ? (
+              <Jazzicon
+                diameter={20}
+                seed={jsNumberForAddress(data.user.profile_image)}
+              />
+            ) : (
+              <Avatar
+                url={data.user.profile_image}
+                width={20}
+                circle
+                className={s.avatar}
+              />
+            )}
             <p
-              title={data.user.name}
               style={{
                 whiteSpace: 'nowrap',
                 textOverflow: 'ellipsis',
                 color: isCurrentUser ? '#8643FB' : 'inherit',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
               }}
             >
-              {data.user.name ||
-                data.user.twitter_username ||
-                data.user.email?.split('@')?.[0]}
+              {formatAddressOrName(nameText)}
+              {isAddress(nameText) && (
+                <SvgInset
+                  onClick={() => {
+                    copy(nameText);
+                    toast.success('Copied');
+                  }}
+                  style={{ cursor: 'pointer' }}
+                  svgUrl="/icons/ic-copy.svg"
+                />
+              )}
             </p>
           </Flex>
         </div>

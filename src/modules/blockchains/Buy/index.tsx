@@ -178,7 +178,7 @@ export const BuyPage = React.memo((props: Props) => {
             'Operating your Bitcoin L2 testnet requires 1 $BVM per day.'
           }
           infor={{
-            paymentAddress: `${accountInforL2Service?.topUpWalletAddress}`,
+            paymentAddress: `${accountInforL2Service?.topupWalletAddress}`,
           }}
           onClose={() => {
             setShowTopupModal(false);
