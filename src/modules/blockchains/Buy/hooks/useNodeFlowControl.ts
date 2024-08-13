@@ -173,7 +173,7 @@ export default function useNodeFlowControl() {
       type: 'customEdge',
       label: 'Output 1',
       markerEnd: {
-        type: MarkerType.Arrow,
+        type: MarkerType.ArrowClosed,
       },
     }]);
 

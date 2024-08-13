@@ -23,6 +23,7 @@ import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore from '../stores/useFlowStore';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
+import { categoriesMockup } from '@/modules/blockchains/Buy/Buy.data';
 
 export default function useFetchingTemplate() {
   const params = useParams();
@@ -78,11 +79,12 @@ export default function useFetchingTemplate() {
     ]);
 
     // Use mockup data
-    // const sortedCategories = (categoriesMockup || []).sort(
+    const sortedCategories = (categoriesMockup || []).sort(
     // Use API
-    const sortedCategories = (categories || []).sort(
+    // const sortedCategories = (categories || []).sort(
       (a, b) => a.order - b.order,
     );
+    console.log('JSON.stringify(sortedCategories)', JSON.stringify(sortedCategories));
     sortedCategories.forEach((_field) => {
       newFields[_field.key] = {
         value: null,
