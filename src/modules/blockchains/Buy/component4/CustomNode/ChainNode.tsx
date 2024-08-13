@@ -5,12 +5,10 @@ import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
 import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 import { OrderItem } from '@/stores/states/l2services/types';
-import { DappModel } from '@/types/customize-model';
-import { HandleType, Node, NodeProps, Position } from '@xyflow/react';
 import { DappModel, IModelCategory } from '@/types/customize-model';
 import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
 import cn from 'classnames';
-import { memo } from 'react';
+import React, { memo } from 'react';
 import Label from '../../components3/Label';
 import ChainLegoParent from '../../components3/LegoParent';
 import useGettingDappLego from '../../hooks/useGettingDappLego';
@@ -47,7 +45,7 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { field } = useOrderFormStoreV3();
   const { isCapture } = useCaptureStore();
 
-  const { order, chainData, selectedCategoryMapping, getBlockChainStatus } =
+  const { order, chainData, getBlockChainStatus } =
     useChainProvider();
   const { statusStr, statusColorStr, borderStatusStr } = getBlockChainStatus();
 
