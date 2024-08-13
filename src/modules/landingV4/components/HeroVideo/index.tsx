@@ -85,7 +85,9 @@ export default function HeroVideo() {
                   <div>
                     <a
                       href={'#'}
-                      // onClick={() => setOpen(true)}
+                      onClick={() =>
+                        window.open('https://docs.bvm.network/bvm')
+                      }
                       style={{ textAlign: 'center', display: 'block' }}
                     >
                       <img
