@@ -63,42 +63,42 @@ export const NAV_ITEMS: Array<NavItem> = [
   },
 ];
 export const NAV_ITEMS_LEFT: Array<NavItem> = [
-  {
-    label: 'Products',
-    href: '#',
-    isNewWindow: false,
-    isHide: false,
-    groupType: 'production',
-    GroupDropDown: GroupProducts,
-  },
-  {
-    label: 'Solutions',
-    href: '#',
-    isNewWindow: false,
-    isHide: false,
-    groupType: 'solutions',
-    GroupDropDown: GroupSolutions,
-  },
-  {
-    label: 'Developers',
-    href: '/developers',
-    isNewWindow: false,
-    isHide: false,
-    groupType: 'developers',
-    GroupDropDown: GroupDeveloper,
-  },
-  {
-    label: 'Research',
-    href: '/research',
-    isNewWindow: false,
-    isHide: false,
-  },
-  {
-    label: 'Explore',
-    href: '/explore',
-    isNewWindow: false,
-    isHide: false,
-  },
+  // {
+  //   label: 'Products',
+  //   href: '#',
+  //   isNewWindow: false,
+  //   isHide: false,
+  //   groupType: 'production',
+  //   GroupDropDown: GroupProducts,
+  // },
+  // {
+  //   label: 'Solutions',
+  //   href: '#',
+  //   isNewWindow: false,
+  //   isHide: false,
+  //   groupType: 'solutions',
+  //   GroupDropDown: GroupSolutions,
+  // },
+  // {
+  //   label: 'Developers',
+  //   href: '/developers',
+  //   isNewWindow: false,
+  //   isHide: false,
+  //   groupType: 'developers',
+  //   GroupDropDown: GroupDeveloper,
+  // },
+  // {
+  //   label: 'Research',
+  //   href: '/research',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
+  // {
+  //   label: 'Explore',
+  //   href: '/explore',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
   // {
   //   label: 'Bitcoin Rollups',
   //   href: '/bitcoin-rollups',
@@ -117,6 +117,24 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   //   isNewWindow: false,
   //   isHide: false,
   // },
+  {
+    label: 'Bitcoin Appstore',
+    href: '/explore',
+    isNewWindow: false,
+    isHide: false,
+  },
+  {
+    label: 'Build on Bitcoin',
+    href: '/build',
+    isNewWindow: false,
+    isHide: false,
+  },
+  {
+    label: 'BVM',
+    href: '/bvm',
+    isNewWindow: false,
+    isHide: false,
+  },
 ];
 
 export const NAV_ITEMS_RIGHT: Array<NavItem> = [
