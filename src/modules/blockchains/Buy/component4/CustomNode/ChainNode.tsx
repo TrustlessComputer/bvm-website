@@ -5,10 +5,12 @@ import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
 import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 import { OrderItem } from '@/stores/states/l2services/types';
+import { DappModel, IModelCategory } from '@/types/customize-model';
+import { HandleType, Node, NodeProps, Position } from '@xyflow/react';
 import { DappModel } from '@/types/customize-model';
 import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
 import cn from 'classnames';
-import { memo } from 'react';
+import React, { memo } from 'react';
 import Label from '../../components3/Label';
 import ChainLegoParent from '../../components3/LegoParent';
 import useGettingDappLego from '../../hooks/useGettingDappLego';
@@ -44,9 +46,28 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { overlappingId } = useOverlappingChainLegoStore();
   const { field } = useOrderFormStoreV3();
   const { isCapture } = useCaptureStore();
-  const { getBlockChainStatus } = useChainProvider();
 
+  const { order, chainData, getBlockChainStatus } = useChainProvider();
   const { statusStr, statusColorStr, borderStatusStr } = getBlockChainStatus();
+
+  const selectedCategoryMapping = React.useMemo(() => {
+    if (!order?.selectedOptions) return undefined;
+
+    const mapping: Record<string, IModelCategory> = {};
+
+    order.selectedOptions.forEach((category) => {
+      mapping[category.key] = category;
+    });
+
+    return mapping;
+  }, [order?.selectedOptions]);
+
+  console.log('ChainNode :: ', {
+    order,
+    chainData,
+    selectedOptionMapping: selectedCategoryMapping,
+  });
+
   return (
     // <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
     <div className={`${s.wrapperBox}`} style={{borderColor: statusColorStr}}>
@@ -124,6 +145,13 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
 
           {draggedFields.map((key, index) => {
             const item = parsedCategories?.find((i) => i.key === key);
+            const selectedCategory = selectedCategoryMapping?.[key];
+
+            // console.log('ChainNode -> draggedField.map :: ', {
+            //   key,
+            //   item,
+            //   selectedCategory,
+            // });
 
             if (!item || !parsedCategories) return null;
 
@@ -189,6 +217,15 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
 
             return item.options.map((option, opIdx) => {
               if (option.key !== field[item.key].value) return null;
+
+              const isSelected =
+                selectedCategory?.options.some(
+                  (_opt) => _opt.key === option.key,
+                ) || false;
+              const isUpdatable =
+                isSelected &&
+                selectedCategory?.updatable &&
+                typeof order !== 'undefined';
 
               return (
                 <ChainDraggable
