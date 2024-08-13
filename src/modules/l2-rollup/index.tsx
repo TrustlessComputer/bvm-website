@@ -37,6 +37,7 @@ enum SortRollupType {
   settle,
   tvl,
   lastBlock,
+  verification,
 }
 
 interface ISort {
@@ -125,6 +126,8 @@ const L2Rollup = () => {
                   return Number(item.tvl_btc || '0');
                 case SortRollupType.lastBlock:
                   return item.block_time;
+                case SortRollupType.verification:
+                  return item.verification;
                 default:
                   return Number(item.mgas || '0');
               }
@@ -494,6 +497,31 @@ const L2Rollup = () => {
           return (
             <Flex gap={3} alignItems={'center'} width={'100%'} px={'2px'}>
               <Text className={s.title}>{data.da || '-'}</Text>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'verification',
+        label: renderLabel('Verification', SortRollupType.verification),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: IRollupL2Info) {
+          return (
+            <Flex
+              gap={3}
+              alignItems={'center'}
+              width={'100%'}
+              maxW={'128px'}
+              px={'2px'}
+            >
+              <Text className={s.title}>{data.verification || '-'}</Text>
             </Flex>
           );
         },
