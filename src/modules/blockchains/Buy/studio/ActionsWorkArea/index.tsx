@@ -11,7 +11,7 @@ import { formDappSignal } from '../../signals/useFormDappsSignal';
 import useDragStore from '../../stores/useDragStore';
 import useFlowStore from '../../stores/useFlowStore';
 import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
-import type { IModelOption } from '@types/customize-model';
+import { IModelOption } from '@/types/customize-model';
 
 export default function ActionsWorkArea(): ReactElement {
   const { isCapture } = useCaptureStore();
