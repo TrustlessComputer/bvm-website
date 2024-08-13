@@ -142,11 +142,17 @@ export default function useNodeFlowControl() {
 
     // Update source handle of root node
     const getHandleNodeBlockChain = nodes.find(item => item.id === rootNode);
-    getHandleNodeBlockChain?.data?.sourceHandles?.push(`${rootNode}-s-${nodes.length}`);
-    const newNodes: any[] = nodes?.map((item) =>  item.id === rootNode ? getHandleNodeBlockChain : item)
+    // Find handle have in root node ?
+    const isHandleExists = edges.some(handle => handle.sourceHandle === `${rootNode}-s-${thisDapp.title}`)
+    let nodesData = nodes
+
+    if(!isHandleExists) {
+      getHandleNodeBlockChain?.data?.sourceHandles?.push(`${rootNode}-s-${thisDapp.title}`);
+      nodesData = nodes?.map((item) =>  item.id === rootNode ? getHandleNodeBlockChain : item)
+    }
 
     setNodes([
-      ...newNodes,
+      ...nodesData,
       {
         id: `${nodes.length}`,
         type: 'customBox',
@@ -168,7 +174,7 @@ export default function useNodeFlowControl() {
     setEdges([...edges, {
       id: `${edges.length + 1}`,
       source: rootNode,
-      sourceHandle:  `${rootNode}-s-${nodes.length}`,
+      sourceHandle:  `${rootNode}-s-${thisDapp.title}`,
       target: `${nodes.length}`,
       targetHandle: `${nodes.length}-t-${rootNode}`,
       type: 'customEdge',
