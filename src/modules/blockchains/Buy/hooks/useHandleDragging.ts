@@ -226,11 +226,11 @@ export default function useHandleDragging() {
       dappIndex: -1,
     };
 
-    // console.log(
-    //   '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
-    //   over,
-    //   active,
-    // );
+    console.log(
+      '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
+      over,
+      active,
+    );
 
     if (!over) return;
 
@@ -459,6 +459,15 @@ export default function useHandleDragging() {
 
       // Case 1.6: The lego just dragged is a block/single
       if ((activeIsABlock || activeIsASingle) && overIsABase) {
+        const dappIndexOfOver = draggedDappIndexesSignal.value[overBaseIndex];
+
+        if (JSON.stringify(dappIndexOfOver) !== JSON.stringify(dappIndex)) {
+          showValidateError('This lego is not belong to this module!');
+          idBlockErrorSignal.value = activeOriginalKey;
+
+          return;
+        }
+
         const totalPlaced = activeIsABlock
           ? draggedIds2D[overBaseIndex].filter((item) =>
               item.name.startsWith(

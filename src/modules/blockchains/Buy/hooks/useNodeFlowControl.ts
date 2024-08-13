@@ -64,6 +64,11 @@ export default function useNodeFlowControl() {
       const index = dragState.oneD[0] + 1 + totalTemplateDapps;
       const newNodes = cloneDeep(nodes);
 
+      console.log('handleNewDragState', {
+        newNodes,
+        index,
+      });
+
       newNodes[index] = {
         ...newNodes[index],
         data: {
@@ -80,6 +85,11 @@ export default function useNodeFlowControl() {
   };
 
   useSignalEffect(() => {
+    // console.log('useNodeFlowControl -> draggedIds2DSignal.value', {
+    //   new: draggedIds2DSignal.value,
+    //   old: draggedIds2D,
+    // });
+
     if (draggedIds2DSignal.value.length === draggedIds2D.length) {
       for (let i = 0; i < draggedIds2DSignal.value.length; i++) {
         if (!isTwoObjectEqual(draggedIds2DSignal.value[i], draggedIds2D[i])) {
