@@ -11,7 +11,7 @@ import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { IDApp } from '@/services/api/DAServices/types';
 
 const AppStoreModule = () => {
-  const { getDappsList, getMyOrderList, getAccountInfor } = useL2Service();
+  const { getDappsList, getMyOrderList } = useL2Service();
   const { loggedIn, login } = useWeb3Auth();
   const DAppList = useAppSelector(getDAListSelector); // TO DO
 
@@ -21,7 +21,6 @@ const AppStoreModule = () => {
     getDappsList();
     if (loggedIn) {
       getMyOrderList();
-      getAccountInfor();
     }
   }, [loggedIn]);
 

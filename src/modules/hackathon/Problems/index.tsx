@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState } from 'react';
+import React, { useState } from 'react';
 import s from './Problems.module.scss';
 import {
   Tabs,
@@ -6,16 +6,14 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-  Box,
   Image,
   Flex,
-  Text,
 } from '@chakra-ui/react';
-// import SubmitProblem from '../SubmitProblem';
-import IcThreeDots from '@/public/hackathon/ic-three-dots.svg';
 import ProblemTemplate from './Template';
 import ConnectedWallets from '../ConnectedWallets';
 import SvgInset from '@/components/SvgInset';
+import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
+import { PROBLEM_DATASOURCE } from './ProblemData';
 
 const Problems = ({
   isProblemPanelMaximized,
@@ -27,6 +25,8 @@ const Problems = ({
   setShowLeaderboard: (showLeaderboard: boolean) => void;
 }) => {
   const [tabIndex, setTabIndex] = useState<number>(0);
+
+  const { tracking } = useL2ServiceTracking();
 
   const handleExpandProblem = () => {
     if (isProblemPanelMaximized) {
@@ -59,33 +59,53 @@ const Problems = ({
       </div>
       <div
         className={s.body}
-        style={{
-          maxWidth: isProblemPanelMaximized ? '100%' : '700px',
-        }}
+        // style={{
+        //   maxWidth: isProblemPanelMaximized ? '100%' : '700px',
+        // }}
       >
-        <Tabs variant="soft-rounded" onChange={(index) => setTabIndex(index)}>
+        <Tabs
+          orientation={'vertical'}
+          variant="soft-rounded"
+          display="grid"
+          gridTemplateColumns={'168px 1fr'}
+          onChange={(index) => {
+            setTabIndex(index);
+            tracking('POC_SELECT_TAB_PROBLEM');
+          }}
+        >
           <Flex
-            alignItems={'center'}
             justifyContent={'space-between'}
-            flexWrap={'wrap'}
+            flexDirection={'column'}
+            gap="40px"
+            style={{ borderRight: '1px solid #2A2A2A' }}
           >
-            <TabList p="10px" mb="8px" gap="3px">
-              <Tab>Problem 1</Tab>
-              <Tab>Problem 2</Tab>
-              <Tab>Problem 3</Tab>
+            <TabList p="20px" gap="6px" maxHeight={'500px'} overflow="auto">
+              {PROBLEM_DATASOURCE.map((item, index) => (
+                <Tab
+                  style={{ textAlign: 'left' }}
+                  key={item.id}
+                  justifyContent={'start'}
+                >
+                  Problem {index + 1}
+                </Tab>
+              ))}
             </TabList>
-            <Flex alignItems={'center'} gap="20px">
+            <Flex
+              alignItems={'start'}
+              gap="4px"
+              flexDirection={'column'}
+              p="20px"
+            >
               <ConnectedWallets />
               <Flex
                 onClick={() => {
                   window.open(
                     'https://github.com/TrustlessComputer/poc-practice',
                   );
+                  tracking('POC_SET_UP_ENV');
                 }}
                 alignItems={'center'}
                 gap="4px"
-                mr="10px"
-                px="13px"
                 py="7px"
                 className={s.github}
               >
@@ -95,16 +115,12 @@ const Problems = ({
               </Flex>
             </Flex>
           </Flex>
-          <TabPanels p="10px 16px">
-            <TabPanel>
-              <ProblemTemplate topic="1" />
-            </TabPanel>
-            <TabPanel>
-              <ProblemTemplate topic="2" />
-            </TabPanel>
-            <TabPanel>
-              <ProblemTemplate topic="3" />
-            </TabPanel>
+          <TabPanels p="16px" overflow="hidden">
+            {PROBLEM_DATASOURCE.map((item) => (
+              <TabPanel key={item.id}>
+                <ProblemTemplate topic={item.id} />
+              </TabPanel>
+            ))}
           </TabPanels>
         </Tabs>
         {/* <ConnectedWallets /> */}

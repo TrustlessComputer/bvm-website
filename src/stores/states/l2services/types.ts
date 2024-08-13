@@ -76,7 +76,7 @@ export enum OrderStatus {
   Timeout, // 8: user timeout (if the status = WaitingPayment)
   Queued, // 9: Queued (BE use)
   Updating, // 10 Updating Chain (using for update chain - drag drop lego)
-  OrderStatus_IsDown, // 11 Chain Down
+  IsDown, // 11 Chain Down
 }
 
 export enum EnvironmentsEnum {
@@ -161,6 +161,7 @@ interface HistoryItemResp {
     chainName: string;
     isMainnet: boolean;
   };
+  orderTypeVersion: number;
 }
 
 interface OrderItem extends OrderItemResp {
@@ -181,7 +182,7 @@ interface OrderItem extends OrderItemResp {
 interface AccountInfoResp {
   id: string;
   tcAddress: string;
-  topUpWalletAddress: string;
+  topupWalletAddress: string;
   balance: string;
   withdrawableBalance: string;
   needToTopupBalance: string;

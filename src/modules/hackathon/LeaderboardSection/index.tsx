@@ -15,6 +15,7 @@ import ExportPrivateKey, {
 import { openModal } from '@/stores/states/modal/reducer';
 import { useDispatch } from 'react-redux';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 
 type Props = {
   currentUserContest?: IUserContest;
@@ -26,6 +27,7 @@ const LeaderboardSection = (props: Props) => {
   const [isShowActionPrepare, setIsShowActionPrepare] = useState<boolean>(true);
 
   const { width } = useWindowSize();
+  const { tracking } = useL2ServiceTracking();
 
   const { loggedIn, login, wallet } = useWeb3Auth();
   const dispatch = useDispatch();
@@ -84,9 +86,9 @@ const LeaderboardSection = (props: Props) => {
             <p className={s.title}>Practice Session</p>
             <p className={s.desc}>
               Gear up for the first official Proof-of-Code programming
-              tournament starting on August 8th!<br /> Sharpen your Solidity coding
-              skills and tackle practice problems to boost your chances of
-              winning.
+              tournament starting on August 29th!
+              <br /> Sharpen your Solidity coding skills and tackle practice
+              problems to boost your chances of winning.
             </p>
           </div>
           <Box
@@ -95,7 +97,7 @@ const LeaderboardSection = (props: Props) => {
           >
             <Flex
               alignItems={'center'}
-              gap="12px"
+              gap="34px"
               mb="24px"
               position="relative"
             >
@@ -106,12 +108,15 @@ const LeaderboardSection = (props: Props) => {
 
               <Box
                 className={s.warning_closeBtn}
-                onClick={() => setIsShowActionPrepare(false)}
+                onClick={() => {
+                  setIsShowActionPrepare(false);
+                  tracking('POC_CLICK_CLOSE_PREPARE');
+                }}
               >
                 <Image src={'/hackathon/ic-close.svg'} />
               </Box>
             </Flex>
-            <Flex gap="20px" direction="column">
+            <Flex gap="32px" flexDirection={{ md: 'row', base: 'column' }}>
               <Flex
                 gap="8px"
                 alignItems="center"
@@ -123,7 +128,7 @@ const LeaderboardSection = (props: Props) => {
                 <span>1.</span> Create an account
                 <Image src="/hackathon/ic-add.svg" alt="add" />
               </Flex>
-              <Flex gap="8px" className={s.warning_prepare}>
+              <Flex gap="8px" className={s.warning_prepare} alignItems="center">
                 <a
                   href="https://github.com/TrustlessComputer/poc-practice"
                   target="_blank"
@@ -136,10 +141,40 @@ const LeaderboardSection = (props: Props) => {
               <Flex
                 gap="8px"
                 className={s.warning_prepare}
+                alignItems="center"
+                whiteSpace={'nowrap'}
                 onClick={exportPrivateKeyHandler}
               >
                 <span>3.</span> Back up your private key
                 <Image src="/hackathon/ic-restore.svg" alt="add" />
+              </Flex>
+              <Flex
+                gap="8px"
+                alignItems="center"
+                className={s.warning_prepare}
+                onClick={() => {
+                  const prepareElm = document.getElementById('faq-sol-prepare');
+                  prepareElm?.scrollIntoView({ behavior: 'smooth' });
+                  setTimeout(() => {
+                    if (
+                      prepareElm?.querySelector('.chakra-collapse')
+                        ?.clientHeight === 0
+                    ) {
+                      prepareElm?.querySelector('button')?.click();
+                    }
+                  }, 1000);
+                }}
+              >
+                <span>4.</span> New to Solidity? Learn it easily with these
+                resources
+                <Image
+                  src="/hackathon/img-sol.png"
+                  alt="solidity"
+                  backgroundColor={'#fff'}
+                  borderRadius={'50%'}
+                  width="24px"
+                  height="24px"
+                />
               </Flex>
             </Flex>
           </Box>
@@ -154,7 +189,7 @@ const LeaderboardSection = (props: Props) => {
                     ? '100%'
                     : isProblemPanelMaximized
                     ? '100%'
-                    : '50%',
+                    : '65%',
                 height: 'auto',
                 transition: {
                   type: 'keyframes',
@@ -168,7 +203,7 @@ const LeaderboardSection = (props: Props) => {
                 }
               }}
               // exit={{
-              //   width: '50%',
+              //   width: '65%',
               // }}
             >
               <h4>Problems</h4>
@@ -177,7 +212,7 @@ const LeaderboardSection = (props: Props) => {
                 setIsProblemPanelMaximized={setIsProblemPanelMaximized}
                 setShowLeaderboard={setShowLeaderboard}
               />
-              <Text
+              {/* <Text
                 m="32px 0 20px 0"
                 fontSize="24px"
                 fontWeight="700"
@@ -186,7 +221,7 @@ const LeaderboardSection = (props: Props) => {
               >
                 Submit solutions
               </Text>
-              <SubmitProblem />
+              <SubmitProblem /> */}
             </Box>
             <AnimatePresence>
               {(showLeaderboard || width <= 768) && (

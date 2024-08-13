@@ -18,13 +18,13 @@ export const APP_BLOCKCHAIN: IModelOption = {
   needContactUs: false,
   needConfig: true,
   appTemplateUrl: '',
-  requiredFor: null,
-  supportLayer: '',
-  disabled: false,
   type: 'text',
   keyDapp: '',
   logo: '',
   valueStr: '',
+  requiredFor: null,
+  supportLayer: 'both',
+  disabled: false,
 };
 
 export const APP_STAKING: IModelOption = {
@@ -43,13 +43,13 @@ export const APP_STAKING: IModelOption = {
   needContactUs: false,
   needConfig: true,
   appTemplateUrl: '',
-  requiredFor: null,
-  supportLayer: '',
-  disabled: false,
   type: 'text',
   keyDapp: '',
   logo: '',
   valueStr: '',
+  requiredFor: null,
+  supportLayer: 'both',
+  disabled: false,
 };
 
 export const APP_TOKEN_GERNERATION: IModelOption = {
@@ -68,13 +68,13 @@ export const APP_TOKEN_GERNERATION: IModelOption = {
   needContactUs: false,
   needConfig: true,
   appTemplateUrl: '',
-  requiredFor: null,
-  supportLayer: '',
-  disabled: false,
   type: 'text',
   keyDapp: '',
   logo: '',
   valueStr: '',
+  requiredFor: null,
+  supportLayer: 'both',
+  disabled: false,
 };
 
 export const APP_AIRDROP: IModelOption = {
@@ -93,11 +93,11 @@ export const APP_AIRDROP: IModelOption = {
   needContactUs: false,
   needConfig: true,
   appTemplateUrl: '',
-  requiredFor: null,
-  supportLayer: '',
-  disabled: false,
   type: 'text',
   keyDapp: '',
   logo: '',
   valueStr: '',
+  requiredFor: null,
+  supportLayer: 'both',
+  disabled: false,
 };

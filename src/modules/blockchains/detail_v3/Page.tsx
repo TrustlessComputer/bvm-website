@@ -3,6 +3,12 @@ import gsap from 'gsap';
 import React, { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
+import ImagePlaceholder from '@/components/ImagePlaceholder';
+import { useAppSelector } from '@/stores/hooks';
+import {
+  getAvailableListTemplateSelector,
+  getModelCategoriesSelector,
+} from '@/stores/states/l2services/selector';
 import { formatCurrencyV2 } from '@/utils/format';
 import { Flex, Spacer, useDisclosure } from '@chakra-ui/react';
 import ExplorePage from '../Buy/Explore';
@@ -10,8 +16,8 @@ import BoxOptionV3 from '../Buy/components3/BoxOptionV3';
 import ComputerNameInput from '../Buy/components3/ComputerNameInput_v2';
 import Draggable from '../Buy/components3/Draggable';
 import DroppableV2 from '../Buy/components3/DroppableV2';
-import ErrorModal from '../Buy/components3/ErrorModal';
 import Label from '../Buy/components3/Label';
+import LaunchButton from '../Buy/components3/LaunchButton';
 import LegoParent from '../Buy/components3/LegoParent';
 import LegoV3 from '../Buy/components3/LegoV3';
 import SidebarV2 from '../Buy/components3/SideBarV2';
@@ -20,27 +26,18 @@ import useOrderFormStoreV3, { useCaptureStore } from '../Buy/stores/index_v3';
 import useDragMask from '../Buy/stores/useDragMask';
 import { MouseSensor } from '../Buy/utils';
 import AppViewer from './components/AppViewer';
-import ToolBar from './components/ToolBar_v2';
-import s from './styles.module.scss';
-import { ChainDetailComponentProps } from './types';
-import ImagePlaceholder from '@/components/ImagePlaceholder';
-import { useAppSelector } from '@/stores/hooks';
-import {
-  getAvailableListTemplateSelector,
-  getModelCategoriesSelector,
-} from '@/stores/states/l2services/selector';
-import { useOrderFormStore } from '../Buy/stores/index_v2';
+import ChainInforView from './components/ChanInforView';
 import CostView from './components/CostView';
-import LaunchButton from '../Buy/components3/LaunchButton';
-import enhance from './enhance';
-import ButtonV1 from './components/Button';
+import NavigatioBar from './components/NavigationBar';
 import { ResetModal } from './components/ResetModal';
+import ToolBar from './components/ToolBar_v2';
+import enhance from './enhance';
 import useCaptureHelper from './hook/useCaptureHelper';
 import { categoriesMockup } from '../Buy/Buy.data';
 import { useOrderOwnerHelper } from '@/services/api/l2services/hook';
-import NavigatioBar from './components/NavigationBar';
-import ChainInforView from './components/ChanInforView';
 import { IModelCategory } from '@/types/customize-model';
+import s from './styles.module.scss';
+import { ChainDetailComponentProps } from './types';
 
 const MainPage = (props: ChainDetailComponentProps) => {
   const { chainDetailData } = props;
@@ -409,11 +406,14 @@ const MainPage = (props: ChainDetailComponentProps) => {
           if (!option) return false;
 
           const isDisabled =
-            !!(
-              option.supportLayer &&
-              option.supportLayer !== 'both' &&
-              option.supportLayer !== field['layers']?.value
-            ) ||
+            (option.supportLayers &&
+              option.supportLayers.length > 0 &&
+              !option.supportLayers.includes(field['layers']?.value as any)) ||
+            // !!(
+            //   option.supportLayer &&
+            //   option.supportLayer !== 'both' &&
+            //   option.supportLayer !== field['layers']?.value
+            // ) ||
             !!(
               option.supportNetwork &&
               option.supportNetwork !== 'both' &&
@@ -435,14 +435,22 @@ const MainPage = (props: ChainDetailComponentProps) => {
 
       const newDefaultValue = item.options.find(
         (option) =>
-          (option.supportLayer === field['layers']?.value ||
-            option.supportLayer === 'both' ||
-            !option.supportLayer) &&
-          (option.supportNetwork === field['network']?.value ||
-            option.supportNetwork === 'both' ||
-            !option.supportNetwork) &&
-          option.selectable &&
-          !item.disable,
+          !(
+            (option.supportLayers &&
+              option.supportLayers.length > 0 &&
+              !option.supportLayers.includes(field['layers']?.value as any)) ||
+            // !!(
+            //   option.supportLayer &&
+            //   option.supportLayer !== 'both' &&
+            //   option.supportLayer !== field['layers']?.value
+            // ) ||
+            !!(
+              option.supportNetwork &&
+              option.supportNetwork !== 'both' &&
+              option.supportNetwork !== field['network']?.value
+            ) ||
+            !option.selectable
+          ),
       );
       const currentOption = item.options.find(
         (option) => option.key === field[item.key].value,
@@ -456,14 +464,24 @@ const MainPage = (props: ChainDetailComponentProps) => {
       if (!currentOption) return;
 
       if (
-        (currentOption.supportLayer === field['layers']?.value ||
-          currentOption.supportLayer === 'both' ||
-          !currentOption.supportLayer) &&
-        (currentOption.supportNetwork === field['network']?.value ||
-          currentOption.supportNetwork === 'both' ||
-          !currentOption.supportNetwork) &&
-        currentOption.selectable &&
-        !item.disable
+        !(
+          (currentOption.supportLayers &&
+            currentOption.supportLayers.length > 0 &&
+            !currentOption.supportLayers.includes(
+              field['layers']?.value as any,
+            )) ||
+          // !!(
+          //   currentOption.supportLayer &&
+          //   currentOption.supportLayer !== 'both' &&
+          //   currentOption.supportLayer !== field['layers']?.value
+          // ) ||
+          !!(
+            currentOption.supportNetwork &&
+            currentOption.supportNetwork !== 'both' &&
+            currentOption.supportNetwork !== field['network']?.value
+          ) ||
+          !currentOption.selectable
+        )
       )
         return;
       setField(item.key, newDefaultValue.key, field[item.key].dragged);
@@ -554,7 +572,9 @@ const MainPage = (props: ChainDetailComponentProps) => {
 
           const isDisabled =
             // prettier-ignore
-            !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
+            (currentOption.supportLayers && currentOption.supportLayers.length > 0 && !currentOption.supportLayers.includes(field['layers']?.value as any)) ||
+            // prettier-ignore
+            // !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
             // prettier-ignore
             !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
             // prettier-ignore
@@ -583,7 +603,9 @@ const MainPage = (props: ChainDetailComponentProps) => {
 
       const isDisabled =
         // prettier-ignore
-        !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
+        (currentOption.supportLayers && currentOption.supportLayers.length > 0 && !currentOption.supportLayers.includes(field['layers']?.value as any)) ||
+        // prettier-ignore
+        // !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
         // prettier-ignore
         !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
         // prettier-ignore
@@ -612,7 +634,9 @@ const MainPage = (props: ChainDetailComponentProps) => {
 
           const isDisabled =
             // prettier-ignore
-            !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
+            (currentOption.supportLayers && currentOption.supportLayers.length > 0 && !currentOption.supportLayers.includes(field['layers']?.value as any)) ||
+            // prettier-ignore
+            // !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
             // prettier-ignore
             !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
             // prettier-ignore
@@ -641,7 +665,9 @@ const MainPage = (props: ChainDetailComponentProps) => {
 
       const isDisabled =
         // prettier-ignore
-        !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
+        (currentOption.supportLayers && currentOption.supportLayers.length > 0 && !currentOption.supportLayers.includes(field['layers']?.value as any)) ||
+        // prettier-ignore
+        // !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
         // prettier-ignore
         !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
         // prettier-ignore
@@ -964,6 +990,11 @@ const MainPage = (props: ChainDetailComponentProps) => {
                               return null;
 
                             const isDisabled =
+                              (option.supportLayers &&
+                                option.supportLayers.length > 0 &&
+                                !option.supportLayers.includes(
+                                  field['layers']?.value as any,
+                                )) ||
                               !!(
                                 option.supportNetwork &&
                                 option.supportNetwork !== 'both' &&

@@ -15,6 +15,10 @@ export const useChainProvider = () => {
 
   const { order } = context;
 
+  const isUpdateFlow = useMemo(() => {
+    return !!order;
+  }, [order]);
+
   const isBlockChainReady = useMemo(() => {
     return order?.status === OrderStatus.Started;
   }, [order]);
@@ -66,7 +70,7 @@ export const useChainProvider = () => {
           statusColorStr = '#FFC700';
           borderStatusStr = '#FFF6D8';
           break;
-        case OrderStatus.OrderStatus_IsDown:
+        case OrderStatus.IsDown:
           statusStr = 'Down';
           statusColorStr = '#ECECED';
           borderStatusStr = '#B6B6B6';
@@ -191,6 +195,7 @@ export const useChainProvider = () => {
 
   return {
     ...context,
+    isUpdateFlow,
     chainData: order,
     order,
     dAppListAvailable,

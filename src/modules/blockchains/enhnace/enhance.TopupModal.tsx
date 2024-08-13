@@ -38,7 +38,7 @@ const enhanceTopUpModal =
           <TopupModal
             show={isOpenTopUpModal}
             infor={{
-              paymentAddress: accountInforL2Service?.topUpWalletAddress,
+              paymentAddress: accountInforL2Service?.topupWalletAddress,
             }}
             order={viewPage === 'Biiling' ? undefined : orderDetail}
             onClose={onCloseTopUpModal}

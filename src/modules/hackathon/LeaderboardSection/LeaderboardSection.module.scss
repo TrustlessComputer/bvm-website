@@ -42,10 +42,11 @@
     color: #FFF;
     text-align: center;
     font-family: "SF Pro Display";
-    font-size: 14px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    letter-spacing: 0.5px;
 
     &:hover {
       cursor: pointer;
@@ -82,7 +83,7 @@
 
   &.minimized {
     :global(.problem-panel) {
-      height: 503px;
+      height: 582px;
     }
 
   }
@@ -92,7 +93,7 @@
 .wrapper {
   // display: flex;
   gap: 28px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   // height: 100vh;
   // display: grid;
   // grid-template-columns: 1fr 1fr;
@@ -105,6 +106,10 @@
     flex-direction: column;
     // padding: 60px 0;
     gap: 100px;
+
+    .right {
+      width: 100%;
+    }
   }
 
   h4 {
@@ -128,6 +133,7 @@
 
   .right {
     // flex: 0.5;
+    width: 35%;
   }
 
 }

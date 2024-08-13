@@ -7,6 +7,7 @@ interface IAirdrop {
   claimeable_at?: Date;
   vested_amount: string;
   claimed_amount: string;
+  expired_amount: string;
   receiver_address: string;
 }
 
