@@ -1,13 +1,6 @@
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import duration from 'dayjs/plugin/duration';
 import { zeroPad } from '@/utils/format';
-import localizedFormat from 'dayjs/plugin/localizedFormat';
-
-dayjs.extend(utc);
-dayjs.extend(duration);
-dayjs.extend(localizedFormat);
 
 // const FIVE_MINUTES_IN_SECS = 300;
 const THIRTY_MINUTES_IN_SECS = 1800;
@@ -34,7 +27,7 @@ const useCountdown = (utcTime: string) => {
       const now = dayjs().utc();
       const utcDayTime = dayjs.utc(utcTime);
       const diff = dayjs.duration(utcDayTime.diff(now));
-      
+
       if (utcDayTime.unix() <= now.unix()) {
         clearInterval(interval);
         setAsDays(null);

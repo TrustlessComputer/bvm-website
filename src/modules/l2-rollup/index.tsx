@@ -85,11 +85,9 @@ const L2Rollup = () => {
     txs: number[];
     addresses: number[];
   } = useMemo(() => {
-    const fees: number[] = [];
-    const txs: number[] = [];
-    const addresses: number[] = [];
-
-    console.log('dataChart', dataChart);
+    const fees: any[] = [];
+    const txs: any[] = [];
+    const addresses: any[] = [];
 
     dataChart.forEach((d) => {
       fees.push([d.timestamp, parseFloat(d.fee_usd)] as any[]);
@@ -730,9 +728,38 @@ const L2Rollup = () => {
             <Image maxW={'40px'} src={'/heartbeat/ic-submit.svg'} />
           </Flex>
         </Flex>
-        <SimpleGrid columns={3} gap={'32px'}>
-          {/* <ActiveAddress /> */}
-          <L2RollupFee data={_dataChart.fees} />
+        <SimpleGrid columns={3} gap={'16px'} mb={'32px'}>
+          <L2RollupFee
+            data={_dataChart.txs}
+            prefix='Ξ'
+            title={`<p>Transaction Count</p><p>Ξ${formatCurrency(
+              (_dataChart.txs?.[_dataChart.txs.length - 1] as any)?.[1] as any,
+              0,
+              2,
+            )}</p>`}
+          />
+          <L2RollupFee
+            data={_dataChart.addresses}
+            prefix='Ξ'
+            title={`<p>Active Addresses</p><p>Ξ${formatCurrency(
+              (
+                _dataChart.addresses?.[_dataChart.addresses.length - 1] as any
+              )?.[1] as any,
+              0,
+              2,
+            )}</p>`}
+          />
+          <L2RollupFee
+            data={_dataChart.fees}
+            prefix='$'
+            title={`<p>Fees Paid by Users</p><p>$${formatCurrency(
+              (
+                _dataChart.fees?.[_dataChart.fees.length - 1] as any
+              )?.[1] as any,
+              0,
+              2,
+            )}</p>`}
+          />
         </SimpleGrid>
         <Flex
           className={s.totalContainer}
