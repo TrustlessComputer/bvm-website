@@ -121,7 +121,7 @@ https://bvm.network/studio/${url}`;
     }, 150);
   }
 
-  function downloadImage(dataUrl) {
+  function downloadImage(dataUrl: string) {
     const a = document.createElement('a');
 
     a.setAttribute('download', `${new Date()}.png`);
@@ -145,7 +145,7 @@ https://bvm.network/studio/${url}`;
       0,
     );
 
-    toPng(document.querySelector('#viewport'), {
+    toPng(document.querySelector('#viewport') as HTMLElement, {
       backgroundColor: '#fff',
       width: imageWidth,
       height: imageHeight,
@@ -153,8 +153,8 @@ https://bvm.network/studio/${url}`;
       canvasHeight: imageHeight,
       quality: 1,
       style: {
-        width: imageWidth,
-        height: imageHeight,
+        width: `${imageWidth}`,
+        height: `${imageHeight}`,
         // transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
       },
     }).then(downloadImage).then(()=> setIsCapturing(false));
