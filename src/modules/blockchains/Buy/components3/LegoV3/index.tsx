@@ -93,7 +93,7 @@ function LegoV3({
       },
       allowShuffle: {
         Icon: <SvgInset svgUrl="/landingV3/svg/replacable.svg" size={16} />,
-        tooltip: 'This block is shufflable.',
+        tooltip: 'This block is replacable.',
       },
     };
   }, []);

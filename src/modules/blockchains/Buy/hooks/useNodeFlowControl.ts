@@ -139,15 +139,15 @@ export default function useNodeFlowControl() {
     );
     if (!categoryOption) return;
 
-    console.log('handleAddBox', {
-      draggedIds2D,
-      indexx: draggedIds2D.length - 1,
-      dappIndex,
-      thisDapp,
-      dapps,
-      category,
-      categoryOption,
-    });
+    // console.log('handleAddBox', {
+    //   draggedIds2D,
+    //   indexx: draggedIds2D.length - 1,
+    //   dappIndex,
+    //   thisDapp,
+    //   dapps,
+    //   category,
+    //   categoryOption,
+    // });
 
     const transformedX =
       (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
