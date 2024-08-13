@@ -1,12 +1,12 @@
+import { DappModel } from '@/types/customize-model';
+import { ReactElement } from 'react';
 import AddressInput from '../../detail_v3/account-abstraction_v2/components/AddressInput';
 import FeeRateInput from '../../detail_v3/account-abstraction_v2/components/FeeRateInput';
-import { DappModel } from '@/types/customize-model';
-import LegoParent from '../component4/LegoParent';
 import Lego from '../component4/Lego';
+import LegoParent from '../component4/LegoParent';
 import { adjustBrightness } from '../utils';
-import { memo, ReactElement } from 'react';
 
-const  AA = memo(({ dAppData }: { dAppData: DappModel }):ReactElement => {
+const AA = ({ dAppData }: { dAppData: DappModel }): ReactElement => {
   return (
     <LegoParent {...dAppData} background={dAppData.color} dapp={dAppData}>
       <Lego
@@ -32,6 +32,6 @@ const  AA = memo(({ dAppData }: { dAppData: DappModel }):ReactElement => {
       </Lego>
     </LegoParent>
   );
-});
+};
 
 export default AA;

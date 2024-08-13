@@ -5,10 +5,12 @@ import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
 import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 import { OrderItem } from '@/stores/states/l2services/types';
+import { DappModel } from '@/types/customize-model';
+import { HandleType, Node, NodeProps, Position } from '@xyflow/react';
 import { DappModel, IModelCategory } from '@/types/customize-model';
 import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
 import cn from 'classnames';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import Label from '../../components3/Label';
 import ChainLegoParent from '../../components3/LegoParent';
 import useGettingDappLego from '../../hooks/useGettingDappLego';
@@ -45,7 +47,8 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { field } = useOrderFormStoreV3();
   const { isCapture } = useCaptureStore();
 
-  const { order, chainData, getBlockChainStatus } = useChainProvider();
+  const { order, chainData, selectedCategoryMapping, getBlockChainStatus } =
+    useChainProvider();
   const { statusStr, statusColorStr, borderStatusStr } = getBlockChainStatus();
 
   const selectedCategoryMapping = React.useMemo(() => {
@@ -61,7 +64,6 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
   }, [order?.selectedOptions]);
 
   return (
-    // <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
     <div className={`${s.wrapperBox}`} style={{borderColor: statusColorStr}}>
       <div className={`${s.handles} ${s.target}`}>
          {data.targetHandles?.map((handle) => (
@@ -74,11 +76,7 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
           />
         ))}
       </div>
-      {/* TODO: Change status */}
       <div
-        // className={`${s.wrapperBox_top} drag-handle-area ${cn(
-        //   s[`borderColor_${data.status}`],
-        // )}`}
         className={`${s.wrapperBox_top} drag-handle-area`}
         style={{
           borderColor: statusColorStr,
@@ -100,11 +98,9 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
               }`}
               style={{ color: statusColorStr }}
             >
-              {/*{data.statusMessage ?? data.status}*/}
               {data.statusMessage ?? statusStr}
             </p>
             <div
-              // className={`${s.tag_dot}  ${cn(s[`tag_${data.status}`])}`}
               className={`${s.tag_dot}`}
               style={{ backgroundColor: statusColorStr }}
             ></div>
@@ -120,10 +116,6 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
           style={{
             width: '100% !important',
             height: '100%',
-            // paddingLeft: '25%',
-            // paddingRight: '25%',
-            // paddingBottom: '7.5%',
-            // paddingTop: '7.5%',
           }}
         >
           <LegoV3
@@ -138,12 +130,6 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
           {draggedFields.map((key, index) => {
             const item = parsedCategories?.find((i) => i.key === key);
             const selectedCategory = selectedCategoryMapping?.[key];
-
-            // console.log('ChainNode -> draggedField.map :: ', {
-            //   key,
-            //   item,
-            //   selectedCategory,
-            // });
 
             if (!item || !parsedCategories) return null;
 
@@ -210,14 +196,10 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
             return item.options.map((option, opIdx) => {
               if (option.key !== field[item.key].value) return null;
 
-              const isSelected =
-                selectedCategory?.options.some(
-                  (_opt) => _opt.key === option.key,
-                ) || false;
               const isUpdatable =
-                isSelected &&
-                selectedCategory?.updatable &&
-                typeof order !== 'undefined';
+                option.key !== 'account_abstraction' && // Must be hard coded
+                selectedCategory?.updatable && //
+                typeof order !== 'undefined'; // TODO: @jackie - replace this condition to isUpdateFlow from useChainProvider
 
               return (
                 <ChainDraggable
@@ -233,6 +215,8 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
                 >
                   <DroppableV2 id={item.key + '-right'}>
                     <LegoV3
+                      updatable={isUpdatable}
+                      allowShuffle
                       background={item.color}
                       label={item.confuseTitle}
                       labelInRight={!!item.confuseTitle || !!item.confuseIcon}

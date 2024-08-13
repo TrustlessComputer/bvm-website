@@ -17,7 +17,11 @@ import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
 import { parseStakingPools } from '../../dapp/parseUtils/staking';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { parseDappModel } from '../../utils';
-import { templateIds2DSignal } from '../signals/useDragSignal';
+import { accountAbstractionAsADapp } from '../mockup_3';
+import {
+  draggedDappIndexesSignal,
+  templateIds2DSignal,
+} from '../signals/useDragSignal';
 import { formTemplateDappSignal } from '../signals/useFormDappsSignal';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore from '../stores/useFlowStore';
@@ -29,7 +33,7 @@ export default function useFetchingTemplate() {
   const params = useParams();
   const isUpdateChainPage = React.useMemo(() => !!params?.id, [params?.id]);
 
-  const { order } = useChainProvider();
+  const { order, selectedCategoryMapping } = useChainProvider();
   const { nodes, setNodes } = useFlowStore();
   const {
     setParsedCategories,
@@ -38,8 +42,6 @@ export default function useFetchingTemplate() {
     categoriesTemplates,
   } = useModelCategoriesStore();
   const { field, setFields } = useOrderFormStoreV3();
-
-  // console.log('useFetchingTemplate -> field', field);
 
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { initTemplate, setTemplate } = useTemplate();
@@ -71,6 +73,10 @@ export default function useFetchingTemplate() {
   };
 
   const fetchData = async () => {
+    const isAAInstalled = order?.selectedOptions?.some(
+      (opt) => opt.key === 'wallet',
+    );
+
     const newFields = cloneDeep(field);
     const [categories, templates] = await Promise.all([
       // getModelCategories(l2ServiceUserAddress),
@@ -90,17 +96,34 @@ export default function useFetchingTemplate() {
         value: null,
         dragged: false,
       };
-      // setField(_field.key, null,);
     });
+
+    if (isAAInstalled) {
+      nodes.unshift({
+        id: '1',
+        type: 'customBox',
+        data: {
+          label: 'Account Abstraction',
+          baseIndex: 0,
+          dapp: accountAbstractionAsADapp,
+          categoryOption: order?.selectedOptions?.find(
+            (opt) => opt.key === 'wallet',
+          )?.options[0],
+          isChain: false,
+          ids: [],
+        },
+        dragHandle: '.drag-handle-area',
+        position: { x: 40, y: 40 },
+      });
+
+      draggedDappIndexesSignal.value = [0];
+    }
 
     nodes.unshift({
       id: 'blockchain',
       type: 'chainNode',
       data: {
         label: 'Blockchain',
-        status: 'Ready',
-        // TODO: Status message - init
-        // statusMessage: 'Status message 1',
         sourceHandles: [],
         isChain: true,
       },
@@ -219,19 +242,6 @@ export default function useFetchingTemplate() {
       startIndex: parsedTokensData.length + parsedAirdropsData.length,
     });
 
-    // console.log('parseDappApiToDappModel', {
-    //   form: {
-    //     ...parsedTokensForm.fieldValue,
-    //     ...parsedAirdropsForm.fieldValue,
-    //     ...parsedStakingPoolsForm.fieldValue,
-    //   },
-    //   dapps: {
-    //     ...parsedTokensData,
-    //     ...parsedAirdropsData,
-    //     ...parsedStakingPoolsData,
-    //   },
-    // });
-
     setTemplateDapps([
       ...parsedTokensData,
       ...parsedAirdropsData,
@@ -275,7 +285,7 @@ export default function useFetchingTemplate() {
 
   React.useEffect(() => {
     fetchData();
-  }, []);
+  }, [order]);
 
   React.useEffect(() => {
     parseDappApiToDappModel();
@@ -290,10 +300,8 @@ export default function useFetchingTemplate() {
 
   React.useEffect(() => {
     if (isUpdateChainPage && order) {
-      // console.log('DEBUG --- template::: ', order.selectedOptions);
       setTemplate(order.selectedOptions || []);
     } else {
-      // console.log("DEBUG --- template::: don't have order");
       initTemplate(0);
     }
   }, [order, categoriesTemplates]);
