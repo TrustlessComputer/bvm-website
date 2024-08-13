@@ -116,7 +116,22 @@ function LegoV3({
         // @ts-ignore
         {...props}
       >
-        {haveNoti && (
+        {updatable && (
+          <div
+            className={styles.updatableIcon}
+            onMouseEnter={onHover}
+            onMouseLeave={() => {
+              refTooltip.current?.classList.remove(styles.isBottom);
+              refTooltip.current?.classList.remove(styles.isHover);
+            }}
+          >
+            {notiMapping.updatable.Icon}
+            <div ref={refTooltip} className={`${styles.tooltip}`}>
+              {notiMapping.updatable.tooltip}
+            </div>
+          </div>
+        )}
+        {/* {haveNoti && (
           <div
             className={styles.updatableIcon}
             onMouseEnter={onHover}
@@ -134,7 +149,7 @@ function LegoV3({
                 : notiMapping.allowShuffle.tooltip}
             </div>
           </div>
-        )}
+        )} */}
 
         <SvgInset
           svgUrl="/landingV3/svg/stud_head.svg"
