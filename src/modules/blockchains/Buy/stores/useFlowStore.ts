@@ -9,8 +9,9 @@ import {
   applyNodeChanges,
   applyEdgeChanges,
 } from '@xyflow/react';
+import { DataNode } from '@/modules/blockchains/Buy/component4/CustomNode';
 
-export type AppNode = Node;
+export type AppNode = DataNode;
 
 export type AppState = {
   nodes: AppNode[];

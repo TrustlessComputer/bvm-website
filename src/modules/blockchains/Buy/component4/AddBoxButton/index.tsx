@@ -13,6 +13,7 @@ import { cloneDeep, isTwoObjectEqual } from '@/modules/blockchains/Buy/utils';
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
 import useFlowStore from '../../stores/useFlowStore';
+import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
 
 export default function AddBoxButton({ ...props }): React.JSX.Element {
   const { nodes, setNodes, onNodesChange } = useFlowStore();
@@ -101,7 +102,6 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
         ...nodes[dragState.oneD[0] + 1],
         data: {
           ...nodes[dragState.oneD[0] + 1].data,
-          position,
           ids: draggedIds2D[dragState.oneD[0]],
         },
       };
@@ -123,27 +123,27 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
       y: lastNode.position.y - (lastNode.measured?.height || 0),
     };
 
-    setNodes([
-      ...nodes,
-      {
-        id: `${nodes.length}`,
-        type: 'customBox',
-        dragHandle: '.drag-handle-area',
-        data: {
-          label: thisDapp.title,
-          status: 'Missing',
-          isChain: false,
-          dapp: thisDapp,
-          ids: draggedIds2D[draggedIds2D.length - 1],
-          baseIndex: draggedIds2D.length - 1,
-        },
-        origin: [0.0, 0.0],
-        position: {
-          x: 0,
-          y: 0,
-        },
-      },
-    ]);
+    // setNodes([
+    //   ...nodes,
+    //   {
+    //     id: `${nodes.length}`,
+    //     type: 'customBox',
+    //     dragHandle: '.drag-handle-area',
+    //     data: {
+    //       label: thisDapp.title,
+    //       status: StatusBox.MISSING,
+    //       isChain: false,
+    //       dapp: thisDapp,
+    //       ids: draggedIds2D[draggedIds2D.length - 1],
+    //       baseIndex: draggedIds2D.length - 1,
+    //     },
+    //     origin: [0.0, 0.0],
+    //     position: {
+    //       x: 0,
+    //       y: 0,
+    //     },
+    //   },
+    // ]);
     resetDragState();
   };
 

@@ -17,16 +17,18 @@ import useDragStore from '../../stores/useDragStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import useOverlappingChainLegoStore from '../../stores/useOverlappingChainLegoStore';
 import s from './styles.module.scss';
+import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
+
 
 export type DataNode = Node<
   {
     label: string;
     positionDot: Position;
     handleType: HandleType;
-    status: 'Drafting' | 'Ready' | 'Missing' | 'Running ' | 'Down';
+    status: StatusBox;
     statusMessage?: string;
-    sourceHandles: [];
-    targetHandles: [];
+    sourceHandles: string[];
+    targetHandles: string[];
     isChain: boolean;
     chain: OrderItem | null;
     dapp: DappModel | null;
