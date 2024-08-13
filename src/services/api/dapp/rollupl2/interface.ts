@@ -5,6 +5,7 @@ export interface IRollupL2Info {
   tps: number;
   mgas: number;
   kbs: number;
+  fdv: number;
   stack: string;
   da: string;
   settlement: string;
