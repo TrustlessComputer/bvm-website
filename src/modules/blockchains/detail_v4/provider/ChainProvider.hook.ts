@@ -1,7 +1,11 @@
 'use client';
 
 import { IDAppInstalled, OrderStatus } from '@/stores/states/l2services/types';
-import { DAppKeys, IModelOption } from '@/types/customize-model';
+import {
+  DAppKeys,
+  IModelCategory,
+  IModelOption,
+} from '@/types/customize-model';
 import { useContext, useMemo } from 'react';
 import { ChainContext } from './ChainProvider';
 
@@ -189,12 +193,25 @@ export const useChainProvider = () => {
     });
   }, [order]);
 
+  const selectedCategoryMapping = useMemo(() => {
+    if (!order?.selectedOptions) return undefined;
+
+    const mapping: Record<string, IModelCategory> = {};
+
+    order.selectedOptions.forEach((category) => {
+      mapping[category.key] = category;
+    });
+
+    return mapping;
+  }, [order?.selectedOptions]);
+
   return {
     ...context,
     chainData: order,
     order,
     dAppListAvailable,
     isBlockChainReady,
+    selectedCategoryMapping,
 
     //
     getDAppStatus,

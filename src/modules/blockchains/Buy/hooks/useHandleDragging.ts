@@ -26,6 +26,7 @@ import { FieldModel } from '@/types/customize-model';
 import { showValidateError } from '@components/toast';
 import { useSensor, useSensors } from '@dnd-kit/core';
 import toast from 'react-hot-toast';
+import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import useFlowStore from '../stores/useFlowStore';
 import useOverlappingChainLegoStore from '../stores/useOverlappingChainLegoStore';
 
@@ -43,6 +44,7 @@ export default function useHandleDragging() {
     moduleFieldMapping,
     singleFieldMapping,
   } = useDapps();
+  const { selectedCategoryMapping } = useChainProvider();
 
   // console.log('useHandleDragging -> field :: ', field);
 
@@ -93,9 +95,10 @@ export default function useHandleDragging() {
     const activeIsNotAChainField = !categories?.find(
       (item) => item.key === activeKey,
     )?.isChain;
+    const selectedCategory = selectedCategoryMapping?.[activeKey];
 
+    // swap activeKey, overKey in draggedFields
     if (rightDragging && !overIsFinalDroppable && overSuffix1 === 'right') {
-      // swap activeKey, overKey in draggedFields
       const _draggedFields = cloneDeep(draggedFields);
       const activeIndex = draggedFields.indexOf(activeKey);
       const overIndex = draggedFields.indexOf(overKey);
@@ -112,6 +115,11 @@ export default function useHandleDragging() {
     }
 
     if (activeIsNotAChainField && activeKey !== 'bridge_apps') return;
+
+    if (!selectedCategory?.updatable) {
+      // TODO: Notify if needed
+      return;
+    }
 
     if (!isMultiChoice) {
       // Error case
