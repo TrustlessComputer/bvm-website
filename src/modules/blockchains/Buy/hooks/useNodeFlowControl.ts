@@ -140,6 +140,7 @@ export default function useNodeFlowControl() {
 
     const rootNode = 'blockchain'
 
+    // Update source handle of root node
     const getHandleNodeBlockChain = nodes.find(item => item.id === rootNode);
     getHandleNodeBlockChain?.data?.sourceHandles?.push(`${rootNode}-s-${nodes.length}`);
     const newNodes: any[] = nodes?.map((item) =>  item.id === rootNode ? getHandleNodeBlockChain : item)

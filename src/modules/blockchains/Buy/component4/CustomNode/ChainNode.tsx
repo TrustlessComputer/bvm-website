@@ -6,8 +6,6 @@ import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { DappModel, IModelCategory } from '@/types/customize-model';
-import { HandleType, Node, NodeProps, Position } from '@xyflow/react';
-import { DappModel } from '@/types/customize-model';
 import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
 import cn from 'classnames';
 import React, { memo } from 'react';

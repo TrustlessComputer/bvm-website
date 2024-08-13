@@ -21,12 +21,7 @@ export default function CustomEdge({
     sourcePosition,
     targetPosition,
   });
-  console.log('sourceX', sourceX,
-    sourceY,
-    targetX,
-    targetY,
-    sourcePosition,
-    targetPosition,);
+
   return (
     <>
       <BaseEdge id={id} path={edgePath} markerEnd={markerEnd} className={s.edge_line} />

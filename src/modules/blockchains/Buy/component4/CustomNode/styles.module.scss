@@ -92,6 +92,7 @@
   z-index: 4;
   :global {
     .react-flow__handle {
+      background-color: #777777 !important;
       position: relative !important;
     }
   }
