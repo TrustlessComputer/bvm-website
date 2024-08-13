@@ -19,6 +19,10 @@ export const useChainProvider = () => {
 
   const { order } = context;
 
+  const isUpdateFlow = useMemo(() => {
+    return !!order;
+  }, [order]);
+
   const isBlockChainReady = useMemo(() => {
     return order?.status === OrderStatus.Started;
   }, [order]);
@@ -207,6 +211,7 @@ export const useChainProvider = () => {
 
   return {
     ...context,
+    isUpdateFlow,
     chainData: order,
     order,
     dAppListAvailable,

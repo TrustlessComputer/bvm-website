@@ -283,6 +283,12 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       // Update and Call API install (behind the scene form BE Phuong)
       const result = await orderUpdateV2(params, orderDetail.orderId);
       if (result) {
+        if (stakingForms && stakingForms.length > 0) {
+          await onSubmitStaking({
+            forms: stakingForms,
+          });
+        }
+
         // TO DO [Leon]
         // Call API Config DApp if is exist dapp (issues token, staking, ....) daragged into Data View
 
