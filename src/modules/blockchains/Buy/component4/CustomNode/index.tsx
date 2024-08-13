@@ -62,6 +62,21 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   // const { getAAStatus } = useChainProvider();
   // const { statusStr, statusColorStr, borderStatusStr } = getAAStatus();
 
+  // const statusColor = React.useMemo(() => {
+  //   if (data.dapp?.key === 'account_abstraction') {
+  //     return statusColorStr;
+  //   }
+
+  //   return undefined;
+  // }, [data.dapp?.key]);
+  // const borderStatus = React.useMemo(() => {
+  //   if (data.dapp?.key === 'account_abstraction') {
+  //     return borderStatusStr;
+  //   }
+
+  //   return undefined;
+  // }, [data.dapp?.key]);
+
   const DappRendering = (): ReactElement => {
     const dappIndex = draggedDappIndexesSignal.value[data.baseIndex];
 
@@ -482,10 +497,10 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
     <div
       className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}
       // TODO: Implement this - 2
-      // style={{ borderColor: statusColorStr }}
+      // style={{ borderColor: statusColor }}
     >
       <div className={`${s.handles} ${s.target}`}>
-         {data.targetHandles?.map((handle) => (
+        {data.targetHandles?.map((handle) => (
           <Handle
             key={handle}
             id={handle}
@@ -501,8 +516,8 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
         )}`}
         // TODO: Implement this - 3
         // style={{
-        //   borderColor: statusColorStr,
-        //   backgroundColor: borderStatusStr,
+        //   borderColor: statusColor,
+        //   backgroundColor: borderStatus,
         // }}
       >
         <p
@@ -519,16 +534,16 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
                 isCapture ? s.label_margin : ''
               }`}
               // TODO: Implement this - 4
-              // style={{ color: statusColorStr }}
+              // style={{ color: statusColor }}
             >
               {/* TODO: Implement this - 5 */}
-              {/* {statusStr ?? renderTitleStatus(data.status)} */}
+              {/* {statusStr && data.dapp === "account_abstraction" ? statusStr : renderTitleStatus(data.status)} */}
               {renderTitleStatus(data.status)}
             </p>
             <div
               className={`${s.tag_dot}  ${cn(s[`tag_${data.status}`])}`}
               // TODO: Implement this - 6
-              // style={{ backgroundColor: statusColorStr }}
+              // style={{ backgroundColor: statusColor }}
             ></div>
           </div>
         }
