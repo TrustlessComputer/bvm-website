@@ -101,7 +101,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
       },
     ],
     tags: ['L2', 'Optimistic Rollup'],
-    homeImage: `${CDN_URL}/pages/landing-v4/home-rollups-nakachain.png`,
+    homeImage: `${CDN_URL}/pages/landing-v4/home-rollups-naka.png`,
   },
   {
     image: '/explore/eternal.png',
@@ -119,6 +119,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
       },
     ],
     tags: ['L2', 'Optimistic Rollup'],
+    homeImage: `${CDN_URL}/pages/landing-v4/home-eai.png`,
   },
   {
     image: '/explore/rune.png',
@@ -136,6 +137,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
       },
     ],
     tags: ['L2', 'Optimistic Rollup'],
+    homeImage: `${CDN_URL}/pages/landing-v4/home-rollups-rune.png`,
   },
   {
     image: '/explore/alpha-app.png',
@@ -153,6 +155,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
       },
     ],
     tags: ['L2', 'Optimistic Rollup'],
+    homeImage: `${CDN_URL}/pages/landing-v4/home-rollups-alpha.png`,
   },
   {
     image: '/explore/bitcoin-wars.png',
@@ -169,7 +172,8 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
         link: 'https://bvm.network/bitcoin-wars',
       },
     ],
-    tags: ['L#', 'ZK Rollup'],
+    tags: ['L3', 'ZK Rollup'],
+    homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   },
   {
     image: '/explore/powd3r.jpg',
@@ -191,6 +195,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
       },
     ],
     tags: ['L2', 'ZK Rollup'],
+    homeImage: `${CDN_URL}/pages/landing-v4/home-rollups-powder.png`,
   },
   {
     image: '/explore/octopus.jpg',
@@ -212,6 +217,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
       },
     ],
     tags: ['L3', 'ZK Rollup'],
+    homeImage: `${CDN_URL}/pages/landing-v4/home-rollups-octfin.png`,
   },
   {
     image: '/explore/StratoVM.jpg',
@@ -233,6 +239,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
       },
     ],
     tags: ['L2', 'Optimistic Rollup'],
+    homeImage: `${CDN_URL}/pages/landing-v4/home-rollups-stratoVM.png`,
   },
   {
     image: '/explore/Satz_Labs.jpg',
@@ -254,6 +261,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
       },
     ],
     tags: ['L1', 'ZK Rollup'],
+    homeImage: `${CDN_URL}/pages/landing-v4/home-rollups-satz.png`,
   },
   {
     image: '/explore/iron.jpg',
@@ -274,6 +282,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
       },
     ],
     tags: ['L2', 'ZK Rollup'],
+    homeImage: `${CDN_URL}/pages/landing-v4/home-rollups-iron-bank.png`,
   },
   {
     image: '/explore/bloom.jpg',
@@ -295,6 +304,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
       },
     ],
     tags: ['L2', 'ZK Rollup'],
+    homeImage: `${CDN_URL}/pages/landing-v4/home-rollups-bloom.png`,
   },
   // {
   //   image: '/explore/xally.jpg',
