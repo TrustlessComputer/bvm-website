@@ -7,14 +7,22 @@ import AppLoading from '@/components/AppLoading';
 import { IGetParams } from '@/modules/Vote/Proposals/ListProposal';
 import cn from 'classnames';
 import Avatar from '@/components/Avatar';
-import { Box, Flex, Image } from '@chakra-ui/react';
+import { Box, Flex, Image, Text, Tooltip } from '@chakra-ui/react';
 import { getListLeaderboard } from '@/services/api/EternalServices';
 import {
   IContestProblem,
   IUserContest,
 } from '@/services/api/EternalServices/types';
 import s from './Leaderboard.module.scss';
-import { formatCurrency } from '@/utils/format';
+import { formatAddressOrName, formatCurrency } from '@/utils/format';
+import { useDispatch } from 'react-redux';
+import { openModal } from '@/stores/states/modal/reducer';
+import LeaderboardModal from './LeaderboardModal';
+import SvgInset from '@/components/SvgInset';
+import copy from 'copy-to-clipboard';
+import toast from 'react-hot-toast';
+import { isAddress } from 'ethers/lib/utils';
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 
 type Props = {
   currentUserContest?: IUserContest;
@@ -24,6 +32,7 @@ const LIMIT_PAGE = 50;
 
 const Leaderboard = (props: Props) => {
   const { currentUserContest } = props;
+  const dispatch = useDispatch();
 
   const infiniteScrollRef = useRef<any>(null);
 
@@ -66,14 +75,15 @@ const Leaderboard = (props: Props) => {
     if (index >= 0 && isCurrentUser) {
       return null;
     }
+    const lastProblem = data.contest_problems?.sort(
+      (a, b) =>
+        new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
+    )?.[0];
 
-    const map = data.contest_problems?.reduce(
-      (prev, item) => ({
-        ...prev,
-        [item.code]: item,
-      }),
-      {} as Record<string, IContestProblem>,
-    );
+    const nameText =
+      data.user.name ||
+      data.user.twitter_username ||
+      data.user.email?.split('@')?.[0];
 
     return (
       <div
@@ -82,35 +92,54 @@ const Leaderboard = (props: Props) => {
         <Box className={s.first_col}>{data.rank}</Box>
         <div className={cn(s.second_col, s.name)}>
           <Flex alignItems={'center'} gap="8px" style={{ overflow: 'hidden' }}>
-            <Avatar
-              url={data.user.profile_image}
-              width={20}
-              circle
-              className={s.avatar}
-            />
+            {isAddress(data.user.profile_image) ? (
+              <Jazzicon
+                diameter={20}
+                seed={jsNumberForAddress(data.user.profile_image)}
+              />
+            ) : (
+              <Avatar
+                url={data.user.profile_image}
+                width={20}
+                circle
+                className={s.avatar}
+              />
+            )}
             <p
-              title={data.user.name}
               style={{
                 whiteSpace: 'nowrap',
                 textOverflow: 'ellipsis',
                 color: isCurrentUser ? '#8643FB' : 'inherit',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
               }}
             >
-              {data.user.name ||
-                data.user.twitter_username ||
-                data.user.email?.split('@')?.[0]}
+              {formatAddressOrName(nameText)}
+              {isAddress(nameText) && (
+                <SvgInset
+                  onClick={() => {
+                    copy(nameText);
+                    toast.success('Copied');
+                  }}
+                  style={{ cursor: 'pointer' }}
+                  svgUrl="/icons/ic-copy.svg"
+                />
+              )}
             </p>
           </Flex>
         </div>
-        <div className={cn(s.place_center, s.third_col)}>
+        <div
+          className={cn(s.place_center, s.third_col)}
+          style={{ cursor: 'pointer', textDecoration: 'underline' }}
+          onClick={() => showLeaderboardModal(data)}
+        >
           {data.total_point}
         </div>
         <div className={s.place_center}>
           {formatCurrency(data.total_gas_used)}
         </div>
-        <div className={s.place_center}>{renderTimeStatus(map?.['1'])}</div>
-        <div className={s.place_center}> {renderTimeStatus(map?.['2'])}</div>
-        <div className={s.place_center}> {renderTimeStatus(map?.['3'])}</div>
+        <div className={s.place_center}>{renderTimeStatus(lastProblem)}</div>
       </div>
     );
   };
@@ -119,25 +148,46 @@ const Leaderboard = (props: Props) => {
     if (!contestProblem) {
       return null;
     }
-    // const formattedTime = getTimeText(contestProblem.duration);
+
     const isPassed =
       contestProblem.status === 'marked' && contestProblem.point > 0;
+    const isProcessing = contestProblem.status === 'processing';
 
-    if (isPassed) {
-      return (
-        <Flex
-          alignItems={'center'}
-          gap="4px"
-          w="100%"
-          h="100%"
-          justifyContent={'center'}
-          className={s.passed}
-        >
-          {formatCurrency(contestProblem.gas_used)}
-          <Image src="/hackathon/ic-check.svg" />
-        </Flex>
+    const renderContent = () => {
+      if (isPassed) {
+        return (
+          <>
+            {formatCurrency(contestProblem.gas_used)}
+            <Image src="/hackathon/ic-check.svg" />
+          </>
+        );
+      }
+
+      if (isProcessing) {
+        return (
+          <>
+            <Image src="/icons/ic-time-forward.svg" />
+            <Text
+              position={'absolute'}
+              transform={'translateY(20px)'}
+              fontSize={'10px'}
+              color="rgba(255, 255, 255, 0.70)"
+              fontWeight={500}
+            >
+              Judging
+            </Text>
+          </>
+        );
+      }
+
+      return contestProblem.error_msg ? (
+        <Tooltip label={contestProblem.error_msg}>
+          <Image src="/hackathon/ic-close-red.svg" />
+        </Tooltip>
+      ) : (
+        <Image src="/hackathon/ic-close-red.svg" />
       );
-    }
+    };
 
     return (
       <Flex
@@ -146,11 +196,26 @@ const Leaderboard = (props: Props) => {
         w="100%"
         h="100%"
         justifyContent={'center'}
-        className={s.failed}
-        position={'relative'}
+        className={cn({
+          [s.passed]: isPassed,
+          [s.failed]: !isPassed && !isProcessing,
+        })}
       >
-        <Image src="/hackathon/ic-close-red.svg" />
+        {renderContent()}
       </Flex>
+    );
+  };
+
+  const showLeaderboardModal = (userContest: IUserContest) => {
+    dispatch(
+      openModal({
+        id: 'leaderboard-modal',
+        modalProps: {
+          size: 'xl',
+        },
+        className: s.LeaderboardModal,
+        render: () => <LeaderboardModal userContest={userContest} />,
+      }),
     );
   };
 
@@ -177,13 +242,7 @@ const Leaderboard = (props: Props) => {
           <span>Total Gas</span>
         </div>
         <div className={s.place_center}>
-          <span>Problem 1</span>
-        </div>
-        <div className={s.place_center}>
-          <span> Problem 2</span>
-        </div>
-        <div className={s.place_center}>
-          <span> Problem 3</span>
+          <span>Last problem</span>
         </div>
       </div>
     );
@@ -194,7 +253,8 @@ const Leaderboard = (props: Props) => {
       className={s.wrapper}
       id="scrollableDiv"
       style={{
-        height: 620,
+        height: 660,
+        overflow: 'auto',
       }}
     >
       {!dataSource?.length && renderHeader()}

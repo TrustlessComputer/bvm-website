@@ -10,6 +10,7 @@ import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import {
   checkRegistered,
   getContestStats,
+  registerCodeBattle,
 } from '@/services/api/EternalServices';
 import { IUserContest } from '@/services/api/EternalServices/types';
 import { openModal } from '@/stores/states/modal/reducer';
@@ -17,80 +18,52 @@ import { Box, Image as ChakraImage, Flex, Text } from '@chakra-ui/react';
 import cn from 'classnames';
 import dayjs from 'dayjs';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { FAQ_POC } from './faqs';
 import s from './HackathonModue.module.scss';
 import LeaderboardSection from './LeaderboardSection';
 import RegisterModal, { REGISTER_MODAL } from './Register/Modal';
 import CompetitionTimer from './CompetitionTimer';
+import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 
 type Props = {};
-
-const START_TIME = '2024-08-08T10:00:00Z';
-
-const END_TIME = '2024-08-15T10:00:00Z';
-
-// export private key
-// should check wallet.privateKey first,
-// if not exist, then call login
-// else show private key for user to copy
-
-const TimeCounter = () => {
-  const startTime = useCountdown(START_TIME);
-
-  const endTime = useCountdown(END_TIME);
-  if (!startTime.ended) {
-    return (
-      <Flex
-        alignItems={'center'}
-        gap="4px"
-        flexDir={{ base: 'column', xl: 'row' }}
-      >
-        <Text whiteSpace={'nowrap'} opacity={0.6}>
-          Competition starts in
-        </Text>
-        <Countdown
-          className={s.countDown_time}
-          expiredTime={dayjs.utc(START_TIME, 'YYYY-MM-DD HH:mm:ss').toString()}
-          hideIcon={true}
-          showDay
-          // type="column"
-          // hideZeroHour={true}
-        />
-      </Flex>
-    );
-  }
-
-  if (!endTime.ended) {
-    return (
-      <Flex alignItems={'center'} gap="4px">
-        <Text whiteSpace={'nowrap'} opacity={0.6}>
-          Competition ends in
-        </Text>
-        <Countdown
-          className={s.countDown_time}
-          expiredTime={dayjs.utc(END_TIME, 'YYYY-MM-DD HH:mm:ss').toString()}
-          hideIcon={true}
-          showDay
-          // type="column"
-          // hideZeroHour={true}
-        />
-      </Flex>
-    );
-  }
-
-  return <Text>Ended</Text>;
-};
 
 const HackathonModule = (props: Props) => {
   const { loggedIn, login, logout, userInfo, wallet } = useWeb3Auth();
   const dispatch = useDispatch();
+  const { tracking } = useL2ServiceTracking();
+  const leaderboardSectionRef = useRef<HTMLDivElement | null>(null);
 
   const [peopleSubmitted, setPeopleSubmitted] = useState<number | null>(null);
   const [isRegistered, setIsRegistered] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
   const [currentUserContest, setCurrentUserContest] = useState<IUserContest>();
+
+  useEffect(() => {
+    let setTimeoutInstance: NodeJS.Timeout | null = null;
+    if (!!userInfo && !!wallet && !isRegistered) {
+      // call register api
+      setTimeoutInstance = setTimeout(() => {
+        const payload = {
+          team: userInfo.name || userInfo?.email || wallet.address,
+          university: '',
+          email: userInfo?.email,
+        };
+        registerCodeBattle(payload).then(() => {
+          setIsRegistered(true);
+        });
+
+        console.log('call register api');
+      }, 5000);
+    }
+
+    return () => {
+      if (setTimeoutInstance) {
+        clearTimeout(setTimeoutInstance);
+      }
+    };
+  }, [isRegistered, wallet, userInfo]);
 
   const fetchPeopleSubmitted = async () => {
     try {
@@ -146,6 +119,12 @@ const HackathonModule = (props: Props) => {
     if (practiceSection) {
       practiceSection.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const scrollToLeaderboard = () => {
+    leaderboardSectionRef.current
+      ?.querySelector(`div[class*='LeaderboardSection_wrapper']`)
+      ?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -205,6 +184,13 @@ const HackathonModule = (props: Props) => {
                 glory.
               </p>
             </div>
+            <div className={s.freeToJoinWrapper} onClick={scrollToLeaderboard}>
+              <Text position="relative" transform={'translateY(3px)'}>
+                👉
+              </Text>
+              <Text className={s.freeToJoin}>Free to join.</Text>
+              <Text>All gas fees are automatically covered.</Text>
+            </div>
             <Flex
               alignItems={'center'}
               justifyContent={{ base: 'center', sm: 'flex-start' }}
@@ -213,16 +199,17 @@ const HackathonModule = (props: Props) => {
               mb="24px"
             >
               {/* <ButtonConnected title="Let's practice" className={s.reward_btn}> */}
-              <button
+              {/* <button
                 className={cn(s.reward_btn)}
-                onClick={
-                  loggedIn ? handleClickPractice : handleOpenRegisterModal
-                }
+                onClick={() => {
+                  loggedIn ? handleClickPractice() : handleOpenRegisterModal();
+                  tracking('POC_CLICK_PRACTICE');
+                }}
                 // onClick={handleClickPractice}
                 // disabled={isRegistered}
               >
                 Let's practice
-              </button>
+              </button> */}
               {/* </ButtonConnected> */}
 
               <div className={s.connect_btn}>
@@ -231,8 +218,9 @@ const HackathonModule = (props: Props) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={s.tele_link}
+                  onClick={() => tracking('POC_CLICK_JOIN_COMMUNITY')}
                 >
-                  Join the PoC community
+                  Join PoC community
                 </a>
               </div>
 
@@ -259,7 +247,7 @@ const HackathonModule = (props: Props) => {
               <Image
                 layout="fill"
                 alt="hero thumbnail"
-                src={`${CDN_URL}/images/candidate-with-result.png`}
+                src={`/hackathon/candidate-with-result.png`}
                 // srcSet={`
                 //   /images/candidate-with-result-1x.png 1x,
                 //   /images/candidate-with-result-2x.png 2x,
@@ -268,9 +256,28 @@ const HackathonModule = (props: Props) => {
               />
             </Box>
           </div>
+
+          <ChakraImage
+            pos={'absolute'}
+            maxW={'1107px'}
+            maxH={'1096px'}
+            left={'45%'}
+            transform={'translate(-25%, 50%)'}
+            bottom="0"
+            alt="hero thumbnail"
+            zIndex={1}
+            display={{ base: 'none', md: 'block' }}
+            src={`${CDN_URL}/images/hero-gradient-bg.png`}
+            // `}
+          />
         </div>
       </div>
-      <Box zIndex={1} pos={'relative'} id={'practice-section'}>
+      <Box
+        zIndex={1}
+        pos={'relative'}
+        id={'practice-section'}
+        ref={leaderboardSectionRef}
+      >
         <LeaderboardSection currentUserContest={currentUserContest} />
       </Box>
       <Box
@@ -302,18 +309,6 @@ const HackathonModule = (props: Props) => {
           </Text>
           <FAQs data={FAQ_POC} viewAll />
         </Box>
-        <ChakraImage
-          pos={'absolute'}
-          maxW={'1107px'}
-          maxH={'1096px'}
-          left={'45%'}
-          transform={'translate(-50%, 50%)'}
-          bottom="0"
-          alt="hero thumbnail"
-          zIndex={1}
-          src={`${CDN_URL}/images/hero-gradient-bg.png`}
-          // `}
-        />
       </Box>
     </>
   );

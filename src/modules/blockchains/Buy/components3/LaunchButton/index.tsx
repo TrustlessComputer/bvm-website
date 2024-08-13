@@ -74,7 +74,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     string[]
   >([]);
 
-  const { getAccountInfor } = useL2Service();
   const { showContactUsModal } = useContactUs();
   const { retrieveFormsByDappKey } = useOneForm();
 
@@ -112,12 +111,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     }
     return 'Launch';
   }, [loggedIn, isUpdate, needContactUs]);
-
-  useEffect(() => {
-    if (loggedIn) {
-      getAccountInfor();
-    }
-  }, [loggedIn]);
 
   useEffect(() => {
     const getChainIDRandomFunc = async () => {
@@ -541,7 +534,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           show={isOpenTopUpModal}
           infor={{
             paymentAddress: `${
-              accountInforL2Service?.topUpWalletAddress || '--'
+              accountInforL2Service?.topupWalletAddress || '--'
             }`,
           }}
           onClose={onCloseTopUpModal}

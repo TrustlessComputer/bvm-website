@@ -7,7 +7,7 @@ export type IContestProblem = {
   submitted_at: string;
   contract_block_time: string;
   duration: number;
-  status: 'pending' | 'marked';
+  status: 'pending' | 'marked' | 'processing';
   point: number;
   error_msg: string;
   gas_used: number;

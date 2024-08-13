@@ -32,8 +32,10 @@ const useCountdown = (utcTime: string) => {
 
     const interval = setInterval(() => {
       const now = dayjs().utc();
-      const diff = dayjs.duration(dayjs.utc(utcTime).diff(now));
-      if (diff.milliseconds() <= 0) {
+      const utcDayTime = dayjs.utc(utcTime);
+      const diff = dayjs.duration(utcDayTime.diff(now));
+      
+      if (utcDayTime.unix() <= now.unix()) {
         clearInterval(interval);
         setAsDays(null);
         setDays(null);

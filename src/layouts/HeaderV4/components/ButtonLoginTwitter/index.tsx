@@ -19,14 +19,7 @@ type Props = {
 const ButtonLoginTwitter = (props: Props) => {
   const router = useRouter();
   const { loggedIn, login, logout, userInfo } = useWeb3Auth();
-  const { getAccountInfor } = useL2Service();
   const accInfor = useAppSelector(accountInforSelector);
-
-  useEffect(() => {
-    if (loggedIn) {
-      getAccountInfor();
-    }
-  }, [loggedIn]);
 
   const handleConnect = async () => {
     try {
@@ -40,6 +33,7 @@ const ButtonLoginTwitter = (props: Props) => {
     }
   };
   const [isHover, setIsHover] = useState<boolean>(false);
+
   return (
     <div
       className={`${s.buttonLogin} ${
@@ -67,13 +61,15 @@ const ButtonLoginTwitter = (props: Props) => {
         )}
         <p className={`${loggedIn ? s.text : s.lowercase} text`}>
           {/* {!loggedIn ? 'Connect' : `${accInfor?.addressFormatted || '--'}`}{' '} */}
-          {!loggedIn
-            ? props?.title || 'Sign in'
-            : `${
-                accInfor?.twitterUsername ||
-                accInfor?.email ||
-                accInfor?.tcAddress
-              }`}
+          {!loggedIn ? (
+            props?.title || 'Sign in'
+          ) : (
+            <Skeleton isLoaded={loggedIn}>
+              {accInfor?.twitterUsername ||
+                accInfor?.email?.split('@')?.[0] ||
+                accInfor?.tcAddress}
+            </Skeleton>
+          )}
         </p>
       </div>
       {/* {isHover && loggedIn && (

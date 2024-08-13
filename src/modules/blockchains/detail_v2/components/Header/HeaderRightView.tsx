@@ -20,15 +20,8 @@ const HeaderRightView = (props: Props) => {
   const { orderItem } = props;
 
   const router = useRouter();
-  const { getAccountInfor } = useL2Service();
   const { loggedIn, login } = useWeb3Auth();
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
-
-  useEffect(() => {
-    if (loggedIn) {
-      getAccountInfor();
-    }
-  }, [loggedIn]);
 
   const isOwner =
     orderItem?.tcAddress?.toLowerCase() ===

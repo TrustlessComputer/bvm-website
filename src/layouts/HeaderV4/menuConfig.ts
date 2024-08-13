@@ -6,7 +6,6 @@ import ContactUs from '@layouts/HeaderV3/components/ContactUs';
 import GroupSolutions from './components/GroupSolutions';
 
 export const NAV_ITEMS: Array<NavItem> = [
-
   {
     label: 'Products',
     href: '#',
@@ -62,11 +61,8 @@ export const NAV_ITEMS: Array<NavItem> = [
     isNewWindow: false,
     isHide: false,
   },
-
-
 ];
 export const NAV_ITEMS_LEFT: Array<NavItem> = [
-
   {
     label: 'Products',
     href: '#',
@@ -103,6 +99,12 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isNewWindow: false,
     isHide: false,
   },
+  // {
+  //   label: 'Bitcoin Rollups',
+  //   href: '/bitcoin-rollups',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
   // {
   //   label: 'Customers',
   //   href: '/customers',

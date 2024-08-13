@@ -18,7 +18,7 @@ const Item = ({ data }: { data: any }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <Accordion allowToggle onChange={(i) => setOpen(i === 0)}>
+    <Accordion allowToggle onChange={(i) => setOpen(i === 0)} id={data?.id}>
       <AccordionItem border="none" w={['100%', '100%']}>
         <AccordionButton px={0} pt={[3, 6]} pb={open ? 4 : 6}>
           <Flex

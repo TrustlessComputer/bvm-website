@@ -1,0 +1,17 @@
+.disclaimer {
+  margin: 0 auto;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid #FF7E21;
+
+  &_text {
+    color: #FF7E21;
+    font-family: "SF Pro Display";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+  }
+}

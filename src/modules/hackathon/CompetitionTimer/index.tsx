@@ -7,9 +7,9 @@ import dayjs from 'dayjs';
 
 type Props = {};
 
-const START_TIME = '2024-08-08T10:00:00Z';
+const START_TIME = '2024-08-29T10:00:00Z';
 
-const END_TIME = '2024-08-15T10:00:00Z';
+const END_TIME = '2024-09-05T10:00:00Z';
 
 const CompetitionTimer = (props: Props) => {
   const startTime = useCountdown(START_TIME);
@@ -20,7 +20,7 @@ const CompetitionTimer = (props: Props) => {
       <Flex
         alignItems={'center'}
         gap="5px"
-        flexDir={{ base: 'column', xl: 'row' }}
+        flexDir={{ base: 'column', md: 'row' }}
       >
         <Text whiteSpace={'nowrap'} opacity={0.6}>
           Competition starts in

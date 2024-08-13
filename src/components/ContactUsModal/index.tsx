@@ -17,6 +17,7 @@ const SUBJECT_LIST = [
   `I'd like to build a Rollup on Bitcoin`,
   `I'd like to make a partnership proposal`,
   `I have an issue with the payment process`,
+  `I'd like to submit my project to Heartbeat`,
   `Others`,
 ];
 
@@ -384,12 +385,16 @@ const ContactUsModal = ({
           >
             <div>
               <Text fontSize={['18px', '20px', '24px']} fontWeight={500}>
-                {params.changeText
+                {params?.title
+                  ? params.title
+                  : params.changeText
                   ? 'Finish your setup'
                   : 'Get a personalized demo'}
               </Text>
               <Text fontSize={['14', '16']} fontWeight={400}>
-                {params.changeText
+                {params?.description
+                  ? params.description
+                  : params.changeText
                   ? "You've chosen Optimistic Rollup for your blockchain and it can't be done automatically yet. We will reach out to you shortly to help complete your setup."
                   : 'Help us tailor the demo experience to your needs.'}
               </Text>

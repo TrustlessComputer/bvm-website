@@ -17,6 +17,7 @@ import {
   Skeleton,
   Text,
   Button,
+  Spinner,
 } from '@chakra-ui/react';
 import { useEffect, useMemo } from 'react';
 import L2Instance from './L2Instance';
@@ -98,16 +99,19 @@ const BodyGridView = () => {
         py={['5px', '10px', '20px']}
         px={['10px', '5px', '0px']}
       >
-        {new Array(4).fill(0).map((item, index) => {
+        {new Array(6).fill(0).map((item, index) => {
           return (
-            <Skeleton
+            <Flex
               key={`${item}-${index}`}
               w={'100%'}
+              bgColor={'#fff'}
               height={'400px'}
-              startColor="#2f2f2f"
-              endColor="#656565"
               borderRadius={'20px'}
-            ></Skeleton>
+              justify={'center'}
+              align={'center'}
+            >
+              <Spinner color="#000" />
+            </Flex>
           );
         })}
       </SimpleGrid>

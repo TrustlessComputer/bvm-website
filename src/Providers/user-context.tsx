@@ -15,12 +15,13 @@ import userServices from '@/services/user';
 import ReferralStorage from '@/utils/storage/referral.storage';
 import { getCoinPrices, getConfigs } from '@/services/common';
 import { setCoinPrices, setConfigs } from '@/stores/states/common/reducer';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import CReferralAPI from '@/services/api/referrals';
 import { setUserReferral } from '@/stores/states/referrals/reducer';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import useL2Service from '@hooks/useL2Service';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import { useEventTracking } from '@/hooks/useEventTracking';
 
 export interface IUserContext {}
 
@@ -32,6 +33,7 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
   children,
 }: PropsWithChildren): React.ReactElement => {
   const router = useRouter();
+  const pathname = usePathname();
 
   const dispatch = useAppDispatch();
   const needReload = useAppSelector(commonSelector).needReload;
@@ -43,8 +45,8 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
   const addressL2 = accountInforL2Service?.tcAddress;
   const refCodeChain = ReferralStorage.getRefCodeChain();
 
-  const { getAccountInfor } = useL2Service();
   const { loggedIn } = useWeb3Auth();
+  const { trackPageView } = useEventTracking();
 
   useEffect(() => {
     const referral = refCodeChain;
@@ -63,10 +65,6 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
       //
     }
   };
-
-  useEffect(() => {
-    getAccountInfor();
-  }, [loggedIn]);
 
   const fetchUserInfo = async () => {
     const userInfo = await userServices.getUser();
@@ -141,6 +139,10 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
       ReferralStorage.setRefCodeChain(code);
     }
   }, []);
+
+  React.useEffect(() => {
+    trackPageView();
+  }, [pathname]);
 
   React.useEffect(() => {
     fetchCoinPrices();
