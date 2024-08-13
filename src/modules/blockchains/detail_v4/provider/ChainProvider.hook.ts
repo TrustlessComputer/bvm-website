@@ -1,5 +1,5 @@
 'use client';
-
+import * as CSS from 'csstype';
 import { IDAppInstalled, OrderStatus } from '@/stores/states/l2services/types';
 import {
   DAppKeys,
@@ -8,6 +8,7 @@ import {
 } from '@/types/customize-model';
 import { useContext, useMemo } from 'react';
 import { ChainContext } from './ChainProvider';
+import { ResponsiveValue } from '@chakra-ui/react';
 
 export const useChainProvider = () => {
   const context = useContext(ChainContext);
@@ -34,11 +35,14 @@ export const useChainProvider = () => {
 
     if (order) {
       switch (order.status) {
-        case OrderStatus.Rejected:
-          statusStr = 'Failed';
-          statusColorStr = '#FA4E0E';
-          borderStatusStr = '#FFF2EE';
+        //
+        case OrderStatus.Started:
+          statusStr = 'Running';
+          statusColorStr = '#00AA6C';
+          borderStatusStr = '#EEFFF9';
           break;
+
+        //
         case OrderStatus.WaitingPayment:
           statusStr = 'Waiting for payment';
           statusColorStr = '#FFC700';
@@ -49,10 +53,17 @@ export const useChainProvider = () => {
           statusColorStr = '#FFC700';
           borderStatusStr = '#FFF6D8';
           break;
-        case OrderStatus.Started:
-          statusStr = 'Running';
-          statusColorStr = '#00AA6C';
-          borderStatusStr = '#EEFFF9';
+        case OrderStatus.Updating:
+          statusStr = 'Updating';
+          statusColorStr = '#FFC700';
+          borderStatusStr = '#FFF6D8';
+          break;
+
+        //
+        case OrderStatus.Rejected:
+          statusStr = 'Failed';
+          statusColorStr = '#FA4E0E';
+          borderStatusStr = '#FFF2EE';
           break;
         case OrderStatus.Resume:
           statusStr = 'Please wait for service to resume';
@@ -74,6 +85,8 @@ export const useChainProvider = () => {
           statusColorStr = '#FFC700';
           borderStatusStr = '#FFF6D8';
           break;
+
+        //
         case OrderStatus.IsDown:
           statusStr = 'Down';
           statusColorStr = '#ECECED';
@@ -88,86 +101,62 @@ export const useChainProvider = () => {
     };
   };
 
-  const getDAppStatus = (dAppKey: DAppKeys) => {
-    switch (dAppKey) {
-      //
-      case 'blockchain':
-        return getBlockChainStatus();
-
-      //
-      case 'btc_bridge':
-        break;
-      case 'eth_bridge':
-        break;
-
-      //
-      case 'account_abstraction':
-        break;
-      case 'create_token':
-        break;
-      case 'staking':
-        break;
-      case 'dex':
-        break;
-      case 'order_book':
-        break;
-      case 'perpetual':
-        break;
-
-      default:
-        break;
-    }
-  };
-
-  const getDAppInstalledByAppCode = (dAppName: DAppKeys) => {
+  const getDAppConfiguredByKey = (key: DAppKeys) => {
     return order?.dApps?.find(
-      (item) => item.appCode?.toLowerCase() === dAppName?.toLowerCase(),
+      (item) => item.appCode?.toLowerCase() === key?.toLowerCase(),
     );
   };
 
-  const statusMapper = (
-    dAppInstalled?: IDAppInstalled,
-    dAppName?: DAppKeys,
-  ) => {
-    let statusCode = 'need_config';
+  const statusMapper = (dAppInstalled?: IDAppInstalled) => {
+    let statusCode = 'need_config'; //Payment OK, But not config yet!
     let statusStr = 'Need config';
-    let statusColor = '#FF4747';
+    let statusColorStr = '#FF4747';
+    let borderColorStr = '#FF4747';
+    let bgColorStr = '#FFF2EE';
+    let fontStyle: CSS.Property.FontStyle = 'italic';
+    let textDecorationLine: ResponsiveValue<CSS.Property.TextDecorationLine> =
+      'underline';
 
-    if (dAppName === 'blockchain') {
-      statusCode = 'Running';
-      statusStr = 'Running';
-      statusColor = '#00AA6C';
-    } else if (dAppInstalled) {
+    if (dAppInstalled) {
+      fontStyle = 'normal';
+      textDecorationLine = 'none';
       switch (dAppInstalled.status) {
         case 'new':
           statusCode = 'new';
-          statusStr = 'New'; // Map text if needed (Ex: Setting up)
-          statusColor = '#F9D03F';
+          statusStr = 'New';
+          statusColorStr = '#F9D03F';
+          borderColorStr = '#F9D03F';
+          bgColorStr = '#FFF6D8';
+
           break;
         case 'processing':
           statusCode = 'processing';
-          statusStr = 'Processing'; // Map text if needed
-          statusColor = '#F9D03F';
+          statusStr = 'Processing';
+          statusColorStr = '#F9D03F';
+          borderColorStr = '#F9D03F';
+          bgColorStr = '#FFF6D8';
           break;
 
         case 'done':
           statusCode = 'done';
-          statusStr = 'Done'; // Map text if needed
-          statusColor = '#00AA6C';
+          statusStr = 'Done';
+          statusColorStr = '#00AA6C';
+          borderColorStr = '#00AA6C';
+          bgColorStr = '#EEFFF9';
           break;
         default:
           break;
       }
-    } else {
-      statusCode = 'need_config';
-      statusStr = 'Need config';
-      statusColor = '#FF4747';
     }
 
     return {
       statusCode,
       statusStr,
-      statusColor,
+      statusColorStr,
+      bgColorStr,
+      borderColorStr,
+      fontStyle,
+      textDecorationLine,
     };
   };
 
@@ -186,8 +175,7 @@ export const useChainProvider = () => {
 
     return dAppList.map((item) => {
       const statusFactory = statusMapper(
-        getDAppInstalledByAppCode(item.key as DAppKeys),
-        item.key as DAppKeys,
+        getDAppConfiguredByKey(item.key as DAppKeys),
       );
 
       return {
@@ -209,6 +197,38 @@ export const useChainProvider = () => {
     return mapping;
   }, [order?.selectedOptions]);
 
+  const getDAppStatusByKey = (dAppName: DAppKeys) => {
+    return dAppListAvailable?.find(
+      (item) => item.key?.toLowerCase() === dAppName?.toLowerCase(),
+    );
+  };
+
+  const getAAStatus = () => {
+    const result = getDAppStatusByKey('account_abstraction');
+    if (result) {
+      return result;
+    } else {
+      let statusCode = 'drafting_modules';
+      let statusStr = 'Drafting Modules';
+      let statusColorStr = '#FFC700';
+      let borderColorStr = '#FFC700';
+      let bgColorStr = '#FFF6D8';
+      let fontStyle: CSS.Property.FontStyle = 'italic';
+      let textDecorationLine: ResponsiveValue<CSS.Property.TextDecorationLine> =
+        'none';
+
+      return {
+        statusCode,
+        statusStr,
+        statusColorStr,
+        borderColorStr,
+        bgColorStr,
+        fontStyle,
+        textDecorationLine,
+      };
+    }
+  };
+
   return {
     ...context,
     isUpdateFlow,
@@ -219,7 +239,8 @@ export const useChainProvider = () => {
     selectedCategoryMapping,
 
     //
-    getDAppStatus,
     getBlockChainStatus,
+    getDAppStatusByKey,
+    getAAStatus,
   };
 };

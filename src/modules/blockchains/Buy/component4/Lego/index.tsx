@@ -10,6 +10,7 @@ import { Box, Image, Tooltip } from '@chakra-ui/react';
 import { FieldModel } from '@/types/customize-model';
 import { legoDragging } from '@/modules/blockchains/dapp/ui-helper/LegoDragging';
 import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
+import { iconToolNames } from '@/modules/blockchains/Buy/Buy.data';
 
 type Position =
   | {
@@ -87,6 +88,15 @@ const Lego = (props: Props) => {
       legoRef.current.style.position = 'relative';
     }
   }, [legoRef.current, zIndex]);
+
+  const _icon =
+    iconToolNames.find(
+      (item) =>
+        icon?.replace('https://storage.googleapis.com/bvm-network', '') ===
+        item,
+    ) ||
+    icon ||
+    null;
 
   return (
     <div
@@ -168,8 +178,8 @@ const Lego = (props: Props) => {
                 styles.lego__inner__label__left,
               )}
             >
-              {icon && (
-                <Image src={icon} width="20px" height="20px" alt="icon" />
+              {_icon && (
+                <Image src={_icon} width="20px" height="20px" alt="icon" />
               )}
               <p
                 className={`${styles.titleSingle}  ${
@@ -201,7 +211,7 @@ const Lego = (props: Props) => {
                 styles.lego__inner__label__right,
               )}
             >
-              {icon && <Image src={icon} width={20} height={20} alt="icon" />}
+              {_icon && <Image src={_icon} width={20} height={20} alt="icon" />}
               <p className={`${isCapture ? styles.label_margin : ''}`}>
                 {title}
               </p>

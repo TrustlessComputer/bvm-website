@@ -119,17 +119,44 @@ https://bvm.network/studio/${url}`;
     }, 150);
   }
 
-  // function downloadImage(dataUrl) {
-  //   const a = document.createElement('a');
-  //
-  //   a.setAttribute('download', 'reactflow.png');
-  //   a.setAttribute('href', dataUrl);
-  //   a.click();
-  // }
+  function downloadImage(dataUrl) {
+    const a = document.createElement('a');
+
+    a.setAttribute('download', 'reactflow.png');
+    a.setAttribute('href', dataUrl);
+    a.click();
+  }
+
+  const onClick = () => {
+    // we calculate a transform for the nodes so that all nodes are visible
+    // we then overwrite the transform of the `.react-flow__viewport` element
+    // with the style option of the html-to-image library
+    const nodesBounds = getNodesBounds(getNodes());
+    const viewport = getViewportForBounds(
+      nodesBounds,
+      imageWidth,
+      imageHeight,
+      0.5,
+      2,
+      1,
+    );
+
+    toPng(document.querySelector('#viewport'), {
+      backgroundColor: '#1a365d',
+      width: imageWidth,
+      height: imageHeight,
+      style: {
+        width: imageWidth,
+        height: imageHeight,
+        transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
+      },
+    }).then(downloadImage);
+  };
 
   return (
     <div className={s.wrapper_btn_top}>
-      <div className={s.reset2} onClick={() => download()}>
+      {/*<div className={s.reset2} onClick={() => download()}>*/}
+      <div className={s.reset2} onClick={onClick}>
         <p>EXPORT</p>
         <div>
           <Image
