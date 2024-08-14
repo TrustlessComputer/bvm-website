@@ -36,6 +36,9 @@ import { chainKeyToDappKey } from '../../utils';
 import useSubmitStaking from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitStaking';
 import PreviewLaunchModal from '../../Preview';
 import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
+import { DappType } from '@/modules/blockchains/dapp/types';
+import useSubmitFormAirdrop from './onSubmitFormAirdrop';
+import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -108,6 +111,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   });
 
   const { onSubmitStaking } = useSubmitStaking();
+  const { onSubmitAirdrop } = useSubmitFormAirdrop();
+  const { onSubmitTokenGeneration } = useSubmitFormTokenGeneration();
 
   const { chainName, dataAvaibilityChain, gasLimit, network, withdrawPeriod } =
     useOrderFormStore();
@@ -307,11 +312,19 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       dynamicFormValues: dynamicForm,
     });
     const stakingForms = retrieveFormsByDappKey({
-      dappKey: 'staking',
+      dappKey: DappType.staking,
+    });
+
+    const airdropForms = retrieveFormsByDappKey({
+      dappKey: DappType.airdrop,
+    });
+
+    const tokensForms = retrieveFormsByDappKey({
+      dappKey: DappType.token_generation,
     });
 
     console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
-    console.log('LEON LOG: 111', stakingForms);
+    console.log('LEON LOG: 111', airdropForms);
     try {
       // Update and Call API install (behind the scene form BE Phuong)
       const result = await orderUpdateV2(params, orderDetail.orderId);
@@ -324,6 +337,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           await onSubmitStaking({
             forms: stakingForms,
           });
+        } else if (airdropForms && airdropForms.length > 0) {
+          await onSubmitAirdrop({ forms: airdropForms });
+        } else if (tokensForms && tokensForms.length > 0) {
+          await onSubmitTokenGeneration({ forms: tokensForms });
         }
 
         // TO DO [Leon]
@@ -353,7 +370,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       if (isSuccess) {
         toast.success('Update Successful');
       }
-      setSubmitting(false);
+      // setSubmitting(false);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   };
 

@@ -4,11 +4,12 @@ import LaunchButton from '@/modules/blockchains/Buy/components3/LaunchButton';
 import React, { ReactElement } from 'react';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import MenuSettingChain from '../Main/MenuSettingChain';
 
 export default function TopWorkArea(): ReactElement {
   const { priceBVM, priceUSD, needContactUs } = useOrderFormStoreV3();
 
-  const { order } = useChainProvider();
+  const { order, isUpdateFlow } = useChainProvider();
 
   return (
     <div className={s.right_box_footer}>
@@ -33,6 +34,7 @@ export default function TopWorkArea(): ReactElement {
       )}
 
       <LaunchButton isUpdate={!!order} />
+      {isUpdateFlow && <MenuSettingChain />}
     </div>
   );
 }

@@ -7,10 +7,12 @@ import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import CDappAPI from '@/services/api/dapp';
 import { showError, showSuccess } from '@components/toast';
+import NavigationBar from '@/modules/blockchains/detail_v2/components/NavigatioBar';
 
 const TemplatePage = () => {
   const dapp = useAppSelector(dappSelector);
   const configsSelector = dapp?.dappConfigs;
+  const chain = dapp?.chain;
   const [template, setTemplate] = React.useState(configsSelector?.template);
   const [loading, setLoading] = React.useState(false);
 
@@ -36,6 +38,8 @@ const TemplatePage = () => {
     }
   }
 
+  console.log('sANG TES:', chain?.dappURL || '');
+
   return (
     <Flex
       className={styles.container}
@@ -45,32 +49,33 @@ const TemplatePage = () => {
       gap={['40px']}
       position="relative"
     >
-      <Button
-        position="absolute"
-        bg="red"
-        mt="-100px"
-        right="0"
-        className={styles.updateButton}
-        isDisabled={loading}
-        isLoading={loading}
-        onClick={onSubmitTemplate}
-      >
-        <p>
-          Update
-        </p>
-        <Box>
-          <ImagePlaceholder
-            src={'/launch.png'}
-            alt={'launch'}
-            width={48}
-            height={48}
-          />
-        </Box>
-      </Button>
+      <Flex justifyContent="space-between" alignItems="center" w="100%">
+        <NavigationBar title={`${chain?.chainName || ''}`} url={!!chain?.orderId ? `/chains/${chain?.orderId}` : ''} />
+        <Button
+          bg="red"
+          className={styles.updateButton}
+          isDisabled={loading}
+          isLoading={loading}
+          onClick={onSubmitTemplate}
+        >
+          <p>
+            Update
+          </p>
+          <Box>
+            <ImagePlaceholder
+              src={'/launch.png'}
+              alt={'launch'}
+              width={48}
+              height={48}
+            />
+          </Box>
+        </Button>
+      </Flex>
       <Template_1
         appsStr={configsSelector?.apps || ''}
         template={template}
         onUpdateState={setTemplate}
+        dappURL={chain?.dappURL || ''}
       />
     </Flex>
   );

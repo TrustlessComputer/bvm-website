@@ -8,6 +8,7 @@ import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 interface IProps {
   template: ITemplate | undefined;
   onUpdateState: (_: ITemplate) => void;
+  dappURL?: string;
 }
 
 enum UpdateKey {
@@ -29,7 +30,7 @@ interface ITask {
 
 const MAXIMUM_FILE_UPLOAD = 10; //10 MB
 
-const UpdateTemplate = ({ template, onUpdateState }: IProps) => {
+const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
   const api = new CTokenGenerationAPI();
 
   const ListTask: ITask[] = React.useMemo(() => {
@@ -194,6 +195,16 @@ const UpdateTemplate = ({ template, onUpdateState }: IProps) => {
         borderRadius="12px"
         padding="24px"
       >
+        <Box>
+          <p className={styles.title}>
+            Dapp link
+          </p>
+          <a href={dappURL} target="_blank" rel="noreferrer">
+            <Text color="blue.500" fontSize="14px">
+              {dappURL}
+            </Text>
+          </a>
+        </Box>
         {ListTask.map(renderItem)}
       </Flex>
   );

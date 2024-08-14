@@ -3,9 +3,12 @@ import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
 import { formDappSignal } from '@/modules/blockchains/dapp/signals/useFormDappsSignal';
 import { FormDappUtil } from '@/modules/blockchains/dapp/utils';
 import CStakingAPI from '@/services/api/dapp/staking';
+import { useAppDispatch } from '@/stores/hooks';
+import { requestReload } from '@/stores/states/common/reducer';
 
 const useSubmitStaking = () => {
   const cStakeAPI = new CStakingAPI();
+  const dispatch = useAppDispatch()
 
   const onSubmitStaking = async ({ forms }: { forms: IRetrieveFormsByDappKey[][] }) => {
     // const stakingForms = retrieveFormsByDappKey({
@@ -49,13 +52,19 @@ const useSubmitStaking = () => {
       );
       const formFinal = finalFormMappings.find(item => !!item);
       const info: any = formFinal?.info.find((item) => !!item);
-      const data = await cStakeAPI.createNewStakingPool({
-        principle_token: formFinal?.staking_token,
-        reward_token: formFinal?.reward_token,
-        base_ratio: Number(info?.apr?.replaceAll('%', '')) / 100,
-        token_price: 1 / Number(info?.rate),
-      });
+      try {
+        const data = await cStakeAPI.createNewStakingPool({
+          principle_token: formFinal?.staking_token,
+          reward_token: formFinal?.reward_token,
+          base_ratio: Number(info?.apr?.replaceAll('%', '')) / 100,
+          token_price: 1 / Number(info?.rate),
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
+
+    dispatch(requestReload());
   };
 
   return {
