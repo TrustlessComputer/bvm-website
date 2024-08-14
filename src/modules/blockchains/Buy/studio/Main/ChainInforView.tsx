@@ -3,9 +3,11 @@ import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/Chain
 import useOrderMapper from '@/modules/blockchains/hooks/useOrderMapper';
 import { Flex, Image, Text } from '@chakra-ui/react';
 import React, { ReactElement } from 'react';
+import { useRouter } from 'next/navigation';
 
 const ChainInforView = (): ReactElement => {
   const { order } = useChainProvider();
+  const router = useRouter();
   // const mapper = useOrderMapper(order);
   return (
     <Flex flexDir={'row'} align={'center'} justifyItems={'center'} gap={'20px'}>
@@ -20,6 +22,21 @@ const ChainInforView = (): ReactElement => {
       <Text fontSize={['22px', '24px', '28px']} fontWeight={600} color={'#000'}>
         {`${order?.chainName || '--'}`}
       </Text>
+
+      <Image
+        src={`/icons/pencil_edit_grey.svg`}
+        fit={'contain'}
+        maxW={'24px'}
+        maxH={'24px'}
+        _hover={{
+          cursor: 'pointer',
+          opacity: 0.8,
+        }}
+        onClick={(event: any) => {
+          if (event.stopPropagation) event.stopPropagation();
+          router.push(`/domain/${order?.chainId}`);
+        }}
+      />
 
       {/* <LivingStatus color={mapper.color || '#0ec00e'} /> */}
     </Flex>
