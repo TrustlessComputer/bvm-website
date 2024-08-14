@@ -104,6 +104,7 @@ export default function useFetchingTemplate() {
       id: 'blockchain',
       type: nodeKey.CHAIN_NODE,
       data: {
+        node: 'chain',
         title: 'Blockchain',
         sourceHandles: [],
         targetHandles: [],
@@ -195,6 +196,24 @@ export default function useFetchingTemplate() {
         position: { x: 30 * (index + 2), y: 30 * (index + 2) },
       };
     });
+    // const newNodes: DappNode[] = draggedIds2D.map((ids, index) => {
+    //   return {
+    //     id: Math.random().toString(),
+    //     type: nodeKey.DAPP_NODE,
+    //     dragHandle: '.drag-handle-area',
+    //     data: {
+    //       title: templateDapps[index].title,
+    //       dapp: templateDapps[index],
+    //       ids,
+    //       baseIndex: index,
+    //       sourceHandles: [],
+    //       targetHandles: [],
+    //       node: 'dapp',
+    //       categoryOption: {} as IModelCategory,
+    //     },
+    //     position: { x: 30 * (index + 2), y: 30 * (index + 2) },
+    //   } as DappNode;
+    // });
 
     setNodes([...nodes, ...newNodes]);
 

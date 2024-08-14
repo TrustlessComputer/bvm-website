@@ -156,6 +156,7 @@ export default function useNodeFlowControl() {
       dragHandle: '.drag-handle-area',
       position: positionTo,
       data: {
+        node: 'dapp',
         title: thisDapp.title,
         dapp: thisDapp,
         baseIndex: draggedIds2D.length - 1,
