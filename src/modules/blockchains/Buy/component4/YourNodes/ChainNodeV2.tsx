@@ -18,6 +18,8 @@ const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
     <Node
       // overlay={{
       // }}
+      {...data}
+      key={JSON.stringify(data)}
       heading={{
         title: data.title,
         status: {
@@ -36,4 +38,4 @@ const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
   );
 };
 
-export default React.memo(ChainNodeV2);
+export default ChainNodeV2;

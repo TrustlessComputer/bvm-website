@@ -39,14 +39,17 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
 
   return (
     <Node
+      {...data}
       // overlay={{
       // }}
+      key={JSON.stringify(data)}
       heading={{
         title: data.title,
         status: {
           message: data.statusMessage ?? 'Drafting modules',
         },
       }}
+
       // notification={{
       // }}
       content={{
@@ -99,4 +102,4 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   );
 };
 
-export default React.memo(AANode);
+export default AANode;

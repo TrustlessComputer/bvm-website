@@ -46,6 +46,8 @@ type NodeProps = {
   notification?: NodeNotificationProps;
   overlay?: NodeOverlayProps;
   borderColor?: string;
+  sourceHandles: string[];
+  targetHandles: string[];
 };
 
 type BaseNodeData = {
