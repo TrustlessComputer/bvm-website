@@ -25,7 +25,7 @@ export default function HeroVideo() {
 
           <Box
             className={s.heroVideo_content}
-            pl={{ base: '20px', md: '40px', lg: '80px' }}
+            pl={{ base: '20px', md: '40px', lg: '120px' }}
             pr="20px"
           >
             <div className={` ${s.heroVideo_content_container}`}>
