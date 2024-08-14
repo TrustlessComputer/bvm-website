@@ -12,7 +12,8 @@ import {
 import MenuEditItem from './MenuEditItem';
 
 export enum MenuEditItemEnum {
-  UpdateYourChainInfor = 0,
+  // UpdateYourChainInfor = 0,
+  ABC = 0,
   ConfigYourDAppsDomain,
 }
 
@@ -25,8 +26,8 @@ export type MenuEditItemType = {
 const MenuEditItemList: MenuEditItemType[] = [
   {
     key: 'A',
-    value: MenuEditItemEnum.UpdateYourChainInfor,
-    title: 'Update chain name & logo',
+    value: MenuEditItemEnum.ABC,
+    title: 'ABC Title',
   },
   {
     key: 'B',
@@ -56,7 +57,7 @@ const MenuEdit = (props: MenuProps) => {
           }}
         />
       </MenuButton>
-      <MenuList bgColor={'#ffffff11'}>
+      <MenuList bgColor={'#fff'}>
         {MenuEditItemList.map((item, index) => (
           <>
             <MenuEditItem
