@@ -8,13 +8,16 @@ import Node from '../Node/Node';
 const DappNode = ({ data }: NodeProps<DappNodeProps>) => {
   return (
     <Node
+      // overlay={{
+      // }}
       heading={{
         title: data.title,
         status: {
-          message: 'Running',
-          onClick: () => {},
+          message: data.statusMessage ?? 'Drafting modules',
         },
       }}
+      // notification={{
+      // }}
       content={{
         children: <DappRenderer {...data} key={data.ids.toString()} />,
       }}

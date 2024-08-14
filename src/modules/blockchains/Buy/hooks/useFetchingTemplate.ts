@@ -125,7 +125,9 @@ export default function useFetchingTemplate() {
     // V2 coming soon ======
     // const dappNodeInitial: DappNode = {
     //   id: '1',
-    //   type: 'dappNode',
+    //   type: nodeKey.DAPP_NODE,
+    //   dragHandle: '.drag-handle-area',
+    //   position: { x: 0, y: 0 },
     //   data: {
     //     title: 'Test',
     //     dapp: accountAbstractionAsADapp,
@@ -135,8 +137,8 @@ export default function useFetchingTemplate() {
     //     sourceHandles: [],
     //     targetHandles: [],
     //   },
-    //   position: { x: 0, y: 0 },
     // };
+    // draggedDappIndexesSignal.value = [0];
     // nodes.unshift(dappNodeInitial);
     // V2 coming soon ======
 
