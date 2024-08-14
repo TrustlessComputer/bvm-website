@@ -144,7 +144,7 @@ const L2RollupAddress = () => {
           />
           <Flex gap="6px" direction={'column'}>
             <Text fontWeight={'500'} fontSize={{ base: '28px', md: '32px' }}>
-              $200.56
+              $208.56
             </Text>
             <Flex direction={'row'} alignItems={'center'} gap={'8px'}>
               <Text fontWeight={'400'} fontSize={'16px'}>
