@@ -10,6 +10,7 @@ export const PAGE_ID = {
 export const PAGE_NEED_OWNER = [
   PAGE_ID.CREATE_TOKEN,
   PAGE_ID.CREATE_STAKING_POOL,
+  PAGE_ID.STAKING_HISTORY,
 ];
 
 export const onMapPageToName = (page: string) => {
