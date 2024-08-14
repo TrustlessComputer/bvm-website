@@ -31,7 +31,8 @@ export default function HeroVideo() {
             <div className={` ${s.heroVideo_content_container}`}>
               <div className={s.content}>
                 <h3 className={s.content_heading}>
-                  Powerful for developers. Fast for everyone.
+                  Powerful for developers.
+                  <br /> Fast for everyone.
                 </h3>
                 <p className={s.content_desc}>
                   Bring blockchain to the people. Solana supports experiences
@@ -56,7 +57,7 @@ export default function HeroVideo() {
                   Request a demo
                 </div>
               </div> */}
-                <Flex gap={5} alignItems={'center'}>
+                <Flex gap={5} alignItems={'center'} justifyContent={'center'}>
                   {/* <Fade delay={DELAY + 0.6}> */}
                   <div>
                     <a
