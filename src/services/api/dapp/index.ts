@@ -103,7 +103,7 @@ class CDappAPI {
 
       this.dispatch(setChain({ ..._chain }));
       const tasks = [
-        DappType.token_generation,
+        'create_token',
         DappType.staking,
         DappType.airdrop
       ].map((app) =>
