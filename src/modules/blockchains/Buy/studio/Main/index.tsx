@@ -14,10 +14,13 @@ import { IModelCategory } from '@/types/customize-model';
 import React, { ReactElement } from 'react';
 import OverlayControl from '../OverlayControl/Index';
 import TemplatePage from '@/modules/blockchains/Buy/Template';
+import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import { Flex } from '@chakra-ui/react';
+import ChainInforView from './ChainInforView';
 
 const StudioMain = (): ReactElement => {
   // const { order } = useChainProvider();
-
+  const { isUpdateFlow } = useChainProvider();
   const { toggleErrorMessage } = useErrorMessage((state) => state);
   const { tabActive, setTab } = useTabs((state) => state);
   const isTabCode = React.useMemo(() => {
@@ -58,24 +61,34 @@ const StudioMain = (): ReactElement => {
         <div className={s.inner}>
           <div className={s.left}>
             <div className={s.top_left}>
-              <div
-                className={`${s.top_left_filter} ${isTabCode && s.active}`}
-                onClick={() => setTab(TABS.CODE)}
-              >
-                <p>Studio</p>
-              </div>
-              <div
-                className={`${s.top_left_filter} ${isTabExplore && s.active}`}
-                onClick={() => setTab(TABS.EXPLORE)}
-              >
-                <p>Rollups</p>
-              </div>
-              <div
-                className={`${s.top_left_filter} ${isTabTemplate && s.active}`}
-                onClick={() => setTab(TABS.TEMPLATE)}
-              >
-                <p>Template</p>
-              </div>
+              {isUpdateFlow ? (
+                <ChainInforView />
+              ) : (
+                <>
+                  <div
+                    className={`${s.top_left_filter} ${isTabCode && s.active}`}
+                    onClick={() => setTab(TABS.CODE)}
+                  >
+                    <p>Studio</p>
+                  </div>
+                  <div
+                    className={`${s.top_left_filter} ${
+                      isTabExplore && s.active
+                    }`}
+                    onClick={() => setTab(TABS.EXPLORE)}
+                  >
+                    <p>Rollups</p>
+                  </div>
+                  <div
+                    className={`${s.top_left_filter} ${
+                      isTabTemplate && s.active
+                    }`}
+                    onClick={() => setTab(TABS.TEMPLATE)}
+                  >
+                    <p>Template</p>
+                  </div>
+                </>
+              )}
             </div>
 
             {isTabCode && (
