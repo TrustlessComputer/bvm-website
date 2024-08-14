@@ -54,7 +54,7 @@ const ChainInforView = (): ReactElement => {
       {/* {isOwner && order?.status === OrderStatus.Started && (
         <MenuEdit itemOnClick={menuEditItemOnClick} />
       )} */}
-      <MenuEdit itemOnClick={menuEditItemOnClick} />
+      {/* <MenuEdit itemOnClick={menuEditItemOnClick} /> */}
 
       {/* <Image
         src={`/icons/pencil_edit_grey.svg`}
