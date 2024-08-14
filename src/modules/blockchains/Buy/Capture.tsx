@@ -8,8 +8,8 @@ import s from '@/modules/blockchains/Buy/styles_v5.module.scss';
 import { toPng } from 'html-to-image';
 import { useState } from 'react';
 
-const imageWidth = 1920;
-const imageHeight = 1080;
+// const imageWidth = 1920;
+// const imageHeight = 1080;
 
 const Capture = () => {
   // const { setIsCapture } = useCaptureStore();
@@ -107,7 +107,13 @@ https://bvm.network/studio/${url}`;
   };
 
   async function convertToBase64() {
-    return await toPng(document.querySelector('#viewport') as HTMLElement, {
+    const viewport = document.querySelector('#viewport');
+
+    if(!viewport) return '';
+    const imageWidth = viewport.clientWidth;
+    const imageHeight = viewport.clientHeight;
+
+    return await toPng(document.querySelector('.react-flow__viewport') as HTMLElement, {
       backgroundColor: '#fff',
       width: imageWidth,
       height: imageHeight,
