@@ -193,6 +193,7 @@ export const OPENSOURCE_SECTION = {
 };
 
 export const NEWS_SECTION = {
+  id: 'news',
   tag: 'News. ',
   title: 'Follow our progress.',
   item: BLOGS.map((item, idx) => {
@@ -204,6 +205,8 @@ export const NEWS_SECTION = {
         url: item.link,
         target: item.linkTarget,
       },
+      logoUrl: item.logoUrl,
+      logo: item.logo,
     };
   }),
 };

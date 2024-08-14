@@ -73,6 +73,18 @@
                 }
             }
 
+            .cardLogo {
+                border-bottom: 1px solid #ECECEC;
+                padding-bottom: 12px;
+
+                img {
+                    height: 28px;
+                    width: auto;
+                    object-fit: contain;
+                }
+            }
+
+
             .title {
                 font-size: 18px;
                 font-style: normal;
