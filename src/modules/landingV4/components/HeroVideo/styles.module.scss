@@ -13,6 +13,10 @@
     width: 100%;
     overflow: hidden;
 
+    @include is-mobile {
+      height: calc(100vh - (var(--header-size) * 2));
+    }
+
     // &:after {
     //   content: '';
     //   display: block;
