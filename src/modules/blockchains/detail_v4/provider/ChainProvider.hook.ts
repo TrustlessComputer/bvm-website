@@ -30,8 +30,8 @@ export const useChainProvider = () => {
 
   const getBlockChainStatus = () => {
     let statusStr = 'Ready';
-    let statusColorStr = '#00AA6C';
-    let borderStatusStr = '#EEFFF9';
+    let statusColorStr = '#4185EC';
+    let borderStatusStr = '#eef5ff';
 
     if (order) {
       switch (order.status) {

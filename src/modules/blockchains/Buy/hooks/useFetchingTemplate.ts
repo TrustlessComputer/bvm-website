@@ -8,12 +8,8 @@ import { getModelCategories, getTemplates } from '@/services/customize-model';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { dappSelector } from '@/stores/states/dapp/selector';
-import {
-  BlockModel,
-  DappModel,
-  IModelCategory,
-  IModelOption,
-} from '@/types/customize-model';
+import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
+import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
 import { useParams } from 'next/navigation';
 import React from 'react';
@@ -22,7 +18,7 @@ import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
 import { parseStakingPools } from '../../dapp/parseUtils/staking';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { parseDappModel } from '../../utils';
-import { StatusBox } from '../component4/CustomNode/DappTemplateNode';
+import { nodeKey } from '../component4/YourNodes/node.constants';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
@@ -55,7 +51,7 @@ export default function useFetchingTemplate() {
 
   const { needReload } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
-  const { tokens, configs, airdrops, airdropTasks, stakingPools } = dappState;
+  const { tokens, airdrops, stakingPools } = dappState;
 
   const [apiCount, setApiCount] = React.useState(0);
 
@@ -100,64 +96,22 @@ export default function useFetchingTemplate() {
     });
 
     if (isAAInstalled) {
-      // nodes.unshift({
-      //   id: '1',
-      //   type: 'customBox',
-      //   data: {
-      //     label: 'Account Abstraction',
-      //     baseIndex: 0,
-      //     status: StatusBox.RUNNING,
-      //     dapp: accountAbstractionAsADapp,
-      //     categoryOption: order?.selectedOptions?.find(
-      //       (opt) => opt.key === 'wallet',
-      //     )?.options[0] as IModelOption,
-      //     isChain: false,
-      //     ids: [],
-      //   },
-      //   dragHandle: '.drag-handle-area',
-      //   position: { x: 40, y: 40 },
-      // });
-
       draggedDappIndexesSignal.value = [0];
       draggedIds2DSignal.value = [[]];
     }
 
-    // V2 coming soon ======
-    // const dappNodeInitial: DappNode = {
-    //   id: '1',
-    //   type: nodeKey.DAPP_NODE,
-    //   dragHandle: '.drag-handle-area',
-    //   position: { x: 0, y: 0 },
-    //   data: {
-    //     title: 'Test',
-    //     dapp: accountAbstractionAsADapp,
-    //     ids: [],
-    //     baseIndex: 0,
-    //     categoryOption: {} as IModelOption,
-    //     sourceHandles: [],
-    //     targetHandles: [],
-    //   },
-    // };
-    // draggedDappIndexesSignal.value = [0];
-    // nodes.unshift(dappNodeInitial);
-    // V2 coming soon ======
-
-    nodes.unshift({
+    const chainNodeInitial: ChainNode = {
       id: 'blockchain',
-      type: 'chainNode',
+      type: nodeKey.CHAIN_NODE,
       data: {
-        label: 'Blockchain',
+        title: 'Blockchain',
         sourceHandles: [],
-        isChain: true,
-        status: StatusBox.READY,
-        ids: [],
-        dapp: null,
-        categoryOption: {} as IModelOption,
-        baseIndex: -1,
+        targetHandles: [],
       },
       dragHandle: '.drag-handle-area',
       position: { x: 30, y: 30 },
-    });
+    };
+    nodes.unshift(chainNodeInitial);
 
     setParsedCategories(convertData(sortedCategories));
     setCategories(sortedCategories);

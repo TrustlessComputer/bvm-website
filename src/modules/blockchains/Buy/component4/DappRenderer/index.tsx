@@ -51,6 +51,10 @@ const DappRenderer = ({ baseIndex, dapp: thisDapp, ids }: Props) => {
     setDraggedDappIndexes(draggedDappIndexesSignal.value);
   });
 
+  if (typeof dappIndex === 'undefined') {
+    return null;
+  }
+
   return (
     <Draggable
       id={`right-${FieldKeyPrefix.BASE}-${baseIndex}`}
