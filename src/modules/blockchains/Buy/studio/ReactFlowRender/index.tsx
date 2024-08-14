@@ -1,12 +1,13 @@
+import CustomEdge from '@/modules/blockchains/Buy/component4/CustomEdge';
 import CustomNode from '@/modules/blockchains/Buy/component4/CustomNode';
 import { ReactFlow } from '@xyflow/react';
-import React from 'react';
 import '@xyflow/react/dist/style.css';
-import useFlowStore from '../../stores/useFlowStore';
+import React from 'react';
 import ChainNode from '../../component4/CustomNode/ChainNode';
-import s from './styles.module.scss';
 import DappTemplateNode from '../../component4/CustomNode/DappTemplateNode';
-import CustomEdge from '@/modules/blockchains/Buy/component4/CustomEdge';
+import DappNode from '../../component4/YourNodes/DappNode';
+import useFlowStore from '../../stores/useFlowStore';
+import s from './styles.module.scss';
 
 const ReactFlowRenderer = React.memo(() => {
   const { nodes, onNodesChange, edges, onEdgesChange } = useFlowStore();
@@ -18,6 +19,7 @@ const ReactFlowRenderer = React.memo(() => {
         customBox: CustomNode,
         chainNode: ChainNode,
         dappTemplate: DappTemplateNode,
+        dappNode: DappNode,
       }}
       edgeTypes={{
         customEdge: CustomEdge,

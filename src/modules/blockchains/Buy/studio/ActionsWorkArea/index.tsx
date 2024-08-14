@@ -1,17 +1,20 @@
 import Capture from '@/modules/blockchains/Buy/Capture';
+import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
 import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
 import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
+import { IModelOption } from '@/types/customize-model';
 import Image from 'next/image';
 import React, { ReactElement } from 'react';
 import Button from '../../component4/Button';
 import ErrorModal from '../../components3/ErrorModal';
 import useTemplate from '../../hooks/useTemplate';
-import { draggedDappIndexesSignal, draggedIds2DSignal } from '../../signals/useDragSignal';
+import {
+  draggedDappIndexesSignal,
+  draggedIds2DSignal,
+} from '../../signals/useDragSignal';
 import { formDappSignal } from '../../signals/useFormDappsSignal';
 import useDragStore from '../../stores/useDragStore';
 import useFlowStore from '../../stores/useFlowStore';
-import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
-import { IModelOption } from '@/types/customize-model';
 
 export default function ActionsWorkArea(): ReactElement {
   const { isCapture } = useCaptureStore();
@@ -36,8 +39,6 @@ export default function ActionsWorkArea(): ReactElement {
           ids: [],
           status: StatusBox.READY,
           isChain: true,
-          // TODO: Status message - Reset
-          // statusMessage: 'Status message 1',
         },
         dragHandle: '.drag-handle-area',
         position: { x: 30, y: 30 },
