@@ -123,7 +123,7 @@ export const useChainProvider = () => {
       switch (dAppInstalled.status) {
         case 'new':
           statusCode = 'new';
-          statusStr = 'New';
+          statusStr = 'Setting up';
           statusColorStr = '#F9D03F';
           borderColorStr = '#F9D03F';
           bgColorStr = '#FFF6D8';
