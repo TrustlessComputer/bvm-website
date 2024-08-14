@@ -48,3 +48,11 @@ export interface IContentTextTemplate1 {
 export interface ITemplate1 {
   contentText: IContentTextTemplate1;
 }
+
+export interface IAppInfo {
+  code: string
+  name: string
+  description: string
+  icon_url: string
+  image_url: string
+}

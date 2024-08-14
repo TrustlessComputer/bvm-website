@@ -3,7 +3,7 @@ import { IToken } from '@/services/api/dapp/token_generation/interface';
 import { ISTToken } from '@/services/api/dapp/staking/interface';
 import { IAirdrop, IAirdropTask } from '@/services/api/dapp/airdrop/interface';
 import { DappModel } from '@/types/customize-model';
-import { IDappConfigs } from '@/services/api/dapp/types';
+import { IAppInfo, IDappConfigs } from '@/services/api/dapp/types';
 
 export interface DappState {
   chain?: OrderItem | undefined;
@@ -13,5 +13,6 @@ export interface DappState {
   stakingPools: ISTToken[];
   airdropTasks: IAirdropTask[];
   airdrops: IAirdrop[];
-  dappConfigs: IDappConfigs | undefined
+  dappConfigs: IDappConfigs | undefined;
+  appInfos: IAppInfo[];
 }
