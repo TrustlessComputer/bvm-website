@@ -21,7 +21,7 @@ export default function HeroVideo() {
     <>
       <div className={s.heroVideo}>
         <div className={s.heroVideo_inner}>
-          <Banner />
+          {/* <Banner /> */}
 
           <Box
             className={s.heroVideo_content}
@@ -79,9 +79,7 @@ export default function HeroVideo() {
                   <div>
                     <a
                       href={'#'}
-                      onClick={() =>
-                        window.open('https://docs.bvm.network/bvm')
-                      }
+                      onClick={() => window.open('https://bvm.network/studio')}
                       style={{ textAlign: 'center', display: 'block' }}
                     >
                       <img
@@ -91,7 +89,24 @@ export default function HeroVideo() {
                         style={{ margin: 'auto', marginBottom: '8px' }}
                       />
                       <span style={{ fontSize: '14px', fontWeight: 400 }}>
-                        Learn more
+                        BVM Studio
+                      </span>
+                    </a>
+                  </div>
+                  <div>
+                    <a
+                      href={'#'}
+                      onClick={() => window.open('https://bvm.network/studio')}
+                      style={{ textAlign: 'center', display: 'block' }}
+                    >
+                      <img
+                        src={`/landing-v4/frame-pdf.png`}
+                        width={224}
+                        alt={'right'}
+                        style={{ margin: 'auto', marginBottom: '8px' }}
+                      />
+                      <span style={{ fontSize: '14px', fontWeight: 400 }}>
+                        Own BVM
                       </span>
                     </a>
                   </div>

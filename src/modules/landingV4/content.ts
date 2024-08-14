@@ -4,9 +4,23 @@ import { CDN_URL, CDN_URL_IMAGES_NBC } from '@/config';
 import { BLOGS } from '../landingV3/Componets/Section_7/constant';
 
 export const APPS_SECTION = {
-  tag: 'Apps and games. ',
+  tag: 'Apps. ',
   title: 'Experience Bitcoin like never before.',
-  item: DAPPS_DATA,
+  item: DAPPS_DATA.filter((item) => {
+    return (
+      item.title !== 'Imagine' &&
+      item.title !== 'Bitcoin Wars' &&
+      item.title !== 'Runes.fun'
+    );
+  }),
+};
+
+export const GAME_SECTION = {
+  tag: 'Games. ',
+  title: 'Experience Bitcoin like never before.',
+  item: DAPPS_DATA.filter((item) => {
+    return item.title === 'Bitcoin Wars';
+  }),
 };
 
 export const ROLLUPS_SECTION = {
@@ -35,6 +49,109 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-heartbeat.png`,
       link: {
         url: 'https://bvm.network/heartbeat',
+        target: '_blank',
+      },
+    },
+    {
+      title: 'BitZK',
+      description:
+        'ZK rollups on Bitcoin for virtually any decentralized applications.',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-bitzk.png`,
+      link: {
+        url: 'https://bvm.network/module/bitzk',
+        target: '_blank',
+      },
+    },
+    {
+      title: 'BitOP',
+      description:
+        'ZOptimistic rollups on Bitcoin for virtually any decentralized applications.',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-bitop.png`,
+      link: {
+        url: 'https://bvm.network/module/bitop',
+        target: '_blank',
+      },
+    },
+    {
+      title: 'Celestia',
+      description: 'A high-throughput DA verifiable with a light node.',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-celestia.png`,
+      link: {
+        url: 'https://bvm.network/module/bitcoin-celestia',
+        target: '_blank',
+      },
+    },
+    {
+      title: 'Eigen DA',
+      description:
+        'A scalable DA solution specialized in serving Ethereum rollups that leverage EigenLayer.',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-eigen.png`,
+      link: {
+        url: 'https://bvm.network/module/bitcoin-eigen',
+        target: '_blank',
+      },
+    },
+    {
+      title: 'Avail',
+      description: 'Low-cost and expandable blobspace',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-avail.png`,
+      link: {
+        url: 'https://bvm.network/module/bitcoin-avail',
+        target: '_blank',
+      },
+    },
+    {
+      title: 'Near DA',
+      description: 'An efficient and robust data availability layer',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-near.png`,
+      link: {
+        url: 'https://bvm.network/module/bitcoin-near',
+        target: '_blank',
+      },
+    },
+    {
+      title: 'Polygon',
+      description: 'The most cost-effective storage solution',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-polygon.png`,
+      link: {
+        url: 'https://bvm.network/module/bitcoin-polygon',
+        target: '_blank',
+      },
+    },
+    {
+      title: 'Filecoin',
+      description:
+        'The largest decentralized data storage marketplace, protocol, & cryptocurrency',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-filecoin.png`,
+      link: {
+        url: 'https://bvm.network/module/bitcoin-filecoin',
+        target: '_blank',
+      },
+    },
+    {
+      title: 'Ordinals',
+      description: 'Roll up to Bitcoin as Ordinal Inscriptions',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-ordinals.png`,
+      link: {
+        url: 'https://bvm.network/module-detail',
+        target: '_blank',
+      },
+    },
+    {
+      title: 'Bitcoin Taproot',
+      description: 'Embed proofs in Taproot transactions',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-taproot.png`,
+      link: {
+        url: 'https://bvm.network/module-detail',
+        target: '_blank',
+      },
+    },
+    {
+      title: 'Bitcoin Stamps',
+      description: `Record data directly on Bitcoin's UTXO, ensuring data permanence and immutability`,
+      homeImage: `${CDN_URL}/pages/landing-v4/home-stamps.png`,
+      link: {
+        url: 'https://bvm.network/module-detail',
         target: '_blank',
       },
     },
