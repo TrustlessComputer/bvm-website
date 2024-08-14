@@ -4,10 +4,38 @@ import useOrderMapper from '@/modules/blockchains/hooks/useOrderMapper';
 import { Flex, Image, Text } from '@chakra-ui/react';
 import React, { ReactElement } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAppSelector } from '@/stores/hooks';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import { OrderStatus } from '@/stores/states/l2services/types';
+import MenuEdit, {
+  MenuEditItemEnum,
+  MenuEditItemType,
+} from '@/modules/blockchains/detail_v2/components/MenuEdit';
 
 const ChainInforView = (): ReactElement => {
   const { order } = useChainProvider();
   const router = useRouter();
+  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+
+  const isOwner =
+    order?.tcAddress?.toLowerCase() ===
+    accountInforL2Service?.tcAddress?.toLowerCase();
+
+  const menuEditItemOnClick = (menuItem: MenuEditItemType) => {
+    switch (menuItem.value) {
+      case MenuEditItemEnum.ABC:
+        {
+          //TO DO ABC
+        }
+        break;
+      case MenuEditItemEnum.ConfigYourDAppsDomain:
+        router.push(`/domain/${order?.chainId}`);
+        break;
+      default:
+        break;
+    }
+  };
+
   // const mapper = useOrderMapper(order);
   return (
     <Flex flexDir={'row'} align={'center'} justifyItems={'center'} gap={'20px'}>
@@ -23,7 +51,12 @@ const ChainInforView = (): ReactElement => {
         {`${order?.chainName || '--'}`}
       </Text>
 
-      <Image
+      {/* {isOwner && order?.status === OrderStatus.Started && (
+        <MenuEdit itemOnClick={menuEditItemOnClick} />
+      )} */}
+      <MenuEdit itemOnClick={menuEditItemOnClick} />
+
+      {/* <Image
         src={`/icons/pencil_edit_grey.svg`}
         fit={'contain'}
         maxW={'24px'}
@@ -36,7 +69,7 @@ const ChainInforView = (): ReactElement => {
           if (event.stopPropagation) event.stopPropagation();
           router.push(`/domain/${order?.chainId}`);
         }}
-      />
+      /> */}
 
       {/* <LivingStatus color={mapper.color || '#0ec00e'} /> */}
     </Flex>
