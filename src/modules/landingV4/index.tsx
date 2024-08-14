@@ -10,6 +10,7 @@ import {
   RESEARCH_SECTION,
   OPENSOURCE_SECTION,
   NEWS_SECTION,
+  GAME_SECTION,
 } from './content';
 import SectionBlock from './components/SectionBlock';
 
@@ -20,9 +21,11 @@ const LandingV4Module = (props: Props) => {
     <div className={s.landing}>
       <HeroVideo />
       <SectionBlock {...APPS_SECTION} />
-      <SectionBlock {...ROLLUPS_SECTION} />
+      <SectionBlock {...GAME_SECTION} />
       <SectionBlock {...BOB_SECTION} />
-      <SectionBlock {...PARTNER_SECTION} />
+
+      <SectionBlock {...ROLLUPS_SECTION} />
+      {/* <SectionBlock {...PARTNER_SECTION} /> */}
       <SectionBlock {...RESEARCH_SECTION} />
 
       <SectionBlock {...OPENSOURCE_SECTION} />
