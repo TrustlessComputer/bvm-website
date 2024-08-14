@@ -12,7 +12,7 @@ import Lego from '../component4/Lego';
 import { accountAbstractionAsADapp, dappMockupData } from '../mockup_3';
 import useDappsStore from '../stores/useDappStore';
 import { FieldOption } from '../types';
-import { adjustBrightness, cloneDeep } from '../utils';
+import { adjustBrightness, cloneDeep, preDataAirdropTask } from '../utils';
 
 const useDapps = () => {
   const params = useParams();
@@ -21,7 +21,7 @@ const useDapps = () => {
   const { dapps, setDapps } = useDappsStore();
 
   const dappState = useAppSelector(dappSelector);
-  const { configs } = dappState;
+  const { configs, tokens, airdropTasks } = dappState;
 
   const blockFieldMapping = React.useMemo(() => {
     return dapps.map((dapp) => {
@@ -450,12 +450,12 @@ const useDapps = () => {
 
     const sortedDapps = _dapps.sort((a, b) => a.order - b.order);
 
-    setDapps(sortedDapps);
+    setDapps(preDataAirdropTask(sortedDapps, tokens, airdropTasks));
   };
 
   React.useEffect(() => {
     fetchDapps();
-  }, [configs]);
+  }, [configs, tokens, airdropTasks]);
 
   return {
     dapps,
