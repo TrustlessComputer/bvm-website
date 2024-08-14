@@ -17,6 +17,7 @@ import { DataNode } from '@/modules/blockchains/Buy/component4/CustomNode';
 import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
 import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
+import { nodeKey } from '../component4/YourNodes/node.constants';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 
@@ -80,11 +81,6 @@ export default function useNodeFlowControl() {
   };
 
   useSignalEffect(() => {
-    // console.log('useNodeFlowControl -> draggedIds2DSignal.value', {
-    //   new: draggedIds2DSignal.value,
-    //   old: draggedIds2D,
-    // });
-
     if (draggedIds2DSignal.value.length === draggedIds2D.length) {
       for (let i = 0; i < draggedIds2DSignal.value.length; i++) {
         if (!isTwoObjectEqual(draggedIds2DSignal.value[i], draggedIds2D[i])) {
@@ -97,24 +93,6 @@ export default function useNodeFlowControl() {
           });
           break;
         }
-
-        // for (let j = 0; j < draggedIds2DSignal.value[i].length; j++) {
-        //   if (
-        //     !isTwoObjectEqual(
-        //       draggedIds2DSignal.value[i][j],
-        //       draggedIds2D[i][j],
-        //     )
-        //   ) {
-        //     setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
-        //     setDragState({
-        //       oneD: [-1],
-        //       twoD: [i, j],
-        //       new: false,
-        //       remove: false,
-        //     });
-        //     break;
-        //   }
-        // }
       }
     } else if (draggedIds2DSignal.value.length > draggedIds2D.length) {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
@@ -146,16 +124,6 @@ export default function useNodeFlowControl() {
     );
     if (!categoryOption) return;
 
-    // console.log('handleAddBox', {
-    //   draggedIds2D,
-    //   indexx: draggedIds2D.length - 1,
-    //   dappIndex,
-    //   thisDapp,
-    //   dapps,
-    //   category,
-    //   categoryOption,
-    // });
-
     const transformedX =
       (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
     const transformedY =
@@ -167,9 +135,7 @@ export default function useNodeFlowControl() {
 
     const rootNode = 'blockchain';
 
-    // Update source handle of root node
     const getHandleNodeBlockChain = nodes.find((item) => item.id === rootNode);
-    // Find handle have in root node ?
     const isHandleExists = edges.some(
       (handle) => handle.sourceHandle === `${rootNode}-s-${thisDapp.title}`,
     );
@@ -188,7 +154,7 @@ export default function useNodeFlowControl() {
       ...nodesData,
       {
         id: `${nodes.length}`,
-        type: 'customBox',
+        type: nodeKey.CUSTOM_BOX,
         dragHandle: '.drag-handle-area',
         data: {
           label: thisDapp.title,

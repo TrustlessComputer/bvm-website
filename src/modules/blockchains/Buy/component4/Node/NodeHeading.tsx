@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import React from 'react';
 
 import SvgInset from '@/components/SvgInset';
@@ -12,12 +13,11 @@ const NodeHeading = ({
   borderColor,
   textColor = '#555555',
 }: NodeHeadingProps) => {
-  console.log('NodeHeading RENDER =======');
   const haveAction = React.useMemo(() => !!status?.onClick, [status]);
 
   return (
     <div
-      className={styles.nodeHeading}
+      className={cn('drag-handle-area', styles.nodeHeading)}
       style={{
         backgroundColor,
         borderColor,
@@ -36,6 +36,7 @@ const NodeHeading = ({
           <span
             style={{
               textDecoration: haveAction ? 'underline' : 'none',
+              cursor: haveAction ? 'pointer' : 'default',
               textUnderlineOffset: '0.2em',
             }}
           >

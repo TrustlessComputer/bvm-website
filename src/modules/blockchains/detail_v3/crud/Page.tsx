@@ -13,10 +13,26 @@ const Page = () => {
     } catch (error) {}
   };
 
+  const activeHandler = async () => {
+    try {
+      l2ServicesAPI.activeOrder(orderId);
+    } catch (error) {}
+  };
+
   return (
-    <Flex flex={1} align={'center'} justify={'center'}>
-      <Button onClick={removeHandler} w="50px" h={'50px'}>
+    <Flex
+      flex={1}
+      mt={'50px'}
+      flexDir={'column'}
+      align={'center'}
+      justify={'center'}
+      gap={'20px'}
+    >
+      <Button onClick={removeHandler} w="50px" h={'50px'} color={'blue'}>
         Remove
+      </Button>
+      <Button onClick={activeHandler} w="50px" h={'50px'} color={'red'}>
+        Active
       </Button>
     </Flex>
   );

@@ -8,6 +8,7 @@ import StudioMain from '@/modules/blockchains/Buy/studio/Main';
 import { useTabs } from '@/modules/blockchains/Buy/studio/useTabs';
 import { DndContext } from '@dnd-kit/core';
 import React from 'react';
+import ClearStore from './ClearStore';
 import useNodeFlowControl from './hooks/useNodeFlowControl';
 import s from './styles_v6.module.scss';
 
@@ -29,6 +30,7 @@ const BuyPage = () => {
     <div
       className={`${s.container} ${isTabCode ? '' : s.explorePageContainer}`}
     >
+      <ClearStore />
       <DndContext
         sensors={sensors}
         onDragStart={handleDragStart}

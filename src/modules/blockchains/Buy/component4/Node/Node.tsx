@@ -1,12 +1,20 @@
 import React from 'react';
 
 import { NodeProps } from '@/types/node';
+import NodeNotification from '../YourNodes/NodeNotification';
+
 import NodeContent from './NodeContent';
 import NodeHeading from './NodeHeading';
-
+import NodeOverlay from './NodeOverlay';
 import styles from './styles.module.scss';
 
-const Node = ({ content, heading, borderColor = '#FFC700' }: NodeProps) => {
+const Node = ({
+  overlay,
+  content,
+  heading,
+  notification,
+  borderColor = '#FFC700',
+}: NodeProps) => {
   return (
     <div
       className={styles.node}
@@ -15,7 +23,13 @@ const Node = ({ content, heading, borderColor = '#FFC700' }: NodeProps) => {
       }}
     >
       <NodeHeading {...heading} borderColor={borderColor} />
-      <NodeContent>{content.children}</NodeContent>
+      <NodeContent>
+        {overlay && <NodeOverlay {...overlay} />}
+
+        {notification && <NodeNotification {...notification} />}
+
+        <div className={styles.node__mainContent}>{content.children}</div>
+      </NodeContent>
     </div>
   );
 };
