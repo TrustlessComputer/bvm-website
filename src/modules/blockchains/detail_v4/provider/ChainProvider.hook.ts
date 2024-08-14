@@ -1,14 +1,14 @@
 'use client';
-import * as CSS from 'csstype';
 import { IDAppInstalled, OrderStatus } from '@/stores/states/l2services/types';
 import {
   DAppKeys,
   IModelCategory,
   IModelOption,
 } from '@/types/customize-model';
+import { ResponsiveValue } from '@chakra-ui/react';
+import * as CSS from 'csstype';
 import { useContext, useMemo } from 'react';
 import { ChainContext } from './ChainProvider';
-import { ResponsiveValue } from '@chakra-ui/react';
 
 export const useChainProvider = () => {
   const context = useContext(ChainContext);
@@ -123,7 +123,7 @@ export const useChainProvider = () => {
       switch (dAppInstalled.status) {
         case 'new':
           statusCode = 'new';
-          statusStr = 'New';
+          statusStr = 'Setting up';
           statusColorStr = '#F9D03F';
           borderColorStr = '#F9D03F';
           bgColorStr = '#FFF6D8';
@@ -229,6 +229,11 @@ export const useChainProvider = () => {
     }
   };
 
+  const isAAInstalled = useMemo(
+    () => order?.selectedOptions?.some((opt) => opt.key === 'wallet'),
+    [order?.selectedOptions],
+  );
+
   return {
     ...context,
     isUpdateFlow,
@@ -237,6 +242,7 @@ export const useChainProvider = () => {
     dAppListAvailable,
     isBlockChainReady,
     selectedCategoryMapping,
+    isAAInstalled,
 
     //
     getBlockChainStatus,

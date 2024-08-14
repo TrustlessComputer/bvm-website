@@ -435,6 +435,11 @@
   }
 }
 
+.isCapturing {
+  opacity: .3;
+  cursor: not-allowed;
+}
+
 .video {
   position: absolute;
   top: 22px;

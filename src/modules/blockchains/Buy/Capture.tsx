@@ -1,24 +1,20 @@
 import l2ServicesAPI from '@/services/api/l2services';
 import { convertBase64ToFile } from '@/utils/file';
-import { encodeBase64 } from '@/utils/helpers';
-import { Button } from '@chakra-ui/react';
-import html2canvas from 'html2canvas';
+// import html2canvas from 'html2canvas';
 import Image from 'next/image';
 import s from '@/modules/blockchains/Buy/styles_v5.module.scss';
-import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
-import {
-  getNodesBounds,
-  getViewportForBounds,
-  useReactFlow,
-} from '@xyflow/react';
+// import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
+// import { useReactFlow } from '@xyflow/react';
 import { toPng } from 'html-to-image';
+import { useState } from 'react';
 
-const imageWidth = 1024;
-const imageHeight = 768;
+// const imageWidth = 1920;
+// const imageHeight = 1080;
 
 const Capture = () => {
-  const { setIsCapture } = useCaptureStore();
-  const { getNodes } = useReactFlow();
+  // const { setIsCapture } = useCaptureStore();
+  // const { getNodes } = useReactFlow();
+  const [isCapturing, setIsCapturing] = useState<boolean>(false);
   const handleClickShareTwitter = (url: string) => {
     try {
       // const imgEncode = encodeBase64(url);
@@ -39,62 +35,6 @@ https://bvm.network/studio/${url}`;
     }
   };
 
-  const exportBase64 = async (): Promise<string> => {
-    //
-    // const nodesBounds = getNodesBounds(getNodes());
-    // const viewport = getViewportForBounds(
-    //   nodesBounds,
-    //   imageWidth,
-    //   imageHeight,
-    //   0.5,
-    //   2,
-    //   2
-    // );
-
-    const canvasDom = document.querySelector('#viewport') as HTMLElement;
-    const canvas = await html2canvas(canvasDom, {
-      // width: 1920,
-      // height: 1080,
-      removeContainer: false,
-      x: 0,
-      y: 0,
-    }).then((res) => {
-      return res;
-    });
-    return canvas.toDataURL('image/png', 1.0);
-    // const canvasDom = document.querySelector('.react-flow__viewport') as HTMLElement;
-    // return toPng(canvasDom, {
-    //   backgroundColor: '#fff',
-    //   width: imageWidth,
-    //   height: imageHeight,
-    //   quality: 1,
-    //   style: {
-    //     width: `${imageWidth}`,
-    //     height: `${imageHeight}`,
-    //     transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
-    //   },
-    // }).then(res => {
-    //   // setIsCapture(false);
-    //   return res;
-    // })
-  };
-
-  const exportAsImage = async () => {
-    setTimeout(async () => {
-      const image = await exportBase64();
-
-      if (!image) return;
-
-      const file = convertBase64ToFile(image);
-      const res = await l2ServicesAPI.uploadFile({ file });
-
-      if (!res) return;
-
-      setIsCapture(false);
-      handleClickShareTwitter(res);
-    }, 150);
-  };
-
   // async function download() {
   //   setIsCapture(true);
   //   const a = document.createElement('a');
@@ -107,56 +47,120 @@ https://bvm.network/studio/${url}`;
   //   }, 150);
   // }
 
-  async function download() {
-    setIsCapture(true);
+  // capture old flow
+  // async function download() {
+  //   setIsCapture(true);
+  //
+  //   const a = document.createElement('a');
+  //   setTimeout(async () => {
+  //     a.href = await exportBase64();
+  //     a.download = `${new Date()}.png`;
+  //     a.click();
+  //     setIsCapture(false);
+  //   }, 150);
+  // }
 
-    const a = document.createElement('a');
+  // const exportBase64 = async (): Promise<string> => {
+  //   const canvasDom = document.querySelector('#viewport') as HTMLElement;
+  //   const canvas = await html2canvas(canvasDom, {
+  //     // width: 1920,
+  //     // height: 1080,
+  //     removeContainer: false,
+  //     x: 0,
+  //     y: 0,
+  //   }).then((res) => {
+  //     return res;
+  //   });
+  //   return canvas.toDataURL('image/png', 1.0);
+  //   // const canvasDom = document.querySelector('.react-flow__viewport') as HTMLElement;
+  //   // return toPng(canvasDom, {
+  //   //   backgroundColor: '#fff',
+  //   //   width: imageWidth,
+  //   //   height: imageHeight,
+  //   //   quality: 1,
+  //   //   style: {
+  //   //     width: `${imageWidth}`,
+  //   //     height: `${imageHeight}`,
+  //   //     transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
+  //   //   },
+  //   // }).then(res => {
+  //   //   // setIsCapture(false);
+  //   //   return res;
+  //   // })
+  // };
+
+  const handleShareTwitter = async () => {
+    setIsCapturing(true);
     setTimeout(async () => {
-      a.href = await exportBase64();
-      a.download = `${new Date()}.png`;
-      a.click();
-      setIsCapture(false);
+      const image = await convertToBase64();
+
+      if (!image) return;
+
+      const file = convertBase64ToFile(image);
+      const res = await l2ServicesAPI.uploadFile({ file });
+
+      if (!res) return;
+
+      setIsCapturing(false);
+      handleClickShareTwitter(res);
     }, 150);
-  }
+  };
 
-  function downloadImage(dataUrl) {
-    const a = document.createElement('a');
+  async function convertToBase64() {
+    const viewport = document.querySelector('#viewport');
 
-    a.setAttribute('download', 'reactflow.png');
-    a.setAttribute('href', dataUrl);
-    a.click();
-  }
+    if(!viewport) return '';
+    const imageWidth = viewport.clientWidth;
+    const imageHeight = viewport.clientHeight;
 
-  const onClick = () => {
-    // we calculate a transform for the nodes so that all nodes are visible
-    // we then overwrite the transform of the `.react-flow__viewport` element
-    // with the style option of the html-to-image library
-    const nodesBounds = getNodesBounds(getNodes());
-    const viewport = getViewportForBounds(
-      nodesBounds,
-      imageWidth,
-      imageHeight,
-      0.5,
-      2,
-      1,
-    );
-
-    toPng(document.querySelector('#viewport'), {
-      backgroundColor: '#1a365d',
+    return await toPng(document.querySelector('.react-flow__viewport') as HTMLElement, {
+      backgroundColor: '#fff',
       width: imageWidth,
       height: imageHeight,
+      canvasWidth: imageWidth,
+      canvasHeight: imageHeight,
+      quality: 1,
       style: {
-        width: imageWidth,
-        height: imageHeight,
-        transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
+        width: `${imageWidth}`,
+        height: `${imageHeight}`,
       },
-    }).then(downloadImage);
-  };
+    })
+  }
+
+  async function downloadImage() {
+    if (isCapturing) return;
+    setIsCapturing(true);
+
+    const a = document.createElement('a');
+    const dataUrl = await convertToBase64();
+    a.setAttribute('download', `${new Date()}.png`);
+    a.setAttribute('href', dataUrl);
+    a.click();
+    setIsCapturing(false)
+  }
+
+  // const onClick = () => {
+  //   if (isCapturing) return;
+  //   setIsCapturing(true);
+  //
+  //   toPng(document.querySelector('#viewport') as HTMLElement, {
+  //     backgroundColor: '#fff',
+  //     width: imageWidth,
+  //     height: imageHeight,
+  //     canvasWidth: imageWidth,
+  //     canvasHeight: imageHeight,
+  //     quality: 1,
+  //     style: {
+  //       width: `${imageWidth}`,
+  //       height: `${imageHeight}`,
+  //     },
+  //   }).then(downloadImage).then(() => setIsCapturing(false));
+  // };
 
   return (
     <div className={s.wrapper_btn_top}>
       {/*<div className={s.reset2} onClick={() => download()}>*/}
-      <div className={s.reset2} onClick={onClick}>
+      <div className={`${s.reset2} ${isCapturing && s.isCapturing}`} onClick={downloadImage}>
         <p>EXPORT</p>
         <div>
           <Image
@@ -167,7 +171,7 @@ https://bvm.network/studio/${url}`;
           />
         </div>
       </div>
-      <div className={s.reset2} onClick={exportAsImage}>
+      <div className={`${s.reset2} ${isCapturing && s.isCapturing}`} onClick={handleShareTwitter}>
         <p>SHARE</p>
         <div>
           <Image src={'/icons/ic_x_v2.svg'} alt={'x'} width={20} height={20} />
