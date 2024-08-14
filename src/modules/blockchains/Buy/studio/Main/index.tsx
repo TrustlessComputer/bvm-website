@@ -79,14 +79,14 @@ const StudioMain = (): ReactElement => {
                   >
                     <p>Rollups</p>
                   </div>
-                  <div
-                    className={`${s.top_left_filter} ${
-                      isTabTemplate && s.active
-                    }`}
-                    onClick={() => setTab(TABS.TEMPLATE)}
-                  >
-                    <p>Template</p>
-                  </div>
+                  {/*<div*/}
+                  {/*  className={`${s.top_left_filter} ${*/}
+                  {/*    isTabTemplate && s.active*/}
+                  {/*  }`}*/}
+                  {/*  onClick={() => setTab(TABS.TEMPLATE)}*/}
+                  {/*>*/}
+                  {/*  <p>Template</p>*/}
+                  {/*</div>*/}
                 </>
               )}
             </div>

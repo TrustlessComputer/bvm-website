@@ -370,7 +370,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       if (isSuccess) {
         toast.success('Update Successful');
       }
-      setSubmitting(false);
+      // setSubmitting(false);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   };
 
