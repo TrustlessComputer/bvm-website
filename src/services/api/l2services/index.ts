@@ -313,6 +313,20 @@ export const removeOrder = async (orderID: string) => {
   );
 };
 
+export const activeOrder = async (orderID: string) => {
+  await httpClient.post(
+    `/order/active`,
+    {
+      orderId: orderID,
+    },
+    {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    },
+  );
+};
+
 export const getAllOrders = async (): Promise<OrderItem[]> => {
   let orders = (await httpClient.get(`/order/list`)) as OrderItemResp[];
 
@@ -651,6 +665,7 @@ const l2ServicesAPI = {
   updateConfigInfor,
   cancelOrder,
   removeOrder,
+  activeOrder,
 
   orderUpdateAPI,
   orderDetailByID,
