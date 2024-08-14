@@ -58,7 +58,10 @@ const SectionBlock = (props: any) => {
   };
 
   return (
-    <Box ml="calc((100vw - 1480px) / 2)">
+    <Box
+      // ml="calc((100vw - 1480px) / 2)"
+      ml={{ base: '20px', md: '40px', lg: '80px' }}
+    >
       <div className={s.wrapper}>
         <p className={s.heading}>
           <span className={s.tag}>{tag}</span>
