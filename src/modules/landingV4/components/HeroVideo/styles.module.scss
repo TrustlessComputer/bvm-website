@@ -21,6 +21,12 @@
   }
 }
 
+.heroVideo_content_container {
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
 .content {
   color: #000;
   padding: 100px 0;
