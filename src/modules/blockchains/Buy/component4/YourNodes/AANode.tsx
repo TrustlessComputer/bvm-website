@@ -4,8 +4,13 @@ import AddressInput from '@/modules/blockchains/detail_v3/account-abstraction_v2
 import FeeRateInput from '@/modules/blockchains/detail_v3/account-abstraction_v2/components/FeeRateInput';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 import { DappNode as DappNodeProps } from '@/types/node';
+import { useSignalEffect } from '@preact/signals-react';
 import { NodeProps } from '@xyflow/react';
+import { FieldKeyPrefix } from '../../contants';
+import { draggedDappIndexesSignal } from '../../signals/useDragSignal';
 import { adjustBrightness } from '../../utils';
+import Draggable from '../Draggable';
+import Droppable from '../Droppable';
 import Lego from '../Lego';
 import LegoParent from '../LegoParent';
 import Node from '../Node/Node';
@@ -15,6 +20,22 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
 
   const { getAAStatus, isUpdateFlow } = useChainProvider();
   const aaStatusData = getAAStatus();
+  const [draggedDappIndexes, setDraggedDappIndexes] = React.useState<number[]>(
+    [],
+  );
+
+  const dappIndex = React.useMemo(
+    () => draggedDappIndexes[data.baseIndex],
+    [data.baseIndex, draggedDappIndexes],
+  );
+
+  useSignalEffect(() => {
+    setDraggedDappIndexes(draggedDappIndexesSignal.value);
+  });
+
+  if (typeof dappIndex === 'undefined') {
+    return null;
+  }
 
   return (
     <Node
@@ -30,29 +51,48 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
       // }}
       content={{
         children: (
-          <LegoParent {...dapp} background={dapp.color} dapp={dapp}>
-            <Lego
-              first={false}
-              last={false}
-              titleInLeft
-              titleInRight={false}
-              zIndex={1}
-              background={adjustBrightness(dapp.color, -10)}
-              {...dapp.baseBlock.fields[0]}
+          <Draggable
+            id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
+            value={{
+              dappIndex,
+              title: dapp.baseBlock.title,
+              icon: dapp.baseBlock.icon,
+              fieldKey: dapp.baseBlock.key,
+              background: dapp.color_border || dapp.color,
+            }}
+          >
+            <Droppable
+              id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
+              style={{
+                width: 'max-content',
+                height: 'max-content',
+              }}
             >
-              <AddressInput option={dapp.baseBlock.fields[0]} />
-            </Lego>
-            <Lego
-              first={false}
-              last={false}
-              titleInLeft
-              titleInRight={false}
-              background={adjustBrightness(dapp.color, -10)}
-              {...dapp.baseBlock.fields[1]}
-            >
-              <FeeRateInput option={dapp.baseBlock.fields[1]} />
-            </Lego>
-          </LegoParent>
+              <LegoParent {...dapp} background={dapp.color} dapp={dapp}>
+                <Lego
+                  first={false}
+                  last={false}
+                  titleInLeft
+                  titleInRight={false}
+                  zIndex={1}
+                  background={adjustBrightness(dapp.color, -10)}
+                  {...dapp.baseBlock.fields[0]}
+                >
+                  <AddressInput option={dapp.baseBlock.fields[0]} />
+                </Lego>
+                <Lego
+                  first={false}
+                  last={false}
+                  titleInLeft
+                  titleInRight={false}
+                  background={adjustBrightness(dapp.color, -10)}
+                  {...dapp.baseBlock.fields[1]}
+                >
+                  <FeeRateInput option={dapp.baseBlock.fields[1]} />
+                </Lego>
+              </LegoParent>
+            </Droppable>
+          </Draggable>
         ),
       }}
     />

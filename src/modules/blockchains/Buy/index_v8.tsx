@@ -9,6 +9,7 @@ import { useTabs } from '@/modules/blockchains/Buy/studio/useTabs';
 import { DndContext } from '@dnd-kit/core';
 import React from 'react';
 import ClearStore from './ClearStore';
+import useGettingDappLego from './hooks/useGettingDappLego';
 import useNodeFlowControl from './hooks/useNodeFlowControl';
 import s from './styles_v6.module.scss';
 
@@ -20,6 +21,7 @@ const BuyPage = () => {
   useCalcPrice();
   useFixScrollOverDrag();
   useNodeFlowControl();
+  useGettingDappLego();
 
   const { tabActive } = useTabs((state) => state);
   const isTabCode = React.useMemo(() => {
