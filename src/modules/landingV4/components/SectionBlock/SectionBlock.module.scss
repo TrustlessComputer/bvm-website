@@ -3,6 +3,7 @@
     padding-bottom: 80px;
     background-color: #fff;
 
+
     @include is-mobile {
         padding-top: 60px;
         padding-bottom: 60px;
@@ -30,10 +31,7 @@
         }
     }
 
-    .items_wrapper {
-        display: flex;
-        align-items: flex-start;
-        gap: 24px;
+    .scroll_wrapper {
         scroll-snap-type: x mandatory;
         scroll-padding: 50%;
         overflow-x: auto;
@@ -48,10 +46,22 @@
             display: none;
         }
 
+
+    }
+
+    .items_wrapper {
+        display: flex;
+        align-items: flex-start;
+        gap: 24px;
+
+        width: fit-content;
+        margin-right: 30px;
+
+
         .item {
             cursor: pointer;
-            width: 30%;
-            min-width: 400px;
+            width: 400px;
+            // min-width: 400px;
             color: #000;
             font-family: "JetBrains Mono";
 
@@ -75,7 +85,7 @@
 
             .cardLogo {
                 border-bottom: 1px solid #ECECEC;
-                padding-bottom: 12px;
+                padding-bottom: 20px;
 
                 img {
                     height: 28px;
