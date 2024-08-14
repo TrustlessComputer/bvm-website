@@ -125,7 +125,7 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   },
   {
     label: 'Build on Bitcoin',
-    href: '/build',
+    href: '/build2',
     isNewWindow: false,
     isHide: false,
   },
