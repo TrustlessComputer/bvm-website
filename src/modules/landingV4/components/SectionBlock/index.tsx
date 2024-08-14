@@ -102,7 +102,11 @@ const SectionBlock = (props: any) => {
                   gap="8px"
                   className={s.item_content}
                 >
-                  <Flex alignItems={'center'} gap="12px">
+                  <Flex
+                    alignItems={'center'}
+                    gap="12px"
+                    mb={props.id === 'news' ? ' 24px' : '0'}
+                  >
                     <p className={s.title}>{item.title}</p>
                     {!!(item as Omit<TChainCard, 'idx'>).social &&
                       (item as Omit<TChainCard, 'idx'>).social.map(
