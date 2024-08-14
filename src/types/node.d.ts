@@ -49,19 +49,18 @@ type NodeProps = {
 };
 
 type BaseNodeData = {
+  title: string;
+  statusMessage?: string;
   sourceHandles: string[];
   targetHandles: string[];
 };
 
 type DappNode = Node<
   {
-    title: string;
     dapp: DappModel;
     ids: Field[];
     baseIndex: number;
     categoryOption: IModelOption;
-
-    statusMessage?: string;
   } & BaseNodeData
 >;
 
