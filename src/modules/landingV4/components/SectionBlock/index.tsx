@@ -151,7 +151,7 @@ const SectionBlock = (props: any) => {
                             {tag}
                             {index === 0 &&
                               (props.id === 'apps' || props.id === 'games') && (
-                                <IcChain />
+                                <img src="/landing-v4/ic-chain.svg" />
                               )}
                           </div>
                         );
