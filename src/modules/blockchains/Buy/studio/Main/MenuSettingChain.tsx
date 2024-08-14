@@ -64,7 +64,7 @@ const MenuSettingChain = () => {
         router.push(`/domain/${order?.chainId}`);
         break;
       case MenuEditItemEnum.UpdateTemplate:
-        router.push(`/template/${order?.chainId}`);
+        router.push(`/template/${order?.orderId}`);
         break;
       default:
         break;

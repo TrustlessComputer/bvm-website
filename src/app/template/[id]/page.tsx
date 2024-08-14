@@ -16,7 +16,9 @@ const TemplatePage = () => {
   const chain = useAppSelector(dappSelector)?.chain
 
   if (loading) {
-    return <AppLoading />;
+    return <Flex width="100vw" h="95vh">
+      <AppLoading />
+    </Flex>;
   }
 
   if (!chain) {

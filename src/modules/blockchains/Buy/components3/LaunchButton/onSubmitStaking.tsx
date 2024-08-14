@@ -52,12 +52,16 @@ const useSubmitStaking = () => {
       );
       const formFinal = finalFormMappings.find(item => !!item);
       const info: any = formFinal?.info.find((item) => !!item);
-      const data = await cStakeAPI.createNewStakingPool({
-        principle_token: formFinal?.staking_token,
-        reward_token: formFinal?.reward_token,
-        base_ratio: Number(info?.apr?.replaceAll('%', '')) / 100,
-        token_price: 1 / Number(info?.rate),
-      });
+      try {
+        const data = await cStakeAPI.createNewStakingPool({
+          principle_token: formFinal?.staking_token,
+          reward_token: formFinal?.reward_token,
+          base_ratio: Number(info?.apr?.replaceAll('%', '')) / 100,
+          token_price: 1 / Number(info?.rate),
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     dispatch(requestReload());

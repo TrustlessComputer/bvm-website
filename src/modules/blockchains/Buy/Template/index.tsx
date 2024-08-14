@@ -38,6 +38,8 @@ const TemplatePage = () => {
     }
   }
 
+  console.log('sANG TES:', chain?.dappURL || '');
+
   return (
     <Flex
       className={styles.container}
@@ -73,6 +75,7 @@ const TemplatePage = () => {
         appsStr={configsSelector?.apps || ''}
         template={template}
         onUpdateState={setTemplate}
+        dappURL={chain?.dappURL || ''}
       />
     </Flex>
   );
