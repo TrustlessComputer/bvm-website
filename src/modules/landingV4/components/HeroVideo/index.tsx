@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useL2ServiceTracking } from '@hooks/useL2ServiceTracking';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import Banner from '@/modules/landingV3/Componets/Banner';
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import Fade from '@/interactive/Fade';
 import ModalVideo from 'react-modal-video';
 
@@ -22,20 +22,13 @@ export default function HeroVideo() {
       <div className={s.heroVideo}>
         <div className={s.heroVideo_inner}>
           <Banner />
-          <div className={s.heroVideo_bg}>
-            {/* <video
-            src={
-              'https://storage.googleapis.com/bvm-network/image/bvm_hero_video_v3_comp.mp4'
-            }
-            loop
-            muted
-            playsInline
-            autoPlay
-            preload={'auto'}
-          /> */}
-          </div>
-          <div className={s.heroVideo_content}>
-            <div className={`containerV3 ${s.heroVideo_content_container}`}>
+
+          <Box
+            className={s.heroVideo_content}
+            pl={{ base: '20px', md: '40px', lg: '80px' }}
+            pr="20px"
+          >
+            <div className={` ${s.heroVideo_content_container}`}>
               <div className={s.content}>
                 <h3 className={s.content_heading}>
                   Powerful for developers. Fast for everyone.
@@ -104,7 +97,7 @@ export default function HeroVideo() {
                 </Flex>
               </div>
             </div>
-          </div>
+          </Box>
         </div>
       </div>
 
