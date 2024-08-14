@@ -160,6 +160,7 @@ interface HistoryItemResp {
     chainName: string;
     isMainnet: boolean;
   };
+  orderTypeVersion: number;
 }
 
 interface OrderItem extends OrderItemResp {
@@ -180,7 +181,7 @@ interface OrderItem extends OrderItemResp {
 interface AccountInfoResp {
   id: string;
   tcAddress: string;
-  topUpWalletAddress: string;
+  topupWalletAddress: string;
   balance: string;
   withdrawableBalance: string;
   needToTopupBalance: string;

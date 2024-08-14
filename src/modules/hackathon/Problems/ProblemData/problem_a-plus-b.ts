@@ -1,16 +1,21 @@
 export const PROBLEM_PLUS_MARKDOWN = `
+# APlusB
+### *Problem ID: 4*
+
+&nbsp;
+
 Given two integers $A$ and $B$. Return $A + B$.
 
 &nbsp;
 
 ## Implementation details:
- 
+
 &nbsp;
 
 Your smart contract needs to implement the following function(s):
 
-\`\`\`solidity
-function solve(uint256 a, uint256 b) external pure returns (uint256);
+\`\`\`js
+function solve(uint256 a, uint256 b) external returns (uint256);
 \`\`\`
 
 &nbsp;
@@ -21,10 +26,12 @@ function solve(uint256 a, uint256 b) external pure returns (uint256);
 - For each test case, this function will be called exactly once with gas limit of $1\,000\,000$.
  
 &nbsp;
+
 ## Constraints:
+
 - $1$ &le; $a$ &le; $500$
 - $1$ &le; $b$ &le; $500$
-
+ 
 &nbsp;
 
 ## Examples:
@@ -32,15 +39,14 @@ function solve(uint256 a, uint256 b) external pure returns (uint256);
 &nbsp;
 
 ### Example 1
-
+ 
 &nbsp;
 
 Consider the following function call:
-\`\`\`solidity
+
+\`\`\`javascript
 solve(1, 1)
 \`\`\`
-
-&nbsp;
 
 The function should return 2.
 
@@ -51,10 +57,10 @@ The function should return 2.
 &nbsp;
 
 Consider the following function call:
-\`\`\`solidity
+
+\`\`\`javascript
 solve(247, 123)
 \`\`\`
 
-&nbsp;
-
-The function should return 370.`
+The function should return 370.
+`

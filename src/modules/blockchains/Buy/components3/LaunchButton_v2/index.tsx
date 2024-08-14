@@ -145,7 +145,7 @@ const LaunchButton = () => {
           show={isOpenTopUpModal}
           infor={{
             paymentAddress: `${
-              accountInforL2Service?.topUpWalletAddress || '--'
+              accountInforL2Service?.topupWalletAddress || '--'
             }`,
           }}
           onClose={onCloseTopUpModal}

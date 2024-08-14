@@ -34,7 +34,7 @@ const Section_1 = () => {
         fontSize={['14px', '20px']}
         lineHeight={'36px'}
         fontWeight={400}
-        color={'#000'}
+        color={'#fa4e0e'}
         maxW={'744px'}
         textAlign="center"
       >

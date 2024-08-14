@@ -1,8 +1,7 @@
-import React from 'react';
-import { DALayerEnum, NetworkEnum } from './Buy.constanst';
-import { ORDER_FIELD } from './stores';
-import { LegoColor } from './components3/BoxOptionV2';
 import { IModelCategory } from '@/types/customize-model';
+import { DALayerEnum, NetworkEnum } from './Buy.constanst';
+import { LegoColor } from './components3/BoxOptionV2';
+import { ORDER_FIELD } from './stores';
 
 export type OrderFormOption = {
   [key in (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD]]: {
@@ -522,8 +521,11 @@ export const iconToolNames = [
   '/icons-tool/icon-gas-min.svg',
   '/icons-tool/icon-hardware.svg',
   '/icons-tool/icon-issue-a-token.svg',
+  '/icons-tool/icon-l1-v2.svg',
+  '/icons-tool/icon-l1.svg',
   '/icons-tool/icon-l2.svg',
   '/icons-tool/icon-l3.svg',
+  '/icons-tool/icon-light.svg',
   '/icons-tool/icon-mainnet.svg',
   '/icons-tool/icon-near.svg',
   '/icons-tool/icon-op.svg',
@@ -534,6 +536,7 @@ export const iconToolNames = [
   '/icons-tool/icon-raffle.svg',
   '/icons-tool/icon-runes.svg',
   '/icons-tool/icon-solana.svg',
+  '/icons-tool/icon-sov.svg',
   '/icons-tool/icon-staking.svg',
   '/icons-tool/icon-testnet.svg',
   '/icons-tool/icon-time-fast.svg',

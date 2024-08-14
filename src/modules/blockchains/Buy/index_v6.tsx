@@ -1,15 +1,19 @@
 import { DndContext, DragOverlay, useSensor, useSensors } from '@dnd-kit/core';
-import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useRouter, useSearchParams } from 'next/navigation';
+import React, { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import ModalVideo from 'react-modal-video';
 
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { getModelCategories, getTemplates } from '@/services/customize-model';
+import { formatCurrencyV2 } from '@/utils/format';
+import ImagePlaceholder from '@components/ImagePlaceholder';
 import BoxOptionV3 from './components3/BoxOptionV3';
 import ComputerNameInput from './components3/ComputerNameInput';
 import Draggable from './components3/Draggable';
 import DroppableV2 from './components3/DroppableV2';
+import ErrorModal from './components3/ErrorModal';
 import LaunchButton from './components3/LaunchButton';
 import LegoParent from './components3/LegoParent';
 import LegoV3 from './components3/LegoV3';
@@ -18,17 +22,12 @@ import useOrderFormStoreV3, { useCaptureStore } from './stores/index_v3';
 import useDragMask from './stores/useDragMask';
 import s from './styles_v6.module.scss';
 import { MouseSensor } from './utils';
-import { formatCurrencyV2 } from '@/utils/format';
-import ImagePlaceholder from '@components/ImagePlaceholder';
-import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import ErrorModal from './components3/ErrorModal';
 // import { mockupOptions } from './Buy.data';
 import Capture from '@/modules/blockchains/Buy/Capture';
+import { IModelCategory } from '@/types/customize-model';
 import Label from './components3/Label';
 import { TABS } from './constants';
 import ExplorePage from './Explore';
-import { mockupOptions } from './Buy.data';
-import { IModelCategory } from '@/types/customize-model';
 
 const BuyPage = () => {
   const router = useRouter();
@@ -374,11 +373,14 @@ const BuyPage = () => {
           if (!option) return false;
 
           const isDisabled =
-            !!(
-              option.supportLayer &&
-              option.supportLayer !== 'both' &&
-              option.supportLayer !== field['layers']?.value
-            ) ||
+            (option.supportLayers &&
+              option.supportLayers.length > 0 &&
+              !option.supportLayers.includes(field['layers']?.value as any)) ||
+            // !!(
+            //   option.supportLayer &&
+            //   option.supportLayer !== 'both' &&
+            //   option.supportLayer !== field['layers']?.value
+            // ) ||
             !!(
               option.supportNetwork &&
               option.supportNetwork !== 'both' &&
@@ -400,14 +402,22 @@ const BuyPage = () => {
 
       const newDefaultValue = item.options.find(
         (option) =>
-          (option.supportLayer === field['layers']?.value ||
-            option.supportLayer === 'both' ||
-            !option.supportLayer) &&
-          (option.supportNetwork === field['network']?.value ||
-            option.supportNetwork === 'both' ||
-            !option.supportNetwork) &&
-          option.selectable &&
-          !item.disable,
+          !(
+            (option.supportLayers &&
+              option.supportLayers.length > 0 &&
+              !option.supportLayers.includes(field['layers']?.value as any)) ||
+            // !!(
+            //   option.supportLayer &&
+            //   option.supportLayer !== 'both' &&
+            //   option.supportLayer !== field['layers']?.value
+            // ) ||
+            !!(
+              option.supportNetwork &&
+              option.supportNetwork !== 'both' &&
+              option.supportNetwork !== field['network']?.value
+            ) ||
+            !option.selectable
+          ),
       );
       const currentOption = item.options.find(
         (option) => option.key === field[item.key].value,
@@ -421,16 +431,27 @@ const BuyPage = () => {
       if (!currentOption) return;
 
       if (
-        (currentOption.supportLayer === field['layers']?.value ||
-          currentOption.supportLayer === 'both' ||
-          !currentOption.supportLayer) &&
-        (currentOption.supportNetwork === field['network']?.value ||
-          currentOption.supportNetwork === 'both' ||
-          !currentOption.supportNetwork) &&
-        currentOption.selectable &&
-        !item.disable
+        !(
+          (currentOption.supportLayers &&
+            currentOption.supportLayers.length > 0 &&
+            !currentOption.supportLayers.includes(
+              field['layers']?.value as any,
+            )) ||
+          // !!(
+          //   currentOption.supportLayer &&
+          //   currentOption.supportLayer !== 'both' &&
+          //   currentOption.supportLayer !== field['layers']?.value
+          // ) ||
+          !!(
+            currentOption.supportNetwork &&
+            currentOption.supportNetwork !== 'both' &&
+            currentOption.supportNetwork !== field['network']?.value
+          ) ||
+          !currentOption.selectable
+        )
       )
         return;
+
       setField(item.key, newDefaultValue.key, field[item.key].dragged);
     });
   }, [field['network']?.value, field['layers']?.value]);
@@ -477,7 +498,9 @@ const BuyPage = () => {
 
           const isDisabled =
             // prettier-ignore
-            !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
+            (currentOption.supportLayers && currentOption.supportLayers.length > 0 && !currentOption.supportLayers.includes(field['layers']?.value as any)) ||
+            // prettier-ignore
+            // !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
             // prettier-ignore
             !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
             // prettier-ignore
@@ -506,7 +529,9 @@ const BuyPage = () => {
 
       const isDisabled =
         // prettier-ignore
-        !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
+        (currentOption.supportLayers && currentOption.supportLayers.length > 0 && !currentOption.supportLayers.includes(field['layers']?.value as any)) ||
+        // prettier-ignore
+        // !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
         // prettier-ignore
         !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
         // prettier-ignore
@@ -535,7 +560,9 @@ const BuyPage = () => {
 
           const isDisabled =
             // prettier-ignore
-            !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
+            (currentOption.supportLayers && currentOption.supportLayers.length > 0 && !currentOption.supportLayers.includes(field['layers']?.value as any)) ||
+            // prettier-ignore
+            // !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
             // prettier-ignore
             !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
             // prettier-ignore
@@ -564,7 +591,9 @@ const BuyPage = () => {
 
       const isDisabled =
         // prettier-ignore
-        !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
+        (currentOption.supportLayers && currentOption.supportLayers.length > 0 && !currentOption.supportLayers.includes(field['layers']?.value as any)) ||
+        // prettier-ignore
+        // !!(currentOption.supportLayer && currentOption.supportLayer !== 'both' && currentOption.supportLayer !== (field['layers']?.value)) ||
         // prettier-ignore
         !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
         // prettier-ignore
@@ -745,12 +774,17 @@ const BuyPage = () => {
                                   return null;
 
                                 const isDisabled =
-                                  !!(
-                                    option.supportLayer &&
-                                    option.supportLayer !== 'both' &&
-                                    option.supportLayer !==
-                                      field['layers']?.value
-                                  ) ||
+                                  (option.supportLayers &&
+                                    option.supportLayers.length > 0 &&
+                                    !option.supportLayers.includes(
+                                      field['layers']?.value as any,
+                                    )) ||
+                                  // !!(
+                                  //   option.supportLayer &&
+                                  //   option.supportLayer !== 'both' &&
+                                  //   option.supportLayer !==
+                                  //     field['layers']?.value
+                                  // ) ||
                                   !!(
                                     option.supportNetwork &&
                                     option.supportNetwork !== 'both' &&
@@ -936,26 +970,26 @@ const BuyPage = () => {
                 <div className={s.right}>
                   <div className={s.top_right}>
                     <div className={s.right_box_footer}>
-                      {!needContactUs && (
-                        <div className={s.right_box_footer_left}>
-                          <h4 className={s.right_box_footer_left_content}>
-                            {formatCurrencyV2({
-                              amount: priceBVM,
-                              decimals: 0,
-                            })}{' '}
-                            BVM{'/'}month
-                          </h4>
-                          <h6 className={s.right_box_footer_left_title}>
-                            $
-                            {formatCurrencyV2({
-                              amount: priceUSD,
-                              decimals: 0,
-                            })}
-                            {'/'}month
-                          </h6>
-                        </div>
-                      )}
+                      {/* {!needContactUs && (
 
+                      )} */}
+                      <div className={s.right_box_footer_left}>
+                        <h4 className={s.right_box_footer_left_content}>
+                          {formatCurrencyV2({
+                            amount: priceBVM,
+                            decimals: 0,
+                          })}{' '}
+                          BVM{'/'}month
+                        </h4>
+                        <h6 className={s.right_box_footer_left_title}>
+                          $
+                          {formatCurrencyV2({
+                            amount: priceUSD,
+                            decimals: 0,
+                          })}
+                          {'/'}month
+                        </h6>
+                      </div>
                       <LaunchButton data={data} originalData={originalData} />
                     </div>
                   </div>

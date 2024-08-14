@@ -28,6 +28,7 @@ import { DotLottiePlayer } from '@dotlottie/react-player';
 enum SortRollupType {
   name,
   block,
+  fdv,
   tps,
   mgas,
   kbs,
@@ -36,6 +37,7 @@ enum SortRollupType {
   settle,
   tvl,
   lastBlock,
+  verification,
 }
 
 interface ISort {
@@ -85,6 +87,8 @@ const L2Rollup = () => {
   const fetchData = async () => {
     try {
       const res = await rollupL2Api.getRollupL2Info();
+      if (res.length <= 0) return;
+
       let data: IRollupL2Info[] = [];
 
       if (currentSort.ascending === undefined) {
@@ -104,6 +108,8 @@ const L2Rollup = () => {
                   return item.name;
                 case SortRollupType.block:
                   return Number(item.block_number || '0');
+                case SortRollupType.fdv:
+                  return Number(item.fdv || '0');
                 case SortRollupType.tps:
                   return Number(item.tps || '0');
                 case SortRollupType.mgas:
@@ -120,6 +126,8 @@ const L2Rollup = () => {
                   return Number(item.tvl_btc || '0');
                 case SortRollupType.lastBlock:
                   return item.block_time;
+                case SortRollupType.verification:
+                  return item.verification;
                 default:
                   return Number(item.mgas || '0');
               }
@@ -196,7 +204,7 @@ const L2Rollup = () => {
                   alignItems={'center'}
                   width={'100%'}
                   justifyContent={'space-between'}
-                  paddingLeft={'16px'}
+                  paddingLeft={'12px'}
                   cursor={'pointer'}
                   _hover={{
                     textDecoration: 'underline',
@@ -323,6 +331,30 @@ const L2Rollup = () => {
           );
         },
       },
+      // {
+      //   id: 'fdv',
+      //   label: renderLabel('FDV', SortRollupType.block),
+      //   labelConfig,
+      //   config: {
+      //     borderBottom: 'none',
+      //     fontSize: '16px',
+      //     fontWeight: 500,
+      //     verticalAlign: 'middle',
+      //     letterSpacing: '-0.5px',
+      //   },
+      //   render(data: IRollupL2Info) {
+      //     return (
+      //       <Flex
+      //         alignItems={'center'}
+      //         width={'100%'}
+      //         justifyContent={'space-between'}
+      //         px={'2px'}
+      //       >
+      //         <Text className={s.title}>{data.fdv}</Text>
+      //       </Flex>
+      //     );
+      //   },
+      // },
       {
         id: 'block',
         label: renderLabel('Block', SortRollupType.block),
@@ -341,7 +373,7 @@ const L2Rollup = () => {
               width={'100%'}
               justifyContent={'space-between'}
               cursor="pointer"
-              px={'4px'}
+              px={'2px'}
               onClick={() => {
                 window.open(data.explorer);
               }}
@@ -367,7 +399,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'102px'} px={'4px'}>
+            <Flex gap={3} alignItems={'center'} width={'92px'} px={'2px'}>
               <Text className={s.title}>
                 {data?.tps
                   ? formatCurrency(
@@ -394,7 +426,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'102px'} px={'4px'}>
+            <Flex gap={3} alignItems={'center'} width={'92px'} px={'2px'}>
               <Text className={s.title}>
                 {data?.mgas
                   ? formatCurrency(data?.mgas, MIN_DECIMAL, MIN_DECIMAL)
@@ -417,7 +449,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'92px'} px={'4px'}>
+            <Flex gap={3} alignItems={'center'} width={'92px'} px={'2px'}>
               <Text className={s.title}>
                 {data?.kbs
                   ? formatCurrency(
@@ -444,7 +476,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'100%'} px={'4px'}>
+            <Flex gap={3} alignItems={'center'} width={'100%'} px={'2px'}>
               <Text className={s.title}>{data.stack || '-'}</Text>
             </Flex>
           );
@@ -463,8 +495,33 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'100%'} px={'4px'}>
+            <Flex gap={3} alignItems={'center'} width={'100%'} px={'2px'}>
               <Text className={s.title}>{data.da || '-'}</Text>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'verification',
+        label: renderLabel('Verification', SortRollupType.verification),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: IRollupL2Info) {
+          return (
+            <Flex
+              gap={3}
+              alignItems={'center'}
+              width={'100%'}
+              maxW={'128px'}
+              px={'2px'}
+            >
+              <Text className={s.title}>{data.verification || '-'}</Text>
             </Flex>
           );
         },
@@ -482,7 +539,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex alignItems={'center'} width={'100%'} px={'4px'}>
+            <Flex alignItems={'center'} width={'100%'} px={'2px'}>
               <Text className={s.title}>{data.settlement || '-'}</Text>
             </Flex>
           );
@@ -502,11 +559,11 @@ const L2Rollup = () => {
         render(data: IRollupL2Info) {
           const isUnderReview = Number(data.tvl_btc) === 0;
           return (
-            <Flex alignItems={'center'} width={'100%'} px={'4px'}>
+            <Flex alignItems={'center'} width={'100%'} px={'2px'}>
               <Text className={s.title}>
                 {isUnderReview
                   ? '-'
-                  : `${formatCurrency(data.tvl_btc, 0, 3)} BTC`}
+                  : `${formatCurrency(data.tvl_btc, 0, 1)} BTC`}
               </Text>
             </Flex>
           );
@@ -628,7 +685,7 @@ const L2Rollup = () => {
     <Box className={s.container}>
       <Flex direction={'column'} w="100%" maxW={'1580px'} alignItems={'center'}>
         <Flex alignItems="center" gap="6px" my={'12px'}>
-          <Text fontSize={'20px'}>Project Bitcoin Heartbeat</Text>
+          <Text fontSize={'20px'}>Project Bitcoin Heartbeats</Text>
           <DotLottiePlayer
             autoplay
             loop
@@ -655,7 +712,7 @@ const L2Rollup = () => {
           color={'#494846'}
           mb={'24px'}
         >
-          The BVM team created Project Bitcoin Heartbeat to provide transparent
+          The BVM team created Project Bitcoin Heartbeats to provide transparent
           and verifiable insights into new technologies that are transforming
           Bitcoin beyond mere currency. Follow their progress and support their
           innovations.

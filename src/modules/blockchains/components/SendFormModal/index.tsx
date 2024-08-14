@@ -93,12 +93,12 @@ const SendFormModal = (props: IProps) => {
   const transferHandler = async () => {
     if (
       !accountInforL2Service ||
-      !accountInforL2Service.topUpWalletAddress ||
+      !accountInforL2Service.topupWalletAddress ||
       !amountInput
     )
       return;
 
-    const toAddress = accountInforL2Service.topUpWalletAddress;
+    const toAddress = accountInforL2Service.topupWalletAddress;
 
     try {
       setLoading(true);
@@ -152,9 +152,9 @@ const SendFormModal = (props: IProps) => {
 
   if (!accountInforL2Service) return <></>;
 
-  const { topUpWalletAddress, balanceFormatted } = accountInforL2Service;
+  const { topupWalletAddress, balanceFormatted } = accountInforL2Service;
 
-  if (!topUpWalletAddress) return <p>Top up Wallet Address invalid!</p>;
+  if (!topupWalletAddress) return <p>Top up Wallet Address invalid!</p>;
 
   const renderAmountField = () => {
     return (
@@ -269,7 +269,7 @@ const SendFormModal = (props: IProps) => {
           height={'48px'}
           p={'11px'}
           color={'#000'}
-          value={`${topUpWalletAddress}`}
+          value={`${topupWalletAddress}`}
           onChange={(e: any) => {}}
         />
       </Flex>
