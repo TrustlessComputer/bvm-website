@@ -685,7 +685,7 @@ const L2Rollup = () => {
     <Box className={s.container}>
       <Flex direction={'column'} w="100%" maxW={'1580px'} alignItems={'center'}>
         <Flex alignItems="center" gap="6px" my={'12px'}>
-          <Text fontSize={'20px'}>Project Bitcoin Heartbeat</Text>
+          <Text fontSize={'20px'}>Project Bitcoin Heartbeats</Text>
           <DotLottiePlayer
             autoplay
             loop
@@ -712,7 +712,7 @@ const L2Rollup = () => {
           color={'#494846'}
           mb={'24px'}
         >
-          The BVM team created Project Bitcoin Heartbeat to provide transparent
+          The BVM team created Project Bitcoin Heartbeats to provide transparent
           and verifiable insights into new technologies that are transforming
           Bitcoin beyond mere currency. Follow their progress and support their
           innovations.
