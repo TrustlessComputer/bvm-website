@@ -35,6 +35,7 @@ import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
 import { chainKeyToDappKey } from '../../utils';
 import useSubmitStaking from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitStaking';
 import PreviewLaunchModal from '../../Preview';
+import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -50,6 +51,18 @@ const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   console.log('isExistIssueTokenDApp ----- ', isExistIssueTokenDApp);
 
   return isExistIssueTokenDApp;
+};
+
+const isExistAA = (dyanmicFormAllData: any[]): boolean => {
+  const isExistAAList = dyanmicFormAllData
+    .filter((item: any) => !item.isChain)
+    .filter(
+      (dapp: any) =>
+        dapp.options[0].key?.toLowerCase() === 'account_abstraction',
+    );
+
+  const isExist = isExistAAList && isExistAAList.length > 0;
+  return isExist;
 };
 
 const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
@@ -68,6 +81,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     useAppSelector(getL2ServicesStateSelector);
   const { getOrderDetailByID } = useL2Service();
   const dispatch = useAppDispatch();
+  const { isCanConfigAA, configAAHandler, checkTokenContractAddress } =
+    useAAModule();
 
   const [isShowError, setShowError] = useState(false);
   const [missingRequiredForTitles, setMissingRequiredForTitles] = useState<
@@ -121,6 +136,23 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     };
     getChainIDRandomFunc();
   }, []);
+
+  const configAccountAbstraction = (dyanmicFormAllData: any[]) => {
+    try {
+      const isExist = isExistAA(dyanmicFormAllData);
+      if (isExist) {
+        if (isCanConfigAA) {
+          console.log('[configAccountAbstraction]: Config Called');
+          configAAHandler();
+        } else {
+          console.log('[configAccountAbstraction]: Form Error: ');
+          checkTokenContractAddress();
+        }
+      }
+    } catch (error) {
+      console.log('[configAccountAbstraction]: ERROR: ', error);
+    }
+  };
 
   const isFecthingData = useMemo(() => {
     return availableListFetching || !availableList;
@@ -278,11 +310,16 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       dappKey: 'staking',
     });
 
-    console.log('LEON LOG: 111',stakingForms);
+    console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
+    console.log('LEON LOG: 111', stakingForms);
     try {
       // Update and Call API install (behind the scene form BE Phuong)
       const result = await orderUpdateV2(params, orderDetail.orderId);
       if (result) {
+        //Config Account Abstraction...
+        configAccountAbstraction(dynamicForm);
+
+        //Staking...
         if (stakingForms && stakingForms.length > 0) {
           await onSubmitStaking({
             forms: stakingForms,

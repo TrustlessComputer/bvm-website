@@ -1,61 +1,57 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
-import { Flex, Text, Image, Tooltip } from '@chakra-ui/react';
+import { Flex, Text, Image, Tooltip, Input } from '@chakra-ui/react';
 import { isAddress } from 'ethers/lib/utils';
 import { useAccountAbstractionStore } from '../../store/hook';
 import { IModelOption } from '@/types/customize-model';
-import Input from '../Input';
 import s from './styles.module.scss';
-
-// type Props = {
-//   option: IModelOption;
-// };
+import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 
 type Props = {
   option: any;
-  needValidate?: boolean;
 };
 
 const AddressInput = (props: Props) => {
-  const { option, needValidate = false } = props;
+  const { option } = props;
   // const { setChainName } = useOrderFormStore();
   // const { value, errorMessage } = computerNameField;
 
   const { isCapture } = useCaptureStore();
+  const { isUpdateFlow, getAAStatus } = useChainProvider();
+  const { statusCode } = getAAStatus();
+
   const {
     setTokenContractAddress,
     tokenContractAddress,
     isTokenContractAddressFocused,
     tokenContractAddressErrMsg,
     setTokenContractFocused,
-    setTokenContractAddressErrMsg,
+    checkTokenContractAddress,
   } = useAccountAbstractionStore();
+
+  const needValidate = useMemo(() => {
+    return isUpdateFlow && statusCode === 'need_config';
+  }, [isUpdateFlow, statusCode]);
 
   const isError = useMemo(() => {
     return !!isTokenContractAddressFocused && !!tokenContractAddressErrMsg;
   }, [isTokenContractAddressFocused, tokenContractAddressErrMsg]);
 
-  const checkTokenContractAddress = (text: string | undefined) => {
-    let errorMsg = undefined;
-    if (needValidate) {
-      if (!text || text.length < 1) {
-        errorMsg = 'Address is required!';
-      } else if (!isAddress(text)) {
-        errorMsg = 'Address is invalid!';
-      } else {
-        errorMsg = undefined;
-      }
-    }
-    setTokenContractAddressErrMsg(errorMsg);
-  };
-
   const onChangeHandler = (text: string) => {
     setTokenContractAddress(text);
-    checkTokenContractAddress(text);
+    if (needValidate) {
+      checkTokenContractAddress();
+    }
   };
 
+  // useEffect(() => {
+  //   if (needValidate) {
+  //     checkTokenContractAddress();
+  //   }
+  // }, [tokenContractAddress, needValidate]);
+
   return (
-    <Flex flexDir={'row'} align={'center'} justify={'center'} gap={'10px'}>
+    <Flex flexDir={'row'} align={'center'} gap={'10px'}>
       {/* <Text
         as="span"
         color={'#fff'}
@@ -76,35 +72,42 @@ const AddressInput = (props: Props) => {
         <Image src={'/icons/white_tooltip_ic.svg'} w="20px" h="20px" />
       </Tooltip>
 
-      <Flex
-        flexDir={'column'}
-        padding={needValidate ? '5px' : '0px'}
-        bgColor={needValidate ? '#fff' : 'transparent'}
-      >
+      <Flex flexDir={'column'} justify={'center'} gap={'4px'}>
         <Input
           className={s.input}
+          mt={isError ? '10px' : '0px'}
           type="text"
           placeholder="Example: 0xabc...xzy"
+          fontSize={'14px'}
           value={tokenContractAddress}
+          borderColor={isError ? 'red' : 'transparent'}
+          borderWidth={isError ? '2px' : 'none'}
           onBlur={(e: any) => {
             const text = e.target.value;
             setTokenContractFocused(true);
-            checkTokenContractAddress(text);
+            onChangeHandler(text);
           }}
           onChange={(e) => {
             const text = e.target.value;
-            onChangeHandler(text);
             setTokenContractFocused(true);
+            onChangeHandler(text);
+          }}
+          _focus={{
+            borderColor: isError ? '#ff6666ff' : 'transparent',
           }}
         />
 
         {isError && (
           <Text
+            px={'5px'}
+            bgColor={'#FF4747'}
+            borderRadius={'4px'}
+            maxW={'max-content'}
+            className={s.fontError}
             position={'relative'}
-            color={'red'}
-            minW={'max-content'}
+            color={'#fff'}
             fontWeight={500}
-            fontSize={['14px']}
+            fontSize={['13px']}
           >
             {tokenContractAddressErrMsg}
           </Text>

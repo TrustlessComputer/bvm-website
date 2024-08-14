@@ -1,17 +1,17 @@
-import { create } from 'zustand';
 import {
   Edge,
-  Node,
-  OnNodesChange,
-  OnEdgesChange,
   OnConnect,
+  OnEdgesChange,
+  OnNodesChange,
   addEdge,
-  applyNodeChanges,
   applyEdgeChanges,
+  applyNodeChanges,
 } from '@xyflow/react';
-import { DataNode } from '@/modules/blockchains/Buy/component4/CustomNode';
+import { create } from 'zustand';
+import { DataNode } from '../component4/CustomNode';
 
 export type AppNode = DataNode;
+// export type AppNode = ChainNode | DappNode; // V2 coming soon
 
 export type AppState = {
   nodes: AppNode[];

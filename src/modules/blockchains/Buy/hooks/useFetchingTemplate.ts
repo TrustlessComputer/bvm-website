@@ -1,4 +1,3 @@
-import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
 import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
@@ -23,6 +22,7 @@ import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
 import { parseStakingPools } from '../../dapp/parseUtils/staking';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { parseDappModel } from '../../utils';
+import { StatusBox } from '../component4/CustomNode/DappTemplateNode';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
@@ -121,6 +121,26 @@ export default function useFetchingTemplate() {
       draggedDappIndexesSignal.value = [0];
       draggedIds2DSignal.value = [[]];
     }
+
+    // V2 coming soon ======
+    // const dappNodeInitial: DappNode = {
+    //   id: '1',
+    //   type: nodeKey.DAPP_NODE,
+    //   dragHandle: '.drag-handle-area',
+    //   position: { x: 0, y: 0 },
+    //   data: {
+    //     title: 'Test',
+    //     dapp: accountAbstractionAsADapp,
+    //     ids: [],
+    //     baseIndex: 0,
+    //     categoryOption: {} as IModelOption,
+    //     sourceHandles: [],
+    //     targetHandles: [],
+    //   },
+    // };
+    // draggedDappIndexesSignal.value = [0];
+    // nodes.unshift(dappNodeInitial);
+    // V2 coming soon ======
 
     nodes.unshift({
       id: 'blockchain',
