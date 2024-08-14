@@ -32,7 +32,7 @@ const MenuEditItemList: MenuEditItemType[] = [
   {
     key: 'B',
     value: MenuEditItemEnum.ConfigYourDAppsDomain,
-    title: 'Configure gaming dApps domain',
+    title: 'Configure your dApps domain',
   },
 ];
 
@@ -57,7 +57,7 @@ const MenuEdit = (props: MenuProps) => {
           }}
         />
       </MenuButton>
-      <MenuList bgColor={'#fff'}>
+      <MenuList bgColor={'#fff'} zIndex={9999}>
         {MenuEditItemList.map((item, index) => (
           <>
             <MenuEditItem
