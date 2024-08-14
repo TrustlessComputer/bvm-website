@@ -57,7 +57,12 @@ export default function HeroVideo() {
                   Request a demo
                 </div>
               </div> */}
-                <Flex gap={5} alignItems={'center'} justifyContent={'center'}>
+                <Flex
+                  gap={5}
+                  alignItems={'center'}
+                  justifyContent={'center'}
+                  className={s.more_info}
+                >
                   {/* <Fade delay={DELAY + 0.6}> */}
                   <div>
                     <a
@@ -79,11 +84,13 @@ export default function HeroVideo() {
                   <div>
                     <a
                       href={'#'}
-                      onClick={() => window.open('https://bvm.network/studio')}
+                      onClick={() =>
+                        window.open('https://bvm.network/build-bitcoin')
+                      }
                       style={{ textAlign: 'center', display: 'block' }}
                     >
                       <img
-                        src={`/landing-v4/frame-pdf.png`}
+                        src={`/landing-v4/frame-studio.png`}
                         width={224}
                         alt={'right'}
                         style={{ margin: 'auto', marginBottom: '8px' }}
@@ -96,11 +103,11 @@ export default function HeroVideo() {
                   <div>
                     <a
                       href={'#'}
-                      onClick={() => window.open('https://bvm.network/studio')}
+                      onClick={() => window.open('https://bvm.network/bvm')}
                       style={{ textAlign: 'center', display: 'block' }}
                     >
                       <img
-                        src={`/landing-v4/frame-pdf.png`}
+                        src={`/landing-v4/frame-own-bvm.png`}
                         width={224}
                         alt={'right'}
                         style={{ margin: 'auto', marginBottom: '8px' }}

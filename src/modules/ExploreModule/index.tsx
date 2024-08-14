@@ -14,7 +14,11 @@ import React, { useState } from 'react';
 import ChainCard from '@/modules/ExploreModule/components/ChainCard';
 import DappCard from '@/modules/ExploreModule/components/DappCard';
 // import WrapperCard from '@/modules/ExploreModule/components/WrapperCard';
-import { CHAIN_DATA, DAPPS_DATA } from '@/modules/ExploreModule/data';
+import {
+  CHAIN_DATA,
+  DAPPS_DATA,
+  GAMES_DATA,
+} from '@/modules/ExploreModule/data';
 import Loader from '@/modules/builder-landing/Loader';
 import useWhiteBackground from '@hooks/useWhiteBackground';
 import Chars from '@interactive/Chars';
@@ -46,6 +50,7 @@ export default function ExploreModule(): React.JSX.Element {
         <Tabs index={tabIndex} onChange={handleTabsChange} mt="40px">
           <TabList className={s.tabList}>
             <Tab>Featured dApps</Tab>
+            <Tab>Featured Games</Tab>
             <Tab>Featured Bitcoin rollups</Tab>
           </TabList>
           <TabPanels>
@@ -59,6 +64,17 @@ export default function ExploreModule(): React.JSX.Element {
                 </div>
               </Flex>
             </TabPanel>
+            <TabPanel p="0">
+              <Flex direction="column" gap="60px">
+                <Disclaimer />
+                <div className={s.wrapperCardDapps}>
+                  {GAMES_DATA.map((item, idx) => {
+                    return <DappCard {...item} idx={idx} key={item.title} />;
+                  })}
+                </div>
+              </Flex>
+            </TabPanel>
+
             <TabPanel p="0">
               <Flex direction="column" gap="60px">
                 <Disclaimer />

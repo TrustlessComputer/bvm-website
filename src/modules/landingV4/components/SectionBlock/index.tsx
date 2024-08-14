@@ -7,13 +7,18 @@ import { TDappCardProps } from '@/modules/ExploreModule/components/DappCard';
 import { useRouter } from 'next/navigation';
 import { TChainCard } from '@/modules/ExploreModule/components/ChainCard';
 import { LOGOS } from '@/modules/landingV3/Componets/Section_7/constant';
+import IcChain from '@/public/landing-v4/ic-chain.svg';
+import cn from 'classnames';
 
 type BlockCardItem = Omit<TDappCardProps, 'idx'> & {
   logo: string;
   logoUrl?: string;
+  id?: string;
 };
 
-type BlockChainItem = Omit<TChainCard, 'idx'>;
+type BlockChainItem = Omit<TChainCard, 'idx'> & {
+  id?: string;
+};
 
 const SectionBlock = (props: any) => {
   const { tag, title, item } = props;
@@ -72,7 +77,9 @@ const SectionBlock = (props: any) => {
             {item.map((item: BlockCardItem | BlockChainItem, index: number) => (
               <div
                 key={index}
-                className={s.item}
+                className={cn(s.item, {
+                  ['pointer-none']: !(item as BlockCardItem).link?.url,
+                })}
                 onClick={() => {
                   window.open(
                     (item as BlockCardItem).link.url,
@@ -136,9 +143,19 @@ const SectionBlock = (props: any) => {
                   ></p>
                   <div className={s.item_tags}>
                     {!!item.tags &&
-                      item.tags.map((tag, index) => (
-                        <span key={`${tag}-${index}`}>{tag}</span>
-                      ))}
+                      item.tags.map((tag, index) => {
+                        if (!tag) return null;
+
+                        return (
+                          <div key={`${tag}-${index}`}>
+                            {tag}
+                            {index === 0 &&
+                              (props.id === 'apps' || props.id === 'games') && (
+                                <IcChain />
+                              )}
+                          </div>
+                        );
+                      })}
                   </div>
                 </Flex>
               </div>
