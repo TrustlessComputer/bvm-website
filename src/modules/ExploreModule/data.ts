@@ -3,19 +3,156 @@ import { TChainCard } from '@/modules/ExploreModule/components/ChainCard';
 import { CDN_URL } from '@/config';
 
 export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
+  // {
+  //   image: '/explore/dapp01.png',
+  //   title: 'Imagine',
+  //   description:
+  //     'Turn your thoughts into visuals directly on your phone in various styles!',
+  //   bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 36%, #61FFF7 100%)',
+  //   tags: ['EternalAI Chain'],
+  //   link: {
+  //     url: 'https://eternalai.org/app',
+  //     target: '_blank',
+  //   },
+  //   homeImage: `${CDN_URL}/pages/landing-v4/home-imagine.png`,
+  // },
+  // {
+  //   image: '/explore/dapp2.png',
+  //   title: 'Bitcoin Wars',
+  //   description:
+  //     'The first fully on-chain game built on a ZK Rollup on the Bitcoin network.',
+  //   bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%);',
+  //   tags: ['Bitcoin Wars Chain'],
+  //   link: { url: '/bitcoin-wars', target: '' },
+  //   homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
+  // },
+  // {
+  //   image: '/explore/dapp3.png',
+  //   title: 'RuneDex - Order book',
+  //   bgColor:
+  //     'linear-gradient(226.59deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
+  //   description:
+  //     'Experience trading on a Dex with the same seamless experience as a Cex using an order book system.',
+  //   tags: ['RuneChain'],
+  //   link: {
+  //     url: 'https://runechain.com/',
+  //     target: '_blank',
+  //   },
+  //   homeImage: `${CDN_URL}/pages/landing-v4/home-runedex.png`,
+  // },
   {
-    image: '/explore/dapp01.png',
-    title: 'Imagine',
+    image: '/explore/dapp-runedex.png',
+    title: 'RuneDex ',
+    bgColor:
+      'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
     description:
-      'Turn your thoughts into visuals directly on your phone in various styles!',
-    bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 36%, #61FFF7 100%)',
-    tags: ['EternalAI Chain'],
+      'Buy Bitcoin anonymously using an order book. Enjoy a DEX with the ease of a CEX experience.',
+    tags: ['RuneChain', 'Defi'],
     link: {
-      url: 'https://eternalai.org/app',
+      url: 'https:/runechain.com/',
       target: '_blank',
     },
-    homeImage: `${CDN_URL}/pages/landing-v4/home-imagine.png`,
+    homeImage: `${CDN_URL}/pages/landing-v4/home-runedex.png`,
   },
+  {
+    image: '/explore/dapp-heartbeat.png',
+    title: 'Hearbeats',
+    bgColor:
+      'linear-gradient(226.66deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
+    description:
+      'Provide transparent and verifiable insights into Bitcoin rollups.',
+    tags: ['', 'Analytics'],
+    link: {
+      url: 'https://bvm.network/heartbeat',
+      target: '_blank',
+    },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-heartbeat.png`,
+  },
+  // {
+  //   image: '/explore/runfun.png',
+  //   title: 'Runes.fun',
+  //   bgColor:
+  //     'linear-gradient(227deg, #FF9E71 -7.83%, #FFB656 23.69%, #F37100 67.99%, #FBA868 100%)',
+  //   description:
+  //     'Anyone can etch their own Runes as a fair launch with no premine and no team allocation.',
+  //   tags: ['RuneChain'],
+  //   link: {
+  //     url: 'https://runes-fun.runechain.com',
+  //     target: '_blank',
+  //   },
+  //   homeImage: `${CDN_URL}/pages/landing-v4/home-runefun.png`,
+  // },
+  {
+    image: '/explore/alpha.png',
+    title: 'Alpha',
+    bgColor:
+      'linear-gradient(227deg, #AE71FF -7.83%, #9456FF 23.69%, #6610E6 67.99%, #ED68FB 100%)',
+    description:
+      'The first social app on Bitcoin.<br/>$2.7M paid to creators as of today.',
+    tags: ['AlphaChain', 'SocialFi'],
+    link: {
+      url: 'https://alpha.wtf',
+      target: '_blank',
+    },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-alpha.png`,
+  },
+  {
+    image: '/explore/dapp4.png',
+    title: 'NakaDex',
+    bgColor:
+      'linear-gradient(227deg, #FD8DFF -7.83%, #FF63B7 21.47%, #E400CD 69.37%, #FADEFF 118.41%)',
+    description:
+      'The first Dex on Bitcoin using an Automated Market Maker (AMM) approach.',
+    tags: ['NakaChain'],
+    link: {
+      url: 'https://nakachain.xyz/',
+      target: '_blank',
+    },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-nakadex-1.png`,
+  },
+  {
+    image: '/explore/dapp-eai.png',
+    title: 'Eternal GPT (Soon)',
+    bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
+    description:
+      'The truly open AI that runs exactly as trained—no downtime, no censorship, no fraud. Fully decentralized with no ownership.',
+    tags: ['EternalAI Chain', 'AI'],
+    link: {
+      url: '',
+      target: '_blank',
+    },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-eai-phone.png`,
+  },
+  {
+    image: '/explore/dapp-neuron.png',
+    title: 'Neurons (Soon)',
+    bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%)',
+    description:
+      'Power multiple networks, including EternalAI, by providing decentralized infrastructure and connectivity under the DePIN model.',
+    tags: ['EternalAI Chain', 'DePIN'],
+    link: {
+      url: '',
+      target: '_blank',
+    },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-neuron.png`,
+  },
+  {
+    image: '/explore/dapp-capsule.png',
+    title: 'Time Capsule (Soon)',
+    bgColor:
+      'linear-gradient(227deg, #00F9DB -7.83%, #63FFBD 21.47%, #05E400 69.37%, #339898 118.41%)',
+    description:
+      'Protect and preserve the history of the Internet, ensuring that its legacy is safe and accessible.',
+    tags: ['Bitarchive Chain', 'Storage'],
+    link: {
+      url: '',
+      target: '_blank',
+    },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-capsule.png`,
+  },
+];
+
+export const GAMES_DATA: Omit<TDappCardProps, 'idx'>[] = [
   {
     image: '/explore/dapp2.png',
     title: 'Bitcoin Wars',
@@ -27,60 +164,33 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
     homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   },
   {
-    image: '/explore/dapp3.png',
-    title: 'RuneDex - Order book',
+    image: '/explore/game-wombat.png',
+    title: 'Wombat (Soon)',
+    description: 'Coming soon',
     bgColor:
-      'linear-gradient(226.59deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
-    description:
-      'Experience trading on a Dex with the same seamless experience as a Cex using an order book system.',
-    tags: ['RuneChain'],
-    link: {
-      url: 'https://runechain.com/',
-      target: '_blank',
-    },
-    homeImage: `${CDN_URL}/pages/landing-v4/home-runedex.png`,
+      ' linear-gradient(227deg, #AE71FF -7.83%, #9456FF 23.69%, #6610E6 67.99%, #ED68FB 100%)',
+    tags: ['Bitcoin Wars Chain'],
+    link: { url: '', target: '' },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   },
   {
-    image: '/explore/dapp4.png',
-    title: 'NakaDex - AMM',
+    image: '/explore/game-battleship.png',
+    title: 'Battleship (Soon)',
+    description: 'Coming soon',
     bgColor:
-      'linear-gradient(226.66deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
-    description:
-      'The first Dex on Bitcoin using an Automated Market Maker (AMM) approach.',
-    tags: ['NakaChain'],
-    link: {
-      url: 'https://nakachain.xyz/',
-      target: '_blank',
-    },
-    homeImage: `${CDN_URL}/pages/landing-v4/home-nakadex.png`,
+      ' linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
+    tags: ['Bitcoin Wars Chain'],
+    link: { url: '', target: '' },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   },
   {
-    image: '/explore/runfun.png',
-    title: 'Runes.fun',
-    bgColor:
-      'linear-gradient(227deg, #FF9E71 -7.83%, #FFB656 23.69%, #F37100 67.99%, #FBA868 100%)',
-    description:
-      'Anyone can etch their own Runes as a fair launch with no premine and no team allocation.',
-    tags: ['RuneChain'],
-    link: {
-      url: 'https://runes-fun.runechain.com',
-      target: '_blank',
-    },
-    homeImage: `${CDN_URL}/pages/landing-v4/home-runefun.png`,
-  },
-  {
-    image: '/explore/alpha.png',
-    title: 'Alpha',
-    bgColor:
-      'linear-gradient(227deg, #AE71FF -7.83%, #9456FF 23.69%, #6610E6 67.99%, #ED68FB 100%)',
-    description:
-      'The first social app on Bitcoin.<br/>$2.7M paid to creators as of today.',
-    tags: ['AlphaChain'],
-    link: {
-      url: 'https://alpha.wtf',
-      target: '_blank',
-    },
-    homeImage: `${CDN_URL}/pages/landing-v4/home-alpha.png`,
+    image: '/explore/game-minesweeper.png',
+    title: 'Minesweepers (Soon)',
+    description: 'Coming soon',
+    bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
+    tags: ['Bitcoin Wars Chain'],
+    link: { url: '', target: '' },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   },
 ];
 
@@ -119,7 +229,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
       },
     ],
     tags: ['L2', 'Optimistic Rollup'],
-    homeImage: `${CDN_URL}/pages/landing-v4/home-eai.png`,
+    homeImage: `${CDN_URL}/pages/landing-v4/home-eai-1.png`,
   },
   {
     image: '/explore/rune.png',

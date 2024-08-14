@@ -4,8 +4,9 @@ import { CDN_URL, CDN_URL_IMAGES_NBC } from '@/config';
 import { BLOGS } from '../landingV3/Componets/Section_7/constant';
 
 export const APPS_SECTION = {
+  id: 'apps',
   tag: 'Apps. ',
-  title: 'Experience Bitcoin like never before.',
+  title: 'Transform Bitcoin beyond mere currency.',
   item: DAPPS_DATA.filter((item) => {
     return (
       item.title !== 'Imagine' &&
@@ -16,11 +17,52 @@ export const APPS_SECTION = {
 };
 
 export const GAME_SECTION = {
+  id: 'games',
   tag: 'Games. ',
   title: 'Experience Bitcoin like never before.',
-  item: DAPPS_DATA.filter((item) => {
-    return item.title === 'Bitcoin Wars';
-  }),
+  item: [
+    {
+      title: 'Bitcoin Wars',
+      description:
+        'The first fully on-chain game built on a ZK Rollup on the Bitcoin network.',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
+      link: {
+        url: '',
+        target: '_blank',
+      },
+      tags: ['Bitcoin Wars'],
+    },
+    {
+      title: 'Wombat',
+      description: 'Coming soon',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-wombat.png`,
+      link: {
+        url: '',
+        target: '_blank',
+      },
+      tags: ['Bitcoin Arcade'],
+    },
+    {
+      title: 'Battleship',
+      description: 'Coming soon',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-battleship.png`,
+      link: {
+        url: '',
+        target: '_blank',
+      },
+      tags: ['Bitcoin Arcade'],
+    },
+    {
+      title: 'Minesweepers',
+      description: 'Coming soon',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-minesweeper.png`,
+      link: {
+        url: '',
+        target: '_blank',
+      },
+      tags: ['Bitcoin Arcade'],
+    },
+  ],
 };
 
 export const ROLLUPS_SECTION = {

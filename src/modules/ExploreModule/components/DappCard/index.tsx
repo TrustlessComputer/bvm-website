@@ -3,6 +3,7 @@ import s from './styles.module.scss';
 import Fade from '@interactive/Fade';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import Link from 'next/link';
+import cn from 'classnames';
 
 export type TDappCardProps = {
   idx: number;
@@ -29,7 +30,9 @@ export default function DappCard({
       <Link
         href={link.url}
         target={link.target}
-        className={s.wrapperDappCard}
+        className={cn(s.wrapperDappCard, {
+          ['pointer-none']: !link.url,
+        })}
         style={{ background: props.bgColor }}
       >
         <div className={s.wrapperDappCard_image}>

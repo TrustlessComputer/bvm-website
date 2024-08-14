@@ -21,6 +21,22 @@
   }
 }
 
+.more_info {
+  a {
+
+    &:hover {
+      img {
+        scale: 1.05;
+      }
+    }
+
+    img {
+      transition: all 0.5s ease;
+    }
+
+  }
+}
+
 .heroVideo_content_container {
   display: grid;
   place-items: center;
