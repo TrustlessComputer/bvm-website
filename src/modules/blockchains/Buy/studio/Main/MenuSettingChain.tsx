@@ -6,10 +6,13 @@ import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import { Image, Menu, MenuButton, MenuList } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
+import React from 'react';
+import { dappSelector } from '@/stores/states/dapp/selector';
 
 export enum MenuEditItemEnum {
   CustomizeHomePage = 0,
   EditDomain,
+  UpdateTemplate,
 }
 
 export type MenuEditItemType = {
@@ -21,8 +24,8 @@ export type MenuEditItemType = {
 const MenuEditItemList: MenuEditItemType[] = [
   {
     key: 'A',
-    value: MenuEditItemEnum.CustomizeHomePage,
-    title: 'Customize HomePage',
+    value: MenuEditItemEnum.UpdateTemplate,
+    title: 'Update Template',
   },
   {
     key: 'B',
@@ -34,11 +37,20 @@ const MenuEditItemList: MenuEditItemType[] = [
 const MenuSettingChain = () => {
   const { order } = useChainProvider();
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+  const chain = useAppSelector(dappSelector)?.chain;
   const router = useRouter();
 
   const isOwner =
     order?.tcAddress?.toLowerCase() ===
     accountInforL2Service?.tcAddress?.toLowerCase();
+
+  const _MenuEditItemList = React.useMemo(() => {
+    return !!chain?.dappURL
+      ? MenuEditItemList
+      : MenuEditItemList.filter(
+          (item) => item.value !== MenuEditItemEnum.UpdateTemplate
+        );
+  }, [chain?.dappURL]);
 
   const itemOnClick = (item: MenuEditItemType) => {
     switch (item.value) {
@@ -50,6 +62,9 @@ const MenuSettingChain = () => {
         break;
       case MenuEditItemEnum.EditDomain:
         router.push(`/domain/${order?.chainId}`);
+        break;
+      case MenuEditItemEnum.UpdateTemplate:
+        router.push(`/template/${order?.chainId}`);
         break;
       default:
         break;
@@ -76,7 +91,7 @@ const MenuSettingChain = () => {
         borderColor={'transparent'}
         gap={'10px'}
       >
-        {MenuEditItemList.map((item, index) => (
+        {_MenuEditItemList.map((item, index) => (
           <MenuEditItem
             key={`${item.key}-${index}`}
             title={item.title}
