@@ -454,9 +454,9 @@ const useDapps = () => {
     setDapps(preDataAirdropTask(sortedDapps, tokens, airdropTasks));
   };
 
-  React.useEffect(() => {
-    fetchDapps();
-  }, [pathname]);
+  // React.useEffect(() => {
+  //   fetchDapps();
+  // }, [pathname]);
 
   React.useEffect(() => {
     fetchDapps();
