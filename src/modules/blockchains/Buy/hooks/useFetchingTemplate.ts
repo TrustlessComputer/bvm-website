@@ -35,7 +35,7 @@ export default function useFetchingTemplate() {
   const params = useParams();
   const isUpdateChainPage = React.useMemo(() => !!params?.id, [params?.id]);
 
-  const { order, isAAInstalled } = useChainProvider();
+  const { order, isAAInstalled, isUpdateFlow } = useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
     setParsedCategories,
@@ -280,7 +280,7 @@ export default function useFetchingTemplate() {
     }
     const newArray = Object.values(map) as AppNode[];
 
-    setEdges(edgeData)
+    setEdges(edgeData);
     // setNodes([...nodes, ...newNodes]);
     setNodes(newArray);
 
@@ -353,7 +353,7 @@ export default function useFetchingTemplate() {
 
   React.useEffect(() => {
     fetchData();
-  }, [order]);
+  }, [isUpdateFlow]);
 
   React.useEffect(() => {
     parseDappApiToDappModel();
