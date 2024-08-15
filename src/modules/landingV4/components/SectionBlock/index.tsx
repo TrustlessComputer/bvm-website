@@ -9,6 +9,7 @@ import { TChainCard } from '@/modules/ExploreModule/components/ChainCard';
 import { LOGOS } from '@/modules/landingV3/Componets/Section_7/constant';
 import IcChain from '@/public/landing-v4/ic-chain.svg';
 import cn from 'classnames';
+import Link from 'next/link';
 
 type BlockCardItem = Omit<TDappCardProps, 'idx'> & {
   logo: string;
@@ -75,17 +76,19 @@ const SectionBlock = (props: any) => {
         <div className={s.scroll_wrapper}>
           <div className={s.items_wrapper}>
             {item.map((item: BlockCardItem | BlockChainItem, index: number) => (
-              <div
+              <Link
                 key={index}
                 className={cn(s.item, {
-                  ['pointer-none']: !(item as BlockCardItem).link?.url,
+                  ['pointer-none']:
+                    props.id !== 'rollups' &&
+                    !(item as BlockCardItem).link?.url,
                 })}
-                onClick={() => {
-                  window.open(
-                    (item as BlockCardItem).link.url,
-                    (item as BlockCardItem).link.target,
-                  );
-                }}
+                href={
+                  props.id !== 'rollups'
+                    ? (item as BlockCardItem).link?.url || ''
+                    : (item as BlockChainItem).social[1].link
+                }
+                target={(item as BlockCardItem).link?.target || '_blank'}
               >
                 {props.id === 'news' &&
                   renderNewsLogo(
@@ -158,7 +161,7 @@ const SectionBlock = (props: any) => {
                       })}
                   </div>
                 </Flex>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
