@@ -6,7 +6,7 @@ import { cloneDeep } from '../utils';
 
 export interface IRetrieveFormsByDappKey {
   [key: string]: boolean | string | number;
-};
+}
 
 const useOneForm = () => {
   const { dapps } = useDapps();
@@ -32,7 +32,7 @@ const useOneForm = () => {
       }
     });
 
-    return forms;
+    return forms.filter((f) => f);
   };
 
   return {
