@@ -28,7 +28,7 @@ const SectionBlock = (props: any) => {
   const itemsWrapperRef = React.useRef<HTMLDivElement>(null);
 
   const [showControls, setShowControls] = useState({
-    prev: false,
+    prev: true,
     next: true,
   });
 
@@ -82,11 +82,6 @@ const SectionBlock = (props: any) => {
         });
 
         // check first item of itemsWrapperRef is fully visible
-
-        setShowControls({
-          prev: scrollWrapperRef.current.scrollLeft > 200,
-          next: true,
-        });
       }
 
       if (direction === 'next') {
@@ -94,16 +89,7 @@ const SectionBlock = (props: any) => {
           left: scrollWrapperRef.current.scrollLeft + 800,
           behavior: 'smooth',
         });
-        setShowControls({
-          prev: true,
-          next:
-            scrollWrapperRef.current.scrollLeft +
-              scrollWrapperRef.current.offsetWidth <
-            itemsWrapperRef.current.offsetWidth,
-        });
       }
-
-      console.log('scrollLeft: ', scrollWrapperRef.current.scrollLeft);
     },
     [
       scrollWrapperRef.current,
@@ -120,10 +106,8 @@ const SectionBlock = (props: any) => {
 
       if (itemsWrapper.offsetWidth > scrollWrapper.offsetWidth) {
         setShowControls({
-          prev: scrollWrapper.scrollLeft > 0,
-          next:
-            scrollWrapper.scrollLeft + scrollWrapper.offsetWidth <
-            itemsWrapper.offsetWidth,
+          prev: true,
+          next: true,
         });
       } else {
         setShowControls({
@@ -237,21 +221,23 @@ const SectionBlock = (props: any) => {
           </div>
 
           {!!showControls.prev && (
-            <div
+            <Box
               className={s.prev_btn}
+              top={props.id === 'news' ? 'calc(50% - 44px)' : '50%'}
               onClick={() => handleChangeDirection('prev')}
             >
               <img src="\landing-v4\ic-arrow-control.svg"></img>
-            </div>
+            </Box>
           )}
 
           {!!showControls.next && (
-            <div
+            <Box
               className={s.next_btn}
+              top={props.id === 'news' ? 'calc(50% - 44px)' : '50%'}
               onClick={() => handleChangeDirection('next')}
             >
               <img src="\landing-v4\ic-arrow-control.svg"></img>
-            </div>
+            </Box>
           )}
         </div>
       </div>

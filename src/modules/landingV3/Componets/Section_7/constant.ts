@@ -24,16 +24,40 @@ export const LOGOS = [
   },
   {
     id: 'cointelegraph_brazil',
-    img: 'landing/images/cointelegraph_brazil.png',
+    img: 'landing/images/cointelegraph.svg',
   },
+  {
+    id: 'coinmarketcap',
+    img: 'landing/images/coinmarketcap.svg',
+  },
+  {
+    id: 'nftnow',
+    img: 'landing/images/ic-nftnow.svg',
+  },
+  {
+    id: 'defiant',
+    img: 'landing/images/defiant.svg',
+  },
+  {
+    id: 'nft-evening',
+    img: 'landing/images/nft-evening.svg',
+  },
+  {
+    id: 'bsc_news',
+    img: 'landing/images/bscn.svg',
+  },
+
   {
     id: 'coindesk',
     img: 'landing/images/coindesk.png',
   },
+  {
+    id: 'clout_scoop',
+    img: 'landing/images/clout_scoop.png',
+  },
 ];
 
 const BLOGS = [
-
   {
     id: '6',
     title: `New tool enables ‘No Code’ blockchain deployment`,
@@ -119,7 +143,7 @@ const BLOGS = [
     id: '12',
     title: `Bitcoin Transactions Hit Record High as New Token Type Takes Off`,
     desc: `Bitcoin Virtual Machine enables its own form of fungible tokens, called SBRC-20s, punk3700, a pseudonymous core contributor to Bitcoin Virtual Machine, told The Defiant.`,
-    logo: 'the_defiant',
+    logo: 'defiant',
     imageUrl: `${CDN_URL_BLOGS}/defiant.png`,
     link: 'https://thedefiant.io/bitcoin-transactions-hit-record-high-as-new-token-type-takes-off',
     linkTarget: '_blank',
@@ -133,15 +157,15 @@ const BLOGS = [
     link: 'https://www.coindesk.com/tech/2023/08/02/a-new-bitcoin-based-arcade-game-is-leaving-a-mark-on-gamers/?utm_content=editorial&utm_medium=social&utm_term=organic&utm_campaign=coindesk_main&utm_source=twitter',
     linkTarget: '_blank',
   },
-  {
-    id: '14',
-    title: `Bricks to Bitcoins: The New Bitcoin City`,
-    desc: `The newly launched Bitcoin City, unveiled just last week, provides a place for game enthusiasts to engage in casual games, board games, and strategic challenges, all of which run on BTC, both on web and mobile devices. Alongside this, the platform showcases NFT auctions and features its very own marketplace.`,
-    logo: 'gamestarter',
-    imageUrl: `${CDN_URL_BLOGS}/14.png`,
-    link: 'https://gamestarter.com/blog/the-new-bitcoin-city',
-    linkTarget: '_blank',
-  },
+  // {
+  //   id: '14',
+  //   title: `Bricks to Bitcoins: The New Bitcoin City`,
+  //   desc: `The newly launched Bitcoin City, unveiled just last week, provides a place for game enthusiasts to engage in casual games, board games, and strategic challenges, all of which run on BTC, both on web and mobile devices. Alongside this, the platform showcases NFT auctions and features its very own marketplace.`,
+  //   logo: 'gamestarter',
+  //   imageUrl: `${CDN_URL_BLOGS}/14.png`,
+  //   link: 'https://gamestarter.com/blog/the-new-bitcoin-city',
+  //   linkTarget: '_blank',
+  // },
   {
     id: '15',
     title: `A New Bitcoin Based Arcade Game Is Making Waves Among Gamers`,
@@ -155,7 +179,7 @@ const BLOGS = [
     id: '9',
     title: `BRC-721: The Token Standard Defying Bitcoin’s 4MB Storage Limit`,
     desc: `Just a few months later, on May 22, members of the Spirit DAO — a coalition of collectors devoted to elevating the Azuki universe — effectively blew Wertheimer’s record out of the water. By minting a 6.9MB Comic Banner on Bitcoin, the DAO stole the crown, solidifying the piece as the largest file size stored on BTC to date.`,
-    logo: 'NFTNow',
+    logo: 'nftnow',
     imageUrl: `${CDN_URL_BLOGS}/NFTNow.png`,
     link: 'https://nftnow.com/features/brc-721-the-token-standard-defying-bitcoins-4mb-storage-limit/',
     linkTarget: '_blank',
@@ -165,7 +189,7 @@ const BLOGS = [
     title:
       'Ordinals turned Bitcoin into a worse version of Ethereum: Can we fix it?',
     desc: 'The launch of BRC-20 tokens and Ordinals NFTs on Bitcoin has transformed the No. 1 blockchain overnight into a clunkier version of Ethereum.',
-    logo: 'cointelegraph',
+    logo: 'cointelegraph_brazil',
     imageUrl: `${CDN_URL_BLOGS}/CoinTelegraph.jpeg`,
     link: 'https://cointelegraph.com/magazine/ordinals-turned-bitcoin-into-a-worse-version-of-ethereum-can-we-fix-it/',
     linkTarget: '_blank',
@@ -194,7 +218,7 @@ const BLOGS = [
     id: '10',
     title: `Smart Contracts on Bitcoin? Here’s All You Need to Know`,
     desc: `Move over Ethereum, Bitcoin is now the new home for dApps! The first smart contract is born on Bitcoin and its name is $GM – a memecoin with groundbreaking potential. Moreover, the birth of BRC-721 tokens surpasses its precursor BRC-20 and delivers cutting edge abilities to the Bitcoin blockchain.`,
-    logo: 'NFTEvening',
+    logo: 'nft-evening',
     imageUrl: `${CDN_URL_BLOGS}/NFTEvening.webp`,
     link: 'https://nftevening.com/smart-contracts-on-bitcoin-heres-all-you-need-to-know/?swcfpc=1',
     linkTarget: '_blank',
