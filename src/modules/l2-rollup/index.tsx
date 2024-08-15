@@ -38,6 +38,7 @@ enum SortRollupType {
   tvl,
   lastBlock,
   verification,
+  level,
 }
 
 interface ISort {
@@ -128,6 +129,8 @@ const L2Rollup = () => {
                   return item.block_time;
                 case SortRollupType.verification:
                   return item.verification;
+                case SortRollupType.level:
+                  return Number(item.level === '-' ? '0' : item.level || '0');
                 default:
                   return Number(item.mgas || '0');
               }
@@ -558,6 +561,56 @@ const L2Rollup = () => {
         },
       },
       {
+        id: 'level',
+        label: renderLabel('Level', SortRollupType.level),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: IRollupL2Info) {
+          const tooltip = (
+            <Flex direction={'column'} py={'8px'} gap={'4px'}>
+              <Text>Level 1: Base layer is not Bitcoin.</Text>
+              <Text>
+                Level 2: Base layer is Bitcoin, using external DA, without state
+                verification.
+              </Text>
+              <Text>
+                Level 3: Base layer is Bitcoin, using Bitcoin for DA, without
+                state verification.
+              </Text>
+              <Text>
+                Level 4: Base layer is Bitcoin, using Bitcoin for DA, with state
+                verification by a light client.
+              </Text>
+              <Text>
+                Level 5: Base layer is Bitcoin, using Bitcoin for DA, with state
+                verification natively in Bitcoin using BitVM or OP_CAT.
+              </Text>
+            </Flex>
+          );
+          return (
+            <Flex alignItems={'center'} width={'100%'} px={'2px'}>
+              {data.level ? (
+                <Tooltip label={tooltip}>
+                  <Text cursor={'pointer'} className={s.title}>
+                    {data.level || '-'}
+                  </Text>
+                </Tooltip>
+              ) : (
+                <Text cursor={'pointer'} className={s.title}>
+                  {data.level || '-'}
+                </Text>
+              )}
+            </Flex>
+          );
+        },
+      },
+      {
         id: 'tvl',
         label: renderLabel('TVL', SortRollupType.tvl),
         labelConfig,
@@ -695,7 +748,7 @@ const L2Rollup = () => {
 
   return (
     <Box className={s.container}>
-      <Flex direction={'column'} w="100%" maxW={'1580px'} alignItems={'center'}>
+      <Flex direction={'column'} w="100%" maxW={'1608px'} alignItems={'center'}>
         <Flex alignItems="center" gap="6px" my={'12px'}>
           <Text fontSize={'20px'}>Project Bitcoin Heartbeats</Text>
           <DotLottiePlayer
