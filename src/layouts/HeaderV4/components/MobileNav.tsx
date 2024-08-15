@@ -8,6 +8,8 @@ import ButtonLoginTwitter from './ButtonLoginTwitter';
 import GroupDownItem from '@layouts/HeaderV3/components/GroupDownItem';
 
 import s from './styles.module.scss';
+import Contact from '@/modules/UseBitcoin/contact';
+import ContactUs from './ContactUs';
 
 type Props = {
   primaryColor?: 'black' | 'white';
@@ -32,11 +34,15 @@ export const MobileNav = (props: Props) => {
               title={item.label}
               lists={item.subMenu}
             />
-          ) : (item.GroupDropDown ? (
-            <GroupDownItem key={item.label}
-                           title={item.label}
-                           typeGroup={item.groupType}
-                           color={'#000'}>{item.GroupDropDown()}</GroupDownItem>
+          ) : item.GroupDropDown ? (
+            <GroupDownItem
+              key={item.label}
+              title={item.label}
+              typeGroup={item.groupType}
+              color={'#000'}
+            >
+              {item.GroupDropDown()}
+            </GroupDownItem>
           ) : (
             <Link
               p={2}
@@ -49,9 +55,11 @@ export const MobileNav = (props: Props) => {
             >
               {item.label}
             </Link>
-          ))}
+          )}
         </>
       ))}
+
+      <ContactUs />
     </VStack>
   );
 };
