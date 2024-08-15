@@ -49,7 +49,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
       'The “Decentralized Binance” — buy Bitcoin easily and permisionlessly.',
     tags: ['RuneChain', 'Defi'],
     link: {
-      url: 'https:/runechain.com/',
+      url: 'https://runechain.com/',
       target: '_blank',
     },
     homeImage: `${CDN_URL}/pages/landing-v4/home-runedex.png`,
@@ -91,7 +91,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
     description: 'Trade Bitcoin and BRC-20 futures.',
     tags: ['NakaChain', 'DeFi'],
     link: {
-      url: 'https://nakachain.xyz/',
+      url: 'https://nakachain.xyz/perpetual',
       target: '_blank',
     },
     homeImage: `${CDN_URL}/pages/landing-v4/home-nakadex-1.png`,
