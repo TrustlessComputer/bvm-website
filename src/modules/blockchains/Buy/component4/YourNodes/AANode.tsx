@@ -39,7 +39,7 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
     return null;
   }
 
-  console.log('AAModule data: -- ', aaStatusData);
+  // console.log('AAModule data: -- ', aaStatusData);
 
   return (
     <Node

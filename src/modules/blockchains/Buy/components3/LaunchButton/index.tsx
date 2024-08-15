@@ -331,16 +331,25 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       if (result) {
         //Config Account Abstraction...
         configAccountAbstraction(dynamicForm);
-
+        let isConfigDapp = false;
         //Staking...
         if (stakingForms && stakingForms.length > 0) {
           await onSubmitStaking({
             forms: stakingForms,
           });
+          isConfigDapp = true;
         } else if (airdropForms && airdropForms.length > 0) {
           await onSubmitAirdrop({ forms: airdropForms });
+          isConfigDapp = true;
         } else if (tokensForms && tokensForms.length > 0) {
           await onSubmitTokenGeneration({ forms: tokensForms });
+          isConfigDapp = true;
+        }
+
+        if (isConfigDapp) {
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         }
 
         // TO DO [Leon]
@@ -370,10 +379,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       if (isSuccess) {
         toast.success('Update Successful');
       }
-      // setSubmitting(false);
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      setSubmitting(false);
     }
   };
 

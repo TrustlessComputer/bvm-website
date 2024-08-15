@@ -42,7 +42,7 @@ export const useAccountAbstractionStore = () => {
 
   const isValid = useMemo(() => {
     return !!isTokenContractAddressFocused && !tokenContractAddressErrMsg;
-  }, []);
+  }, [isTokenContractAddressFocused, tokenContractAddressErrMsg]);
 
   return {
     ...storeData,
