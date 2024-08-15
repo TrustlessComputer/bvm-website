@@ -20,12 +20,14 @@ import Button from '../Button';
 import Node from '../Node_v2/Node';
 
 import styles from './styles.module.scss';
+import { useAccountAbstractionStore } from '@/modules/blockchains/detail_v3/account-abstraction_v2/store/hook';
 
 const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   const { dapp } = data;
 
   const { isAAModuleLoading, aaStatusData } = useAAModule();
   const { getAAStatus, isUpdateFlow } = useChainProvider();
+  const { resetAAStore } = useAccountAbstractionStore();
 
   const [draggedDappIndexes, setDraggedDappIndexes] = React.useState<number[]>(
     [],
@@ -49,6 +51,15 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   return (
     <Node
       {...data}
+      notification={
+        !isUpdateFlow
+          ? {
+              label: 'IMPORTANT',
+              message:
+                'This module needs to be configured and completed later after the chain is deployed and the payment is confirmed',
+            }
+          : undefined
+      }
       overlay={
         isAAModuleLoading
           ? {
@@ -119,7 +130,9 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
             <div className={styles.resetButtonWrapper}>
               <Button
                 className={styles.resetButton}
-                onClick={() => {}} // TODO: @Tony
+                onClick={() => {
+                  resetAAStore();
+                }}
               >
                 RESET{' '}
                 <Image
