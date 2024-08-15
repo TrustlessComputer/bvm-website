@@ -281,9 +281,9 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   };
 
   const onUpdateHandler = async () => {
-    if (isDisabledBtn) {
-      return;
-    }
+    // if (isDisabledBtn) {
+    //   return;
+    // }
 
     if (!allFilled) {
       setShowError(true);
