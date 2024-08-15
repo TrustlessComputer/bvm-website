@@ -114,7 +114,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-studio.png`,
       link: {
         url: '/studio',
-        target: '',
+        target: '_self',
       },
     },
     {
@@ -124,7 +124,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-heartbeat.png`,
       link: {
         url: '/heartbeats',
-        target: '',
+        target: '_self',
       },
     },
     {
@@ -134,7 +134,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-bitzk.png`,
       link: {
         url: '/module/bitzk',
-        target: '',
+        target: '_self',
       },
     },
     {
@@ -144,7 +144,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-bitop.png`,
       link: {
         url: '/module/bitop',
-        target: '',
+        target: '_self',
       },
     },
     {
@@ -153,7 +153,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-celestia.png`,
       link: {
         url: '/module/bitcoin-celestia',
-        target: '',
+        target: '_self',
       },
     },
     {
@@ -163,7 +163,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-eigen.png`,
       link: {
         url: '/module/bitcoin-eigen',
-        target: '',
+        target: '_self',
       },
     },
     {
@@ -172,7 +172,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-avail.png`,
       link: {
         url: '/module/bitcoin-avail',
-        target: '',
+        target: '_self',
       },
     },
     {
@@ -181,7 +181,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-near.png`,
       link: {
         url: '/module/bitcoin-near',
-        target: '',
+        target: '_self',
       },
     },
     {
@@ -190,7 +190,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-polygon.png`,
       link: {
         url: '/module/bitcoin-polygon',
-        target: '',
+        target: '_self',
       },
     },
     {
@@ -200,7 +200,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-filecoin.png`,
       link: {
         url: '/module/bitcoin-filecoin',
-        target: '',
+        target: '_self',
       },
     },
     {
@@ -209,7 +209,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-ordinals.png`,
       link: {
         url: '/module-detail',
-        target: '',
+        target: '_self',
       },
     },
     {
@@ -218,7 +218,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-taproot.png`,
       link: {
         url: '/module-detail',
-        target: '',
+        target: '_self',
       },
     },
     {
@@ -227,7 +227,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-stamps.png`,
       link: {
         url: '/module-detail',
-        target: '',
+        target: '_self',
       },
     },
   ],
