@@ -10,6 +10,8 @@ const DappNode = ({ data }: NodeProps<DappNodeProps>) => {
     <Node
       // overlay={{
       // }}
+      {...data}
+      key={JSON.stringify(data)}
       heading={{
         title: data.title,
         status: {
@@ -25,4 +27,4 @@ const DappNode = ({ data }: NodeProps<DappNodeProps>) => {
   );
 };
 
-export default React.memo(DappNode);
+export default DappNode;

@@ -1,3 +1,4 @@
+import { ChainNode, DappNode } from '@/types/node';
 import {
   Edge,
   OnConnect,
@@ -8,10 +9,9 @@ import {
   applyNodeChanges,
 } from '@xyflow/react';
 import { create } from 'zustand';
-import { DataNode } from '../component4/CustomNode';
 
-export type AppNode = DataNode;
-// export type AppNode = ChainNode | DappNode; // V2 coming soon
+// export type AppNode = DataNode;
+export type AppNode = ChainNode | DappNode; // V2 coming soon
 
 export type AppState = {
   nodes: AppNode[];

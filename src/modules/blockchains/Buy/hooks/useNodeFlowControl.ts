@@ -11,13 +11,12 @@ import {
 import { useSignalEffect } from '@preact/signals-react';
 import { MarkerType, useStoreApi } from '@xyflow/react';
 import React, { useEffect } from 'react';
-import useFlowStore from '../stores/useFlowStore';
+import useFlowStore, { AppState } from '../stores/useFlowStore';
 
-import { DataNode } from '@/modules/blockchains/Buy/component4/CustomNode';
-import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
 import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
+import { DappNode } from '@/types/node';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
-import { nodeKey } from '../component4/YourNodes/node.constants';
+import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 
@@ -71,7 +70,7 @@ export default function useNodeFlowControl() {
           ...newNodes[index].data,
           ids: draggedIds2D[dragState.oneD[0]],
         },
-      };
+      } as any;
 
       setNodes(newNodes);
       resetDragState();
@@ -122,6 +121,7 @@ export default function useNodeFlowControl() {
     const categoryOption = category?.options.find(
       (option) => option.key === dappKeyToChainKey(thisDapp.key),
     );
+
     if (!categoryOption) return;
 
     const transformedX =
@@ -147,29 +147,27 @@ export default function useNodeFlowControl() {
       );
       nodesData = nodes.map((item) =>
         item.id === rootNode ? getHandleNodeBlockChain : item,
-      ) as DataNode[];
+      ) as AppState['nodes'];
     }
 
-    setNodes([
-      ...nodesData,
-      {
-        id: `${nodes.length}`,
-        type: nodeKey.CUSTOM_BOX,
-        dragHandle: '.drag-handle-area',
-        data: {
-          label: thisDapp.title,
-          status: StatusBox.DRAFTING,
-          isChain: false,
-          dapp: thisDapp,
-          targetHandles: [`${nodes.length}-t-${rootNode}`],
-          ids: draggedIds2D[draggedIds2D.length - 1],
-          baseIndex: draggedIds2D.length - 1,
-          categoryOption,
-        },
-        position: positionTo,
+    const newNode: DappNode = {
+      id: `${nodes.length}`,
+      type: dappKeyToNodeKey(thisDapp.key),
+      dragHandle: '.drag-handle-area',
+      position: positionTo,
+      data: {
+        node: 'dapp',
+        title: thisDapp.title,
+        dapp: thisDapp,
+        baseIndex: draggedIds2D.length - 1,
+        categoryOption,
+        ids: draggedIds2D[draggedIds2D.length - 1],
+        targetHandles: [`${nodes.length}-t-${rootNode}`],
+        sourceHandles: [],
       },
-    ]);
+    };
 
+    setNodes([...nodesData, newNode]);
     setEdges([
       ...edges,
       {

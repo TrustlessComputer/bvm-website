@@ -46,22 +46,24 @@ type NodeProps = {
   notification?: NodeNotificationProps;
   overlay?: NodeOverlayProps;
   borderColor?: string;
+  sourceHandles: string[];
+  targetHandles: string[];
 };
 
 type BaseNodeData = {
+  title: string;
+  node: 'chain' | 'dapp' | 'template';
+  statusMessage?: string;
   sourceHandles: string[];
   targetHandles: string[];
 };
 
 type DappNode = Node<
   {
-    title: string;
     dapp: DappModel;
     ids: Field[];
     baseIndex: number;
     categoryOption: IModelOption;
-
-    statusMessage?: string;
   } & BaseNodeData
 >;
 

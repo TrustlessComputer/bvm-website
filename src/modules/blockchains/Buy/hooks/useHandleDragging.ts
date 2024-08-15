@@ -10,7 +10,10 @@ import {
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
-import { subScribeDropEnd } from '@/modules/blockchains/Buy/stores/useDappStore';
+import {
+  subScribeDropEnd,
+  useTemplateFormStore,
+} from '@/modules/blockchains/Buy/stores/useDappStore';
 import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
 import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
@@ -44,7 +47,8 @@ export default function useHandleDragging() {
     moduleFieldMapping,
     singleFieldMapping,
   } = useDapps();
-  const { selectedCategoryMapping } = useChainProvider();
+  const { selectedCategoryMapping, isUpdateFlow } = useChainProvider();
+  const { templateDapps } = useTemplateFormStore();
 
   // console.log('useHandleDragging -> field :: ', field);
 
@@ -114,9 +118,11 @@ export default function useHandleDragging() {
       return;
     }
 
-    if (activeIsNotAChainField && activeKey !== 'bridge_apps') return;
+    if (activeIsNotAChainField && activeKey !== 'bridge_apps') {
+      return;
+    }
 
-    if (!selectedCategory?.updatable) {
+    if (!selectedCategory?.updatable && isUpdateFlow) {
       // TODO: Notify if needed
       return;
     }
@@ -178,6 +184,7 @@ export default function useHandleDragging() {
 
       return;
     }
+    console.log('HERERHER 4');
 
     // Active is parent and drag to the left side
     if (
@@ -646,7 +653,11 @@ export default function useHandleDragging() {
 
       // Case 2.1: Dragged lego is a base block
       if (activeIsABase) {
-        let newNodes = removeItemAtIndex(nodes, activeBaseIndex + 1);
+        const totalTemplateDapps = (templateDapps || []).length;
+        let newNodes = removeItemAtIndex(
+          nodes,
+          activeBaseIndex + 1 + totalTemplateDapps,
+        );
         const formDapp = formDappSignal.value;
 
         Object.keys(formDapp).forEach((key) => {
@@ -672,14 +683,16 @@ export default function useHandleDragging() {
         );
 
         newNodes = newNodes.map((node, index) => {
-          if (node.data.isChain) return node;
+          if (node.data.node !== 'dapp') return node;
+
+          const realIndex = index - 1 - totalTemplateDapps;
 
           return {
             ...node,
             data: {
               ...node.data,
-              ids: draggedIds2DSignal.value[index - 1],
-              baseIndex: index - 1,
+              ids: draggedIds2DSignal.value[realIndex],
+              baseIndex: realIndex,
             },
           };
         });
