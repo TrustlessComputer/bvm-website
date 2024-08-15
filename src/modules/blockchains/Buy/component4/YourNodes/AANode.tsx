@@ -25,7 +25,7 @@ import { useAccountAbstractionStore } from '@/modules/blockchains/detail_v3/acco
 const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   const { dapp } = data;
 
-  const { isAAModuleLoading, aaStatusData } = useAAModule();
+  const { isAAModuleLoading, aaStatusData, isCanNotEdit } = useAAModule();
   const { getAAStatus, isUpdateFlow } = useChainProvider();
   const { resetAAStore } = useAccountAbstractionStore();
 
@@ -127,22 +127,24 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
               </Droppable>
             </Draggable>
 
-            <div className={styles.resetButtonWrapper}>
-              <Button
-                className={styles.resetButton}
-                onClick={() => {
-                  resetAAStore();
-                }}
-              >
-                RESET{' '}
-                <Image
-                  src="/icons/undo.svg"
-                  alt="undo"
-                  width={20}
-                  height={20}
-                />
-              </Button>
-            </div>
+            {isUpdateFlow && !isCanNotEdit && (
+              <div className={styles.resetButtonWrapper}>
+                <Button
+                  className={styles.resetButton}
+                  onClick={() => {
+                    resetAAStore();
+                  }}
+                >
+                  RESET{' '}
+                  <Image
+                    src="/icons/undo.svg"
+                    alt="undo"
+                    width={20}
+                    height={20}
+                  />
+                </Button>
+              </div>
+            )}
           </>
         ),
       }}
