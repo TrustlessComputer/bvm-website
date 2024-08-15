@@ -8,12 +8,26 @@ export const APPS_SECTION = {
   id: 'apps',
   tag: 'Apps. ',
   title: 'Experience Bitcoin like never before.',
-  item: DAPPS_DATA.filter((item) => {
-    return (
-      item.title !== 'Imagine' &&
-      item.title !== 'Bitcoin Wars' &&
-      item.title !== 'Runes.fun'
-    );
+  item: DAPPS_DATA.map((item, idx) => {
+    const tags = item.tags.map((tag) => {
+      // check if tag contains more than one word and one of them includes 'chain' then remove the word chain, check the case sensitivity
+      if (tag.split(' ').length > 1 && tag.toLowerCase().includes('chain')) {
+        return tag.toLowerCase().replace('chain', '');
+      } else {
+        return tag;
+      }
+    });
+
+    return {
+      title: item.title,
+      description: item.description,
+      homeImage: item.homeImage,
+      link: {
+        url: item.link.url,
+        target: item.link.target,
+      },
+      tags: tags,
+    };
   }),
 };
 
@@ -36,7 +50,8 @@ export const GAME_SECTION = {
 
     {
       title: 'Key Merge',
-      description: 'Coming soon',
+      description:
+        'Combine matching keys to unlock higher levels. Strategically merge keys to progress and reach the ultimate goal.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-keymerge.png`,
       link: {
         url: '',
@@ -46,7 +61,8 @@ export const GAME_SECTION = {
     },
     {
       title: 'Bitcoin 21',
-      description: 'Coming soon',
+      description:
+        'A classic card game where the objective is to reach a total of 21. Play smart and calculate your moves to win big!',
       homeImage: `${CDN_URL}/pages/landing-v4/home-btc21.png`,
       link: {
         url: '',
@@ -56,7 +72,8 @@ export const GAME_SECTION = {
     },
     {
       title: 'Blast',
-      description: 'Coming soon',
+      description:
+        'Match and blast in this fast-paced puzzle game. Clear the board and create powerful combos to score high!',
       homeImage: `${CDN_URL}/pages/landing-v4/home-blast.png`,
       link: {
         url: '',
@@ -66,7 +83,8 @@ export const GAME_SECTION = {
     },
     {
       title: 'Wombat',
-      description: 'Coming soon',
+      description:
+        'Deploy your units smartly in lines to face off against your opponent. Strategize carefully to ensure your lineup dominates the battlefield!',
       homeImage: `${CDN_URL}/pages/landing-v4/home-wombat.png`,
       link: {
         url: '',
@@ -76,7 +94,7 @@ export const GAME_SECTION = {
     },
     {
       title: 'Battleship',
-      description: 'Coming soon',
+      description: `Engage in naval warfare by strategically placing your ships and guessing the locations of your opponent's fleet. Sink all their ships before they sink yours!`,
       homeImage: `${CDN_URL}/pages/landing-v4/home-battleship.png`,
       link: {
         url: '',
@@ -86,7 +104,8 @@ export const GAME_SECTION = {
     },
     {
       title: 'Minesweepers',
-      description: 'Coming soon',
+      description:
+        'Test your logic in this classic puzzle game. Mark all the mines on the board without triggering any of them. One wrong move, and it’s game over!',
       homeImage: `${CDN_URL}/pages/landing-v4/home-minesweeper.png`,
       link: {
         url: '',
