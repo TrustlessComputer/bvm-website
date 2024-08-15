@@ -234,7 +234,7 @@ export const useChainProvider = () => {
     if (result) {
       return {
         ...result,
-        statusStr: result.statusCode === 'done' ? 'Running' : result.statusCode,
+        statusStr: result.statusCode === 'done' ? 'Running' : result.statusStr,
       };
     } else {
       let statusCode = 'drafting_modules';
