@@ -43,7 +43,7 @@ export const GAME_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
       link: {
         url: '/bitcoin-wars',
-        target: '',
+        target: '_self',
       },
       tags: ['Bitcoin Wars'],
     },
