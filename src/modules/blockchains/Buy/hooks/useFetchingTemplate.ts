@@ -27,7 +27,7 @@ import {
 } from '../signals/useDragSignal';
 import { formTemplateDappSignal } from '../signals/useFormDappsSignal';
 import { useTemplateFormStore } from '../stores/useDappStore';
-import useFlowStore, { AppState } from '../stores/useFlowStore';
+import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 
@@ -202,7 +202,7 @@ export default function useFetchingTemplate() {
       const dappKey = templateDapps[index].key;
       const xOffset = 30 + 500 * xOffsetCount[dappKey]++;
       const yOffset = 30 + 500 * allDappKeys.indexOf(dappKey);
-      const idNode = Math.random().toString();
+      const idNode = index.toString();
       const isHandleExists = edges.some(
         (handle) =>
           handle.sourceHandle === `${rootNode}-s-${templateDapps[index].title}`,
@@ -274,8 +274,15 @@ export default function useFetchingTemplate() {
     //   } as DappNode;
     // });
 
+    const map: any = {};
+    for (const element of [...nodesData, ...newNodes]) {
+      map[element.id] = element;
+    }
+    const newArray = Object.values(map) as AppNode[];
+
     setEdges(edgeData)
-    setNodes([...nodesData, ...newNodes]);
+    // setNodes([...nodes, ...newNodes]);
+    setNodes(newArray);
 
     templateIds2DSignal.value = [...draggedIds2D];
     formTemplateDappSignal.value = { ...formDapp };
