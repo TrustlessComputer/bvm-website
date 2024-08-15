@@ -166,7 +166,8 @@ export const GAMES_DATA: Omit<TDappCardProps, 'idx'>[] = [
   {
     image: '/explore/key-merge.png',
     title: 'Key Merge (Soon)',
-    description: 'Coming soon',
+    description:
+      'Combine matching keys to unlock higher levels. Strategically merge keys to progress and reach the ultimate goal.',
     bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
     tags: ['Bitcoin Arcade Chain', 'GameFi'],
     link: { url: '', target: '' },
@@ -175,7 +176,8 @@ export const GAMES_DATA: Omit<TDappCardProps, 'idx'>[] = [
   {
     image: '/explore/bitcoin-21.png',
     title: 'Bitcoin 21 (Soon)',
-    description: 'Coming soon',
+    description:
+      'A classic card game where the objective is to reach a total of 21. Play smart and calculate your moves to win big!',
     bgColor:
       'linear-gradient(227deg, #FD8DFF -7.83%, #FF63B7 21.47%, #E400CD 69.37%, #FADEFF 118.41%)',
     tags: ['Bitcoin Arcade Chain', 'GameFi'],
@@ -185,7 +187,8 @@ export const GAMES_DATA: Omit<TDappCardProps, 'idx'>[] = [
   {
     image: '/explore/blast.png',
     title: 'Blast (Soon)',
-    description: 'Coming soon',
+    description:
+      'Match and blast in this fast-paced puzzle game. Clear the board and create powerful combos to score high!',
     bgColor:
       'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
     tags: ['Bitcoin Arcade Chain', 'GameFi'],
@@ -195,7 +198,8 @@ export const GAMES_DATA: Omit<TDappCardProps, 'idx'>[] = [
   {
     image: '/explore/game-wombat.png',
     title: 'Wombat (Soon)',
-    description: 'Coming soon',
+    description:
+      'Deploy your units smartly in lines to face off against your opponent. Strategize carefully to ensure your lineup dominates the battlefield!',
     bgColor:
       ' linear-gradient(227deg, #AE71FF -7.83%, #9456FF 23.69%, #6610E6 67.99%, #ED68FB 100%)',
     tags: ['Bitcoin Wars Chain'],
@@ -205,7 +209,7 @@ export const GAMES_DATA: Omit<TDappCardProps, 'idx'>[] = [
   {
     image: '/explore/game-battleship.png',
     title: 'Battleship (Soon)',
-    description: 'Coming soon',
+    description: `Engage in naval warfare by strategically placing your ships and guessing the locations of your opponent's fleet. Sink all their ships before they sink yours!`,
     bgColor:
       ' linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
     tags: ['Bitcoin Wars Chain'],
@@ -215,7 +219,8 @@ export const GAMES_DATA: Omit<TDappCardProps, 'idx'>[] = [
   {
     image: '/explore/game-minesweeper.png',
     title: 'Minesweepers (Soon)',
-    description: 'Coming soon',
+    description:
+      'Test your logic in this classic puzzle game. Mark all the mines on the board without triggering any of them. One wrong move, and it’s game over!',
     bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
     tags: ['Bitcoin Arcade Chain', 'GameFi'],
     link: { url: '', target: '' },
