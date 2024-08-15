@@ -331,34 +331,34 @@ const L2Rollup = () => {
           );
         },
       },
-      // {
-      //   id: 'fdv',
-      //   label: renderLabel('FDV', SortRollupType.block),
-      //   labelConfig,
-      //   config: {
-      //     borderBottom: 'none',
-      //     fontSize: '16px',
-      //     fontWeight: 500,
-      //     verticalAlign: 'middle',
-      //     letterSpacing: '-0.5px',
-      //   },
-      //   render(data: IRollupL2Info) {
-      //     return (
-      //       <Flex
-      //         alignItems={'center'}
-      //         width={'100%'}
-      //         justifyContent={'space-between'}
-      //         px={'2px'}
-      //       >
-      //         <Text className={s.title}>
-      //           {data.fdv_usd && data.fdv_usd !== '0'
-      //             ? `$${formatCurrency(data.fdv_usd, MIN_DECIMAL, MIN_DECIMAL)}`
-      //             : '-'}
-      //         </Text>
-      //       </Flex>
-      //     );
-      //   },
-      // },
+      {
+        id: 'fdv',
+        label: renderLabel('FDV', SortRollupType.block),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '16px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: IRollupL2Info) {
+          return (
+            <Flex
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'space-between'}
+              px={'2px'}
+            >
+              <Text className={s.title}>
+                {data.fdv_usd && data.fdv_usd !== '0'
+                  ? `$${formatCurrency(data.fdv_usd, MIN_DECIMAL, MIN_DECIMAL)}`
+                  : '-'}
+              </Text>
+            </Flex>
+          );
+        },
+      },
       {
         id: 'block',
         label: renderLabel('Block', SortRollupType.block),
