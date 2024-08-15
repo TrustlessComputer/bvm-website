@@ -181,8 +181,10 @@ https://bvm.network/studio/${url}`;
       {
         isCapturing && (
           <div className={s.loading}>
-            <Loading />
-            <p className={s.loading_text}>We are capturing...</p>
+            <div className={s.inner}>
+              <Image src={'/loading.gif'} alt={'loading'} width={150} height={150} />
+              <p className={s.loading_text}>Exporting as PNG...</p>
+            </div>
           </div>
         )
       }
