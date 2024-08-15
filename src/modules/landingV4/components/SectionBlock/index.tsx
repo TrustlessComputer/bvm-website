@@ -106,7 +106,7 @@ const SectionBlock = (props: any) => {
 
       if (itemsWrapper.offsetWidth > scrollWrapper.offsetWidth) {
         setShowControls({
-          prev: true,
+          prev: false,
           next: true,
         });
       } else {
@@ -117,6 +117,42 @@ const SectionBlock = (props: any) => {
       }
     }
   }, [scrollWrapperRef.current, itemsWrapperRef.current]);
+
+  useEffect(() => {
+    // check `${props.id}-0` is fully visible
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowControls((prev) => ({
+          ...prev,
+          prev: !entry.isIntersecting,
+        }));
+      },
+      { root: scrollWrapperRef.current, threshold: 1 },
+    );
+
+    if (itemsWrapperRef.current) {
+      observer.observe(itemsWrapperRef.current.children[0]);
+    }
+  }, []);
+
+  useEffect(() => {
+    // check `${props.id}-${item.length - 1}` is fully visible
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowControls((prev) => ({
+          ...prev,
+          next: !entry.isIntersecting,
+        }));
+      },
+      { root: scrollWrapperRef.current, threshold: 1 },
+    );
+
+    if (itemsWrapperRef.current) {
+      observer.observe(
+        itemsWrapperRef.current.children[item.length - 1] as HTMLElement,
+      );
+    }
+  }, []);
 
   return (
     <Box
