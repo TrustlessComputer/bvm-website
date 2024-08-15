@@ -2,44 +2,43 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 
-import s from './styles.module.scss';
-import { FormOrder } from '../../stores';
+import useL2Service from '@/hooks/useL2Service';
+import useSubmitStaking from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitStaking';
+import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import TopupModal from '@/modules/blockchains/components/TopupModa_V2';
+import { DappType } from '@/modules/blockchains/dapp/types';
+import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
+import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
-import { useSearchParams, useRouter } from 'next/navigation';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
+import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import { orderBuyAPI_V3 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import {
   getL2ServicesStateSelector,
   getOrderDetailSelected,
 } from '@/stores/states/l2services/selector';
-import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import { IModelOption } from '@/types/customize-model';
+import { getErrorMessage } from '@/utils/errorV2';
+import { formatCurrencyV2 } from '@/utils/format';
 import sleep from '@/utils/sleep';
 import { Spinner, Text, useDisclosure } from '@chakra-ui/react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import toast from 'react-hot-toast';
+import { getChainIDRandom } from '../../Buy.helpers';
+import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
+import useOneForm from '../../hooks/useOneForm';
+import PreviewLaunchModal from '../../Preview';
+import { FormOrder } from '../../stores';
 import { useOrderFormStore } from '../../stores/index_v2';
 import useOrderFormStoreV3 from '../../stores/index_v3';
-import { formValuesAdapter } from './FormValuesAdapter';
-import { getChainIDRandom } from '../../Buy.helpers';
-import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
-import { getErrorMessage } from '@/utils/errorV2';
-import TopupModal from '@/modules/blockchains/components/TopupModa_V2';
-import useL2Service from '@/hooks/useL2Service';
-import ErrorModal from '../ErrorModal';
-import { useContactUs } from '@/Providers/ContactUsProvider/hook';
-import { formatCurrencyV2 } from '@/utils/format';
-import toast from 'react-hot-toast';
-import { setOrderSelected } from '@/stores/states/l2services/reducer';
-import { IModelCategory, IModelOption } from '@/types/customize-model';
-import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
-import useOneForm from '../../hooks/useOneForm';
-import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
 import { chainKeyToDappKey } from '../../utils';
-import useSubmitStaking from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitStaking';
-import PreviewLaunchModal from '../../Preview';
-import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
-import { DappType } from '@/modules/blockchains/dapp/types';
+import ErrorModal from '../ErrorModal';
+import { formValuesAdapter } from './FormValuesAdapter';
 import useSubmitFormAirdrop from './onSubmitFormAirdrop';
+import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -206,7 +205,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     const allRequiredForKey: string[] = [];
 
     for (const _field of originalData) {
-      if (!_field.isChain) continue;
+      if (!_field.isChain && _field.key !== 'bridge_apps') continue;
 
       _field.options.forEach((opt: IModelOption) => {
         optionMapping[opt.key] = opt;
@@ -335,62 +334,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
     console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
     console.log('LEON LOG: 111', airdropForms);
-    try {
-      // Update and Call API install (behind the scene form BE Phuong)
-      const result = await orderUpdateV2(params, orderDetail.orderId);
-      if (result) {
-        //Config Account Abstraction...
-        configAccountAbstraction(dynamicForm);
-        let isConfigDapp = false;
-        //Staking...
-        if (stakingForms && stakingForms.length > 0) {
-          await onSubmitStaking({
-            forms: stakingForms,
-          });
-          isConfigDapp = true;
-        } else if (airdropForms && airdropForms.length > 0) {
-          await onSubmitAirdrop({ forms: airdropForms });
-          isConfigDapp = true;
-        } else if (tokensForms && tokensForms.length > 0) {
-          await onSubmitTokenGeneration({ forms: tokensForms });
-          isConfigDapp = true;
-        }
-
-        if (isConfigDapp) {
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
-        }
-
-        // TO DO [Leon]
-        // Call API Config DApp if is exist dapp (issues token, staking, ....) daragged into Data View
-
-        // try {
-        //   // const res =  await ...
-        // } catch (error) {}
-
-        isSuccess = true;
-        dispatch(setOrderSelected(result));
-      }
-    } catch (error) {
-      console.log('ERROR: ', error);
-      isSuccess = false;
-      const { message } = getErrorMessage(error);
-      // toast.error(message);
-      if (message && message.toLowerCase().includes('insufficient balance')) {
-        onOpenTopUpModal();
-      } else {
-        toast.error(message);
-      }
-    } finally {
-      getOrderDetailByID(orderDetail.orderId);
-
-      await sleep(1);
-      if (isSuccess) {
-        toast.success('Update Successful');
-      }
-      setSubmitting(false);
-    }
+    return;
   };
 
   const onLaunchExecute = async () => {
