@@ -333,7 +333,7 @@ const L2Rollup = () => {
       },
       {
         id: 'fdv',
-        label: renderLabel('FDV', SortRollupType.block),
+        label: renderLabel('FDV', SortRollupType.fdv),
         labelConfig,
         config: {
           borderBottom: 'none',
