@@ -14,6 +14,7 @@ import withAuth from './enhance.withAuth';
 import withLoading from './enhance.withLoading';
 import withSkeleton from './enhance.withSkeleton';
 import withResetModal from './enhance.withResetModal';
+import clearNodes from './enhance.clearNodes';
 
 const enhance =
   (WrappedComponent: ChainDetailComponent) =>
@@ -46,6 +47,7 @@ export default compose<ChainDetailComponent>(
   // Top Level UI
   // ---------------------------------
   withResetModal,
+  clearNodes,
 
   // Main Page
   enhance,
