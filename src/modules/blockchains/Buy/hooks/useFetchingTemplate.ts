@@ -11,6 +11,7 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
+import { Edge, MarkerType } from '@xyflow/react';
 import { useParams } from 'next/navigation';
 import React from 'react';
 import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
@@ -29,7 +30,6 @@ import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppState } from '../stores/useFlowStore';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
-import { Edge, MarkerType } from '@xyflow/react';
 
 export default function useFetchingTemplate() {
   const params = useParams();
@@ -187,16 +187,27 @@ export default function useFetchingTemplate() {
 
     const rootNode = 'blockchain';
 
+    const setDappKeys = new Set(templateDapps.map((dapp) => dapp.key));
+    const allDappKeys = Array.from(setDappKeys);
+    const xOffsetCount = allDappKeys.reduce((acc, key) => {
+      acc[key] = 1;
+      return acc;
+    }, {} as Record<string, number>);
     const getHandleNodeBlockChain = nodes.find((item) => item.id === rootNode);
 
     let nodesData = nodes;
     let edgeData: Edge[] = [];
 
     const newNodes: any[] = draggedIds2D.map((ids, index) => {
-      const idNode = Math.random().toString()
+      const dappKey = templateDapps[index].key;
+      const xOffset = 30 + 500 * xOffsetCount[dappKey]++;
+      const yOffset = 30 + 500 * allDappKeys.indexOf(dappKey);
+      const idNode = Math.random().toString();
       const isHandleExists = edges.some(
-        (handle) => handle.sourceHandle === `${rootNode}-s-${templateDapps[index].title}`,
+        (handle) =>
+          handle.sourceHandle === `${rootNode}-s-${templateDapps[index].title}`,
       );
+
       if (!isHandleExists) {
         getHandleNodeBlockChain?.data?.sourceHandles?.push(
           `${rootNode}-s-${templateDapps[index].title}`,
@@ -241,7 +252,7 @@ export default function useFetchingTemplate() {
           targetHandles: [`${idNode}-t-${rootNode}`],
           sourceHandles: [],
         },
-        position: { x: 500 * (index + 1), y: 30 },
+        position: { x: xOffset, y: yOffset },
       };
     });
     // const newNodes: DappNode[] = draggedIds2D.map((ids, index) => {
