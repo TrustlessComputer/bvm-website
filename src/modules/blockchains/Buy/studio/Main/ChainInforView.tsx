@@ -11,9 +11,10 @@ import MenuEdit, {
   MenuEditItemEnum,
   MenuEditItemType,
 } from '@/modules/blockchains/detail_v2/components/MenuEdit';
+import MenuSettingChain from '@/modules/blockchains/Buy/studio/Main/MenuSettingChain';
 
 const ChainInforView = (): ReactElement => {
-  const { order } = useChainProvider();
+  const { order, isUpdateFlow, isOwnerChain } = useChainProvider();
   const router = useRouter();
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
 
@@ -56,6 +57,7 @@ const ChainInforView = (): ReactElement => {
       <Text fontSize={['22px', '24px', '28px']} fontWeight={600} color={'#000'}>
         {`${order?.chainName || '--'}`}
       </Text>
+      {isUpdateFlow && isOwnerChain && <MenuSettingChain />}
 
       {/* {isOwner && order?.status === OrderStatus.Started && (
         <MenuEdit itemOnClick={menuEditItemOnClick} />
