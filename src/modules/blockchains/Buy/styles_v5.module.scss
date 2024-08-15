@@ -568,3 +568,23 @@
     }
   }
 }
+
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(56, 55, 55, 0.47);
+  z-index: 999;
+  gap: 16px;
+  &_text {
+    font-size: 26px;
+    font-weight: 500;
+    color: #fff;
+  }
+}

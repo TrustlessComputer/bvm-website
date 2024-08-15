@@ -7,6 +7,7 @@ import s from '@/modules/blockchains/Buy/styles_v5.module.scss';
 // import { useReactFlow } from '@xyflow/react';
 import { toPng } from 'html-to-image';
 import { useState } from 'react';
+import Loading from '@components/Loading';
 
 // const imageWidth = 1920;
 // const imageHeight = 1080;
@@ -177,6 +178,14 @@ https://bvm.network/studio/${url}`;
           <Image src={'/icons/ic_x_v2.svg'} alt={'x'} width={20} height={20} />
         </div>
       </div>
+      {
+        isCapturing && (
+          <div className={s.loading}>
+            <Loading />
+            <p className={s.loading_text}>We are capturing...</p>
+          </div>
+        )
+      }
     </div>
   );
 };
