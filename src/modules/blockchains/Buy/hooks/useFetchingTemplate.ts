@@ -264,7 +264,7 @@ export default function useFetchingTemplate() {
     // });
 
     setEdges(edgeData)
-    setNodes([...nodes, ...newNodes]);
+    setNodes([...nodesData, ...newNodes]);
 
     templateIds2DSignal.value = [...draggedIds2D];
     formTemplateDappSignal.value = { ...formDapp };

@@ -10,6 +10,7 @@ import DappNode from '../../component4/YourNodes/DappNode';
 import { nodeKey } from '../../component4/YourNodes/node.constants';
 import useFlowStore from '../../stores/useFlowStore';
 import s from './styles.module.scss';
+import useLayoutNodes from '@/modules/blockchains/Buy/useLayoutNodes';
 
 const ReactFlowRenderer = React.memo(() => {
   const { nodes, onNodesChange, edges, onEdgesChange } = useFlowStore();
@@ -35,7 +36,7 @@ const ReactFlowRenderer = React.memo(() => {
       onNodesChange={onNodesChange}
       zoomOnDoubleClick={false}
       edges={edges}
-      fitViewOptions={{ padding: 2 }}
+      fitViewOptions={{ padding: 1 }}
       className={s.reactFlow}
     />
   );
