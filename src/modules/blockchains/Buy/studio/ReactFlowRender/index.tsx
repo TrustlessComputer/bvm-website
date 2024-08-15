@@ -8,9 +8,9 @@ import AANode from '../../component4/YourNodes/AANode';
 import ChainNodeV2 from '../../component4/YourNodes/ChainNodeV2';
 import DappNode from '../../component4/YourNodes/DappNode';
 import { nodeKey } from '../../component4/YourNodes/node.constants';
+import StakingNode from '../../component4/YourNodes/StakingNode';
 import useFlowStore from '../../stores/useFlowStore';
 import s from './styles.module.scss';
-import useLayoutNodes from '@/modules/blockchains/Buy/useLayoutNodes';
 
 const ReactFlowRenderer = React.memo(() => {
   const { nodes, onNodesChange, edges, onEdgesChange } = useFlowStore();
@@ -28,6 +28,7 @@ const ReactFlowRenderer = React.memo(() => {
         [nodeKey.DAPP_NODE]: DappNode,
         [nodeKey.CHAIN_NODE]: ChainNodeV2,
         [nodeKey.ACCOUNT_ABSTRACTION_NODE]: AANode,
+        [nodeKey.STAKING_NODE]: StakingNode,
       }}
       edgeTypes={{
         customEdge: CustomEdge,

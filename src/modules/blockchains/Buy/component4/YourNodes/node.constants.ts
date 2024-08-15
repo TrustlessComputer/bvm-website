@@ -6,6 +6,7 @@ export const nodeKey = Object.freeze({
   // V2
   DAPP_NODE: 'dappNode',
   ACCOUNT_ABSTRACTION_NODE: 'accountAbstractionNode',
+  STAKING_NODE: 'stakingNode',
 });
 
 export const nodeOverlayType = Object.freeze({
@@ -19,7 +20,7 @@ export const dappKeyMapNodeKey: Record<
 > = Object.freeze({
   account_abstraction: nodeKey.ACCOUNT_ABSTRACTION_NODE,
   issue_a_token: nodeKey.DAPP_NODE,
-  staking: nodeKey.DAPP_NODE,
+  staking: nodeKey.STAKING_NODE,
   airdrop: nodeKey.DAPP_NODE,
 });
 
