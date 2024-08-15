@@ -16,4 +16,5 @@ export interface IRollupL2Info {
   tvl_btc: string;
   index: number;
   verification?: string;
+  verification_url?: string;
 }

@@ -517,6 +517,7 @@ const L2Rollup = () => {
           letterSpacing: '-0.5px',
         },
         render(data: IRollupL2Info) {
+          const haveLink = !!data.verification_url;
           return (
             <Flex
               gap={3}
@@ -524,8 +525,15 @@ const L2Rollup = () => {
               width={'100%'}
               maxW={'128px'}
               px={'2px'}
+              cursor={haveLink ? 'pointer' : 'unset'}
+              onClick={() => haveLink && window.open(data.verification_url)}
             >
-              <Text className={s.title}>{data.verification || '-'}</Text>
+              <Text
+                className={s.title}
+                textDecoration={haveLink ? 'underline' : 'unset'}
+              >
+                {data.verification || '-'}
+              </Text>
             </Flex>
           );
         },
