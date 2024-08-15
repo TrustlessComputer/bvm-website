@@ -47,7 +47,7 @@ export default function useHandleDragging() {
     moduleFieldMapping,
     singleFieldMapping,
   } = useDapps();
-  const { selectedCategoryMapping } = useChainProvider();
+  const { selectedCategoryMapping, isUpdateFlow } = useChainProvider();
   const { templateDapps } = useTemplateFormStore();
 
   // console.log('useHandleDragging -> field :: ', field);
@@ -118,9 +118,11 @@ export default function useHandleDragging() {
       return;
     }
 
-    if (activeIsNotAChainField && activeKey !== 'bridge_apps') return;
+    if (activeIsNotAChainField && activeKey !== 'bridge_apps') {
+      return;
+    }
 
-    if (!selectedCategory?.updatable) {
+    if (!selectedCategory?.updatable && isUpdateFlow) {
       // TODO: Notify if needed
       return;
     }
@@ -182,6 +184,7 @@ export default function useHandleDragging() {
 
       return;
     }
+    console.log('HERERHER 4');
 
     // Active is parent and drag to the left side
     if (
