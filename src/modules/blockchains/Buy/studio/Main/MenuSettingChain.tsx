@@ -90,6 +90,7 @@ const MenuSettingChain = () => {
         p={'5px'}
         borderColor={'transparent'}
         gap={'10px'}
+        zIndex={100}
       >
         {_MenuEditItemList.map((item, index) => (
           <MenuEditItem
