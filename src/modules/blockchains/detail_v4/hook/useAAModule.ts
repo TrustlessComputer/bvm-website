@@ -48,6 +48,10 @@ export const useAAModule = () => {
     return aaStatusData.statusCode as AAModuleStatusDetail;
   }, [order, aaStatusData, isUpdateFlow, tokenContractAddressErrMsg]);
 
+  const isAAModuleLoading = useMemo(() => {
+    return aaStatusDetail === 'new' || aaStatusDetail === 'processing';
+  }, [aaStatusDetail]);
+
   const configAAHandler = async () => {
     try {
       if (!order) {
@@ -79,9 +83,11 @@ export const useAAModule = () => {
   };
 
   return {
+    aaStatusData,
     configAAHandler,
     isCanConfigAA,
     aaStatusDetail,
+    isAAModuleLoading,
     checkTokenContractAddress,
   };
 };

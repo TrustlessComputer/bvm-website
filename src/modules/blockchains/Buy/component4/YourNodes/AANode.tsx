@@ -14,12 +14,14 @@ import Droppable from '../Droppable';
 import Lego from '../Lego';
 import LegoParent from '../LegoParent';
 import Node from '../Node/Node';
+import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
 
 const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   const { dapp } = data;
 
+  const { isAAModuleLoading, aaStatusData } = useAAModule();
   const { getAAStatus, isUpdateFlow } = useChainProvider();
-  const aaStatusData = getAAStatus();
+
   const [draggedDappIndexes, setDraggedDappIndexes] = React.useState<number[]>(
     [],
   );
@@ -37,19 +39,27 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
     return null;
   }
 
+  console.log('AAModule data: -- ', aaStatusData);
+
   return (
     <Node
       {...data}
-      // overlay={{
-      // }}
+      overlay={
+        isAAModuleLoading
+          ? {
+              type: 'loading',
+            }
+          : undefined
+      }
       key={JSON.stringify(data)}
       heading={{
         title: data.title,
         status: {
-          message: data.statusMessage ?? 'Drafting modules',
+          message: aaStatusData?.statusStr,
         },
+        borderColor: aaStatusData?.borderColorStr,
+        backgroundColor: aaStatusData?.bgColorStr,
       }}
-
       // notification={{
       // }}
       content={{
