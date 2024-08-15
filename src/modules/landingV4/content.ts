@@ -139,7 +139,7 @@ export const BOB_SECTION = {
       tags: ['', 'Studio'],
     },
     {
-      title: 'Project Bitcoin Heartbeat',
+      title: 'Bitcoin Heartbeats',
       description:
         'Bringing transparency to the new Bitcoin economy for smarter decisions and investments.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-heartbeat.png`,
