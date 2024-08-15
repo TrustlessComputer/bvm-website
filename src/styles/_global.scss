@@ -164,6 +164,10 @@ input[type='number'] {
   margin-top: 0 !important;
 }
 
+.pointer-none {
+  pointer-events: none !important;
+}
+
 .react-flow__handle {
   position: unset !important;
   background-color: #777777 !important;
