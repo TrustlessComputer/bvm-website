@@ -203,6 +203,12 @@ export const useChainProvider = () => {
     );
   };
 
+  const getDAppInstalledByKey = (key: DAppKeys) => {
+    return order?.dApps?.find(
+      (item) => item.appCode?.toLowerCase() === key?.toLowerCase(),
+    );
+  };
+
   const getAAStatus = () => {
     const result = getDAppStatusByKey('account_abstraction');
     if (result) {
@@ -248,5 +254,6 @@ export const useChainProvider = () => {
     getBlockChainStatus,
     getDAppStatusByKey,
     getAAStatus,
+    getDAppInstalledByKey,
   };
 };

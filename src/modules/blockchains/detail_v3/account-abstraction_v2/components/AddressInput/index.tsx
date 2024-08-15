@@ -6,6 +6,7 @@ import { useAccountAbstractionStore } from '../../store/hook';
 import { IModelOption } from '@/types/customize-model';
 import s from './styles.module.scss';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
 
 type Props = {
   option: any;
@@ -17,8 +18,9 @@ const AddressInput = (props: Props) => {
   // const { value, errorMessage } = computerNameField;
 
   const { isCapture } = useCaptureStore();
-  const { isUpdateFlow, getAAStatus } = useChainProvider();
-  const { statusCode } = getAAStatus();
+  const { isUpdateFlow } = useChainProvider();
+  const { aaStatusData, aaInstalledData } = useAAModule();
+  const { statusCode } = aaStatusData;
 
   const {
     setTokenContractAddress,
@@ -44,11 +46,11 @@ const AddressInput = (props: Props) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (needValidate) {
-  //     checkTokenContractAddress();
-  //   }
-  // }, [tokenContractAddress, needValidate]);
+  useEffect(() => {
+    if (statusCode !== 'drafting_modules' && statusCode !== 'need_config') {
+      setTokenContractAddress(aaInstalledData?.aaPaymasterTokenID || '');
+    }
+  }, [statusCode, aaInstalledData]);
 
   return (
     <Flex flexDir={'row'} align={'center'} gap={'10px'}>

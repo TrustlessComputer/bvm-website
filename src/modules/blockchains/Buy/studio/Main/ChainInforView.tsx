@@ -38,7 +38,13 @@ const ChainInforView = (): ReactElement => {
 
   // const mapper = useOrderMapper(order);
   return (
-    <Flex flexDir={'row'} align={'center'} justifyItems={'center'} gap={'20px'}>
+    <Flex
+      flexDir={'row'}
+      align={'center'}
+      justifyItems={'center'}
+      gap={'20px'}
+      mt={'5px'}
+    >
       <Image
         src={`${order?.logoURL || '/blockchains/customize/ic-infa.svg'}`}
         w={['30px', '35px', '40px']}
