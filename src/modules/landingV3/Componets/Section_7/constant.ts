@@ -129,16 +129,7 @@ const BLOGS = [
     link: 'https://coinmarketcap.com/alexandria/article/what-are-brc20-tokens',
     linkTarget: '_blank',
   },
-  {
-    id: '8',
-    title: `Trustless Computer Deploys Uniswap v2 Smart Contracts: Huge Milestone For Bitcoin`,
-    desc: `The emergence of #Ordinals and #BRC20 tokens has led to a renaissance period for #Bitcoin  
-    With their deployment of Uniswap v2 smart contracts on #BTC, @TrustlessOnBTC is right at the forefront of this exciting development`,
-    logo: 'influencive',
-    imageUrl: `${CDN_URL_BLOGS}/Influencive.png`,
-    link: 'https://twitter.com/Influencive/status/1657455923692986370',
-    linkTarget: '_blank',
-  },
+
   {
     id: '12',
     title: `Bitcoin Transactions Hit Record High as New Token Type Takes Off`,
@@ -230,6 +221,16 @@ const BLOGS = [
     logo: 'bsc_news',
     imageUrl: `${CDN_URL_BLOGS}/BSCNews.jpeg`,
     link: 'https://www.bsc.news/post/exploring-the-new-bitcoin-city-ecosystem-with-its-unique-dex',
+    linkTarget: '_blank',
+  },
+  {
+    id: '8',
+    title: `Trustless Computer Deploys Uniswap v2 Smart Contracts: Huge Milestone For Bitcoin`,
+    desc: `The emergence of #Ordinals and #BRC20 tokens has led to a renaissance period for #Bitcoin  
+    With their deployment of Uniswap v2 smart contracts on #BTC, @TrustlessOnBTC is right at the forefront of this exciting development`,
+    logo: 'influencive',
+    imageUrl: `${CDN_URL_BLOGS}/Influencive.png`,
+    link: 'https://twitter.com/Influencive/status/1657455923692986370',
     linkTarget: '_blank',
   },
 ];
