@@ -18,6 +18,7 @@ const RowItem = (props: IProps) => {
     let statusStr = '';
     let statusColor = 'transparent';
     let bgColor = 'transparent';
+    let textColor = '#E59700';
 
     switch (status) {
       case 'Drafting':
@@ -26,26 +27,31 @@ const RowItem = (props: IProps) => {
           'This module needs to be configured and completed later after the chain is deployed';
         statusColor = '#FFC700';
         bgColor = '#FFF6D8';
+        textColor = '#E59700';
         break;
       case 'Ready':
         statusStr = 'Ready to launch';
         statusColor = '#4185EC';
         bgColor = '#EEF5FF';
+        textColor = '#4185EC';
         break;
       case 'Missing':
         statusStr = 'Missing Fields';
         statusColor = '#FF4747';
         bgColor = '#FFEEEE';
+        textColor = '#FF4747';
         break;
       case 'Running':
         statusStr = 'Running';
         statusColor = '#00AA6C';
         bgColor = '#EEFFF9';
+        textColor = '#00AA6C';
         break;
       case 'Down':
         statusStr = 'Down';
         statusColor = '#D9D9D9';
         bgColor = '#AAAAAA';
+        textColor = '#D9D9D9';
         break;
       default:
         break;
@@ -54,6 +60,7 @@ const RowItem = (props: IProps) => {
       statusStr,
       statusColor,
       bgColor,
+      textColor,
     };
   }, [status]);
 
@@ -87,7 +94,7 @@ const RowItem = (props: IProps) => {
           fontWeight={500}
           fontStyle={'italic'}
           textAlign={'end'}
-          color={statusMapper.statusColor}
+          color={statusMapper.textColor}
           wordBreak={'break-word'}
         >
           {statusMapper.statusStr}
