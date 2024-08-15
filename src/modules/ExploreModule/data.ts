@@ -42,11 +42,11 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   // },
   {
     image: '/explore/dapp-runedex.png',
-    title: 'RuneDex ',
+    title: 'Rune DEX',
     bgColor:
       'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
     description:
-      'Buy Bitcoin anonymously using an order book. Enjoy a DEX with the ease of a CEX experience.',
+      'The “Decentralized Binance” — buy Bitcoin easily and permisionlessly.',
     tags: ['RuneChain', 'Defi'],
     link: {
       url: 'https:/runechain.com/',
@@ -56,11 +56,11 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   },
   {
     image: '/explore/dapp-heartbeat.png',
-    title: 'Heartbeats',
+    title: 'Bitcoin Heartbeats',
     bgColor:
       'linear-gradient(226.66deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
     description:
-      'Provide transparent and verifiable insights into Bitcoin rollups.',
+      'Bringing transparency to the new Bitcoin economy for smarter decisions and investments.',
     tags: ['', 'Analytics'],
     link: {
       url: '/heartbeats',
@@ -82,33 +82,33 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   //   },
   //   homeImage: `${CDN_URL}/pages/landing-v4/home-runefun.png`,
   // },
+
+  {
+    image: '/explore/dapp4.png',
+    title: 'Naka Futures',
+    bgColor:
+      'linear-gradient(227deg, #FD8DFF -7.83%, #FF63B7 21.47%, #E400CD 69.37%, #FADEFF 118.41%)',
+    description: 'Trade Bitcoin and BRC-20 futures.',
+    tags: ['NakaChain', 'DeFi'],
+    link: {
+      url: 'https://nakachain.xyz/',
+      target: '_blank',
+    },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-nakadex-1.png`,
+  },
   {
     image: '/explore/alpha.png',
     title: 'Alpha',
     bgColor:
       'linear-gradient(227deg, #AE71FF -7.83%, #9456FF 23.69%, #6610E6 67.99%, #ED68FB 100%)',
     description:
-      'The first social app on Bitcoin.<br/>$2.7M paid to creators as of today.',
+      'The first social app on Bitcoin. $2.7M paid to creators as of today.',
     tags: ['AlphaChain', 'SocialFi'],
     link: {
       url: 'https://alpha.wtf',
       target: '_blank',
     },
     homeImage: `${CDN_URL}/pages/landing-v4/home-alpha.png`,
-  },
-  {
-    image: '/explore/dapp4.png',
-    title: 'NakaDex',
-    bgColor:
-      'linear-gradient(227deg, #FD8DFF -7.83%, #FF63B7 21.47%, #E400CD 69.37%, #FADEFF 118.41%)',
-    description:
-      'Trade perpetual contracts on Bitcoin. Decide whether to go long (buy) or short (sell) on BTC and ORDI.',
-    tags: ['NakaChain'],
-    link: {
-      url: 'https://nakachain.xyz/',
-      target: '_blank',
-    },
-    homeImage: `${CDN_URL}/pages/landing-v4/home-nakadex-1.png`,
   },
   {
     image: '/explore/dapp-eai.png',

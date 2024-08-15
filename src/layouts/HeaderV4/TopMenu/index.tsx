@@ -20,19 +20,19 @@ const TopMenu = (): ReactElement => {
                 height={24}
               />
             </Link>
-            <Link href={HEART_BEAT} className={s.left_btn}>
+            {/* <Link href={HEART_BEAT} className={s.left_btn}>
               <img
                 src="/icons/heartbeat.svg"
                 alt="noto_heartbeat.svg"
                 width={24}
                 height={24}
               />
-            </Link>
+            </Link> */}
           </Flex>
           <div className={s.right}>
             <div className={s.right_item}>
               <div className={s.right_item_inner}>
-                <Link href={'/team'}>About BVM</Link>
+                <Link href={'https://docs.bvm.network/bvm'}>Docs</Link>
               </div>
             </div>
             <div className={s.right_item}>
@@ -40,6 +40,12 @@ const TopMenu = (): ReactElement => {
                 <Link href="/research">Research</Link>
               </div>
             </div>
+            <div className={s.right_item}>
+              <div className={s.right_item_inner}>
+                <Link href={'/team'}>Team</Link>
+              </div>
+            </div>
+
             <div className={s.right_item}>
               <div className={s.right_item_inner}>
                 <ContactUs />

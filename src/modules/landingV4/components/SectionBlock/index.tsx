@@ -170,6 +170,22 @@ const SectionBlock = (props: any) => {
                   gap="8px"
                   className={s.item_content}
                 >
+                  <div className={s.item_tags}>
+                    {!!item.tags &&
+                      item.tags.map((tag, index) => {
+                        if (!tag) return null;
+
+                        return (
+                          <div key={`${tag}-${index}`}>
+                            {index === 0 &&
+                              (props.id === 'apps' || props.id === 'games') && (
+                                <img src="/landing-v4/ic-chain.svg" />
+                              )}
+                            {tag}
+                          </div>
+                        );
+                      })}
+                  </div>
                   <Flex
                     alignItems={'center'}
                     gap="12px"
@@ -199,22 +215,6 @@ const SectionBlock = (props: any) => {
                     className={s.description}
                     dangerouslySetInnerHTML={{ __html: item.description }}
                   ></p>
-                  <div className={s.item_tags}>
-                    {!!item.tags &&
-                      item.tags.map((tag, index) => {
-                        if (!tag) return null;
-
-                        return (
-                          <div key={`${tag}-${index}`}>
-                            {index === 0 &&
-                              (props.id === 'apps' || props.id === 'games') && (
-                                <img src="/landing-v4/ic-chain.svg" />
-                              )}
-                            {tag}
-                          </div>
-                        );
-                      })}
-                  </div>
                 </Flex>
               </Link>
             ))}

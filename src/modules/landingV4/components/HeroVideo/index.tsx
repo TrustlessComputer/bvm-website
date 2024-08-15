@@ -31,12 +31,14 @@ export default function HeroVideo() {
             <div className={` ${s.heroVideo_content_container}`}>
               <div className={s.content}>
                 <h3 className={s.content_heading}>
-                  Powerful for developers.
-                  <br /> Fast for everyone.
+                  Welcome to the future of Bitcoin.
                 </h3>
                 <p className={s.content_desc}>
-                  Bring blockchain to the people. Solana supports experiences
-                  for power users, new consumers, and everyone in between.
+                  BVM creates tools for the next generation of Bitcoin builders,
+                  empowering them to develop advanced infrastructures and useful
+                  apps.
+                  <br /> Together, these builders bring Bitcoin to the people
+                  and upgrade Bitcoin beyond just money.
                 </p>
                 {/* <div className={s.groupBtn}>
                 <div
@@ -84,6 +86,23 @@ export default function HeroVideo() {
                   <div>
                     <a
                       href={'#'}
+                      onClick={() => router.push('/bvm')}
+                      style={{ textAlign: 'center', display: 'block' }}
+                    >
+                      <img
+                        src={`/landing-v4/frame-bvm-own.png`}
+                        width={224}
+                        alt={'right'}
+                        style={{ margin: 'auto', marginBottom: '8px' }}
+                      />
+                      <span style={{ fontSize: '14px', fontWeight: 400 }}>
+                        Own a piece of BVM
+                      </span>
+                    </a>
+                  </div>
+                  <div>
+                    <a
+                      href={'#'}
                       onClick={() => router.push('/build-bitcoin')}
                       style={{ textAlign: 'center', display: 'block' }}
                     >
@@ -94,24 +113,7 @@ export default function HeroVideo() {
                         style={{ margin: 'auto', marginBottom: '8px' }}
                       />
                       <span style={{ fontSize: '14px', fontWeight: 400 }}>
-                        BVM Studio
-                      </span>
-                    </a>
-                  </div>
-                  <div>
-                    <a
-                      href={'#'}
-                      onClick={() => router.push('/bvm')}
-                      style={{ textAlign: 'center', display: 'block' }}
-                    >
-                      <img
-                        src={`/landing-v4/frame-own-bvm.png`}
-                        width={224}
-                        alt={'right'}
-                        style={{ margin: 'auto', marginBottom: '8px' }}
-                      />
-                      <span style={{ fontSize: '14px', fontWeight: 400 }}>
-                        Own BVM
+                        Build with BVM Studio
                       </span>
                     </a>
                   </div>
