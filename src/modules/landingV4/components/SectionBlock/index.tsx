@@ -28,7 +28,7 @@ const SectionBlock = (props: any) => {
   const itemsWrapperRef = React.useRef<HTMLDivElement>(null);
 
   const [showControls, setShowControls] = useState({
-    prev: true,
+    prev: false,
     next: true,
   });
 
@@ -144,6 +144,7 @@ const SectionBlock = (props: any) => {
                     : (item as BlockChainItem).social[1].link
                 }
                 target={(item as BlockCardItem).link?.target || '_blank'}
+                id={`${props.id}-${index}`}
               >
                 {props.id === 'news' &&
                   renderNewsLogo(

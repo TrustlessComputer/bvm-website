@@ -49,6 +49,12 @@ export const NAV_ITEMS: Array<NavItem> = [
   //   isHide: false,
   // },
   {
+    label: 'Docs',
+    href: 'https://docs.bvm.network/bvm',
+    isNewWindow: true,
+    isHide: false,
+  },
+  {
     label: '$BVM',
     href: '/bvm',
     isNewWindow: false,
@@ -56,7 +62,7 @@ export const NAV_ITEMS: Array<NavItem> = [
   },
 
   {
-    label: 'About BVM',
+    label: 'Team',
     href: '/team',
     isNewWindow: false,
     isHide: false,

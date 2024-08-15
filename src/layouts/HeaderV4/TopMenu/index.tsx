@@ -32,7 +32,9 @@ const TopMenu = (): ReactElement => {
           <div className={s.right}>
             <div className={s.right_item}>
               <div className={s.right_item_inner}>
-                <Link href={'https://docs.bvm.network/bvm'}>Docs</Link>
+                <Link target="_blank" href={'https://docs.bvm.network/bvm'}>
+                  Docs
+                </Link>
               </div>
             </div>
             <div className={s.right_item}>
