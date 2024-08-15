@@ -23,7 +23,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   //     'The first fully on-chain game built on a ZK Rollup on the Bitcoin network.',
   //   bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%);',
   //   tags: ['Bitcoin Wars Chain'],
-  //   link: { url: '/bitcoin-wars', target: '' },
+  //   link: { url: '/bitcoin-wars', target: '_self' },
   //   homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   // },
   // {
@@ -64,7 +64,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
     tags: ['', 'Analytics'],
     link: {
       url: '/heartbeats',
-      target: '',
+      target: '_self',
     },
     homeImage: `${CDN_URL}/pages/landing-v4/home-heartbeat.png`,
   },
@@ -160,7 +160,7 @@ export const GAMES_DATA: Omit<TDappCardProps, 'idx'>[] = [
       'The first fully on-chain game built on a ZK Rollup on the Bitcoin network.',
     bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%);',
     tags: ['Bitcoin Wars Chain'],
-    link: { url: '/bitcoin-wars', target: '' },
+    link: { url: '/bitcoin-wars', target: '_self' },
     homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   },
   {
