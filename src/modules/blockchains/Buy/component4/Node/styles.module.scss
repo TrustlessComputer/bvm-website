@@ -77,7 +77,9 @@
   flex-direction: column;
   justify-content: space-around;
   //width: 10px;
+  opacity: 0;
   height: 100%;
+  width: 0;
   position: absolute;
   :global {
     .react-flow__handle-right {
@@ -88,18 +90,20 @@
 }
 
 .handles.sources {
-  right: 0;
+  right: 9px;
   top: 0;
 }
 
 .handles.target {
-  left: 0;
+  left: 3px;
   top: 0;
 }
 
 .handleDot {
-  width: 6px;
-  height: 6px;
+  //width: 6px;
+  //height: 6px;
+  width: 0;
+  height: 0;
   border-radius: 50%;
   background: #fff;
   //position: absolute;

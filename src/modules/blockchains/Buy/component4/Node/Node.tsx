@@ -26,17 +26,17 @@ const Node = ({
         borderColor,
       }}
     >
-      {/*<div className={`${styles.handles} ${styles.target}`}>*/}
-      {/*  {targetHandles?.map((handle) => (*/}
-      {/*    <Handle*/}
-      {/*      key={handle}*/}
-      {/*      id={handle}*/}
-      {/*      type="target"*/}
-      {/*      position={Position.Left}*/}
-      {/*      className={styles.handleDot}*/}
-      {/*    />*/}
-      {/*  ))}*/}
-      {/*</div>*/}
+      <div className={`${styles.handles} ${styles.target}`}>
+        {targetHandles?.map((handle) => (
+          <Handle
+            key={handle}
+            id={handle}
+            type="target"
+            position={Position.Left}
+            className={styles.handleDot}
+          />
+        ))}
+      </div>
 
       <NodeHeading {...heading} borderColor={borderColor} />
       <NodeContent>
@@ -47,17 +47,17 @@ const Node = ({
         <div className={styles.node__mainContent}>{content.children}</div>
       </NodeContent>
 
-      {/*<div className={`${styles.handles} ${styles.sources}`}>*/}
-      {/*  {sourceHandles?.map((handle, index) => (*/}
-      {/*    <Handle*/}
-      {/*      key={handle}*/}
-      {/*      id={handle}*/}
-      {/*      type="source"*/}
-      {/*      position={Position.Right}*/}
-      {/*      className={styles.handleDot}*/}
-      {/*    />*/}
-      {/*  ))}*/}
-      {/*</div>*/}
+      <div className={`${styles.handles} ${styles.sources}`}>
+        {sourceHandles?.map((handle, index) => (
+          <Handle
+            key={handle}
+            id={handle}
+            type="source"
+            position={Position.Right}
+            className={styles.handleDot}
+          />
+        ))}
+      </div>
     </div>
   );
 };
