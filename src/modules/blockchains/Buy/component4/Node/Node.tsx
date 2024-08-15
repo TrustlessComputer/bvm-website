@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { NodeProps } from '@/types/node';
 import NodeNotification from '../YourNodes/NodeNotification';

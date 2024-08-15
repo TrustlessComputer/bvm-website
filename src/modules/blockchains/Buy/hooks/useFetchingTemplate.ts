@@ -30,16 +30,17 @@ import {
 } from '../signals/useDragSignal';
 import { formTemplateDappSignal } from '../signals/useFormDappsSignal';
 import { useTemplateFormStore } from '../stores/useDappStore';
-import useFlowStore from '../stores/useFlowStore';
+import useFlowStore, { AppState } from '../stores/useFlowStore';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
+import { Edge, MarkerType } from '@xyflow/react';
 
 export default function useFetchingTemplate() {
   const params = useParams();
   const isUpdateChainPage = React.useMemo(() => !!params?.id, [params?.id]);
 
   const { order, isAAInstalled } = useChainProvider();
-  const { nodes, setNodes } = useFlowStore();
+  const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
     setParsedCategories,
     setCategories,
@@ -225,9 +226,50 @@ export default function useFetchingTemplate() {
       };
     });
 
+    const rootNode = 'blockchain';
+
+    const getHandleNodeBlockChain = nodes.find((item) => item.id === rootNode);
+
+    let nodesData = nodes;
+    let edgeData: Edge[] = [];
+
     const newNodes: any[] = draggedIds2D.map((ids, index) => {
+      const idNode = Math.random().toString()
+      const isHandleExists = edges.some(
+        (handle) => handle.sourceHandle === `${rootNode}-s-${templateDapps[index].title}`,
+      );
+      if (!isHandleExists) {
+        getHandleNodeBlockChain?.data?.sourceHandles?.push(
+          `${rootNode}-s-${templateDapps[index].title}`,
+        );
+        nodesData = nodes.map((item) =>
+          item.id === rootNode ? getHandleNodeBlockChain : item,
+        ) as AppState['nodes'];
+      }
+
+      edgeData.push({
+        id: `${Math.random()}`,
+        source: rootNode,
+        sourceHandle: `${rootNode}-s-${templateDapps[index].title}`,
+        target: `${idNode}`,
+        targetHandle: `${idNode}-t-${rootNode}`,
+        type: 'customEdge',
+        label: '',
+        markerEnd: {
+          type: MarkerType.Arrow,
+          width: 25,
+          height: 25,
+          strokeWidth: 1,
+          color: '#AAAAAA',
+        },
+        style: {
+          stroke: '#AAAAAA',
+          strokeWidth: 2,
+        },
+      });
+
       return {
-        id: Math.random().toString(),
+        id: idNode,
         type: 'dappTemplate',
         dragHandle: '.drag-handle-area',
         data: {
@@ -237,12 +279,14 @@ export default function useFetchingTemplate() {
           dapp: templateDapps[index],
           ids,
           baseIndex: index,
+          targetHandles: [`${idNode}-t-${rootNode}`],
+          sourceHandles: [],
         },
         position: { x: 30 * (index + 2), y: 30 * (index + 2) },
       };
     });
-
-    setNodes([...nodes, ...newNodes]);
+    setEdges(edgeData)
+    setNodes([...nodesData, ...newNodes]);
 
     templateIds2DSignal.value = [...draggedIds2D];
     formTemplateDappSignal.value = { ...formDapp };
