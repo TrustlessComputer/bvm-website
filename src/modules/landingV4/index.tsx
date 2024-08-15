@@ -4,7 +4,6 @@ import HeroVideo from './components/HeroVideo';
 import {
   APPS_SECTION,
   BOB_SECTION,
-  PARTNER_SECTION,
   ROLLUPS_SECTION,
   RESEARCH_SECTION,
   OPENSOURCE_SECTION,

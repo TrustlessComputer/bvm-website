@@ -105,6 +105,7 @@ export const ROLLUPS_SECTION = {
 };
 
 export const BOB_SECTION = {
+  id: 'bob',
   tag: 'Build on Bitcoin. ',
   title: 'Build with ease with the leading Bitcoin infrastructure.',
   item: [
@@ -246,117 +247,119 @@ export const BOB_SECTION = {
   ],
 };
 
-export const PARTNER_SECTION = {
-  tag: 'Partners. ',
-  title: 'Work with the best tech.',
-  item: [
-    {
-      title: 'BitZK',
-      description:
-        'ZK rollups on Bitcoin for virtually any decentralized applications.',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-bitzk.png`,
-      link: {
-        url: '/module/bitzk',
-        target: '',
-      },
-    },
-    {
-      title: 'BitOP',
-      description:
-        'Optimistic rollups on Bitcoin for virtually any decentralized applications.',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-bitop.png`,
-      link: {
-        url: '/module/bitop',
-        target: '',
-      },
-    },
-    {
-      title: 'Celestia',
-      description: 'A high-throughput DA verifiable with a light node.',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-celestia.png`,
-      link: {
-        url: '/module/bitcoin-celestia',
-        target: '',
-      },
-    },
-    {
-      title: 'Eigen DA',
-      description:
-        'A scalable DA solution specialized in serving Ethereum rollups that leverage EigenLayer.',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-eigen.png`,
-      link: {
-        url: '/module/bitcoin-eigen',
-        target: '',
-      },
-    },
-    {
-      title: 'Avail',
-      description: 'Low-cost and expandable blobspace',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-avail.png`,
-      link: {
-        url: '/module/bitcoin-avail',
-        target: '',
-      },
-    },
-    {
-      title: 'Near DA',
-      description: 'An efficient and robust data availability layer',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-near.png`,
-      link: {
-        url: '/module/bitcoin-near',
-        target: '',
-      },
-    },
-    {
-      title: 'Polygon',
-      description: 'The most cost-effective storage solution',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-polygon.png`,
-      link: {
-        url: '/module/bitcoin-polygon',
-        target: '',
-      },
-    },
-    {
-      title: 'Filecoin',
-      description:
-        'The largest decentralized data storage marketplace, protocol, & cryptocurrency',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-filecoin.png`,
-      link: {
-        url: '/module/bitcoin-filecoin',
-        target: '',
-      },
-    },
-    {
-      title: 'Ordinals',
-      description: 'Roll up to Bitcoin as Ordinal Inscriptions',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-ordinals.png`,
-      link: {
-        url: '/module-detail',
-        target: '',
-      },
-    },
-    {
-      title: 'Bitcoin Taproot',
-      description: 'Embed proofs in Taproot transactions',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-taproot.png`,
-      link: {
-        url: '/module-detail',
-        target: '',
-      },
-    },
-    {
-      title: 'Bitcoin Stamps',
-      description: `Record data directly on Bitcoin's UTXO, ensuring data permanence and immutability`,
-      homeImage: `${CDN_URL}/pages/landing-v4/home-stamps.png`,
-      link: {
-        url: '/module-detail',
-        target: '',
-      },
-    },
-  ],
-};
+// export const PARTNER_SECTION = {
+
+//   tag: 'Partners. ',
+//   title: 'Work with the best tech.',
+//   item: [
+//     {
+//       title: 'BitZK',
+//       description:
+//         'ZK rollups on Bitcoin for virtually any decentralized applications.',
+//       homeImage: `${CDN_URL}/pages/landing-v4/home-bitzk.png`,
+//       link: {
+//         url: '/module/bitzk',
+//         target: '',
+//       },
+//     },
+//     {
+//       title: 'BitOP',
+//       description:
+//         'Optimistic rollups on Bitcoin for virtually any decentralized applications.',
+//       homeImage: `${CDN_URL}/pages/landing-v4/home-bitop.png`,
+//       link: {
+//         url: '/module/bitop',
+//         target: '',
+//       },
+//     },
+//     {
+//       title: 'Celestia',
+//       description: 'A high-throughput DA verifiable with a light node.',
+//       homeImage: `${CDN_URL}/pages/landing-v4/home-celestia.png`,
+//       link: {
+//         url: '/module/bitcoin-celestia',
+//         target: '',
+//       },
+//     },
+//     {
+//       title: 'Eigen DA',
+//       description:
+//         'A scalable DA solution specialized in serving Ethereum rollups that leverage EigenLayer.',
+//       homeImage: `${CDN_URL}/pages/landing-v4/home-eigen.png`,
+//       link: {
+//         url: '/module/bitcoin-eigen',
+//         target: '',
+//       },
+//     },
+//     {
+//       title: 'Avail',
+//       description: 'Low-cost and expandable blobspace',
+//       homeImage: `${CDN_URL}/pages/landing-v4/home-avail.png`,
+//       link: {
+//         url: '/module/bitcoin-avail',
+//         target: '',
+//       },
+//     },
+//     {
+//       title: 'Near DA',
+//       description: 'An efficient and robust data availability layer',
+//       homeImage: `${CDN_URL}/pages/landing-v4/home-near.png`,
+//       link: {
+//         url: '/module/bitcoin-near',
+//         target: '',
+//       },
+//     },
+//     {
+//       title: 'Polygon',
+//       description: 'The most cost-effective storage solution',
+//       homeImage: `${CDN_URL}/pages/landing-v4/home-polygon.png`,
+//       link: {
+//         url: '/module/bitcoin-polygon',
+//         target: '',
+//       },
+//     },
+//     {
+//       title: 'Filecoin',
+//       description:
+//         'The largest decentralized data storage marketplace, protocol, & cryptocurrency',
+//       homeImage: `${CDN_URL}/pages/landing-v4/home-filecoin.png`,
+//       link: {
+//         url: '/module/bitcoin-filecoin',
+//         target: '',
+//       },
+//     },
+//     {
+//       title: 'Ordinals',
+//       description: 'Roll up to Bitcoin as Ordinal Inscriptions',
+//       homeImage: `${CDN_URL}/pages/landing-v4/home-ordinals.png`,
+//       link: {
+//         url: '/module-detail',
+//         target: '',
+//       },
+//     },
+//     {
+//       title: 'Bitcoin Taproot',
+//       description: 'Embed proofs in Taproot transactions',
+//       homeImage: `${CDN_URL}/pages/landing-v4/home-taproot.png`,
+//       link: {
+//         url: '/module-detail',
+//         target: '',
+//       },
+//     },
+//     {
+//       title: 'Bitcoin Stamps',
+//       description: `Record data directly on Bitcoin's UTXO, ensuring data permanence and immutability`,
+//       homeImage: `${CDN_URL}/pages/landing-v4/home-stamps.png`,
+//       link: {
+//         url: '/module-detail',
+//         target: '',
+//       },
+//     },
+//   ],
+// };
 
 export const RESEARCH_SECTION = {
+  id: 'research',
   tag: 'Research. ',
   title: 'Pioneer research on Bitcoin utilities.',
   item: Research.map((item, idx) => {
@@ -373,6 +376,7 @@ export const RESEARCH_SECTION = {
 };
 
 export const OPENSOURCE_SECTION = {
+  id: 'opensource',
   tag: 'Open source. ',
   title: 'Reuse our code and build whatever you want.',
   item: [
