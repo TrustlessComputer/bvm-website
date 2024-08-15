@@ -41,6 +41,7 @@ export default function useFetchingTemplate() {
     setCategories,
     setCategoriesTemplates,
     categoriesTemplates,
+    setCategoryMapping,
   } = useModelCategoriesStore();
   const { field, setFields } = useOrderFormStoreV3();
 
@@ -75,6 +76,7 @@ export default function useFetchingTemplate() {
 
   const fetchData = async () => {
     const newFields = cloneDeep(field);
+    const categoryMapping: Record<string, IModelCategory> = {};
     const [categories, templates] = await Promise.all([
       // getModelCategories(l2ServiceUserAddress),
       getModelCategories('0x4113ed747047863Ea729f30C1164328D9Cc8CfcF'),
@@ -93,6 +95,7 @@ export default function useFetchingTemplate() {
         value: null,
         dragged: false,
       };
+      categoryMapping[_field.key] = _field;
     });
 
     if (isAAInstalled) {
@@ -114,6 +117,7 @@ export default function useFetchingTemplate() {
     };
     nodes.unshift(chainNodeInitial);
 
+    setCategoryMapping(categoryMapping);
     setParsedCategories(convertData(sortedCategories));
     setCategories(sortedCategories);
     setCategoriesTemplates(templates);

@@ -39,7 +39,8 @@ export default function useHandleDragging() {
   const { setIdDragging, rightDragging, setRightDragging } = useDragMask();
   const { draggedFields, setDraggedFields } = useDragStore();
   const { field, setField } = useOrderFormStoreV3();
-  const { parsedCategories, categories } = useModelCategoriesStore();
+  const { parsedCategories, categories, categoryMapping } =
+    useModelCategoriesStore();
   const {
     dapps,
     baseModuleFieldMapping,
@@ -99,7 +100,8 @@ export default function useHandleDragging() {
     const activeIsNotAChainField = !categories?.find(
       (item) => item.key === activeKey,
     )?.isChain;
-    const selectedCategory = selectedCategoryMapping?.[activeKey];
+    // const selectedCategory = selectedCategoryMapping?.[activeKey];
+    const category = categoryMapping?.[activeKey];
 
     // swap activeKey, overKey in draggedFields
     if (rightDragging && !overIsFinalDroppable && overSuffix1 === 'right') {
@@ -122,8 +124,9 @@ export default function useHandleDragging() {
       return;
     }
 
-    if (!selectedCategory?.updatable && isUpdateFlow) {
+    if (!category?.updatable && isUpdateFlow) {
       // TODO: Notify if needed
+
       return;
     }
 
@@ -184,7 +187,6 @@ export default function useHandleDragging() {
 
       return;
     }
-    console.log('HERERHER 4');
 
     // Active is parent and drag to the left side
     if (

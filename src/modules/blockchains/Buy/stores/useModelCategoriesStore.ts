@@ -19,6 +19,11 @@ type UseModelCategoriesStore = {
   categories: IModelCategory[] | null;
   setCategories: (categories: UseModelCategoriesStore['categories']) => void;
 
+  categoryMapping: Record<string, IModelCategory> | null;
+  setCategoryMapping: (
+    categoryMapping: UseModelCategoriesStore['categoryMapping'],
+  ) => void;
+
   categoriesTemplates: IModelCategory[][] | null;
   setCategoriesTemplates: (
     categoriesTemplates: UseModelCategoriesStore['categoriesTemplates'],
@@ -31,6 +36,9 @@ const useModelCategoriesStore = create<UseModelCategoriesStore>((set) => ({
 
   categories: null,
   setCategories: (categories) => set({ categories }),
+
+  categoryMapping: null,
+  setCategoryMapping: (categoryMapping) => set({ categoryMapping }),
 
   categoriesTemplates: null,
   setCategoriesTemplates: (categoriesTemplates) => set({ categoriesTemplates }),
