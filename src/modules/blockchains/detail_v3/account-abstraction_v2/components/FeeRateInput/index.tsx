@@ -8,6 +8,7 @@ import { IModelOption } from '@/types/customize-model';
 // import Input from '../Input';
 import s from './styles.module.scss';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
 
 const MIN_FEE_RATE = 0;
 const MAX_FEE_RATE = 1 * 1e9;
@@ -26,8 +27,9 @@ const FeeRateInput = (props: Props) => {
   // const { value, errorMessage } = computerNameField;
 
   const { isCapture } = useCaptureStore();
-  const { isUpdateFlow, getAAStatus } = useChainProvider();
-  const { statusCode } = getAAStatus();
+  const { aaStatusData, aaInstalledData } = useAAModule();
+  const { isUpdateFlow } = useChainProvider();
+  const { statusCode } = aaStatusData;
 
   const {
     feeRate,
@@ -79,6 +81,16 @@ const FeeRateInput = (props: Props) => {
       checkFeeRate(text);
     }
   };
+
+  useEffect(() => {
+    if (statusCode !== 'drafting_modules' && statusCode !== 'need_config') {
+      setFeeRate(
+        new BigNumber(aaInstalledData?.aaTokenGas || 0)
+          .dividedBy(1e18)
+          .toString() || '',
+      );
+    }
+  }, [statusCode, aaInstalledData]);
 
   return (
     <Flex

@@ -297,7 +297,7 @@ export const preDataAirdropTask = (
           options;
 
         if (airdropTasks.length > 0) {
-          const blockFields: BlockModel[] = cloneDeep(
+          const singleFields: BlockModel[] = cloneDeep(
             _sortedDapps[_airdropIndex].blockFields || [],
           );
 
@@ -364,7 +364,7 @@ export const preDataAirdropTask = (
               });
             }
 
-            blockFields.push({
+            singleFields.push({
               key: getAirdropTaskKey(airdropTask),
               title: airdropTask.title,
               icon: '',
@@ -380,7 +380,7 @@ export const preDataAirdropTask = (
             });
           }
 
-          _sortedDapps[_airdropIndex].blockFields = blockFields;
+          _sortedDapps[_airdropIndex].blockFields = singleFields;
         }
       }
     }

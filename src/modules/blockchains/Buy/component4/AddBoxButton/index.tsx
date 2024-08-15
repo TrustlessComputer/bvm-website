@@ -1,19 +1,13 @@
-import React, { useCallback, useEffect } from 'react';
-import { Button } from '@chakra-ui/react';
-import s from './styles.module.scss';
-import Image from 'next/image';
-import { useNodes, useReactFlow, useStoreApi } from '@xyflow/react';
-import { useSignalEffect } from '@preact/signals-react';
+import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
-  templateIds2DSignal,
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { cloneDeep, isTwoObjectEqual } from '@/modules/blockchains/Buy/utils';
-import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
-import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
+import { useSignalEffect } from '@preact/signals-react';
+import { useReactFlow } from '@xyflow/react';
+import React, { useEffect } from 'react';
 import useFlowStore from '../../stores/useFlowStore';
-import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
 
 export default function AddBoxButton({ ...props }): React.JSX.Element {
   const { nodes, setNodes, onNodesChange } = useFlowStore();
@@ -94,18 +88,6 @@ export default function AddBoxButton({ ...props }): React.JSX.Element {
     if (dragState.new) {
       handleAddBox();
     } else if (!dragState.oneD.every((v) => v === -1)) {
-      const position = screenToFlowPosition({
-        x: 0,
-        y: 0,
-      });
-      nodes[dragState.oneD[0] + 1] = {
-        ...nodes[dragState.oneD[0] + 1],
-        data: {
-          ...nodes[dragState.oneD[0] + 1].data,
-          ids: draggedIds2D[dragState.oneD[0]],
-        },
-      };
-
       setNodes(nodes);
       resetDragState();
     } else if (!dragState.twoD.every((v) => v === -1)) {

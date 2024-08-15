@@ -37,7 +37,7 @@ const HeaderLeftView = (props: Props) => {
 
   const menuEditItemOnClick = (menuItem: MenuEditItemType) => {
     switch (menuItem.value) {
-      case MenuEditItemEnum.UpdateYourChainInfor:
+      case MenuEditItemEnum.ABC:
         {
           // TO DO
           // Show Modal update your chain infor

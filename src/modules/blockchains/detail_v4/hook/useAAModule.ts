@@ -17,7 +17,8 @@ export type AAModuleStatusDetail =
 
 export const useAAModule = () => {
   const dispatch = useAppDispatch();
-  const { order, getAAStatus, isUpdateFlow } = useChainProvider();
+  const { order, getAAStatus, isUpdateFlow, getDAppInstalledByKey } =
+    useChainProvider();
   const aaStatusData = getAAStatus();
   const { getOrderDetailByID } = useL2Service();
   const {
@@ -28,8 +29,19 @@ export const useAAModule = () => {
     checkTokenContractAddress,
   } = useAccountAbstractionStore();
 
+  const aaInstalledData = useMemo(() => {
+    return getDAppInstalledByKey('account_abstraction');
+  }, [getDAppInstalledByKey, order]);
+
   const isCanConfigAA = useMemo(() => {
     let canConfig = true;
+
+    console.log('[useAAModule] -- ', {
+      order,
+      isUpdateFlow,
+      aaStatusData,
+      isValid,
+    });
     if (!order || !isUpdateFlow) {
       canConfig = false;
     } else {
@@ -47,6 +59,10 @@ export const useAAModule = () => {
   const aaStatusDetail: AAModuleStatusDetail = useMemo(() => {
     return aaStatusData.statusCode as AAModuleStatusDetail;
   }, [order, aaStatusData, isUpdateFlow, tokenContractAddressErrMsg]);
+
+  const isAAModuleLoading = useMemo(() => {
+    return aaStatusDetail === 'new' || aaStatusDetail === 'processing';
+  }, [aaStatusDetail]);
 
   const configAAHandler = async () => {
     try {
@@ -79,9 +95,12 @@ export const useAAModule = () => {
   };
 
   return {
+    aaStatusData,
     configAAHandler,
     isCanConfigAA,
     aaStatusDetail,
+    isAAModuleLoading,
     checkTokenContractAddress,
+    aaInstalledData,
   };
 };

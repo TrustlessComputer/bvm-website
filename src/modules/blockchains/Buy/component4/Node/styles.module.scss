@@ -70,3 +70,45 @@
   border-bottom-right-radius: inherit;
   z-index: 9999;
 }
+
+
+.handles {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  //width: 10px;
+  height: 100%;
+  position: absolute;
+  :global {
+    .react-flow__handle-right {
+      //margin-bottom: 10px;
+      //position: absolute !important;
+    }
+  }
+}
+
+.handles.sources {
+  right: 0;
+  top: 0;
+}
+
+.handles.target {
+  left: 0;
+  top: 0;
+}
+
+.handleDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  //position: absolute;
+  //border: 1px solid #555555;
+  z-index: 4;
+  :global {
+    .react-flow__handle {
+      background-color: #777777 !important;
+      position: relative !important;
+    }
+  }
+}

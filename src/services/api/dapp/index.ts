@@ -94,7 +94,7 @@ class CDappAPI {
 
     try {
       const chain = await this.getChainByOrderID({ orderID: params.orderID });
-      chain.dappURL = this.getDappURL(chain);
+      chain.dappURL = chain?.dappURL || this.getDappURL(chain);
 
       const _chain = chain;
       // if (isLocalhost()) {
@@ -103,7 +103,7 @@ class CDappAPI {
 
       this.dispatch(setChain({ ..._chain }));
       const tasks = [
-        DappType.token_generation,
+        'create_token',
         DappType.staking,
         DappType.airdrop
       ].map((app) =>

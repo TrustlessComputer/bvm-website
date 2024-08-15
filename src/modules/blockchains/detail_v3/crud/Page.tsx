@@ -19,6 +19,12 @@ const Page = () => {
     } catch (error) {}
   };
 
+  const activeAAModule = async () => {
+    try {
+      l2ServicesAPI.activeAA(orderId);
+    } catch (error) {}
+  };
+
   return (
     <Flex
       flex={1}
@@ -33,6 +39,9 @@ const Page = () => {
       </Button>
       <Button onClick={activeHandler} w="50px" h={'50px'} color={'red'}>
         Active
+      </Button>
+      <Button onClick={activeAAModule} w="50px" h={'50px'} color={'green'}>
+        Update AA
       </Button>
     </Flex>
   );

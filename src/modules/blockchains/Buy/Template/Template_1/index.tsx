@@ -6,19 +6,25 @@ import AppLoading from '@components/AppLoading';
 import HeaderTemplate_1 from '@/modules/blockchains/Buy/Template/Template_1/HeaderTemplate_1';
 import { PAGE_NEED_OWNER } from '@/modules/blockchains/Buy/Template/constants';
 import { ITemplate } from '@/services/api/dapp/types';
+import { Flex } from '@chakra-ui/react';
 
 
 interface IProps {
   template: ITemplate | undefined;
   onUpdateState: (_: ITemplate) => void;
   appsStr: string;
+  dappURL?: string;
 }
 
-const Template_1 = React.memo(({ template, onUpdateState, appsStr }: IProps) => {
+const Template_1 = React.memo(({ template, onUpdateState, appsStr, dappURL }: IProps) => {
   const apps = appsStr?.split(",")?.filter(item => !PAGE_NEED_OWNER.includes(item)) || [];
 
   if (!template?.template_1) {
-    return <AppLoading />
+    return (
+      <Flex width="100vw" height="calc(100vh - 250px)">
+        <AppLoading />
+      </Flex>
+    )
   }
 
   return (
@@ -33,6 +39,7 @@ const Template_1 = React.memo(({ template, onUpdateState, appsStr }: IProps) => 
       <UpdateTemplate
         template={template}
         onUpdateState={onUpdateState}
+        dappURL={dappURL || ''}
       />
     </div>
   );
