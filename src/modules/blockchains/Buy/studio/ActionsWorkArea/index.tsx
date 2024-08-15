@@ -1,11 +1,9 @@
 import Capture from '@/modules/blockchains/Buy/Capture';
 import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
 import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
-import { ChainNode } from '@/types/node';
 import Image from 'next/image';
 import React, { ReactElement } from 'react';
 import Button from '../../component4/Button';
-import { nodeKey } from '../../component4/YourNodes/node.constants';
 import ErrorModal from '../../components3/ErrorModal';
 import useTemplate from '../../hooks/useTemplate';
 import {
@@ -13,6 +11,7 @@ import {
   draggedIds2DSignal,
 } from '../../signals/useDragSignal';
 import { formDappSignal } from '../../signals/useFormDappsSignal';
+import { useTemplateFormStore } from '../../stores/useDappStore';
 import useFlowStore from '../../stores/useFlowStore';
 
 export default function ActionsWorkArea(): ReactElement {
@@ -20,24 +19,13 @@ export default function ActionsWorkArea(): ReactElement {
   const [isShowModal, setIsShowModal] = React.useState(false);
   // const { setDraggedFields } = useDragStore();
   const { initTemplate } = useTemplate();
-  const { setNodes } = useFlowStore();
+  const { nodes, setNodes } = useFlowStore();
+  const { templateDapps } = useTemplateFormStore();
 
   const resetEdit = () => {
-    const chainNodeInitial: ChainNode = {
-      id: 'blockchain',
-      type: nodeKey.CHAIN_NODE,
-      data: {
-        node: 'chain',
-        title: 'Blockchain',
-        sourceHandles: [],
-        targetHandles: [],
-      },
-      dragHandle: '.drag-handle-area',
-      position: { x: 30, y: 30 },
-    };
-
+    const totalTemplateDapps = templateDapps.length;
     setIsShowModal(false);
-    setNodes([chainNodeInitial]);
+    setNodes(nodes.slice(0, totalTemplateDapps + 1));
 
     draggedDappIndexesSignal.value = [];
     draggedIds2DSignal.value = [];

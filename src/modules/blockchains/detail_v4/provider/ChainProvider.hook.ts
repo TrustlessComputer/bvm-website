@@ -232,7 +232,10 @@ export const useChainProvider = () => {
   const getAAStatus = () => {
     const result = getDAppStatusByKey('account_abstraction');
     if (result) {
-      return result;
+      return {
+        ...result,
+        statusStr: result.statusCode === 'done' ? 'Running' : result.statusCode,
+      };
     } else {
       let statusCode = 'drafting_modules';
       let statusStr = 'Drafting Modules';

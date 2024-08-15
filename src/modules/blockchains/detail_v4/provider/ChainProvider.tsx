@@ -2,7 +2,13 @@
 
 import { useAppDispatch } from '@/stores/hooks';
 import { OrderItem } from '@/stores/states/l2services/types';
-import { PropsWithChildren, createContext, useMemo, useState } from 'react';
+import {
+  PropsWithChildren,
+  createContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { IChainProvider } from './ChainProvider.types';
 
 export const ChainContext = createContext<IChainProvider>({
@@ -19,6 +25,10 @@ export const ChainProvider = ({
   const dispatch = useAppDispatch();
 
   const [order, setOrder] = useState<OrderItem | undefined>(orderData);
+
+  useEffect(() => {
+    setOrder(orderData);
+  }, [orderData]);
 
   const value = useMemo(
     () => ({
