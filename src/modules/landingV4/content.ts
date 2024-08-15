@@ -7,7 +7,7 @@ import { id } from 'ethers/lib/utils';
 export const APPS_SECTION = {
   id: 'apps',
   tag: 'Apps. ',
-  title: 'Transform Bitcoin beyond mere currency.',
+  title: 'Experience Bitcoin like never before.',
   item: DAPPS_DATA.filter((item) => {
     return (
       item.title !== 'Imagine' &&
@@ -20,7 +20,7 @@ export const APPS_SECTION = {
 export const GAME_SECTION = {
   id: 'games',
   tag: 'Games. ',
-  title: 'Experience Bitcoin like never before.',
+  title: 'Play incredibly fun games, fully on-chain.',
   item: [
     {
       title: 'Bitcoin Wars',
@@ -106,7 +106,7 @@ export const ROLLUPS_SECTION = {
 
 export const BOB_SECTION = {
   tag: 'Build on Bitcoin. ',
-  title: 'Deploy rollups and build dapps on Bitcoin.',
+  title: 'Build with ease with the leading Bitcoin infrastructure.',
   item: [
     {
       title: 'BVM Raas Studio',
@@ -116,6 +116,7 @@ export const BOB_SECTION = {
         url: '/studio',
         target: '_self',
       },
+      tags: ['', 'Studio'],
     },
     {
       title: 'Project Bitcoin Heartbeat',
@@ -126,82 +127,91 @@ export const BOB_SECTION = {
         url: '/heartbeats',
         target: '_self',
       },
+      tags: ['', 'Analytics'],
     },
     {
       title: 'BitZK',
       description:
         'ZK rollups on Bitcoin for virtually any decentralized applications.',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-bitzk.png`,
+      homeImage: `${CDN_URL}/pages/landing-v4/home-bitzk-1.png`,
       link: {
         url: '/module/bitzk',
         target: '_self',
       },
+      tags: ['', 'Rollups'],
     },
     {
       title: 'BitOP',
       description:
         'ZOptimistic rollups on Bitcoin for virtually any decentralized applications.',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-bitop.png`,
+      homeImage: `${CDN_URL}/pages/landing-v4/home-bitop-1.png`,
       link: {
         url: '/module/bitop',
         target: '_self',
       },
+      tags: ['', 'Rollups'],
     },
     {
-      title: 'Celestia',
+      title: 'Bitcoin x Celestia',
       description: 'A high-throughput DA verifiable with a light node.',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-celestia.png`,
+      homeImage: `${CDN_URL}/pages/landing-v4/home-celestia-1.png`,
       link: {
         url: '/module/bitcoin-celestia',
         target: '_self',
       },
+      tags: ['', 'Rollups'],
     },
     {
-      title: 'Eigen DA',
+      title: 'Bitcoin x Eigen DA',
       description:
         'A scalable DA solution specialized in serving Ethereum rollups that leverage EigenLayer.',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-eigen.png`,
+      homeImage: `${CDN_URL}/pages/landing-v4/home-eigen-1.png`,
       link: {
         url: '/module/bitcoin-eigen',
         target: '_self',
       },
+      tags: ['', 'DaTA Availability'],
     },
     {
-      title: 'Avail',
+      title: 'Bitcoin x Avail',
       description: 'Low-cost and expandable blobspace',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-avail.png`,
+      homeImage: `${CDN_URL}/pages/landing-v4/home-avail-1.png`,
       link: {
         url: '/module/bitcoin-avail',
         target: '_self',
       },
+      tags: ['', 'DaTA Availability'],
     },
     {
-      title: 'Near DA',
+      title: 'Bitcoin x Near DA',
       description: 'An efficient and robust data availability layer',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-near.png`,
+      homeImage: `${CDN_URL}/pages/landing-v4/home-near-1.png`,
       link: {
         url: '/module/bitcoin-near',
         target: '_self',
       },
+      tags: ['', 'DaTA Availability'],
     },
     {
-      title: 'Polygon',
+      title: 'Bitcoin x Polygon',
       description: 'The most cost-effective storage solution',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-polygon.png`,
+      homeImage: `${CDN_URL}/pages/landing-v4/home-polygon-1.png`,
       link: {
         url: '/module/bitcoin-polygon',
         target: '_self',
       },
+      tags: ['', 'DaTA Availability'],
     },
     {
-      title: 'Filecoin',
+      title: 'Bitcoin x Filecoin',
       description:
         'The largest decentralized data storage marketplace, protocol, & cryptocurrency',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-filecoin.png`,
+      homeImage: `${CDN_URL}/pages/landing-v4/home-filecoin-1.png`,
       link: {
         url: '/module/bitcoin-filecoin',
         target: '_self',
       },
+      tags: ['', 'DaTA Availability'],
     },
     {
       title: 'Ordinals',
@@ -211,6 +221,7 @@ export const BOB_SECTION = {
         url: '/module-detail',
         target: '_self',
       },
+      tags: ['', 'Data validity'],
     },
     {
       title: 'Bitcoin Taproot',
@@ -220,6 +231,7 @@ export const BOB_SECTION = {
         url: '/module-detail',
         target: '_self',
       },
+      tags: ['', 'Data validity'],
     },
     {
       title: 'Bitcoin Stamps',
@@ -229,6 +241,7 @@ export const BOB_SECTION = {
         url: '/module-detail',
         target: '_self',
       },
+      tags: ['', 'Data validity'],
     },
   ],
 };
@@ -250,7 +263,7 @@ export const PARTNER_SECTION = {
     {
       title: 'BitOP',
       description:
-        'ZOptimistic rollups on Bitcoin for virtually any decentralized applications.',
+        'Optimistic rollups on Bitcoin for virtually any decentralized applications.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-bitop.png`,
       link: {
         url: '/module/bitop',
