@@ -13,10 +13,36 @@ const Page = () => {
     } catch (error) {}
   };
 
+  const activeHandler = async () => {
+    try {
+      l2ServicesAPI.activeOrder(orderId);
+    } catch (error) {}
+  };
+
+  const activeAAModule = async () => {
+    try {
+      l2ServicesAPI.activeAA(orderId);
+    } catch (error) {}
+  };
+
   return (
-    <Flex flex={1} align={'center'} justify={'center'}>
-      <Button onClick={removeHandler} w="50px" h={'50px'}>
-        Remove
+    <Flex
+      flex={1}
+      mt={'50px'}
+      flexDir={'column'}
+      align={'center'}
+      justify={'center'}
+      gap={'20px'}
+    >
+      <Button onClick={activeHandler} w="50px" h={'50px'} color={'blue'}>
+        Active Chain
+      </Button>
+      <Button onClick={activeAAModule} w="50px" h={'50px'} color={'green'}>
+        Update AA
+      </Button>
+
+      <Button onClick={removeHandler} w="50px" h={'50px'} color={'red'}>
+        Remove Chain
       </Button>
     </Flex>
   );

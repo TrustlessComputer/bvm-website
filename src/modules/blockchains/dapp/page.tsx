@@ -720,7 +720,7 @@ const RollupsDappPage = () => {
 
     const _sortedDapps = preDataAirdropTask(sortedDapps, tokens, airdropTasks);
 
-    setDapps(_sortedDapps);
+    // setDapps(_sortedDapps);
   };
 
   React.useEffect(() => {

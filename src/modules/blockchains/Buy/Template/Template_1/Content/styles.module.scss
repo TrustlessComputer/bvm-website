@@ -1,0 +1,44 @@
+.container {
+  --content-padding: 160px 120px;
+  padding: var(--content-padding);
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 90vh;
+  min-height: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  flex: 1;
+
+  @include w-max(768px) {
+    padding: rem(24px);
+  }
+
+  .grid {
+  }
+
+  .title {
+    color: white;
+    * {
+      font-size: 64px;
+      font-weight: 500;
+      line-height: 130%;
+      @include w-max(768px) {
+        font-size: 32px;
+      }
+    }
+  }
+
+  .desc {
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 140%;
+    letter-spacing: 0.02em;
+    color: white;
+
+    @include w-max(768px) {
+      font-size: 24px;
+    }
+  }
+}

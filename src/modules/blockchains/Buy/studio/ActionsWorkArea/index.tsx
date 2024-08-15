@@ -6,43 +6,26 @@ import React, { ReactElement } from 'react';
 import Button from '../../component4/Button';
 import ErrorModal from '../../components3/ErrorModal';
 import useTemplate from '../../hooks/useTemplate';
-import { draggedDappIndexesSignal, draggedIds2DSignal } from '../../signals/useDragSignal';
+import {
+  draggedDappIndexesSignal,
+  draggedIds2DSignal,
+} from '../../signals/useDragSignal';
 import { formDappSignal } from '../../signals/useFormDappsSignal';
-import useDragStore from '../../stores/useDragStore';
+import { useTemplateFormStore } from '../../stores/useDappStore';
 import useFlowStore from '../../stores/useFlowStore';
-import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
-import { IModelOption } from '@/types/customize-model';
 
 export default function ActionsWorkArea(): ReactElement {
   const { isCapture } = useCaptureStore();
   const [isShowModal, setIsShowModal] = React.useState(false);
-  const { setDraggedFields } = useDragStore();
+  // const { setDraggedFields } = useDragStore();
   const { initTemplate } = useTemplate();
-  const { setNodes } = useFlowStore();
+  const { nodes, setNodes } = useFlowStore();
+  const { templateDapps } = useTemplateFormStore();
 
   const resetEdit = () => {
+    const totalTemplateDapps = templateDapps.length;
     setIsShowModal(false);
-    setNodes([
-      {
-        id: 'blockchain',
-        type: 'chainNode',
-        data: {
-          label: 'Blockchain',
-          dapp: null,
-          categoryOption: {} as IModelOption,
-          baseIndex: -1,
-          targetHandles: [],
-          chain: null,
-          ids: [],
-          status: StatusBox.READY,
-          isChain: true,
-          // TODO: Status message - Reset
-          // statusMessage: 'Status message 1',
-        },
-        dragHandle: '.drag-handle-area',
-        position: { x: 30, y: 30 },
-      },
-    ]);
+    setNodes(nodes.slice(0, totalTemplateDapps + 1));
 
     draggedDappIndexesSignal.value = [];
     draggedIds2DSignal.value = [];

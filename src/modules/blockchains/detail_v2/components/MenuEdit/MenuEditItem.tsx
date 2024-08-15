@@ -1,6 +1,7 @@
 'use client';
 
-import { Flex } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
+import s from './styles.module.scss';
 
 type Props = {
   title: string;
@@ -12,18 +13,25 @@ const MenuEditItem = (props: Props) => {
 
   return (
     <Flex
+      className={s.container}
       onClick={onClick}
       fontWeight={500}
-      fontSize={['16px']}
-      color={'#000'}
       px="10px"
       py="5px"
+      borderRadius={'16px'}
       _hover={{
         cursor: 'pointer',
-        opacity: 0.7,
+        bgColor: '#F4F4F4',
       }}
     >
-      {title}
+      <Text
+        textAlign={'center'}
+        fontSize={['14px']}
+        color={'#333333'}
+        w={'100%'}
+      >
+        {title}
+      </Text>
     </Flex>
   );
 };

@@ -4,13 +4,17 @@ import { cloneDeep, dappKeyToChainKey, isTwoObjectEqual } from '@/modules/blockc
 import { useSignalEffect } from '@preact/signals-react';
 import { MarkerType, useStoreApi } from '@xyflow/react';
 import React, { useEffect } from 'react';
-import useFlowStore from '../stores/useFlowStore';
+import useFlowStore, { AppState } from '../stores/useFlowStore';
 
 import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
+import { DappNode } from '@/types/node';
+import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
+import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 import { DataNode } from '@/modules/blockchains/Buy/component4/CustomNode';
 import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
+import { nodeKey } from '../component4/YourNodes/node.constants';
 
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
@@ -24,6 +28,7 @@ export default function useNodeFlowControl() {
   const [draggedIds2D, setDraggedIds2D] = React.useState<
     typeof draggedIds2DSignal.value
   >([]);
+  const { isAAInstalled } = useChainProvider();
 
   const [dragState, setDragState] = React.useState<{
     oneD: [number];
@@ -61,7 +66,7 @@ export default function useNodeFlowControl() {
           ...newNodes[index].data,
           ids: draggedIds2D[dragState.oneD[0]],
         },
-      };
+      } as any;
 
       setNodes(newNodes);
       resetDragState();
@@ -83,24 +88,6 @@ export default function useNodeFlowControl() {
           });
           break;
         }
-
-        // for (let j = 0; j < draggedIds2DSignal.value[i].length; j++) {
-        //   if (
-        //     !isTwoObjectEqual(
-        //       draggedIds2DSignal.value[i][j],
-        //       draggedIds2D[i][j],
-        //     )
-        //   ) {
-        //     setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
-        //     setDragState({
-        //       oneD: [-1],
-        //       twoD: [i, j],
-        //       new: false,
-        //       remove: false,
-        //     });
-        //     break;
-        //   }
-        // }
       }
     } else if (draggedIds2DSignal.value.length > draggedIds2D.length) {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
@@ -130,6 +117,7 @@ export default function useNodeFlowControl() {
     const categoryOption = category?.options.find(
       (option) => option.key === dappKeyToChainKey(thisDapp.key),
     );
+
     if (!categoryOption) return;
 
     const transformedX =
@@ -143,57 +131,63 @@ export default function useNodeFlowControl() {
 
     const rootNode = 'blockchain';
 
-    // Update source handle of root node
-    const getHandleNodeBlockChain = nodes.find(item => item.id === rootNode);
-    // Find handle have in root node ?
-    const isHandleExists = edges.some(handle => handle.sourceHandle === `${rootNode}-s-${thisDapp.title}`);
+    const getHandleNodeBlockChain = nodes.find((item) => item.id === rootNode);
+    const isHandleExists = edges.some(
+      (handle) => handle.sourceHandle === `${rootNode}-s-${thisDapp.title}`,
+    );
     let nodesData = nodes;
 
     if (!isHandleExists) {
-      getHandleNodeBlockChain?.data?.sourceHandles?.push(`${rootNode}-s-${thisDapp.title}`);
-      nodesData = nodes.map((item) => item.id === rootNode ? getHandleNodeBlockChain : item) as DataNode[];
+      getHandleNodeBlockChain?.data?.sourceHandles?.push(
+        `${rootNode}-s-${thisDapp.title}`,
+      );
+      nodesData = nodes.map((item) =>
+        item.id === rootNode ? getHandleNodeBlockChain : item,
+      ) as AppState['nodes'];
     }
 
-    setNodes([
-      ...nodesData,
+    const newNode: DappNode = {
+      id: `${nodes.length + 1}`,
+      type: dappKeyToNodeKey(thisDapp.key),
+      dragHandle: '.drag-handle-area',
+      position: positionTo,
+      data: {
+        node: 'dapp',
+        title: thisDapp.title,
+        dapp: thisDapp,
+        baseIndex: draggedIds2D.length - 1,
+        categoryOption,
+        ids: draggedIds2D[draggedIds2D.length - 1],
+        targetHandles: [`${nodes.length + 1}-t-${rootNode}`],
+        sourceHandles: [],
+      },
+    };
+
+    setNodes([...nodesData, newNode]);
+    setEdges([
+      ...edges,
       {
-        id: `${nodes.length}`,
-        type: 'customBox',
-        dragHandle: '.drag-handle-area',
-        data: {
-          label: thisDapp.title,
-          status: StatusBox.DRAFTING,
-          isChain: false,
-          dapp: thisDapp,
-          targetHandles: [`${nodes.length}-t-${rootNode}`],
-          ids: draggedIds2D[draggedIds2D.length - 1],
-          baseIndex: draggedIds2D.length - 1,
-          categoryOption,
+        // id: `${edges.length + 1}`,
+        id: `${Math.random()}`,
+        source: rootNode,
+        sourceHandle: `${rootNode}-s-${thisDapp.title}`,
+        target: `${nodes.length + 1}`,
+        targetHandle: `${nodes.length + 1}-t-${rootNode}`,
+        type: 'customEdge',
+        label: '',
+        markerEnd: {
+          type: MarkerType.Arrow,
+          width: 25,
+          height: 25,
+          strokeWidth: 1,
+          color: '#AAAAAA',
         },
-        position: positionTo,
+        style: {
+          stroke: '#AAAAAA',
+          strokeWidth: 2,
+        },
       },
     ]);
-
-    setEdges([...edges, {
-      id: `${edges.length + 1}`,
-      source: rootNode,
-      sourceHandle: `${rootNode}-s-${thisDapp.title}`,
-      target: `${nodes.length}`,
-      targetHandle: `${nodes.length}-t-${rootNode}`,
-      type: 'customEdge',
-      label: 'Output 1',
-      markerEnd: {
-        type: MarkerType.Arrow,
-        width: 25,
-        height: 25,
-        strokeWidth: 1,
-        color: '#AAAAAA',
-      },
-      style: {
-        stroke: '#AAAAAA',
-        strokeWidth: 2,
-      },
-    }]);
 
     resetDragState();
   };

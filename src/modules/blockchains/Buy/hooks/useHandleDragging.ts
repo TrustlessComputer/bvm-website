@@ -10,7 +10,10 @@ import {
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
-import { subScribeDropEnd } from '@/modules/blockchains/Buy/stores/useDappStore';
+import {
+  subScribeDropEnd,
+  useTemplateFormStore,
+} from '@/modules/blockchains/Buy/stores/useDappStore';
 import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
 import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
@@ -27,16 +30,17 @@ import { showValidateError } from '@components/toast';
 import { useSensor, useSensors } from '@dnd-kit/core';
 import toast from 'react-hot-toast';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
-import useFlowStore from '../stores/useFlowStore';
+import useFlowStore, { AppState } from '../stores/useFlowStore';
 import useOverlappingChainLegoStore from '../stores/useOverlappingChainLegoStore';
 
 export default function useHandleDragging() {
   const { setOverlappingId } = useOverlappingChainLegoStore();
-  const { nodes, setNodes } = useFlowStore();
+  const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const { setIdDragging, rightDragging, setRightDragging } = useDragMask();
   const { draggedFields, setDraggedFields } = useDragStore();
   const { field, setField } = useOrderFormStoreV3();
-  const { parsedCategories, categories } = useModelCategoriesStore();
+  const { parsedCategories, categories, categoryMapping } =
+    useModelCategoriesStore();
   const {
     dapps,
     baseModuleFieldMapping,
@@ -44,7 +48,8 @@ export default function useHandleDragging() {
     moduleFieldMapping,
     singleFieldMapping,
   } = useDapps();
-  const { selectedCategoryMapping } = useChainProvider();
+  const { selectedCategoryMapping, isUpdateFlow } = useChainProvider();
+  const { templateDapps } = useTemplateFormStore();
 
   // console.log('useHandleDragging -> field :: ', field);
 
@@ -95,7 +100,8 @@ export default function useHandleDragging() {
     const activeIsNotAChainField = !categories?.find(
       (item) => item.key === activeKey,
     )?.isChain;
-    const selectedCategory = selectedCategoryMapping?.[activeKey];
+    // const selectedCategory = selectedCategoryMapping?.[activeKey];
+    const category = categoryMapping?.[activeKey];
 
     // swap activeKey, overKey in draggedFields
     if (rightDragging && !overIsFinalDroppable && overSuffix1 === 'right') {
@@ -114,10 +120,13 @@ export default function useHandleDragging() {
       return;
     }
 
-    if (activeIsNotAChainField && activeKey !== 'bridge_apps') return;
+    if (activeIsNotAChainField && activeKey !== 'bridge_apps') {
+      return;
+    }
 
-    if (!selectedCategory?.updatable) {
+    if (!category?.updatable && isUpdateFlow) {
       // TODO: Notify if needed
+
       return;
     }
 
@@ -226,11 +235,11 @@ export default function useHandleDragging() {
       dappIndex: -1,
     };
 
-    // console.log(
-    //   '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
-    //   over,
-    //   active,
-    // );
+    console.log(
+      '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
+      over,
+      active,
+    );
 
     if (!over) return;
 
@@ -459,6 +468,15 @@ export default function useHandleDragging() {
 
       // Case 1.6: The lego just dragged is a block/single
       if ((activeIsABlock || activeIsASingle) && overIsABase) {
+        const dappIndexOfOver = draggedDappIndexesSignal.value[overBaseIndex];
+
+        if (JSON.stringify(dappIndexOfOver) !== JSON.stringify(dappIndex)) {
+          showValidateError('This lego is not belong to this module!');
+          idBlockErrorSignal.value = activeOriginalKey;
+
+          return;
+        }
+
         const totalPlaced = activeIsABlock
           ? draggedIds2D[overBaseIndex].filter((item) =>
               item.name.startsWith(
@@ -637,7 +655,41 @@ export default function useHandleDragging() {
 
       // Case 2.1: Dragged lego is a base block
       if (activeIsABase) {
-        let newNodes = removeItemAtIndex(nodes, activeBaseIndex + 1);
+        const totalTemplateDapps = (templateDapps || []).length;
+        const removeIndex =  activeBaseIndex + 1 + totalTemplateDapps
+        const rootNode = 'blockchain';
+
+        const newEdges = edges.filter(item => item.target !== nodes[removeIndex].id);
+        let newNodes = removeItemAtIndex(
+          nodes,
+          removeIndex,
+        );
+
+        let getHandleNodeBlockChain = nodes.find((item) => item.id === rootNode);
+
+        let countSourceHandle = 0;
+
+        for (let i = 0; i < edges.length; i++) {
+          if(edges[i].sourceHandle === `${rootNode}-s-${thisDapp.title}`) {
+            countSourceHandle += 1;
+          }
+        }
+
+        if (countSourceHandle == 1) {
+          const newSourceHandles = getHandleNodeBlockChain?.data.sourceHandles?.filter(item => item !== `${rootNode}-s-${thisDapp.title}`)
+          const data = {
+            ...getHandleNodeBlockChain,
+            data: {
+              ...getHandleNodeBlockChain?.data,
+              sourceHandles: newSourceHandles
+            }
+          }
+          console.log('newSourceHandles', newSourceHandles);
+          newNodes = newNodes.map((item) =>
+            item.id === rootNode ? data : item,
+          ) as AppState['nodes'];
+        }
+
         const formDapp = formDappSignal.value;
 
         Object.keys(formDapp).forEach((key) => {
@@ -663,20 +715,22 @@ export default function useHandleDragging() {
         );
 
         newNodes = newNodes.map((node, index) => {
-          if (node.data.isChain) return node;
+          if (node.data.node !== 'dapp') return node;
+
+          const realIndex = index - 1 - totalTemplateDapps;
 
           return {
             ...node,
             data: {
               ...node.data,
-              ids: draggedIds2DSignal.value[index - 1],
-              baseIndex: index - 1,
+              ids: draggedIds2DSignal.value[realIndex],
+              baseIndex: realIndex,
             },
           };
         });
 
         setNodes(newNodes);
-
+        setEdges(newEdges);
         return;
       }
 

@@ -25,6 +25,9 @@ export default function StudioControls() {
   const { dapps, dappMapping } = useDapps();
   const dappState = useAppSelector(dappSelector);
 
+  // console.log('dapps', dapps);
+  // console.log('dappMapping', dappMapping);
+
   const params = useParams();
   const isUpdateChain = React.useMemo(() => !!params?.id, [params?.id]);
 
@@ -252,7 +255,7 @@ export default function StudioControls() {
                 >
                   {item.options.map((option, index) => {
                     const dapp = isUpdateChain
-                      ? dappState?.configs?.find((item) =>
+                      ? dapps?.find((item) =>
                           compareString(
                             item.key,
                             chainKeyToDappKey(option.key),

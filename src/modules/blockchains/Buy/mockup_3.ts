@@ -36,7 +36,7 @@ export const accountAbstractionAsADapp: DappModel = {
     background: '#00C1CD',
     fields: [
       {
-        // background: '#00C1CD',
+        background: '#009aa5',
         key: 'input_apps_address',
         title: 'Token contract address',
         previewTitle: 'Address',
@@ -48,7 +48,7 @@ export const accountAbstractionAsADapp: DappModel = {
         placeholder: '0x0000000000000000000000',
       },
       {
-        // background: '#F76649',
+        background: '#009aa5',
         key: 'input_apps_fee_rate',
         title: 'Tokens per gas',
         type: 'input',

@@ -10,11 +10,12 @@ import {
   Field,
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { adjustBrightness, DragUtil } from '@/modules/blockchains/Buy/utils';
+import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { DappModel, FieldModel, IModelOption } from '@/types/customize-model';
 import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
 import cn from 'classnames';
-import React, { memo, ReactElement } from 'react';
+import React, { memo, ReactElement, useMemo } from 'react';
 import Label from '../../components3/Label';
 import { useCaptureStore } from '../../stores/index_v3';
 import DappNotification from './DappNotification';
@@ -28,21 +29,20 @@ enum StatusBox {
   DOWN = 'Down',
 }
 
-export type DataNode = Node<
-  {
-    label: string;
-    positionDot?: Position;
-    handleType?: HandleType;
-    status: StatusBox;
-    sourceHandles?: string[];
-    targetHandles?: string[];
-    isChain: boolean;
-    chain?: OrderItem | null;
-    dapp: DappModel | null;
-    ids: Field[];
-    baseIndex: number;
-    categoryOption: IModelOption;
-  }>;
+export type DataNode = Node<{
+  label: string;
+  positionDot?: Position;
+  handleType?: HandleType;
+  status: StatusBox;
+  sourceHandles?: string[];
+  targetHandles?: string[];
+  isChain: boolean;
+  chain?: OrderItem | null;
+  dapp: DappModel | null;
+  ids: Field[];
+  baseIndex: number;
+  categoryOption: IModelOption;
+}>;
 
 function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { isCapture } = useCaptureStore();
@@ -56,24 +56,26 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
     singleFieldMapping,
   } = useDapps();
 
-  // TODO: Implement this - 1
-  // const { getAAStatus } = useChainProvider();
-  // const { statusStr, statusColorStr, borderStatusStr } = getAAStatus();
+  const { getAAStatus, isUpdateFlow } = useChainProvider();
+  const aaStatusData = getAAStatus();
 
-  // const statusColor = React.useMemo(() => {
-  //   if (data.dapp?.key === 'account_abstraction') {
-  //     return statusColorStr;
-  //   }
+  const hideNoti = React.useMemo(() => {
+    return data.dapp?.key === 'account_abstraction' && isUpdateFlow;
+  }, [isUpdateFlow]);
 
-  //   return undefined;
-  // }, [data.dapp?.key]);
-  // const borderStatus = React.useMemo(() => {
-  //   if (data.dapp?.key === 'account_abstraction') {
-  //     return borderStatusStr;
-  //   }
+  const styleFactory = useMemo(() => {
+    switch (data.dapp?.key) {
+      case 'account_abstraction':
+        return {
+          ...aaStatusData,
+        };
 
-  //   return undefined;
-  // }, [data.dapp?.key]);
+      //Other DApps
+      case 'staking':
+      default:
+        return undefined;
+    }
+  }, [data.dapp?.key]);
 
   const DappRendering = (): ReactElement => {
     const dappIndex = draggedDappIndexesSignal.value[data.baseIndex];
@@ -494,8 +496,10 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   return (
     <div
       className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}
-      // TODO: Implement this - 2
-      // style={{ borderColor: statusColor }}
+      style={{
+        borderColor: styleFactory && styleFactory.borderColorStr,
+        backgroundColor: styleFactory && styleFactory.bgColorStr,
+      }}
     >
       <div className={`${s.handles} ${s.target}`}>
         {data.targetHandles?.map((handle) => (
@@ -512,11 +516,10 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
         className={`${s.wrapperBox_top} drag-handle-area ${cn(
           s[`borderColor_${data.status}`],
         )}`}
-        // TODO: Implement this - 3
-        // style={{
-        //   borderColor: statusColor,
-        //   backgroundColor: borderStatus,
-        // }}
+        style={{
+          borderColor: styleFactory && styleFactory.borderColorStr,
+          backgroundColor: styleFactory && styleFactory.bgColorStr,
+        }}
       >
         <p
           className={`${s.wrapperBox_top_heading} ${
@@ -531,23 +534,31 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
               className={`${s.titleTag} ${cn(s[`titleTag_${data.status}`])} ${
                 isCapture ? s.label_margin : ''
               }`}
-              // TODO: Implement this - 4
-              // style={{ color: statusColor }}
+              style={{
+                color: styleFactory && styleFactory.statusColorStr,
+                fontStyle: styleFactory && styleFactory.fontStyle,
+                textDecorationLine:
+                  styleFactory && styleFactory.textDecorationLine,
+              }}
             >
               {/* TODO: Implement this - 5 */}
-              {/* {statusStr && data.dapp === "account_abstraction" ? statusStr : renderTitleStatus(data.status)} */}
-              {renderTitleStatus(data.status)}
+              {aaStatusData && data?.dapp?.key === 'account_abstraction'
+                ? aaStatusData?.statusStr
+                : renderTitleStatus(data.status)}
             </p>
             <div
               className={`${s.tag_dot}  ${cn(s[`tag_${data.status}`])}`}
-              // TODO: Implement this - 6
-              // style={{ backgroundColor: statusColor }}
+              style={{
+                backgroundColor: styleFactory && styleFactory.bgColorStr,
+              }}
             ></div>
           </div>
         }
       </div>
       <div className={s.inner}>
-        {data.categoryOption.needInstall && <DappNotification />}
+        {data.categoryOption.needInstall && !hideNoti ? (
+          <DappNotification />
+        ) : null}
 
         {data.dapp && <DappRendering />}
       </div>
