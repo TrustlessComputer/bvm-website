@@ -3,7 +3,7 @@ import React from 'react';
 import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import DateTimeInput from '../component4/DateTimeInput';
 import Dropdown from '../component4/Dropdown';
 import ExtendsInput from '../component4/ExtendsInput';
@@ -15,6 +15,7 @@ import { FieldOption } from '../types';
 import { adjustBrightness, cloneDeep, preDataAirdropTask } from '../utils';
 
 const useDapps = () => {
+  const pathname = usePathname();
   const params = useParams();
   const isUpdateChain = React.useMemo(() => !!params?.id, [params?.id]);
 
@@ -452,6 +453,10 @@ const useDapps = () => {
 
     setDapps(preDataAirdropTask(sortedDapps, tokens, airdropTasks));
   };
+
+  React.useEffect(() => {
+    fetchDapps();
+  }, [pathname]);
 
   React.useEffect(() => {
     fetchDapps();

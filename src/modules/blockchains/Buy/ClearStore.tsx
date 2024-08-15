@@ -1,4 +1,4 @@
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 import {
   draggedDappIndexesSignal,
@@ -10,6 +10,7 @@ import useFlowStore from './stores/useFlowStore';
 
 const ClearStore = () => {
   const pathname = usePathname();
+  const router = useRouter();
 
   const { setNodes, setEdges } = useFlowStore();
   const { setDapps } = useDappsStore();
@@ -25,8 +26,14 @@ const ClearStore = () => {
   };
 
   React.useEffect(() => {
-    return () => clear();
+    clear();
   }, [pathname]);
+
+  // React.useEffect(() => {
+  //   setTimeout(() => {
+  //     router.push('/chains');
+  //   }, 5000);
+  // }, []);
 
   return null;
 };
