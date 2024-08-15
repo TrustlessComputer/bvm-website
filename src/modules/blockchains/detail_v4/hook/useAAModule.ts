@@ -20,7 +20,6 @@ export const useAAModule = () => {
   const { order, getAAStatus, isUpdateFlow, getDAppInstalledByKey } =
     useChainProvider();
   const aaStatusData = getAAStatus();
-  const { getOrderDetailByID } = useL2Service();
   const {
     tokenContractAddress,
     tokenContractAddressErrMsg,
@@ -36,16 +35,21 @@ export const useAAModule = () => {
   const isCanConfigAA = useMemo(() => {
     let canConfig = true;
 
-    console.log('[useAAModule] -- ', {
-      order,
-      isUpdateFlow,
-      aaStatusData,
-      isValid,
-    });
+    // console.log('[useAAModule] -- ', {
+    //   order,
+    //   isUpdateFlow,
+    //   aaStatusData,
+    //   isValid,
+    // });
+
     if (!order || !isUpdateFlow) {
       canConfig = false;
     } else {
-      if (aaStatusData?.statusCode !== 'need_config') {
+      if (
+        aaStatusData?.statusCode === 'new' ||
+        aaStatusData?.statusCode === 'procesing' ||
+        aaStatusData?.statusCode === 'done'
+      ) {
         canConfig = false;
       } else {
         if (!isValid) {
@@ -62,6 +66,10 @@ export const useAAModule = () => {
 
   const isAAModuleLoading = useMemo(() => {
     return aaStatusDetail === 'new' || aaStatusDetail === 'processing';
+  }, [aaStatusDetail]);
+
+  const isCanNotEdit = useMemo(() => {
+    return aaStatusDetail === 'done';
   }, [aaStatusDetail]);
 
   const configAAHandler = async () => {
@@ -98,6 +106,7 @@ export const useAAModule = () => {
     aaStatusData,
     configAAHandler,
     isCanConfigAA,
+    isCanNotEdit,
     aaStatusDetail,
     isAAModuleLoading,
     checkTokenContractAddress,

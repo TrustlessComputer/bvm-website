@@ -27,7 +27,7 @@ const FeeRateInput = (props: Props) => {
   // const { value, errorMessage } = computerNameField;
 
   const { isCapture } = useCaptureStore();
-  const { aaStatusData, aaInstalledData } = useAAModule();
+  const { aaStatusData, aaInstalledData, isCanNotEdit } = useAAModule();
   const { isUpdateFlow } = useChainProvider();
   const { statusCode } = aaStatusData;
 
@@ -127,6 +127,7 @@ const FeeRateInput = (props: Props) => {
           type="number"
           placeholder="0 (gasless)"
           value={feeRate}
+          disabled={isCanNotEdit}
           onChange={(e) => {
             const text = e.target.value;
             setFeeRateFocused(true);
@@ -139,6 +140,9 @@ const FeeRateInput = (props: Props) => {
           }}
           _focus={{
             borderColor: isError ? '#ff6666ff' : 'transparent',
+          }}
+          _disabled={{
+            color: '#fff',
           }}
         />
         {isError && (

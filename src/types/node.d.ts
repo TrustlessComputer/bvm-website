@@ -28,10 +28,12 @@ type NodeNotificationProps = {
 
 type NodeOnlyViewProps = {
   type: typeof nodeOverlayType.LOADING;
+  message?: string;
 };
 
 type NodeViewAndAction = {
   type: typeof nodeOverlayType.ACTION;
+  message?: string;
   action: {
     label: string;
     onClick: () => void;

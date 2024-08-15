@@ -34,14 +34,15 @@ const Page = () => {
       justify={'center'}
       gap={'20px'}
     >
-      <Button onClick={removeHandler} w="50px" h={'50px'} color={'blue'}>
-        Remove
-      </Button>
-      <Button onClick={activeHandler} w="50px" h={'50px'} color={'red'}>
-        Active
+      <Button onClick={activeHandler} w="50px" h={'50px'} color={'blue'}>
+        Active Chain
       </Button>
       <Button onClick={activeAAModule} w="50px" h={'50px'} color={'green'}>
         Update AA
+      </Button>
+
+      <Button onClick={removeHandler} w="50px" h={'50px'} color={'red'}>
+        Remove Chain
       </Button>
     </Flex>
   );
