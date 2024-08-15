@@ -454,13 +454,11 @@ const useDapps = () => {
     setDapps(preDataAirdropTask(sortedDapps, tokens, airdropTasks));
   };
 
-  // React.useEffect(() => {
-  //   fetchDapps();
-  // }, [pathname]);
-
   React.useEffect(() => {
+    console.log('SET ============');
+
     fetchDapps();
-  }, [configs, tokens, airdropTasks]);
+  }, [configs, tokens, airdropTasks, pathname]);
 
   return {
     dapps,

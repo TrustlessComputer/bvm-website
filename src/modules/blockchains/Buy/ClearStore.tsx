@@ -26,14 +26,9 @@ const ClearStore = () => {
   };
 
   React.useEffect(() => {
+    console.log('CLEAR ============');
     clear();
   }, [pathname]);
-
-  // React.useEffect(() => {
-  //   setTimeout(() => {
-  //     router.push('/chains');
-  //   }, 5000);
-  // }, []);
 
   return null;
 };
