@@ -124,7 +124,7 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   //   isHide: false,
   // },
   {
-    label: 'Bitcoin Appstore',
+    label: 'Bitcoin App Store',
     href: '/explore',
     isNewWindow: false,
     isHide: false,
