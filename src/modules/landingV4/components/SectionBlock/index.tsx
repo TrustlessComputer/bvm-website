@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { SectionBlockProps } from '../../interface';
 import s from './SectionBlock.module.scss';
 import { Box, Flex, Image as ChakraImage } from '@chakra-ui/react';
@@ -23,6 +23,14 @@ type BlockChainItem = Omit<TChainCard, 'idx'> & {
 
 const SectionBlock = (props: any) => {
   const { tag, title, item } = props;
+
+  const scrollWrapperRef = React.useRef<HTMLDivElement>(null);
+  const itemsWrapperRef = React.useRef<HTMLDivElement>(null);
+
+  const [showControls, setShowControls] = useState({
+    prev: false,
+    next: true,
+  });
 
   const getLogo = (logo: string) => {
     const tmp = LOGOS.filter((itemLogo) => {
@@ -63,6 +71,69 @@ const SectionBlock = (props: any) => {
     return <Box height={'28px'} marginBottom={'16px'} />;
   };
 
+  const handleChangeDirection = useCallback(
+    (direction: 'next' | 'prev') => {
+      if (!scrollWrapperRef.current || !itemsWrapperRef.current) return;
+
+      if (direction === 'prev') {
+        scrollWrapperRef.current.scrollTo({
+          left: scrollWrapperRef.current.scrollLeft - 800,
+          behavior: 'smooth',
+        });
+
+        // check first item of itemsWrapperRef is fully visible
+
+        setShowControls({
+          prev: scrollWrapperRef.current.scrollLeft > 200,
+          next: true,
+        });
+      }
+
+      if (direction === 'next') {
+        scrollWrapperRef.current.scrollTo({
+          left: scrollWrapperRef.current.scrollLeft + 800,
+          behavior: 'smooth',
+        });
+        setShowControls({
+          prev: true,
+          next:
+            scrollWrapperRef.current.scrollLeft +
+              scrollWrapperRef.current.offsetWidth <
+            itemsWrapperRef.current.offsetWidth,
+        });
+      }
+
+      console.log('scrollLeft: ', scrollWrapperRef.current.scrollLeft);
+    },
+    [
+      scrollWrapperRef.current,
+      itemsWrapperRef.current,
+      showControls.prev,
+      showControls.next,
+    ],
+  );
+
+  useEffect(() => {
+    if (scrollWrapperRef.current && itemsWrapperRef.current) {
+      const scrollWrapper = scrollWrapperRef.current;
+      const itemsWrapper = itemsWrapperRef.current;
+
+      if (itemsWrapper.offsetWidth > scrollWrapper.offsetWidth) {
+        setShowControls({
+          prev: scrollWrapper.scrollLeft > 0,
+          next:
+            scrollWrapper.scrollLeft + scrollWrapper.offsetWidth <
+            itemsWrapper.offsetWidth,
+        });
+      } else {
+        setShowControls({
+          prev: false,
+          next: false,
+        });
+      }
+    }
+  }, [scrollWrapperRef.current, itemsWrapperRef.current]);
+
   return (
     <Box
       // ml="calc((100vw - 1480px) / 2)"
@@ -73,8 +144,8 @@ const SectionBlock = (props: any) => {
           <span className={s.tag}>{tag}</span>
           <span>{title}</span>
         </p>
-        <div className={s.scroll_wrapper}>
-          <div className={s.items_wrapper}>
+        <div className={s.scroll_wrapper} ref={scrollWrapperRef}>
+          <div className={s.items_wrapper} ref={itemsWrapperRef}>
             {item.map((item: BlockCardItem | BlockChainItem, index: number) => (
               <Link
                 key={index}
@@ -151,11 +222,11 @@ const SectionBlock = (props: any) => {
 
                         return (
                           <div key={`${tag}-${index}`}>
-                            {tag}
                             {index === 0 &&
                               (props.id === 'apps' || props.id === 'games') && (
                                 <img src="/landing-v4/ic-chain.svg" />
                               )}
+                            {tag}
                           </div>
                         );
                       })}
@@ -164,6 +235,24 @@ const SectionBlock = (props: any) => {
               </Link>
             ))}
           </div>
+
+          {!!showControls.prev && (
+            <div
+              className={s.prev_btn}
+              onClick={() => handleChangeDirection('prev')}
+            >
+              <img src="\landing-v4\ic-arrow-control.svg"></img>
+            </div>
+          )}
+
+          {!!showControls.next && (
+            <div
+              className={s.next_btn}
+              onClick={() => handleChangeDirection('next')}
+            >
+              <img src="\landing-v4\ic-arrow-control.svg"></img>
+            </div>
+          )}
         </div>
       </div>
     </Box>

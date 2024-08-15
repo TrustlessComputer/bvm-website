@@ -2,6 +2,7 @@
     padding-top: 80px;
     // padding-bottom: 80px;
     background-color: #fff;
+    position: relative;
 
 
     @include is-mobile {
@@ -44,6 +45,39 @@
 
         &::-webkit-scrollbar {
             display: none;
+        }
+
+        .prev_btn {
+            transform: rotate(180deg);
+            position: absolute;
+            top: 60%;
+            left: 20px;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.75;
+            }
+        }
+
+        .next_btn {
+            top: 60%;
+            position: absolute;
+            right: 20px;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.75;
+            }
+        }
+
+        @include not-pc {
+
+            .prev_btn,
+            .next_btn {
+                display: none;
+            }
+
+
         }
 
 

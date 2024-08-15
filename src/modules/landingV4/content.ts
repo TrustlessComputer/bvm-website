@@ -33,6 +33,37 @@ export const GAME_SECTION = {
       },
       tags: ['Bitcoin Wars'],
     },
+
+    {
+      title: 'Key Merge',
+      description: 'Coming soon',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-keymerge.png`,
+      link: {
+        url: '',
+        target: '_blank',
+      },
+      tags: ['Bitcoin Arcade'],
+    },
+    {
+      title: 'Bitcoin 21',
+      description: 'Coming soon',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-btc21.png`,
+      link: {
+        url: '',
+        target: '_blank',
+      },
+      tags: ['Bitcoin Arcade'],
+    },
+    {
+      title: 'Blast',
+      description: 'Coming soon',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-blast.png`,
+      link: {
+        url: '',
+        target: '_blank',
+      },
+      tags: ['Bitcoin Arcade'],
+    },
     {
       title: 'Wombat',
       description: 'Coming soon',

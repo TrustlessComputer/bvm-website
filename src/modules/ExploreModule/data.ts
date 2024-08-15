@@ -102,7 +102,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
     bgColor:
       'linear-gradient(227deg, #FD8DFF -7.83%, #FF63B7 21.47%, #E400CD 69.37%, #FADEFF 118.41%)',
     description:
-      'The first Dex on Bitcoin using an Automated Market Maker (AMM) approach.',
+      'Trade perpetual contracts on Bitcoin. Decide whether to go long (buy) or short (sell) on BTC and ORDI.',
     tags: ['NakaChain'],
     link: {
       url: 'https://nakachain.xyz/',
@@ -164,6 +164,35 @@ export const GAMES_DATA: Omit<TDappCardProps, 'idx'>[] = [
     homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   },
   {
+    image: '/explore/key-merge.png',
+    title: 'Key Merge (Soon)',
+    description: 'Coming soon',
+    bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
+    tags: ['Bitcoin Arcade Chain', 'GameFi'],
+    link: { url: '', target: '' },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
+  },
+  {
+    image: '/explore/bitcoin-21.png',
+    title: 'Bitcoin 21 (Soon)',
+    description: 'Coming soon',
+    bgColor:
+      'linear-gradient(227deg, #FD8DFF -7.83%, #FF63B7 21.47%, #E400CD 69.37%, #FADEFF 118.41%)',
+    tags: ['Bitcoin Arcade Chain', 'GameFi'],
+    link: { url: '', target: '' },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
+  },
+  {
+    image: '/explore/blast.png',
+    title: 'Blast (Soon)',
+    description: 'Coming soon',
+    bgColor:
+      'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
+    tags: ['Bitcoin Arcade Chain', 'GameFi'],
+    link: { url: '', target: '' },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
+  },
+  {
     image: '/explore/game-wombat.png',
     title: 'Wombat (Soon)',
     description: 'Coming soon',
@@ -188,7 +217,7 @@ export const GAMES_DATA: Omit<TDappCardProps, 'idx'>[] = [
     title: 'Minesweepers (Soon)',
     description: 'Coming soon',
     bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
-    tags: ['Bitcoin Wars Chain'],
+    tags: ['Bitcoin Arcade Chain', 'GameFi'],
     link: { url: '', target: '' },
     homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   },
