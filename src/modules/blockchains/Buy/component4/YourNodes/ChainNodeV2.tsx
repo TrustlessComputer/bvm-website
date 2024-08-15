@@ -4,10 +4,11 @@ import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/Chain
 import { ChainNode as ChainNodeProps } from '@/types/node';
 import { NodeProps } from '@xyflow/react';
 import ChainRenderer from '../DappRenderer/ChainRenderer';
-import Node from '../Node/Node';
+// import Node from '../Node/Node';
+import Node from '../Node_v2/Node';
 
 const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
-  const { getBlockChainStatus } = useChainProvider();
+  const { getBlockChainStatus, isChainLoading } = useChainProvider();
   const {
     statusStr: statusMessage,
     statusColorStr: borderColor,
@@ -16,8 +17,14 @@ const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
 
   return (
     <Node
-      // overlay={{
-      // }}
+      overlay={
+        isChainLoading
+          ? {
+              type: 'loading',
+              message: 'Please wait while chain is getting ready to work.',
+            }
+          : undefined
+      }
       {...data}
       key={JSON.stringify(data)}
       heading={{
@@ -28,8 +35,6 @@ const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
         },
         backgroundColor: headingBackground,
       }}
-      // notification={{
-      // }}
       content={{
         children: <ChainRenderer />,
       }}

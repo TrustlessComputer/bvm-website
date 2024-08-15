@@ -19,7 +19,7 @@ const AddressInput = (props: Props) => {
 
   const { isCapture } = useCaptureStore();
   const { isUpdateFlow } = useChainProvider();
-  const { aaStatusData, aaInstalledData } = useAAModule();
+  const { aaStatusData, aaInstalledData, isCanNotEdit } = useAAModule();
   const { statusCode } = aaStatusData;
 
   const {
@@ -84,6 +84,7 @@ const AddressInput = (props: Props) => {
           value={tokenContractAddress}
           borderColor={isError ? 'red' : 'transparent'}
           borderWidth={isError ? '2px' : 'none'}
+          disabled={isCanNotEdit}
           onBlur={(e: any) => {
             const text = e.target.value;
             setTokenContractFocused(true);
@@ -96,6 +97,9 @@ const AddressInput = (props: Props) => {
           }}
           _focus={{
             borderColor: isError ? '#ff6666ff' : 'transparent',
+          }}
+          _disabled={{
+            color: '#fff',
           }}
         />
 

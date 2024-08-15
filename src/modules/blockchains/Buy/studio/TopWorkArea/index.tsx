@@ -9,7 +9,7 @@ import MenuSettingChain from '../Main/MenuSettingChain';
 export default function TopWorkArea(): ReactElement {
   const { priceBVM, priceUSD, needContactUs } = useOrderFormStoreV3();
 
-  const { order, isUpdateFlow } = useChainProvider();
+  const { order, isUpdateFlow, isOwnerChain } = useChainProvider();
 
   return (
     <div className={s.right_box_footer}>
@@ -34,7 +34,7 @@ export default function TopWorkArea(): ReactElement {
       )}
 
       <LaunchButton isUpdate={!!order} />
-      {isUpdateFlow && <MenuSettingChain />}
+      {isUpdateFlow && isOwnerChain && <MenuSettingChain />}
     </div>
   );
 }

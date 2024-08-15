@@ -13,7 +13,8 @@ import Draggable from '../Draggable';
 import Droppable from '../Droppable';
 import Lego from '../Lego';
 import LegoParent from '../LegoParent';
-import Node from '../Node/Node';
+// import Node from '../Node/Node';
+import Node from '../Node_v2/Node';
 import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
 
 const AANode = ({ data }: NodeProps<DappNodeProps>) => {
@@ -48,14 +49,17 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
         isAAModuleLoading
           ? {
               type: 'loading',
+              message: 'Please wait a minute',
             }
           : undefined
       }
       key={JSON.stringify(data)}
+      borderColor={aaStatusData?.borderColorStr}
       heading={{
         title: data.title,
         status: {
           message: aaStatusData?.statusStr,
+          color: aaStatusData?.borderColorStr,
         },
         borderColor: aaStatusData?.borderColorStr,
         backgroundColor: aaStatusData?.bgColorStr,

@@ -9,9 +9,13 @@ import { ResponsiveValue } from '@chakra-ui/react';
 import * as CSS from 'csstype';
 import { useContext, useMemo } from 'react';
 import { ChainContext } from './ChainProvider';
+import { useAppSelector } from '@/stores/hooks';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 
 export const useChainProvider = () => {
   const context = useContext(ChainContext);
+  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+
   if (!context) {
     throw new Error(
       'ChainContext not found, useChainProvider must be used within the ChainProvider',
@@ -20,8 +24,24 @@ export const useChainProvider = () => {
 
   const { order } = context;
 
+  const isOwnerChain = useMemo(() => {
+    return (
+      order?.tcAddress?.toLowerCase() ===
+      accountInforL2Service?.tcAddress?.toLowerCase()
+    );
+  }, [order, accountInforL2Service]);
+
   const isUpdateFlow = useMemo(() => {
     return !!order;
+  }, [order]);
+
+  const isChainLoading = useMemo(() => {
+    return (
+      isUpdateFlow &&
+      (order?.status === OrderStatus.Processing ||
+        order?.status === OrderStatus.Updating ||
+        order?.status === OrderStatus.WaitingPayment)
+    );
   }, [order]);
 
   const isBlockChainReady = useMemo(() => {
@@ -243,12 +263,14 @@ export const useChainProvider = () => {
   return {
     ...context,
     isUpdateFlow,
+    isChainLoading,
     chainData: order,
     order,
     dAppListAvailable,
     isBlockChainReady,
     selectedCategoryMapping,
     isAAInstalled,
+    isOwnerChain,
 
     //
     getBlockChainStatus,

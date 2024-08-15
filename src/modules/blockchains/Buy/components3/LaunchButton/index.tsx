@@ -39,6 +39,7 @@ import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
 import { DappType } from '@/modules/blockchains/dapp/types';
 import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
+import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -94,6 +95,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
   const { showContactUsModal } = useContactUs();
   const { retrieveFormsByDappKey } = useOneForm();
+  const { isUpdateFlow, isOwnerChain } = useChainProvider();
 
   const router = useRouter();
   const { computerNameField, chainIdRandom } = useBuy();
@@ -118,6 +120,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     useOrderFormStore();
   const searchParams = useSearchParams();
   const packageParam = searchParams.get('use-case') || PRICING_PACKGE.Hacker;
+
+  const isDisabledBtn = useMemo(() => {
+    return isUpdateFlow && !isOwnerChain;
+  }, [isUpdateFlow, isOwnerChain]);
 
   const titleButton = useMemo(() => {
     if (!loggedIn) {
@@ -275,6 +281,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   };
 
   const onUpdateHandler = async () => {
+    if (isDisabledBtn) {
+      return;
+    }
+
     if (!allFilled) {
       setShowError(true);
     }
@@ -526,7 +536,9 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   return (
     <>
       <div
-        className={`${s.launch} ${s.active}`}
+        className={`${s.launch} ${s.active} ${
+          isDisabledBtn ? s.disabled : undefined
+        }`}
         onClick={() => {
           if (!loggedIn) {
             login();
