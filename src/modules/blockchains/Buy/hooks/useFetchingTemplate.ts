@@ -197,7 +197,7 @@ export default function useFetchingTemplate() {
           ids,
           baseIndex: index,
         },
-        position: { x: 30 * (index + 2), y: 30 * (index + 2) },
+        position: { x: 500 * (index + 1), y: 30 },
       };
     });
     // const newNodes: DappNode[] = draggedIds2D.map((ids, index) => {
