@@ -56,15 +56,15 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   },
   {
     image: '/explore/dapp-heartbeat.png',
-    title: 'Hearbeats',
+    title: 'Heartbeats',
     bgColor:
       'linear-gradient(226.66deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
     description:
       'Provide transparent and verifiable insights into Bitcoin rollups.',
     tags: ['', 'Analytics'],
     link: {
-      url: 'https://bvm.network/heartbeat',
-      target: '_blank',
+      url: '/heartbeats',
+      target: '',
     },
     homeImage: `${CDN_URL}/pages/landing-v4/home-heartbeat.png`,
   },
@@ -279,7 +279,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
       },
       {
         icon: '/explore/web.svg',
-        link: 'https://bvm.network/bitcoin-wars',
+        link: '/bitcoin-wars',
       },
     ],
     tags: ['L3', 'ZK Rollup'],

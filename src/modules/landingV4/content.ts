@@ -2,6 +2,7 @@ import { CHAIN_DATA, DAPPS_DATA } from '../ExploreModule/data';
 import { Research } from '../Lab/data';
 import { CDN_URL, CDN_URL_IMAGES_NBC } from '@/config';
 import { BLOGS } from '../landingV3/Componets/Section_7/constant';
+import { id } from 'ethers/lib/utils';
 
 export const APPS_SECTION = {
   id: 'apps',
@@ -27,8 +28,8 @@ export const GAME_SECTION = {
         'The first fully on-chain game built on a ZK Rollup on the Bitcoin network.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
       link: {
-        url: '',
-        target: '_blank',
+        url: '/bitcoin-wars',
+        target: '',
       },
       tags: ['Bitcoin Wars'],
     },
@@ -66,6 +67,7 @@ export const GAME_SECTION = {
 };
 
 export const ROLLUPS_SECTION = {
+  id: 'rollups',
   tag: 'Rollups. ',
   title: `Explore chains backed by Bitcoin's security.`,
   item: CHAIN_DATA,
@@ -80,8 +82,8 @@ export const BOB_SECTION = {
       description: 'A fun way to customize your blockchain to meet your needs.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-studio.png`,
       link: {
-        url: 'https://bvm.network/studio',
-        target: '_blank',
+        url: '/studio',
+        target: '',
       },
     },
     {
@@ -90,8 +92,8 @@ export const BOB_SECTION = {
         'A ZK rollup on BitcoiProvide transparent and verifiable insights into Bitcoin rollups.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-heartbeat.png`,
       link: {
-        url: 'https://bvm.network/heartbeat',
-        target: '_blank',
+        url: '/heartbeats',
+        target: '',
       },
     },
     {
@@ -100,8 +102,8 @@ export const BOB_SECTION = {
         'ZK rollups on Bitcoin for virtually any decentralized applications.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-bitzk.png`,
       link: {
-        url: 'https://bvm.network/module/bitzk',
-        target: '_blank',
+        url: '/module/bitzk',
+        target: '',
       },
     },
     {
@@ -110,8 +112,8 @@ export const BOB_SECTION = {
         'ZOptimistic rollups on Bitcoin for virtually any decentralized applications.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-bitop.png`,
       link: {
-        url: 'https://bvm.network/module/bitop',
-        target: '_blank',
+        url: '/module/bitop',
+        target: '',
       },
     },
     {
@@ -119,8 +121,8 @@ export const BOB_SECTION = {
       description: 'A high-throughput DA verifiable with a light node.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-celestia.png`,
       link: {
-        url: 'https://bvm.network/module/bitcoin-celestia',
-        target: '_blank',
+        url: '/module/bitcoin-celestia',
+        target: '',
       },
     },
     {
@@ -129,8 +131,8 @@ export const BOB_SECTION = {
         'A scalable DA solution specialized in serving Ethereum rollups that leverage EigenLayer.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-eigen.png`,
       link: {
-        url: 'https://bvm.network/module/bitcoin-eigen',
-        target: '_blank',
+        url: '/module/bitcoin-eigen',
+        target: '',
       },
     },
     {
@@ -138,8 +140,8 @@ export const BOB_SECTION = {
       description: 'Low-cost and expandable blobspace',
       homeImage: `${CDN_URL}/pages/landing-v4/home-avail.png`,
       link: {
-        url: 'https://bvm.network/module/bitcoin-avail',
-        target: '_blank',
+        url: '/module/bitcoin-avail',
+        target: '',
       },
     },
     {
@@ -147,8 +149,8 @@ export const BOB_SECTION = {
       description: 'An efficient and robust data availability layer',
       homeImage: `${CDN_URL}/pages/landing-v4/home-near.png`,
       link: {
-        url: 'https://bvm.network/module/bitcoin-near',
-        target: '_blank',
+        url: '/module/bitcoin-near',
+        target: '',
       },
     },
     {
@@ -156,8 +158,8 @@ export const BOB_SECTION = {
       description: 'The most cost-effective storage solution',
       homeImage: `${CDN_URL}/pages/landing-v4/home-polygon.png`,
       link: {
-        url: 'https://bvm.network/module/bitcoin-polygon',
-        target: '_blank',
+        url: '/module/bitcoin-polygon',
+        target: '',
       },
     },
     {
@@ -166,8 +168,8 @@ export const BOB_SECTION = {
         'The largest decentralized data storage marketplace, protocol, & cryptocurrency',
       homeImage: `${CDN_URL}/pages/landing-v4/home-filecoin.png`,
       link: {
-        url: 'https://bvm.network/module/bitcoin-filecoin',
-        target: '_blank',
+        url: '/module/bitcoin-filecoin',
+        target: '',
       },
     },
     {
@@ -175,8 +177,8 @@ export const BOB_SECTION = {
       description: 'Roll up to Bitcoin as Ordinal Inscriptions',
       homeImage: `${CDN_URL}/pages/landing-v4/home-ordinals.png`,
       link: {
-        url: 'https://bvm.network/module-detail',
-        target: '_blank',
+        url: '/module-detail',
+        target: '',
       },
     },
     {
@@ -184,8 +186,8 @@ export const BOB_SECTION = {
       description: 'Embed proofs in Taproot transactions',
       homeImage: `${CDN_URL}/pages/landing-v4/home-taproot.png`,
       link: {
-        url: 'https://bvm.network/module-detail',
-        target: '_blank',
+        url: '/module-detail',
+        target: '',
       },
     },
     {
@@ -193,8 +195,8 @@ export const BOB_SECTION = {
       description: `Record data directly on Bitcoin's UTXO, ensuring data permanence and immutability`,
       homeImage: `${CDN_URL}/pages/landing-v4/home-stamps.png`,
       link: {
-        url: 'https://bvm.network/module-detail',
-        target: '_blank',
+        url: '/module-detail',
+        target: '',
       },
     },
   ],
@@ -210,8 +212,8 @@ export const PARTNER_SECTION = {
         'ZK rollups on Bitcoin for virtually any decentralized applications.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-bitzk.png`,
       link: {
-        url: 'https://bvm.network/module/bitzk',
-        target: '_blank',
+        url: '/module/bitzk',
+        target: '',
       },
     },
     {
@@ -220,8 +222,8 @@ export const PARTNER_SECTION = {
         'ZOptimistic rollups on Bitcoin for virtually any decentralized applications.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-bitop.png`,
       link: {
-        url: 'https://bvm.network/module/bitop',
-        target: '_blank',
+        url: '/module/bitop',
+        target: '',
       },
     },
     {
@@ -229,8 +231,8 @@ export const PARTNER_SECTION = {
       description: 'A high-throughput DA verifiable with a light node.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-celestia.png`,
       link: {
-        url: 'https://bvm.network/module/bitcoin-celestia',
-        target: '_blank',
+        url: '/module/bitcoin-celestia',
+        target: '',
       },
     },
     {
@@ -239,8 +241,8 @@ export const PARTNER_SECTION = {
         'A scalable DA solution specialized in serving Ethereum rollups that leverage EigenLayer.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-eigen.png`,
       link: {
-        url: 'https://bvm.network/module/bitcoin-eigen',
-        target: '_blank',
+        url: '/module/bitcoin-eigen',
+        target: '',
       },
     },
     {
@@ -248,8 +250,8 @@ export const PARTNER_SECTION = {
       description: 'Low-cost and expandable blobspace',
       homeImage: `${CDN_URL}/pages/landing-v4/home-avail.png`,
       link: {
-        url: 'https://bvm.network/module/bitcoin-avail',
-        target: '_blank',
+        url: '/module/bitcoin-avail',
+        target: '',
       },
     },
     {
@@ -257,8 +259,8 @@ export const PARTNER_SECTION = {
       description: 'An efficient and robust data availability layer',
       homeImage: `${CDN_URL}/pages/landing-v4/home-near.png`,
       link: {
-        url: 'https://bvm.network/module/bitcoin-near',
-        target: '_blank',
+        url: '/module/bitcoin-near',
+        target: '',
       },
     },
     {
@@ -266,8 +268,8 @@ export const PARTNER_SECTION = {
       description: 'The most cost-effective storage solution',
       homeImage: `${CDN_URL}/pages/landing-v4/home-polygon.png`,
       link: {
-        url: 'https://bvm.network/module/bitcoin-polygon',
-        target: '_blank',
+        url: '/module/bitcoin-polygon',
+        target: '',
       },
     },
     {
@@ -276,8 +278,8 @@ export const PARTNER_SECTION = {
         'The largest decentralized data storage marketplace, protocol, & cryptocurrency',
       homeImage: `${CDN_URL}/pages/landing-v4/home-filecoin.png`,
       link: {
-        url: 'https://bvm.network/module/bitcoin-filecoin',
-        target: '_blank',
+        url: '/module/bitcoin-filecoin',
+        target: '',
       },
     },
     {
@@ -285,8 +287,8 @@ export const PARTNER_SECTION = {
       description: 'Roll up to Bitcoin as Ordinal Inscriptions',
       homeImage: `${CDN_URL}/pages/landing-v4/home-ordinals.png`,
       link: {
-        url: 'https://bvm.network/module-detail',
-        target: '_blank',
+        url: '/module-detail',
+        target: '',
       },
     },
     {
@@ -294,8 +296,8 @@ export const PARTNER_SECTION = {
       description: 'Embed proofs in Taproot transactions',
       homeImage: `${CDN_URL}/pages/landing-v4/home-taproot.png`,
       link: {
-        url: 'https://bvm.network/module-detail',
-        target: '_blank',
+        url: '/module-detail',
+        target: '',
       },
     },
     {
@@ -303,8 +305,8 @@ export const PARTNER_SECTION = {
       description: `Record data directly on Bitcoin's UTXO, ensuring data permanence and immutability`,
       homeImage: `${CDN_URL}/pages/landing-v4/home-stamps.png`,
       link: {
-        url: 'https://bvm.network/module-detail',
-        target: '_blank',
+        url: '/module-detail',
+        target: '',
       },
     },
   ],

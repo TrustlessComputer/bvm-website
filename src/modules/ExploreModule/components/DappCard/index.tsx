@@ -50,9 +50,10 @@ export default function DappCard({
             dangerouslySetInnerHTML={{ __html: props.description }}
           />
           <div className={s.tags}>
-            {props.tags.map((tag, index) => (
-              <p key={index}>{tag}</p>
-            ))}
+            {props.tags.map((tag, index) => {
+              if (!tag) return null;
+              return <p key={index}>{tag}</p>;
+            })}
           </div>
         </div>
       </Link>

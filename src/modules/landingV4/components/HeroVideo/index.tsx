@@ -84,9 +84,7 @@ export default function HeroVideo() {
                   <div>
                     <a
                       href={'#'}
-                      onClick={() =>
-                        window.open('https://bvm.network/build-bitcoin')
-                      }
+                      onClick={() => router.push('/build-bitcoin')}
                       style={{ textAlign: 'center', display: 'block' }}
                     >
                       <img
@@ -103,7 +101,7 @@ export default function HeroVideo() {
                   <div>
                     <a
                       href={'#'}
-                      onClick={() => window.open('https://bvm.network/bvm')}
+                      onClick={() => router.push('/bvm')}
                       style={{ textAlign: 'center', display: 'block' }}
                     >
                       <img
