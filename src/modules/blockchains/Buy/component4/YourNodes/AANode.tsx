@@ -14,8 +14,12 @@ import Droppable from '../Droppable';
 import Lego from '../Lego';
 import LegoParent from '../LegoParent';
 // import Node from '../Node/Node';
-import Node from '../Node_v2/Node';
 import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
+import Image from 'next/image';
+import Button from '../Button';
+import Node from '../Node_v2/Node';
+
+import styles from './styles.module.scss';
 
 const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   const { dapp } = data;
@@ -68,48 +72,65 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
       // }}
       content={{
         children: (
-          <Draggable
-            id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
-            value={{
-              dappIndex,
-              title: dapp.baseBlock.title,
-              icon: dapp.baseBlock.icon,
-              fieldKey: dapp.baseBlock.key,
-              background: dapp.color_border || dapp.color,
-            }}
-          >
-            <Droppable
+          <>
+            <Draggable
               id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
-              style={{
-                width: 'max-content',
-                height: 'max-content',
+              value={{
+                dappIndex,
+                title: dapp.baseBlock.title,
+                icon: dapp.baseBlock.icon,
+                fieldKey: dapp.baseBlock.key,
+                background: dapp.color_border || dapp.color,
               }}
             >
-              <LegoParent {...dapp} background={dapp.color} dapp={dapp}>
-                <Lego
-                  first={false}
-                  last={false}
-                  titleInLeft
-                  titleInRight={false}
-                  zIndex={1}
-                  background={adjustBrightness(dapp.color, -10)}
-                  {...dapp.baseBlock.fields[0]}
-                >
-                  <AddressInput option={dapp.baseBlock.fields[0]} />
-                </Lego>
-                <Lego
-                  first={false}
-                  last={false}
-                  titleInLeft
-                  titleInRight={false}
-                  background={adjustBrightness(dapp.color, -10)}
-                  {...dapp.baseBlock.fields[1]}
-                >
-                  <FeeRateInput option={dapp.baseBlock.fields[1]} />
-                </Lego>
-              </LegoParent>
-            </Droppable>
-          </Draggable>
+              <Droppable
+                id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
+                style={{
+                  width: 'max-content',
+                  height: 'max-content',
+                }}
+              >
+                <LegoParent {...dapp} background={dapp.color} dapp={dapp}>
+                  <Lego
+                    first={false}
+                    last={false}
+                    titleInLeft
+                    titleInRight={false}
+                    zIndex={1}
+                    background={adjustBrightness(dapp.color, -10)}
+                    {...dapp.baseBlock.fields[0]}
+                  >
+                    <AddressInput option={dapp.baseBlock.fields[0]} />
+                  </Lego>
+                  <Lego
+                    first={false}
+                    last={false}
+                    titleInLeft
+                    titleInRight={false}
+                    background={adjustBrightness(dapp.color, -10)}
+                    {...dapp.baseBlock.fields[1]}
+                  >
+                    <FeeRateInput option={dapp.baseBlock.fields[1]} />
+                  </Lego>
+                </LegoParent>
+              </Droppable>
+            </Draggable>
+
+            <div className={styles.resetButtonWrapper}>
+              <Button
+                className={styles.resetButton}
+                onClick={() => {}} // TODO: @Tony
+              >
+                RESET{' '}
+                <Image
+                  src="/icons/undo.svg"
+                  alt="undo"
+                  width={20}
+                  height={20}
+                />
+              </Button>
+            </div>
+          </>
         ),
       }}
     />

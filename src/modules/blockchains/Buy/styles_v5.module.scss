@@ -579,12 +579,25 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: rgba(56, 55, 55, 0.47);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 999;
   gap: 16px;
+  .inner {
+    padding-top: 24px;
+    padding-bottom: 56px;
+    background-color: #fff;
+    max-width: 562px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 24px;
+  }
   &_text {
-    font-size: 26px;
-    font-weight: 500;
-    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: calc(20 /14);
+    color: #555555;
   }
 }

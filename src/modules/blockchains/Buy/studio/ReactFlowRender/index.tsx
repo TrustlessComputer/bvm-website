@@ -32,6 +32,7 @@ const ReactFlowRenderer = React.memo(() => {
       edgeTypes={{
         customEdge: CustomEdge,
       }}
+      deleteKeyCode={''}
       onEdgesChange={onEdgesChange}
       onNodesChange={onNodesChange}
       zoomOnDoubleClick={false}

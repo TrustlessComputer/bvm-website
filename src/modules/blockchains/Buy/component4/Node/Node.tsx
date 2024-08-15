@@ -1,23 +1,39 @@
-import React, { useEffect } from 'react';
+import { Handle, Position } from '@xyflow/react';
+import React from 'react';
 
 import { NodeProps } from '@/types/node';
 import NodeNotification from '../YourNodes/NodeNotification';
-
 import NodeContent from './NodeContent';
 import NodeHeading from './NodeHeading';
 import NodeOverlay from './NodeOverlay';
 import styles from './styles.module.scss';
-import { Handle, Position } from '@xyflow/react';
 
 const Node = ({
-                overlay,
-                content,
-                heading,
-                notification,
-                borderColor = '#FFC700',
-                targetHandles,
-                sourceHandles,
-              }: NodeProps) => {
+  overlay,
+  content,
+  heading,
+  notification,
+  borderColor = '#FFC700',
+  targetHandles,
+  sourceHandles,
+}: NodeProps) => {
+  const nodeRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (!nodeRef.current) return;
+
+    const preventKeyDown = (e: KeyboardEvent) => {
+      e.stopPropagation();
+    };
+
+    const node = nodeRef.current;
+
+    node.addEventListener('keydown', preventKeyDown);
+
+    return () => {
+      node.removeEventListener('keydown', preventKeyDown);
+    };
+  }, []);
 
   return (
     <div
