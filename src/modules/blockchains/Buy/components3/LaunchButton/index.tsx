@@ -13,7 +13,7 @@ import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import { orderBuyAPI_V3 } from '@/services/api/l2services';
+import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import {
   getL2ServicesStateSelector,
@@ -39,6 +39,7 @@ import { formValuesAdapter } from './FormValuesAdapter';
 import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
+import { setOrderSelected } from '@/stores/states/l2services/reducer';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -334,7 +335,62 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
     console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
     console.log('LEON LOG: 111', airdropForms);
-    return;
+    try {
+      // Update and Call API install (behind the scene form BE Phuong)
+      const result = await orderUpdateV2(params, orderDetail.orderId);
+      if (result) {
+        //Config Account Abstraction...
+        configAccountAbstraction(dynamicForm);
+        let isConfigDapp = false;
+        //Staking...
+        if (stakingForms && stakingForms.length > 0) {
+          await onSubmitStaking({
+            forms: stakingForms,
+          });
+          isConfigDapp = true;
+        } else if (airdropForms && airdropForms.length > 0) {
+          await onSubmitAirdrop({ forms: airdropForms });
+          isConfigDapp = true;
+        } else if (tokensForms && tokensForms.length > 0) {
+          await onSubmitTokenGeneration({ forms: tokensForms });
+          isConfigDapp = true;
+        }
+
+        if (isConfigDapp) {
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        }
+
+        // TO DO [Leon]
+        // Call API Config DApp if is exist dapp (issues token, staking, ....) daragged into Data View
+
+        // try {
+        //   // const res =  await ...
+        // } catch (error) {}
+
+        isSuccess = true;
+        dispatch(setOrderSelected(result));
+      }
+    } catch (error) {
+      console.log('ERROR: ', error);
+      isSuccess = false;
+      const { message } = getErrorMessage(error);
+      // toast.error(message);
+      if (message && message.toLowerCase().includes('insufficient balance')) {
+        onOpenTopUpModal();
+      } else {
+        toast.error(message);
+      }
+    } finally {
+      getOrderDetailByID(orderDetail.orderId);
+
+      await sleep(1);
+      if (isSuccess) {
+        toast.success('Update Successful');
+      }
+      setSubmitting(false);
+    }
   };
 
   const onLaunchExecute = async () => {
