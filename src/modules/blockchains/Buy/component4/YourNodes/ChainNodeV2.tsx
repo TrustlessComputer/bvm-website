@@ -25,7 +25,7 @@ const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
               type: 'loading',
               iconUrl: '/coffee.gif',
               message:
-                'Grab a coffee and relax! BVM is cooking, and your Bitcoin rollup will be ready in 1 hour.',
+                'Grab a coffee and relax! BVM is cooking, and your Bitcoin rollup will be ready in 2 hours.',
             }
           : undefined
       }
