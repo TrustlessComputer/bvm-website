@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import ModalVideo from 'react-modal-video';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+import {VIDEO_HERO_MAIN} from "@constants/common";
 
 export default function HeroContent() {
   const router = useRouter();
@@ -85,7 +86,7 @@ export default function HeroContent() {
       </Fade>
       <ModalVideo
         channel="custom"
-        url={'/public-sale/public_sale_video_2.mp4'}
+        url={VIDEO_HERO_MAIN}
         isOpen={isOpen}
         onClose={() => {
           setOpen(false);

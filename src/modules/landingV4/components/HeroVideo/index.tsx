@@ -7,6 +7,7 @@ import Banner from '@/modules/landingV3/Componets/Banner';
 import { Box, Flex } from '@chakra-ui/react';
 import Fade from '@/interactive/Fade';
 import ModalVideo from 'react-modal-video';
+import {VIDEO_HERO_MAIN} from "@constants/common";
 
 const DELAY = 2;
 
@@ -128,7 +129,7 @@ export default function HeroVideo() {
 
       <ModalVideo
         channel="custom"
-        url={'/public-sale/public_sale_video_2.mp4'}
+        url={VIDEO_HERO_MAIN}
         isOpen={isOpen}
         onClose={() => {
           setOpen(false);
