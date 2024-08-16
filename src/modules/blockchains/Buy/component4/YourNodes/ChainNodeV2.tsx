@@ -23,7 +23,9 @@ const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
         isChainLoading
           ? {
               type: 'loading',
-              message: 'Please wait while chain is getting ready to work.',
+              iconUrl: '/coffee.gif',
+              message:
+                'Grab a coffee and relax! BVM is cooking, and your Bitcoin rollup will be ready in 1 hour.',
             }
           : undefined
       }
