@@ -383,6 +383,11 @@ export default function useHandleDragging() {
         return;
       }
 
+      if (!overIsABase && !(activeIsABase || activeIsABaseModule)) {
+        showValidateError(`Please drag to the ${thisDapp.title} box!`);
+        return;
+      }
+
       // Case 1.2: Output already has base block and has reached the limit
       if (
         !noBaseBlockInOutput &&
@@ -656,34 +661,38 @@ export default function useHandleDragging() {
       // Case 2.1: Dragged lego is a base block
       if (activeIsABase) {
         const totalTemplateDapps = (templateDapps || []).length;
-        const removeIndex =  activeBaseIndex + 1 + totalTemplateDapps
+        const removeIndex = activeBaseIndex + 1 + totalTemplateDapps;
         const rootNode = 'blockchain';
 
-        const newEdges = edges.filter(item => item.target !== nodes[removeIndex].id);
-        let newNodes = removeItemAtIndex(
-          nodes,
-          removeIndex,
+        const newEdges = edges.filter(
+          (item) => item.target !== nodes[removeIndex].id,
         );
+        let newNodes = removeItemAtIndex(nodes, removeIndex);
 
-        let getHandleNodeBlockChain = nodes.find((item) => item.id === rootNode);
+        let getHandleNodeBlockChain = nodes.find(
+          (item) => item.id === rootNode,
+        );
 
         let countSourceHandle = 0;
 
         for (let i = 0; i < edges.length; i++) {
-          if(edges[i].sourceHandle === `${rootNode}-s-${thisDapp.title}`) {
+          if (edges[i].sourceHandle === `${rootNode}-s-${thisDapp.title}`) {
             countSourceHandle += 1;
           }
         }
 
         if (countSourceHandle == 1) {
-          const newSourceHandles = getHandleNodeBlockChain?.data.sourceHandles?.filter(item => item !== `${rootNode}-s-${thisDapp.title}`)
+          const newSourceHandles =
+            getHandleNodeBlockChain?.data.sourceHandles?.filter(
+              (item) => item !== `${rootNode}-s-${thisDapp.title}`,
+            );
           const data = {
             ...getHandleNodeBlockChain,
             data: {
               ...getHandleNodeBlockChain?.data,
-              sourceHandles: newSourceHandles
-            }
-          }
+              sourceHandles: newSourceHandles,
+            },
+          };
           console.log('newSourceHandles', newSourceHandles);
           newNodes = newNodes.map((item) =>
             item.id === rootNode ? data : item,
