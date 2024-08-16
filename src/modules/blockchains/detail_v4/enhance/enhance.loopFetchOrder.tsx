@@ -9,10 +9,10 @@ const enhanceLoopFetchOrder = (WrappedComponent: any) => (props: any) => {
   );
 
   useEffect(() => {
-    console.log('--- enhanceExtractOrderID useEffect START --- ');
+    // console.log('--- enhanceExtractOrderID useEffect START --- ');
     loopFetchChainInfor();
     return () => {
-      console.log('--- enhanceExtractOrderID useEffect END --- ');
+      // console.log('--- enhanceExtractOrderID useEffect END --- ');
       clearIntervalTimer();
     };
   }, []);

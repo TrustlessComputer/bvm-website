@@ -20,7 +20,7 @@ export const useFetchOrderTimer = (orderId: string) => {
     if (!timerRef.current) {
       timerRef.current = setInterval(() => {
         if (orderId) {
-          console.log('loopFetchChainInfor -- OrderID -- ', orderId);
+          // console.log('loopFetchChainInfor -- OrderID -- ', orderId);
           getOrderDetailByID(orderId);
         }
       }, TIMER_INTERVAL);

@@ -6,7 +6,6 @@ import styles from './styles.module.scss';
 import { Flex, Text, Image } from '@chakra-ui/react';
 
 const NodeOverlay = ({ ...props }: NodeOverlayProps) => {
-  console.log('Icon URL: ', props.iconUrl);
   return (
     <div className={styles.nodeOverlay}>
       <div className={styles.nodeOverlay__content}>
