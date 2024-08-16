@@ -1,3 +1,4 @@
+import { uniqBy } from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import ImagePlaceholder from '@/components/ImagePlaceholder';
@@ -15,6 +16,7 @@ import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import {
   getL2ServicesStateSelector,
   getOrderDetailSelected,
@@ -39,7 +41,6 @@ import { formValuesAdapter } from './FormValuesAdapter';
 import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
-import { setOrderSelected } from '@/stores/states/l2services/reducer';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -271,6 +272,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         }
       }
     }
+
+    dynamicForm.forEach((field) => {
+      field.options = uniqBy(field.options, 'key');
+    });
 
     return {
       dynamicForm,
