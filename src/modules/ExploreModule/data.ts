@@ -23,7 +23,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   //     'The first fully on-chain game built on a ZK Rollup on the Bitcoin network.',
   //   bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%);',
   //   tags: ['Bitcoin Wars Chain'],
-  //   link: { url: '/bitcoin-wars', target: '' },
+  //   link: { url: '/bitcoin-wars', target: '_self' },
   //   homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   // },
   // {
@@ -49,7 +49,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
       'The “Decentralized Binance” — buy Bitcoin easily and permisionlessly.',
     tags: ['RuneChain', 'Defi'],
     link: {
-      url: 'https:/runechain.com/',
+      url: 'https://runechain.com/',
       target: '_blank',
     },
     homeImage: `${CDN_URL}/pages/landing-v4/home-runedex.png`,
@@ -64,7 +64,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
     tags: ['', 'Analytics'],
     link: {
       url: '/heartbeats',
-      target: '',
+      target: '_self',
     },
     homeImage: `${CDN_URL}/pages/landing-v4/home-heartbeat.png`,
   },
@@ -91,7 +91,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
     description: 'Trade Bitcoin and BRC-20 futures.',
     tags: ['NakaChain', 'DeFi'],
     link: {
-      url: 'https://nakachain.xyz/',
+      url: 'https://nakachain.xyz/perpetual',
       target: '_blank',
     },
     homeImage: `${CDN_URL}/pages/landing-v4/home-nakadex-1.png`,
@@ -160,7 +160,7 @@ export const GAMES_DATA: Omit<TDappCardProps, 'idx'>[] = [
       'The first fully on-chain game built on a ZK Rollup on the Bitcoin network.',
     bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%);',
     tags: ['Bitcoin Wars Chain'],
-    link: { url: '/bitcoin-wars', target: '' },
+    link: { url: '/bitcoin-wars', target: '_self' },
     homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   },
   {
@@ -248,7 +248,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
     homeImage: `${CDN_URL}/pages/landing-v4/home-rollups-naka.png`,
   },
   {
-    image: '/explore/eternal.png',
+    image: '/explore/eternal2.png',
     title: 'Eternal AI',
     description:
       'The first Bitcoin L2 for fully on-chain AI, designed to preserve AI as censorship-resistant, tamper-proof, and permissionlessly accessible to every human.',

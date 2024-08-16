@@ -2,33 +2,33 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 
-import s from './styles.module.scss';
-import { FormOrder } from '../../stores';
+import useL2Service from '@/hooks/useL2Service';
+import TopupModal from '@/modules/blockchains/components/TopupModa_V2';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
-import { useSearchParams, useRouter } from 'next/navigation';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
+import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import {
   getL2ServicesStateSelector,
   getOrderDetailSelected,
 } from '@/stores/states/l2services/selector';
-import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import { IModelCategory, IModelOption } from '@/types/customize-model';
+import { getErrorMessage } from '@/utils/errorV2';
+import { formatCurrencyV2 } from '@/utils/format';
 import sleep from '@/utils/sleep';
 import { Spinner, Text, useDisclosure } from '@chakra-ui/react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import toast from 'react-hot-toast';
+import { getChainIDRandom } from '../../Buy.helpers';
+import { FormOrder } from '../../stores';
 import { useOrderFormStore } from '../../stores/index_v2';
 import useOrderFormStoreV3 from '../../stores/index_v3';
-import { formValuesAdapter } from './FormValuesAdapter';
-import { getChainIDRandom } from '../../Buy.helpers';
-import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
-import { getErrorMessage } from '@/utils/errorV2';
-import TopupModal from '@/modules/blockchains/components/TopupModa_V2';
-import useL2Service from '@/hooks/useL2Service';
 import ErrorModal from '../ErrorModal';
-import { useContactUs } from '@/Providers/ContactUsProvider/hook';
-import { formatCurrencyV2 } from '@/utils/format';
-import toast from 'react-hot-toast';
-import { setOrderSelected } from '@/stores/states/l2services/reducer';
-import { IModelCategory, IModelOption } from '@/types/customize-model';
+import { formValuesAdapter } from './FormValuesAdapter';
+import s from './styles.module.scss';
 
 const LaunchButton = ({
   data,
@@ -88,10 +88,10 @@ const LaunchButton = ({
       return 'Connect';
     }
     if (needContactUs) {
-      return 'Contact Us';
+      return 'Launch';
     }
     if (isUpdate) {
-      return 'Update';
+      return 'Update'; //Update ?? (flow Update)
     }
     return 'Launch';
   }, [loggedIn, isUpdate, needContactUs]);
@@ -388,15 +388,24 @@ const LaunchButton = ({
           {!loggedIn ? (
             <Text className={s.connect}>
               {titleButton}
-              {needContactUs && (
+
+              <div className={`${s.icon}`}>
+                <ImagePlaceholder
+                  src={'/launch.png'}
+                  alt={'launch'}
+                  width={48}
+                  height={48}
+                />
+              </div>
+              {/* {needContactUs && (
                 <img
                   src={'/icons/info-circle.svg'}
                   alt="icon"
                   width={24}
                   height={24}
                 />
-              )}
-              {!needContactUs && (
+              )} */}
+              {/* {!needContactUs && (
                 <div className={`${s.icon}`}>
                   <ImagePlaceholder
                     src={'/launch.png'}
@@ -405,23 +414,22 @@ const LaunchButton = ({
                     height={48}
                   />
                 </div>
-              )}
+              )} */}
             </Text>
           ) : (
             <React.Fragment>
               <div className={s.top}>
                 {isSubmiting ? <Spinner color="#fff" /> : <p>{titleButton}</p>}
-
-                {needContactUs && (
-                  <img
-                    src={'/icons/info-circle.svg'}
-                    alt="icon"
-                    width={24}
-                    height={24}
+                <div className={`${s.icon}`}>
+                  <ImagePlaceholder
+                    src={'/launch.png'}
+                    alt={'launch'}
+                    width={48}
+                    height={48}
                   />
-                )}
+                </div>
 
-                {!needContactUs && (
+                {/* {needContactUs && (
                   <div className={`${s.icon}`}>
                     <ImagePlaceholder
                       src={'/launch.png'}
@@ -430,17 +438,29 @@ const LaunchButton = ({
                       height={48}
                     />
                   </div>
-                )}
+                )} */}
+
+                {/* {!needContactUs && (
+                  <div className={`${s.icon}`}>
+                    <ImagePlaceholder
+                      src={'/launch.png'}
+                      alt={'launch'}
+                      width={48}
+                      height={48}
+                    />
+                  </div>
+                )} */}
               </div>
             </React.Fragment>
           )}
-          {needContactUs && (
+
+          {/* {needContactUs && (
             <div className={s.tooltip}>
               You've chosen Optimistic Rollup for your blockchain. The price of
               this module can vary. Please contact us to discuss further and get
               it set up.
             </div>
-          )}
+          )} */}
         </div>
       </div>
       {isOpenTopUpModal && (

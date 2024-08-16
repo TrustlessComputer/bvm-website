@@ -34,6 +34,7 @@ import s from './styles.module.scss';
 enum SortRollupType {
   name,
   block,
+  fdv,
   tps,
   mgas,
   kbs,
@@ -42,6 +43,7 @@ enum SortRollupType {
   settle,
   tvl,
   lastBlock,
+  verification,
 }
 
 interface ISort {
@@ -135,6 +137,8 @@ const L2Rollup = () => {
                   return item.name;
                 case SortRollupType.block:
                   return Number(item.block_number || '0');
+                case SortRollupType.fdv:
+                  return Number(item.fdv_usd || '0');
                 case SortRollupType.tps:
                   return Number(item.tps || '0');
                 case SortRollupType.mgas:
@@ -151,6 +155,8 @@ const L2Rollup = () => {
                   return Number(item.tvl_btc || '0');
                 case SortRollupType.lastBlock:
                   return item.block_time;
+                case SortRollupType.verification:
+                  return item.verification;
                 default:
                   return Number(item.mgas || '0');
               }
@@ -227,7 +233,7 @@ const L2Rollup = () => {
                   alignItems={'center'}
                   width={'100%'}
                   justifyContent={'space-between'}
-                  paddingLeft={'16px'}
+                  paddingLeft={'12px'}
                   cursor={'pointer'}
                   _hover={{
                     textDecoration: 'underline',
@@ -355,6 +361,34 @@ const L2Rollup = () => {
         },
       },
       {
+        id: 'fdv',
+        label: renderLabel('FDV', SortRollupType.fdv),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '16px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: IRollupL2Info) {
+          return (
+            <Flex
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'space-between'}
+              px={'2px'}
+            >
+              <Text className={s.title}>
+                {data.fdv_usd && data.fdv_usd !== '0'
+                  ? `$${formatCurrency(data.fdv_usd, MIN_DECIMAL, MIN_DECIMAL)}`
+                  : '-'}
+              </Text>
+            </Flex>
+          );
+        },
+      },
+      {
         id: 'block',
         label: renderLabel('Block', SortRollupType.block),
         labelConfig,
@@ -372,7 +406,7 @@ const L2Rollup = () => {
               width={'100%'}
               justifyContent={'space-between'}
               cursor="pointer"
-              px={'4px'}
+              px={'2px'}
               onClick={() => {
                 window.open(data.explorer);
               }}
@@ -398,7 +432,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'102px'} px={'4px'}>
+            <Flex gap={3} alignItems={'center'} width={'92px'} px={'2px'}>
               <Text className={s.title}>
                 {data?.tps
                   ? formatCurrency(
@@ -425,7 +459,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'102px'} px={'4px'}>
+            <Flex gap={3} alignItems={'center'} width={'92px'} px={'2px'}>
               <Text className={s.title}>
                 {data?.mgas
                   ? formatCurrency(data?.mgas, MIN_DECIMAL, MIN_DECIMAL)
@@ -448,7 +482,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'92px'} px={'4px'}>
+            <Flex gap={3} alignItems={'center'} width={'92px'} px={'2px'}>
               <Text className={s.title}>
                 {data?.kbs
                   ? formatCurrency(
@@ -475,7 +509,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'100%'} px={'4px'}>
+            <Flex gap={3} alignItems={'center'} width={'100%'} px={'2px'}>
               <Text className={s.title}>{data.stack || '-'}</Text>
             </Flex>
           );
@@ -494,8 +528,41 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'100%'} px={'4px'}>
+            <Flex gap={3} alignItems={'center'} width={'100%'} px={'2px'}>
               <Text className={s.title}>{data.da || '-'}</Text>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'verification',
+        label: renderLabel('Verification', SortRollupType.verification),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: IRollupL2Info) {
+          const haveLink = !!data.verification_url;
+          return (
+            <Flex
+              gap={3}
+              alignItems={'center'}
+              width={'100%'}
+              maxW={'128px'}
+              px={'2px'}
+              cursor={haveLink ? 'pointer' : 'unset'}
+              onClick={() => haveLink && window.open(data.verification_url)}
+            >
+              <Text
+                className={s.title}
+                textDecoration={haveLink ? 'underline' : 'unset'}
+              >
+                {data.verification || '-'}
+              </Text>
             </Flex>
           );
         },
@@ -513,7 +580,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex alignItems={'center'} width={'100%'} px={'4px'}>
+            <Flex alignItems={'center'} width={'100%'} px={'2px'}>
               <Text className={s.title}>{data.settlement || '-'}</Text>
             </Flex>
           );
@@ -533,11 +600,11 @@ const L2Rollup = () => {
         render(data: IRollupL2Info) {
           const isUnderReview = Number(data.tvl_btc) === 0;
           return (
-            <Flex alignItems={'center'} width={'100%'} px={'4px'}>
+            <Flex alignItems={'center'} width={'100%'} px={'2px'}>
               <Text className={s.title}>
                 {isUnderReview
                   ? '-'
-                  : `${formatCurrency(data.tvl_btc, 0, 3)} BTC`}
+                  : `${formatCurrency(data.tvl_btc, 0, 1)} BTC`}
               </Text>
             </Flex>
           );
@@ -577,7 +644,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex alignItems={'center'} minW={'110px'} px={'8px'} gap={'12px'}>
+            <Flex alignItems={'center'} minW={'104px'} px={'8px'} gap={'12px'}>
               {data.website && (
                 <Image
                   _hover={{
@@ -659,7 +726,7 @@ const L2Rollup = () => {
     <Box className={s.container}>
       <Flex direction={'column'} w="100%" maxW={'1580px'} alignItems={'center'}>
         <Flex alignItems="center" gap="6px" my={'12px'}>
-          <Text fontSize={'20px'}>Project Bitcoin Heartbeat</Text>
+          <Text fontSize={'20px'}>Project Bitcoin Heartbeats</Text>
           <DotLottiePlayer
             autoplay
             loop
@@ -686,7 +753,7 @@ const L2Rollup = () => {
           color={'#494846'}
           mb={'24px'}
         >
-          The BVM team created Project Bitcoin Heartbeat to provide transparent
+          The BVM team created Project Bitcoin Heartbeats to provide transparent
           and verifiable insights into new technologies that are transforming
           Bitcoin beyond mere currency. Follow their progress and support their
           innovations.
@@ -731,7 +798,7 @@ const L2Rollup = () => {
         <SimpleGrid columns={3} gap={'16px'} mb={'32px'}>
           <L2RollupFee
             data={_dataChart.txs}
-            prefix='Ξ'
+            prefix="Ξ"
             title={`<p>Transaction Count</p><p>Ξ${formatCurrency(
               (_dataChart.txs?.[_dataChart.txs.length - 1] as any)?.[1] as any,
               0,
@@ -740,7 +807,7 @@ const L2Rollup = () => {
           />
           <L2RollupFee
             data={_dataChart.addresses}
-            prefix='Ξ'
+            prefix="Ξ"
             title={`<p>Active Addresses</p><p>Ξ${formatCurrency(
               (
                 _dataChart.addresses?.[_dataChart.addresses.length - 1] as any
@@ -751,7 +818,7 @@ const L2Rollup = () => {
           />
           <L2RollupFee
             data={_dataChart.fees}
-            prefix='$'
+            prefix="$"
             title={`<p>Fees Paid by Users</p><p>$${formatCurrency(
               (
                 _dataChart.fees?.[_dataChart.fees.length - 1] as any

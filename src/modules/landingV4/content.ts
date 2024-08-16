@@ -43,7 +43,7 @@ export const GAME_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
       link: {
         url: '/bitcoin-wars',
-        target: '',
+        target: '_self',
       },
       tags: ['Bitcoin Wars'],
     },
@@ -139,9 +139,9 @@ export const BOB_SECTION = {
       tags: ['', 'Studio'],
     },
     {
-      title: 'Project Bitcoin Heartbeat',
+      title: 'Bitcoin Heartbeats',
       description:
-        'A ZK rollup on BitcoiProvide transparent and verifiable insights into Bitcoin rollups.',
+        'Bringing transparency to the new Bitcoin economy for smarter decisions and investments.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-heartbeat.png`,
       link: {
         url: '/heartbeats',
@@ -163,7 +163,7 @@ export const BOB_SECTION = {
     {
       title: 'BitOP',
       description:
-        'ZOptimistic rollups on Bitcoin for virtually any decentralized applications.',
+        'Optimistic rollups on Bitcoin for virtually any decentralized applications.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-bitop-1.png`,
       link: {
         url: '/module/bitop',
@@ -179,7 +179,7 @@ export const BOB_SECTION = {
         url: '/module/bitcoin-celestia',
         target: '_self',
       },
-      tags: ['', 'Rollups'],
+      tags: ['', 'DaTA Availability'],
     },
     {
       title: 'Bitcoin x Eigen DA',

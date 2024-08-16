@@ -85,6 +85,11 @@ const nextConfig = {
         destination: '/module/bitcoin-raas-studio',
         permanent: false,
       },
+      {
+        source: '/heartbeat',
+        destination: '/heartbeats',
+        permanent: false,
+      },
       // {
       //   source: '/launchpad',
       //   destination: `/`,
