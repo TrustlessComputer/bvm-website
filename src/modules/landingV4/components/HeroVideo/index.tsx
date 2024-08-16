@@ -64,6 +64,8 @@ export default function HeroVideo() {
                   alignItems={'center'}
                   justifyContent={'center'}
                   className={s.more_info}
+                  px="20px"
+                  flexWrap={'wrap'}
                 >
                   {/* <Fade delay={DELAY + 0.6}> */}
                   <div>
@@ -90,7 +92,7 @@ export default function HeroVideo() {
                       style={{ textAlign: 'center', display: 'block' }}
                     >
                       <img
-                        src={`/landing-v4/frame-bvm-own.png`}
+                        src={`/landing-v4/frame-own-bvm.png`}
                         width={224}
                         alt={'right'}
                         style={{ margin: 'auto', marginBottom: '8px' }}

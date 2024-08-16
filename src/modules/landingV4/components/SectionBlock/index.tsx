@@ -10,14 +10,16 @@ import { LOGOS } from '@/modules/landingV3/Componets/Section_7/constant';
 import IcChain from '@/public/landing-v4/ic-chain.svg';
 import cn from 'classnames';
 import Link from 'next/link';
+import SectionItemGeneral from './Item/General';
+import SectionItemApp from './Item/App';
 
-type BlockCardItem = Omit<TDappCardProps, 'idx'> & {
+export type BlockCardItem = Omit<TDappCardProps, 'idx'> & {
   logo: string;
   logoUrl?: string;
   id?: string;
 };
 
-type BlockChainItem = Omit<TChainCard, 'idx'> & {
+export type BlockChainItem = Omit<TChainCard, 'idx'> & {
   id?: string;
 };
 
@@ -31,45 +33,6 @@ const SectionBlock = (props: any) => {
     prev: false,
     next: true,
   });
-
-  const getLogo = (logo: string) => {
-    const tmp = LOGOS.filter((itemLogo) => {
-      return itemLogo.id === logo;
-    });
-    return tmp.length ? tmp[0].img : '';
-  };
-
-  const renderNewsLogo = (logo: string, logoUrl?: string) => {
-    if (logoUrl) {
-      return (
-        <div className={s.cardLogo}>
-          <ChakraImage
-            src={logoUrl}
-            alt="thumb image"
-            width={'100%'}
-            height={28}
-            objectFit={'contain'}
-          />
-        </div>
-      );
-    }
-
-    if (getLogo(logo)) {
-      return (
-        <div className={s.cardLogo}>
-          <ChakraImage
-            src={logoUrl ? logoUrl : getLogo(logo)}
-            alt="thumb image"
-            width={'100%'}
-            height={28}
-            objectFit={'contain'}
-          />
-        </div>
-      );
-    }
-
-    return <Box height={'28px'} marginBottom={'16px'} />;
-  };
 
   const handleChangeDirection = useCallback(
     (direction: 'next' | 'prev') => {
@@ -165,115 +128,49 @@ const SectionBlock = (props: any) => {
           <span>{title}</span>
         </p>
         <div className={s.scroll_wrapper} ref={scrollWrapperRef}>
-          <div className={s.items_wrapper} ref={itemsWrapperRef}>
-            {item.map((item: BlockCardItem | BlockChainItem, index: number) => (
-              <Link
-                key={index}
-                className={cn(s.item, {
-                  ['pointer-none']:
-                    props.id !== 'rollups' &&
-                    !(item as BlockCardItem).link?.url,
-                })}
-                href={
-                  props.id !== 'rollups'
-                    ? (item as BlockCardItem).link?.url || ''
-                    : (item as BlockChainItem).social[1].link
-                }
-                target={(item as BlockCardItem).link?.target || '_blank'}
-                id={`${props.id}-${index}`}
-              >
-                {props.id === 'news' &&
-                  renderNewsLogo(
-                    (item as BlockCardItem).logo,
-                    (item as BlockCardItem).logoUrl,
-                  )}
-                <Box
-                  position="relative"
-                  aspectRatio={'118 / 75'}
-                  mb="16px"
-                  borderRadius={'8px'}
-                  overflow={'hidden'}
-                  className={s.thumbnail_wrapper}
-                >
-                  <Image
-                    src={item.homeImage}
-                    alt={item.title}
-                    layout="fill"
-                    objectFit="cover"
+          <div
+            className={cn(s.items_wrapper, {
+              [s.items_wrapper__apps]: props.id === 'apps',
+            })}
+            ref={itemsWrapperRef}
+          >
+            {item.map((item: BlockCardItem | BlockChainItem, index: number) => {
+              if (props.id === 'apps') {
+                return (
+                  <SectionItemApp
+                    key={`${props.id}-${index}`}
+                    item={item as BlockCardItem}
                   />
-                </Box>
-                <Flex
-                  flexDirection={'column'}
-                  gap="8px"
-                  className={s.item_content}
-                >
-                  <div className={s.item_tags}>
-                    {!!item.tags &&
-                      item.tags.map((tag, index) => {
-                        if (!tag) return null;
+                );
+              }
 
-                        return (
-                          <div key={`${tag}-${index}`}>
-                            {index === 0 &&
-                              (props.id === 'apps' || props.id === 'games') && (
-                                <img src="/landing-v4/ic-chain.svg" />
-                              )}
-                            {tag}
-                          </div>
-                        );
-                      })}
-                  </div>
-                  <Flex
-                    alignItems={'center'}
-                    gap="12px"
-                    mb={props.id === 'news' ? ' 24px' : '0'}
-                  >
-                    <p className={s.title}>{item.title}</p>
-                    {!!(item as Omit<TChainCard, 'idx'>).social &&
-                      (item as Omit<TChainCard, 'idx'>).social.map(
-                        (social, index) => (
-                          <a
-                            key={index}
-                            href={social.link}
-                            target={'_blank'}
-                            className={s.social_link}
-                          >
-                            <Image
-                              src={social.icon}
-                              alt={'icon'}
-                              width={20}
-                              height={20}
-                            />
-                          </a>
-                        ),
-                      )}
-                  </Flex>
-                  <p
-                    className={s.description}
-                    dangerouslySetInnerHTML={{ __html: item.description }}
-                  ></p>
-                </Flex>
-              </Link>
-            ))}
+              return (
+                <SectionItemGeneral
+                  key={`${props.id}-${index}`}
+                  id={props.id}
+                  item={item}
+                />
+              );
+            })}
           </div>
 
           {!!showControls.prev && (
             <Box
-              className={s.prev_btn}
+              className={cn(s.prev_btn, s.control_btn)}
               top={props.id === 'news' ? 'calc(50% - 44px)' : '50%'}
               onClick={() => handleChangeDirection('prev')}
             >
-              <img src="\landing-v4\ic-arrow-control.svg"></img>
+              <img src="\landing-v4\ic-angle-right.svg"></img>
             </Box>
           )}
 
           {!!showControls.next && (
             <Box
-              className={s.next_btn}
+              className={cn(s.next_btn, s.control_btn)}
               top={props.id === 'news' ? 'calc(50% - 44px)' : '50%'}
               onClick={() => handleChangeDirection('next')}
             >
-              <img src="\landing-v4\ic-arrow-control.svg"></img>
+              <img src="\landing-v4\ic-angle-right.svg"></img>
             </Box>
           )}
         </div>

@@ -1,3 +1,4 @@
+import { id } from 'ethers/lib/utils';
 import { TDappCardProps } from '@/modules/ExploreModule/components/DappCard';
 import { TChainCard } from '@/modules/ExploreModule/components/ChainCard';
 import { CDN_URL } from '@/config';
@@ -41,22 +42,24 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   //   homeImage: `${CDN_URL}/pages/landing-v4/home-runedex.png`,
   // },
   {
+    id: 'runedex',
     image: '/explore/dapp-runedex.png',
-    title: 'Rune DEX',
+    title: 'RuneDex',
     bgColor:
       'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
     description:
       'The “Decentralized Binance” — buy Bitcoin easily and permisionlessly.',
     tags: ['RuneChain', 'Defi'],
     link: {
-      url: 'https:/runechain.com/',
+      url: 'https://runechain.com/',
       target: '_blank',
     },
     homeImage: `${CDN_URL}/pages/landing-v4/home-runedex.png`,
   },
   {
+    id: 'heartbeats',
     image: '/explore/dapp-heartbeat.png',
-    title: 'Bitcoin Heartbeats',
+    title: 'Heartbeats',
     bgColor:
       'linear-gradient(226.66deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
     description:
@@ -84,19 +87,21 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   // },
 
   {
+    id: 'nakaFuture',
     image: '/explore/dapp4.png',
-    title: 'Naka Futures',
+    title: 'NakaDex',
     bgColor:
       'linear-gradient(227deg, #FD8DFF -7.83%, #FF63B7 21.47%, #E400CD 69.37%, #FADEFF 118.41%)',
     description: 'Trade Bitcoin and BRC-20 futures.',
     tags: ['NakaChain', 'DeFi'],
     link: {
-      url: 'https://nakachain.xyz/',
+      url: 'https://nakachain.xyz/perpetual',
       target: '_blank',
     },
     homeImage: `${CDN_URL}/pages/landing-v4/home-nakadex-1.png`,
   },
   {
+    id: 'alpha',
     image: '/explore/alpha.png',
     title: 'Alpha',
     bgColor:
@@ -111,6 +116,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
     homeImage: `${CDN_URL}/pages/landing-v4/home-alpha.png`,
   },
   {
+    id: 'eternalAI',
     image: '/explore/dapp-eai.png',
     title: 'Eternal GPT (Soon)',
     bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
@@ -124,7 +130,8 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
     homeImage: `${CDN_URL}/pages/landing-v4/home-eai-phone.png`,
   },
   {
-    image: '/explore/dapp-neuron.png',
+    id: 'neuron',
+    image: '/explore/neuron.png',
     title: 'Neurons (Soon)',
     bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%)',
     description:
@@ -137,7 +144,8 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
     homeImage: `${CDN_URL}/pages/landing-v4/home-neuron.png`,
   },
   {
-    image: '/explore/dapp-capsule.png',
+    id: 'capsule',
+    image: '/explore/time-capsule.png',
     title: 'Time Capsule (Soon)',
     bgColor:
       'linear-gradient(227deg, #00F9DB -7.83%, #63FFBD 21.47%, #05E400 69.37%, #339898 118.41%)',
