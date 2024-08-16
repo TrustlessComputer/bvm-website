@@ -101,11 +101,6 @@ export default function useFetchingTemplate() {
       draggedIds2DSignal.value = [[]];
     }
 
-    console.log('[useFetchingTemplate] END fetchData', {
-      nodes,
-      isAAInstalled,
-    });
-
     setCategoryMapping(categoryMapping);
     setParsedCategories(convertData(sortedCategories));
     setCategories(sortedCategories);
@@ -263,10 +258,11 @@ export default function useFetchingTemplate() {
     });
 
     const map: any = {};
-    for (const element of [...nodesData, ..._newNodes]) {
+    for (const element of [...newNodes, ...nodesData, ..._newNodes]) {
       map[element.id] = element;
     }
     const newArray = Object.values(map) as AppNode[];
+
     setEdges(edgeData);
     // setNodes([...nodes, ...newNodes]);
     setNodes(newArray);
@@ -350,7 +346,6 @@ export default function useFetchingTemplate() {
     if (!needSetDataTemplateToBox) return;
 
     dataTemplateToBox();
-    console.log('[useFetchingTemplate] CALL LAST');
   }, [needSetDataTemplateToBox]);
 
   React.useEffect(() => {
