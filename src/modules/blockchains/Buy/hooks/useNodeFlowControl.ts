@@ -151,7 +151,7 @@ export default function useNodeFlowControl() {
       ) as AppState['nodes'];
     }
 
-    const newNodeId = `${nodes.length + 1}`
+    const newNodeId = `${nodes.length + 1}`;
     const newNode: DappNode = {
       id: newNodeId,
       type: dappKeyToNodeKey(thisDapp.key),
@@ -170,28 +170,23 @@ export default function useNodeFlowControl() {
     };
 
     setNodes([...nodesData, newNode]);
-      setEdges([
-        ...edges,
-        {
-          // id: `${edges.length + 1}`,
-          id: `${Math.random()}`,
-          source: rootNode,
-          sourceHandle: `${rootNode}-s-${thisDapp.title}`,
-          target: `${newNodeId}`,
-          targetHandle: `${newNodeId}-t-${rootNode}`,
-          type: 'customEdge',
-          label: '',
-          markerEnd: {
-            type: MarkerType.Arrow,
-            width: 25,
-            height: 25,
-            strokeWidth: 1,
-            color: '#AAAAAA',
-          },
-          style: {
-            stroke: '#AAAAAA',
-            strokeWidth: 2,
-          },
+    setEdges([
+      ...edges,
+      {
+        // id: `${edges.length + 1}`,
+        id: `${Math.random()}`,
+        source: rootNode,
+        sourceHandle: `${rootNode}-s-${thisDapp.title}`,
+        target: `${newNodeId}`,
+        targetHandle: `${newNodeId}-t-${rootNode}`,
+        type: 'customEdge',
+        label: '',
+        markerEnd: {
+          type: MarkerType.Arrow,
+          width: 25,
+          height: 25,
+          strokeWidth: 1,
+          color: '#AAAAAA',
         },
         style: {
           stroke: '#AAAAAA',
