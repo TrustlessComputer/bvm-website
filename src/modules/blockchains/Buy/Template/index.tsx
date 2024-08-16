@@ -38,8 +38,6 @@ const TemplatePage = () => {
     }
   }
 
-  console.log('sANG TES:', chain?.dappURL || '');
-
   return (
     <Flex
       className={styles.container}

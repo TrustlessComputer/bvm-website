@@ -64,7 +64,7 @@ const Input = ({
   });
 
   React.useEffect(() => {
-    const formDappInput = onlyLabel
+    let formDappInput = onlyLabel
       ? formTemplateDappSignal.value
       : formDappSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
@@ -77,7 +77,7 @@ const Input = ({
     // );
 
     if (typeof formDappInput[key] === 'undefined') {
-      formDappInput.value = {
+      formDappInput = {
         ...formDappInput,
         [key]: '',
       };

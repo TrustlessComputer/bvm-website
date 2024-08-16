@@ -18,42 +18,43 @@ const useSubmitStaking = () => {
     const params = [];
 
     for (const form of forms) {
-      let finalFormMappings: Record<
-        string,
-        { key: string; value: string }[]
-      >[] = [];
-      const formDapp = Object.assign({}, ...form);
-      const formDappInBase = Object.keys(formDapp).filter(
-        (key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key),
-      );
-      const formDappInModule = Object.keys(formDapp).filter(
-        (key) => !FormDappUtil.isInModule(key),
-      );
-      const formDappInSingle = Object.keys(formDapp).filter(
-        FormDappUtil.isInSingle,
-      );
-
-      finalFormMappings = extractedValue(
-        formDappInBase,
-        formDapp,
-        finalFormMappings,
-      );
-
-      finalFormMappings = extractedValue(
-        formDappInModule,
-        formDapp,
-        finalFormMappings,
-      );
-
-      finalFormMappings = extractedValue(
-        formDappInSingle,
-        formDapp,
-        finalFormMappings,
-      );
-      const formFinal = finalFormMappings.find(item => !!item);
-      const info: any = formFinal?.info.find((item) => !!item);
       try {
-        const data = await cStakeAPI.createNewStakingPool({
+        let finalFormMappings: Record<
+          string,
+          { key: string; value: string }[]
+        >[] = [];
+        const formDapp = Object.assign({}, ...form);
+        const formDappInBase = Object.keys(formDapp).filter(
+          (key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key),
+        );
+        const formDappInModule = Object.keys(formDapp).filter(
+          (key) => !FormDappUtil.isInModule(key),
+        );
+        const formDappInSingle = Object.keys(formDapp).filter(
+          FormDappUtil.isInSingle,
+        );
+
+        finalFormMappings = extractedValue(
+          formDappInBase,
+          formDapp,
+          finalFormMappings,
+        );
+
+        finalFormMappings = extractedValue(
+          formDappInModule,
+          formDapp,
+          finalFormMappings,
+        );
+
+        finalFormMappings = extractedValue(
+          formDappInSingle,
+          formDapp,
+          finalFormMappings,
+        );
+        const formFinal = finalFormMappings.find(item => !!item);
+
+        const info: any = formFinal?.info.find((item) => !!item);
+        await cStakeAPI.createNewStakingPool({
           principle_token: formFinal?.staking_token,
           reward_token: formFinal?.reward_token,
           base_ratio: Number(info?.apr?.replaceAll('%', '')) / 100,

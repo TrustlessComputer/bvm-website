@@ -359,7 +359,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         if (isConfigDapp) {
           setTimeout(() => {
             window.location.reload();
-          }, 2000);
+          }, 1000);
         }
 
         // TO DO [Leon]
