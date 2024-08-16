@@ -36,7 +36,11 @@ export const getModuleIconUrlByType = (type: ModuleTypeIcon) => {
 
     //
     case 'Updating':
+      iconUrl = '/icons/studio-module/updating.svg';
+      break;
     case 'Setting_Up':
+      iconUrl = '/icons/studio-module/setting.svg';
+      break;
     case 'Waiting_Payment':
     case 'Resuming':
       iconUrl = undefined;

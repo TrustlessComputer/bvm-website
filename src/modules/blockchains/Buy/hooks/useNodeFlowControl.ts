@@ -19,6 +19,7 @@ import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
+import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
@@ -150,8 +151,9 @@ export default function useNodeFlowControl() {
       ) as AppState['nodes'];
     }
 
+    const newNodeId = `${nodes.length + 1}`;
     const newNode: DappNode = {
-      id: `${nodes.length + 1}`,
+      id: newNodeId,
       type: dappKeyToNodeKey(thisDapp.key),
       dragHandle: '.drag-handle-area',
       position: positionTo,
@@ -162,7 +164,7 @@ export default function useNodeFlowControl() {
         baseIndex: draggedIds2D.length - 1,
         categoryOption,
         ids: draggedIds2D[draggedIds2D.length - 1],
-        targetHandles: [`${nodes.length + 1}-t-${rootNode}`],
+        targetHandles: [`${newNodeId}-t-${rootNode}`],
         sourceHandles: [],
       },
     };
@@ -175,8 +177,8 @@ export default function useNodeFlowControl() {
         id: `${Math.random()}`,
         source: rootNode,
         sourceHandle: `${rootNode}-s-${thisDapp.title}`,
-        target: `${nodes.length + 1}`,
-        targetHandle: `${nodes.length + 1}-t-${rootNode}`,
+        target: `${newNodeId}`,
+        targetHandle: `${newNodeId}-t-${rootNode}`,
         type: 'customEdge',
         label: '',
         markerEnd: {
@@ -192,7 +194,7 @@ export default function useNodeFlowControl() {
         },
       },
     ]);
-
+    needReactFlowRenderSignal.value = true;
     resetDragState();
   };
 

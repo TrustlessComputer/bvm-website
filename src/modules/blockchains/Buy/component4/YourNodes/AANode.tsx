@@ -25,7 +25,8 @@ import { useAccountAbstractionStore } from '@/modules/blockchains/detail_v3/acco
 const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   const { dapp } = data;
 
-  const { isAAModuleLoading, aaStatusData, isCanNotEdit } = useAAModule();
+  const { isAAModuleLoading, aaStatusData, isCanNotEdit, getAATypeIconUrl } =
+    useAAModule();
   const { getAAStatus, isUpdateFlow } = useChainProvider();
   const { resetAAStore } = useAccountAbstractionStore();
 
@@ -64,6 +65,7 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
         isAAModuleLoading
           ? {
               type: 'loading',
+              iconUrl: '/coffee.gif',
               message: 'Please wait a minute',
             }
           : undefined
@@ -75,6 +77,7 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
         status: {
           message: aaStatusData?.statusStr,
           color: aaStatusData?.borderColorStr,
+          icon: getAATypeIconUrl(),
         },
         borderColor: aaStatusData?.borderColorStr,
         backgroundColor: aaStatusData?.bgColorStr,

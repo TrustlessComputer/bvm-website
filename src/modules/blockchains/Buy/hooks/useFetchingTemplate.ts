@@ -111,8 +111,10 @@ export default function useFetchingTemplate() {
 
   const dataTemplateToBox = async () => {
     const newNodes = cloneDeep(nodes);
+    const rootNode = 'blockchain';
+
     const chainNodeInitial: ChainNode = {
-      id: 'blockchain',
+      id: rootNode,
       type: nodeKey.CHAIN_NODE,
       data: {
         node: 'chain',
@@ -182,7 +184,6 @@ export default function useFetchingTemplate() {
       };
     });
 
-    const rootNode = 'blockchain';
 
     const setDappKeys = new Set(templateDapps.map((dapp) => dapp.key));
     const allDappKeys = Array.from(setDappKeys);
@@ -202,9 +203,9 @@ export default function useFetchingTemplate() {
       const xOffset = 30 + 500 * xOffsetCount[dappKey]++;
       const yOffset = 30 + 500 * allDappKeys.indexOf(dappKey);
       const idNode = index.toString();
-      const isHandleExists = edges.some(
+      const isHandleExists = getHandleNodeBlockChain?.data?.sourceHandles?.some(
         (handle) =>
-          handle.sourceHandle === `${rootNode}-s-${templateDapps[index].title}`,
+          handle === `${rootNode}-s-${templateDapps[index].title}`,
       );
 
       if (!isHandleExists) {
@@ -261,7 +262,6 @@ export default function useFetchingTemplate() {
       map[element.id] = element;
     }
     const newArray = Object.values(map) as AppNode[];
-
     setEdges(edgeData);
     // setNodes([...nodes, ...newNodes]);
     setNodes(newArray);
