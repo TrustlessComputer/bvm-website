@@ -946,7 +946,6 @@ const L2Rollup = () => {
           w="100%"
           direction={'column'}
           gap={'8px'}
-          maxW={'1400px'}
         >
           <Text fontSize={'24px'} fontWeight={'600'} textAlign={'center'}>
             Total
