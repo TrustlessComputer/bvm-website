@@ -203,9 +203,9 @@ export default function useFetchingTemplate() {
       const xOffset = 30 + 500 * xOffsetCount[dappKey]++;
       const yOffset = 30 + 500 * allDappKeys.indexOf(dappKey);
       const idNode = index.toString();
-      const isHandleExists = edges.some(
+      const isHandleExists = getHandleNodeBlockChain?.data?.sourceHandles?.some(
         (handle) =>
-          handle.sourceHandle === `${rootNode}-s-${templateDapps[index].title}`,
+          handle === `${rootNode}-s-${templateDapps[index].title}`,
       );
 
       if (!isHandleExists) {
@@ -262,7 +262,7 @@ export default function useFetchingTemplate() {
       map[element.id] = element;
     }
     const newArray = Object.values(map) as AppNode[];
-
+    console.log('newArray', newArray);
     setEdges(edgeData);
     // setNodes([...nodes, ...newNodes]);
     setNodes(newArray);
