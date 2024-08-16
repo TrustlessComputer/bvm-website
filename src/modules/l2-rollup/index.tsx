@@ -81,6 +81,7 @@ const L2Rollup = () => {
   }, [data]);
 
   useEffect(() => {
+    loaded.current = true;
     fetchData();
     const interval = setInterval(() => {
       fetchData();
