@@ -16,7 +16,7 @@ export const IGNORE_ADDRESS_TEXT = '';
 class CDappApiClient {
   protected requestConfig: AxiosRequestConfig = {
     baseURL: `https://generral.appstore${
-      isProduction() ? '' : '.dev'
+      isProduction() ? '' : ''
     }.bvm.network/api`,
     timeout: 5 * 60000,
     headers: {
