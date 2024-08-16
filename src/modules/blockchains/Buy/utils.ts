@@ -422,12 +422,27 @@ export const isChainOptionDisabled = (
   item: IModelCategory,
   currentOption: IModelOption,
 ) => {
+  // if (currentOption.key === 'lightnode') {
+  //   console.log('isChainOptionDisabled', {
+  //     currentOption,
+  //     item,
+  //     field,
+  //     supportLayers: currentOption.supportLayers,
+  //     layers: field['layers']?.value,
+  //     con1:
+  //       !!currentOption.supportLayers &&
+  //       !currentOption.supportLayers.includes(field['layers']?.value as any),
+  //   });
+  // }
+
   return (
-    !!(
-      currentOption.supportLayer &&
-      currentOption.supportLayer !== 'both' &&
-      currentOption.supportLayer !== field['layers']?.value
-    ) ||
+    (!!currentOption.supportLayers &&
+      !currentOption.supportLayers.includes(field['layers']?.value as any)) ||
+    // !!(
+    //   currentOption.supportLayers &&
+    //   currentOption.supportLayers !== 'both' &&
+    //   currentOption.supportLayer !== field['layers']?.value
+    // ) ||
     !!(
       currentOption.supportNetwork &&
       currentOption.supportNetwork !== 'both' &&
