@@ -6,6 +6,7 @@ import Link from 'next/link';
 import cn from 'classnames';
 
 export type TDappCardProps = {
+  id?: string;
   idx: number;
   title: string;
   description: string;

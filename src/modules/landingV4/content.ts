@@ -9,24 +9,18 @@ export const APPS_SECTION = {
   tag: 'Apps. ',
   title: 'Experience Bitcoin like never before.',
   item: DAPPS_DATA.map((item, idx) => {
-    const tags = item.tags.map((tag) => {
-      // check if tag contains more than one word and one of them includes 'chain' then remove the word chain, check the case sensitivity
-      if (tag.split(' ').length > 1 && tag.toLowerCase().includes('chain')) {
-        return tag.toLowerCase().replace('chain', '');
-      } else {
-        return tag;
-      }
-    });
-
     return {
       title: item.title,
       description: item.description,
       homeImage: item.homeImage,
+      bgColor: item.bgColor,
       link: {
         url: item.link.url,
         target: '_blank',
       },
-      tags: tags,
+      tags: item.tags,
+      image: item.image,
+      id: item.id,
     };
   }),
 };
