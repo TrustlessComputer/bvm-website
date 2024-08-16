@@ -117,10 +117,10 @@ export const dappMockupData: DappModel[] = [
       placableAmount: -1,
       section: 'information',
       preview: false,
-      background: '#f76649',
+      background: '#F200F2',
       fields: [
         {
-          background: '#c4513a',
+          background: '#F200F2',
           key: 'token_name',
           title: 'Token Name',
           previewTitle: 'Name',
@@ -132,7 +132,7 @@ export const dappMockupData: DappModel[] = [
           placeholder: 'e.g YOUR TOKEN NO.1',
         },
         {
-          background: '#c4513a',
+          background: '#368BDB',
           key: 'token_symbol',
           title: 'Symbol',
           type: 'input',
@@ -143,7 +143,7 @@ export const dappMockupData: DappModel[] = [
           placeholder: 'e.g YTKN',
         },
         {
-          background: '#c4513a',
+          background: '#15C888',
           key: 'receiver_address',
           title: 'Receiver Address',
           previewTitle: 'Address',
@@ -154,19 +154,19 @@ export const dappMockupData: DappModel[] = [
           options: [],
           placeholder: 'e.g 0x0000000000000000000000000000000000000000',
         },
-        {
-          key: 'logo',
-          title: 'Logo',
-          type: 'input',
-          icon: '',
-          value: '',
-          tooltip: '',
-          options: [],
-          placeholder: '',
-          background: '#c4513a',
-          inputType: 'file',
-          inputAccept: 'image/*',
-        },
+        // {
+        //   key: 'logo',
+        //   title: 'Logo',
+        //   type: 'input',
+        //   icon: '',
+        //   value: '',
+        //   tooltip: '',
+        //   options: [],
+        //   placeholder: '',
+        //   background: '#c4513a',
+        //   inputType: 'file',
+        //   inputAccept: 'image/*',
+        // },
         // {
         //   background: '#00AA6C',
         //   key: 'publish_date',
@@ -840,7 +840,7 @@ export const dappMockupData: DappModel[] = [
         placableAmount: -1,
         section: 'staking_token',
         preview: false,
-        background: '#de5b41',
+        background: '#A041FF',
         fields: [
           {
             key: 'bvm',
@@ -873,7 +873,7 @@ export const dappMockupData: DappModel[] = [
         preview: false,
         placableAmount: 1,
         section: 'reward_token',
-        background: '#de5b41',
+        background: '#15C888',
         fields: [
           {
             key: 'bvm',
@@ -906,7 +906,7 @@ export const dappMockupData: DappModel[] = [
         placableAmount: 1,
         section: 'info',
         preview: false,
-        background: '#F8B200',
+        background: '#C44127',
         fields: [
           {
             key: 'rate',
@@ -918,7 +918,7 @@ export const dappMockupData: DappModel[] = [
             tooltip: 'Exchange rate between staking token and reward token.',
             placeholder: 'eg. 1',
             options: [],
-            background: '#F8B200',
+            background: '#C44127',
           },
           {
             key: 'apr',
@@ -930,7 +930,7 @@ export const dappMockupData: DappModel[] = [
             tooltip: '',
             placeholder: 'eg. 20%',
             options: [],
-            background: '#F8B200',
+            background: '#C44127',
           },
           {
             key: 'amount',
@@ -943,7 +943,7 @@ export const dappMockupData: DappModel[] = [
             tooltip: '',
             placeholder: 'eg. 100,000',
             options: [],
-            background: '#F8B200',
+            background: '#C44127',
           },
         ],
       },
