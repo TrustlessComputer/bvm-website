@@ -4,6 +4,7 @@
 
 import { HEART_BEAT } from '@/constants/route-path';
 import { shortCryptoAddress } from '@/utils/address';
+import { formatCurrency } from '@/utils/format';
 import { validateBTCAddress, validateEVMAddress } from '@/utils/validate';
 import {
   Box,
@@ -16,30 +17,30 @@ import {
   Tabs,
   Text,
 } from '@chakra-ui/react';
+import { useOnClickOutside } from '@hooks/useOnClickOutside';
 import copy from 'copy-to-clipboard';
-import { useParams, useRouter } from 'next/navigation';
-import React, { useMemo, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useContext, useMemo, useRef, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import toast from 'react-hot-toast';
-import { useOnClickOutside } from '@hooks/useOnClickOutside';
 import PortfolioTab from './PortfolioTab';
+import {
+  L2RollupDetailContext,
+  L2RollupDetailProvider,
+} from './providers/l2-rollup-detail-context';
 import SearchBar from './SearchBar';
 import s from './styles.module.scss';
 import TransactionsTab from './TransactionsTab';
 
-const L2RollupAddress = () => {
-  const params = useParams();
+const L2RollupDetail = () => {
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
 
-  const address = useMemo(() => params?.id as string, [params]);
+  const { address, isValidAddress, totalBalanceUsd } = useContext(
+    L2RollupDetailContext,
+  );
 
   const [searchAddress, setSearchAddress] = useState('');
-
-  const isValidAddress = useMemo(
-    () => validateEVMAddress(address) || validateBTCAddress(address),
-    [address],
-  );
 
   const isValidSearchAddress = useMemo(
     () =>
@@ -69,7 +70,7 @@ const L2RollupAddress = () => {
 
   return (
     <Box className={s.container}>
-      <Flex direction={'column'} w="100%" maxW={'1048px'}>
+      <Flex direction={'column'} w="100%" maxW={'1140px'}>
         <Flex
           direction={{ base: 'column', md: 'row' }}
           alignItems={{ base: 'flex-start', md: 'center' }}
@@ -144,7 +145,7 @@ const L2RollupAddress = () => {
           />
           <Flex gap="6px" direction={'column'}>
             <Text fontWeight={'500'} fontSize={{ base: '28px', md: '32px' }}>
-              $208.56
+              ${formatCurrency(totalBalanceUsd, 2, 2)}
             </Text>
             <Flex direction={'row'} alignItems={'center'} gap={'8px'}>
               <Text fontWeight={'400'} fontSize={'16px'}>
@@ -186,4 +187,12 @@ const L2RollupAddress = () => {
   );
 };
 
-export default L2RollupAddress;
+const ModuleL2RollupDetail = () => {
+  return (
+    <L2RollupDetailProvider>
+      <L2RollupDetail />
+    </L2RollupDetailProvider>
+  );
+};
+
+export default ModuleL2RollupDetail;

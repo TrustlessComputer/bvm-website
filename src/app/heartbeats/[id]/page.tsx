@@ -1,5 +1,5 @@
 import MainLayout from '@/layouts/MainLayout';
-import L2RollupAddressModule from '@/modules/l2-rollup-address';
+import L2RollupAddressModule from '@/modules/l2-rollup-detail';
 import { Metadata } from 'next';
 import React from 'react';
 
