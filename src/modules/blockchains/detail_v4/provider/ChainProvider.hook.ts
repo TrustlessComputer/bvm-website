@@ -148,16 +148,16 @@ export const useChainProvider = () => {
         case 'new':
           statusCode = 'new';
           statusStr = 'Setting up';
-          statusColorStr = '#F9D03F';
-          borderColorStr = '#F9D03F';
+          statusColorStr = '#FFC700';
+          borderColorStr = '#FFC700';
           bgColorStr = '#FFF6D8';
 
           break;
         case 'processing':
           statusCode = 'processing';
           statusStr = 'Processing';
-          statusColorStr = '#F9D03F';
-          borderColorStr = '#F9D03F';
+          statusColorStr = '#FFC700';
+          borderColorStr = '#FFC700';
           bgColorStr = '#FFF6D8';
           break;
 
@@ -195,6 +195,7 @@ export const useChainProvider = () => {
             return 'Running';
           case OrderStatus.WaitingPayment:
           case OrderStatus.Processing:
+            return 'Setting_Up';
           case OrderStatus.Updating:
             return 'Updating';
 

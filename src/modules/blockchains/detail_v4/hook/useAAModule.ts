@@ -8,9 +8,15 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 import { useAccountAbstractionStore } from '../../detail_v3/account-abstraction_v2/store/hook';
 import { useChainProvider } from '../provider/ChainProvider.hook';
+import {
+  ModuleTypeIcon,
+  getModuleIconUrlByType,
+} from '../helper/moduleIconHelper';
+import { OrderStatus } from '@/stores/states/l2services/types';
 
 export type AAModuleStatusDetail =
   | 'drafting_modules'
+  | 'need_config'
   | 'new'
   | 'processing'
   | 'done';
@@ -102,6 +108,31 @@ export const useAAModule = () => {
     }
   };
 
+  const getAATypeIcon = (): ModuleTypeIcon => {
+    if (!isUpdateFlow) {
+      // Flow Create Chain
+      return 'Drafting';
+    } else {
+      switch (aaStatusDetail) {
+        case 'need_config':
+        case 'new':
+        case 'processing':
+          return 'Setting_Up';
+
+        case 'done':
+          return 'Running';
+
+        default:
+          break;
+      }
+      return 'Drafting';
+    }
+  };
+
+  const getAATypeIconUrl = () => {
+    return getModuleIconUrlByType(getAATypeIcon());
+  };
+
   return {
     aaStatusData,
     configAAHandler,
@@ -111,5 +142,6 @@ export const useAAModule = () => {
     isAAModuleLoading,
     checkTokenContractAddress,
     aaInstalledData,
+    getAATypeIconUrl,
   };
 };
