@@ -18,4 +18,5 @@ export interface IRollupL2Info {
   verification?: string;
   verification_url?: string;
   level?: string;
+  fee_btc?: string;
 }
