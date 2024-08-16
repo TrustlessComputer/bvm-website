@@ -42,7 +42,6 @@ input[type='number'] {
   padding-left: 20px;
   padding-right: 20px;
 
-
   @include is-tablet {
     padding-left: 20px;
     padding-right: 20px;
@@ -59,7 +58,6 @@ input[type='number'] {
 }
 
 @keyframes flip {
-
   0%,
   45% {
     transform: rotate(0);
@@ -131,7 +129,6 @@ input[type='number'] {
 }
 
 @keyframes top-drip {
-
   0%,
   50% {
     left: 45%;

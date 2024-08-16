@@ -3,6 +3,7 @@
   --background: #fff;
   --backgroundSlider: #c73e88;
 
+  margin-left: 5px;
   width: max-content;
   border-radius: 4px;
   // height: 42px;
@@ -14,31 +15,31 @@
     cursor: not-allowed !important;
     opacity: 0.5;
   }
-
-  &::after {
-    z-index: -2;
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--fillBackground);
-    width: calc(100% - 39px);
-    transform: translateX(39px);
-    border: 1px solid var(--background);
-    border-radius: 4px;
-    height: 41px;
-    margin-top: 0.5px;
-  }
+  //
+  //&::after {
+  //  z-index: -2;
+  //  content: '';
+  //  position: absolute;
+  //  inset: 0;
+  //  background: var(--fillBackground);
+  //  width: calc(105% - 39px);
+  //  transform: translateX(39px);
+  //  border: 1px solid var(--background);
+  //  border-radius: 4px;
+  //  height: 29px;
+  //  margin-top: 0.5px;
+  //}
 
   &_studHead {
     position: absolute;
-    top: 0;
-    left: 12px;
+    top: -5px;
+    left: 0px;
     width: 43px;
-    height: 41px;
+    height: 35px;
     z-index: -1;
 
     svg {
-      height: 50px;
+      height: 37px;
       path {
         fill: var(--fillBackground);
         stroke: var(--background);
@@ -70,11 +71,11 @@
     &__horizonal {
       // height: 100px;
       min-height: 32px;
-      width: 12px;
+      width: 8px;
       background-color: var(--fillBackground);
 
       &_inner {
-        margin-left: 11px;
+        //margin-left: 11px;
 
         :global {
           .stud__top {
@@ -100,7 +101,7 @@
       align-items: center;
 
       &.stud__large {
-        height: 42px;
+        height:27px;
         border-bottom-left-radius: 0;
         border-top-left-radius: 6px;
         border-bottom-right-radius: 6px;
@@ -109,11 +110,11 @@
       &__top {
         position: absolute;
         z-index: 3;
-        left: 24px;
+        left: 15px;
         top: 0;
 
         svg {
-          width: 26px;
+          width: 20px;
           height: auto;
         }
         svg path {
@@ -124,10 +125,10 @@
         position: absolute;
         z-index: 2;
         top: calc(100% - 1px);
-        left: 13px;
+        left: 8px;
 
         svg {
-          width: 26px;
+          width: 23px;
           height: auto;
         }
 
@@ -199,7 +200,7 @@
     color: #fff;
     font-family: var(--font-JetBrainsMono);
 
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 500;
   }

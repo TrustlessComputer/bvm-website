@@ -18,6 +18,7 @@ export type DappInstalledStatus =
   | 'processing'
   | 'requested_cancel'
   | 'removed';
+
 interface IDAppInstalled {
   orderID: string;
   userAddress: string;

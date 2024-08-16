@@ -1,9 +1,15 @@
+import { uniqBy } from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 
 import useL2Service from '@/hooks/useL2Service';
+import useSubmitStaking from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitStaking';
+import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
 import TopupModal from '@/modules/blockchains/components/TopupModa_V2';
+import { DappType } from '@/modules/blockchains/dapp/types';
+import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
+import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
@@ -15,7 +21,7 @@ import {
   getL2ServicesStateSelector,
   getOrderDetailSelected,
 } from '@/stores/states/l2services/selector';
-import { IModelCategory, IModelOption } from '@/types/customize-model';
+import { IModelOption } from '@/types/customize-model';
 import { getErrorMessage } from '@/utils/errorV2';
 import { formatCurrencyV2 } from '@/utils/format';
 import sleep from '@/utils/sleep';
@@ -23,31 +29,56 @@ import { Spinner, Text, useDisclosure } from '@chakra-ui/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { getChainIDRandom } from '../../Buy.helpers';
+import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
+import useOneForm from '../../hooks/useOneForm';
+import PreviewLaunchModal from '../../Preview';
 import { FormOrder } from '../../stores';
 import { useOrderFormStore } from '../../stores/index_v2';
 import useOrderFormStoreV3 from '../../stores/index_v3';
+import { chainKeyToDappKey } from '../../utils';
 import ErrorModal from '../ErrorModal';
 import { formValuesAdapter } from './FormValuesAdapter';
+import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
+import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
 
-const LaunchButton = ({
-  data,
-  originalData,
-  isUpdate,
-}: {
-  data:
-    | (IModelCategory & {
-        options: IModelCategory['options'] &
-          {
-            value: any;
-            label: string;
-            disabled: boolean;
-          }[];
-      })[]
-    | null;
-  originalData: IModelCategory[] | null;
-  isUpdate?: boolean;
-}) => {
+const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
+  const inssueTokenDappList = dyanmicFormAllData
+    .filter((item: any) => !item.isChain)
+    .filter(
+      (dapp: any) => dapp.options[0].key?.toLowerCase() === 'create_token',
+    );
+
+  const isExistIssueTokenDApp =
+    inssueTokenDappList && inssueTokenDappList.length > 0;
+
+  console.log('inssueTokenDappList ----- ', inssueTokenDappList);
+  console.log('isExistIssueTokenDApp ----- ', isExistIssueTokenDApp);
+
+  return isExistIssueTokenDApp;
+};
+
+const isExistAA = (dyanmicFormAllData: any[]): boolean => {
+  const isExistAAList = dyanmicFormAllData
+    .filter((item: any) => !item.isChain)
+    .filter(
+      (dapp: any) =>
+        dapp.options[0].key?.toLowerCase() === 'account_abstraction',
+    );
+
+  const isExist = isExistAAList && isExistAAList.length > 0;
+  return isExist;
+};
+
+const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
+  const [showPreviewModal, setShowPreviewModal] = useState(false);
+  const [dyanmicFormAllData, setDyanmicFormAllData] = useState<any[]>([]);
+
+  const { dappCount } = useFormDappToFormChain();
+
+  const { parsedCategories: data, categories: originalData } =
+    useModelCategoriesStore();
+
   const { field, priceBVM, priceUSD, needContactUs } = useOrderFormStoreV3();
   const { orderDetail } = useAppSelector(getOrderDetailSelected);
   const { loggedIn, login } = useWeb3Auth();
@@ -55,6 +86,8 @@ const LaunchButton = ({
     useAppSelector(getL2ServicesStateSelector);
   const { getOrderDetailByID } = useL2Service();
   const dispatch = useAppDispatch();
+  const { isCanConfigAA, configAAHandler, checkTokenContractAddress } =
+    useAAModule();
 
   const [isShowError, setShowError] = useState(false);
   const [missingRequiredForTitles, setMissingRequiredForTitles] = useState<
@@ -62,6 +95,8 @@ const LaunchButton = ({
   >([]);
 
   const { showContactUsModal } = useContactUs();
+  const { retrieveFormsByDappKey } = useOneForm();
+  const { isUpdateFlow, isOwnerChain, isChainLoading } = useChainProvider();
 
   const router = useRouter();
   const { computerNameField, chainIdRandom } = useBuy();
@@ -78,20 +113,28 @@ const LaunchButton = ({
     id: 'MODAL_TOPUP',
   });
 
+  const { onSubmitStaking } = useSubmitStaking();
+  const { onSubmitAirdrop } = useSubmitFormAirdrop();
+  const { onSubmitTokenGeneration } = useSubmitFormTokenGeneration();
+
   const { chainName, dataAvaibilityChain, gasLimit, network, withdrawPeriod } =
     useOrderFormStore();
   const searchParams = useSearchParams();
   const packageParam = searchParams.get('use-case') || PRICING_PACKGE.Hacker;
+
+  const isDisabledBtn = useMemo(() => {
+    return (isUpdateFlow && !isOwnerChain) || isChainLoading;
+  }, [isUpdateFlow, isOwnerChain, isChainLoading]);
 
   const titleButton = useMemo(() => {
     if (!loggedIn) {
       return 'Connect';
     }
     if (needContactUs) {
-      return 'Launch';
+      return 'Contact Us';
     }
     if (isUpdate) {
-      return 'Update'; //Update ?? (flow Update)
+      return 'Update';
     }
     return 'Launch';
   }, [loggedIn, isUpdate, needContactUs]);
@@ -105,6 +148,23 @@ const LaunchButton = ({
     };
     getChainIDRandomFunc();
   }, []);
+
+  const configAccountAbstraction = (dyanmicFormAllData: any[]) => {
+    try {
+      const isExist = isExistAA(dyanmicFormAllData);
+      if (isExist) {
+        if (isCanConfigAA) {
+          console.log('[configAccountAbstraction]: Config Called');
+          configAAHandler();
+        } else {
+          console.log('[configAccountAbstraction]: Form Error: ');
+          checkTokenContractAddress();
+        }
+      }
+    } catch (error) {
+      console.log('[configAccountAbstraction]: ERROR: ', error);
+    }
+  };
 
   const isFecthingData = useMemo(() => {
     return availableListFetching || !availableList;
@@ -132,128 +192,23 @@ const LaunchButton = ({
     return result ? result[0] : undefined;
   }, [isFecthingData, availableList, packageParam]);
 
-  const onUpdateHandler = async () => {
-    if (!allFilled) {
-      setShowError(true);
-    }
+  const getDynamicForm = () => {
+    if (!originalData)
+      return {
+        dynamicForm: [],
+        allOptionKeyDragged: [],
+        allRequiredForKey: [],
+        optionMapping: {},
+      };
 
-    if (
-      isSubmiting ||
-      !allFilled ||
-      hasError ||
-      !originalData ||
-      !orderDetail
-    ) {
-      return;
-    }
-
-    const dynamicForm: any[] = [];
-    for (const _field of originalData) {
-      // console.log('___data filed', _field.key, field[_field.key]);
-      if (!field[_field.key].dragged) continue;
-
-      if (_field.multiChoice) {
-        dynamicForm.push({
-          ..._field,
-          options: _field.options.filter((opt: IModelOption) =>
-            (field[_field.key].value as string[])!.includes(opt.key),
-          ),
-        });
-        continue;
-      }
-
-      const value = _field.options.find(
-        (opt: IModelOption) => opt.key === field[_field.key].value,
-      );
-
-      const { options: _, ...rest } = _field;
-
-      dynamicForm.push({
-        ...rest,
-        options: [value],
-      });
-
-      // console.log('___pushing', {...{
-      //     ...rest,
-      //     options: [value],
-      //   }});
-    }
-
-    if (needContactUs) {
-      // showContactUsModal(dynamicForm as any);
-      showContactUsModal({
-        subjectDefault: 0,
-        disableSelect: true,
-        changeText: true,
-        nodeConfigs: dynamicForm || [],
-      });
-      return;
-    }
-
-    //test comment.
-    // if (!loggedIn) {
-    //   return login();
-    // }
-
-    console.log('____dynamicForm', dynamicForm);
-
-    setSubmitting(true);
-
-    let isSuccess = false;
-
-    const params = formValuesAdapter({
-      computerName: orderDetail.chainName,
-      chainId: orderDetail.chainId,
-      dynamicFormValues: dynamicForm,
-    });
-
-    console.log('orderUpdateV2 params: ', params);
-
-    try {
-      //
-      const result = await orderUpdateV2(params, orderDetail.orderId);
-      console.log('orderUpdateV2 result: ', result);
-      if (result) {
-        isSuccess = true;
-        dispatch(setOrderSelected(result));
-      }
-    } catch (error) {
-      console.log('ERROR: ', error);
-      isSuccess = false;
-      const { message } = getErrorMessage(error);
-      // toast.error(message);
-      if (message && message.toLowerCase().includes('insufficient balance')) {
-        onOpenTopUpModal();
-      } else {
-        toast.error(message);
-      }
-    } finally {
-      getOrderDetailByID(orderDetail.orderId);
-
-      await sleep(1);
-      if (isSuccess) {
-        toast.success('Update Successful');
-      }
-      setSubmitting(false);
-    }
-  };
-
-  const handleOnClick = async () => {
-    if (!allFilled) {
-      setShowError(true);
-    }
-
-    if (isSubmiting || !allFilled || hasError || !originalData) {
-      return;
-    }
-
-    let missingRequiredFor = false;
-    const dynamicForm: any[] = [];
+    const dynamicForm = [];
     const optionMapping: Record<string, IModelOption> = {};
     const allOptionKeyDragged: string[] = [];
     const allRequiredForKey: string[] = [];
 
     for (const _field of originalData) {
+      if (!_field.isChain && _field.key !== 'bridge_apps') continue;
+
       _field.options.forEach((opt: IModelOption) => {
         optionMapping[opt.key] = opt;
       });
@@ -293,6 +248,274 @@ const LaunchButton = ({
       });
     }
 
+    for (const _field of originalData) {
+      if (_field.isChain) continue;
+
+      for (const opt of _field.options) {
+        if (dappCount[chainKeyToDappKey(opt.key)]) {
+          const opts = new Array(dappCount[chainKeyToDappKey(opt.key)]).fill(
+            opt,
+          );
+
+          const fieldAlreadyInDynamicForm = dynamicForm.find(
+            (field) => field.key === _field.key,
+          );
+
+          if (fieldAlreadyInDynamicForm) {
+            fieldAlreadyInDynamicForm.options.push(...opts);
+          } else {
+            dynamicForm.push({
+              ..._field,
+              options: opts,
+            });
+          }
+        }
+      }
+    }
+
+    dynamicForm.forEach((field) => {
+      field.options = uniqBy(field.options, 'key');
+    });
+
+    return {
+      dynamicForm,
+      allOptionKeyDragged,
+      allRequiredForKey,
+      optionMapping,
+    };
+  };
+
+  const onUpdateHandler = async () => {
+    if (isDisabledBtn) {
+      return;
+    }
+
+    if (!allFilled) {
+      setShowError(true);
+    }
+
+    if (
+      isSubmiting ||
+      !allFilled ||
+      hasError ||
+      !originalData ||
+      !orderDetail
+    ) {
+      return;
+    }
+
+    const { dynamicForm } = getDynamicForm();
+
+    if (needContactUs) {
+      // showContactUsModal(dynamicForm as any);
+      showContactUsModal({
+        subjectDefault: 0,
+        disableSelect: true,
+        changeText: true,
+        nodeConfigs: dynamicForm || [],
+      });
+      return;
+    }
+
+    setSubmitting(true);
+
+    let isSuccess = false;
+
+    console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
+    const params = formValuesAdapter({
+      computerName: orderDetail.chainName,
+      chainId: orderDetail.chainId,
+      dynamicFormValues: dynamicForm,
+    });
+    console.log('UPDATE FLOW: --- params --- ', params);
+    const stakingForms = retrieveFormsByDappKey({
+      dappKey: DappType.staking,
+    });
+    console.log('UPDATE FLOW: --- stakingForms --- ', stakingForms);
+
+    const airdropForms = retrieveFormsByDappKey({
+      dappKey: DappType.airdrop,
+    });
+
+    console.log('UPDATE FLOW: --- airdropForms --- ', airdropForms);
+
+    const tokensForms = retrieveFormsByDappKey({
+      dappKey: DappType.token_generation,
+    });
+
+    console.log('UPDATE FLOW: --- tokensForms --- ', tokensForms);
+
+    console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
+    console.log('LEON LOG: 111', tokensForms);
+    try {
+      // Update and Call API install (behind the scene form BE Phuong)
+      const result = await orderUpdateV2(params, orderDetail.orderId);
+      if (result) {
+        //Config Account Abstraction...
+        configAccountAbstraction(dynamicForm);
+        let isConfigDapp = false;
+        //Staking...
+        if (stakingForms && stakingForms.length > 0) {
+          await onSubmitStaking({
+            forms: stakingForms,
+          });
+          isConfigDapp = true;
+        }
+
+        if (airdropForms && airdropForms.length > 0) {
+          await onSubmitAirdrop({ forms: airdropForms });
+          isConfigDapp = true;
+        }
+
+        if (tokensForms && tokensForms.length > 0) {
+          await onSubmitTokenGeneration({ forms: tokensForms });
+          isConfigDapp = true;
+        }
+
+        if (isConfigDapp) {
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        }
+
+        // TO DO [Leon]
+        // Call API Config DApp if is exist dapp (issues token, staking, ....) daragged into Data View
+
+        // try {
+        //   // const res =  await ...
+        // } catch (error) {}
+
+        isSuccess = true;
+        dispatch(setOrderSelected(result));
+        await sleep(1);
+        // if (isSuccess) {
+        //   toast.success('Update Successful');
+        // }
+      }
+    } catch (error) {
+      console.log('ERROR: ', error);
+      isSuccess = false;
+      const { message } = getErrorMessage(error);
+      // toast.error(message);
+      if (message && message.toLowerCase().includes('insufficient balance')) {
+        onOpenTopUpModal();
+      } else {
+        toast.error(message);
+      }
+    } finally {
+      getOrderDetailByID(orderDetail.orderId);
+
+      setSubmitting(false);
+    }
+  };
+
+  const onLaunchExecute = async () => {
+    setSubmitting(true);
+
+    let isSuccess = false;
+
+    const form: FormOrder = {
+      chainName,
+      network,
+      dataAvaibilityChain,
+      gasLimit,
+      withdrawPeriod,
+    };
+
+    const params = formValuesAdapter({
+      computerName: computerNameField.value || '',
+      chainId: chainId,
+      dynamicFormValues: dyanmicFormAllData,
+    });
+
+    let result;
+    try {
+      result = await orderBuyAPI_V3(params);
+      if (result) {
+        // if (isExistIssueTokenDApp(dyanmicFormAllData)) {
+        // -----------------------------------------------------------
+        //   If exist Issue Token dAPP have been dragged!
+        //   TODO[Leon] Call API install Issues Token after call API install Chain be succeed! )
+        //   const resultIssusToken = await API.[Call Install Issues Token]
+        // -----------------------------------------------------------
+        // try {
+        //   await onSubmitStaking({
+        //     forms: stakingForms,
+        //   });
+        //   isSuccess = true;
+        // } catch (error) {
+        //   console.log('ERROR: ', error);
+        // }
+        // }
+
+        isSuccess = true;
+      }
+    } catch (error) {
+      console.log('ERROR: ', error);
+      isSuccess = false;
+      const { message } = getErrorMessage(error);
+      // toast.error(message);
+      if (message && message.toLowerCase().includes('insufficient balance')) {
+        onOpenTopUpModal();
+      } else {
+        toast.error(message || 'Something went wrong');
+      }
+    } finally {
+      if (isSuccess) {
+        toast.success('Submit Successful');
+        const orderId = result.orderId;
+        getOrderDetailByID(orderId);
+
+        await sleep(1);
+
+        window.location.replace(`/chains/${orderId}`);
+
+        // router.push(`/chains/${orderId}`);
+      } else {
+        // router.push('/rollups?hasOrderFailed=true');
+      }
+      setSubmitting(false);
+    }
+  };
+
+  const onLaunchCallbackHandler = () => {
+    setShowPreviewModal(false);
+    onLaunchExecute();
+  };
+
+  const onLaunchHandler = async () => {
+    // =======================================================================================
+    // Dapp forms
+    // =======================================================================================
+    const issueATokenForms = retrieveFormsByDappKey({
+      dappKey: 'token_generation',
+    });
+
+    // =======================================================================================
+    // Chain form
+    // =======================================================================================
+    if (!allFilled) {
+      setShowError(true);
+    }
+
+    if (isSubmiting || !allFilled || hasError || !originalData) {
+      return;
+    }
+
+    let missingRequiredFor = false;
+    const {
+      dynamicForm,
+
+      allOptionKeyDragged,
+      allRequiredForKey,
+      optionMapping,
+    } = getDynamicForm();
+
+    console.log(
+      '🚀 -> file: index.tsx:260 -> handleOnClick -> dynamicForm ::',
+      dynamicForm,
+    );
+
     allRequiredForKey.forEach((key) => {
       if (!allOptionKeyDragged.includes(key)) {
         missingRequiredFor = true;
@@ -324,54 +547,16 @@ const LaunchButton = ({
       return login();
     }
 
-    setSubmitting(true);
-
-    let isSuccess = false;
-    const form: FormOrder = {
-      chainName,
-      network,
-      dataAvaibilityChain,
-      gasLimit,
-      withdrawPeriod,
-    };
-
-    const params = formValuesAdapter({
-      computerName: computerNameField.value || '',
-      chainId: chainId,
-      dynamicFormValues: dynamicForm,
-    });
-
-    try {
-      const result = await orderBuyAPI_V3(params);
-      if (result) {
-        isSuccess = true;
-      }
-    } catch (error) {
-      console.log('ERROR: ', error);
-      isSuccess = false;
-      const { message } = getErrorMessage(error);
-      // toast.error(message);
-      if (message && message.toLowerCase().includes('insufficient balance')) {
-        onOpenTopUpModal();
-      }
-    } finally {
-      // dispatch(setViewMode('Mainnet'));
-      // dispatch(setViewPage('ManageChains'));
-      // dispatch(setShowAllChains(false));
-      await sleep(1);
-      if (isSuccess) {
-        router.push('/chains');
-      } else {
-        // router.push('/rollups?hasOrderFailed=true');
-      }
-      setSubmitting(false);
-    }
+    setDyanmicFormAllData(dynamicForm);
+    setShowPreviewModal(true);
   };
 
   return (
     <>
       <div
-        className={`${s.launch} ${s.active}`}
+        className={`${s.launch} ${s.active} ${
+          isDisabledBtn ? s.disabled : undefined
+        }`}
         onClick={() => {
           if (!loggedIn) {
             login();
@@ -380,7 +565,7 @@ const LaunchButton = ({
           if (isUpdate) {
             onUpdateHandler();
           } else {
-            handleOnClick();
+            onLaunchHandler();
           }
         }}
       >
@@ -388,24 +573,15 @@ const LaunchButton = ({
           {!loggedIn ? (
             <Text className={s.connect}>
               {titleButton}
-
-              <div className={`${s.icon}`}>
-                <ImagePlaceholder
-                  src={'/launch.png'}
-                  alt={'launch'}
-                  width={48}
-                  height={48}
-                />
-              </div>
-              {/* {needContactUs && (
+              {needContactUs && (
                 <img
                   src={'/icons/info-circle.svg'}
                   alt="icon"
                   width={24}
                   height={24}
                 />
-              )} */}
-              {/* {!needContactUs && (
+              )}
+              {!needContactUs && (
                 <div className={`${s.icon}`}>
                   <ImagePlaceholder
                     src={'/launch.png'}
@@ -414,22 +590,23 @@ const LaunchButton = ({
                     height={48}
                   />
                 </div>
-              )} */}
+              )}
             </Text>
           ) : (
             <React.Fragment>
               <div className={s.top}>
                 {isSubmiting ? <Spinner color="#fff" /> : <p>{titleButton}</p>}
-                <div className={`${s.icon}`}>
-                  <ImagePlaceholder
-                    src={'/launch.png'}
-                    alt={'launch'}
-                    width={48}
-                    height={48}
+
+                {needContactUs && (
+                  <img
+                    src={'/icons/info-circle.svg'}
+                    alt="icon"
+                    width={24}
+                    height={24}
                   />
-                </div>
+                )}
 
-                {/* {needContactUs && (
+                {!needContactUs && (
                   <div className={`${s.icon}`}>
                     <ImagePlaceholder
                       src={'/launch.png'}
@@ -438,29 +615,17 @@ const LaunchButton = ({
                       height={48}
                     />
                   </div>
-                )} */}
-
-                {/* {!needContactUs && (
-                  <div className={`${s.icon}`}>
-                    <ImagePlaceholder
-                      src={'/launch.png'}
-                      alt={'launch'}
-                      width={48}
-                      height={48}
-                    />
-                  </div>
-                )} */}
+                )}
               </div>
             </React.Fragment>
           )}
-
-          {/* {needContactUs && (
+          {needContactUs && (
             <div className={s.tooltip}>
               You've chosen Optimistic Rollup for your blockchain. The price of
               this module can vary. Please contact us to discuss further and get
               it set up.
             </div>
-          )} */}
+          )}
         </div>
       </div>
       {isOpenTopUpModal && (
@@ -507,6 +672,16 @@ const LaunchButton = ({
           ))}
         </ul>
       </ErrorModal>
+      {showPreviewModal && (
+        <PreviewLaunchModal
+          show={showPreviewModal}
+          onClose={() => {
+            setShowPreviewModal(false);
+          }}
+          onLaunchCallback={onLaunchCallbackHandler}
+          data={dyanmicFormAllData}
+        />
+      )}
     </>
   );
 };

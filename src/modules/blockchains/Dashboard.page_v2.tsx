@@ -19,11 +19,13 @@ import { TAB_ENUM, TAB_ENUM_MAP } from './Dashboard.constant_v2';
 import { enhance } from './Dashboard.enhance';
 import BillingPage from './components/BillingPage';
 // import BodyView from './components/Body';
+import { useRouter } from 'next/navigation';
 import BodyView from './components/Body_v2';
 import NetworkBar from './components/NetworkBar_V2';
 import s from './styles.module.scss';
 
 const Page = (props: any) => {
+  const router = useRouter();
   const { onOpenTopUpModal } = props;
   const [activeTab, setChatTabIndex] = useState<TAB_ENUM>(
     TAB_ENUM.MANAGE_CHAINS,
@@ -49,6 +51,12 @@ const Page = (props: any) => {
       getAccountInfor();
     }
   }, [loggedIn]);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     router.push('/chains/66bb33f039450b503310947b');
+  //   }, 5000);
+  // }, []);
 
   const renderTabbar = () => {
     return (

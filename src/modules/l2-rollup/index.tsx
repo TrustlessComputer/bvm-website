@@ -29,7 +29,6 @@ import { DotLottiePlayer } from '@dotlottie/react-player';
 enum SortRollupType {
   name,
   block,
-  fdv,
   tps,
   mgas,
   kbs,
@@ -39,6 +38,7 @@ enum SortRollupType {
   tvl,
   lastBlock,
   verification,
+  fdv,
   level,
   fee,
 }
@@ -90,8 +90,6 @@ const L2Rollup = () => {
   const fetchData = async () => {
     try {
       const res = await rollupL2Api.getRollupL2Info();
-      if (res.length <= 0) return;
-
       let data: IRollupL2Info[] = [];
 
       if (currentSort.ascending === undefined) {
@@ -230,7 +228,7 @@ const L2Rollup = () => {
                   alignItems={'center'}
                   width={'100%'}
                   justifyContent={'space-between'}
-                  paddingLeft={'12px'}
+                  paddingLeft={'16px'}
                   cursor={'pointer'}
                   _hover={{
                     textDecoration: 'underline',
@@ -547,7 +545,7 @@ const L2Rollup = () => {
               width={'100%'}
               justifyContent={'space-between'}
               cursor="pointer"
-              px={'2px'}
+              px={'4px'}
               onClick={() => {
                 window.open(data.explorer);
               }}
@@ -573,7 +571,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'92px'} px={'2px'}>
+            <Flex gap={3} alignItems={'center'} width={'102px'} px={'4px'}>
               <Text className={s.title}>
                 {data?.tps
                   ? formatCurrency(
@@ -600,7 +598,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'92px'} px={'2px'}>
+            <Flex gap={3} alignItems={'center'} width={'102px'} px={'4px'}>
               <Text className={s.title}>
                 {data?.mgas
                   ? formatCurrency(data?.mgas, MIN_DECIMAL, MIN_DECIMAL)
@@ -623,7 +621,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'92px'} px={'2px'}>
+            <Flex gap={3} alignItems={'center'} width={'92px'} px={'4px'}>
               <Text className={s.title}>
                 {data?.kbs
                   ? formatCurrency(
@@ -650,7 +648,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'100%'} px={'2px'}>
+            <Flex gap={3} alignItems={'center'} width={'100%'} px={'4px'}>
               <Text className={s.title}>{data.stack || '-'}</Text>
             </Flex>
           );
@@ -669,7 +667,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex gap={3} alignItems={'center'} width={'100%'} px={'2px'}>
+            <Flex gap={3} alignItems={'center'} width={'100%'} px={'4px'}>
               <Text className={s.title}>{data.da || '-'}</Text>
             </Flex>
           );
@@ -747,11 +745,11 @@ const L2Rollup = () => {
         render(data: IRollupL2Info) {
           const isUnderReview = Number(data.tvl_btc) === 0;
           return (
-            <Flex alignItems={'center'} width={'100%'} px={'2px'}>
+            <Flex alignItems={'center'} width={'100%'} px={'4px'}>
               <Text className={s.title}>
                 {isUnderReview
                   ? '-'
-                  : `${formatCurrency(data.tvl_btc, 0, 1)} BTC`}
+                  : `${formatCurrency(data.tvl_btc, 0, 3)} BTC`}
               </Text>
             </Flex>
           );

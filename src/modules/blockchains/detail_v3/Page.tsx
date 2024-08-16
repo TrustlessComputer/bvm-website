@@ -4,13 +4,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import ImagePlaceholder from '@/components/ImagePlaceholder';
-import { useOrderOwnerHelper } from '@/services/api/l2services/hook';
 import { useAppSelector } from '@/stores/hooks';
 import {
   getAvailableListTemplateSelector,
   getModelCategoriesSelector,
 } from '@/stores/states/l2services/selector';
-import { IModelCategory } from '@/types/customize-model';
 import { formatCurrencyV2 } from '@/utils/format';
 import { Flex, Spacer, useDisclosure } from '@chakra-ui/react';
 import ExplorePage from '../Buy/Explore';
@@ -35,6 +33,9 @@ import { ResetModal } from './components/ResetModal';
 import ToolBar from './components/ToolBar_v2';
 import enhance from './enhance';
 import useCaptureHelper from './hook/useCaptureHelper';
+import { categoriesMockup } from '../Buy/Buy.data';
+import { useOrderOwnerHelper } from '@/services/api/l2services/hook';
+import { IModelCategory } from '@/types/customize-model';
 import s from './styles.module.scss';
 import { ChainDetailComponentProps } from './types';
 
@@ -939,13 +940,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                       decimals: 0,
                     })}
                   />
-                  {
-                    <LaunchButton
-                      data={data}
-                      originalData={originalData}
-                      isUpdate={true}
-                    />
-                  }
+                  {<LaunchButton isUpdate={true} />}
                 </>
               )
             }
@@ -955,7 +950,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
             <Flex flexDir={'row'} mt={'20px'} gap={'10px'} w={'100%'}>
               {/* First-LeftView */}
               <Flex className={s.thumbLegosContainer}>
-                <SidebarV2 items={data} />
+                <SidebarV2 />
               </Flex>
 
               {/* Seconds-LeftView */}

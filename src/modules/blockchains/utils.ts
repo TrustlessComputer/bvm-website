@@ -17,14 +17,62 @@ const getValue = (item: FieldModel) => {
 const parseDappModel = (params: {
   model: DappModel[];
   key: string;
+  startIndex?: number;
 }): ParseResult => {
   const { model, key } = params;
+  let { startIndex = 0 } = params;
+
   const data = (model || []).filter(
     (item) => compareString(item.key, key) || compareString(item.id, key),
   );
 
+  const getAllKeyValue = (fields: FieldModel[]) => {
+    const result: Record<
+      string,
+      {
+        value: any;
+        level: number;
+      }
+    > = {};
+
+    const loop = (options: FieldModel[], level: number) => {
+      for (const option of options) {
+        if (option.type === '') continue;
+
+        result[option.key] = {
+          value: option.value,
+          level: level,
+        };
+
+        loop(option.options, level + 1);
+      }
+    };
+
+    fields.forEach((item) => {
+      if (item.type === 'input') {
+        result[item.key] = {
+          value: item.value,
+          level: item.level || 0,
+        };
+      } else {
+        if (item.type === 'extends') {
+          result[item.key] = {
+            value: item.value,
+            level: item.level || 0,
+          };
+        }
+
+        loop(item.options, item.level || 0);
+      }
+    });
+
+    return result;
+  };
+
   const result = data.reduce(
-    (prev, curr, index) => {
+    (prev, curr) => {
+      const index = startIndex;
+
       const baseField = (curr.baseBlock?.fields || []).reduce(
         (prevBase, currBase) => {
           return {
@@ -40,7 +88,7 @@ const parseDappModel = (params: {
 
       const blockField = (curr.blockFields || []).reduce(
         (prevField, currField, indexField) => {
-          const blockItem = currField.fields.reduce((prevItem, currItem) => {
+          const fields = currField.fields.reduce((prevItem, currItem) => {
             if (currItem.type === 'extends') {
               currItem.options.forEach((item1) => {
                 item1?.options.forEach((item2) => {
@@ -62,9 +110,22 @@ const parseDappModel = (params: {
             };
           }, {});
 
+          let childrenFields = {};
+          const allChildrenKeyValue = getAllKeyValue(
+            currField.childrenFields || [],
+          );
+          for (const [key, data] of Object.entries(allChildrenKeyValue)) {
+            childrenFields = {
+              ...childrenFields,
+              [`${index}-block-${key}-${data.level}-${indexField}-${currField.key}`]:
+                data.value,
+            };
+          }
+
           return {
             ...prevField,
-            ...blockItem,
+            ...fields,
+            ...childrenFields,
           };
         },
         {},
@@ -79,6 +140,9 @@ const parseDappModel = (params: {
           ...options,
         },
       };
+
+      startIndex++;
+
       return mapper;
     },
     {

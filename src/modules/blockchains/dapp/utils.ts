@@ -1,14 +1,14 @@
+import { IAirdropTask } from '@/services/api/dapp/airdrop/interface';
+import { IToken } from '@/services/api/dapp/token_generation/interface';
+import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
+import { compareString } from '@/utils/string';
 import {
   MouseSensor as LibMouseSensor,
   TouchSensor as LibTouchSensor,
 } from '@dnd-kit/core';
 import type { MouseEvent, TouchEvent } from 'react';
-import { DappType, FieldOption } from './types';
 import { FieldKeyPrefix } from './contants';
-import { compareString } from '@/utils/string';
-import { IToken } from '@/services/api/dapp/token_generation/interface';
-import { IAirdropTask } from '@/services/api/dapp/airdrop/interface';
-import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
+import { DappType, FieldOption } from './types';
 
 const handler = ({ nativeEvent: event }: MouseEvent | TouchEvent) => {
   let cur = event.target as HTMLElement;
@@ -35,7 +35,7 @@ export class TouchSensor extends LibTouchSensor {
   ] as (typeof LibTouchSensor)['activators'];
 }
 
-export const removeItemAtIndex = (arr: any[], index: number) => {
+export const removeItemAtIndex = <T>(arr: T[], index: number) => {
   return [...arr.slice(0, index), ...arr.slice(index + 1)];
 };
 

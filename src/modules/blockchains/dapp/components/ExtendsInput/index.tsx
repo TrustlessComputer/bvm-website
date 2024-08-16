@@ -2,20 +2,14 @@ import React from 'react';
 
 import Lego from '../Lego';
 import Toggle from '../Toggle';
-import Label from '../Label';
-import Input from '../Input';
-import Dropdown from '../Dropdown';
-import useDappsStore from '../../stores/useDappStore';
 import { FieldOption } from '../../types';
 import { adjustBrightness, FormDappUtil } from '../../utils';
 import {
   formDappSignal,
-  formDappToggleSignal,
   formTemplateDappSignal,
 } from '../../signals/useFormDappsSignal';
-import { useThisDapp } from '../../hooks/useThisDapp';
-import DateTimeInput from '../DateTimeInput';
 import { FieldModel } from '@/types/customize-model';
+import { useThisDapp } from '../../hooks/useThisDapp';
 
 type Props = FieldModel &
   FieldOption & {
@@ -60,9 +54,7 @@ const ExtendsInput = ({
     baseIndex,
   };
 
-  const _zIndex = React.useMemo(() => zIndex, []);
-
-  const { thisDapp } = useThisDapp();
+  const { thisDapp, getInputWithoutLego } = useThisDapp();
 
   const [toggle, setToggle] = React.useState(Boolean(value));
 
@@ -95,57 +87,6 @@ const ExtendsInput = ({
     }
   }, [value]);
 
-  const getInput = React.useCallback(
-    (field: FieldModel, fieldOpt: FieldOption): React.ReactNode => {
-      if (field.type === 'input') {
-        return (
-          <Input
-            {...field}
-            {...fieldOpt}
-            disabled={disabled}
-            onlyLabel={onlyLabel}
-            name={field.key}
-            dappKey={thisDapp.key}
-          />
-        );
-      } else if (field.type === 'dropdown') {
-        return (
-          <Dropdown
-            {...field}
-            {...fieldOpt}
-            disabled={disabled}
-            onlyLabel={onlyLabel}
-            keyDapp={thisDapp.key}
-            name={field.key}
-            options={field.options}
-            background={adjustBrightness(background, -20)}
-          />
-        );
-      } else if (field.type === 'group') {
-        return (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            {field.options.map((option) => getInput(option, fieldOpt))}
-          </div>
-        );
-      } else if (field.type === 'datetime') {
-        return (
-          <DateTimeInput
-            {...field}
-            {...fieldOpt}
-            disabled={disabled}
-            onlyLabel={onlyLabel}
-            name={field.key}
-            dappKey={thisDapp.key}
-          />
-        );
-      }
-
-      return null;
-    },
-
-    [thisDapp],
-  );
-
   if (type !== 'group' && type !== 'extends') {
     return (
       <React.Fragment>
@@ -156,9 +97,9 @@ const ExtendsInput = ({
           title={title}
           titleInLeft={true}
           titleInRight={false}
-          zIndex={_zIndex}
+          zIndex={zIndex}
         >
-          {getInput(props, fieldOption)}
+          {getInputWithoutLego(props, fieldOption)}
         </Lego>
       </React.Fragment>
     );
@@ -172,58 +113,15 @@ const ExtendsInput = ({
           title={title}
           titleInLeft={true}
           titleInRight={false}
-          zIndex={_zIndex}
+          zIndex={zIndex}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            {options.map((option) => getInput(option, fieldOption))}
+            {options.map((option) => getInputWithoutLego(option, fieldOption))}
           </div>
         </Lego>
       </React.Fragment>
     );
   }
-
-  // if (type === 'input') {
-  //   return (
-  //     <Lego
-  //       background={background}
-  //       first={false}
-  //       last={false}
-  //       title={title}
-  //       titleInLeft={true}
-  //       titleInRight={false}
-  //     >
-  //       {getInput(props, fieldOption)}
-  //     </Lego>
-  //   );
-  // } else if (type === 'dropdown') {
-  //   return (
-  //     <Lego
-  //       background={background}
-  //       first={false}
-  //       last={false}
-  //       title={title}
-  //       titleInLeft={true}
-  //       titleInRight={false}
-  //     >
-  //       {getInput(props, fieldOption)}
-  //     </Lego>
-  //   );
-  // } else if (type === 'group') {
-  //   return (
-  //     <Lego
-  //       background={background}
-  //       first={false}
-  //       last={false}
-  //       title={title}
-  //       titleInLeft={true}
-  //       titleInRight={false}
-  //     >
-  //       <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-  //         {options.map((option) => getInput(option, fieldOption))}
-  //       </div>
-  //     </Lego>
-  //   );
-  // }
 
   return (
     <React.Fragment>
@@ -234,7 +132,7 @@ const ExtendsInput = ({
         title={title}
         titleInLeft={true}
         titleInRight={false}
-        zIndex={_zIndex + 1}
+        zIndex={zIndex}
       >
         <Toggle
           background={adjustBrightness(background, -20)}
@@ -260,7 +158,7 @@ const ExtendsInput = ({
               key={option.key}
               disabled={disabled}
               onlyLabel={onlyLabel}
-              zIndex={_zIndex + 1 - optIndex - 1}
+              zIndex={zIndex - optIndex}
             />
           ))
         : null}

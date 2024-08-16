@@ -128,13 +128,13 @@ function LegoParent({
         className={styles.wrapper_studHead}
       />
 
-      {/* <span
-        className={`${styles.wrapper_stud__top} ${styles.wrapper_stud} ${
-          active && styles.wrapper_stud__top_active
-        }`}
-      >
-        <SvgInset svgUrl="/landingV3/svg/stud.svg" />
-      </span> */}
+      {/* <span*/}
+      {/*  className={`${styles.wrapper_stud__top} ${styles.wrapper_stud} ${*/}
+      {/*    active && styles.wrapper_stud__top_active*/}
+      {/*  }`}*/}
+      {/*>*/}
+      {/*  <SvgInset svgUrl="/landingV3/svg/stud.svg" />*/}
+      {/*</span>*/}
 
       <div className={`${styles.wrapper_stud__vertical} ${styles.stud__large}`}>
         {label && (
@@ -144,12 +144,12 @@ function LegoParent({
           </div>
         )}
 
-        <div
-          className={styles.wrapper_stud__vertical__bottom}
-          style={{ zIndex: zIndex }}
-        >
-          <SvgInset svgUrl="/landingV3/svg/stud.svg" />
-        </div>
+        {/*<div*/}
+        {/*  className={styles.wrapper_stud__vertical__bottom}*/}
+        {/*  style={{ zIndex: zIndex }}*/}
+        {/*>*/}
+        {/*  <SvgInset svgUrl="/landingV3/svg/stud.svg" />*/}
+        {/*</div>*/}
       </div>
 
       <div className={styles.wrapper_stud__horizonal}>
@@ -157,9 +157,9 @@ function LegoParent({
       </div>
 
       <div className={styles.wrapper_stud__vertical}>
-        {/*<div className={styles.wrapper_stud__vertical__top}>*/}
-        {/*  <SvgInset svgUrl="/landingV3/svg/stud.svg" />*/}
-        {/*</div>{' '}*/}
+        <div className={styles.wrapper_stud__vertical__top}>
+          <SvgInset svgUrl="/landingV3/svg/stud.svg" />
+        </div>{' '}
         <div className={styles.wrapper_stud__vertical__bottom}>
           <SvgInset svgUrl="/landingV3/svg/stud.svg" />
         </div>

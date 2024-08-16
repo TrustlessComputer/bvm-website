@@ -256,7 +256,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
     homeImage: `${CDN_URL}/pages/landing-v4/home-rollups-naka.png`,
   },
   {
-    image: '/explore/eternal2.png',
+    image: '/explore/eternal.png',
     title: 'Eternal AI',
     description:
       'The first Bitcoin L2 for fully on-chain AI, designed to preserve AI as censorship-resistant, tamper-proof, and permissionlessly accessible to every human.',
