@@ -19,6 +19,7 @@ import {
   PopoverContent,
   PopoverBody,
   PopoverTrigger,
+  Grid,
 } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
@@ -358,24 +359,39 @@ const L2Rollup = () => {
         label: renderLabel(
           'Level',
           SortRollupType.level,
-          <Flex direction={'column'} py={'8px'} gap={'4px'}>
-            <Text>Level 1: Base layer is not Bitcoin.</Text>
-            <Text>
-              Level 2: Base layer is Bitcoin, using external DA, without state
-              verification.
-            </Text>
-            <Text>
-              Level 3: Base layer is Bitcoin, using Bitcoin for DA, without
-              state verification.
-            </Text>
-            <Text>
-              Level 4: Base layer is Bitcoin, using Bitcoin for DA, with state
-              verification by a light client.
-            </Text>
-            <Text>
-              Level 5: Base layer is Bitcoin, using Bitcoin for DA, with state
-              verification natively in Bitcoin using BitVM or OP_CAT.
-            </Text>
+          <Flex direction={'column'} py={'8px'} px={'4px'} gap={'8px'}>
+            <Grid gridTemplateColumns={'64px 1fr'}>
+              <Text w={'100px !important'}>Level 1</Text>
+              <Text>Base layer is not Bitcoin.</Text>
+            </Grid>
+            <Grid gridTemplateColumns={'64px 1fr'}>
+              <Text w={'100px !important'}>Level 2</Text>
+              <Text>
+                Base layer is Bitcoin, using external DA, without state
+                verification.
+              </Text>
+            </Grid>
+            <Grid gridTemplateColumns={'64px 1fr'}>
+              <Text w={'120px'}>Level 3</Text>
+              <Text>
+                Base layer is Bitcoin, using Bitcoin for DA, without state
+                verification.
+              </Text>
+            </Grid>
+            <Grid gridTemplateColumns={'64px 1fr'}>
+              <Text w={'120px'}>Level 4</Text>
+              <Text>
+                Base layer is Bitcoin, using Bitcoin for DA, with state
+                verification by a light client.
+              </Text>
+            </Grid>
+            <Grid gridTemplateColumns={'64px 1fr'}>
+              <Text w={'100px !important'}>Level 5</Text>
+              <Text>
+                Base layer is Bitcoin, using Bitcoin for DA, with state
+                verification natively in Bitcoin using BitVM or OP_CAT.
+              </Text>
+            </Grid>
           </Flex>,
         ),
         labelConfig,
