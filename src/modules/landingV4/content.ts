@@ -151,7 +151,7 @@ export const BOB_SECTION = {
         'Achieve victory, earn recognition, and unlock monetary rewards as you compete for glory.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-PoC.png`,
       link: {
-        url: '/heartbeats',
+        url: '/PoC',
         target: '_blank',
       },
       tags: ['', 'Competition'],
