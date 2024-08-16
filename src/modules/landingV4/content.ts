@@ -3,12 +3,22 @@ import { Research } from '../Lab/data';
 import { CDN_URL, CDN_URL_IMAGES_NBC } from '@/config';
 import { BLOGS } from '../landingV3/Componets/Section_7/constant';
 import { id } from 'ethers/lib/utils';
+import { it } from 'node:test';
 
 export const APPS_SECTION = {
   id: 'apps',
   tag: 'Apps. ',
   title: 'Experience Bitcoin like never before.',
   item: DAPPS_DATA.map((item, idx) => {
+    const tags = item.tags.map((tag) => {
+      if (tag.split(' ').length < 2) return tag;
+
+      if (tag.toLowerCase().includes('chain')) {
+        // remove 'chain' from the tag
+        return tag.split(' ')[0];
+      }
+    });
+
     return {
       title: item.title,
       description: item.description,
@@ -18,7 +28,7 @@ export const APPS_SECTION = {
         url: item.link.url,
         target: '_blank',
       },
-      tags: item.tags,
+      tags: tags,
       image: item.image,
       id: item.id,
     };
@@ -114,7 +124,10 @@ export const ROLLUPS_SECTION = {
   id: 'rollups',
   tag: 'Rollups. ',
   title: `Explore chains backed by Bitcoin's security.`,
-  item: CHAIN_DATA,
+  item: CHAIN_DATA.map((item, idx) => ({
+    ...item,
+    description: item.description.replace(/<br\s*\/?>/gi, ''),
+  })),
 };
 
 export const BOB_SECTION = {
@@ -123,7 +136,7 @@ export const BOB_SECTION = {
   title: 'Build with ease with the leading Bitcoin infrastructure.',
   item: [
     {
-      title: 'BVM Raas Studio',
+      title: 'BVM RaaS Studio',
       description: 'A fun way to customize your blockchain to meet your needs.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-studio.png`,
       link: {
@@ -133,15 +146,15 @@ export const BOB_SECTION = {
       tags: ['', 'Studio'],
     },
     {
-      title: 'Bitcoin Heartbeats',
+      title: 'Proof of Code',
       description:
-        'Bringing transparency to the new Bitcoin economy for smarter decisions and investments.',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-heartbeat.png`,
+        'Achieve victory, earn recognition, and unlock monetary rewards as you compete for glory.',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-PoC.png`,
       link: {
-        url: '/heartbeats',
+        url: '/PoC',
         target: '_blank',
       },
-      tags: ['', 'Analytics'],
+      tags: ['', 'Competition'],
     },
     {
       title: 'BitZK',
@@ -429,24 +442,26 @@ export const OPENSOURCE_SECTION = {
         target: '_blank',
       },
     },
-    // {
-    //   title: 'Light Node',
-    //   description: `Run a Supersonic Light Node.`,
-    //   homeImage: `${CDN_URL_IMAGES_NBC}/apps/psbt.jpeg`,
-    //   link: {
-    //     url: 'https://github.com/TrustlessComputer/lightnode',
-    //     target: '_blank',
-    //   },
-    // },
-    // {
-    //   title: 'Light Node Website',
-    //   description: `Display the batch details, including links to the zk proof and commitment data stored on Bitcoin and DA.`,
-    //   homeImage: `${CDN_URL_IMAGES_NBC}/apps/psbt.jpeg`,
-    //   link: {
-    //     url: 'https://github.com/TrustlessComputer/lightnode-website',
-    //     target: '_blank',
-    //   },
-    // },
+    {
+      title: 'Light Node',
+      description: `Run a Supersonic Light Node.`,
+      homeImage: `${CDN_URL}/pages/landing-v4/home-lightnode.png`,
+
+      link: {
+        url: 'https://github.com/TrustlessComputer/lightnode',
+        target: '_blank',
+      },
+    },
+    {
+      title: 'Light Node Website',
+      description: `Display the batch details, including links to the zk proof and commitment data stored on Bitcoin and DA.`,
+      homeImage: `${CDN_URL}/pages/landing-v4/home-lightnode-website.png`,
+
+      link: {
+        url: 'https://github.com/TrustlessComputer/lightnode-website',
+        target: '_blank',
+      },
+    },
   ],
 };
 
