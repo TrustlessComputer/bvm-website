@@ -25,6 +25,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import { orderBy } from 'lodash';
 import { DotLottiePlayer } from '@dotlottie/react-player';
+import sleep from '@/utils/sleep';
 
 enum SortRollupType {
   name,
@@ -54,6 +55,8 @@ const L2Rollup = () => {
   const [data, setData] = useState<IRollupL2Info[]>([]);
 
   const hasIncrementedPageRef = useRef(false);
+  const loaded = useRef(true);
+
   const rollupL2Api = new CRollupL2API();
 
   const [currentSort, setCurrentSort] = useState<ISort>({
@@ -78,6 +81,7 @@ const L2Rollup = () => {
   }, [data]);
 
   useEffect(() => {
+    loaded.current = true;
     fetchData();
     const interval = setInterval(() => {
       fetchData();
@@ -88,8 +92,11 @@ const L2Rollup = () => {
   }, [currentSort]);
 
   const fetchData = async () => {
+    if (!loaded.current) return;
+    loaded.current = false;
     try {
       const res = await rollupL2Api.getRollupL2Info();
+      if (res.length <= 0) return;
       let data: IRollupL2Info[] = [];
 
       if (currentSort.ascending === undefined) {
@@ -146,6 +153,7 @@ const L2Rollup = () => {
     } catch (error) {
     } finally {
       hasIncrementedPageRef.current = false;
+      loaded.current = true;
     }
   };
 
@@ -493,7 +501,7 @@ const L2Rollup = () => {
               <Text className={s.title}>
                 {isUnderReview
                   ? '-'
-                  : `${formatCurrency(data.fee_btc, 0, 1)} BTC`}
+                  : `${formatCurrency(data.fee_btc, 0, 4)} BTC`}
               </Text>
             </Flex>
           );
@@ -946,7 +954,6 @@ const L2Rollup = () => {
           w="100%"
           direction={'column'}
           gap={'8px'}
-          maxW={'1400px'}
         >
           <Text fontSize={'24px'} fontWeight={'600'} textAlign={'center'}>
             Total

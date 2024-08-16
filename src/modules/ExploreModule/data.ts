@@ -44,12 +44,12 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   {
     id: 'runedex',
     image: '/explore/dapp-runedex.png',
-    title: 'RuneDex',
+    title: 'Rune Dex ',
     bgColor:
       'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
     description:
       'The “Decentralized Binance” — buy Bitcoin easily and permisionlessly.',
-    tags: ['RuneChain', 'Defi'],
+    tags: ['RuneChain', 'DeFi'],
     link: {
       url: 'https://runechain.com/',
       target: '_blank',
@@ -89,7 +89,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   {
     id: 'nakaFuture',
     image: '/explore/dapp4.png',
-    title: 'NakaDex',
+    title: 'Naka Dex ',
     bgColor:
       'linear-gradient(227deg, #FD8DFF -7.83%, #FF63B7 21.47%, #E400CD 69.37%, #FADEFF 118.41%)',
     description: 'Trade Bitcoin and BRC-20 futures.',
@@ -241,7 +241,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
     image: '/explore/naka.png',
     title: 'Nakachain',
     description:
-      'A powerful Bitcoin L2 for DeFi.<br/>2-second block time. $0.0001 transaction fee. 100% permissionless.',
+      'A powerful Bitcoin L2 for DeFi.<br/> 2-second block time. $0.0001 transaction fee. 100% permissionless.',
     social: [
       {
         icon: '/explore/x.svg',
@@ -277,7 +277,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
     image: '/explore/rune.png',
     title: 'Runechain',
     description:
-      'The Bitcoin L2 for Runes.<br/>Making Runes trading possible and easy for everyone.',
+      'The Bitcoin L2 for Runes.<br/> Making Runes trading possible and easy for everyone.',
     social: [
       {
         icon: '/explore/x.svg',
