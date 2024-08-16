@@ -125,6 +125,7 @@ const FeeRateInput = (props: Props) => {
           borderColor={isError ? 'red' : 'transparent'}
           borderWidth={isError ? '2px' : 'none'}
           type="number"
+          fontSize={'14px'}
           placeholder="0 (gasless)"
           value={feeRate}
           disabled={isCanNotEdit}

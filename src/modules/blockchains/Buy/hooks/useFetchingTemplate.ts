@@ -35,6 +35,7 @@ export default function useFetchingTemplate() {
   const params = useParams();
 
   const { order, isAAInstalled, isUpdateFlow } = useChainProvider();
+  const { order, isAAInstalled, isUpdateFlow } = useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
     setParsedCategories,
@@ -272,13 +273,8 @@ export default function useFetchingTemplate() {
     }
     const newArray = Object.values(map) as AppNode[];
 
-    console.log('[useFetchingTemplate] dataTemplateToBox', {
-      newArray,
-      _newNodes,
-      nodesData,
-    });
-
     setEdges(edgeData);
+    // setNodes([...nodes, ...newNodes]);
     setNodes(newArray);
 
     templateIds2DSignal.value = [...draggedIds2D];
