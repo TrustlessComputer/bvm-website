@@ -12,10 +12,13 @@ export type ModuleTypeIcon =
   | 'Down';
 
 export const getModuleIconUrlByType = (type: ModuleTypeIcon) => {
-  let iconUrl = '';
+  let iconUrl = undefined;
   switch (type) {
     case 'Drafting':
       iconUrl = '/icons/studio-module/drafting.svg';
+      break;
+    case 'Running':
+      iconUrl = '/icons/studio-module/running.svg';
       break;
     case 'Ready_To_Launch':
       iconUrl = '/icons/studio-module/ready-to-launch.svg';
@@ -23,20 +26,23 @@ export const getModuleIconUrlByType = (type: ModuleTypeIcon) => {
     case 'Insufficient_Balance':
       iconUrl = '/icons/studio-module/insufficient-balance.svg';
       break;
-    case 'Updating':
-      iconUrl = '/icons/studio-module/insufficient-balance.svg';
-      break;
-    case 'Setting_Up':
-      break;
-    case 'Waiting_Payment':
-      break;
-    case 'Resuming':
-      break;
+
+    //
     case 'Ended':
-      break;
     case 'Rejected':
-      break;
     case 'Down':
+      iconUrl = '/icons/studio-module/down.svg';
+      break;
+
+    //
+    case 'Updating':
+    case 'Setting_Up':
+    case 'Waiting_Payment':
+    case 'Resuming':
+      iconUrl = undefined;
+      break;
+    default:
+      iconUrl = undefined;
       break;
   }
 
