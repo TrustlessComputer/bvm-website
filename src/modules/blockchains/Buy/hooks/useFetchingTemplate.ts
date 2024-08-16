@@ -116,8 +116,10 @@ export default function useFetchingTemplate() {
 
   const dataTemplateToBox = async () => {
     const newNodes = cloneDeep(nodes);
+    const rootNode = 'blockchain';
+
     const chainNodeInitial: ChainNode = {
-      id: 'blockchain',
+      id: rootNode,
       type: nodeKey.CHAIN_NODE,
       data: {
         node: 'chain',
@@ -187,7 +189,6 @@ export default function useFetchingTemplate() {
       };
     });
 
-    const rootNode = 'blockchain';
 
     const setDappKeys = new Set(templateDapps.map((dapp) => dapp.key));
     const allDappKeys = Array.from(setDappKeys);
