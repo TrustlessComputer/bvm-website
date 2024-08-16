@@ -13,7 +13,10 @@ import { useDispatch } from 'react-redux';
 // @ts-ignore
 import Papa from 'papaparse';
 import { IRetrieveFormsByDappKey } from '../../hooks/useOneForm';
-import { FormDappUtil, getAirdropTaskKey } from '@/modules/blockchains/dapp/utils';
+import {
+  FormDappUtil,
+  getAirdropTaskKey,
+} from '@/modules/blockchains/dapp/utils';
 
 const useSubmitFormAirdrop = () => {
   const dappState = useAppSelector(dappSelector);
@@ -66,6 +69,8 @@ const useSubmitFormAirdrop = () => {
           formDapp,
           finalFormMappings,
         );
+
+        finalFormMappings = finalFormMappings.filter((f) => f);
 
         let errors: any[] = [];
 
@@ -207,6 +212,8 @@ const useSubmitFormAirdrop = () => {
       const { message } = getError(error);
       toast.error(message);
       // setLoading(false);
+
+      throw error;
     } finally {
     }
   };

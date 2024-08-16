@@ -176,6 +176,8 @@ const useSubmitFormTokenGeneration = () => {
   }) => {
     try {
       for (const form of forms) {
+        console.log('formxxxx', form);
+
         let dataMapping: Record<string, { key: string; value: string }[]>[] =
           [];
 
@@ -195,10 +197,14 @@ const useSubmitFormTokenGeneration = () => {
         dataMapping = extractedValue(formDappInBlock, formDapp, dataMapping);
         dataMapping = extractedValue(formDappInSingle, formDapp, dataMapping);
 
-        dataMapping = checkData(dataMapping);
+        // dataMapping = checkData(dataMapping);
+
+        dataMapping = dataMapping.filter((v) => v);
+
+        console.log('dataMapping', dataMapping);
 
         // setErrorData([]);
-        let errors = validate(dataMapping);
+        // let errors = validate(dataMapping);
 
         // if (errors.length > 0) {
         //   setErrorData(errors);
@@ -208,6 +214,8 @@ const useSubmitFormTokenGeneration = () => {
         // }
 
         for (const data of dataMapping) {
+          console.log('data', data);
+
           // @ts-ignore
           const getTokenomicsDefault: ITokenomics[] = () => {
             if (
@@ -219,7 +227,7 @@ const useSubmitFormTokenGeneration = () => {
                 {
                   name: 'Foundation',
                   address: data?.receiver_address,
-                  total_amount: data.token_supply as unknown as string,
+                  total_amount: data?.token_supply as unknown as string,
                 } as unknown as ITokenomics,
               ] as ITokenomics[];
             }
@@ -232,8 +240,6 @@ const useSubmitFormTokenGeneration = () => {
                   data?.receiver_address,
               };
             });
-
-            return (data?.allocation || []) as unknown as ITokenomics[];
           };
 
           // @ts-ignore
@@ -241,7 +247,7 @@ const useSubmitFormTokenGeneration = () => {
 
           const body: IBodyCreateToken = {
             name: data?.token_name as unknown as string,
-            symbol: (data.token_symbol as unknown as string).toUpperCase(),
+            symbol: (data?.token_symbol as unknown as string)?.toUpperCase?.(),
             ...getTokenomics(defaultTokenomics),
           };
 
@@ -258,6 +264,8 @@ const useSubmitFormTokenGeneration = () => {
             cliffs,
             cliffUnits,
           } = body;
+
+          console.log('body', body);
 
           let iface = new ethers.utils.Interface(TOKENABI.abi);
 
@@ -304,6 +312,7 @@ const useSubmitFormTokenGeneration = () => {
     } catch (error) {
       const { message } = getError(error);
       toast.error(message);
+      throw error;
     } finally {
     }
   };
