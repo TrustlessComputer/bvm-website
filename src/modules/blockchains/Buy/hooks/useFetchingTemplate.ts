@@ -33,9 +33,8 @@ import { cloneDeep, FormDappUtil } from '../utils';
 
 export default function useFetchingTemplate() {
   const params = useParams();
-  const isUpdateChainPage = React.useMemo(() => !!params?.id, [params?.id]);
 
-  const { order, isAAInstalled } = useChainProvider();
+  const { order, isAAInstalled, isUpdateFlow } = useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
     setParsedCategories,
@@ -55,7 +54,8 @@ export default function useFetchingTemplate() {
   const dappState = useAppSelector(dappSelector);
   const { tokens, airdrops, stakingPools } = dappState;
 
-  const [apiCount, setApiCount] = React.useState(0);
+  const [needSetDataTemplateToBox, setNeedSetDataTemplateToBox] =
+    React.useState(false);
 
   const convertData = (data: IModelCategory[]) => {
     const newData = data?.map((item) => {
@@ -76,6 +76,11 @@ export default function useFetchingTemplate() {
   };
 
   const fetchData = async () => {
+    console.log('[useFetchingTemplate] START fetchData', {
+      nodes,
+      isAAInstalled,
+    });
+
     const newFields = cloneDeep(field);
     const categoryMapping: Record<string, IModelCategory> = {};
     const [categories, templates] = await Promise.all([
@@ -104,6 +109,21 @@ export default function useFetchingTemplate() {
       draggedIds2DSignal.value = [[]];
     }
 
+    console.log('[useFetchingTemplate] END fetchData', {
+      nodes,
+      isAAInstalled,
+    });
+
+    setCategoryMapping(categoryMapping);
+    setParsedCategories(convertData(sortedCategories));
+    setCategories(sortedCategories);
+    setCategoriesTemplates(templates);
+    setFields(newFields);
+    setNeedSetDataTemplateToBox(true);
+  };
+
+  const dataTemplateToBox = async () => {
+    const newNodes = cloneDeep(nodes);
     const chainNodeInitial: ChainNode = {
       id: 'blockchain',
       type: nodeKey.CHAIN_NODE,
@@ -116,18 +136,8 @@ export default function useFetchingTemplate() {
       dragHandle: '.drag-handle-area',
       position: { x: 30, y: 30 },
     };
-    nodes.unshift(chainNodeInitial);
+    newNodes.unshift(chainNodeInitial);
 
-    setCategoryMapping(categoryMapping);
-    setParsedCategories(convertData(sortedCategories));
-    setCategories(sortedCategories);
-    setCategoriesTemplates(templates);
-    setNodes(nodes);
-    setFields(newFields);
-    setApiCount((prev) => prev + 1);
-  };
-
-  const dataTemplateToBox = async () => {
     if (!templateForm) return;
 
     let formDapp: Record<string, any> = {};
@@ -198,7 +208,7 @@ export default function useFetchingTemplate() {
     let nodesData = nodes;
     let edgeData: Edge[] = [];
 
-    const newNodes: any[] = draggedIds2D.map((ids, index) => {
+    const _newNodes: any[] = draggedIds2D.map((ids, index) => {
       const dappKey = templateDapps[index].key;
       const xOffset = 30 + 500 * xOffsetCount[dappKey]++;
       const yOffset = 30 + 500 * allDappKeys.indexOf(dappKey);
@@ -255,33 +265,20 @@ export default function useFetchingTemplate() {
         position: { x: xOffset, y: yOffset },
       };
     });
-    // const newNodes: DappNode[] = draggedIds2D.map((ids, index) => {
-    //   return {
-    //     id: Math.random().toString(),
-    //     type: nodeKey.DAPP_NODE,
-    //     dragHandle: '.drag-handle-area',
-    //     data: {
-    //       title: templateDapps[index].title,
-    //       dapp: templateDapps[index],
-    //       ids,
-    //       baseIndex: index,
-    //       sourceHandles: [],
-    //       targetHandles: [],
-    //       node: 'dapp',
-    //       categoryOption: {} as IModelCategory,
-    //     },
-    //     position: { x: 30 * (index + 2), y: 30 * (index + 2) },
-    //   } as DappNode;
-    // });
 
     const map: any = {};
-    for (const element of [...nodesData, ...newNodes]) {
+    for (const element of [...newNodes, ..._newNodes, ...nodesData]) {
       map[element.id] = element;
     }
     const newArray = Object.values(map) as AppNode[];
 
-    setEdges(edgeData)
-    // setNodes([...nodes, ...newNodes]);
+    console.log('[useFetchingTemplate] dataTemplateToBox', {
+      newArray,
+      _newNodes,
+      nodesData,
+    });
+
+    setEdges(edgeData);
     setNodes(newArray);
 
     templateIds2DSignal.value = [...draggedIds2D];
@@ -321,7 +318,7 @@ export default function useFetchingTemplate() {
       ...parsedStakingPoolsForm.fieldValue,
     } as any);
 
-    setApiCount((prev) => prev + 1);
+    setNeedSetDataTemplateToBox(true);
   };
 
   const parseTokensData = (tokens: IToken[]) => {
@@ -353,24 +350,24 @@ export default function useFetchingTemplate() {
 
   React.useEffect(() => {
     fetchData();
-  }, [order]);
+  }, [isUpdateFlow]);
 
   React.useEffect(() => {
     parseDappApiToDappModel();
   }, [needReload]);
 
   React.useEffect(() => {
-    // Chain API and Dapp API
-    if (apiCount < 2) return;
+    if (!needSetDataTemplateToBox) return;
 
     dataTemplateToBox();
-  }, [apiCount]);
+    console.log('[useFetchingTemplate] CALL LAST');
+  }, [needSetDataTemplateToBox]);
 
   React.useEffect(() => {
-    if (isUpdateChainPage && order) {
+    if (isUpdateFlow && order) {
       setTemplate(order.selectedOptions || []);
     } else {
       initTemplate(0);
     }
-  }, [order, categoriesTemplates]);
+  }, [order, categoriesTemplates, isUpdateFlow]);
 }

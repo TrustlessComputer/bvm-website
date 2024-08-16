@@ -455,8 +455,6 @@ const useDapps = () => {
   };
 
   React.useEffect(() => {
-    console.log('SET ============');
-
     fetchDapps();
   }, [configs, tokens, airdropTasks, pathname]);
 

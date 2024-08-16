@@ -26,8 +26,7 @@ const ClearStore = () => {
   };
 
   React.useEffect(() => {
-    console.log('CLEAR ============');
-    clear();
+    return () => clear();
   }, [pathname]);
 
   return null;

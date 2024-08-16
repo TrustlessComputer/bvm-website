@@ -1,6 +1,13 @@
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
-import { draggedDappIndexesSignal, draggedIds2DSignal } from '@/modules/blockchains/Buy/signals/useDragSignal';
-import { cloneDeep, dappKeyToChainKey, isTwoObjectEqual } from '@/modules/blockchains/Buy/utils';
+import {
+  draggedDappIndexesSignal,
+  draggedIds2DSignal,
+} from '@/modules/blockchains/Buy/signals/useDragSignal';
+import {
+  cloneDeep,
+  dappKeyToChainKey,
+  isTwoObjectEqual,
+} from '@/modules/blockchains/Buy/utils';
 import { useSignalEffect } from '@preact/signals-react';
 import { MarkerType, useStoreApi } from '@xyflow/react';
 import React, { useEffect } from 'react';
@@ -12,9 +19,6 @@ import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
-import { DataNode } from '@/modules/blockchains/Buy/component4/CustomNode';
-import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
-import { nodeKey } from '../component4/YourNodes/node.constants';
 
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
@@ -76,6 +80,11 @@ export default function useNodeFlowControl() {
   };
 
   useSignalEffect(() => {
+    console.log('[ussNodeFlowControl] useSignalEffect', {
+      draggedIds2DSignal: draggedIds2DSignal.value,
+      draggedIds2D,
+    });
+
     if (draggedIds2DSignal.value.length === draggedIds2D.length) {
       for (let i = 0; i < draggedIds2DSignal.value.length; i++) {
         if (!isTwoObjectEqual(draggedIds2DSignal.value[i], draggedIds2D[i])) {
@@ -162,7 +171,9 @@ export default function useNodeFlowControl() {
         sourceHandles: [],
       },
     };
-
+    console.log('[useNodeFlowControl] handleAddBox', {
+      nodes,
+    });
     setNodes([...nodesData, newNode]);
     setEdges([
       ...edges,
