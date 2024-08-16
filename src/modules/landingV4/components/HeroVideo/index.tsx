@@ -109,7 +109,7 @@ export default function HeroVideo() {
                       style={{ textAlign: 'center', display: 'block' }}
                     >
                       <img
-                        src={`/landing-v4/frame-studio.png`}
+                        src={`/landing-v4/frame-studio-1.png`}
                         width={224}
                         alt={'right'}
                         style={{ margin: 'auto', marginBottom: '8px' }}

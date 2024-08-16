@@ -21,7 +21,7 @@ const SectionItemApp = ({ item }: Props) => {
 
   const appThumbnail = {
     runedex: '/landing-v4/home-runedex-1.png',
-    heartbeats: '/landing-v4/home-heartbeat-1.png',
+    heartbeats: '/landing-v4/home-heartbeat-2.png',
     nakaFuture: ' /landing-v4/home-naka-1.png',
     alpha: '/explore/alpha.png',
     eternalAI: '/explore/dapp-eai.png',
