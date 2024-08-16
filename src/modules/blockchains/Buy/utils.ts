@@ -422,7 +422,7 @@ export const isChainOptionDisabled = (
   item: IModelCategory,
   currentOption: IModelOption,
 ) => {
-  // if (currentOption.key === 'lightnode') {
+  // if (currentOption.key === 'zk') {
   //   console.log('isChainOptionDisabled', {
   //     currentOption,
   //     item,
