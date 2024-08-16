@@ -5,7 +5,7 @@ export interface IRollupL2Info {
   tps: number;
   mgas: number;
   kbs: number;
-  fdv: number;
+  fdv_usd: string;
   stack: string;
   da: string;
   settlement: string;
@@ -16,4 +16,6 @@ export interface IRollupL2Info {
   tvl_btc: string;
   index: number;
   verification?: string;
+  verification_url?: string;
+  level?: string;
 }

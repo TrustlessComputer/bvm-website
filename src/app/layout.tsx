@@ -40,14 +40,14 @@ export default function RootLayout({
       <head>
         <Script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-D9T7LSF6BJ"
+          src="https://www.googletagmanager.com/gtag/js?id=G-YYP2P7BNWB"
         ></Script>
         <Script>
           {`window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'G-D9T7LSF6BJ');`}
+            gtag('config', 'G-YYP2P7BNWB');`}
         </Script>
         <Script>
           {`(function(c,l,a,r,i,t,y){
@@ -55,17 +55,6 @@ export default function RootLayout({
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "ktq824k12x");`}
-        </Script>
-        <Script>
-          {`<!-- Google tag (gtag.js) -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id=G-YYP2P7BNWB"></script>
-            <script>
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              gtag('config', 'G-YYP2P7BNWB');
-            </script>`}
         </Script>
       </head>
       <body>

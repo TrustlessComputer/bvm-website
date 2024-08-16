@@ -1,0 +1,162 @@
+.heroVideo {
+  background: #F4F4F4;
+  --header-size: 60px;
+  position: relative;
+
+  @include min-tablet {
+    --header-size: 76px;
+  }
+
+  &_inner {}
+
+
+
+  &_content {
+    display: block;
+    z-index: 5;
+    width: 100%;
+    // padding-left: 80px;
+    // padding-bottom: 40px;
+
+  }
+}
+
+.more_info {
+  a {
+
+    &:hover {
+      img {
+        scale: 1.05;
+      }
+    }
+
+    img {
+      transition: all 0.5s ease;
+    }
+
+  }
+}
+
+.heroVideo_content_container {
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.content {
+  color: #000;
+  padding: 100px 0;
+
+
+
+
+  &_heading {
+    font-family: var(--font-SFProDisplay);
+    // color: #000;
+    font-size: 48px;
+    line-height: 100%;
+
+    /* 86.4px */
+    // max-width: 720px;
+    margin-bottom: 20px;
+
+    @include is-min-table {
+      color: #000;
+      text-align: center;
+      font-family: "SF Pro Display";
+      font-size: 60px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 120%;
+      /* 72px */
+
+    }
+  }
+
+  &_desc {
+    font-family: var(--font-SFPro);
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.02em;
+    margin-bottom: 32px;
+
+    @include is-min-table {
+
+      color: #000;
+      text-align: center;
+      font-family: "SF Pro Display";
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 28px;
+      /* 155.556% */
+    }
+  }
+}
+
+.groupBtn {
+  display: flex;
+  gap: 20px;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  width: 100%;
+  justify-content: center;
+
+  @include is-mobile {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @include is-pc {
+    justify-content: flex-start;
+  }
+}
+
+.btn {
+  font-weight: 500;
+  line-height: (20 / 18);
+  border-radius: 1000px;
+  cursor: pointer;
+  font-family: var(--font-SFPro);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+
+  --maskCenter: .15em;
+
+
+  @include is-min-table {
+    font-size: 16px;
+  }
+
+  &__primary {
+    color: #ffffff;
+    background: #fa4e0e;
+    width: 213px;
+    padding-top: var(--maskCenter);
+  }
+
+  &__secondary {
+    color: #000000;
+    background: white;
+    width: 236px;
+    border: 1px solid white;
+    //width: fit-content;
+    padding: 0 20px;
+    align-items: center;
+    padding-top: var(--maskCenter);
+
+    svg,
+    img {
+      transform: translateY(-.1em);
+
+      @include is-min-table {
+        transform: translateY(.1em);
+      }
+    }
+  }
+}

@@ -31,7 +31,7 @@ const ContactUs = (props: Props): ReactElement => {
           opacity: 0.8,
         }}
       >
-        Contact us
+        Contact
       </Flex>
     </>
   );

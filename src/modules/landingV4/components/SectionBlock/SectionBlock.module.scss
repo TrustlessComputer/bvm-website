@@ -1,0 +1,200 @@
+.wrapper {
+    padding-top: 80px;
+    // padding-bottom: 80px;
+    background-color: #fff;
+    position: relative;
+
+
+    @include is-mobile {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
+
+
+    .heading {
+        color: #000;
+        font-family: "JetBrains Mono";
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 110%;
+        /* 35.2px */
+        margin-bottom: 40px;
+
+        .tag {
+            color: #FA4E0E;
+        }
+
+        @include is-mobile {
+            font-size: 28px;
+            margin-bottom: 40px;
+        }
+    }
+
+    .scroll_wrapper {
+        scroll-snap-type: x mandatory;
+        scroll-padding: 50%;
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        & {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .prev_btn {
+            border: 1px solid #F8f8f8;
+            border-radius: 50%;
+            transform: rotate(180deg);
+            position: absolute;
+            // top: 50%;
+            left: 20px;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.75;
+            }
+        }
+
+        .next_btn {
+            border: 1px solid #F8f8f8;
+            border-radius: 50%;
+            // top: 50%;
+            position: absolute;
+            right: 20px;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.75;
+            }
+        }
+
+        @include not-pc {
+
+            .prev_btn,
+            .next_btn {
+                display: none;
+            }
+
+
+        }
+
+
+    }
+
+    .items_wrapper {
+        display: flex;
+        align-items: flex-start;
+        gap: 24px;
+
+        width: fit-content;
+        margin-right: 30px;
+
+
+        .item {
+            display: block;
+            cursor: pointer;
+            width: 400px;
+            // min-width: 400px;
+            color: #000;
+            font-family: "JetBrains Mono";
+
+            @include is-mobile {
+                width: 300px;
+            }
+
+            .thumbnail_wrapper img {
+                transition: all 0.5s ease;
+
+            }
+
+
+            &:hover {
+                .thumbnail_wrapper {
+                    img {
+                        scale: 1.1;
+                    }
+                }
+            }
+
+            .cardLogo {
+                border-bottom: 1px solid #ECECEC;
+                padding-bottom: 20px;
+
+                img {
+                    height: 28px;
+                    width: auto;
+                    object-fit: contain;
+                }
+            }
+
+
+            .title {
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 140%;
+                /* 25.2px */
+                letter-spacing: 0.9px;
+            }
+
+            .description {
+                font-family: "SF Pro Display";
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 140%;
+                /* 22.4px */
+                letter-spacing: 0.8px;
+                opacity: 0.7;
+                white-space: pre-line;
+                // min-height: 68px;
+            }
+
+            .item_tags {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+
+
+                div {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    width: fit-content;
+                    color: #000;
+                    text-align: center;
+                    font-family: "JetBrains Mono";
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 140%;
+                    /* 16.8px */
+                    text-transform: uppercase;
+                    border-radius: 100px;
+                    background: #F6F6F6;
+                    padding: 5px 8px;
+
+                }
+            }
+
+            .social_link {
+                border-radius: 100px;
+                background: #FFF;
+                box-shadow: 0px 0px 16px -6px rgba(0, 0, 0, 0.08);
+                width: 28px;
+                height: 28px;
+                padding: 6px;
+                display: grid;
+                place-items: center;
+            }
+
+
+        }
+    }
+}

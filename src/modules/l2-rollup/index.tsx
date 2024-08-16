@@ -38,6 +38,7 @@ enum SortRollupType {
   tvl,
   lastBlock,
   verification,
+  level,
 }
 
 interface ISort {
@@ -109,7 +110,7 @@ const L2Rollup = () => {
                 case SortRollupType.block:
                   return Number(item.block_number || '0');
                 case SortRollupType.fdv:
-                  return Number(item.fdv || '0');
+                  return Number(item.fdv_usd || '0');
                 case SortRollupType.tps:
                   return Number(item.tps || '0');
                 case SortRollupType.mgas:
@@ -128,6 +129,8 @@ const L2Rollup = () => {
                   return item.block_time;
                 case SortRollupType.verification:
                   return item.verification;
+                case SortRollupType.level:
+                  return Number(item.level === '-' ? '0' : item.level || '0');
                 default:
                   return Number(item.mgas || '0');
               }
@@ -333,7 +336,7 @@ const L2Rollup = () => {
       },
       // {
       //   id: 'fdv',
-      //   label: renderLabel('FDV', SortRollupType.block),
+      //   label: renderLabel('FDV', SortRollupType.fdv),
       //   labelConfig,
       //   config: {
       //     borderBottom: 'none',
@@ -350,7 +353,11 @@ const L2Rollup = () => {
       //         justifyContent={'space-between'}
       //         px={'2px'}
       //       >
-      //         <Text className={s.title}>{data.fdv}</Text>
+      //         <Text className={s.title}>
+      //           {data.fdv_usd && data.fdv_usd !== '0'
+      //             ? `$${formatCurrency(data.fdv_usd, MIN_DECIMAL, MIN_DECIMAL)}`
+      //             : '-'}
+      //         </Text>
       //       </Flex>
       //     );
       //   },
@@ -513,6 +520,7 @@ const L2Rollup = () => {
           letterSpacing: '-0.5px',
         },
         render(data: IRollupL2Info) {
+          const haveLink = !!data.verification_url;
           return (
             <Flex
               gap={3}
@@ -520,8 +528,15 @@ const L2Rollup = () => {
               width={'100%'}
               maxW={'128px'}
               px={'2px'}
+              cursor={haveLink ? 'pointer' : 'unset'}
+              onClick={() => haveLink && window.open(data.verification_url)}
             >
-              <Text className={s.title}>{data.verification || '-'}</Text>
+              <Text
+                className={s.title}
+                textDecoration={haveLink ? 'underline' : 'unset'}
+              >
+                {data.verification || '-'}
+              </Text>
             </Flex>
           );
         },
@@ -541,6 +556,56 @@ const L2Rollup = () => {
           return (
             <Flex alignItems={'center'} width={'100%'} px={'2px'}>
               <Text className={s.title}>{data.settlement || '-'}</Text>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'level',
+        label: renderLabel('Level', SortRollupType.level),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: IRollupL2Info) {
+          const tooltip = (
+            <Flex direction={'column'} py={'8px'} gap={'4px'}>
+              <Text>Level 1: Base layer is not Bitcoin.</Text>
+              <Text>
+                Level 2: Base layer is Bitcoin, using external DA, without state
+                verification.
+              </Text>
+              <Text>
+                Level 3: Base layer is Bitcoin, using Bitcoin for DA, without
+                state verification.
+              </Text>
+              <Text>
+                Level 4: Base layer is Bitcoin, using Bitcoin for DA, with state
+                verification by a light client.
+              </Text>
+              <Text>
+                Level 5: Base layer is Bitcoin, using Bitcoin for DA, with state
+                verification natively in Bitcoin using BitVM or OP_CAT.
+              </Text>
+            </Flex>
+          );
+          return (
+            <Flex alignItems={'center'} width={'100%'} px={'2px'}>
+              {data.level ? (
+                <Tooltip label={tooltip}>
+                  <Text cursor={'pointer'} className={s.title}>
+                    {data.level || '-'}
+                  </Text>
+                </Tooltip>
+              ) : (
+                <Text cursor={'pointer'} className={s.title}>
+                  {data.level || '-'}
+                </Text>
+              )}
             </Flex>
           );
         },
@@ -603,7 +668,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex alignItems={'center'} minW={'110px'} px={'8px'} gap={'12px'}>
+            <Flex alignItems={'center'} minW={'104px'} px={'8px'} gap={'12px'}>
               {data.website && (
                 <Image
                   _hover={{
@@ -683,7 +748,7 @@ const L2Rollup = () => {
 
   return (
     <Box className={s.container}>
-      <Flex direction={'column'} w="100%" maxW={'1580px'} alignItems={'center'}>
+      <Flex direction={'column'} w="100%" maxW={'1608px'} alignItems={'center'}>
         <Flex alignItems="center" gap="6px" my={'12px'}>
           <Text fontSize={'20px'}>Project Bitcoin Heartbeats</Text>
           <DotLottiePlayer
