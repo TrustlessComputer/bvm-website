@@ -2,7 +2,7 @@ import CustomEdge from '@/modules/blockchains/Buy/component4/CustomEdge';
 import CustomNode from '@/modules/blockchains/Buy/component4/CustomNode';
 import { ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import React from 'react';
+import React, { useState } from 'react';
 import DappTemplateNode from '../../component4/CustomNode/DappTemplateNode';
 import AANode from '../../component4/YourNodes/AANode';
 import ChainNodeV2 from '../../component4/YourNodes/ChainNodeV2';
@@ -10,13 +10,26 @@ import DappNode from '../../component4/YourNodes/DappNode';
 import { nodeKey } from '../../component4/YourNodes/node.constants';
 import useFlowStore from '../../stores/useFlowStore';
 import s from './styles.module.scss';
-import useLayoutNodes from '@/modules/blockchains/Buy/useLayoutNodes';
+import { signal, useSignalEffect } from '@preact/signals-react';
+
+
+export const needReactFlowRenderSignal = signal(false);
+const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
 
 const ReactFlowRenderer = React.memo(() => {
   const { nodes, onNodesChange, edges, onEdgesChange } = useFlowStore();
+  const [currentPosition, setCurrentPosition] = useState(currentPositionSignal.value);
+
+  useSignalEffect(() => {
+    if(needReactFlowRenderSignal.value) {
+      setCurrentPosition(currentPositionSignal.value);
+      needReactFlowRenderSignal.value = false;
+    }
+  })
 
   return (
     <ReactFlow
+      key={JSON.stringify(edges)}
       nodes={nodes}
       nodeTypes={{
         // V1
@@ -32,7 +45,12 @@ const ReactFlowRenderer = React.memo(() => {
       edgeTypes={{
         customEdge: CustomEdge,
       }}
+      defaultViewport={currentPosition}
       deleteKeyCode={''}
+      onViewportChange={(viewState) => {
+        needReactFlowRenderSignal.value = true;
+        currentPositionSignal.value = viewState;
+      }}
       onEdgesChange={onEdgesChange}
       onNodesChange={onNodesChange}
       zoomOnDoubleClick={false}
