@@ -150,8 +150,9 @@ export default function useNodeFlowControl() {
       ) as AppState['nodes'];
     }
 
+    const newNodeId = `${nodes.length + 1}`
     const newNode: DappNode = {
-      id: `${nodes.length + 1}`,
+      id: newNodeId,
       type: dappKeyToNodeKey(thisDapp.key),
       dragHandle: '.drag-handle-area',
       position: positionTo,
@@ -162,36 +163,38 @@ export default function useNodeFlowControl() {
         baseIndex: draggedIds2D.length - 1,
         categoryOption,
         ids: draggedIds2D[draggedIds2D.length - 1],
-        targetHandles: [`${nodes.length + 1}-t-${rootNode}`],
+        targetHandles: [`${newNodeId}-t-${rootNode}`],
         sourceHandles: [],
       },
     };
 
     setNodes([...nodesData, newNode]);
-    setEdges([
-      ...edges,
-      {
-        // id: `${edges.length + 1}`,
-        id: `${Math.random()}`,
-        source: rootNode,
-        sourceHandle: `${rootNode}-s-${thisDapp.title}`,
-        target: `${nodes.length + 1}`,
-        targetHandle: `${nodes.length + 1}-t-${rootNode}`,
-        type: 'customEdge',
-        label: '',
-        markerEnd: {
-          type: MarkerType.Arrow,
-          width: 25,
-          height: 25,
-          strokeWidth: 1,
-          color: '#AAAAAA',
+      setEdges([
+        ...edges,
+        {
+          // id: `${edges.length + 1}`,
+          id: `${Math.random()}`,
+          source: rootNode,
+          sourceHandle: `${rootNode}-s-${thisDapp.title}`,
+          target: `${newNodeId}`,
+          targetHandle: `${newNodeId}-t-${rootNode}`,
+          type: 'customEdge',
+          label: '',
+          markerEnd: {
+            type: MarkerType.Arrow,
+            width: 25,
+            height: 25,
+            strokeWidth: 1,
+            color: '#AAAAAA',
+          },
+          style: {
+            stroke: '#AAAAAA',
+            strokeWidth: 2,
+          },
         },
-        style: {
-          stroke: '#AAAAAA',
-          strokeWidth: 2,
-        },
-      },
-    ]);
+      ]);
+
+
 
     resetDragState();
   };
