@@ -321,22 +321,29 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
     let isSuccess = false;
 
+    console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
     const params = formValuesAdapter({
       computerName: orderDetail.chainName,
       chainId: orderDetail.chainId,
       dynamicFormValues: dynamicForm,
     });
+    console.log('UPDATE FLOW: --- params --- ', params);
     const stakingForms = retrieveFormsByDappKey({
       dappKey: DappType.staking,
     });
+    console.log('UPDATE FLOW: --- stakingForms --- ', stakingForms);
 
     const airdropForms = retrieveFormsByDappKey({
       dappKey: DappType.airdrop,
     });
 
+    console.log('UPDATE FLOW: --- airdropForms --- ', airdropForms);
+
     const tokensForms = retrieveFormsByDappKey({
       dappKey: DappType.token_generation,
     });
+
+    console.log('UPDATE FLOW: --- tokensForms --- ', tokensForms);
 
     console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
     console.log('LEON LOG: 111', tokensForms);
