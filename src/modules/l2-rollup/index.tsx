@@ -37,6 +37,7 @@ enum SortRollupType {
   tvl,
   lastBlock,
   verification,
+  fdv,
 }
 
 interface ISort {
