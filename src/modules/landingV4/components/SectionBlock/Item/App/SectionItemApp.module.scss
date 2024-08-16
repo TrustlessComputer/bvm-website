@@ -7,14 +7,13 @@
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
-    background-size: 100% 100%;
+    overflow: hidden;
 
     @include is-mobile {
         width: 300px;
     }
 
     &:hover {
-        background-position: 0 100%;
 
         transition: all .4s ease-in-out;
 
