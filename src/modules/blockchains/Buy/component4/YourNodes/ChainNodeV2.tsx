@@ -6,9 +6,11 @@ import { NodeProps } from '@xyflow/react';
 import ChainRenderer from '../DappRenderer/ChainRenderer';
 // import Node from '../Node/Node';
 import Node from '../Node_v2/Node';
+import { getModuleIconUrlByType } from '@/modules/blockchains/detail_v4/helper/moduleIconHelper';
 
 const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
-  const { getBlockChainStatus, isChainLoading } = useChainProvider();
+  const { getBlockChainStatus, isChainLoading, isUpdateFlow } =
+    useChainProvider();
   const {
     statusStr: statusMessage,
     statusColorStr: borderColor,
@@ -32,6 +34,7 @@ const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
         status: {
           message: statusMessage,
           color: borderColor,
+          // icon: getModuleIconUrlByType('Ready_To_Launch'),
         },
         backgroundColor: headingBackground,
       }}

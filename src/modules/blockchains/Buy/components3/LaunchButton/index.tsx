@@ -334,7 +334,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     });
 
     console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
-    console.log('LEON LOG: 111', airdropForms);
+    console.log('LEON LOG: 111', tokensForms);
     try {
       // Update and Call API install (behind the scene form BE Phuong)
       const result = await orderUpdateV2(params, orderDetail.orderId);
@@ -356,11 +356,11 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           isConfigDapp = true;
         }
 
-        if (isConfigDapp) {
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
-        }
+        // if (isConfigDapp) {
+        //   setTimeout(() => {
+        //     window.location.reload();
+        //   }, 1000);
+        // }
 
         // TO DO [Leon]
         // Call API Config DApp if is exist dapp (issues token, staking, ....) daragged into Data View
@@ -371,6 +371,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
         isSuccess = true;
         dispatch(setOrderSelected(result));
+        await sleep(1);
+        // if (isSuccess) {
+        //   toast.success('Update Successful');
+        // }
       }
     } catch (error) {
       console.log('ERROR: ', error);
@@ -385,10 +389,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     } finally {
       getOrderDetailByID(orderDetail.orderId);
 
-      await sleep(1);
-      if (isSuccess) {
-        toast.success('Update Successful');
-      }
       setSubmitting(false);
     }
   };
