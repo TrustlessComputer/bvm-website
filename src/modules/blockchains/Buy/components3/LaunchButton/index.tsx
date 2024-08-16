@@ -452,7 +452,9 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
         await sleep(1);
 
-        router.push(`/chains/${orderId}`);
+        window.location.replace(`/chains/${orderId}`);
+
+        // router.push(`/chains/${orderId}`);
       } else {
         // router.push('/rollups?hasOrderFailed=true');
       }
