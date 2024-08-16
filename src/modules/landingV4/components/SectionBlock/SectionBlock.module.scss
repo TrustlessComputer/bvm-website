@@ -47,31 +47,30 @@
             display: none;
         }
 
-        .prev_btn {
-            border: 1px solid #F8f8f8;
+        .control_btn {
             border-radius: 50%;
-            transform: rotate(180deg);
             position: absolute;
-            // top: 50%;
-            left: 20px;
             cursor: pointer;
+            height: 48px;
+            width: 48px;
+            display: grid;
+            place-items: center;
+            background: rgba(207, 207, 207, 0.80);
 
             &:hover {
                 opacity: 0.75;
             }
         }
 
-        .next_btn {
-            border: 1px solid #F8f8f8;
-            border-radius: 50%;
-            // top: 50%;
-            position: absolute;
-            right: 20px;
-            cursor: pointer;
+        .prev_btn {
+            transform: rotate(180deg);
+            left: 20px;
+        }
 
-            &:hover {
-                opacity: 0.75;
-            }
+        .next_btn {
+            right: 20px;
+
+
         }
 
         @include not-pc {
