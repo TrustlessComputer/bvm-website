@@ -469,35 +469,35 @@ const L2Rollup = () => {
           );
         },
       },
-      {
-        id: 'fee',
-        label: renderLabel('Bitcoin Rent', SortRollupType.fee),
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '14px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: IRollupL2Info) {
-          const isUnderReview = Number(data.fee_btc) === 0;
-          return (
-            <Flex
-              alignItems={'center'}
-              width={'100%'}
-              px={'2px'}
-              minW={'112px'}
-            >
-              <Text className={s.title}>
-                {isUnderReview
-                  ? '-'
-                  : `${formatCurrency(data.fee_btc, 0, 1)} BTC`}
-              </Text>
-            </Flex>
-          );
-        },
-      },
+      // {
+      //   id: 'fee',
+      //   label: renderLabel('Bitcoin Rent', SortRollupType.fee),
+      //   labelConfig,
+      //   config: {
+      //     borderBottom: 'none',
+      //     fontSize: '14px',
+      //     fontWeight: 500,
+      //     verticalAlign: 'middle',
+      //     letterSpacing: '-0.5px',
+      //   },
+      //   render(data: IRollupL2Info) {
+      //     const isUnderReview = Number(data.fee_btc) === 0;
+      //     return (
+      //       <Flex
+      //         alignItems={'center'}
+      //         width={'100%'}
+      //         px={'2px'}
+      //         minW={'112px'}
+      //       >
+      //         <Text className={s.title}>
+      //           {isUnderReview
+      //             ? '-'
+      //             : `${formatCurrency(data.fee_btc, 0, 1)} BTC`}
+      //         </Text>
+      //       </Flex>
+      //     );
+      //   },
+      // },
       // {
       //   id: 'fdv',
       //   label: renderLabel('FDV', SortRollupType.fdv),
