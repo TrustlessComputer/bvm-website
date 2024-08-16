@@ -40,6 +40,7 @@ enum SortRollupType {
   lastBlock,
   verification,
   level,
+  fee,
 }
 
 interface ISort {
@@ -132,6 +133,8 @@ const L2Rollup = () => {
                   return item.verification;
                 case SortRollupType.level:
                   return Number(item.level === '-' ? '0' : item.level || '0');
+                case SortRollupType.fee:
+                  return Number(item.fee_btc || '0');
                 default:
                   return Number(item.mgas || '0');
               }
@@ -468,6 +471,35 @@ const L2Rollup = () => {
           );
         },
       },
+      {
+        id: 'fee',
+        label: renderLabel('Bitcoin Rent', SortRollupType.fee),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: IRollupL2Info) {
+          const isUnderReview = Number(data.fee_btc) === 0;
+          return (
+            <Flex
+              alignItems={'center'}
+              width={'100%'}
+              px={'2px'}
+              minW={'112px'}
+            >
+              <Text className={s.title}>
+                {isUnderReview
+                  ? '-'
+                  : `${formatCurrency(data.fee_btc, 0, 1)} BTC`}
+              </Text>
+            </Flex>
+          );
+        },
+      },
       // {
       //   id: 'fdv',
       //   label: renderLabel('FDV', SortRollupType.fdv),
@@ -688,7 +720,12 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex alignItems={'center'} width={'100%'} px={'2px'}>
+            <Flex
+              alignItems={'center'}
+              width={'100%'}
+              px={'2px'}
+              minW={'104px'}
+            >
               <Text className={s.title}>{data.settlement || '-'}</Text>
             </Flex>
           );
@@ -833,7 +870,7 @@ const L2Rollup = () => {
 
   return (
     <Box className={s.container}>
-      <Flex direction={'column'} w="100%" maxW={'1680px'} alignItems={'center'}>
+      <Flex direction={'column'} w="100%" maxW={'1800px'} alignItems={'center'}>
         <Flex alignItems="center" gap="6px" my={'12px'}>
           <Text fontSize={'20px'}>Project Bitcoin Heartbeats</Text>
           <DotLottiePlayer
@@ -910,6 +947,7 @@ const L2Rollup = () => {
           w="100%"
           direction={'column'}
           gap={'8px'}
+          maxW={'1400px'}
         >
           <Text fontSize={'24px'} fontWeight={'600'} textAlign={'center'}>
             Total
