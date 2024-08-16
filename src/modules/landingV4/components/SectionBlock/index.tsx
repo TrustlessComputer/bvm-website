@@ -259,21 +259,21 @@ const SectionBlock = (props: any) => {
 
           {!!showControls.prev && (
             <Box
-              className={s.prev_btn}
+              className={cn(s.prev_btn, s.control_btn)}
               top={props.id === 'news' ? 'calc(50% - 44px)' : '50%'}
               onClick={() => handleChangeDirection('prev')}
             >
-              <img src="\landing-v4\ic-arrow-control.svg"></img>
+              <img src="\landing-v4\ic-angle-right.svg"></img>
             </Box>
           )}
 
           {!!showControls.next && (
             <Box
-              className={s.next_btn}
+              className={cn(s.next_btn, s.control_btn)}
               top={props.id === 'news' ? 'calc(50% - 44px)' : '50%'}
               onClick={() => handleChangeDirection('next')}
             >
-              <img src="\landing-v4\ic-arrow-control.svg"></img>
+              <img src="\landing-v4\ic-angle-right.svg"></img>
             </Box>
           )}
         </div>
