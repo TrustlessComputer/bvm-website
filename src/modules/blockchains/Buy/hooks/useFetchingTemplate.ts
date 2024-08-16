@@ -12,7 +12,6 @@ import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
 import { Edge, MarkerType } from '@xyflow/react';
-import { useParams } from 'next/navigation';
 import React from 'react';
 import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
 import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
@@ -32,8 +31,6 @@ import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 
 export default function useFetchingTemplate() {
-  const params = useParams();
-
   const { order, isAAInstalled, isUpdateFlow } = useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
@@ -76,16 +73,11 @@ export default function useFetchingTemplate() {
   };
 
   const fetchData = async () => {
-    console.log('[useFetchingTemplate] START fetchData', {
-      nodes,
-      isAAInstalled,
-    });
-
     const newFields = cloneDeep(field);
     const categoryMapping: Record<string, IModelCategory> = {};
     const [categories, templates] = await Promise.all([
-      // getModelCategories(l2ServiceUserAddress),
-      getModelCategories('0x4113ed747047863Ea729f30C1164328D9Cc8CfcF'),
+      getModelCategories(l2ServiceUserAddress),
+      // getModelCategories('0x4113ed747047863Ea729f30C1164328D9Cc8CfcF'),
       getTemplates(),
     ]);
 
@@ -108,11 +100,6 @@ export default function useFetchingTemplate() {
       draggedDappIndexesSignal.value = [0];
       draggedIds2DSignal.value = [[]];
     }
-
-    console.log('[useFetchingTemplate] END fetchData', {
-      nodes,
-      isAAInstalled,
-    });
 
     setCategoryMapping(categoryMapping);
     setParsedCategories(convertData(sortedCategories));
@@ -203,7 +190,9 @@ export default function useFetchingTemplate() {
       acc[key] = 1;
       return acc;
     }, {} as Record<string, number>);
-    const getHandleNodeBlockChain = nodes.find((item) => item.id === rootNode);
+    const getHandleNodeBlockChain = newNodes.find(
+      (item) => item.id === rootNode,
+    );
 
     let nodesData = nodes;
     let edgeData: Edge[] = [];
@@ -222,7 +211,8 @@ export default function useFetchingTemplate() {
         getHandleNodeBlockChain?.data?.sourceHandles?.push(
           `${rootNode}-s-${templateDapps[index].title}`,
         );
-        nodesData = nodes.map((item) =>
+
+        nodesData = newNodes.map((item) =>
           item.id === rootNode ? getHandleNodeBlockChain : item,
         ) as AppState['nodes'];
       }
@@ -267,7 +257,7 @@ export default function useFetchingTemplate() {
     });
 
     const map: any = {};
-    for (const element of [...newNodes, ..._newNodes, ...nodesData]) {
+    for (const element of [...newNodes, ...nodesData, ..._newNodes]) {
       map[element.id] = element;
     }
     const newArray = Object.values(map) as AppNode[];
@@ -355,7 +345,6 @@ export default function useFetchingTemplate() {
     if (!needSetDataTemplateToBox) return;
 
     dataTemplateToBox();
-    console.log('[useFetchingTemplate] CALL LAST');
   }, [needSetDataTemplateToBox]);
 
   React.useEffect(() => {
