@@ -433,15 +433,15 @@ export const OPENSOURCE_SECTION = {
         target: '_blank',
       },
     },
-    {
-      title: 'EternalAI',
-      description: `Fully on-chain AI deployment.`,
-      homeImage: `${CDN_URL}/pages/landing-v4/home-ops-eai.png`,
-      link: {
-        url: 'https://github.com/eternalai-org/eternalai',
-        target: '_blank',
-      },
-    },
+    // {
+    //   title: 'EternalAI',
+    //   description: `Fully on-chain AI deployment.`,
+    //   homeImage: `${CDN_URL}/pages/landing-v4/home-ops-eai.png`,
+    //   link: {
+    //     url: 'https://github.com/eternalai-org/eternalai',
+    //     target: '_blank',
+    //   },
+    // },
     {
       title: 'Light Node',
       description: `Run a Supersonic Light Node.`,
