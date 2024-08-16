@@ -23,7 +23,7 @@ const ChainRenderer = () => {
   const { overlappingId } = useOverlappingChainLegoStore();
   const { field } = useOrderFormStoreV3();
 
-  const { order, getBlockChainStatus } = useChainProvider();
+  const { order, getBlockChainStatus, isUpdateFlow } = useChainProvider();
 
   const selectedCategoryMapping = React.useMemo(() => {
     if (!order?.selectedOptions) return undefined;
@@ -127,7 +127,7 @@ const ChainRenderer = () => {
           const isUpdatable =
             option.key !== 'account_abstraction' && // Must be hard coded
             selectedCategory?.updatable && //
-            typeof order !== 'undefined'; // TODO: @jackie - replace this condition to isUpdateFlow from useChainProvider
+            isUpdateFlow;
 
           return (
             <ChainDraggable

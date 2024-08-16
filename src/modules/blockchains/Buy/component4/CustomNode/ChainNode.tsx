@@ -1,3 +1,4 @@
+import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
 import ComputerNameInput from '@/modules/blockchains/Buy/components3/ComputerNameInput';
 import ChainDraggable from '@/modules/blockchains/Buy/components3/Draggable';
 import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
@@ -17,8 +18,6 @@ import useDragStore from '../../stores/useDragStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import useOverlappingChainLegoStore from '../../stores/useOverlappingChainLegoStore';
 import s from './styles.module.scss';
-import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
-
 
 export type DataNode = Node<
   {
@@ -47,7 +46,7 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { field } = useOrderFormStoreV3();
   const { isCapture } = useCaptureStore();
 
-  const { order, chainData, getBlockChainStatus } =
+  const { order, chainData, getBlockChainStatus, isUpdateFlow } =
     useChainProvider();
   const { statusStr, statusColorStr, borderStatusStr } = getBlockChainStatus();
 
@@ -64,9 +63,9 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
   }, [order?.selectedOptions]);
 
   return (
-    <div className={`${s.wrapperBox}`} style={{borderColor: statusColorStr}}>
+    <div className={`${s.wrapperBox}`} style={{ borderColor: statusColorStr }}>
       <div className={`${s.handles} ${s.target}`}>
-         {data.targetHandles?.map((handle) => (
+        {data.targetHandles?.map((handle) => (
           <Handle
             key={handle}
             id={handle}
@@ -199,7 +198,7 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
               const isUpdatable =
                 option.key !== 'account_abstraction' && // Must be hard coded
                 selectedCategory?.updatable && //
-                typeof order !== 'undefined'; // TODO: @jackie - replace this condition to isUpdateFlow from useChainProvider
+                isUpdateFlow;
 
               return (
                 <ChainDraggable
