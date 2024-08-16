@@ -24,7 +24,7 @@ export const APPS_SECTION = {
       homeImage: item.homeImage,
       link: {
         url: item.link.url,
-        target: item.link.target,
+        target: '_blank',
       },
       tags: tags,
     };
@@ -43,7 +43,7 @@ export const GAME_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
       link: {
         url: '/bitcoin-wars',
-        target: '_self',
+        target: '_blank',
       },
       tags: ['Bitcoin Wars'],
     },
@@ -134,7 +134,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-studio.png`,
       link: {
         url: '/studio',
-        target: '_self',
+        target: '_blank',
       },
       tags: ['', 'Studio'],
     },
@@ -145,7 +145,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-heartbeat.png`,
       link: {
         url: '/heartbeats',
-        target: '_self',
+        target: '_blank',
       },
       tags: ['', 'Analytics'],
     },
@@ -156,7 +156,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-bitzk-1.png`,
       link: {
         url: '/module/bitzk',
-        target: '_self',
+        target: '_blank',
       },
       tags: ['', 'Rollups'],
     },
@@ -167,7 +167,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-bitop-1.png`,
       link: {
         url: '/module/bitop',
-        target: '_self',
+        target: '_blank',
       },
       tags: ['', 'Rollups'],
     },
@@ -177,7 +177,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-celestia-1.png`,
       link: {
         url: '/module/bitcoin-celestia',
-        target: '_self',
+        target: '_blank',
       },
       tags: ['', 'DaTA Availability'],
     },
@@ -188,7 +188,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-eigen-1.png`,
       link: {
         url: '/module/bitcoin-eigen',
-        target: '_self',
+        target: '_blank',
       },
       tags: ['', 'DaTA Availability'],
     },
@@ -198,7 +198,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-avail-1.png`,
       link: {
         url: '/module/bitcoin-avail',
-        target: '_self',
+        target: '_blank',
       },
       tags: ['', 'DaTA Availability'],
     },
@@ -208,7 +208,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-near-1.png`,
       link: {
         url: '/module/bitcoin-near',
-        target: '_self',
+        target: '_blank',
       },
       tags: ['', 'DaTA Availability'],
     },
@@ -218,7 +218,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-polygon-1.png`,
       link: {
         url: '/module/bitcoin-polygon',
-        target: '_self',
+        target: '_blank',
       },
       tags: ['', 'DaTA Availability'],
     },
@@ -229,7 +229,7 @@ export const BOB_SECTION = {
       homeImage: `${CDN_URL}/pages/landing-v4/home-filecoin-1.png`,
       link: {
         url: '/module/bitcoin-filecoin',
-        target: '_self',
+        target: '_blank',
       },
       tags: ['', 'DaTA Availability'],
     },
@@ -239,7 +239,7 @@ export const BOB_SECTION = {
     //   homeImage: `${CDN_URL}/pages/landing-v4/home-ordinals.png`,
     //   link: {
     //     url: '/module-detail',
-    //     target: '_self',
+    //     target: '_blank',
     //   },
     //   tags: ['', 'Data validity'],
     // },
@@ -249,7 +249,7 @@ export const BOB_SECTION = {
     //   homeImage: `${CDN_URL}/pages/landing-v4/home-taproot.png`,
     //   link: {
     //     url: '/module-detail',
-    //     target: '_self',
+    //     target: '_blank',
     //   },
     //   tags: ['', 'Data validity'],
     // },
@@ -259,7 +259,7 @@ export const BOB_SECTION = {
     //   homeImage: `${CDN_URL}/pages/landing-v4/home-stamps.png`,
     //   link: {
     //     url: '/module-detail',
-    //     target: '_self',
+    //     target: '_blank',
     //   },
     //   tags: ['', 'Data validity'],
     // },
