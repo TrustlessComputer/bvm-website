@@ -216,7 +216,10 @@ export default function StudioControls() {
                   <BoxOption
                     info={{
                       ...item.options[0],
-                      disabled: item.disable || !item.options[0].selectable,
+                      disabled:
+                        item.disable ||
+                        !item.options[0].selectable ||
+                        isChainOptionDisabled(field, item, item.options[0]),
                       title: item.title,
                       description: {
                         title: item.title,
