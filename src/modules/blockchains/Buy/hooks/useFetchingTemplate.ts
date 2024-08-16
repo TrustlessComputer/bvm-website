@@ -35,7 +35,6 @@ export default function useFetchingTemplate() {
   const params = useParams();
 
   const { order, isAAInstalled, isUpdateFlow } = useChainProvider();
-  const { order, isAAInstalled, isUpdateFlow } = useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
     setParsedCategories,
