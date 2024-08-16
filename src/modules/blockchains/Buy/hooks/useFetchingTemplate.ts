@@ -203,7 +203,7 @@ export default function useFetchingTemplate() {
       acc[key] = 1;
       return acc;
     }, {} as Record<string, number>);
-    const getHandleNodeBlockChain = nodes.find((item) => item.id === rootNode);
+    const getHandleNodeBlockChain = newNodes.find((item) => item.id === rootNode);
 
     let nodesData = nodes;
     let edgeData: Edge[] = [];
@@ -222,7 +222,8 @@ export default function useFetchingTemplate() {
         getHandleNodeBlockChain?.data?.sourceHandles?.push(
           `${rootNode}-s-${templateDapps[index].title}`,
         );
-        nodesData = nodes.map((item) =>
+
+        nodesData = newNodes.map((item) =>
           item.id === rootNode ? getHandleNodeBlockChain : item,
         ) as AppState['nodes'];
       }
@@ -267,11 +268,10 @@ export default function useFetchingTemplate() {
     });
 
     const map: any = {};
-    for (const element of [...newNodes, ..._newNodes, ...nodesData]) {
+    for (const element of [...nodesData, ..._newNodes ]) {
       map[element.id] = element;
     }
     const newArray = Object.values(map) as AppNode[];
-
     setEdges(edgeData);
     // setNodes([...nodes, ...newNodes]);
     setNodes(newArray);
