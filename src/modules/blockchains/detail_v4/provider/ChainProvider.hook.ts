@@ -11,6 +11,10 @@ import { useContext, useMemo } from 'react';
 import { ChainContext } from './ChainProvider';
 import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import {
+  ModuleTypeIcon,
+  getModuleIconUrlByType,
+} from '../helper/moduleIconHelper';
 
 export const useChainProvider = () => {
   const context = useContext(ChainContext);
@@ -180,6 +184,39 @@ export const useChainProvider = () => {
     };
   };
 
+  const getChainTypeIcon = (): ModuleTypeIcon => {
+    if (!isUpdateFlow) {
+      // Flow Create Chain (Hard code Icon Ready To Launch, need check required category when drag)
+      return 'Ready_To_Launch';
+    } else {
+      if (order) {
+        switch (order.status) {
+          case OrderStatus.Started:
+            return 'Running';
+          case OrderStatus.WaitingPayment:
+          case OrderStatus.Processing:
+          case OrderStatus.Updating:
+            return 'Updating';
+
+          case OrderStatus.Resume:
+            return 'Resuming';
+          case OrderStatus.InsufficientBalance:
+            return 'Insufficient_Balance';
+          case OrderStatus.Rejected:
+          case OrderStatus.Ended:
+          case OrderStatus.Canceled:
+          case OrderStatus.IsDown:
+            return 'Down';
+        }
+      }
+      return 'Ready_To_Launch';
+    }
+  };
+
+  const getChainTypeIconUrl = () => {
+    return getModuleIconUrlByType(getChainTypeIcon());
+  };
+
   const dAppListAvailable = useMemo(() => {
     let dAppList: IModelOption[] = [];
     if (order) {
@@ -280,5 +317,6 @@ export const useChainProvider = () => {
     getDAppStatusByKey,
     getAAStatus,
     getDAppInstalledByKey,
+    getChainTypeIconUrl,
   };
 };

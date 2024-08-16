@@ -9,7 +9,7 @@ import Node from '../Node_v2/Node';
 import { getModuleIconUrlByType } from '@/modules/blockchains/detail_v4/helper/moduleIconHelper';
 
 const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
-  const { getBlockChainStatus, isChainLoading, isUpdateFlow } =
+  const { getBlockChainStatus, isChainLoading, getChainTypeIconUrl } =
     useChainProvider();
   const {
     statusStr: statusMessage,
@@ -36,7 +36,7 @@ const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
         status: {
           message: statusMessage,
           color: borderColor,
-          // icon: getModuleIconUrlByType('Ready_To_Launch'),
+          icon: getChainTypeIconUrl(),
         },
         backgroundColor: headingBackground,
       }}
