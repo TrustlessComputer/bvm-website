@@ -1,14 +1,10 @@
 import { IRetrieveFormsByDappKey } from '@/modules/blockchains/Buy/hooks/useOneForm';
 import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
-import { formDappSignal } from '@/modules/blockchains/dapp/signals/useFormDappsSignal';
 import { FormDappUtil } from '@/modules/blockchains/dapp/utils';
 import CStakingAPI from '@/services/api/dapp/staking';
-import { useAppDispatch } from '@/stores/hooks';
-import { requestReload } from '@/stores/states/common/reducer';
 
 const useSubmitStaking = () => {
   const cStakeAPI = new CStakingAPI();
-  const dispatch = useAppDispatch()
 
   const onSubmitStaking = async ({ forms }: { forms: IRetrieveFormsByDappKey[][] }) => {
     // const stakingForms = retrieveFormsByDappKey({
@@ -65,7 +61,6 @@ const useSubmitStaking = () => {
       }
     }
 
-    dispatch(requestReload());
   };
 
   return {
