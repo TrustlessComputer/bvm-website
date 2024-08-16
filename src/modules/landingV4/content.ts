@@ -49,7 +49,7 @@ export const GAME_SECTION = {
     },
 
     {
-      title: 'Key Merge',
+      title: 'Key Merge (Soon)',
       description:
         'Combine matching keys to unlock higher levels. Strategically merge keys to progress and reach the ultimate goal.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-keymerge.png`,
@@ -60,7 +60,7 @@ export const GAME_SECTION = {
       tags: ['Bitcoin Arcade'],
     },
     {
-      title: 'Bitcoin 21',
+      title: 'Bitcoin 21 (Soon)',
       description:
         'A classic card game where the objective is to reach a total of 21. Play smart and calculate your moves to win big!',
       homeImage: `${CDN_URL}/pages/landing-v4/home-btc21.png`,
@@ -71,7 +71,7 @@ export const GAME_SECTION = {
       tags: ['Bitcoin Arcade'],
     },
     {
-      title: 'Blast',
+      title: 'Blast (Soon)',
       description:
         'Match and blast in this fast-paced puzzle game. Clear the board and create powerful combos to score high!',
       homeImage: `${CDN_URL}/pages/landing-v4/home-blast.png`,
@@ -82,7 +82,7 @@ export const GAME_SECTION = {
       tags: ['Bitcoin Arcade'],
     },
     {
-      title: 'Wombat',
+      title: 'Wombat (Soon)',
       description:
         'Deploy your units smartly in lines to face off against your opponent. Strategize carefully to ensure your lineup dominates the battlefield!',
       homeImage: `${CDN_URL}/pages/landing-v4/home-wombat.png`,
@@ -93,7 +93,7 @@ export const GAME_SECTION = {
       tags: ['Bitcoin Arcade'],
     },
     {
-      title: 'Battleship',
+      title: 'Battleship (Soon)',
       description: `Engage in naval warfare by strategically placing your ships and guessing the locations of your opponent's fleet. Sink all their ships before they sink yours!`,
       homeImage: `${CDN_URL}/pages/landing-v4/home-battleship.png`,
       link: {
@@ -103,7 +103,7 @@ export const GAME_SECTION = {
       tags: ['Bitcoin Arcade'],
     },
     {
-      title: 'Minesweepers',
+      title: 'Minesweepers (Soon)',
       description:
         'Test your logic in this classic puzzle game. Mark all the mines on the board without triggering any of them. One wrong move, and it’s game over!',
       homeImage: `${CDN_URL}/pages/landing-v4/home-minesweeper.png`,
@@ -233,36 +233,36 @@ export const BOB_SECTION = {
       },
       tags: ['', 'DaTA Availability'],
     },
-    {
-      title: 'Ordinals',
-      description: 'Roll up to Bitcoin as Ordinal Inscriptions',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-ordinals.png`,
-      link: {
-        url: '/module-detail',
-        target: '_self',
-      },
-      tags: ['', 'Data validity'],
-    },
-    {
-      title: 'Bitcoin Taproot',
-      description: 'Embed proofs in Taproot transactions',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-taproot.png`,
-      link: {
-        url: '/module-detail',
-        target: '_self',
-      },
-      tags: ['', 'Data validity'],
-    },
-    {
-      title: 'Bitcoin Stamps',
-      description: `Record data directly on Bitcoin's UTXO, ensuring data permanence and immutability`,
-      homeImage: `${CDN_URL}/pages/landing-v4/home-stamps.png`,
-      link: {
-        url: '/module-detail',
-        target: '_self',
-      },
-      tags: ['', 'Data validity'],
-    },
+    // {
+    //   title: 'Ordinals',
+    //   description: 'Roll up to Bitcoin as Ordinal Inscriptions',
+    //   homeImage: `${CDN_URL}/pages/landing-v4/home-ordinals.png`,
+    //   link: {
+    //     url: '/module-detail',
+    //     target: '_self',
+    //   },
+    //   tags: ['', 'Data validity'],
+    // },
+    // {
+    //   title: 'Bitcoin Taproot',
+    //   description: 'Embed proofs in Taproot transactions',
+    //   homeImage: `${CDN_URL}/pages/landing-v4/home-taproot.png`,
+    //   link: {
+    //     url: '/module-detail',
+    //     target: '_self',
+    //   },
+    //   tags: ['', 'Data validity'],
+    // },
+    // {
+    //   title: 'Bitcoin Stamps',
+    //   description: `Record data directly on Bitcoin's UTXO, ensuring data permanence and immutability`,
+    //   homeImage: `${CDN_URL}/pages/landing-v4/home-stamps.png`,
+    //   link: {
+    //     url: '/module-detail',
+    //     target: '_self',
+    //   },
+    //   tags: ['', 'Data validity'],
+    // },
   ],
 };
 
