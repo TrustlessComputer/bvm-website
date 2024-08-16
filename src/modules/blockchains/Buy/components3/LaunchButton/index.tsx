@@ -96,7 +96,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
   const { showContactUsModal } = useContactUs();
   const { retrieveFormsByDappKey } = useOneForm();
-  const { isUpdateFlow, isOwnerChain } = useChainProvider();
+  const { isUpdateFlow, isOwnerChain, isChainLoading } = useChainProvider();
 
   const router = useRouter();
   const { computerNameField, chainIdRandom } = useBuy();
@@ -123,8 +123,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const packageParam = searchParams.get('use-case') || PRICING_PACKGE.Hacker;
 
   const isDisabledBtn = useMemo(() => {
-    return isUpdateFlow && !isOwnerChain;
-  }, [isUpdateFlow, isOwnerChain]);
+    return (isUpdateFlow && !isOwnerChain) || isChainLoading;
+  }, [isUpdateFlow, isOwnerChain, isChainLoading]);
 
   const titleButton = useMemo(() => {
     if (!loggedIn) {
@@ -286,9 +286,9 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   };
 
   const onUpdateHandler = async () => {
-    // if (isDisabledBtn) {
-    //   return;
-    // }
+    if (isDisabledBtn) {
+      return;
+    }
 
     if (!allFilled) {
       setShowError(true);
