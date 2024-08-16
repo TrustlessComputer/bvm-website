@@ -50,6 +50,10 @@ type Props = {
   children?: React.ReactNode;
   preview?: boolean;
   fields?: FieldModel[];
+  infoLego?: {
+    title: string;
+    type: string;
+  }
 } & Position &
   TitlePosition;
 
@@ -175,13 +179,21 @@ const Lego = (props: Props) => {
                   styles.lego__inner__label__left,
                 )}
               >
+                {
+                  props.infoLego?.title === 'Staking' && (
+                    <p
+                      className={`${styles.titleSingle}`}
+                    >
+                      {props.infoLego?.type.replace('Token', '')}
+                    </p>
+                  )
+                }
+
                 {_icon && (
                   <Image src={_icon} width="20px" height="20px" alt="icon" />
                 )}
                 <p
-                  className={`${styles.titleSingle}  ${
-                    isCapture ? styles.label_margin : ''
-                  }`}
+                  className={`${styles.titleSingle}`}
                 >
                   {title}
                 </p>
