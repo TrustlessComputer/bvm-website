@@ -1,3 +1,4 @@
+import { uniqBy } from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import ImagePlaceholder from '@/components/ImagePlaceholder';
@@ -15,6 +16,7 @@ import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import {
   getL2ServicesStateSelector,
   getOrderDetailSelected,
@@ -39,7 +41,6 @@ import { formValuesAdapter } from './FormValuesAdapter';
 import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
-import { setOrderSelected } from '@/stores/states/l2services/reducer';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -95,7 +96,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
   const { showContactUsModal } = useContactUs();
   const { retrieveFormsByDappKey } = useOneForm();
-  const { isUpdateFlow, isOwnerChain } = useChainProvider();
+  const { isUpdateFlow, isOwnerChain, isChainLoading } = useChainProvider();
 
   const router = useRouter();
   const { computerNameField, chainIdRandom } = useBuy();
@@ -122,8 +123,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const packageParam = searchParams.get('use-case') || PRICING_PACKGE.Hacker;
 
   const isDisabledBtn = useMemo(() => {
-    return isUpdateFlow && !isOwnerChain;
-  }, [isUpdateFlow, isOwnerChain]);
+    return (isUpdateFlow && !isOwnerChain) || isChainLoading;
+  }, [isUpdateFlow, isOwnerChain, isChainLoading]);
 
   const titleButton = useMemo(() => {
     if (!loggedIn) {
@@ -272,6 +273,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       }
     }
 
+    dynamicForm.forEach((field) => {
+      field.options = uniqBy(field.options, 'key');
+    });
+
     return {
       dynamicForm,
       allOptionKeyDragged,
@@ -281,9 +286,9 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   };
 
   const onUpdateHandler = async () => {
-    // if (isDisabledBtn) {
-    //   return;
-    // }
+    if (isDisabledBtn) {
+      return;
+    }
 
     if (!allFilled) {
       setShowError(true);
@@ -316,22 +321,29 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
     let isSuccess = false;
 
+    console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
     const params = formValuesAdapter({
       computerName: orderDetail.chainName,
       chainId: orderDetail.chainId,
       dynamicFormValues: dynamicForm,
     });
+    console.log('UPDATE FLOW: --- params --- ', params);
     const stakingForms = retrieveFormsByDappKey({
       dappKey: DappType.staking,
     });
+    console.log('UPDATE FLOW: --- stakingForms --- ', stakingForms);
 
     const airdropForms = retrieveFormsByDappKey({
       dappKey: DappType.airdrop,
     });
 
+    console.log('UPDATE FLOW: --- airdropForms --- ', airdropForms);
+
     const tokensForms = retrieveFormsByDappKey({
       dappKey: DappType.token_generation,
     });
+
+    console.log('UPDATE FLOW: --- tokensForms --- ', tokensForms);
 
     console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
     console.log('LEON LOG: 111', tokensForms);
@@ -348,19 +360,23 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
             forms: stakingForms,
           });
           isConfigDapp = true;
-        } else if (airdropForms && airdropForms.length > 0) {
+        }
+
+        if (airdropForms && airdropForms.length > 0) {
           await onSubmitAirdrop({ forms: airdropForms });
           isConfigDapp = true;
-        } else if (tokensForms && tokensForms.length > 0) {
+        }
+
+        if (tokensForms && tokensForms.length > 0) {
           await onSubmitTokenGeneration({ forms: tokensForms });
           isConfigDapp = true;
         }
 
-        // if (isConfigDapp) {
-        //   setTimeout(() => {
-        //     window.location.reload();
-        //   }, 1000);
-        // }
+        if (isConfigDapp) {
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        }
 
         // TO DO [Leon]
         // Call API Config DApp if is exist dapp (issues token, staking, ....) daragged into Data View

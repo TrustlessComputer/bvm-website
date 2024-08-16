@@ -49,6 +49,8 @@ export const getTokenomics = (tokenomics: ITokenomics[]) => {
   const cliffUnits: string[] = [];
   const amountTotals: any[] = [];
   const unvestAmounts: any[] = [];
+
+  console.log("tokenomics", tokenomics);
   tokenomics.forEach((t) => {
     beneficiaries.push(t.address as string);
     beneficiaryNames.push(t.name as string);

@@ -246,7 +246,6 @@ export default function StudioControls() {
                   label={item.title}
                   id={item.key}
                   isRequired={item.required}
-                  active={field[item.key].dragged}
                   description={{
                     title: item.title,
                     content: item.tooltip,

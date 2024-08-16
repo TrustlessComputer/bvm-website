@@ -117,10 +117,10 @@ export const dappMockupData: DappModel[] = [
       placableAmount: -1,
       section: 'information',
       preview: false,
-      background: '#f76649',
+      background: '#F200F2',
       fields: [
         {
-          background: '#c4513a',
+          background: '#F200F2',
           key: 'token_name',
           title: 'Token Name',
           previewTitle: 'Name',
@@ -132,7 +132,7 @@ export const dappMockupData: DappModel[] = [
           placeholder: 'e.g YOUR TOKEN NO.1',
         },
         {
-          background: '#c4513a',
+          background: '#368BDB',
           key: 'token_symbol',
           title: 'Symbol',
           type: 'input',
@@ -143,7 +143,20 @@ export const dappMockupData: DappModel[] = [
           placeholder: 'e.g YTKN',
         },
         {
-          background: '#c4513a',
+          background: '#0d2dd0',
+          key: 'token_supply',
+          title: 'Total Supply',
+          previewTitle: 'Supply',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip: '',
+          options: [],
+          inputType: 'number',
+          placeholder: 'e.g 1,000,000,000',
+        },
+        {
+          background: '#15C888',
           key: 'receiver_address',
           title: 'Receiver Address',
           previewTitle: 'Address',
@@ -163,7 +176,7 @@ export const dappMockupData: DappModel[] = [
           tooltip: '',
           options: [],
           placeholder: '',
-          background: '#c4513a',
+          background: '#d2135c',
           inputType: 'file',
           inputAccept: 'image/*',
         },
@@ -840,7 +853,7 @@ export const dappMockupData: DappModel[] = [
         placableAmount: -1,
         section: 'staking_token',
         preview: false,
-        background: '#de5b41',
+        background: '#A041FF',
         fields: [
           {
             key: 'bvm',
@@ -852,16 +865,16 @@ export const dappMockupData: DappModel[] = [
             options: [],
             selectable: true,
           },
-          {
-            key: 'eth',
-            title: 'ETH (Upgrade plan 99$)', // symbol
-            value: '0x1234', // contract_address
-            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
-            tooltip: '',
-            type: '',
-            options: [],
-            selectable: false,
-          },
+          // {
+          //   key: 'eth',
+          //   title: 'ETH (Upgrade plan 99$)', // symbol
+          //   value: '0x1234', // contract_address
+          //   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+          //   tooltip: '',
+          //   type: '',
+          //   options: [],
+          //   selectable: false,
+          // },
         ],
       },
     ],
@@ -873,7 +886,7 @@ export const dappMockupData: DappModel[] = [
         preview: false,
         placableAmount: 1,
         section: 'reward_token',
-        background: '#de5b41',
+        background: '#15C888',
         fields: [
           {
             key: 'bvm',
@@ -885,16 +898,16 @@ export const dappMockupData: DappModel[] = [
             options: [],
             selectable: true,
           },
-          {
-            key: 'eth',
-            title: 'ETH (Upgrade plan 99$)', // symbol
-            value: '0x1234', // contract_address
-            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
-            tooltip: '',
-            type: '',
-            options: [],
-            selectable: false,
-          },
+          // {
+          //   key: 'eth',
+          //   title: 'ETH (Upgrade plan 99$)', // symbol
+          //   value: '0x1234', // contract_address
+          //   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+          //   tooltip: '',
+          //   type: '',
+          //   options: [],
+          //   selectable: false,
+          // },
         ],
       },
     ],
@@ -906,7 +919,7 @@ export const dappMockupData: DappModel[] = [
         placableAmount: 1,
         section: 'info',
         preview: false,
-        background: '#F8B200',
+        background: '#C44127',
         fields: [
           {
             key: 'rate',
@@ -918,7 +931,7 @@ export const dappMockupData: DappModel[] = [
             tooltip: 'Exchange rate between staking token and reward token.',
             placeholder: 'eg. 1',
             options: [],
-            background: '#F8B200',
+            background: '#C44127',
           },
           {
             key: 'apr',
@@ -930,7 +943,7 @@ export const dappMockupData: DappModel[] = [
             tooltip: '',
             placeholder: 'eg. 20%',
             options: [],
-            background: '#F8B200',
+            background: '#C44127',
           },
           {
             key: 'amount',
@@ -943,7 +956,7 @@ export const dappMockupData: DappModel[] = [
             tooltip: '',
             placeholder: 'eg. 100,000',
             options: [],
-            background: '#F8B200',
+            background: '#C44127',
           },
         ],
       },
@@ -1017,6 +1030,7 @@ export const dappMockupData: DappModel[] = [
           icon: '',
           value: '',
           tooltip: '',
+          inputType: 'number',
           options: [],
         },
       ],

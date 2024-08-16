@@ -46,5 +46,7 @@ export const getModuleIconUrlByType = (type: ModuleTypeIcon) => {
       break;
   }
 
+  // console.log('ICON URL ', iconUrl);
+
   return iconUrl;
 };

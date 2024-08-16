@@ -28,11 +28,13 @@ type NodeNotificationProps = {
 
 type NodeOnlyViewProps = {
   type: typeof nodeOverlayType.LOADING;
+  iconUrl?: string;
   message?: string;
 };
 
 type NodeViewAndAction = {
   type: typeof nodeOverlayType.ACTION;
+  iconUrl?: string;
   message?: string;
   action: {
     label: string;
