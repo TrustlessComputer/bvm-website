@@ -96,6 +96,7 @@ const L2Rollup = () => {
     loaded.current = false;
     try {
       const res = await rollupL2Api.getRollupL2Info();
+      if (res.length <= 0) return;
       let data: IRollupL2Info[] = [];
 
       if (currentSort.ascending === undefined) {
@@ -500,7 +501,7 @@ const L2Rollup = () => {
               <Text className={s.title}>
                 {isUnderReview
                   ? '-'
-                  : `${formatCurrency(data.fee_btc, 0, 1)} BTC`}
+                  : `${formatCurrency(data.fee_btc, 0, 4)} BTC`}
               </Text>
             </Flex>
           );
