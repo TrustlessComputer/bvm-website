@@ -80,11 +80,6 @@ export default function useNodeFlowControl() {
   };
 
   useSignalEffect(() => {
-    console.log('[ussNodeFlowControl] useSignalEffect', {
-      draggedIds2DSignal: draggedIds2DSignal.value,
-      draggedIds2D,
-    });
-
     if (draggedIds2DSignal.value.length === draggedIds2D.length) {
       for (let i = 0; i < draggedIds2DSignal.value.length; i++) {
         if (!isTwoObjectEqual(draggedIds2DSignal.value[i], draggedIds2D[i])) {
@@ -171,9 +166,7 @@ export default function useNodeFlowControl() {
         sourceHandles: [],
       },
     };
-    console.log('[useNodeFlowControl] handleAddBox', {
-      nodes,
-    });
+
     setNodes([...nodesData, newNode]);
     setEdges([
       ...edges,
