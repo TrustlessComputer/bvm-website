@@ -55,7 +55,7 @@ const L2Rollup = () => {
   const rollupL2Api = new CRollupL2API();
 
   const [currentSort, setCurrentSort] = useState<ISort>({
-    type: SortRollupType.tps,
+    type: SortRollupType.level,
     ascending: false,
   });
 
@@ -172,7 +172,16 @@ const L2Rollup = () => {
       >
         {tooltip ? (
           <Tooltip label={tooltip}>
-            <Text cursor={'pointer'}>{name || '-'}</Text>
+            <Flex cursor={'pointer'} direction={'row'} gap={'4px'}>
+              <Text>{name || '-'}</Text>
+              <Image
+                cursor={'pointer'}
+                width="16px"
+                height="16px"
+                alt="tooltip"
+                src={'/icons/ic-tooltip-blue.svg'}
+              />
+            </Flex>
           </Tooltip>
         ) : (
           <>{name}</>
@@ -339,6 +348,105 @@ const L2Rollup = () => {
                 </PopoverBody>
               </PopoverContent>
             </Popover>
+          );
+        },
+      },
+      {
+        id: 'level',
+        label: renderLabel(
+          'Level',
+          SortRollupType.level,
+          <Flex direction={'column'} py={'8px'} gap={'4px'}>
+            <Text>Level 1: Base layer is not Bitcoin.</Text>
+            <Text>
+              Level 2: Base layer is Bitcoin, using external DA, without state
+              verification.
+            </Text>
+            <Text>
+              Level 3: Base layer is Bitcoin, using Bitcoin for DA, without
+              state verification.
+            </Text>
+            <Text>
+              Level 4: Base layer is Bitcoin, using Bitcoin for DA, with state
+              verification by a light client.
+            </Text>
+            <Text>
+              Level 5: Base layer is Bitcoin, using Bitcoin for DA, with state
+              verification natively in Bitcoin using BitVM or OP_CAT.
+            </Text>
+          </Flex>,
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: IRollupL2Info) {
+          let tooltip = '';
+          let bg = 'transparent';
+          let txColor = '#000';
+          switch (data.level) {
+            case '1':
+              tooltip = 'Base layer is not Bitcoin.';
+              bg = '#E7E7E7';
+              break;
+            case '2':
+              tooltip =
+                'Base layer is Bitcoin, using external DA, without state verification.';
+              bg = '#BAEDBD';
+              txColor = '#006E46';
+              break;
+            case '3':
+              tooltip =
+                'Base layer is Bitcoin, using Bitcoin for DA, without state verification.';
+              bg = '#B1E3FF';
+              txColor = '#4F43E2';
+              break;
+            case '4':
+              tooltip =
+                'Base layer is Bitcoin, using Bitcoin for DA, with state verification by a light client.';
+              bg = '#F8F0AC';
+              txColor = '#CD5600';
+              break;
+            case '5':
+              tooltip =
+                'Base layer is Bitcoin, using Bitcoin for DA, with state verification natively in Bitcoin using BitVM or OP_CAT.';
+              bg = '#FFA751';
+              txColor = '#E04300';
+              break;
+            default:
+              break;
+          }
+          return (
+            <Flex
+              alignItems={'center'}
+              justifyContent={'center'}
+              width={'100%'}
+              px={'2px'}
+              minW={'80px'}
+              borderRadius={'4px'}
+              h={'24px'}
+              bg={bg}
+            >
+              {data.level && data.level !== '-' ? (
+                <Tooltip label={tooltip}>
+                  <Text
+                    cursor={'pointer'}
+                    className={s.title}
+                    fontSize={'14px !important'}
+                  >
+                    LEVEL {data.level || '-'}
+                  </Text>
+                </Tooltip>
+              ) : (
+                <Text cursor={'pointer'} className={s.title}>
+                  {'-'}
+                </Text>
+              )}
+            </Flex>
           );
         },
       },
@@ -568,81 +676,7 @@ const L2Rollup = () => {
           );
         },
       },
-      {
-        id: 'level',
-        label: renderLabel(
-          'Level',
-          SortRollupType.level,
-          <Flex direction={'column'} py={'8px'} gap={'4px'}>
-            <Text>Level 1: Base layer is not Bitcoin.</Text>
-            <Text>
-              Level 2: Base layer is Bitcoin, using external DA, without state
-              verification.
-            </Text>
-            <Text>
-              Level 3: Base layer is Bitcoin, using Bitcoin for DA, without
-              state verification.
-            </Text>
-            <Text>
-              Level 4: Base layer is Bitcoin, using Bitcoin for DA, with state
-              verification by a light client.
-            </Text>
-            <Text>
-              Level 5: Base layer is Bitcoin, using Bitcoin for DA, with state
-              verification natively in Bitcoin using BitVM or OP_CAT.
-            </Text>
-          </Flex>,
-        ),
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '14px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: IRollupL2Info) {
-          let tooltip = '';
-          switch (data.level) {
-            case '1':
-              tooltip = 'Base layer is not Bitcoin.';
-              break;
-            case '2':
-              tooltip =
-                'Base layer is Bitcoin, using external DA, without state verification.';
-              break;
-            case '3':
-              tooltip =
-                'Base layer is Bitcoin, using Bitcoin for DA, without state verification.';
-              break;
-            case '4':
-              tooltip =
-                'Base layer is Bitcoin, using Bitcoin for DA, with state verification by a light client.';
-              break;
-            case '5':
-              tooltip =
-                'Base layer is Bitcoin, using Bitcoin for DA, with state verification natively in Bitcoin using BitVM or OP_CAT.';
-              break;
-            default:
-              break;
-          }
-          return (
-            <Flex alignItems={'center'} width={'100%'} px={'2px'} minW={'54px'}>
-              {data.level ? (
-                <Tooltip label={tooltip}>
-                  <Text cursor={'pointer'} className={s.title}>
-                    {data.level || '-'}
-                  </Text>
-                </Tooltip>
-              ) : (
-                <Text cursor={'pointer'} className={s.title}>
-                  {data.level || '-'}
-                </Text>
-              )}
-            </Flex>
-          );
-        },
-      },
+
       {
         id: 'tvl',
         label: renderLabel('TVL', SortRollupType.tvl),
@@ -781,7 +815,7 @@ const L2Rollup = () => {
 
   return (
     <Box className={s.container}>
-      <Flex direction={'column'} w="100%" maxW={'1608px'} alignItems={'center'}>
+      <Flex direction={'column'} w="100%" maxW={'1680px'} alignItems={'center'}>
         <Flex alignItems="center" gap="6px" my={'12px'}>
           <Text fontSize={'20px'}>Project Bitcoin Heartbeats</Text>
           <DotLottiePlayer
