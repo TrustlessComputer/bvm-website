@@ -852,16 +852,16 @@ export const dappMockupData: DappModel[] = [
             options: [],
             selectable: true,
           },
-          {
-            key: 'eth',
-            title: 'ETH (Upgrade plan 99$)', // symbol
-            value: '0x1234', // contract_address
-            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
-            tooltip: '',
-            type: '',
-            options: [],
-            selectable: false,
-          },
+          // {
+          //   key: 'eth',
+          //   title: 'ETH (Upgrade plan 99$)', // symbol
+          //   value: '0x1234', // contract_address
+          //   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+          //   tooltip: '',
+          //   type: '',
+          //   options: [],
+          //   selectable: false,
+          // },
         ],
       },
     ],
@@ -885,16 +885,16 @@ export const dappMockupData: DappModel[] = [
             options: [],
             selectable: true,
           },
-          {
-            key: 'eth',
-            title: 'ETH (Upgrade plan 99$)', // symbol
-            value: '0x1234', // contract_address
-            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
-            tooltip: '',
-            type: '',
-            options: [],
-            selectable: false,
-          },
+          // {
+          //   key: 'eth',
+          //   title: 'ETH (Upgrade plan 99$)', // symbol
+          //   value: '0x1234', // contract_address
+          //   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+          //   tooltip: '',
+          //   type: '',
+          //   options: [],
+          //   selectable: false,
+          // },
         ],
       },
     ],

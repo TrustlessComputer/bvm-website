@@ -348,19 +348,23 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
             forms: stakingForms,
           });
           isConfigDapp = true;
-        } else if (airdropForms && airdropForms.length > 0) {
+        }
+
+        if (airdropForms && airdropForms.length > 0) {
           await onSubmitAirdrop({ forms: airdropForms });
           isConfigDapp = true;
-        } else if (tokensForms && tokensForms.length > 0) {
+        }
+
+        if (tokensForms && tokensForms.length > 0) {
           await onSubmitTokenGeneration({ forms: tokensForms });
           isConfigDapp = true;
         }
 
-        // if (isConfigDapp) {
-        //   setTimeout(() => {
-        //     window.location.reload();
-        //   }, 1000);
-        // }
+        if (isConfigDapp) {
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        }
 
         // TO DO [Leon]
         // Call API Config DApp if is exist dapp (issues token, staking, ....) daragged into Data View
