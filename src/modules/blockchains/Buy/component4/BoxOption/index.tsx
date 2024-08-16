@@ -272,6 +272,10 @@ const BoxOption = ({
                                   last={false}
                                   titleInLeft={true}
                                   titleInRight={false}
+                                  infoLego={{
+                                    title: info.title,
+                                    type: section?.title,
+                                  }}
                                 />
                               </Draggable>
                             );
@@ -313,6 +317,10 @@ const BoxOption = ({
                                   last={false}
                                   titleInLeft={true}
                                   titleInRight={false}
+                                  infoLego={{
+                                    title: info.title,
+                                    type: section?.title,
+                                  }}
                                 />
                               </Draggable>
                             );
