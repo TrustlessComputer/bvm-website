@@ -19,6 +19,7 @@ import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
+import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
@@ -192,7 +193,7 @@ export default function useNodeFlowControl() {
         },
       },
     ]);
-
+    needReactFlowRenderSignal.value = true;
     resetDragState();
   };
 
