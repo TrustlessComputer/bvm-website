@@ -19,6 +19,7 @@ const LandingV4Module = (props: Props) => {
     <div className={s.landing}>
       <HeroVideo />
       <SectionBlock {...APPS_SECTION} />
+
       <SectionBlock {...GAME_SECTION} />
       <SectionBlock {...BOB_SECTION} />
 
