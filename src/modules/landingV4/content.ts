@@ -87,7 +87,7 @@ export const GAME_SECTION = {
       tags: ['Bitcoin Arcade'],
     },
     {
-      title: 'Battleship (Soon)',
+      title: 'ZK Battleship Duel (Soon)',
       description: `Engage in naval warfare by strategically placing your ships and guessing the locations of your opponent's fleet. Sink all their ships before they sink yours!`,
       homeImage: `${CDN_URL}/pages/landing-v4/home-battleship.png`,
       link: {
@@ -97,7 +97,7 @@ export const GAME_SECTION = {
       tags: ['Bitcoin Arcade'],
     },
     {
-      title: 'Minesweepers (Soon)',
+      title: 'Zero-Knowledge Mines (Soon)',
       description:
         'Test your logic in this classic puzzle game. Mark all the mines on the board without triggering any of them. One wrong move, and it’s game over!',
       homeImage: `${CDN_URL}/pages/landing-v4/home-minesweeper.png`,
@@ -188,7 +188,7 @@ export const BOB_SECTION = {
     },
     {
       title: 'Bitcoin x Avail',
-      description: 'Low-cost and expandable blobspace',
+      description: 'Low-cost and expandable blobspace.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-avail-1.png`,
       link: {
         url: '/module/bitcoin-avail',
@@ -198,7 +198,7 @@ export const BOB_SECTION = {
     },
     {
       title: 'Bitcoin x Near DA',
-      description: 'An efficient and robust data availability layer',
+      description: 'An efficient and robust data availability layer.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-near-1.png`,
       link: {
         url: '/module/bitcoin-near',
@@ -208,7 +208,7 @@ export const BOB_SECTION = {
     },
     {
       title: 'Bitcoin x Polygon',
-      description: 'The most cost-effective storage solution',
+      description: 'The most cost-effective storage solution.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-polygon-1.png`,
       link: {
         url: '/module/bitcoin-polygon',
@@ -219,7 +219,7 @@ export const BOB_SECTION = {
     {
       title: 'Bitcoin x Filecoin',
       description:
-        'The largest decentralized data storage marketplace, protocol, & cryptocurrency',
+        'The largest decentralized data storage marketplace, protocol, & cryptocurrency.',
       homeImage: `${CDN_URL}/pages/landing-v4/home-filecoin-1.png`,
       link: {
         url: '/module/bitcoin-filecoin',
@@ -395,7 +395,7 @@ export const OPENSOURCE_SECTION = {
   item: [
     {
       title: 'MetaMask for Bitcoin',
-      description: `Use MetaMask to manage Ordinal Inscriptions`,
+      description: `Use MetaMask to manage Ordinal Inscriptions.`,
       homeImage: `${CDN_URL_IMAGES_NBC}/apps/metamask-for-bitcoin.jpeg`,
       link: {
         url: 'https://github.com/NewBitcoinLabs/metamask-for-bitcoin',
@@ -404,13 +404,49 @@ export const OPENSOURCE_SECTION = {
     },
     {
       title: 'PSBT',
-      description: `Sweep, buy, and sell Ordinal Inscriptions trustlessly`,
+      description: `Sweep, buy, and sell Ordinal Inscriptions trustlessly.`,
       homeImage: `${CDN_URL_IMAGES_NBC}/apps/psbt.jpeg`,
       link: {
         url: 'https://github.com/NewBitcoinLabs/ord-inscriptions-sweep',
         target: '_blank',
       },
     },
+    {
+      title: 'Proof of Code',
+      description: `Sharpen your Solidity coding skills and tackle practice problems.`,
+      homeImage: `${CDN_URL}/pages/landing-v4/home-PoC.png`,
+      link: {
+        url: 'https://github.com/TrustlessComputer/poc-practice',
+        target: '_blank',
+      },
+    },
+    {
+      title: 'EternalAI',
+      description: `Fully on-chain AI deployment.`,
+      homeImage: `${CDN_URL}/pages/landing-v4/home-ops-eai.png`,
+      link: {
+        url: 'https://github.com/eternalai-org/eternalai',
+        target: '_blank',
+      },
+    },
+    // {
+    //   title: 'Light Node',
+    //   description: `Run a Supersonic Light Node.`,
+    //   homeImage: `${CDN_URL_IMAGES_NBC}/apps/psbt.jpeg`,
+    //   link: {
+    //     url: 'https://github.com/TrustlessComputer/lightnode',
+    //     target: '_blank',
+    //   },
+    // },
+    // {
+    //   title: 'Light Node Website',
+    //   description: `Display the batch details, including links to the zk proof and commitment data stored on Bitcoin and DA.`,
+    //   homeImage: `${CDN_URL_IMAGES_NBC}/apps/psbt.jpeg`,
+    //   link: {
+    //     url: 'https://github.com/TrustlessComputer/lightnode-website',
+    //     target: '_blank',
+    //   },
+    // },
   ],
 };
 
