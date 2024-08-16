@@ -456,6 +456,7 @@ const L2Rollup = () => {
                     cursor={'pointer'}
                     className={s.title}
                     fontSize={'14px !important'}
+                    color={`${txColor} !important`}
                   >
                     LEVEL {data.level || '-'}
                   </Text>
