@@ -16,6 +16,7 @@ export interface IL2RollupDetailContext {
   isValidAddress: boolean;
   totalBalanceUsd: number;
   rollupDetails: IRollupDetail[];
+  rollupBalances: ITokenChain[];
   rollupTokensRate?: RollupTokenRate;
 }
 
@@ -24,6 +25,7 @@ const initialValue: IL2RollupDetailContext = {
   isValidAddress: false,
   totalBalanceUsd: 0,
   rollupDetails: [],
+  rollupBalances: [],
   rollupTokensRate: undefined,
 };
 
@@ -50,7 +52,10 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
   const rollupBalances = useMemo(() => {
     let balances: ITokenChain[] = [];
     rollupDetails.forEach((data) => {
-      balances = [...balances, ...data.balances];
+      balances = [
+        ...balances,
+        ...data.balances.map((balance) => ({ ...balance, chain: data.rollup })),
+      ];
     });
     return balances;
   }, [rollupDetails]);
@@ -103,6 +108,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
       isValidAddress,
       totalBalanceUsd,
       rollupDetails,
+      rollupBalances,
       rollupTokensRate,
     };
   }, [
@@ -110,6 +116,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     isValidAddress,
     totalBalanceUsd,
     rollupDetails,
+    rollupBalances,
     rollupTokensRate,
   ]);
 

@@ -11,6 +11,7 @@ export interface ITokenChain {
   value_fetched_at: Date;
   block_number: number;
   is_native: boolean;
+  chain?: IRollupChain;
 }
 
 export interface IRollupChain {

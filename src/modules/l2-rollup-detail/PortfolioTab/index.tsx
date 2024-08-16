@@ -8,6 +8,7 @@ import { BigNumber } from 'bignumber.js';
 import React, { useContext } from 'react';
 import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
+import Balances from './Balances';
 
 const PortfolioTab = () => {
   const { rollupDetails, rollupTokensRate, totalBalanceUsd } = useContext(
@@ -76,7 +77,12 @@ const PortfolioTab = () => {
     );
   };
 
-  return <Box className={s.container}>{renderChains()}</Box>;
+  return (
+    <Box className={s.container}>
+      {renderChains()}
+      <Balances />
+    </Box>
+  );
 };
 
 export default PortfolioTab;
