@@ -16,6 +16,7 @@ import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import {
   getL2ServicesStateSelector,
   getOrderDetailSelected,
@@ -335,6 +336,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       chainId: orderDetail.chainId,
       dynamicFormValues: dynamicForm,
     });
+
     // console.log('UPDATE FLOW: --- params --- ', params);
     const stakingForms = retrieveFormsByDappKey({
       dappKey: DappType.staking,
@@ -344,13 +346,11 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     const airdropForms = retrieveFormsByDappKey({
       dappKey: DappType.airdrop,
     });
-
     // console.log('UPDATE FLOW: --- airdropForms --- ', airdropForms);
 
     const tokensForms = retrieveFormsByDappKey({
       dappKey: DappType.token_generation,
     });
-
     // console.log('UPDATE FLOW: --- tokensForms --- ', tokensForms);
 
     console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
@@ -380,6 +380,12 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           isConfigDapp = true;
         }
 
+        if (isConfigDapp) {
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        }
+
         // TODO: @Jackie
         // const [airdrops, stakingPool, tokens] = await Promise.all([
         //   fetchListAirdrop(),
@@ -394,29 +400,23 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         //   }),
         // ]);
 
-        // if (isConfigDapp) {
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 1000);
-        // }
+        // // TO DO [Leon]
+        // // Call API Config DApp if is exist dapp (issues token, staking, ....) daragged into Data View
 
-        // TO DO [Leon]
-        // Call API Config DApp if is exist dapp (issues token, staking, ....) daragged into Data View
+        // // try {
+        // //   // const res =  await ...
+        // // } catch (error) {}
 
-        // try {
-        //   // const res =  await ...
-        // } catch (error) {}
-
-        console.log('[LaunchButton] - onUpdateHandler', {
-          result,
-          // airdrops,
-          // stakingPool,
-          // tokens,
-        });
+        // console.log('[LaunchButton] - onUpdateHandler', {
+        //   result,
+        //   airdrops,
+        //   stakingPool,
+        //   tokens,
+        // });
 
         isSuccess = true;
-        // dispatch(setOrderSelected(result));
-        getOrderDetailByID(orderDetail.orderId);
+        dispatch(setOrderSelected(result));
+        // getOrderDetailByID(orderDetail.orderId);
         await sleep(1);
         // if (isSuccess) {
         //   toast.success('Update Successful');
@@ -433,13 +433,12 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         toast.error(message);
       }
     } finally {
-      // getOrderDetailByID(orderDetail.orderId);
-
+      getOrderDetailByID(orderDetail.orderId);
       setSubmitting(false);
     }
   };
 
-  const onLaunchExecute = async () => {
+  const onLaunchExecute = async (formData?: any[]) => {
     setSubmitting(true);
 
     let isSuccess = false;
@@ -455,7 +454,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     const params = formValuesAdapter({
       computerName: computerNameField.value || '',
       chainId: chainId,
-      dynamicFormValues: dyanmicFormAllData,
+      dynamicFormValues: formData || dyanmicFormAllData,
     });
 
     let result;
@@ -571,7 +570,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     }
 
     setDyanmicFormAllData(dynamicForm);
-    setShowPreviewModal(true);
+    // setShowPreviewModal(true);
+    onLaunchExecute(dynamicForm);
   };
 
   return (

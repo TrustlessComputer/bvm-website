@@ -214,7 +214,7 @@ const useSubmitFormTokenGeneration = () => {
         // }
 
         for (const data of dataMapping) {
-          console.log('data', data);
+          // console.log('data', data);
 
           // @ts-ignore
           const getTokenomicsDefault: ITokenomics[] = () => {
@@ -265,7 +265,7 @@ const useSubmitFormTokenGeneration = () => {
             cliffUnits,
           } = body;
 
-          console.log('body', body);
+          // console.log('body', body);
 
           let iface = new ethers.utils.Interface(TOKENABI.abi);
 
@@ -283,8 +283,8 @@ const useSubmitFormTokenGeneration = () => {
             cliffUnits,
           ]);
 
-          console.log('body', body);
-          console.log('calldata', calldata);
+          // console.log('body', body);
+          // console.log('calldata', calldata);
 
           const api = new CTokenGenerationAPI();
           const tokenInfo = await api.generateNewToken({
