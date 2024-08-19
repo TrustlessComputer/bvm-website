@@ -279,7 +279,7 @@ export default function useFetchingTemplate() {
       map[element.id] = element;
     }
     const newArray = Object.values(map) as AppNode[];
-    setEdges(edgeData);
+    setEdges([...edges, ...edgeData]);
     // setNodes([...nodes, ...newNodes]);
     setNodes(newArray);
 
