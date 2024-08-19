@@ -357,10 +357,11 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     // console.log('LEON LOG: 111', tokensForms);
     try {
       // Update and Call API install (behind the scene form BE Phuong)
-      const result = await orderUpdateV2(params, orderDetail.orderId);
+      // const result = await orderUpdateV2(params, orderDetail.orderId);
+      const result = {}
       if (result) {
         //Config Account Abstraction...
-        configAccountAbstraction(dynamicForm);
+        // configAccountAbstraction(dynamicForm);
         let isConfigDapp = false;
         //Staking...
         if (stakingForms && stakingForms.length > 0) {
