@@ -46,8 +46,8 @@ const useSubmitYoloGame = () => {
         await cYoloGameAPI.createYoloGame({
           settlement_token: formFinal?.settlement_token,
           value_per_entry: formFinal?.value_per_entry,
-          round_duration: formFinal?.round_duration,
-          maximum_number_of_participants_per_round: formFinal?.maximum_participants,
+          round_duration: Number(formFinal?.round_duration),
+          maximum_number_of_participants_per_round: Number(formFinal?.maximum_participants),
           protocol_fee_ratio: formFinal?.protocol_fee_ratio,
         });
       } catch (error) {
