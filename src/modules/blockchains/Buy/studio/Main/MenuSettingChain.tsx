@@ -12,6 +12,7 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 export enum MenuEditItemEnum {
   CustomizeHomePage = 0,
   EditDomain,
+  BlockchainInformation,
   UpdateTemplate,
 }
 
@@ -32,6 +33,11 @@ const MenuEditItemList: MenuEditItemType[] = [
     value: MenuEditItemEnum.EditDomain,
     title: 'Edit Domain',
   },
+  {
+    key: 'C',
+    value: MenuEditItemEnum.BlockchainInformation,
+    title: 'Blockchain Information',
+  },
 ];
 
 const MenuSettingChain = () => {
@@ -48,7 +54,7 @@ const MenuSettingChain = () => {
     return !!chain?.dappURL
       ? MenuEditItemList
       : MenuEditItemList.filter(
-          (item) => item.value !== MenuEditItemEnum.UpdateTemplate
+          (item) => item.value !== MenuEditItemEnum.UpdateTemplate,
         );
   }, [chain?.dappURL]);
 
@@ -65,6 +71,9 @@ const MenuSettingChain = () => {
         break;
       case MenuEditItemEnum.UpdateTemplate:
         router.push(`/template/${order?.orderId}`);
+        break;
+      case MenuEditItemEnum.BlockchainInformation:
+        router.push(`/chains/${order?.orderId}/detail`);
         break;
       default:
         break;

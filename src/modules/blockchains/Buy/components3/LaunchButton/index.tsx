@@ -25,7 +25,7 @@ import { IModelOption } from '@/types/customize-model';
 import { getErrorMessage } from '@/utils/errorV2';
 import { formatCurrencyV2 } from '@/utils/format';
 import sleep from '@/utils/sleep';
-import { Spinner, Text, useDisclosure } from '@chakra-ui/react';
+import { Spinner, Text, useDisclosure, Image } from '@chakra-ui/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { getChainIDRandom } from '../../Buy.helpers';
@@ -140,7 +140,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       return 'Connect';
     }
     if (needContactUs) {
-      return 'Contact Us';
+      return 'Launch';
     }
     if (isUpdate) {
       return 'Update';
@@ -596,59 +596,35 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           {!loggedIn ? (
             <Text className={s.connect}>
               {titleButton}
-              {needContactUs && (
-                <img
-                  src={'/icons/info-circle.svg'}
-                  alt="icon"
-                  width={24}
-                  height={24}
+              <div className={`${s.icon}`}>
+                <Image
+                  src={'/launch.png'}
+                  alt={'launch'}
+                  width={'24px'}
+                  height={'24px'}
                 />
-              )}
-              {!needContactUs && (
-                <div className={`${s.icon}`}>
-                  <ImagePlaceholder
-                    src={'/launch.png'}
-                    alt={'launch'}
-                    width={48}
-                    height={48}
-                  />
-                </div>
-              )}
+              </div>
             </Text>
           ) : (
             <React.Fragment>
               <div className={s.top}>
                 {isSubmiting ? <Spinner color="#fff" /> : <p>{titleButton}</p>}
-
-                {needContactUs && (
-                  <img
-                    src={'/icons/info-circle.svg'}
-                    alt="icon"
-                    width={24}
-                    height={24}
-                  />
-                )}
-
-                {!needContactUs && (
-                  <div className={`${s.icon}`}>
-                    <ImagePlaceholder
-                      src={'/launch.png'}
-                      alt={'launch'}
-                      width={48}
-                      height={48}
-                    />
-                  </div>
-                )}
+                <Image
+                  src={'/launch.png'}
+                  alt={'launch'}
+                  width={'24px'}
+                  height={'24px'}
+                />
               </div>
             </React.Fragment>
           )}
-          {needContactUs && (
+          {/* {needContactUs && (
             <div className={s.tooltip}>
               You've chosen Optimistic Rollup for your blockchain. The price of
               this module can vary. Please contact us to discuss further and get
               it set up.
             </div>
-          )}
+          )} */}
         </div>
       </div>
       {isOpenTopUpModal && (
