@@ -1,8 +1,7 @@
-import { DappModel } from '@types/customize-model';
 import { IYoloGame } from '@/services/api/dapp/yolo/interface';
 
-export const parseYoloGames = (games: IYoloGame[]): DappModel[] => {
-  const result: DappModel[] = [];
+export const parseYoloGames = (games: IYoloGame[]): any[] => {
+  const result: any[] = [];
   for (const game of games) {
     result.push(
       {
