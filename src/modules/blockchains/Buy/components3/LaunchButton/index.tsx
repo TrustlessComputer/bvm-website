@@ -1,8 +1,6 @@
 import { uniqBy } from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 
-import ImagePlaceholder from '@/components/ImagePlaceholder';
-
 import useL2Service from '@/hooks/useL2Service';
 import useSubmitStaking from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitStaking';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
@@ -25,17 +23,19 @@ import { IModelOption } from '@/types/customize-model';
 import { getErrorMessage } from '@/utils/errorV2';
 import { formatCurrencyV2 } from '@/utils/format';
 import sleep from '@/utils/sleep';
-import { Spinner, Text, useDisclosure, Image } from '@chakra-ui/react';
+import { Image, Spinner, Text, useDisclosure } from '@chakra-ui/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { getChainIDRandom } from '../../Buy.helpers';
+import { LocalStorageKey } from '../../contants';
 import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
 import useOneForm from '../../hooks/useOneForm';
 import useOnlyFetchDapp from '../../hooks/useOnlyFetchDapp';
 import PreviewLaunchModal from '../../Preview';
-import { FormOrder } from '../../stores';
 import { useOrderFormStore } from '../../stores/index_v2';
 import useOrderFormStoreV3 from '../../stores/index_v3';
+import useFlowStore from '../../stores/useFlowStore';
+import useUpdateFlowStore from '../../stores/useUpdateFlowStore';
 import { chainKeyToDappKey } from '../../utils';
 import ErrorModal from '../ErrorModal';
 import { formValuesAdapter } from './FormValuesAdapter';
@@ -75,6 +75,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [dyanmicFormAllData, setDyanmicFormAllData] = useState<any[]>([]);
 
+  const { setUpdated } = useUpdateFlowStore();
+  const { nodes, edges } = useFlowStore();
   const { dappCount } = useFormDappToFormChain();
 
   const { parsedCategories: data, categories: originalData } =
@@ -126,8 +128,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     fetchListToken,
   } = useOnlyFetchDapp();
 
-  const { chainName, dataAvaibilityChain, gasLimit, network, withdrawPeriod } =
-    useOrderFormStore();
+  const { chainName } = useOrderFormStore();
   const searchParams = useSearchParams();
   const packageParam = searchParams.get('use-case') || PRICING_PACKGE.Hacker;
 
@@ -295,6 +296,23 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   };
 
   const onUpdateHandler = async () => {
+    // setTimeout(() => {
+    //   // Save nodes and edges to store
+    //   localStorage.setItem(
+    //     LocalStorageKey.UPDATE_FLOW_NODES,
+    //     JSON.stringify(nodes),
+    //   );
+    //   localStorage.setItem(
+    //     LocalStorageKey.UPDATE_FLOW_EDGES,
+    //     JSON.stringify(edges),
+    //   );
+
+    //   getOrderDetailByID(orderDetail!.orderId);
+    //   setUpdated(true);
+    // },1000);
+
+    // return;
+
     if (isDisabledBtn) {
       return;
     }
@@ -386,19 +404,15 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           }, 1000);
         }
 
-        // TODO: @Jackie
-        // const [airdrops, stakingPool, tokens] = await Promise.all([
-        //   fetchListAirdrop(),
-        //   // fetchListReceivers({
-        //   //   airdropId: airdrops[0].id,
-        //   // }),
-        //   fetchListStakingPool({
-        //     chain: result,
-        //   }),
-        //   fetchListToken({
-        //     networkId: result.networkId,
-        //   }),
-        // ]);
+        // Save nodes and edges to store
+        localStorage.setItem(
+          LocalStorageKey.UPDATE_FLOW_NODES,
+          JSON.stringify(nodes),
+        );
+        localStorage.setItem(
+          LocalStorageKey.UPDATE_FLOW_EDGES,
+          JSON.stringify(edges),
+        );
 
         // // TO DO [Leon]
         // // Call API Config DApp if is exist dapp (issues token, staking, ....) daragged into Data View
@@ -416,7 +430,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
         isSuccess = true;
         dispatch(setOrderSelected(result));
-        // getOrderDetailByID(orderDetail.orderId);
         await sleep(1);
         // if (isSuccess) {
         //   toast.success('Update Successful');
@@ -433,6 +446,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         toast.error(message);
       }
     } finally {
+      setUpdated(true);
       getOrderDetailByID(orderDetail.orderId);
       setSubmitting(false);
     }
@@ -443,13 +457,13 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
     let isSuccess = false;
 
-    const form: FormOrder = {
-      chainName,
-      network,
-      dataAvaibilityChain,
-      gasLimit,
-      withdrawPeriod,
-    };
+    // const form: FormOrder = {
+    //   chainName,
+    //   network,
+    //   dataAvaibilityChain,
+    //   gasLimit,
+    //   withdrawPeriod,
+    // };
 
     const params = formValuesAdapter({
       computerName: computerNameField.value || '',

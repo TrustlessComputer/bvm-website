@@ -11,6 +11,7 @@ import Input from '../component4/Input';
 import Lego from '../component4/Lego';
 import { accountAbstractionAsADapp, dappMockupData } from '../mockup_3';
 import useDappsStore from '../stores/useDappStore';
+import useUpdateFlowStore from '../stores/useUpdateFlowStore';
 import { FieldOption } from '../types';
 import { adjustBrightness, cloneDeep, preDataAirdropTask } from '../utils';
 
@@ -19,6 +20,7 @@ const useDapps = () => {
   const params = useParams();
   const isUpdateChain = React.useMemo(() => !!params?.id, [params?.id]);
 
+  const { setUpdated, updated } = useUpdateFlowStore();
   const { dapps, setDapps } = useDappsStore();
 
   const dappState = useAppSelector(dappSelector);
@@ -443,8 +445,10 @@ const useDapps = () => {
 
   const fetchDapps = () => {
     const _dapps = [accountAbstractionAsADapp];
+
     const otherDapps = isUpdateChain
-      ? cloneDeep(configs)
+      ? // ? cloneDeep(dappFromAPIMockupData)
+        cloneDeep(configs)
       : cloneDeep(dappMockupData); // defi_apps
 
     _dapps.push(...otherDapps);
@@ -454,8 +458,17 @@ const useDapps = () => {
     setDapps(preDataAirdropTask(sortedDapps, tokens, airdropTasks));
   };
 
+  // React.useEffect(() => {
+  //   if (!updated) return;
+
+  //   fetchDapps();
+
+  //   setUpdated(false);
+  // }, [updated]);
+
   React.useEffect(() => {
     fetchDapps();
+    if (!updated) return;
   }, [configs, tokens, airdropTasks, pathname]);
 
   return {
