@@ -16,7 +16,7 @@ import { compareString } from '@utils/string';
 import { useParams } from 'next/navigation';
 import React from 'react';
 import useDapps from '../../hooks/useDapps';
-import { accountAbstractionAsADapp, dappMockupData } from '../../mockup_3';
+import { accountAbstractionAsADapp } from '../../mockup_3';
 import { chainKeyToDappKey, isChainOptionDisabled } from '../../utils';
 
 export default function StudioControls() {
@@ -231,8 +231,6 @@ export default function StudioControls() {
               );
             }
 
-            console.log('item', item);
-
             if (item.key === 'defi_apps') {
               const currentPrice =
                 item.options.find(
@@ -240,8 +238,6 @@ export default function StudioControls() {
                     opt.key === field[item.key].value &&
                     field[item.key].dragged,
                 )?.priceBVM ?? 0;
-
-              const options = dappMockupData;
 
               return (
                 <BoxOptionV3
@@ -256,7 +252,7 @@ export default function StudioControls() {
                   }}
                   needCheckIcon={false}
                 >
-                  {options.map((option, index) => {
+                  {item.options.map((option, index) => {
                     const dapp = isUpdateChain
                       ? dapps?.find((item) =>
                           compareString(
