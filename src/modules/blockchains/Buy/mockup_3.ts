@@ -1105,6 +1105,137 @@ export const dappMockupData: DappModel[] = [
       },
     ],
   },
+  {
+    id: 'yolo',
+    key: 'yolo',
+    title: 'YOLO',
+    icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-yolo.svg',
+    order: 5,
+    color: '#F76649',
+    created_at: '2021-09-14T09:00:00.000Z',
+    updated_at: '2021-09-14T09:00:00.000Z',
+    tooltip: '',
+    label: {
+      title: 'New',
+      color: '#000',
+      background: '#00AA6C',
+      status: '',
+    },
+    sections: [
+      {
+        key: 'yolo',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        title: 'YOLO',
+        tooltip: '',
+        required: true,
+      },
+      // {
+      //   key: 'reward_token',
+      //   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+      //   title: 'Reward Token',
+      //   tooltip: '',
+      //   required: true,
+      // },
+      // {
+      //   key: 'info',
+      //   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+      //   title: 'Reward Rate',
+      //   tooltip: '',
+      //   required: true,
+      // },
+    ],
+    baseModuleFields: [
+      {
+        key: 'settlement_token',
+        title: 'Settlement Token',
+        icon: '',
+        placableAmount: -1,
+        section: 'yolo',
+        preview: false,
+        background: '#A041FF',
+        fields: [
+          {
+            key: 'bvm',
+            title: 'BVM', // symbol
+            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
+            icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
+            tooltip: '',
+            type: '',
+            options: [],
+            selectable: true,
+          },
+          // {
+          //   key: 'eth',
+          //   title: 'ETH (Upgrade plan 99$)', // symbol
+          //   value: '0x1234', // contract_address
+          //   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+          //   tooltip: '',
+          //   type: '',
+          //   options: [],
+          //   selectable: false,
+          // },
+        ],
+      },
+    ],
+    baseBlock: {
+      key: '',
+      title: 'Create a YOLO Game',
+      icon: '',
+      placableAmount: -1,
+      section: '',
+      preview: false,
+      fields: [
+        {
+          key: 'value_per_entry',
+          title: 'Value Per Entry',
+          inputType: 'number',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip: 'Number of token per entry',
+          placeholder: 'eg. 300',
+          options: [],
+          background: '#C44127',
+        },
+        {
+          key: 'round_duration',
+          title: 'Round Duration',
+          inputType: 'number',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip: 'Round duration in second',
+          placeholder: 'eg. 300',
+          options: [],
+          background: '#00AA6C',
+        },
+        {
+          key: 'maximum_participants',
+          title: 'Maximum Participants',
+          inputType: 'number',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip: 'Maximum participants per round',
+          placeholder: 'eg. 500',
+          options: [],
+          background: '#0d2dd0',
+        },
+        {
+          key: 'protocol_fee_ratio',
+          title: 'Protocol Fee Ratio',
+          inputType: 'number',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip: 'Protocol Fee Ratio',
+          placeholder: 'eg. 0.1',
+          options: [],
+          background: '#C44127',
+        },
+      ],
+    },
+  },
 ];
 
 // <baseIndex>-<type>-<fieldKey>-<level>-<index>-<blockKey>
