@@ -1,8 +1,6 @@
 import { uniqBy } from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 
-import ImagePlaceholder from '@/components/ImagePlaceholder';
-
 import useL2Service from '@/hooks/useL2Service';
 import useSubmitStaking from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitStaking';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
@@ -16,6 +14,7 @@ import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { requestReload } from '@/stores/states/common/reducer';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import {
   getL2ServicesStateSelector,
@@ -25,16 +24,19 @@ import { IModelOption } from '@/types/customize-model';
 import { getErrorMessage } from '@/utils/errorV2';
 import { formatCurrencyV2 } from '@/utils/format';
 import sleep from '@/utils/sleep';
-import { Spinner, Text, useDisclosure } from '@chakra-ui/react';
+import { Image, Spinner, Text, useDisclosure } from '@chakra-ui/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { getChainIDRandom } from '../../Buy.helpers';
+import { LocalStorageKey } from '../../contants';
 import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
 import useOneForm from '../../hooks/useOneForm';
+import useOnlyFetchDapp from '../../hooks/useOnlyFetchDapp';
 import PreviewLaunchModal from '../../Preview';
-import { FormOrder } from '../../stores';
 import { useOrderFormStore } from '../../stores/index_v2';
 import useOrderFormStoreV3 from '../../stores/index_v3';
+import useFlowStore from '../../stores/useFlowStore';
+import useUpdateFlowStore from '../../stores/useUpdateFlowStore';
 import { chainKeyToDappKey } from '../../utils';
 import ErrorModal from '../ErrorModal';
 import { formValuesAdapter } from './FormValuesAdapter';
@@ -74,7 +76,10 @@ const isExistAA = (dyanmicFormAllData: any[]): boolean => {
 const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [dyanmicFormAllData, setDyanmicFormAllData] = useState<any[]>([]);
+  const dispatch = useAppDispatch();
 
+  const { setUpdated } = useUpdateFlowStore();
+  const { nodes, edges } = useFlowStore();
   const { dappCount } = useFormDappToFormChain();
 
   const { parsedCategories: data, categories: originalData } =
@@ -86,7 +91,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { accountInforL2Service, availableListFetching, availableList } =
     useAppSelector(getL2ServicesStateSelector);
   const { getOrderDetailByID } = useL2Service();
-  const dispatch = useAppDispatch();
   const { isCanConfigAA, configAAHandler, checkTokenContractAddress } =
     useAAModule();
 
@@ -119,8 +123,16 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { onSubmitTokenGeneration } = useSubmitFormTokenGeneration();
   const { onSubmitYoloGame } = useSubmitYoloGame();
 
-  const { chainName, dataAvaibilityChain, gasLimit, network, withdrawPeriod } =
-    useOrderFormStore();
+  const {
+    fetchChain,
+    fetchListAirdrop,
+    fetchListReceivers,
+    fetchListStakingPool,
+    fetchListTask,
+    fetchListToken,
+  } = useOnlyFetchDapp();
+
+  const { chainName } = useOrderFormStore();
   const searchParams = useSearchParams();
   const packageParam = searchParams.get('use-case') || PRICING_PACKGE.Hacker;
 
@@ -133,7 +145,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       return 'Connect';
     }
     if (needContactUs) {
-      return 'Contact Us';
+      return 'Launch';
     }
     if (isUpdate) {
       return 'Update';
@@ -173,7 +185,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   }, [availableListFetching, availableList]);
 
   const allFilled = useMemo(() => {
-    return (
+    return !!(
       !!chainName.trim() &&
       data?.every((item) => {
         return (
@@ -323,36 +335,37 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
     let isSuccess = false;
 
-    console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
+    // console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
     const params = formValuesAdapter({
       computerName: orderDetail.chainName,
       chainId: orderDetail.chainId,
       dynamicFormValues: dynamicForm,
     });
-    console.log('UPDATE FLOW: --- params --- ', params);
+
+    // console.log('UPDATE FLOW: --- params --- ', params);
     const yoloGameForms = retrieveFormsByDappKey({
       dappKey: DappType.yologame,
     });
-    console.log('UPDATE FLOW: --- yoloGameForms --- ', yoloGameForms);
+    // console.log('UPDATE FLOW: --- yoloGameForms --- ', yoloGameForms);
     const stakingForms = retrieveFormsByDappKey({
       dappKey: DappType.staking,
     });
-    console.log('UPDATE FLOW: --- stakingForms --- ', stakingForms);
+    // console.log('UPDATE FLOW: --- stakingForms --- ', stakingForms);
 
     const airdropForms = retrieveFormsByDappKey({
       dappKey: DappType.airdrop,
     });
-
-    console.log('UPDATE FLOW: --- airdropForms --- ', airdropForms);
+    // console.log('UPDATE FLOW: --- airdropForms --- ', airdropForms);
 
     const tokensForms = retrieveFormsByDappKey({
       dappKey: DappType.token_generation,
     });
-
-    console.log('UPDATE FLOW: --- tokensForms --- ', tokensForms);
+    // console.log('UPDATE FLOW: --- tokensForms --- ', tokensForms);
 
     console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
-    console.log('LEON LOG: 111', tokensForms);
+    // console.log('LEON LOG: 111', tokensForms);
+    let isConfigDapp = false;
+
     try {
       // Update and Call API install (behind the scene form BE Phuong)
       const result = await orderUpdateV2(params, orderDetail.orderId);
@@ -384,22 +397,20 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           isConfigDapp = true;
         }
 
-        if (isConfigDapp) {
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
-        }
-
-        // TO DO [Leon]
-        // Call API Config DApp if is exist dapp (issues token, staking, ....) daragged into Data View
-
-        // try {
-        //   // const res =  await ...
-        // } catch (error) {}
+        // Save nodes and edges to store
+        localStorage.setItem(
+          LocalStorageKey.UPDATE_FLOW_NODES,
+          JSON.stringify(nodes),
+        );
+        localStorage.setItem(
+          LocalStorageKey.UPDATE_FLOW_EDGES,
+          JSON.stringify(edges),
+        );
 
         isSuccess = true;
         dispatch(setOrderSelected(result));
         await sleep(1);
+
         // if (isSuccess) {
         //   toast.success('Update Successful');
         // }
@@ -415,29 +426,34 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         toast.error(message);
       }
     } finally {
+      if (isConfigDapp) {
+        setTimeout(() => {
+          dispatch(requestReload());
+          setUpdated(true);
+        }, 1000);
+      }
       getOrderDetailByID(orderDetail.orderId);
-
       setSubmitting(false);
     }
   };
 
-  const onLaunchExecute = async () => {
+  const onLaunchExecute = async (formData?: any[]) => {
     setSubmitting(true);
 
     let isSuccess = false;
 
-    const form: FormOrder = {
-      chainName,
-      network,
-      dataAvaibilityChain,
-      gasLimit,
-      withdrawPeriod,
-    };
+    // const form: FormOrder = {
+    //   chainName,
+    //   network,
+    //   dataAvaibilityChain,
+    //   gasLimit,
+    //   withdrawPeriod,
+    // };
 
     const params = formValuesAdapter({
       computerName: computerNameField.value || '',
       chainId: chainId,
-      dynamicFormValues: dyanmicFormAllData,
+      dynamicFormValues: formData || dyanmicFormAllData,
     });
 
     let result;
@@ -497,13 +513,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
   const onLaunchHandler = async () => {
     // =======================================================================================
-    // Dapp forms
-    // =======================================================================================
-    const issueATokenForms = retrieveFormsByDappKey({
-      dappKey: 'token_generation',
-    });
-
-    // =======================================================================================
     // Chain form
     // =======================================================================================
     if (!allFilled) {
@@ -560,7 +569,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     }
 
     setDyanmicFormAllData(dynamicForm);
-    setShowPreviewModal(true);
+    // setShowPreviewModal(true);
+    onLaunchExecute(dynamicForm);
   };
 
   return (
@@ -585,59 +595,35 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           {!loggedIn ? (
             <Text className={s.connect}>
               {titleButton}
-              {needContactUs && (
-                <img
-                  src={'/icons/info-circle.svg'}
-                  alt="icon"
-                  width={24}
-                  height={24}
+              <div className={`${s.icon}`}>
+                <Image
+                  src={'/launch.png'}
+                  alt={'launch'}
+                  width={'24px'}
+                  height={'24px'}
                 />
-              )}
-              {!needContactUs && (
-                <div className={`${s.icon}`}>
-                  <ImagePlaceholder
-                    src={'/launch.png'}
-                    alt={'launch'}
-                    width={48}
-                    height={48}
-                  />
-                </div>
-              )}
+              </div>
             </Text>
           ) : (
             <React.Fragment>
               <div className={s.top}>
                 {isSubmiting ? <Spinner color="#fff" /> : <p>{titleButton}</p>}
-
-                {needContactUs && (
-                  <img
-                    src={'/icons/info-circle.svg'}
-                    alt="icon"
-                    width={24}
-                    height={24}
-                  />
-                )}
-
-                {!needContactUs && (
-                  <div className={`${s.icon}`}>
-                    <ImagePlaceholder
-                      src={'/launch.png'}
-                      alt={'launch'}
-                      width={48}
-                      height={48}
-                    />
-                  </div>
-                )}
+                <Image
+                  src={'/launch.png'}
+                  alt={'launch'}
+                  width={'24px'}
+                  height={'24px'}
+                />
               </div>
             </React.Fragment>
           )}
-          {needContactUs && (
+          {/* {needContactUs && (
             <div className={s.tooltip}>
               You've chosen Optimistic Rollup for your blockchain. The price of
               this module can vary. Please contact us to discuss further and get
               it set up.
             </div>
-          )}
+          )} */}
         </div>
       </div>
       {isOpenTopUpModal && (

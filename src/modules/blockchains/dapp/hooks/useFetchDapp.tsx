@@ -8,6 +8,7 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 import { useParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { setCounterFetchedDapp } from '@/stores/states/common/reducer';
 import CYoloGameAPI from '@/services/api/dapp/yolo';
 
 const useFetchDapp = () => {
@@ -15,7 +16,8 @@ const useFetchDapp = () => {
   const id = params?.id;
 
   const dispatch = useDispatch();
-  const [loading, setLoading] = React.useState<boolean>(false);
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [loaded, setLoaded] = React.useState<boolean>(false);
 
   const dappAPI = new CDappAPI();
   const stakingAPI = new CStakingAPI();
@@ -71,6 +73,7 @@ const useFetchDapp = () => {
           fetchYoloGameList(),
         ]
       );
+      dispatch(setCounterFetchedDapp());
     } catch (error) {
       console.log('getDappTasks', error);
     } finally {
@@ -88,9 +91,17 @@ const useFetchDapp = () => {
     }
   }, [dappState?.chain?.chainId, needReload]);
 
+  useEffect(() => {
+    if (!dappState.loading && !loading) {
+      setLoaded(true);
+    }
+
+  },[dappState.loading, loading]);
+
   return {
     loading: dappState.loading || loading,
     configs: dappState.configs,
+    loaded
   };
 };
 

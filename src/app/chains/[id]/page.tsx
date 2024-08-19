@@ -10,9 +10,9 @@ import AppLoading from '@components/AppLoading';
 import React from 'react';
 
 const PageDetail = () => {
-  const { loading } = useFetchDapp();
+  const { loading, loaded } = useFetchDapp();
 
-  if (loading) {
+  if (loading && !loaded) {
     return (
       <Flex h="90vh">
         <AppLoading />

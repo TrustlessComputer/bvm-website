@@ -5,6 +5,7 @@ import LivingStatus from './LivingStatus';
 import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
 import useOrderMapper from '@/modules/blockchains/hooks/useOrderMapper';
 import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   item: OrderItem;
@@ -16,6 +17,8 @@ type Props = {
 const HeaderRow = (props: Props) => {
   const { item, isOwner, depositOnClick, editOnClick } = props;
   const mapper = useOrderMapper(item);
+
+  const router = useRouter();
 
   const isShowStatus =
     item.status === OrderStatus.Started ||
@@ -56,7 +59,7 @@ const HeaderRow = (props: Props) => {
             {`${item.chainName || '--'}`}
           </Text>
         </Flex>
-
+        {/* 
         {item.status === OrderStatus.WaitingPayment && (
           <Image
             src={`/icons/pencil_edit_grey.svg`}
@@ -72,7 +75,22 @@ const HeaderRow = (props: Props) => {
               editOnClick && editOnClick();
             }}
           />
-        )}
+        )} */}
+
+        <Image
+          src={`/blockchains/customize/ic-infor.svg`}
+          fit={'contain'}
+          maxW={'40px'}
+          maxH={'40px'}
+          _hover={{
+            cursor: 'pointer',
+            opacity: 0.8,
+          }}
+          onClick={(event: any) => {
+            if (event.stopPropagation) event.stopPropagation();
+            router.push(`/chains/${item?.orderId}/detail`);
+          }}
+        />
       </Flex>
     );
   };

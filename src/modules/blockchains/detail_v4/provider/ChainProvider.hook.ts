@@ -15,10 +15,12 @@ import {
   ModuleTypeIcon,
   getModuleIconUrlByType,
 } from '../helper/moduleIconHelper';
+import useCheckAllFilled from '../../Buy/hooks/useCheckAllFilled';
 
 export const useChainProvider = () => {
   const context = useContext(ChainContext);
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+  const { allFilled } = useCheckAllFilled();
 
   if (!context) {
     throw new Error(
@@ -46,7 +48,32 @@ export const useChainProvider = () => {
         order?.status === OrderStatus.Updating ||
         order?.status === OrderStatus.WaitingPayment)
     );
+  }, [order, isUpdateFlow]);
+
+  const isChainNeedAction = useMemo(() => {
+    return (
+      isUpdateFlow &&
+      (order?.status === OrderStatus.Ended ||
+        order?.status === OrderStatus.InsufficientBalance ||
+        order?.status === OrderStatus.Rejected ||
+        order?.status === OrderStatus.IsDown)
+    );
   }, [order]);
+
+  const isInsufficientBalance = useMemo(() => {
+    return isUpdateFlow && order?.status === OrderStatus.InsufficientBalance;
+  }, [order]);
+
+  const textCTA = useMemo(() => {
+    if (isUpdateFlow) {
+      if (isInsufficientBalance) {
+        return 'Deposit BVM';
+      }
+      return 'Contact us';
+    }
+
+    return '';
+  }, [isUpdateFlow, isInsufficientBalance]);
 
   const isBlockChainReady = useMemo(() => {
     return order?.status === OrderStatus.Started;
@@ -56,6 +83,7 @@ export const useChainProvider = () => {
     let statusStr = 'Ready';
     let statusColorStr = '#4185EC';
     let borderStatusStr = '#eef5ff';
+    let bgColorStr = '#eef5ff';
 
     if (order) {
       switch (order.status) {
@@ -64,6 +92,7 @@ export const useChainProvider = () => {
           statusStr = 'Running';
           statusColorStr = '#00AA6C';
           borderStatusStr = '#EEFFF9';
+          bgColorStr = '#EEFFF9';
           break;
 
         //
@@ -71,57 +100,79 @@ export const useChainProvider = () => {
           statusStr = 'Waiting for payment';
           statusColorStr = '#FFC700';
           borderStatusStr = '#FFF6D8';
+          bgColorStr = '#FFF6D8';
           break;
         case OrderStatus.Processing:
           statusStr = 'Setting up';
           statusColorStr = '#FFC700';
           borderStatusStr = '#FFF6D8';
+          bgColorStr = '#FFF6D8';
           break;
         case OrderStatus.Updating:
           statusStr = 'Updating';
           statusColorStr = '#FFC700';
           borderStatusStr = '#FFF6D8';
+          bgColorStr = '#FFF6D8';
           break;
 
         //
-        case OrderStatus.Rejected:
-          statusStr = 'Failed';
-          statusColorStr = '#FA4E0E';
-          borderStatusStr = '#FFF2EE';
-          break;
+
         case OrderStatus.Resume:
           statusStr = 'Please wait for service to resume';
           statusColorStr = '#00AA6C';
           borderStatusStr = '#EEFFF9';
           break;
         case OrderStatus.InsufficientBalance:
-          statusStr = `Must top up to your account`;
+          statusStr = `Insufficient Balance`;
           statusColorStr = '#FA4E0E';
           borderStatusStr = '#FFF2EE';
+          bgColorStr = '#FFF2EE';
           break;
-        case OrderStatus.Ended:
-          statusStr = 'Ended';
-          statusColorStr = '#FA4E0E';
-          borderStatusStr = '#FFF2EE';
-          break;
+
         case OrderStatus.Canceled:
           statusStr = 'Canceled';
           statusColorStr = '#FFC700';
           borderStatusStr = '#FFF6D8';
+          bgColorStr = '#FFF6D8';
           break;
 
         //
+        case OrderStatus.Rejected:
+          statusStr = 'Rejected';
+          statusColorStr = '#333333';
+          borderStatusStr = '#B6B6B6';
+          bgColorStr = '#ECECED';
+          break;
+
+        case OrderStatus.Ended:
+          statusStr = 'Ended';
+          statusColorStr = '#333333';
+          borderStatusStr = '#B6B6B6';
+          bgColorStr = '#ECECED';
+          break;
+
         case OrderStatus.IsDown:
           statusStr = 'Down';
-          statusColorStr = '#ECECED';
+          statusColorStr = '#333333';
           borderStatusStr = '#B6B6B6';
+          bgColorStr = '#ECECED';
           break;
+      }
+    } else {
+      if (allFilled) {
+        statusStr = 'Ready';
+      } else {
+        statusStr = 'Drafting Modules';
+        statusColorStr = '#FFC700';
+        borderStatusStr = '#FFF6D8';
+        bgColorStr = '#FFF6D8';
       }
     }
     return {
       statusStr,
       statusColorStr,
       borderStatusStr,
+      bgColorStr,
     };
   };
 
@@ -187,7 +238,11 @@ export const useChainProvider = () => {
   const getChainTypeIcon = (): ModuleTypeIcon => {
     if (!isUpdateFlow) {
       // Flow Create Chain (Hard code Icon Ready To Launch, need check required category when drag)
-      return 'Ready_To_Launch';
+      if (allFilled) {
+        return 'Ready_To_Launch';
+      } else {
+        return 'Drafting';
+      }
     } else {
       if (order) {
         switch (order.status) {
@@ -305,6 +360,7 @@ export const useChainProvider = () => {
     ...context,
     isUpdateFlow,
     isChainLoading,
+    isChainNeedAction,
     chainData: order,
     order,
     dAppListAvailable,
@@ -312,6 +368,8 @@ export const useChainProvider = () => {
     selectedCategoryMapping,
     isAAInstalled,
     isOwnerChain,
+    isInsufficientBalance,
+    textCTA,
 
     //
     getBlockChainStatus,

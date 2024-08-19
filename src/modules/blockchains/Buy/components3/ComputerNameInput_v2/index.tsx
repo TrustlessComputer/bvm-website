@@ -59,7 +59,7 @@ const ComputerNameInput = (props: Props) => {
     <div className={`${isCapture ? s.setLine : ''} ${s.wrapper_input}`}>
       <input
         type="text"
-        placeholder="My Bitcoin ZK Rollup"
+        placeholder="My Bitcoin Rollup"
         className={`${s.input} `}
         value={chainName}
         onChange={(e) => {

@@ -2,52 +2,40 @@ import { API_BASE_URL } from '@/config';
 import { DappType } from '@/modules/blockchains/dapp/types';
 import CDappApiClient from '@/services/api/dapp/dapp.client';
 import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
-import {
-  IAppInfo,
-  IDappConfigs,
-  IReqDapp,
-  ITemplate,
-} from '@/services/api/dapp/types';
+import { IAppInfo, IDappConfigs, IReqDapp } from '@/services/api/dapp/types';
 import { templateMapper } from '@/services/api/dapp/utils';
-import { useAppDispatch, useAppSelector } from '@/stores/hooks';
-import {
-  setAppInfos,
-  setChain,
-  setConfigs,
-  setDappConfigs,
-  setLoading,
-  setTokens,
-} from '@/stores/states/dapp/reducer';
-import { dappSelector } from '@/stores/states/dapp/selector';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { capitalizeFirstLetter } from '@web3auth/ui';
-import { orderBy } from 'lodash';
 
-class CDappAPI {
-  private dappState = useAppSelector(dappSelector);
+class DappAPI {
   private L2_URL = `${API_BASE_URL}/api`;
-
-  private dispatch = useAppDispatch();
   private http = new CDappApiClient().api;
 
   getChainByOrderID = async (params: {
     orderID: string;
-  }): Promise<OrderItem> => {
-    const chain = (await this.http.get(
-      `${this.L2_URL}/order/detail/${params.orderID}`,
-    )) as OrderItem;
-    return chain;
+  }): Promise<OrderItem | null> => {
+    try {
+      const chain = (await this.http.get(
+        `${this.L2_URL}/order/detail/${params.orderID}`,
+      )) as OrderItem;
+
+      return chain;
+    } catch (error) {
+      console.log('[DappAPI] getChainByOrderID -> error :: ', error);
+      return null;
+    }
   };
 
-  getDappURL = (chain: OrderItem) => {
+  getDappURL = (chain: OrderItem): string => {
     try {
       const dapp =
         chain.dApps?.find((item) => item?.appURL || '')?.appURL || '';
       const url = new URL(dapp?.includes('https://') ? dapp : `https://${dapp}`)
         ?.origin;
+
       return url;
     } catch (error) {
-      console.log(error);
+      console.log('[DappAPI] getDappURL -> error :: ', error);
       return '';
     }
   };
@@ -61,9 +49,10 @@ class CDappAPI {
       const app = (await this.http.get(
         `/apps/detail-by-code/${params.appName}?network_id=${params.network_id}&address=${params.address}`,
       )) as any;
+
       return app?.fe_component;
     } catch (error) {
-      console.log(error);
+      console.log('[DappAPI] getDappConfig -> error :: ', error);
     }
   };
 
@@ -71,9 +60,10 @@ class CDappAPI {
     dappURL,
   }: {
     dappURL: string;
-  }): Promise<IDappConfigs | undefined> => {
+  }): Promise<IDappConfigs | null> => {
     try {
       let configs = (await this.http.get(`${dappURL}/api/configs`)) as any;
+
       configs = {
         ...configs,
         app_name: capitalizeFirstLetter(
@@ -84,9 +74,11 @@ class CDappAPI {
         ...configs,
         template: templateMapper(configs),
       };
+
       return configs;
     } catch (error) {
-      console.log(error);
+      console.log('[DappAPI] getDappConfigs -> error :: ', error);
+      return null;
     }
   };
 
@@ -99,16 +91,19 @@ class CDappAPI {
       const rs: any = await this.http.get(`${dappURL}/apps/menu`);
       return rs;
     } catch (error) {
-      // throw error;
+      console.log('[DappAPI] getAppInfoList -> error :: ', error);
       return [];
     }
   };
 
   prepareDappParams = async (params: IReqDapp) => {
-    this.dispatch(setLoading(true));
-
     try {
       const chain = await this.getChainByOrderID({ orderID: params.orderID });
+
+      if (!chain) {
+        return;
+      }
+
       chain.dappURL = chain?.dappURL || this.getDappURL(chain);
 
       const _chain = chain;
@@ -116,13 +111,8 @@ class CDappAPI {
       //   _chain.chainId = '91227';
       // }
 
-      this.dispatch(setChain({ ..._chain }));
-      const tasks = [
-          'create_token',
-          DappType.staking,
-          DappType.airdrop,
-          DappType.yologame,
-        ].map((app) =>
+      const tasks =
+        ['create_token', DappType.staking, DappType.airdrop].map((app) =>
           this.getDappConfig({
             appName: app,
             network_id: chain.chainId,
@@ -143,14 +133,8 @@ class CDappAPI {
         await this.getDappConfigs({ dappURL: chain.dappURL }),
         await this.getAppInfoList({ dappURL: chain.dappURL }),
       ]);
-
-      this.dispatch(setConfigs(configs));
-      this.dispatch(setDappConfigs(dappConfigs));
-      this.dispatch(setAppInfos(appInfoList));
     } catch (error) {
-      console.log(error);
-    } finally {
-      this.dispatch(setLoading(false));
+      console.log('[DappAPI] prepareDappParams -> error :: ', error);
     }
   };
 
@@ -165,27 +149,21 @@ class CDappAPI {
         }),
       );
       const vestings = await Promise.all(tasks);
+      const ts = tokens?.map((t, i) => ({ ...t, vestings: vestings[i] }));
 
-      const ts = orderBy(
-        tokens?.map((t, i) => ({ ...t, vestings: vestings[i] })),
-        [(token) => token.id],
-        ['asc'],
-      );
-
-      this.dispatch(setTokens(ts));
       return vestings;
     } catch (error) {
-      console.log('error', error);
-    } finally {
+      console.log('[DappAPI] getListToken -> error :: ', error);
+      return [];
     }
   };
 
-  updateTemplate = async (template: ITemplate, network_id: string | number) => {
-    await this.http.put(`/user/template/update`, {
-      template: JSON.stringify(template),
-      network_id: Number(network_id),
-    });
-  };
+  // updateTemplate = async (template: ITemplate, network_id: string | number) => {
+  //   await this.http.put(`/user/template/update`, {
+  //     template: JSON.stringify(template),
+  //     network_id: Number(network_id),
+  //   });
+  // };
 }
 
-export default CDappAPI;
+export default DappAPI;

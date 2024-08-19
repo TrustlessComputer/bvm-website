@@ -33,6 +33,7 @@ import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import useFlowStore, { AppState } from '../stores/useFlowStore';
 import useOverlappingChainLegoStore from '../stores/useOverlappingChainLegoStore';
 import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
+import { isShakeLego } from '@/modules/blockchains/Buy/components3/Draggable';
 
 export default function useHandleDragging() {
   const { setOverlappingId } = useOverlappingChainLegoStore();
@@ -146,7 +147,8 @@ export default function useHandleDragging() {
           (option) => option.key === field[activeKey].value,
         );
         const msg = `You have already chosen ${currentOption?.title} as your ${currentField?.title}. Please remove it before selecting again.`;
-
+        //TODO Shake hear
+        isShakeLego.value = currentOption?.value as string;
         toast.error(msg, {
           icon: null,
           style: {
