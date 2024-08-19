@@ -14,6 +14,7 @@ import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { requestReload } from '@/stores/states/common/reducer';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import {
   getL2ServicesStateSelector,
@@ -42,7 +43,6 @@ import { formValuesAdapter } from './FormValuesAdapter';
 import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
-import { requestReload } from '@/stores/states/common/reducer';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -75,7 +75,7 @@ const isExistAA = (dyanmicFormAllData: any[]): boolean => {
 const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [dyanmicFormAllData, setDyanmicFormAllData] = useState<any[]>([]);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const { setUpdated } = useUpdateFlowStore();
   const { nodes, edges } = useFlowStore();
@@ -297,23 +297,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   };
 
   const onUpdateHandler = async () => {
-    // setTimeout(() => {
-    //   // Save nodes and edges to store
-    //   localStorage.setItem(
-    //     LocalStorageKey.UPDATE_FLOW_NODES,
-    //     JSON.stringify(nodes),
-    //   );
-    //   localStorage.setItem(
-    //     LocalStorageKey.UPDATE_FLOW_EDGES,
-    //     JSON.stringify(edges),
-    //   );
-
-    //   getOrderDetailByID(orderDetail!.orderId);
-    //   setUpdated(true);
-    // },1000);
-
-    // return;
-
     if (isDisabledBtn) {
       return;
     }
@@ -410,23 +393,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           JSON.stringify(edges),
         );
 
-        // // TO DO [Leon]
-        // // Call API Config DApp if is exist dapp (issues token, staking, ....) daragged into Data View
-
-        // // try {
-        // //   // const res =  await ...
-        // // } catch (error) {}
-
-        // console.log('[LaunchButton] - onUpdateHandler', {
-        //   result,
-        //   airdrops,
-        //   stakingPool,
-        //   tokens,
-        // });
-
         isSuccess = true;
         dispatch(setOrderSelected(result));
         await sleep(1);
+
         // if (isSuccess) {
         //   toast.success('Update Successful');
         // }

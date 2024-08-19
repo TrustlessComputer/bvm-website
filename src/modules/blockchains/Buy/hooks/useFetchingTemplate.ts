@@ -19,7 +19,6 @@ import { parseStakingPools } from '../../dapp/parseUtils/staking';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { parseDappModel } from '../../utils';
 import { nodeKey } from '../component4/YourNodes/node.constants';
-import { LocalStorageKey } from '../contants';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
@@ -129,7 +128,6 @@ export default function useFetchingTemplate() {
       position: { x: 30, y: 30 },
     };
     newNodes.unshift(chainNodeInitial);
-    console.log('templateForm: ', templateForm);
 
     if (!templateForm) return;
 
@@ -259,23 +257,22 @@ export default function useFetchingTemplate() {
       };
     });
 
-    if (updated) {
-      console.log('templateForm: 222', templateForm);
-      const preNodes = (localStorage.getItem(
-        LocalStorageKey.UPDATE_FLOW_NODES,
-      ) || []) as AppNode[];
+    // if (updated) {
+    //   const preNodes = (localStorage.getItem(
+    //     LocalStorageKey.UPDATE_FLOW_NODES,
+    //   ) || []) as AppNode[];
 
-      _newNodes.forEach((node, index) => {
-        if (!preNodes[index]) return;
+    //   _newNodes.forEach((node, index) => {
+    //     if (!preNodes[index]) return;
 
-        node.position = preNodes[index].position;
-        node.data = {
-          ...node.data,
-          sourceHandles: preNodes[index].data.sourceHandles,
-          targetHandles: preNodes[index].data.targetHandles,
-        };
-      });
-    }
+    //     node.position = preNodes[index].position;
+    //     node.data = {
+    //       ...node.data,
+    //       sourceHandles: preNodes[index].data.sourceHandles,
+    //       targetHandles: preNodes[index].data.targetHandles,
+    //     };
+    //   });
+    // }
 
     const map: any = {};
     for (const element of [...newNodes, ...nodesData, ..._newNodes]) {
@@ -292,7 +289,6 @@ export default function useFetchingTemplate() {
   };
 
   const parseDappApiToDappModel = async () => {
-    console.log('parseDappApiToDappModel', tokens);
     const parsedTokensData = parseTokensData(tokens);
     const parsedTokensForm = parseDappModel({
       key: DappType.token_generation,
