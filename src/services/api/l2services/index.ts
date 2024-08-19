@@ -38,6 +38,7 @@ import {
 } from './types';
 import { IModelCategory } from '@/types/customize-model';
 import { isEmpty } from 'lodash';
+import { ORDER_MOCKUP_DATA } from './OrderMockupData';
 
 const isInValidAccessToken = () => {
   const accessToken = LocalStorage.getItem(
@@ -244,7 +245,7 @@ export const orderDetailByID = async (
     if (data && data.orderId) {
       return data as OrderItem;
     }
-    return undefined;
+    // return ORDER_MOCKUP_DATA;
   } catch (error: any) {
     throw error;
   }
