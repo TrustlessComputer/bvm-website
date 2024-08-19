@@ -171,3 +171,12 @@ input[type='number'] {
 .block {
   display: block !important;
 }
+
+.react-flow__handle {
+  position: unset !important;
+  background-color: #777777 !important;
+}
+
+.react-flow__nodes {
+  width: fit-content !important;
+}
