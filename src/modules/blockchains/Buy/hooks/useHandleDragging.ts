@@ -32,6 +32,7 @@ import toast from 'react-hot-toast';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import useFlowStore, { AppState } from '../stores/useFlowStore';
 import useOverlappingChainLegoStore from '../stores/useOverlappingChainLegoStore';
+import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 
 export default function useHandleDragging() {
   const { setOverlappingId } = useOverlappingChainLegoStore();
@@ -234,12 +235,6 @@ export default function useHandleDragging() {
       background: '',
       dappIndex: -1,
     };
-
-    console.log(
-      '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
-      over,
-      active,
-    );
 
     if (!over) return;
 
@@ -738,8 +733,11 @@ export default function useHandleDragging() {
           };
         });
 
+        //Drag remove node
         setNodes(newNodes);
         setEdges(newEdges);
+        needReactFlowRenderSignal.value = true;
+
         return;
       }
 
