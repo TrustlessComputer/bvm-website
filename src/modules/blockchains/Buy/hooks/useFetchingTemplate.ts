@@ -19,6 +19,7 @@ import { parseStakingPools } from '../../dapp/parseUtils/staking';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { parseDappModel } from '../../utils';
 import { nodeKey } from '../component4/YourNodes/node.constants';
+import { LocalStorageKey } from '../contants';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
@@ -27,6 +28,7 @@ import {
 import { formTemplateDappSignal } from '../signals/useFormDappsSignal';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
+import useUpdateFlowStore from '../stores/useUpdateFlowStore';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 
@@ -41,6 +43,7 @@ export default function useFetchingTemplate() {
     setCategoryMapping,
   } = useModelCategoriesStore();
   const { field, setFields } = useOrderFormStoreV3();
+  const { setUpdated, updated } = useUpdateFlowStore();
 
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { initTemplate, setTemplate } = useTemplate();
@@ -255,6 +258,23 @@ export default function useFetchingTemplate() {
       };
     });
 
+    if (updated) {
+      const preNodes = (localStorage.getItem(
+        LocalStorageKey.UPDATE_FLOW_NODES,
+      ) || []) as AppNode[];
+
+      _newNodes.forEach((node, index) => {
+        if (!preNodes[index]) return;
+
+        node.position = preNodes[index].position;
+        node.data = {
+          ...node.data,
+          sourceHandles: preNodes[index].data.sourceHandles,
+          targetHandles: preNodes[index].data.targetHandles,
+        };
+      });
+    }
+
     const map: any = {};
     for (const element of [...newNodes, ...nodesData, ..._newNodes]) {
       map[element.id] = element;
@@ -337,7 +357,15 @@ export default function useFetchingTemplate() {
 
   React.useEffect(() => {
     parseDappApiToDappModel();
+    setUpdated(false);
   }, [needReload]);
+
+  // React.useEffect(() => {
+  //   if (!updated) return;
+
+  //   parseDappApiToDappModel();
+  //   setUpdated(false);
+  // }, [updated]);
 
   React.useEffect(() => {
     if (!needSetDataTemplateToBox) return;

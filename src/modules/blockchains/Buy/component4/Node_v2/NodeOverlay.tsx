@@ -1,9 +1,9 @@
 import { NodeOverlayProps } from '@/types/node';
 
 import Loading from '@/components/Loading';
-import Button from '../Button';
+// import Button from '../Button';
 import styles from './styles.module.scss';
-import { Flex, Text, Image } from '@chakra-ui/react';
+import { Flex, Text, Image, Button } from '@chakra-ui/react';
 
 const NodeOverlay = ({ ...props }: NodeOverlayProps) => {
   return (
@@ -39,7 +39,18 @@ const NodeOverlay = ({ ...props }: NodeOverlayProps) => {
         )}
 
         {props.type === 'action' && (
-          <Button onClick={props.action.onClick}>{props.action.label}</Button>
+          <Button
+            borderRadius={'100px'}
+            onClick={props.action.onClick}
+            bgColor={props.action.bgColor || '#fff'}
+            color={props.action.textColor || '#000'}
+            _hover={{
+              cursor: 'pointer',
+              opacity: 0.7,
+            }}
+          >
+            {props.action.label}
+          </Button>
         )}
       </div>
     </div>

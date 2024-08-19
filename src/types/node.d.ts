@@ -38,6 +38,8 @@ type NodeViewAndAction = {
   message?: string;
   action: {
     label: string;
+    textColor?: string;
+    bgColor?: string;
     onClick: () => void;
   };
 };
