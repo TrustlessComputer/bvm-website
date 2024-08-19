@@ -105,7 +105,8 @@ class CDappAPI {
       const tasks = [
         'create_token',
         DappType.staking,
-        DappType.airdrop
+        DappType.airdrop,
+        DappType.yologame
       ].map((app) =>
         this.getDappConfig({
           appName: app,

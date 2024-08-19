@@ -12,7 +12,7 @@ import Lego from '../component4/Lego';
 import { accountAbstractionAsADapp, dappMockupData } from '../mockup_3';
 import useDappsStore from '../stores/useDappStore';
 import { FieldOption } from '../types';
-import { adjustBrightness, cloneDeep, preDataAirdropTask } from '../utils';
+import { adjustBrightness, cloneDeep, preDataAirdropTask, preDataYoloGame } from '../utils';
 
 const useDapps = () => {
   const pathname = usePathname();
@@ -452,6 +452,7 @@ const useDapps = () => {
     const sortedDapps = _dapps.sort((a, b) => a.order - b.order);
 
     setDapps(preDataAirdropTask(sortedDapps, tokens, airdropTasks));
+    setDapps(preDataYoloGame(sortedDapps, tokens));
   };
 
   React.useEffect(() => {

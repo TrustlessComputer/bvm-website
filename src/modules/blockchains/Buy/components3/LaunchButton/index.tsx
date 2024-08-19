@@ -41,6 +41,7 @@ import { formValuesAdapter } from './FormValuesAdapter';
 import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
+import useSubmitYoloGame from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitYoloGame';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -116,6 +117,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { onSubmitStaking } = useSubmitStaking();
   const { onSubmitAirdrop } = useSubmitFormAirdrop();
   const { onSubmitTokenGeneration } = useSubmitFormTokenGeneration();
+  const { onSubmitYoloGame } = useSubmitYoloGame();
 
   const { chainName, dataAvaibilityChain, gasLimit, network, withdrawPeriod } =
     useOrderFormStore();
@@ -328,6 +330,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       dynamicFormValues: dynamicForm,
     });
     console.log('UPDATE FLOW: --- params --- ', params);
+    const yoloGameForms = retrieveFormsByDappKey({
+      dappKey: DappType.yologame,
+    });
+    console.log('UPDATE FLOW: --- yoloGameForms --- ', yoloGameForms);
     const stakingForms = retrieveFormsByDappKey({
       dappKey: DappType.staking,
     });
@@ -354,6 +360,12 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         //Config Account Abstraction...
         configAccountAbstraction(dynamicForm);
         let isConfigDapp = false;
+        if (yoloGameForms && yoloGameForms.length > 0) {
+          await onSubmitYoloGame({
+            forms: yoloGameForms,
+          });
+          isConfigDapp = true;
+        }
         //Staking...
         if (stakingForms && stakingForms.length > 0) {
           await onSubmitStaking({

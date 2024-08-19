@@ -242,8 +242,6 @@ export default function StudioControls() {
                     field[item.key].dragged,
                 )?.priceBVM ?? 0;
 
-              const options = dappMockupData;
-
               return (
                 <BoxOptionV3
                   key={item.key}

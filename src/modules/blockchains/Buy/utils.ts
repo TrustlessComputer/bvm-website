@@ -388,6 +388,45 @@ export const preDataAirdropTask = (
   return _sortedDapps;
 };
 
+export const preDataYoloGame = (
+  sortedDapps: DappModel[] = [],
+  tokens: IToken[],
+) => {
+  const _sortedDapps = cloneDeep(sortedDapps);
+
+  if (tokens.length > 0) {
+    const _airdropIndex = _sortedDapps.findIndex((v) =>
+      compareString(v.key, DappType.yologame),
+    );
+
+    if (_airdropIndex > -1) {
+      const fieldSettlementToken = _sortedDapps[
+        _airdropIndex
+      ].baseBlock.fields.findIndex((v: FieldModel) =>
+        compareString(v.key, 'settlement_token'),
+      );
+
+      if (fieldSettlementToken > -1) {
+        // // @ts-ignore
+        const options: any = tokens.map((t) => ({
+          key: t.id,
+          title: t.name,
+          value: t.contract_address,
+          icon: t.image_url,
+          tooltip: '',
+          type: '',
+          options: [],
+        }));
+
+        // @ts-ignore
+        _sortedDapps[_airdropIndex].baseBlock.fields[fieldSettlementToken].options =
+          options;
+      }
+    }
+  }
+  return _sortedDapps;
+};
+
 export const getAirdropTaskKey = (task: IAirdropTask) => {
   if (compareString(task.type, 'follow') || compareString(task.id, '1')) {
     return 'follow_twitter_username';
