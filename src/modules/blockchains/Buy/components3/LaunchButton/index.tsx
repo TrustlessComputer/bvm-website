@@ -12,7 +12,7 @@ import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
+import { orderBuyAPI_V3 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { requestReload } from '@/stores/states/common/reducer';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
@@ -20,6 +20,7 @@ import {
   getL2ServicesStateSelector,
   getOrderDetailSelected,
 } from '@/stores/states/l2services/selector';
+import { OrderItem } from '@/stores/states/l2services/types';
 import { IModelOption } from '@/types/customize-model';
 import { getErrorMessage } from '@/utils/errorV2';
 import { formatCurrencyV2 } from '@/utils/format';
@@ -43,7 +44,6 @@ import { formValuesAdapter } from './FormValuesAdapter';
 import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
-import { OrderItem } from '@/stores/states/l2services/types';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -366,8 +366,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       const result = {};
       if (result) {
         //Config Account Abstraction...
-        configAccountAbstraction(dynamicForm);
-        let isConfigDapp = false;
+        // configAccountAbstraction(dynamicForm);
         //Staking...
         if (stakingForms && stakingForms.length > 0) {
           await onSubmitStaking({
@@ -415,7 +414,13 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         toast.error(message);
       }
     } finally {
+      console.log('[LaunchButton] - update flow', {
+        isSuccess,
+        isConfigDapp,
+      });
+
       if (isConfigDapp) {
+        console.log('[LaunchButton] refresh dapp data');
         setTimeout(() => {
           dispatch(requestReload());
           setUpdated(true);

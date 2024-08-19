@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useAppSelector } from '@/stores/hooks';
+import { commonSelector } from '@/stores/states/common/selector';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
 import { useParams, usePathname } from 'next/navigation';
@@ -23,6 +24,7 @@ const useDapps = () => {
   const { setUpdated, updated } = useUpdateFlowStore();
   const { dapps, setDapps } = useDappsStore();
 
+  const { counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
   const { configs, tokens, airdropTasks } = dappState;
 
@@ -468,8 +470,7 @@ const useDapps = () => {
 
   React.useEffect(() => {
     fetchDapps();
-    if (!updated) return;
-  }, [configs, tokens, airdropTasks, pathname]);
+  }, [counterFetchedDapp, pathname]);
 
   return {
     dapps,

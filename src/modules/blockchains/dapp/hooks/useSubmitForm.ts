@@ -1,16 +1,17 @@
 import useSubmitFormTokenGeneration from '@/modules/blockchains/dapp/hooks/useSubmitFormTokenGeneration';
+import { formDappSignal } from '@/modules/blockchains/dapp/signals/useFormDappsSignal';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { cloneDeep } from '../../Buy/utils';
 import { TopUpDappInfor } from '../components/TopupModal';
 import useDappsStore from '../stores/useDappStore';
 import { DappType } from '../types';
 import useSubmitFormAirdrop from './useSubmitFormAirdrop';
 import useSubmitFormStaking from './useSubmitFormStaking';
-import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import { toast } from 'react-hot-toast';
-import { formDappSignal } from '@/modules/blockchains/dapp/signals/useFormDappsSignal';
 
 const useSubmitForm = () => {
   const { dapps, currentIndexDapp } = useDappsStore();
@@ -57,17 +58,17 @@ const useSubmitForm = () => {
     } catch (err: unknown) {
       toast.error(
         (err as Error).message ||
-        'Something went wrong. Please try again later.',
+          'Something went wrong. Please try again later.',
       );
     }
   };
 
   const onSubmitForm = () => {
-    if(!loggedIn) {
+    if (!loggedIn) {
       handleConnect();
       return;
     }
-    const formDapp = formDappSignal?.value;
+    const formDapp = cloneDeep(formDappSignal?.value || {});
     if (!formDapp || !Object.keys(formDapp)?.length) {
       return;
     }
