@@ -9,7 +9,6 @@ import {
 } from '../../signals/useDragSignal';
 
 import styles from './styles.module.scss';
-import { useSignalEffect } from '@preact/signals-react';
 
 type Props = {
   id: string;
@@ -46,16 +45,16 @@ const Draggable = ({
     };
   }
 
-  useSignalEffect(() => {
-    if (value?.fieldKey && idBlockErrorSignal.value === value.fieldKey) {
-      setIsError(true);
-
-      setTimeout(() => {
-        idBlockErrorSignal.value = '';
-        setIsError(false);
-      }, 2000);
-    }
-  });
+  // useSignalEffect(() => {
+  //   if (value?.fieldKey && idBlockErrorSignal.value === value.fieldKey) {
+  //     setIsError(true);
+  //
+  //     setTimeout(() => {
+  //       idBlockErrorSignal.value = '';
+  //       setIsError(false);
+  //     }, 2000);
+  //   }
+  // });
 
   const style = {
     ...props.style,
