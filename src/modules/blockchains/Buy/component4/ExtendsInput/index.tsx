@@ -228,7 +228,7 @@ const ExtendsInput = ({
               key={option.key}
               disabled={disabled}
               onlyLabel={onlyLabel}
-              zIndex={zIndex - optIndex}
+              zIndex={zIndex - optIndex - 1}
               thisDapp={thisDapp}
             />
           ))
