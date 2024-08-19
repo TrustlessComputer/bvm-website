@@ -438,7 +438,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     }
   };
 
-  const onLaunchExecute = async () => {
+  const onLaunchExecute = async (formData?: any[]) => {
     setSubmitting(true);
 
     let isSuccess = false;
@@ -454,7 +454,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     const params = formValuesAdapter({
       computerName: computerNameField.value || '',
       chainId: chainId,
-      dynamicFormValues: dyanmicFormAllData,
+      dynamicFormValues: formData || dyanmicFormAllData,
     });
 
     let result;
@@ -570,7 +570,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     }
 
     setDyanmicFormAllData(dynamicForm);
-    setShowPreviewModal(true);
+    // setShowPreviewModal(true);
+    onLaunchExecute(dynamicForm);
   };
 
   return (
