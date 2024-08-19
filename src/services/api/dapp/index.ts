@@ -15,6 +15,7 @@ import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 import { templateMapper } from '@/services/api/dapp/utils';
 import { capitalizeFirstLetter } from '@web3auth/ui';
 import { DappType } from '@/modules/blockchains/dapp/types';
+import { orderBy } from 'lodash';
 
 class CDappAPI {
   private dappState = useAppSelector(dappSelector);
@@ -153,7 +154,8 @@ class CDappAPI {
       );
       const vestings = await Promise.all(tasks);
 
-      const ts = tokens?.map((t, i) => ({ ...t, vestings: vestings[i] }));
+      const ts = orderBy(tokens?.map((t, i) => ({ ...t, vestings: vestings[i] })), [token => token.id],  ['asc']);
+      console.log('getListToken', ts);
       this.dispatch(setTokens(ts));
       return vestings;
     } catch (error) {

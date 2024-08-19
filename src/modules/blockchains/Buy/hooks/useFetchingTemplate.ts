@@ -50,7 +50,7 @@ export default function useFetchingTemplate() {
   const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
 
-  const { needReload } = useAppSelector(commonSelector);
+  const { needReload, counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
   const { tokens, airdrops, stakingPools } = dappState;
 
@@ -129,6 +129,7 @@ export default function useFetchingTemplate() {
       position: { x: 30, y: 30 },
     };
     newNodes.unshift(chainNodeInitial);
+    console.log('templateForm: ', templateForm);
 
     if (!templateForm) return;
 
@@ -259,6 +260,7 @@ export default function useFetchingTemplate() {
     });
 
     if (updated) {
+      console.log('templateForm: 222', templateForm);
       const preNodes = (localStorage.getItem(
         LocalStorageKey.UPDATE_FLOW_NODES,
       ) || []) as AppNode[];
@@ -286,9 +288,11 @@ export default function useFetchingTemplate() {
 
     templateIds2DSignal.value = [...draggedIds2D];
     formTemplateDappSignal.value = { ...formDapp };
+    setNeedSetDataTemplateToBox(false);
   };
 
   const parseDappApiToDappModel = async () => {
+    console.log('parseDappApiToDappModel', tokens);
     const parsedTokensData = parseTokensData(tokens);
     const parsedTokensForm = parseDappModel({
       key: DappType.token_generation,
@@ -358,7 +362,7 @@ export default function useFetchingTemplate() {
   React.useEffect(() => {
     parseDappApiToDappModel();
     setUpdated(false);
-  }, [needReload]);
+  }, [counterFetchedDapp]);
 
   // React.useEffect(() => {
   //   if (!updated) return;

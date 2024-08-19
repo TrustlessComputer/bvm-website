@@ -42,6 +42,7 @@ import { formValuesAdapter } from './FormValuesAdapter';
 import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
+import { requestReload } from '@/stores/states/common/reducer';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -74,6 +75,7 @@ const isExistAA = (dyanmicFormAllData: any[]): boolean => {
 const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [dyanmicFormAllData, setDyanmicFormAllData] = useState<any[]>([]);
+  const dispatch = useAppDispatch()
 
   const { setUpdated } = useUpdateFlowStore();
   const { nodes, edges } = useFlowStore();
@@ -88,7 +90,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { accountInforL2Service, availableListFetching, availableList } =
     useAppSelector(getL2ServicesStateSelector);
   const { getOrderDetailByID } = useL2Service();
-  const dispatch = useAppDispatch();
   const { isCanConfigAA, configAAHandler, checkTokenContractAddress } =
     useAAModule();
 
@@ -373,13 +374,14 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
     console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
     // console.log('LEON LOG: 111', tokensForms);
+    let isConfigDapp = false;
+
     try {
       // Update and Call API install (behind the scene form BE Phuong)
       const result = await orderUpdateV2(params, orderDetail.orderId);
       if (result) {
         //Config Account Abstraction...
         configAccountAbstraction(dynamicForm);
-        let isConfigDapp = false;
         //Staking...
         if (stakingForms && stakingForms.length > 0) {
           await onSubmitStaking({
@@ -396,12 +398,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         if (tokensForms && tokensForms.length > 0) {
           await onSubmitTokenGeneration({ forms: tokensForms });
           isConfigDapp = true;
-        }
-
-        if (isConfigDapp) {
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
         }
 
         // Save nodes and edges to store
@@ -446,7 +442,12 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         toast.error(message);
       }
     } finally {
-      setUpdated(true);
+      if (isConfigDapp) {
+        setTimeout(() => {
+          dispatch(requestReload());
+          setUpdated(true);
+        }, 1000);
+      }
       getOrderDetailByID(orderDetail.orderId);
       setSubmitting(false);
     }
