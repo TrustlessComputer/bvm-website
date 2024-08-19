@@ -21,6 +21,7 @@ export const dappKeyMapNodeKey: Record<
   issue_a_token: nodeKey.DAPP_NODE,
   staking: nodeKey.DAPP_NODE,
   airdrop: nodeKey.DAPP_NODE,
+  yolo: nodeKey.DAPP_NODE,
 });
 
 export const dappKeyToNodeKey = (dappKey: string) => {
