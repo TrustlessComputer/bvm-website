@@ -16,7 +16,7 @@ export const parseYoloGames = (games: IYoloGame[]): DappModel[] => {
         updated_at: '2021-09-14T09:00:00.000Z',
         tooltip: '',
         label: {
-          title: 'Deployed',
+          title: 'Running',
           color: '#000',
           background: '#00AA6C',
           status: '',
