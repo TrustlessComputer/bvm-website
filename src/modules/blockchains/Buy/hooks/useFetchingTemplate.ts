@@ -353,7 +353,7 @@ export default function useFetchingTemplate() {
 
   React.useEffect(() => {
     fetchData();
-  }, [isUpdateFlow]);
+  }, []);
 
   React.useEffect(() => {
     parseDappApiToDappModel();
@@ -379,5 +379,5 @@ export default function useFetchingTemplate() {
     } else {
       initTemplate(0);
     }
-  }, [order, categoriesTemplates, isUpdateFlow]);
+  }, [categoriesTemplates]);
 }
