@@ -16,6 +16,7 @@ import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import {
   getL2ServicesStateSelector,
   getOrderDetailSelected,
@@ -24,7 +25,7 @@ import { IModelOption } from '@/types/customize-model';
 import { getErrorMessage } from '@/utils/errorV2';
 import { formatCurrencyV2 } from '@/utils/format';
 import sleep from '@/utils/sleep';
-import { Spinner, Text, useDisclosure } from '@chakra-ui/react';
+import { Spinner, Text, useDisclosure, Image } from '@chakra-ui/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { getChainIDRandom } from '../../Buy.helpers';
@@ -139,7 +140,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       return 'Connect';
     }
     if (needContactUs) {
-      return 'Contact Us';
+      return 'Launch';
     }
     if (isUpdate) {
       return 'Update';
@@ -335,6 +336,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       chainId: orderDetail.chainId,
       dynamicFormValues: dynamicForm,
     });
+
     // console.log('UPDATE FLOW: --- params --- ', params);
     const stakingForms = retrieveFormsByDappKey({
       dappKey: DappType.staking,
@@ -344,13 +346,11 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     const airdropForms = retrieveFormsByDappKey({
       dappKey: DappType.airdrop,
     });
-
     // console.log('UPDATE FLOW: --- airdropForms --- ', airdropForms);
 
     const tokensForms = retrieveFormsByDappKey({
       dappKey: DappType.token_generation,
     });
-
     // console.log('UPDATE FLOW: --- tokensForms --- ', tokensForms);
 
     console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
@@ -380,6 +380,12 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           isConfigDapp = true;
         }
 
+        if (isConfigDapp) {
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        }
+
         // TODO: @Jackie
         // const [airdrops, stakingPool, tokens] = await Promise.all([
         //   fetchListAirdrop(),
@@ -394,29 +400,23 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         //   }),
         // ]);
 
-        // if (isConfigDapp) {
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 1000);
-        // }
+        // // TO DO [Leon]
+        // // Call API Config DApp if is exist dapp (issues token, staking, ....) daragged into Data View
 
-        // TO DO [Leon]
-        // Call API Config DApp if is exist dapp (issues token, staking, ....) daragged into Data View
+        // // try {
+        // //   // const res =  await ...
+        // // } catch (error) {}
 
-        // try {
-        //   // const res =  await ...
-        // } catch (error) {}
-
-        console.log('[LaunchButton] - onUpdateHandler', {
-          result,
-          // airdrops,
-          // stakingPool,
-          // tokens,
-        });
+        // console.log('[LaunchButton] - onUpdateHandler', {
+        //   result,
+        //   airdrops,
+        //   stakingPool,
+        //   tokens,
+        // });
 
         isSuccess = true;
-        // dispatch(setOrderSelected(result));
-        getOrderDetailByID(orderDetail.orderId);
+        dispatch(setOrderSelected(result));
+        // getOrderDetailByID(orderDetail.orderId);
         await sleep(1);
         // if (isSuccess) {
         //   toast.success('Update Successful');
@@ -433,8 +433,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         toast.error(message);
       }
     } finally {
-      // getOrderDetailByID(orderDetail.orderId);
-
+      getOrderDetailByID(orderDetail.orderId);
       setSubmitting(false);
     }
   };
@@ -597,59 +596,35 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           {!loggedIn ? (
             <Text className={s.connect}>
               {titleButton}
-              {needContactUs && (
-                <img
-                  src={'/icons/info-circle.svg'}
-                  alt="icon"
-                  width={24}
-                  height={24}
+              <div className={`${s.icon}`}>
+                <Image
+                  src={'/launch.png'}
+                  alt={'launch'}
+                  width={'24px'}
+                  height={'24px'}
                 />
-              )}
-              {!needContactUs && (
-                <div className={`${s.icon}`}>
-                  <ImagePlaceholder
-                    src={'/launch.png'}
-                    alt={'launch'}
-                    width={48}
-                    height={48}
-                  />
-                </div>
-              )}
+              </div>
             </Text>
           ) : (
             <React.Fragment>
               <div className={s.top}>
                 {isSubmiting ? <Spinner color="#fff" /> : <p>{titleButton}</p>}
-
-                {needContactUs && (
-                  <img
-                    src={'/icons/info-circle.svg'}
-                    alt="icon"
-                    width={24}
-                    height={24}
-                  />
-                )}
-
-                {!needContactUs && (
-                  <div className={`${s.icon}`}>
-                    <ImagePlaceholder
-                      src={'/launch.png'}
-                      alt={'launch'}
-                      width={48}
-                      height={48}
-                    />
-                  </div>
-                )}
+                <Image
+                  src={'/launch.png'}
+                  alt={'launch'}
+                  width={'24px'}
+                  height={'24px'}
+                />
               </div>
             </React.Fragment>
           )}
-          {needContactUs && (
+          {/* {needContactUs && (
             <div className={s.tooltip}>
               You've chosen Optimistic Rollup for your blockchain. The price of
               this module can vary. Please contact us to discuss further and get
               it set up.
             </div>
-          )}
+          )} */}
         </div>
       </div>
       {isOpenTopUpModal && (

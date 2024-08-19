@@ -12,7 +12,7 @@ export default function TopWorkArea(): ReactElement {
 
   return (
     <div className={s.right_box_footer}>
-      {!needContactUs && (
+      {
         <div className={s.right_box_footer_left}>
           <h4 className={s.right_box_footer_left_content}>
             {formatCurrencyV2({
@@ -30,7 +30,7 @@ export default function TopWorkArea(): ReactElement {
             {'/'}month
           </h6>
         </div>
-      )}
+      }
 
       <LaunchButton isUpdate={!!order} />
     </div>

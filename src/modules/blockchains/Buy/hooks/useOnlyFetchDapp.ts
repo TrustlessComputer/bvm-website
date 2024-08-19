@@ -1,3 +1,8 @@
+import {
+  IAirdrop,
+  ITask,
+  ITaskReceiver,
+} from '@/services/api/dapp/airdrop/interface';
 import { OrderItem } from '@/stores/states/l2services/types';
 import AirdropAPI from '../services/dapp/AirdropAPI';
 import DappAPI from '../services/dapp/DappAPI';
@@ -19,15 +24,15 @@ const useOnlyFetchDapp = () => {
   };
 
   const fetchListTask = async () => {
-    return await airdropAPI.getListTask();
+    return (await airdropAPI.getListTask()) as ITask[];
   };
 
   const fetchListAirdrop = async () => {
-    return await airdropAPI.getListAirdrop();
+    return (await airdropAPI.getListAirdrop()) as IAirdrop[];
   };
 
   const fetchListReceivers = async ({ airdropId }: { airdropId: string }) => {
-    return await airdropAPI.getListReceivers(airdropId);
+    return (await airdropAPI.getListReceivers(airdropId)) as ITaskReceiver[];
   };
 
   const fetchListToken = async (params: { networkId: string }) => {

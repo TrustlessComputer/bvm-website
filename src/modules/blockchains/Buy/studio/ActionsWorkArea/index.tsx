@@ -1,6 +1,7 @@
 import Capture from '@/modules/blockchains/Buy/Capture';
 import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
 import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
+import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 import Image from 'next/image';
 import React, { ReactElement } from 'react';
 import Button from '../../component4/Button';
@@ -18,20 +19,29 @@ export default function ActionsWorkArea(): ReactElement {
   const { isCapture } = useCaptureStore();
   const [isShowModal, setIsShowModal] = React.useState(false);
   // const { setDraggedFields } = useDragStore();
-  const { initTemplate } = useTemplate();
+  const { initTemplate, setTemplate } = useTemplate();
   const { nodes, setNodes } = useFlowStore();
   const { templateDapps } = useTemplateFormStore();
+  const { order, isAAInstalled } = useChainProvider();
 
   const resetEdit = () => {
     const totalTemplateDapps = templateDapps.length;
     setIsShowModal(false);
-    setNodes(nodes.slice(0, totalTemplateDapps + 1));
+    setNodes(nodes.slice(0, totalTemplateDapps + 1 + Number(isAAInstalled)));
 
-    draggedDappIndexesSignal.value = [];
     draggedIds2DSignal.value = [];
+    if (isAAInstalled) {
+      draggedDappIndexesSignal.value = [0];
+    } else {
+      draggedDappIndexesSignal.value = [];
+    }
     formDappSignal.value = {};
 
-    initTemplate(0);
+    if (order) {
+      setTemplate(order.selectedOptions || []);
+    } else {
+      initTemplate(0);
+    }
   };
 
   return (

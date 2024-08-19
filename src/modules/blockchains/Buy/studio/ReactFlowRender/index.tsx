@@ -1,5 +1,6 @@
 import CustomEdge from '@/modules/blockchains/Buy/component4/CustomEdge';
 import CustomNode from '@/modules/blockchains/Buy/component4/CustomNode';
+import { signal, useSignalEffect } from '@preact/signals-react';
 import { ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import React, { useState } from 'react';
@@ -10,24 +11,24 @@ import DappNode from '../../component4/YourNodes/DappNode';
 import { nodeKey } from '../../component4/YourNodes/node.constants';
 import useFlowStore from '../../stores/useFlowStore';
 import s from './styles.module.scss';
-import { signal, useSignalEffect } from '@preact/signals-react';
-
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
 
 const ReactFlowRenderer = React.memo(() => {
   const { nodes, onNodesChange, edges, onEdgesChange } = useFlowStore();
-  const [currentPosition, setCurrentPosition] = useState(currentPositionSignal.value);
+  const [currentPosition, setCurrentPosition] = useState(
+    currentPositionSignal.value,
+  );
 
   useSignalEffect(() => {
-    if(needReactFlowRenderSignal.value) {
+    if (needReactFlowRenderSignal.value) {
       setCurrentPosition(currentPositionSignal.value);
       needReactFlowRenderSignal.value = false;
     }
-  })
-  console.log('nodes', nodes);
-  console.log('edges', edges);
+  });
+  // console.log('nodes', nodes);
+  // console.log('edges', edges);
 
   return (
     <ReactFlow
