@@ -20,12 +20,13 @@ import {
   PopoverBody,
   PopoverTrigger,
   Grid,
+  useDisclosure,
 } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import { orderBy } from 'lodash';
 import { DotLottiePlayer } from '@dotlottie/react-player';
-import sleep from '@/utils/sleep';
+import BitcoinRentModal from './BitcoinRentModal';
 
 enum SortRollupType {
   name,
@@ -51,6 +52,9 @@ interface ISort {
 
 const L2Rollup = () => {
   const { showContactUsModal } = useContactUs();
+  const { isOpen, onClose, onOpen } = useDisclosure();
+
+  const [bitcoinRent, setBitcoinRent] = useState<IRollupL2Info>();
 
   const [data, setData] = useState<IRollupL2Info[]>([]);
 
@@ -236,7 +240,7 @@ const L2Rollup = () => {
                   alignItems={'center'}
                   width={'100%'}
                   justifyContent={'space-between'}
-                  paddingLeft={'16px'}
+                  paddingLeft={'8px'}
                   cursor={'pointer'}
                   _hover={{
                     textDecoration: 'underline',
@@ -497,6 +501,16 @@ const L2Rollup = () => {
               width={'100%'}
               px={'2px'}
               minW={'112px'}
+              cursor={'pointer !important'}
+              onClick={() => {
+                if (!isUnderReview) {
+                  setBitcoinRent(data);
+                  onOpen();
+                }
+              }}
+              _hover={{
+                textDecoration: isUnderReview ? 'unset' : 'underline',
+              }}
             >
               <Text className={s.title}>
                 {isUnderReview
@@ -999,6 +1013,14 @@ const L2Rollup = () => {
           />
         </Box>
       </Flex>
+      {isOpen && bitcoinRent && (
+        <BitcoinRentModal
+          title={bitcoinRent.name}
+          chain_id={bitcoinRent.chain_id}
+          isShow={isOpen}
+          onHide={onClose}
+        />
+      )}
     </Box>
   );
 };
