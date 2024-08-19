@@ -234,7 +234,7 @@ export default function StudioControls() {
               );
             }
 
-            if (item.key === 'defi_apps') {
+            if (['defi_apps', 'degen_apps'].includes(item.key)) {
               const currentPrice =
                 item.options.find(
                   (opt) =>
@@ -257,7 +257,7 @@ export default function StudioControls() {
                   }}
                   needCheckIcon={false}
                 >
-                  {options.map((option, index) => {
+                  {item.options.map((option, index) => {
                     const dapp = isUpdateChain
                       ? dapps?.find((item) =>
                           compareString(
