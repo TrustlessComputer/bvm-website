@@ -43,6 +43,7 @@ import { formValuesAdapter } from './FormValuesAdapter';
 import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
+import { OrderItem } from '@/stores/states/l2services/types';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -394,7 +395,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         );
 
         isSuccess = true;
-        dispatch(setOrderSelected(result));
+        dispatch(setOrderSelected(result as OrderItem));
         await sleep(1);
 
         // if (isSuccess) {
