@@ -8,13 +8,15 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 import { useParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { setCounterFetchedDapp } from '@/stores/states/common/reducer';
 
 const useFetchDapp = () => {
   const params = useParams();
   const id = params?.id;
 
   const dispatch = useDispatch();
-  const [loading, setLoading] = React.useState<boolean>(false);
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [loaded, setLoaded] = React.useState<boolean>(false);
 
   const dappAPI = new CDappAPI();
   const stakingAPI = new CStakingAPI();
@@ -64,6 +66,7 @@ const useFetchDapp = () => {
           getListAirdrop()
         ]
       );
+      dispatch(setCounterFetchedDapp());
     } catch (error) {
       console.log('getDappTasks', error);
     } finally {
@@ -81,9 +84,17 @@ const useFetchDapp = () => {
     }
   }, [dappState?.chain?.chainId, needReload]);
 
+  useEffect(() => {
+    if (!dappState.loading && !loading) {
+      setLoaded(true);
+    }
+
+  },[dappState.loading, loading]);
+
   return {
     loading: dappState.loading || loading,
     configs: dappState.configs,
+    loaded
   };
 };
 

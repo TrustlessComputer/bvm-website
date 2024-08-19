@@ -19,7 +19,6 @@ import { parseStakingPools } from '../../dapp/parseUtils/staking';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { parseDappModel } from '../../utils';
 import { nodeKey } from '../component4/YourNodes/node.constants';
-import { LocalStorageKey } from '../contants';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
@@ -50,7 +49,7 @@ export default function useFetchingTemplate() {
   const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
 
-  const { needReload } = useAppSelector(commonSelector);
+  const { needReload, counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
   const { tokens, airdrops, stakingPools } = dappState;
 
@@ -79,8 +78,8 @@ export default function useFetchingTemplate() {
     const newFields = cloneDeep(field);
     const categoryMapping: Record<string, IModelCategory> = {};
     const [categories, templates] = await Promise.all([
-      // getModelCategories(l2ServiceUserAddress),
-      getModelCategories('0x4113ed747047863Ea729f30C1164328D9Cc8CfcF'),
+      getModelCategories(l2ServiceUserAddress),
+      // getModelCategories('0x4113ed747047863Ea729f30C1164328D9Cc8CfcF'),
       getTemplates(),
     ]);
 
@@ -258,34 +257,35 @@ export default function useFetchingTemplate() {
       };
     });
 
-    if (updated) {
-      const preNodes = (localStorage.getItem(
-        LocalStorageKey.UPDATE_FLOW_NODES,
-      ) || []) as AppNode[];
+    // if (updated) {
+    //   const preNodes = (localStorage.getItem(
+    //     LocalStorageKey.UPDATE_FLOW_NODES,
+    //   ) || []) as AppNode[];
 
-      _newNodes.forEach((node, index) => {
-        if (!preNodes[index]) return;
+    //   _newNodes.forEach((node, index) => {
+    //     if (!preNodes[index]) return;
 
-        node.position = preNodes[index].position;
-        node.data = {
-          ...node.data,
-          sourceHandles: preNodes[index].data.sourceHandles,
-          targetHandles: preNodes[index].data.targetHandles,
-        };
-      });
-    }
+    //     node.position = preNodes[index].position;
+    //     node.data = {
+    //       ...node.data,
+    //       sourceHandles: preNodes[index].data.sourceHandles,
+    //       targetHandles: preNodes[index].data.targetHandles,
+    //     };
+    //   });
+    // }
 
     const map: any = {};
     for (const element of [...newNodes, ...nodesData, ..._newNodes]) {
       map[element.id] = element;
     }
     const newArray = Object.values(map) as AppNode[];
-    setEdges(edgeData);
+    setEdges([...edges, ...edgeData]);
     // setNodes([...nodes, ...newNodes]);
     setNodes(newArray);
 
     templateIds2DSignal.value = [...draggedIds2D];
     formTemplateDappSignal.value = { ...formDapp };
+    setNeedSetDataTemplateToBox(false);
   };
 
   const parseDappApiToDappModel = async () => {
@@ -358,7 +358,7 @@ export default function useFetchingTemplate() {
   React.useEffect(() => {
     parseDappApiToDappModel();
     setUpdated(false);
-  }, [needReload]);
+  }, [counterFetchedDapp]);
 
   // React.useEffect(() => {
   //   if (!updated) return;

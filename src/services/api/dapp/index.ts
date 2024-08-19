@@ -1,20 +1,27 @@
-import { OrderItem } from '@/stores/states/l2services/types';
-import { API_BASE_URL, isLocal } from '@/config';
+import { API_BASE_URL } from '@/config';
+import { DappType } from '@/modules/blockchains/dapp/types';
+import CDappApiClient from '@/services/api/dapp/dapp.client';
+import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
+import {
+  IAppInfo,
+  IDappConfigs,
+  IReqDapp,
+  ITemplate,
+} from '@/services/api/dapp/types';
+import { templateMapper } from '@/services/api/dapp/utils';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import {
   setAppInfos,
   setChain,
-  setConfigs, setDappConfigs,
+  setConfigs,
+  setDappConfigs,
   setLoading,
   setTokens,
 } from '@/stores/states/dapp/reducer';
-import { IAppInfo, IDappConfigs, IReqDapp, ITemplate } from '@/services/api/dapp/types';
 import { dappSelector } from '@/stores/states/dapp/selector';
-import CDappApiClient from '@/services/api/dapp/dapp.client';
-import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
-import { templateMapper } from '@/services/api/dapp/utils';
+import { OrderItem } from '@/stores/states/l2services/types';
 import { capitalizeFirstLetter } from '@web3auth/ui';
-import { DappType } from '@/modules/blockchains/dapp/types';
+import { orderBy } from 'lodash';
 
 class CDappAPI {
   private dappState = useAppSelector(dappSelector);
@@ -60,26 +67,34 @@ class CDappAPI {
     }
   };
 
-  getDappConfigs = async ({ dappURL }: { dappURL: string }): Promise<IDappConfigs | undefined> => {
+  getDappConfigs = async ({
+    dappURL,
+  }: {
+    dappURL: string;
+  }): Promise<IDappConfigs | undefined> => {
     try {
-      let configs = (await this.http.get(
-        `${dappURL}/api/configs`,
-      )) as any;
+      let configs = (await this.http.get(`${dappURL}/api/configs`)) as any;
       configs = {
         ...configs,
-        app_name: capitalizeFirstLetter(configs?.app_name || configs?.bvm_domain || "")
+        app_name: capitalizeFirstLetter(
+          configs?.app_name || configs?.bvm_domain || '',
+        ),
       };
       configs = {
         ...configs,
         template: templateMapper(configs),
-      }
+      };
       return configs;
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  getAppInfoList = async ({ dappURL }: { dappURL: string }): Promise<IAppInfo[]> => {
+  getAppInfoList = async ({
+    dappURL,
+  }: {
+    dappURL: string;
+  }): Promise<IAppInfo[]> => {
     try {
       const rs: any = await this.http.get(`${dappURL}/apps/menu`);
       return rs;
@@ -102,17 +117,14 @@ class CDappAPI {
       // }
 
       this.dispatch(setChain({ ..._chain }));
-      const tasks = [
-        'create_token',
-        DappType.staking,
-        DappType.airdrop
-      ].map((app) =>
-        this.getDappConfig({
-          appName: app,
-          network_id: chain.chainId,
-          address: chain.tcAddress,
-        }),
-      ) || [] as any[];
+      const tasks =
+        ['create_token', DappType.staking, DappType.airdrop].map((app) =>
+          this.getDappConfig({
+            appName: app,
+            network_id: chain.chainId,
+            address: chain.tcAddress,
+          }),
+        ) || ([] as any[]);
       const configs = (await Promise.all(tasks))
         ?.map((item) => {
           try {
@@ -123,13 +135,10 @@ class CDappAPI {
           }
         })
         .filter((item) => !!item);
-      const [
-        dappConfigs,
-        appInfoList,
-      ] = await Promise.all([
+      const [dappConfigs, appInfoList] = await Promise.all([
         await this.getDappConfigs({ dappURL: chain.dappURL }),
         await this.getAppInfoList({ dappURL: chain.dappURL }),
-      ])
+      ]);
 
       this.dispatch(setConfigs(configs));
       this.dispatch(setDappConfigs(dappConfigs));
@@ -153,7 +162,12 @@ class CDappAPI {
       );
       const vestings = await Promise.all(tasks);
 
-      const ts = tokens?.map((t, i) => ({ ...t, vestings: vestings[i] }));
+      const ts = orderBy(
+        tokens?.map((t, i) => ({ ...t, vestings: vestings[i] })),
+        [(token) => token.id],
+        ['asc'],
+      );
+
       this.dispatch(setTokens(ts));
       return vestings;
     } catch (error) {
@@ -165,9 +179,9 @@ class CDappAPI {
   updateTemplate = async (template: ITemplate, network_id: string | number) => {
     await this.http.put(`/user/template/update`, {
       template: JSON.stringify(template),
-      network_id: Number(network_id)
+      network_id: Number(network_id),
     });
-  }
+  };
 }
 
 export default CDappAPI;

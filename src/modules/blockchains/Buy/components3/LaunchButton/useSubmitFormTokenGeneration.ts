@@ -291,10 +291,12 @@ const useSubmitFormTokenGeneration = () => {
             data_hex: calldata,
             type: 'token',
             network_id: Number(dappState?.chain?.chainId),
+
           });
 
+          let logoUrl = '';
           if (data?.logo) {
-            const logoUrl = await api.uploadImage(
+            logoUrl = await api.uploadImage(
               data?.logo_file as unknown as File,
             );
             await api.updateTokenLogo({
@@ -306,7 +308,6 @@ const useSubmitFormTokenGeneration = () => {
         }
 
         showSuccess({ message: 'Generate token successfully!' });
-        dispatch(requestReload());
         handleReset();
       }
     } catch (error) {
