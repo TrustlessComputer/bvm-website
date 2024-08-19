@@ -29,6 +29,7 @@ import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
+import { parseYoloGames } from '@/modules/blockchains/dapp/parseUtils/yologame';
 
 export default function useFetchingTemplate() {
   const { order, isAAInstalled, isUpdateFlow } = useChainProvider();
@@ -49,7 +50,7 @@ export default function useFetchingTemplate() {
 
   const { needReload } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
-  const { tokens, airdrops, stakingPools } = dappState;
+  const { tokens, airdrops, stakingPools, yoloGames } = dappState;
 
   const [needSetDataTemplateToBox, setNeedSetDataTemplateToBox] =
     React.useState(false);
@@ -271,36 +272,50 @@ export default function useFetchingTemplate() {
   };
 
   const parseDappApiToDappModel = async () => {
+    let startIndex = 0;
+
     const parsedTokensData = parseTokensData(tokens);
     const parsedTokensForm = parseDappModel({
       key: DappType.token_generation,
       model: parsedTokensData,
-      startIndex: 0,
+      startIndex: startIndex,
     });
 
+    startIndex += parsedTokensData.length;
     const parsedAirdropsData = await parseAirdropsData(airdrops, tokens);
     const parsedAirdropsForm = parseDappModel({
       key: DappType.airdrop,
       model: parsedAirdropsData,
-      startIndex: parsedTokensData.length,
+      startIndex: startIndex,
     });
 
+    startIndex += parsedAirdropsData.length;
     const parsedStakingPoolsData = parseStakingPools(stakingPools);
     const parsedStakingPoolsForm = parseDappModel({
       key: DappType.staking,
       model: parsedStakingPoolsData,
-      startIndex: parsedTokensData.length + parsedAirdropsData.length,
+      startIndex: startIndex,
+    });
+
+    startIndex += parsedStakingPoolsData.length;
+    const parsedYoloGameData = parseYoloGames(yoloGames);
+    const parsedYoloGameForm = parseDappModel({
+      key: DappType.yologame,
+      model: parsedYoloGameData,
+      startIndex: startIndex,
     });
 
     setTemplateDapps([
       ...parsedTokensData,
       ...parsedAirdropsData,
       ...parsedStakingPoolsData,
+      ...parsedYoloGameData,
     ]);
     setTemplateForm({
       ...parsedTokensForm.fieldValue,
       ...parsedAirdropsForm.fieldValue,
       ...parsedStakingPoolsForm.fieldValue,
+      ...parsedYoloGameForm.fieldValue,
     } as any);
 
     setNeedSetDataTemplateToBox(true);

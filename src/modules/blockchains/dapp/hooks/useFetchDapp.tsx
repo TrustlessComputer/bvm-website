@@ -8,6 +8,7 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 import { useParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import CYoloGameAPI from '@/services/api/dapp/yolo';
 
 const useFetchDapp = () => {
   const params = useParams();
@@ -19,6 +20,7 @@ const useFetchDapp = () => {
   const dappAPI = new CDappAPI();
   const stakingAPI = new CStakingAPI();
   const tokenAirdropAPI = new CTokenAirdropAPI();
+  const yoloGameAPI = new CYoloGameAPI();
 
   const dappState = useAppSelector(dappSelector);
   const needReload = useAppSelector(commonSelector).needReload;
@@ -53,6 +55,10 @@ const useFetchDapp = () => {
     await stakingAPI.getStakingPools();
   };
 
+  const fetchYoloGameList = async () => {
+    await yoloGameAPI.getYoloGameList(dappState?.chain?.chainId || '');
+  };
+
   const getDappTasks = async () => {
     try {
       setLoading(true);
@@ -61,7 +67,8 @@ const useFetchDapp = () => {
           fetchTokenList(),
           fetchStakingPoolsList(),
           getListTask(),
-          getListAirdrop()
+          getListAirdrop(),
+          fetchYoloGameList(),
         ]
       );
     } catch (error) {
