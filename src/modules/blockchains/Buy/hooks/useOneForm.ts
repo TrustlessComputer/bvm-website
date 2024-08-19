@@ -2,7 +2,9 @@ import React from 'react';
 import useDapps from './useDapps';
 import { formDappSignal } from '../signals/useFormDappsSignal';
 import { draggedDappIndexesSignal } from '../signals/useDragSignal';
-import { cloneDeep } from '../utils';
+// import { cloneDeep } from '../utils';
+
+import cloneDeep from 'lodash/cloneDeep';
 
 export interface IRetrieveFormsByDappKey {
   [key: string]: boolean | string | number;
