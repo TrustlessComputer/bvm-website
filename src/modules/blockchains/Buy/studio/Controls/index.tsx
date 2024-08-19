@@ -16,7 +16,7 @@ import { compareString } from '@utils/string';
 import { useParams } from 'next/navigation';
 import React from 'react';
 import useDapps from '../../hooks/useDapps';
-import { accountAbstractionAsADapp } from '../../mockup_3';
+import { accountAbstractionAsADapp, dappMockupData } from '../../mockup_3';
 import { chainKeyToDappKey, isChainOptionDisabled } from '../../utils';
 
 export default function StudioControls() {
@@ -242,6 +242,8 @@ export default function StudioControls() {
                     field[item.key].dragged,
                 )?.priceBVM ?? 0;
 
+              const options = dappMockupData;
+
               return (
                 <BoxOptionV3
                   key={item.key}
@@ -255,7 +257,7 @@ export default function StudioControls() {
                   }}
                   needCheckIcon={false}
                 >
-                  {item.options.map((option, index) => {
+                  {options.map((option, index) => {
                     const dapp = isUpdateChain
                       ? dapps?.find((item) =>
                           compareString(
@@ -278,7 +280,7 @@ export default function StudioControls() {
                         <BoxOption
                           info={{
                             ...option,
-                            disabled: item.disable || !option.selectable,
+                            disabled: false, //item.disable || !option.selectable,
                             description: {
                               title: option.title,
                               content: option.tooltip,
