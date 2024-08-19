@@ -16,7 +16,6 @@ import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
-import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import {
   getL2ServicesStateSelector,
   getOrderDetailSelected,
@@ -31,6 +30,7 @@ import toast from 'react-hot-toast';
 import { getChainIDRandom } from '../../Buy.helpers';
 import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
 import useOneForm from '../../hooks/useOneForm';
+import useOnlyFetchDapp from '../../hooks/useOnlyFetchDapp';
 import PreviewLaunchModal from '../../Preview';
 import { FormOrder } from '../../stores';
 import { useOrderFormStore } from '../../stores/index_v2';
@@ -116,6 +116,14 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { onSubmitStaking } = useSubmitStaking();
   const { onSubmitAirdrop } = useSubmitFormAirdrop();
   const { onSubmitTokenGeneration } = useSubmitFormTokenGeneration();
+  const {
+    fetchChain,
+    fetchListAirdrop,
+    fetchListReceivers,
+    fetchListStakingPool,
+    fetchListTask,
+    fetchListToken,
+  } = useOnlyFetchDapp();
 
   const { chainName, dataAvaibilityChain, gasLimit, network, withdrawPeriod } =
     useOrderFormStore();
@@ -171,7 +179,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   }, [availableListFetching, availableList]);
 
   const allFilled = useMemo(() => {
-    return (
+    return !!(
       !!chainName.trim() &&
       data?.every((item) => {
         return (
@@ -372,11 +380,25 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           isConfigDapp = true;
         }
 
-        if (isConfigDapp) {
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
-        }
+        // TODO: @Jackie
+        // const [airdrops, stakingPool, tokens] = await Promise.all([
+        //   fetchListAirdrop(),
+        //   // fetchListReceivers({
+        //   //   airdropId: airdrops[0].id,
+        //   // }),
+        //   fetchListStakingPool({
+        //     chain: result,
+        //   }),
+        //   fetchListToken({
+        //     networkId: result.networkId,
+        //   }),
+        // ]);
+
+        // if (isConfigDapp) {
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 1000);
+        // }
 
         // TO DO [Leon]
         // Call API Config DApp if is exist dapp (issues token, staking, ....) daragged into Data View
@@ -385,8 +407,16 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         //   // const res =  await ...
         // } catch (error) {}
 
+        console.log('[LaunchButton] - onUpdateHandler', {
+          result,
+          // airdrops,
+          // stakingPool,
+          // tokens,
+        });
+
         isSuccess = true;
-        dispatch(setOrderSelected(result));
+        // dispatch(setOrderSelected(result));
+        getOrderDetailByID(orderDetail.orderId);
         await sleep(1);
         // if (isSuccess) {
         //   toast.success('Update Successful');
@@ -403,7 +433,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         toast.error(message);
       }
     } finally {
-      getOrderDetailByID(orderDetail.orderId);
+      // getOrderDetailByID(orderDetail.orderId);
 
       setSubmitting(false);
     }
@@ -484,13 +514,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   };
 
   const onLaunchHandler = async () => {
-    // =======================================================================================
-    // Dapp forms
-    // =======================================================================================
-    const issueATokenForms = retrieveFormsByDappKey({
-      dappKey: 'token_generation',
-    });
-
     // =======================================================================================
     // Chain form
     // =======================================================================================

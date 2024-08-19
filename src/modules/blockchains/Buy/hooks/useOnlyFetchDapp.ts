@@ -30,8 +30,8 @@ const useOnlyFetchDapp = () => {
     return await airdropAPI.getListReceivers(airdropId);
   };
 
-  const fetchListToken = async (network_id: string) => {
-    return await tokenAPI.tokenList(network_id);
+  const fetchListToken = async (params: { networkId: string }) => {
+    return await tokenAPI.tokenList(params.networkId);
   };
 
   return {
