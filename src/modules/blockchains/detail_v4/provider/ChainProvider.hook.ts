@@ -91,27 +91,27 @@ export const useChainProvider = () => {
         case OrderStatus.Started:
           statusStr = 'Running';
           statusColorStr = '#00AA6C';
-          borderStatusStr = '#EEFFF9';
+          borderStatusStr = '#00AA6C';
           bgColorStr = '#EEFFF9';
           break;
 
         //
         case OrderStatus.WaitingPayment:
           statusStr = 'Waiting for payment';
-          statusColorStr = '#FFC700';
-          borderStatusStr = '#FFF6D8';
+          statusColorStr = '#E59700';
+          borderStatusStr = '#FFC700';
           bgColorStr = '#FFF6D8';
           break;
         case OrderStatus.Processing:
           statusStr = 'Setting up';
-          statusColorStr = '#FFC700';
-          borderStatusStr = '#FFF6D8';
+          statusColorStr = '#E59700';
+          borderStatusStr = '#FFC700';
           bgColorStr = '#FFF6D8';
           break;
         case OrderStatus.Updating:
           statusStr = 'Updating';
-          statusColorStr = '#FFC700';
-          borderStatusStr = '#FFF6D8';
+          statusColorStr = '#E59700';
+          borderStatusStr = '#FFC700';
           bgColorStr = '#FFF6D8';
           break;
 
@@ -120,7 +120,7 @@ export const useChainProvider = () => {
         case OrderStatus.Resume:
           statusStr = 'Please wait for service to resume';
           statusColorStr = '#00AA6C';
-          borderStatusStr = '#EEFFF9';
+          borderStatusStr = '#00AA6C';
           break;
         case OrderStatus.InsufficientBalance:
           statusStr = `Insufficient Balance`;
@@ -131,8 +131,8 @@ export const useChainProvider = () => {
 
         case OrderStatus.Canceled:
           statusStr = 'Canceled';
-          statusColorStr = '#FFC700';
-          borderStatusStr = '#FFF6D8';
+          statusColorStr = '#E59700';
+          borderStatusStr = '#FFC700';
           bgColorStr = '#FFF6D8';
           break;
 
@@ -163,8 +163,8 @@ export const useChainProvider = () => {
         statusStr = 'Ready';
       } else {
         statusStr = 'Drafting Modules';
-        statusColorStr = '#FFC700';
-        borderStatusStr = '#FFF6D8';
+        statusColorStr = '#E59700';
+        borderStatusStr = '#FFC700';
         bgColorStr = '#FFF6D8';
       }
     }
@@ -199,7 +199,7 @@ export const useChainProvider = () => {
         case 'new':
           statusCode = 'new';
           statusStr = 'Setting up';
-          statusColorStr = '#FFC700';
+          statusColorStr = '#E59700';
           borderColorStr = '#FFC700';
           bgColorStr = '#FFF6D8';
 
@@ -207,7 +207,7 @@ export const useChainProvider = () => {
         case 'processing':
           statusCode = 'processing';
           statusStr = 'Processing';
-          statusColorStr = '#FFC700';
+          statusColorStr = '#E59700';
           borderColorStr = '#FFC700';
           bgColorStr = '#FFF6D8';
           break;
@@ -332,7 +332,7 @@ export const useChainProvider = () => {
     } else {
       let statusCode = 'drafting_modules';
       let statusStr = 'Drafting Modules';
-      let statusColorStr = '#FFC700';
+      let statusColorStr = '#E59700';
       let borderColorStr = '#FFC700';
       let bgColorStr = '#FFF6D8';
       let fontStyle: CSS.Property.FontStyle = 'italic';
