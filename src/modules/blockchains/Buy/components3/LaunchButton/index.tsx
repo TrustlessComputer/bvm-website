@@ -362,8 +362,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
     try {
       // Update and Call API install (behind the scene form BE Phuong)
-      // const result = await orderUpdateV2(params, orderDetail.orderId);
-      const result = {};
+      const result = await orderUpdateV2(params, orderDetail.orderId);
+      // const result = {};
       if (result) {
         //Config Account Abstraction...
         configAccountAbstraction(dynamicForm);

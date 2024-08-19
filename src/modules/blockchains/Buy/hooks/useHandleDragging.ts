@@ -147,7 +147,6 @@ export default function useHandleDragging() {
           (option) => option.key === field[activeKey].value,
         );
         const msg = `You have already chosen ${currentOption?.title} as your ${currentField?.title}. Please remove it before selecting again.`;
-        //TODO Shake hear
         isShakeLego.value = currentOption?.value as string;
         toast.error(msg, {
           icon: null,
@@ -223,7 +222,7 @@ export default function useHandleDragging() {
 
       setField(activeKey, newValue, !isEmpty);
       isEmpty &&
-        setDraggedFields(draggedFields.filter((field) => field !== activeKey));
+      setDraggedFields(draggedFields.filter((field) => field !== activeKey));
     }
   };
 
@@ -249,8 +248,8 @@ export default function useHandleDragging() {
     const noBaseBlockInOutput = draggedIds2D.length === 0;
     const canPlaceMoreBase =
       Number(thisDapp.baseBlock.placableAmount) >
-        draggedDappIndexesSignal.value.filter((index) => index === dappIndex)
-          .length || thisDapp.baseBlock.placableAmount === -1;
+      draggedDappIndexesSignal.value.filter((index) => index === dappIndex)
+        .length || thisDapp.baseBlock.placableAmount === -1;
     // const canPlaceMoreBase =
     //   Number(thisDapp.baseBlock.placableAmount) > draggedIds2D.length ||
     //   thisDapp.baseBlock.placableAmount === -1;
@@ -271,16 +270,16 @@ export default function useHandleDragging() {
     const activeIsAChildOfABlock =
       DragUtil.idDraggingIsAChildOfABlock(activeId);
     const activeIsRightSide = DragUtil.isRightSide(activeId);
-    const activeIsABase = DragUtil.idDraggingIsABase(activeId);
-    const activeIsAModule = DragUtil.idDraggingIsAModule(activeId);
     const activeBaseIndex = Number(DragUtil.getBaseIndex(activeId));
-    const activeIsABlock = DragUtil.idDraggingIsABlock(activeId);
-    const activeIsASingle = DragUtil.idDraggingIsASingle(activeId);
-    const activeIsABaseModule = DragUtil.idDraggingIsABaseModule(activeId);
     const activeIndex = Number(DragUtil.getChildIndex(activeId));
     const activeOriginalKey = DragUtil.getOriginalKey(activeId);
     const activeFieldKey = active.data.current?.fieldKey;
 
+    const activeIsABase = DragUtil.idDraggingIsABase(activeId);
+    const activeIsAModule = DragUtil.idDraggingIsAModule(activeId);
+    const activeIsABlock = DragUtil.idDraggingIsABlock(activeId);
+    const activeIsASingle = DragUtil.idDraggingIsASingle(activeId);
+    const activeIsABaseModule = DragUtil.idDraggingIsABaseModule(activeId);
     // Case 0.1: Drag to the block parent
     if (activeFromLeftSide && activeIsAChildOfABlock && overIsABlock) {
       if (activeOriginalKey !== overOriginalKey) {
@@ -326,7 +325,6 @@ export default function useHandleDragging() {
       const thisChild = thisBlock.childrenFields?.find(
         (item) => item.key === activeFieldKey,
       );
-
       if (!thisChild) return;
 
       const thisChildIsExtendsInput = thisChild.type === 'extends';
@@ -370,6 +368,254 @@ export default function useHandleDragging() {
       return;
     }
 
+    // Case 0.3: Drag to nested children of the module
+    if (!overIsABase && overIsABlock && overOriginalKey) {
+      const dappIndexOfOver = draggedDappIndexesSignal.value[overBaseIndex];
+
+      if (JSON.stringify(dappIndexOfOver) !== JSON.stringify(dappIndex)) {
+        showValidateError('This lego is not belong to this module!');
+        idBlockErrorSignal.value = activeOriginalKey;
+
+        return;
+      }
+
+      // Case 0.3.1: The lego just dragged is a type module
+      if(activeIsAModule) {
+        const totalPlaced = draggedIds2D[overBaseIndex].filter((item) =>
+          item.name.startsWith(
+            `right-${FieldKeyPrefix.MODULE}-${activeOriginalKey}`,
+          ),
+        ).length;
+        const canPlaceMore =
+          totalPlaced <
+          moduleFieldMapping[dappIndex][activeOriginalKey].placableAmount ||
+          moduleFieldMapping[dappIndex][activeOriginalKey].placableAmount ===
+          -1;
+        const composedFieldKey =
+          'right-' + FieldKeyPrefix.MODULE + '-' + activeOriginalKey;
+        const thisField = moduleFieldMapping[dappIndex][activeOriginalKey];
+        const isMultiple = thisField?.placableAmount === -1;
+
+        if (!canPlaceMore) {
+          showValidateError(
+            `You can only place one ${moduleFieldMapping[dappIndex][activeOriginalKey].title}!`,
+          );
+          idBlockErrorSignal.value = activeOriginalKey;
+
+          return;
+        }
+
+        if (isMultiple) {
+          const draggedFieldIndex = draggedIds2D[overBaseIndex].findIndex(
+            (item) => item.name === composedFieldKey,
+          );
+          const draggedField = draggedIds2D[overBaseIndex].find(
+            (item) => item.name === composedFieldKey,
+          );
+
+          if (!draggedField) {
+            const formKey = `${overBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-${draggedIds2D[overBaseIndex].length}`;
+            const value = [active.data.current?.value];
+
+            formDappSignal.value = {
+              ...formDappSignal.value,
+              [formKey]: value,
+            };
+
+            draggedIds2D[overBaseIndex] = [
+              ...draggedIds2D[overBaseIndex],
+              {
+                name: composedFieldKey,
+                value,
+                parentNames: [],
+                children: [],
+              },
+            ];
+          } else {
+            const formKey = `${overBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-${draggedFieldIndex}`;
+            const alreadyExist = (draggedField.value as string[]).find(
+              (value) => value === active.data.current?.value,
+            );
+
+            if (alreadyExist) {
+              showValidateError('You can only place one module!');
+              idBlockErrorSignal.value = activeOriginalKey;
+
+              return;
+            }
+
+            const value = [
+              ...(draggedField.value as string[]),
+              active.data.current?.value,
+            ];
+
+            formDappSignal.value = {
+              ...formDappSignal.value,
+              [formKey]: value,
+            };
+
+            draggedField.value = value;
+          }
+        } else {
+          const formKey = `${overBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-${draggedIds2D[overBaseIndex].length}`;
+
+          for (const key in formDappSignal.value) {
+            if (
+              key.startsWith(
+                `${overBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-`,
+              )
+            ) {
+              showValidateError('You can only place one module!');
+              idBlockErrorSignal.value = activeOriginalKey;
+
+              return;
+            }
+          }
+
+          formDappSignal.value = {
+            ...formDappSignal.value,
+            [formKey]: active.data.current?.value,
+          };
+
+          draggedIds2D[overBaseIndex] = [
+            ...draggedIds2D[overBaseIndex],
+            {
+              name: composedFieldKey,
+              value: active.data.current?.value,
+              parentNames: [],
+              children: [],
+            },
+          ];
+        }
+
+        draggedIds2DSignal.value = [...draggedIds2D];
+
+        return;
+      }
+
+      // Case 0.3.2: The lego just dragged is a type block
+      if(activeIsABlock) {
+        const totalPlaced = activeIsABlock
+          ? draggedIds2D[overBaseIndex].filter((item) =>
+            item.name.startsWith(
+              `right-${FieldKeyPrefix.BLOCK}-${activeOriginalKey}`,
+            ),
+          ).length
+          : draggedIds2D[overBaseIndex].filter((item) =>
+            item.name.startsWith(
+              `right-${FieldKeyPrefix.SINGLE}-${activeOriginalKey}`,
+            ),
+          ).length;
+
+        const canPlaceMore =
+          (activeIsABlock
+            ? blockFieldMapping[dappIndex][activeOriginalKey]?.placableAmount ===
+            -1
+            : singleFieldMapping[dappIndex][activeOriginalKey]?.placableAmount === -1) ||
+          totalPlaced <
+          (activeIsABlock
+            ? blockFieldMapping[dappIndex][activeOriginalKey]?.placableAmount
+            : singleFieldMapping[dappIndex][activeOriginalKey]?.placableAmount);
+
+        const prefix =
+          'right-' +
+          (activeIsABlock ? FieldKeyPrefix.BLOCK : FieldKeyPrefix.SINGLE);
+        const composedFieldKey = prefix + '-' + activeOriginalKey;
+
+        if (!canPlaceMore) {
+          const title = activeIsABlock
+            ? blockFieldMapping[dappIndex][activeOriginalKey]?.title
+            : singleFieldMapping[dappIndex][activeOriginalKey]?.title;
+
+          showValidateError(`You can only place one ${title}!`);
+          idBlockErrorSignal.value = activeOriginalKey;
+
+          return;
+        }
+
+
+        draggedIds2D[overBaseIndex] = [
+          ...draggedIds2D[overBaseIndex],
+          {
+            name: composedFieldKey,
+            value: active.data.current?.value,
+            parentNames: [],
+            children: [],
+          },
+        ];
+
+        draggedIds2DSignal.value = [...draggedIds2D];
+
+        return;
+      }
+
+      // Case 0.3.3: The lego just dragged is a type base block
+      if (activeIsABase) {
+        draggedIds2DSignal.value = [...draggedIds2D, []];
+        draggedDappIndexesSignal.value = [
+          ...draggedDappIndexesSignal.value,
+          dappIndex,
+        ];
+        // mouseDroppedPositionSignal.value = {
+        //   ...mousePositionRef.current,
+        // };
+
+        return;
+      }
+
+      // Case 0.3.4: The lego just dragged is a type base module
+      if (activeIsABaseModule) {
+        const totalPlaced = draggedIds2D.length;
+        // prettier-ignore
+        const canPlaceMoreBaseModule = baseModuleFieldMapping[dappIndex][activeOriginalKey].placableAmount === -1 ||
+          totalPlaced < baseModuleFieldMapping[dappIndex][activeOriginalKey].placableAmount;
+        const composedFieldKey =
+          'right-' + FieldKeyPrefix.BASE_MODULE + '-' + activeOriginalKey;
+
+        if (!canPlaceMoreBaseModule) {
+          showValidateError(
+            `You can only place one ${baseModuleFieldMapping[dappIndex][activeOriginalKey].title}!`,
+          );
+          idBlockErrorSignal.value = activeOriginalKey;
+
+          return;
+        }
+
+        draggedIds2D = [
+          ...draggedIds2D,
+          [
+            {
+              name: composedFieldKey,
+              value: active.data.current?.value,
+              parentNames: [],
+              children: [],
+            },
+          ],
+        ];
+
+        const formKey = `${draggedIds2D.length - 1}-${
+          FieldKeyPrefix.BASE_MODULE
+        }-${activeOriginalKey}-0-0`;
+
+        // mouseDroppedPositionSignal.value = {
+        //   ...mousePositionRef.current,
+        // };
+        formDappSignal.value = {
+          ...formDappSignal.value,
+          [formKey]: active.data.current?.value,
+        };
+
+        draggedIds2DSignal.value = [...draggedIds2D];
+        draggedDappIndexesSignal.value = [
+          ...draggedDappIndexesSignal.value,
+          dappIndex,
+        ];
+
+        return;
+      }
+
+    }
+
     // Case 1: Drag to the right
     if (overIsOutput || overIsABase) {
       // Case 1.1: Output does not have base block yet
@@ -380,6 +626,7 @@ export default function useHandleDragging() {
         return;
       }
 
+      // Drag lego outside the box
       if (!overIsABase && !(activeIsABase || activeIsABaseModule)) {
         showValidateError(`Please drag to the ${thisDapp.title} box!`);
         return;
@@ -478,29 +725,30 @@ export default function useHandleDragging() {
 
           return;
         }
-
         const totalPlaced = activeIsABlock
           ? draggedIds2D[overBaseIndex].filter((item) =>
-              item.name.startsWith(
-                `right-${FieldKeyPrefix.BLOCK}-${activeOriginalKey}`,
-              ),
-            ).length
+            item.name.startsWith(
+              `right-${FieldKeyPrefix.BLOCK}-${activeOriginalKey}`,
+            ),
+          ).length
           : draggedIds2D[overBaseIndex].filter((item) =>
-              item.name.startsWith(
-                `right-${FieldKeyPrefix.SINGLE}-${activeOriginalKey}`,
-              ),
-            ).length;
+            item.name.startsWith(
+              `right-${FieldKeyPrefix.SINGLE}-${activeOriginalKey}`,
+            ),
+          ).length;
+
         const canPlaceMore =
           (activeIsABlock
             ? blockFieldMapping[dappIndex][activeOriginalKey].placableAmount ===
-              -1
+            -1
             : singleFieldMapping[dappIndex][activeOriginalKey]
-                .placableAmount === -1) ||
+            .placableAmount === -1) ||
           totalPlaced <
-            (activeIsABlock
-              ? blockFieldMapping[dappIndex][activeOriginalKey].placableAmount
-              : singleFieldMapping[dappIndex][activeOriginalKey]
-                  .placableAmount);
+          (activeIsABlock
+            ? blockFieldMapping[dappIndex][activeOriginalKey].placableAmount
+            : singleFieldMapping[dappIndex][activeOriginalKey]
+              .placableAmount);
+
         const prefix =
           'right-' +
           (activeIsABlock ? FieldKeyPrefix.BLOCK : FieldKeyPrefix.SINGLE);
@@ -541,9 +789,9 @@ export default function useHandleDragging() {
         ).length;
         const canPlaceMore =
           totalPlaced <
-            moduleFieldMapping[dappIndex][activeOriginalKey].placableAmount ||
+          moduleFieldMapping[dappIndex][activeOriginalKey].placableAmount ||
           moduleFieldMapping[dappIndex][activeOriginalKey].placableAmount ===
-            -1;
+          -1;
         const composedFieldKey =
           'right-' + FieldKeyPrefix.MODULE + '-' + activeOriginalKey;
         const thisField = moduleFieldMapping[dappIndex][activeOriginalKey];
@@ -690,7 +938,6 @@ export default function useHandleDragging() {
               sourceHandles: newSourceHandles,
             },
           };
-          console.log('newSourceHandles', newSourceHandles);
           newNodes = newNodes.map((item) =>
             item.id === rootNode ? data : item,
           ) as AppState['nodes'];
@@ -898,7 +1145,7 @@ export default function useHandleDragging() {
             item.value = newValue;
             formDapp[
               `${activeBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-${activeIndex}`
-            ] = newValue;
+              ] = newValue;
           }
         }
 
