@@ -15,10 +15,12 @@ import {
   ModuleTypeIcon,
   getModuleIconUrlByType,
 } from '../helper/moduleIconHelper';
+import useCheckAllFilled from '../../Buy/hooks/useCheckAllFilled';
 
 export const useChainProvider = () => {
   const context = useContext(ChainContext);
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+  const { allFilled } = useCheckAllFilled();
 
   if (!context) {
     throw new Error(
@@ -117,6 +119,14 @@ export const useChainProvider = () => {
           borderStatusStr = '#B6B6B6';
           break;
       }
+    } else {
+      if (allFilled) {
+        statusStr = 'Ready';
+      } else {
+        statusStr = 'Drafting Modules';
+        statusColorStr = '#FFC700';
+        borderStatusStr = '#FFF6D8';
+      }
     }
     return {
       statusStr,
@@ -187,7 +197,11 @@ export const useChainProvider = () => {
   const getChainTypeIcon = (): ModuleTypeIcon => {
     if (!isUpdateFlow) {
       // Flow Create Chain (Hard code Icon Ready To Launch, need check required category when drag)
-      return 'Ready_To_Launch';
+      if (allFilled) {
+        return 'Ready_To_Launch';
+      } else {
+        return 'Drafting';
+      }
     } else {
       if (order) {
         switch (order.status) {
