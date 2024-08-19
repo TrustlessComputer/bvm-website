@@ -150,15 +150,15 @@ const BottomView = (props: Props) => {
     <>
       <Divider my={'20px'} borderColor="gray.200" />
       <Flex flexDir={'column'} gap={'20px'} className={s.container}>
-        <Flex flexDir={'row'} align={'center'} justify={'space-between'}>
-          <Text
+        <Flex flexDir={'row'} align={'center'} justify={'flex-end'}>
+          {/* <Text
             fontSize={['14px', '15px', '16px']}
             fontWeight={400}
             opacity={0.7}
             color={'#000'}
           >
-            Installed Dapps
-          </Text>
+            Installed Dapps 
+          </Text> */}
           {renderAddToMetamask()}
         </Flex>
 
@@ -168,7 +168,7 @@ const BottomView = (props: Props) => {
             // router.push('/app-store');
           }}
         /> */}
-          {dappList.map((item, index) => {
+          {/* {dappList.map((item, index) => {
             return (
               <DappInstalledItem
                 key={`${index}-${item.appName || item.appID}`}
@@ -178,7 +178,7 @@ const BottomView = (props: Props) => {
                 }}
               />
             );
-          })}
+          })} */}
         </SimpleGrid>
       </Flex>
     </>
