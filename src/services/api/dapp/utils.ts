@@ -15,7 +15,14 @@ const templateMapper = (configs: IDappConfigs) => {
     if (!template || !template?.template_1) {
         template = getMockupTemplate(configs);
     }
-    return template;
+    return {
+      ...template,
+      headerMenu: template?.headerMenu && template.headerMenu?.some(item => item?.slug && item?.title) ? template.headerMenu : [{
+        slug: '',
+        title: '',
+        isNewWindow: false
+      }],
+    };
 };
 
 export {

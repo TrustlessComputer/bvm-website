@@ -5,12 +5,15 @@ export const PAGE_ID = {
   CREATE_TOKEN: "create-token",
   MARKETS: "markets",
   TOKEN: "token",
+  AIRDROP: "airdrop",
+  YOLO_GAMES: "yolo-games",
 };
 
 export const PAGE_NEED_OWNER = [
   PAGE_ID.CREATE_TOKEN,
   PAGE_ID.CREATE_STAKING_POOL,
   PAGE_ID.STAKING_HISTORY,
+  PAGE_ID.TOKEN
 ];
 
 export const onMapPageToName = (page: string) => {
@@ -27,6 +30,10 @@ export const onMapPageToName = (page: string) => {
       return "Markets";
     case PAGE_ID.TOKEN:
       return "Token";
+    case PAGE_ID.AIRDROP:
+      return "Airdrop";
+    case PAGE_ID.YOLO_GAMES:
+      return "Yolo Games";
     default:
       return "";
   }

@@ -30,7 +30,7 @@ const Template_1 = React.memo(({ template, onUpdateState, appsStr, dappURL }: IP
   return (
     <div className={styles.container}>
       <div className={styles.template_wrapper}>
-        <HeaderTemplate_1 template={template} menus={apps} />
+        <HeaderTemplate_1 template={template} menus={apps} headerMenu={template.headerMenu} />
         <ContentTemplate_1
           template={template?.template_1}
           backgroundImage={template?.backgroundImage || ''}

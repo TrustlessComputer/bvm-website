@@ -1,10 +1,11 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import styles from './styles.module.scss';
-import { ITemplate } from '@/services/api/dapp/types';
+import { IHeaderMenu, ITemplate } from '@/services/api/dapp/types';
 import React from 'react';
 import DropFile from '@/modules/blockchains/components/UpdateOrderModal/DropFile';
 import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 import SvgInset from '@components/SvgInset';
+import { isA } from '@jest/expect-utils';
 
 interface IProps {
   template: ITemplate | undefined;
@@ -26,8 +27,14 @@ enum UpdateKey {
 interface ITask {
   text: string;
   type: 'upload-image' | 'input' | 'textarea' | 'add-delete-header'
-  value?: string | any;
+  value?: string | any | any[];
   key: UpdateKey;
+}
+
+const EmptyHeaderMenu: IHeaderMenu = {
+  slug: '',
+  title: '',
+  isNewWindow: false
 }
 
 const MAXIMUM_FILE_UPLOAD = 10; //10 MB
@@ -45,11 +52,7 @@ const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
       {
         text: "Header menu",
         type: 'add-delete-header',
-        value: !!template?.headerMenu && template.headerMenu.length > 0 ? template.headerMenu : [{
-          slug: '',
-          title: '',
-          isNewWindow: false
-        }],
+        value: template?.headerMenu,
         key: UpdateKey.headerMenu
       },
       {
@@ -100,6 +103,49 @@ const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
     } as any);
   }
 
+  const onAddDeleteHeaderMenu = (isAdd: boolean, deleteIndex: number) => {
+    if (isAdd) {
+      onUpdateState({
+        ...template,
+        headerMenu: [
+          ...(template?.headerMenu || []),
+          EmptyHeaderMenu
+        ]
+      } as any);
+    } else {
+      const _headerMenu = template?.headerMenu || [];
+      _headerMenu.splice(deleteIndex, 1);
+      onUpdateState({
+        ...template,
+        headerMenu: _headerMenu
+      } as any);
+    }
+  }
+
+  const onChangeHeaderMenuInput = (key: string, value: string, index: number) => {
+    let _headerMenu = template?.headerMenu || [];
+    console.log('SANG TEST:', _headerMenu[index], index);
+    if (_headerMenu?.length <= index) return;
+    _headerMenu = _headerMenu.map((item, itemIndex) => {
+      if (itemIndex === index) {
+        return {
+          ...item,
+          [key]: value,
+          isNewWindow: true,
+        }
+      }
+      return {
+        ...item,
+        isNewWindow: true
+      }
+    })
+    console.log('SANG TEST:', _headerMenu);
+    onUpdateState({
+      ...template,
+      headerMenu: _headerMenu
+    } as any);
+  }
+
   const renderItem = (item: ITask) => {
 
     let valueBox = null;
@@ -145,30 +191,42 @@ const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
               <p className={styles.title}>
                 {item.text}
               </p>
-              <Box cursor="pointer">
+              <Box cursor="pointer" onClick={() => {
+                onAddDeleteHeaderMenu(true, 0);
+              }}>
                 <SvgInset svgUrl='/icons/studio-module/ic-add.svg' />
               </Box>
             </Flex>
-            <Flex gap='12px'>
-              <input
-                className={styles.input} value={item.value.title}
-                placeholder={'Name'}
-                onChange={(e) => onChangeText(item.key, e.target.value)}
-              />
-              <input
-                className={styles.input} value={item.value.slug}
-                placeholder={'Link'}
-                onChange={(e) => onChangeText(item.key, e.target.value)}
-              />
-              <button
-                className={styles.delete}
-                onClick={() => {
-                  onChangeText(item.key, '');
-                }}
-              >
-                <SvgInset svgUrl='/icons/studio-module/ic-delete.svg' />
-              </button>
-            </Flex>
+            {item.value.map((header: IHeaderMenu, index: number) => {
+              return (
+                <Flex gap='12px' key={`header-menu-${index}`}>
+                  <input
+                    className={styles.input} value={item.value.title}
+                    placeholder={'Name'}
+                    onChange={(e) => {
+                      onChangeHeaderMenuInput('title', e.target.value, index);
+                    }}
+                  />
+                  <input
+                    className={styles.input} value={item.value.slug}
+                    placeholder={'https://'}
+                    onChange={(e) => {
+                      onChangeHeaderMenuInput('slug', e.target.value, index);
+                    }}
+                  />
+                  {item.value.length > 1 && (
+                    <button
+                      className={styles.delete}
+                      onClick={() => {
+                        onAddDeleteHeaderMenu(false, index);
+                      }}
+                    >
+                      <SvgInset svgUrl='/icons/studio-module/ic-delete.svg' />
+                    </button>
+                  )}
+                </Flex>
+              )
+            })}
           </Box>
         );
         break;

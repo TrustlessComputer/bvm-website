@@ -187,7 +187,7 @@ const DomainBox = (props: IDomainBoxProps) => {
                 border="1px solid rgba(0, 0, 0, 0.7)"
                 value={formik.values.domainURL}
                 onChange={formik.handleChange}
-                placeholder="bvm.network"
+                placeholder="https://bvm.network"
               />
               <Text color="red" opacity={0.7} fontSize="12px">
                 {formik.errors.domainURL}
