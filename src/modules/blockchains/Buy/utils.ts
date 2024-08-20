@@ -394,13 +394,13 @@ export const preDataYoloGame = (
   const _sortedDapps = cloneDeep(sortedDapps);
 
   if (tokens.length > 0) {
-    const _airdropIndex = _sortedDapps.findIndex((v) =>
+    const _appIndex = _sortedDapps.findIndex((v) =>
       compareString(v.key, DappType.yologame),
     );
 
-    if (_airdropIndex > -1) {
+    if (_appIndex > -1) {
       const fieldSettlementToken = _sortedDapps[
-        _airdropIndex
+        _appIndex
       ].baseBlock.fields.findIndex((v: FieldModel) =>
         compareString(v.key, 'settlement_token'),
       );
@@ -418,7 +418,7 @@ export const preDataYoloGame = (
         }));
 
         // @ts-ignore
-        _sortedDapps[_airdropIndex].baseBlock.fields[fieldSettlementToken].options =
+        _sortedDapps[_appIndex].baseBlock.fields[fieldSettlementToken].options =
           options;
       }
     }
