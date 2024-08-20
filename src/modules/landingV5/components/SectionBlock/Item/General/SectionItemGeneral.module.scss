@@ -1,0 +1,120 @@
+.item {
+    display: block;
+    cursor: pointer;
+    width: 400px;
+    // min-width: 400px;
+    color: #000;
+    font-family: "JetBrains Mono";
+
+    @include is-mobile {
+        width: 300px;
+    }
+
+    .thumbnail_wrapper img {
+        transition: all 0.5s ease;
+
+    }
+
+
+    &:hover {
+        .thumbnail_wrapper {
+            img {
+                scale: 1.1;
+            }
+        }
+    }
+
+    .cardLogo {
+        padding-bottom: 20px;
+
+        img {
+            height: 28px;
+            width: auto;
+            object-fit: contain;
+        }
+    }
+
+
+    .title {
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 140%;
+        /* 25.2px */
+        letter-spacing: 0.9px;
+        color: #fff;
+
+    }
+
+    .date {
+        color: #FFF;
+        text-align: right;
+        font-family: "JetBrains Mono";
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 100%;
+        /* 19.6px */
+        letter-spacing: 0.7px;
+        opacity: 0.7;
+        white-space: nowrap;
+
+    }
+
+    .description {
+        font-family: "SF Pro Display";
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%;
+        /* 22.4px */
+        letter-spacing: 0.8px;
+        opacity: 0.7;
+        white-space: pre-line;
+        color: #FFF;
+        opacity: 0.7;
+
+
+        // min-height: 68px;
+    }
+
+    .item_tags {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+
+        div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+            color: #000;
+            text-align: center;
+            font-family: "JetBrains Mono";
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 140%;
+            /* 16.8px */
+            text-transform: uppercase;
+            border-radius: 100px;
+            background: #F6F6F6;
+            padding: 5px 8px;
+
+        }
+    }
+
+    .social_link {
+        border-radius: 100px;
+        background: #FFF;
+        box-shadow: 0px 0px 16px -6px rgba(0, 0, 0, 0.08);
+        width: 28px;
+        height: 28px;
+        padding: 6px;
+        display: grid;
+        place-items: center;
+    }
+
+
+}
