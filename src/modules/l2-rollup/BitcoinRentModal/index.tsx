@@ -5,7 +5,11 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
 import AppLoading from '@/components/AppLoading';
 import ListTable, { ColumnProp } from '@/components/ListTable';
-import { ellipsisCenter, formatToHumanAmount } from '@/utils/format';
+import {
+  ellipsisCenter,
+  formatToHumanAmount,
+  calculateTimeAgo,
+} from '@/utils/format';
 import createAxiosInstance from '@/services/http-client';
 import { isMobile } from 'react-device-detect';
 import uniqBy from 'lodash/uniqBy';
@@ -209,7 +213,7 @@ const BitcoinRentModal = ({ title, chain_id, isShow, onHide }: any) => {
               justifyContent={'space-between'}
             >
               <Text className={s.title}>
-                {data.blockTime.replaceAll('T', ' ').replaceAll('Z', '')}
+                {calculateTimeAgo(data.created_at)}
               </Text>
             </Flex>
           );
