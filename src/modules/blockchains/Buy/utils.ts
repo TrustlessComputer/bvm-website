@@ -401,10 +401,11 @@ export const preDataYoloGame = (
     if (_appIndex > -1) {
       const fieldSettlementToken = _sortedDapps[
         _appIndex
-      ].baseBlock.fields.findIndex((v: FieldModel) =>
+      ].baseModuleFields?.findIndex((v: BlockModel) =>
         compareString(v.key, 'settlement_token'),
       );
 
+      // @ts-ignore
       if (fieldSettlementToken > -1) {
         // // @ts-ignore
         const options: any = tokens.map((t) => ({
@@ -415,10 +416,11 @@ export const preDataYoloGame = (
           tooltip: '',
           type: '',
           options: [],
+          selectable: true,
         }));
 
         // @ts-ignore
-        _sortedDapps[_appIndex].baseBlock.fields[fieldSettlementToken].options =
+        _sortedDapps[_appIndex].baseModuleFields[fieldSettlementToken].fields =
           options;
       }
     }
