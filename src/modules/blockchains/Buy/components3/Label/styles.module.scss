@@ -5,14 +5,10 @@
 
   &__text {
     color: #fff;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
-    line-height: calc(20 / 14);
+    line-height: calc(20 / 16);
     font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
     letter-spacing: -0.18px;
   }
-}
-
-.label_margin {
-  margin-top: -15px;
 }

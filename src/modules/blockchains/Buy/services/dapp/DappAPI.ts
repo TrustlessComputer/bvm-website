@@ -88,7 +88,7 @@ class DappAPI {
     dappURL: string;
   }): Promise<IAppInfo[]> => {
     try {
-      const rs: any = await this.http.get(`${dappURL}/apps/menu`);
+      const rs: any = await this.http.get(`${dappURL}/api/apps/menu`);
       return rs;
     } catch (error) {
       console.log('[DappAPI] getAppInfoList -> error :: ', error);
