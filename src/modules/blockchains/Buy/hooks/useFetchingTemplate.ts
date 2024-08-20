@@ -33,12 +33,15 @@ import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import useUpdateFlowStore from '../stores/useUpdateFlowStore';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
+import useDapps from './useDapps';
 import { parseYoloGames } from '@/modules/blockchains/dapp/parseUtils/yologame';
 
 export default function useFetchingTemplate() {
+  const { dapps } = useDapps();
   const { order, isAAInstalled, isUpdateFlow } = useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
+    categories,
     setParsedCategories,
     setCategories,
     setCategoriesTemplates,
@@ -59,6 +62,7 @@ export default function useFetchingTemplate() {
 
   const [needSetDataTemplateToBox, setNeedSetDataTemplateToBox] =
     React.useState(false);
+  const [needCheckAndAddAA, setNeedCheckAndAddAA] = React.useState(false);
 
   const convertData = (data: IModelCategory[]) => {
     const newData = data?.map((item) => {
@@ -102,10 +106,10 @@ export default function useFetchingTemplate() {
       categoryMapping[_field.key] = _field;
     });
 
-    if (isAAInstalled) {
-      draggedDappIndexesSignal.value = [0];
-      draggedIds2DSignal.value = [[]];
-    }
+    // if (isAAInstalled) {
+    //   draggedDappIndexesSignal.value = [0];
+    //   draggedIds2DSignal.value = [[]];
+    // }
 
     setCategoryMapping(categoryMapping);
     setParsedCategories(convertData(sortedCategories));
@@ -122,6 +126,27 @@ export default function useFetchingTemplate() {
     console.log('SET DATA TEMPLATE TO BOX');
     const newNodes: AppNode[] = [];
     const rootNode = 'blockchain';
+    // const aaAsDapp = accountAbstractionAsADapp;
+    // if (isAAInstalled) {
+    //   newNodes.unshift({
+    //     id: '0',
+    //     type: nodeKey.ACCOUNT_ABSTRACTION_NODE,
+    //     dragHandle: '.drag-handle-area',
+    //     position: { x: 0, y: 0 },
+    //     data: {
+    //       node: 'dapp',
+    //       title: aaAsDapp.title,
+    //       dapp: aaAsDapp,
+    //       baseIndex: 0,
+    //       categoryOption:
+    //         (categories || []).find((dapp) => dapp.key === 'wallet')
+    //           ?.options[0] || {},
+    //       ids: [],
+    //       targetHandles: [`${0}-t-${rootNode}`],
+    //       sourceHandles: [],
+    //     },
+    //   });
+    // }
 
     const chainNodeInitial: ChainNode = {
       id: rootNode,
@@ -137,7 +162,16 @@ export default function useFetchingTemplate() {
     };
     newNodes.unshift(chainNodeInitial);
 
-    if (!templateForm) return;
+    if (!templateForm) {
+      // TODO: @Max
+      const edgeData: Edge[] = [];
+
+      setEdges(edgeData);
+      setNodes(newNodes);
+      setNeedSetDataTemplateToBox(false);
+      setNeedCheckAndAddAA(true);
+      return;
+    }
 
     let formDapp: Record<string, any> = {};
 
@@ -293,6 +327,7 @@ export default function useFetchingTemplate() {
     setEdges([...edges, ...edgeData]);
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
+    setNeedCheckAndAddAA(true);
   };
 
   const parseDappApiToDappModel = async () => {
@@ -376,14 +411,26 @@ export default function useFetchingTemplate() {
     return result;
   };
 
+  const checkAndAddAA = () => {
+    console.log(
+      '[useFetchingTemplate] MUST CALL LAST',
+      draggedIds2DSignal.value,
+    );
+
+    if (isAAInstalled) {
+      draggedDappIndexesSignal.value = [0];
+      draggedIds2DSignal.value = [[]];
+    }
+
+    setNeedCheckAndAddAA(false);
+  };
+
   React.useEffect(() => {
     fetchData();
     parseDappApiToDappModel();
   }, []);
 
   React.useEffect(() => {
-    console.log('[useFetchingTemplate] useEffect[counterFetchedDapp]');
-
     if (updated) {
       draggedDappIndexesSignal.value = [];
       draggedIds2DSignal.value = [];
@@ -393,6 +440,12 @@ export default function useFetchingTemplate() {
     parseDappApiToDappModel();
     setUpdated(false);
   }, [counterFetchedDapp]);
+
+  React.useEffect(() => {
+    if (!needCheckAndAddAA) return;
+
+    checkAndAddAA();
+  }, [needCheckAndAddAA, isAAInstalled]);
 
   React.useEffect(() => {
     if (!needSetDataTemplateToBox) return;

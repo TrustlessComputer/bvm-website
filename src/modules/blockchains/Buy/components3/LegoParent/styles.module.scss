@@ -3,7 +3,7 @@
   --background: #fff;
   --backgroundSlider: #c73e88;
 
-  margin-left: 5px;
+  margin-left: 2px;
   width: max-content;
   border-radius: 4px;
   // height: 42px;
@@ -39,7 +39,7 @@
     z-index: -1;
 
     svg {
-      height: 37px;
+      height: 39px;
       path {
         fill: var(--fillBackground);
         stroke: var(--background);
@@ -71,7 +71,7 @@
     &__horizonal {
       // height: 100px;
       min-height: 32px;
-      width: 8px;
+      width: 4px;
       background-color: var(--fillBackground);
 
       &_inner {
@@ -128,7 +128,7 @@
         left: 8px;
 
         svg {
-          width: 23px;
+          width: 30px;
           height: auto;
         }
 
@@ -196,6 +196,7 @@
 
 .label {
   padding-left: 8px;
+  padding-top: 5px;
   p {
     color: #fff;
     font-family: var(--font-JetBrainsMono);

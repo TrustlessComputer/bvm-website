@@ -1,13 +1,11 @@
 import Draggable from '@/modules/blockchains/Buy/components3/Draggable';
-import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
 import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
 import LegoParent from '@/modules/blockchains/Buy/components3/LegoParent';
-import { DragOverlay } from '@dnd-kit/core';
-import React from 'react';
-import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
+import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
+import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
-import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
+import { DragOverlay } from '@dnd-kit/core';
 
 export default function OverlayControl() {
   const { idDragging, rightDragging } = useDragMask();
@@ -73,8 +71,15 @@ export default function OverlayControl() {
           }
 
           return item.options.map((option, opIdx) => {
-            if (!idDragging.startsWith(item.key + '-' + option.key))
-              return null;
+            // console.log('OverlayControl', {
+            //   idDragging,
+            //   checkCondition: item.key + '-' + option.key,
+            //   condition: idDragging.startsWith(item.key + '-' + option.key),
+            // });
+
+            if (idDragging !== item.key + '-' + option.key) return null;
+            // if (!idDragging.startsWith(item.key + '-' + option.key))
+            //   return null;
 
             return (
               <Draggable
