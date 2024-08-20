@@ -16,15 +16,7 @@ export default function OptionInputValue({ option }: { option: IModelOption }) {
   const vl = useOptionInputValue(option.key);
 
   useSignalEffect(() => {
-    console.log('[OptionInputValue] --- ', {
-      option,
-      vl,
-    });
-    seSta(
-      vl.value ||
-        option?.addOnInputs?.attrs?.value ||
-        option.addOnInputs?.attrs?.default_value,
-    );
+    seSta(vl.value);
   });
 
   return (
