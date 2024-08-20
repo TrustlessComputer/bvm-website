@@ -58,13 +58,13 @@ const useFetchDapp = () => {
   const getDappTasks = async () => {
     console.log('[useFetchDapp] getDappTasks start');
     try {
-      setLoading(true);
       await Promise.all([
         fetchTokenList(),
         fetchStakingPoolsList(),
         getListTask(),
         getListAirdrop(),
       ]);
+      setLoading(true);
       console.log('[useFetchDapp] getDappTasks done');
       dispatch(setCounterFetchedDapp());
     } catch (error) {
