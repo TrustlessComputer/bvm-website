@@ -157,10 +157,11 @@ const ChainRenderer = () => {
                       : ''
                   }
                 >
-                  {
-                    option.addOnInputs ? <OptionInputValue option={option} /> :
-                      <Label icon={option.icon} title={option.title} />
-                  }
+                  {option.addOnInputs ? (
+                    <OptionInputValue option={option} />
+                  ) : (
+                    <Label icon={option.icon} title={option.title} />
+                  )}
                 </LegoV3>
               </DroppableV2>
             </ChainDraggable>
