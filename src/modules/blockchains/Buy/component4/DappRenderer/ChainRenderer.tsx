@@ -14,6 +14,7 @@ import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import useOverlappingChainLegoStore from '../../stores/useOverlappingChainLegoStore';
 
 import styles from './styles.module.scss';
+import OptionInputValue from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue';
 
 type Props = {};
 
@@ -124,6 +125,8 @@ const ChainRenderer = () => {
         return item.options.map((option, opIdx) => {
           if (option.key !== field[item.key].value) return null;
 
+          console.log('option', option);
+          const isOptionInput = (option.key === 'layer1' || option.key === 'layer2');
           const isUpdatable =
             option.key !== 'account_abstraction' && // Must be hard coded
             selectedCategory?.updatable && //
@@ -156,7 +159,10 @@ const ChainRenderer = () => {
                       : ''
                   }
                 >
-                  <Label icon={option.icon} title={option.title} />
+                  {
+                    isOptionInput ? <OptionInputValue option={option} /> :
+                      <Label icon={option.icon} title={option.title} />
+                  }
                 </LegoV3>
               </DroppableV2>
             </ChainDraggable>

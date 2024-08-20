@@ -1,0 +1,14 @@
+.isOptionInput {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+
+  input {
+    background: white;
+    color: black;
+    font-size: 16px;
+    border-radius: 24px;
+    padding: 0 10px;
+    width: 200px;
+  }
+}

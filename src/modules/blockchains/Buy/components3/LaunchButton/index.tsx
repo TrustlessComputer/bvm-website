@@ -520,7 +520,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     let missingRequiredFor = false;
     const {
       dynamicForm,
-
       allOptionKeyDragged,
       allRequiredForKey,
       optionMapping,
