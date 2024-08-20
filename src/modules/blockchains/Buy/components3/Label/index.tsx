@@ -28,7 +28,7 @@ const Label = ({ icon, title }: Props) => {
     <div className={styles.label}>
       {_icon && <SvgInset svgUrl={_icon} size={20} />}
 
-      <p className={`${styles.label__text} ${isCapture ? styles.label_margin : ''}`}>{title}</p>
+      <p className={`${styles.label__text}`}>{title}</p>
     </div>
   );
 };
