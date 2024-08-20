@@ -601,3 +601,25 @@
     color: #555555;
   }
 }
+
+.modalContent {
+  flex-direction: column !important;
+  background-color: #fff !important;
+  max-width: 562px !important;
+  font-family: var(--font-SFProDisplay);
+
+  border-radius: 20px !important;
+  .inner {
+    //padding-top: 24px;
+    padding-bottom: 56px;
+    background-color: #fff;
+    gap: 0;
+    max-width: 562px;
+    //height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 24px;
+  }
+}
