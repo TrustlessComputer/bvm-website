@@ -20,6 +20,7 @@ import {
   getL2ServicesStateSelector,
   getOrderDetailSelected,
 } from '@/stores/states/l2services/selector';
+import { OrderItem } from '@/stores/states/l2services/types';
 import { IModelOption } from '@/types/customize-model';
 import { getErrorMessage } from '@/utils/errorV2';
 import { formatCurrencyV2 } from '@/utils/format';
@@ -320,16 +321,16 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
     const { dynamicForm } = getDynamicForm();
 
-    if (needContactUs) {
-      // showContactUsModal(dynamicForm as any);
-      showContactUsModal({
-        subjectDefault: 0,
-        disableSelect: true,
-        changeText: true,
-        nodeConfigs: dynamicForm || [],
-      });
-      return;
-    }
+    // if (needContactUs) {
+    //   // showContactUsModal(dynamicForm as any);
+    //   showContactUsModal({
+    //     subjectDefault: 0,
+    //     disableSelect: true,
+    //     changeText: true,
+    //     nodeConfigs: dynamicForm || [],
+    //   });
+    //   return;
+    // }
 
     setSubmitting(true);
 
@@ -369,9 +370,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     try {
       // Update and Call API install (behind the scene form BE Phuong)
       const result = await orderUpdateV2(params, orderDetail.orderId);
+      // const result = {};
       if (result) {
         //Config Account Abstraction...
-        configAccountAbstraction(dynamicForm);
+        // configAccountAbstraction(dynamicForm);
         let isConfigDapp = false;
         if (yoloGameForms && yoloGameForms.length > 0) {
           await onSubmitYoloGame({
@@ -408,7 +410,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         );
 
         isSuccess = true;
-        dispatch(setOrderSelected(result));
+        dispatch(setOrderSelected(result as OrderItem));
         await sleep(1);
 
         // if (isSuccess) {
@@ -426,7 +428,13 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         toast.error(message);
       }
     } finally {
+      console.log('[LaunchButton] - update flow', {
+        isSuccess,
+        isConfigDapp,
+      });
+
       if (isConfigDapp) {
+        console.log('[LaunchButton] refresh dapp data');
         setTimeout(() => {
           dispatch(requestReload());
           setUpdated(true);
@@ -551,16 +559,16 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       return;
     }
 
-    if (needContactUs) {
-      // showContactUsModal(dynamicForm as any);
-      showContactUsModal({
-        subjectDefault: 0,
-        disableSelect: true,
-        changeText: true,
-        nodeConfigs: dynamicForm || [],
-      });
-      return;
-    }
+    // if (needContactUs) {
+    //   // showContactUsModal(dynamicForm as any);
+    //   showContactUsModal({
+    //     subjectDefault: 0,
+    //     disableSelect: true,
+    //     changeText: true,
+    //     nodeConfigs: dynamicForm || [],
+    //   });
+    //   return;
+    // }
 
     if (!loggedIn) {
       localStorage.setItem('bvm.customize-form', JSON.stringify(dynamicForm));

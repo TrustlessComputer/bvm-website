@@ -9,7 +9,6 @@ import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
 import { FormDappUtil } from '@/modules/blockchains/dapp/utils';
 import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 import { useAppSelector } from '@/stores/hooks';
-import { requestReload } from '@/stores/states/common/reducer';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { getError } from '@/utils/error';
 import { showSuccess } from '@components/toast';
@@ -176,7 +175,7 @@ const useSubmitFormTokenGeneration = () => {
   }) => {
     try {
       for (const form of forms) {
-        console.log('formxxxx', form);
+        // console.log('formxxxx', form);
 
         let dataMapping: Record<string, { key: string; value: string }[]>[] =
           [];
@@ -201,7 +200,7 @@ const useSubmitFormTokenGeneration = () => {
 
         dataMapping = dataMapping.filter((v) => v);
 
-        console.log('dataMapping', dataMapping);
+        // console.log('dataMapping', dataMapping);
 
         // setErrorData([]);
         // let errors = validate(dataMapping);
@@ -291,14 +290,11 @@ const useSubmitFormTokenGeneration = () => {
             data_hex: calldata,
             type: 'token',
             network_id: Number(dappState?.chain?.chainId),
-
           });
 
           let logoUrl = '';
           if (data?.logo) {
-            logoUrl = await api.uploadImage(
-              data?.logo_file as unknown as File,
-            );
+            logoUrl = await api.uploadImage(data?.logo_file as unknown as File);
             await api.updateTokenLogo({
               logo_url: logoUrl,
               token_address: tokenInfo?.contract_address,

@@ -76,7 +76,7 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
         title: data.title,
         status: {
           message: aaStatusData?.statusStr,
-          color: aaStatusData?.borderColorStr,
+          color: aaStatusData?.statusColorStr,
           icon: getAATypeIconUrl(),
         },
         borderColor: aaStatusData?.borderColorStr,

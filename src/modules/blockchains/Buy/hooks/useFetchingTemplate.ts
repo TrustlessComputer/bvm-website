@@ -24,7 +24,10 @@ import {
   draggedIds2DSignal,
   templateIds2DSignal,
 } from '../signals/useDragSignal';
-import { formTemplateDappSignal } from '../signals/useFormDappsSignal';
+import {
+  formDappSignal,
+  formTemplateDappSignal,
+} from '../signals/useFormDappsSignal';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import useUpdateFlowStore from '../stores/useUpdateFlowStore';
@@ -50,7 +53,7 @@ export default function useFetchingTemplate() {
   const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
 
-  const { needReload, counterFetchedDapp } = useAppSelector(commonSelector);
+  const { counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
   const { tokens, airdrops, stakingPools, yoloGames } = dappState;
 
@@ -113,7 +116,11 @@ export default function useFetchingTemplate() {
   };
 
   const dataTemplateToBox = async () => {
-    const newNodes = cloneDeep(nodes);
+    formDappSignal.value = {};
+    formTemplateDappSignal.value = {};
+
+    console.log('SET DATA TEMPLATE TO BOX');
+    const newNodes: AppNode[] = [];
     const rootNode = 'blockchain';
 
     const chainNodeInitial: ChainNode = {
@@ -280,16 +287,17 @@ export default function useFetchingTemplate() {
       map[element.id] = element;
     }
     const newArray = Object.values(map) as AppNode[];
-    setEdges(edgeData);
-    // setNodes([...nodes, ...newNodes]);
-    setNodes(newArray);
 
     templateIds2DSignal.value = [...draggedIds2D];
     formTemplateDappSignal.value = { ...formDapp };
+    setEdges([...edges, ...edgeData]);
+    setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
   };
 
   const parseDappApiToDappModel = async () => {
+    console.log('PARSE DAPP API TO DAPP MODEL');
+
     let startIndex = 0;
 
     const parsedTokensData = parseTokensData(tokens);
@@ -341,6 +349,7 @@ export default function useFetchingTemplate() {
 
   const parseTokensData = (tokens: IToken[]) => {
     const result: DappModel[] = [];
+
     for (const token of tokens) {
       const t = parseIssuedToken(token);
       result.push(t);
@@ -354,8 +363,9 @@ export default function useFetchingTemplate() {
     _tokens: IToken[],
   ) => {
     const result: DappModel[] = [];
+
     for (const airdrop of _airdrops) {
-      const _token = tokens.find((v) =>
+      const _token = tokens.find((v: IToken) =>
         compareString(v.contract_address, airdrop.token_address),
       );
 
@@ -368,19 +378,21 @@ export default function useFetchingTemplate() {
 
   React.useEffect(() => {
     fetchData();
-  }, [isUpdateFlow]);
+    parseDappApiToDappModel();
+  }, []);
 
   React.useEffect(() => {
+    console.log('[useFetchingTemplate] useEffect[counterFetchedDapp]');
+
+    if (updated) {
+      draggedDappIndexesSignal.value = [];
+      draggedIds2DSignal.value = [];
+      fetchData();
+    }
+
     parseDappApiToDappModel();
     setUpdated(false);
   }, [counterFetchedDapp]);
-
-  // React.useEffect(() => {
-  //   if (!updated) return;
-
-  //   parseDappApiToDappModel();
-  //   setUpdated(false);
-  // }, [updated]);
 
   React.useEffect(() => {
     if (!needSetDataTemplateToBox) return;
@@ -394,5 +406,5 @@ export default function useFetchingTemplate() {
     } else {
       initTemplate(0);
     }
-  }, [order, categoriesTemplates, isUpdateFlow]);
+  }, [categoriesTemplates]);
 }

@@ -6,6 +6,7 @@ import {
   MouseSensor as LibMouseSensor,
   TouchSensor as LibTouchSensor,
 } from '@dnd-kit/core';
+import { cloneDeep as cloneDeepLodash } from 'lodash';
 import type { MouseEvent, TouchEvent } from 'react';
 import { FieldKeyPrefix } from './contants';
 import { DappType, FieldOption } from './types';
@@ -246,9 +247,7 @@ export const compareKeyInFormDappAndDrag = (
   );
 };
 
-export const cloneDeep = <T>(obj: T) => {
-  return JSON.parse(JSON.stringify(obj)) as T;
-};
+export const cloneDeep = cloneDeepLodash;
 
 export const isTwoObjectEqual = (obj1: any, obj2: any) => {
   return JSON.stringify(obj1) === JSON.stringify(obj2);
