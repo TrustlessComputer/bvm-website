@@ -51,6 +51,10 @@ const useFetchDapp = () => {
     }
   };
 
+  const fetchTokenListAll = async () => {
+    await tokenAPI.getListTokenAll(dappState?.chain?.chainId || '');
+  };
+
   const fetchTokenList = async () => {
     await tokenAPI.getListToken(dappState?.chain?.chainId || '');
   };
@@ -67,6 +71,7 @@ const useFetchDapp = () => {
     console.log('[useFetchDapp] getDappTasks start');
     try {
       await Promise.all([
+        fetchTokenListAll(),
         fetchTokenList(),
         fetchStakingPoolsList(),
         getListTask(),

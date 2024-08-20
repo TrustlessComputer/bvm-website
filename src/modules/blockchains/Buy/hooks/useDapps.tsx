@@ -26,7 +26,7 @@ const useDapps = () => {
 
   const { counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
-  const { configs, tokens, airdropTasks } = dappState;
+  const { configs, tokens, airdropTasks, tokensAll } = dappState;
 
   const blockFieldMapping = React.useMemo(() => {
     return dapps.map((dapp) => {
@@ -458,7 +458,7 @@ const useDapps = () => {
     const sortedDapps = _dapps.sort((a, b) => a.order - b.order);
 
     setDapps(preDataAirdropTask(sortedDapps, tokens, airdropTasks));
-    setDapps(preDataYoloGame(sortedDapps, tokens));
+    setDapps(preDataYoloGame(sortedDapps, tokensAll));
   };
 
   // React.useEffect(() => {

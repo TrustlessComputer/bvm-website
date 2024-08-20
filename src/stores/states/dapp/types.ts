@@ -17,4 +17,5 @@ export interface DappState {
   dappConfigs: IDappConfigs | undefined;
   appInfos: IAppInfo[];
   yoloGames: IYoloGame[];
+  tokensAll: IToken[];
 }
