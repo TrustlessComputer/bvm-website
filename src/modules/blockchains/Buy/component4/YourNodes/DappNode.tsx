@@ -7,10 +7,16 @@ import { DappNode as DappNodeProps, NodeNotificationProps } from '@/types/node';
 import { NodeProps } from '@xyflow/react';
 import DappRenderer from '../DappRenderer';
 import Node from '../Node/Node';
+import { useAppSelector } from '@/stores/hooks';
+import { isInstalledIssueTokenSelector } from '@/stores/states/dapp/selector';
 
 const DappNode = ({ data }: NodeProps<DappNodeProps>) => {
   const { statusCode, statusStr } = useChainStatus();
   const { isUpdateFlow } = useChainProvider();
+
+  const isInstalledIssueToken = useAppSelector(isInstalledIssueTokenSelector)
+
+  console.log('SANG TEST', data);
 
   const notification: NodeNotificationProps | undefined = React.useMemo(() => {
     if (isUpdateFlow && statusCode !== OrderStatus.Started) {
@@ -27,8 +33,15 @@ const DappNode = ({ data }: NodeProps<DappNodeProps>) => {
       };
     }
 
+    if (isUpdateFlow && !isInstalledIssueToken && data?.node === 'dapp' && data?.dapp?.key !== 'create_token') {
+      return {
+        label: 'IMPORTANT',
+        message: 'Please install issue token module to use this feature.',
+      };
+    }
+
     return undefined;
-  }, [isUpdateFlow, statusCode]);
+  }, [isUpdateFlow, statusCode, isInstalledIssueToken, data?.node, data?.dapp?.key]);
 
   return (
     <Node

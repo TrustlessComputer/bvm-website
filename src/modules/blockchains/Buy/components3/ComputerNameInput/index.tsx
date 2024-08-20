@@ -70,8 +70,7 @@ const ComputerNameInput = (props: Props) => {
   );
 
   React.useEffect(() => {
-    const computerName =
-      'My Bitcoin Rollup ' + getRandonComputerName(isMainnet);
+    const computerName = 'My Bitcoin Chain ' + getRandonComputerName(isMainnet);
 
     setChainName(computerName);
     setComputerNameField({

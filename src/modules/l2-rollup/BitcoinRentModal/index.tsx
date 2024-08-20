@@ -5,7 +5,11 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
 import AppLoading from '@/components/AppLoading';
 import ListTable, { ColumnProp } from '@/components/ListTable';
-import { ellipsisCenter, formatToHumanAmount } from '@/utils/format';
+import {
+  ellipsisCenter,
+  formatToHumanAmount,
+  calculateTimeAgo,
+} from '@/utils/format';
 import createAxiosInstance from '@/services/http-client';
 import { isMobile } from 'react-device-detect';
 import uniqBy from 'lodash/uniqBy';
@@ -30,7 +34,7 @@ const apiClient = createAxiosInstance({
   baseURL: 'https://raas.bvm.network/api/',
 });
 
-const BitcoinRentModal = ({ title, chain_id, isShow, onHide }: any) => {
+const BitcoinRentModal = ({ title, chain_id, isShow, onHide, total }: any) => {
   const [txs, setTxs] = useState<IBitcoinRent[]>([]);
 
   const [isFetching, setIsFetching] = useState(true);
@@ -159,7 +163,7 @@ const BitcoinRentModal = ({ title, chain_id, isShow, onHide }: any) => {
       },
       {
         id: 'rent',
-        label: <Box pl={'16px'}>Fee</Box>,
+        label: <Box>Fee</Box>,
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -176,7 +180,6 @@ const BitcoinRentModal = ({ title, chain_id, isShow, onHide }: any) => {
               alignItems={'center'}
               width={'100%'}
               justifyContent={'space-between'}
-              paddingLeft={'16px'}
             >
               <Text className={s.title}>
                 {formatToHumanAmount({
@@ -184,6 +187,33 @@ const BitcoinRentModal = ({ title, chain_id, isShow, onHide }: any) => {
                   decimals: 8,
                 })}{' '}
                 BTC
+              </Text>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'time',
+        label: <Box>Time</Box>,
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+          color: 'white !important',
+        },
+        render(data: IBitcoinRent) {
+          return (
+            <Flex
+              gap={6}
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'space-between'}
+            >
+              <Text className={s.title}>
+                {calculateTimeAgo(data.created_at)}
               </Text>
             </Flex>
           );
@@ -203,6 +233,9 @@ const BitcoinRentModal = ({ title, chain_id, isShow, onHide }: any) => {
       <div className={s.container}>
         <Text fontWeight={'600'} fontSize={'24px'} color={'#000'} mb={'12px'}>
           {title}
+        </Text>
+        <Text color={'#fa4e0e'} pl={'8px'} fontWeight={'500'} fontSize={'16px'}>
+          Total Bitcoin Rent: {total} BTC
         </Text>
         <ScrollWrapper
           onFetch={() => {

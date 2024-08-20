@@ -374,7 +374,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       // const result = {};
       if (result) {
         //Config Account Abstraction...
-        // configAccountAbstraction(dynamicForm);
+        configAccountAbstraction(dynamicForm);
         let isConfigDapp = false;
         if (yoloGameForms && yoloGameForms.length > 0) {
           await onSubmitYoloGame({
