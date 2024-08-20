@@ -22,6 +22,7 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { capitalizeFirstLetter } from '@web3auth/ui';
 import { orderBy } from 'lodash';
+import { isLocalhost } from '@utils/helpers';
 
 class CDappAPI {
   private dappState = useAppSelector(dappSelector);
@@ -96,7 +97,7 @@ class CDappAPI {
     dappURL: string;
   }): Promise<IAppInfo[]> => {
     try {
-      const rs: any = await this.http.get(`${dappURL}/apps/menu`);
+      const rs: any = await this.http.get(`${dappURL}/api/apps/menu`);
       return rs;
     } catch (error) {
       // throw error;
@@ -153,7 +154,10 @@ class CDappAPI {
   getListToken = async (network_id: string) => {
     try {
       const api = new CTokenGenerationAPI();
-      const tokens = await api.tokenList(network_id);
+      let tokens = await api.tokenList(network_id);
+      if (isLocalhost()) {
+        tokens = tokens.slice(tokens?.length - 3, tokens?.length);
+      }
       const tasks = tokens?.map((t) =>
         api.tokenVesting({
           token_address: t.contract_address as string,
