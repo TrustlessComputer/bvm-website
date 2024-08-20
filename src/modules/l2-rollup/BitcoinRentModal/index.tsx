@@ -159,7 +159,7 @@ const BitcoinRentModal = ({ title, chain_id, isShow, onHide }: any) => {
       },
       {
         id: 'rent',
-        label: <Box pl={'16px'}>Fee</Box>,
+        label: <Box>Fee</Box>,
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -176,7 +176,6 @@ const BitcoinRentModal = ({ title, chain_id, isShow, onHide }: any) => {
               alignItems={'center'}
               width={'100%'}
               justifyContent={'space-between'}
-              paddingLeft={'16px'}
             >
               <Text className={s.title}>
                 {formatToHumanAmount({
@@ -184,6 +183,33 @@ const BitcoinRentModal = ({ title, chain_id, isShow, onHide }: any) => {
                   decimals: 8,
                 })}{' '}
                 BTC
+              </Text>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'time',
+        label: <Box>Time</Box>,
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+          color: 'white !important',
+        },
+        render(data: IBitcoinRent) {
+          return (
+            <Flex
+              gap={6}
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'space-between'}
+            >
+              <Text className={s.title}>
+                {data.blockTime.replaceAll('T', ' ').replaceAll('Z', '')}
               </Text>
             </Flex>
           );
