@@ -8,6 +8,7 @@ import ListTable, { ColumnProp } from '@/components/ListTable';
 import { ellipsisCenter, formatToHumanAmount } from '@/utils/format';
 import createAxiosInstance from '@/services/http-client';
 import { isMobile } from 'react-device-detect';
+import uniqBy from 'lodash/uniqBy';
 
 export interface IBitcoinRent {
   id: string;
@@ -37,7 +38,7 @@ const BitcoinRentModal = ({ title, chain_id, isShow, onHide }: any) => {
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
     page: 1,
-    limit: 20,
+    limit: 100,
   });
 
   useEffect(() => {
@@ -80,48 +81,48 @@ const BitcoinRentModal = ({ title, chain_id, isShow, onHide }: any) => {
 
   const columns: ColumnProp[] = useMemo(() => {
     return [
-      {
-        id: 'tx',
-        label: 'Tx L1',
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '14px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: IBitcoinRent) {
-          return (
-            <Flex
-              gap={6}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'space-between'}
-              cursor="pointer"
-              onClick={() => {
-                window.open(
-                  `https://explorer.trustless.computer/tx/${data?.tc_tx_id}`,
-                );
-              }}
-            >
-              <Flex flex={1} gap={2} alignItems={'center'}>
-                <Flex width={'100%'} gap={'4px'} direction={'column'}>
-                  <Text className={s.title} textDecoration={'underline'}>
-                    {ellipsisCenter({
-                      str: data?.tc_tx_id || '',
-                      limit: isMobile ? 4 : 8,
-                    })}
-                  </Text>
-                </Flex>
-              </Flex>
-            </Flex>
-          );
-        },
-      },
+      // {
+      //   id: 'tx',
+      //   label: 'Tx L1',
+      //   labelConfig,
+      //   config: {
+      //     borderBottom: 'none',
+      //     fontSize: '14px',
+      //     fontWeight: 500,
+      //     verticalAlign: 'middle',
+      //     letterSpacing: '-0.5px',
+      //   },
+      //   render(data: IBitcoinRent) {
+      //     return (
+      //       <Flex
+      //         gap={6}
+      //         alignItems={'center'}
+      //         width={'100%'}
+      //         justifyContent={'space-between'}
+      //         cursor="pointer"
+      //         onClick={() => {
+      //           window.open(
+      //             `https://explorer.trustless.computer/tx/${data?.tc_tx_id}`,
+      //           );
+      //         }}
+      //       >
+      //         <Flex flex={1} gap={2} alignItems={'center'}>
+      //           <Flex width={'100%'} gap={'4px'} direction={'column'}>
+      //             <Text className={s.title} textDecoration={'underline'}>
+      //               {ellipsisCenter({
+      //                 str: data?.tc_tx_id || '',
+      //                 limit: isMobile ? 4 : 8,
+      //               })}
+      //             </Text>
+      //           </Flex>
+      //         </Flex>
+      //       </Flex>
+      //     );
+      //   },
+      // },
       {
         id: 'name',
-        label: 'Tx Bitcoin',
+        label: 'Transaction',
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -147,7 +148,7 @@ const BitcoinRentModal = ({ title, chain_id, isShow, onHide }: any) => {
                   <Text className={s.title} textDecoration={'underline'}>
                     {ellipsisCenter({
                       str: data?.btc_tx_id || '',
-                      limit: isMobile ? 4 : 8,
+                      limit: isMobile ? 8 : 16,
                     })}
                   </Text>
                 </Flex>
@@ -219,7 +220,7 @@ const BitcoinRentModal = ({ title, chain_id, isShow, onHide }: any) => {
           dependData={txs}
         >
           <ListTable
-            data={txs}
+            data={uniqBy(txs, (item) => item.btc_tx_id)}
             columns={columns}
             className={s.tableContainer}
           />
