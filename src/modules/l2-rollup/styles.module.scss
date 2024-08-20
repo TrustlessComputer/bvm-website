@@ -158,7 +158,8 @@ table {
 
         td:nth-child(1),
         :nth-child(3),
-        :nth-child(4) {
+        :nth-child(4),
+        :nth-child(10) {
           text-decoration: underline;
           p {
             color: #000 !important;

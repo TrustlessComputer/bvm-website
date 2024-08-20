@@ -710,12 +710,12 @@ const L2Rollup = () => {
               width={'100%'}
               maxW={'128px'}
               px={'2px'}
-              cursor={haveLink ? 'pointer' : 'unset'}
               onClick={() => haveLink && window.open(data.verification_url)}
+              cursor={haveLink ? 'pointer' : 'unset'}
             >
               <Text
+                color={haveLink ? '#fa4e0e !important' : '#000'}
                 className={s.title}
-                textDecoration={haveLink ? 'underline' : 'unset'}
               >
                 {data.verification || '-'}
               </Text>
