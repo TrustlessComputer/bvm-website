@@ -14,7 +14,7 @@ export default function OptionInputValue({ option }: { option: IModelOption }) {
   const { setValue } = useOptionInputStore();
   const vl = useOptionInputValue(option.key);
   useSignalEffect(()=>{
-    seSta(vl.value || option?.inputValue || '');
+    seSta(vl.value || option?.addOnInputs?.value || '');
   })
 
   return (
