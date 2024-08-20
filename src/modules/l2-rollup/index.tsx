@@ -27,6 +27,7 @@ import s from './styles.module.scss';
 import { orderBy } from 'lodash';
 import { DotLottiePlayer } from '@dotlottie/react-player';
 import BitcoinRentModal from './BitcoinRentModal';
+import AppLoading from '@/components/AppLoading';
 
 enum SortRollupType {
   name,
@@ -508,9 +509,7 @@ const L2Rollup = () => {
                   onOpen();
                 }
               }}
-              _hover={{
-                textDecoration: isUnderReview ? 'unset' : 'underline',
-              }}
+              textDecoration={isUnderReview ? 'unset' : 'underline'}
             >
               <Text className={s.title}>
                 {isUnderReview
@@ -1006,11 +1005,17 @@ const L2Rollup = () => {
           </Flex>
         </Flex>
         <Box w="100%" bg="#FAFAFA" minH={'450px'} mt={'56px'}>
-          <ListTable
-            data={data}
-            columns={columns}
-            className={s.tableContainer}
-          />
+          {data.length <= 0 ? (
+            <Box mt={'24px'}>
+              <AppLoading />
+            </Box>
+          ) : (
+            <ListTable
+              data={data}
+              columns={columns}
+              className={s.tableContainer}
+            />
+          )}
         </Box>
       </Flex>
       {isOpen && bitcoinRent && (
