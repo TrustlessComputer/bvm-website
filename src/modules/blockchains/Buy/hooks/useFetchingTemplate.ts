@@ -366,6 +366,12 @@ export default function useFetchingTemplate() {
       startIndex: startIndex,
     });
 
+    console.log('[useFetchingTemplate] parsedTokensData', {
+      parsedTokensData,
+      parsedAirdropsData,
+      parsedStakingPoolsData,
+    });
+
     setTemplateDapps([
       ...parsedTokensData,
       ...parsedAirdropsData,
