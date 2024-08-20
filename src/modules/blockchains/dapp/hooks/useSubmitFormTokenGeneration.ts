@@ -1,8 +1,25 @@
+import TOKENABI from '@/modules/blockchains/CreateToken/contract/abis/Token.json';
+import { IBodyCreateToken } from '@/modules/blockchains/CreateToken/contract/interface';
+import { ITokenomics } from '@/modules/blockchains/CreateToken/types';
+import {
+  getTokenomics,
+  getTotalSupply,
+} from '@/modules/blockchains/CreateToken/utils';
+import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
+import { draggedIds2DSignal } from '@/modules/blockchains/dapp/signals/useDragSignal';
+import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 import { useAppSelector } from '@/stores/hooks';
+import { requestReload } from '@/stores/states/common/reducer';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { getError } from '@/utils/error';
+import { showSuccess } from '@components/toast';
+import { formatCurrency } from '@utils/format';
+import BigNumber from 'bignumber.js';
+import { ethers } from 'ethers';
+import { cloneDeep, isEmpty } from 'lodash';
 import { Dispatch, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
 import {
   formDappDropdownSignal,
   formDappInputSignal,
@@ -10,20 +27,6 @@ import {
   formDappToggleSignal,
 } from '../signals/useFormDappsSignal';
 import { FormDappUtil } from '../utils';
-import { isEmpty } from 'lodash';
-import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
-import { IBodyCreateToken } from '@/modules/blockchains/CreateToken/contract/interface';
-import { getTokenomics, getTotalSupply } from '@/modules/blockchains/CreateToken/utils';
-import { ITokenomics } from '@/modules/blockchains/CreateToken/types';
-import TOKENABI from '@/modules/blockchains/CreateToken/contract/abis/Token.json';
-import { ethers } from 'ethers';
-import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
-import { showSuccess } from '@components/toast';
-import { requestReload } from '@/stores/states/common/reducer';
-import { useDispatch } from 'react-redux';
-import BigNumber from 'bignumber.js';
-import { formatCurrency } from '@utils/format';
-import { draggedIds2DSignal } from '@/modules/blockchains/dapp/signals/useDragSignal';
 
 interface IProps {
   setErrorData: Dispatch<
@@ -53,12 +56,12 @@ const useSubmitFormTokenGeneration = ({
   ) {
     const result = [];
     for (const data of dataMapping) {
-      const d = {...data};
+      const d = { ...data };
 
       const _allocation = [];
-      if(data?.allocation) {
+      if (data?.allocation) {
         for (const block of data?.allocation) {
-          if(!!block) {
+          if (!!block) {
             _allocation.push(block);
           }
         }
@@ -191,7 +194,7 @@ const useSubmitFormTokenGeneration = ({
 
       let dataMapping: Record<string, { key: string; value: string }[]>[] = [];
 
-      const formDapp = formDappSignal.value;
+      const formDapp = cloneDeep(formDappSignal.value);
       const formDappInBase = Object.keys(formDapp).filter(
         (key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key),
       );
@@ -235,14 +238,14 @@ const useSubmitFormTokenGeneration = ({
             ] as ITokenomics[];
           }
 
-          return data?.allocation?.map(all => {
+          return data?.allocation?.map((all) => {
             return {
               ...all,
-              address: (all as unknown as ITokenomics).address || data?.receiver_address
-            }
-          })
-
-          return (data?.allocation || []) as unknown as ITokenomics[];
+              address:
+                (all as unknown as ITokenomics).address ||
+                data?.receiver_address,
+            };
+          });
         };
 
         // @ts-ignore
@@ -294,12 +297,14 @@ const useSubmitFormTokenGeneration = ({
           network_id: Number(dappState?.chain?.chainId),
         });
 
-        if(data?.logo) {
-          const logoUrl = await api.uploadImage(data?.logo_file as unknown as File);
+        if (data?.logo) {
+          const logoUrl = await api.uploadImage(
+            data?.logo_file as unknown as File,
+          );
           await api.updateTokenLogo({
             logo_url: logoUrl,
             token_address: tokenInfo?.contract_address,
-            network_id: Number(dappState?.chain?.chainId)
+            network_id: Number(dappState?.chain?.chainId),
           });
         }
       }

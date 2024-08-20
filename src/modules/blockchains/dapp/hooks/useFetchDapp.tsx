@@ -2,13 +2,13 @@ import CDappAPI from '@/services/api/dapp';
 import CTokenAirdropAPI from '@/services/api/dapp/airdrop';
 import CStakingAPI from '@/services/api/dapp/staking';
 import { useAppSelector } from '@/stores/hooks';
+import { setCounterFetchedDapp } from '@/stores/states/common/reducer';
 import { commonSelector } from '@/stores/states/common/selector';
 import { setAirdrops, setAirdropTasks } from '@/stores/states/dapp/reducer';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { useParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setCounterFetchedDapp } from '@/stores/states/common/reducer';
 
 const useFetchDapp = () => {
   const params = useParams();
@@ -56,23 +56,23 @@ const useFetchDapp = () => {
   };
 
   const getDappTasks = async () => {
+    console.log('[useFetchDapp] getDappTasks start');
     try {
       setLoading(true);
-      await Promise.all(
-        [
-          fetchTokenList(),
-          fetchStakingPoolsList(),
-          getListTask(),
-          getListAirdrop()
-        ]
-      );
+      await Promise.all([
+        fetchTokenList(),
+        fetchStakingPoolsList(),
+        getListTask(),
+        getListAirdrop(),
+      ]);
+      console.log('[useFetchDapp] getDappTasks done');
       dispatch(setCounterFetchedDapp());
     } catch (error) {
       console.log('getDappTasks', error);
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   React.useEffect(() => {
     fetchData();
@@ -88,13 +88,12 @@ const useFetchDapp = () => {
     if (!dappState.loading && !loading) {
       setLoaded(true);
     }
-
-  },[dappState.loading, loading]);
+  }, [dappState.loading, loading]);
 
   return {
     loading: dappState.loading || loading,
     configs: dappState.configs,
-    loaded
+    loaded,
   };
 };
 

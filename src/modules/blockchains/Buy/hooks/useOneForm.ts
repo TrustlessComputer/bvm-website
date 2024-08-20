@@ -1,7 +1,6 @@
-import React from 'react';
-import useDapps from './useDapps';
-import { formDappSignal } from '../signals/useFormDappsSignal';
 import { draggedDappIndexesSignal } from '../signals/useDragSignal';
+import { formDappSignal } from '../signals/useFormDappsSignal';
+import useDapps from './useDapps';
 // import { cloneDeep } from '../utils';
 
 import cloneDeep from 'lodash/cloneDeep';
@@ -14,6 +13,10 @@ const useOneForm = () => {
   const { dapps } = useDapps();
 
   const retrieveFormsByDappKey = ({ dappKey }: { dappKey: string }) => {
+    console.log('[useOneForm] retrieveFormsByDappKey', {
+      formObject: formDappSignal.value,
+    });
+
     const forms: IRetrieveFormsByDappKey[][] = [];
 
     const oneForm = cloneDeep(formDappSignal.value);
