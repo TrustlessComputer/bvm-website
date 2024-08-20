@@ -92,6 +92,7 @@ https://bvm.network/studio/${url}`;
   // };
 
   const handleShareTwitter = async () => {
+    if (isCapturing) return;
     setIsCapturing(true);
     setTimeout(async () => {
       const image = await convertToBase64();
