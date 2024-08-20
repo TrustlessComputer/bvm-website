@@ -8,6 +8,7 @@ import s from '@/modules/blockchains/Buy/styles_v5.module.scss';
 import { toPng } from 'html-to-image';
 import { useState } from 'react';
 import Loading from '@components/Loading';
+import BaseModal from '@components/BaseModal';
 
 // const imageWidth = 1920;
 // const imageHeight = 1080;
@@ -178,16 +179,18 @@ https://bvm.network/studio/${url}`;
           <Image src={'/icons/ic_x_v2.svg'} alt={'x'} width={20} height={20} />
         </div>
       </div>
-      {
-        isCapturing && (
-          <div className={s.loading}>
-            <div className={s.inner}>
-              <Image src={'/loading.gif'} alt={'loading'} width={150} height={150} />
-              <p className={s.loading_text}>Exporting as PNG...</p>
-            </div>
-          </div>
-        )
-      }
+      <BaseModal
+        isShow={isCapturing}
+        onHide={() => setIsCapturing(false)}
+        className={s.modalContent}
+        size="custom"
+        icCloseUrl="/icons/ic-close-grey.svg"
+      >
+        <div className={s.inner}>
+          <Image src={'/loading.gif'} alt={'loading'} width={150} height={150} />
+          <p className={s.loading_text}>Exporting as PNG...</p>
+        </div>
+      </BaseModal>
     </div>
   );
 };
