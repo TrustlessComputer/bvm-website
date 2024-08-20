@@ -34,7 +34,7 @@ export interface IBodySetupTask extends IPosition {
   is_bvm_shard: boolean;
 }
 
-export interface IAirdrop {
+export interface IAirdrop extends IPosition {
   id: number;
   network_id: number;
   owner_address: string;

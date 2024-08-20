@@ -6,7 +6,7 @@ export interface IGenerationTokenParams extends IPosition {
   network_id: number;
 }
 
-export interface IToken {
+export interface IToken extends IPosition {
   id?: number;
   network_id?: number;
   name?: string;
