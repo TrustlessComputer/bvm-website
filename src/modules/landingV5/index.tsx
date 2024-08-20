@@ -81,7 +81,7 @@ const LandingV5 = (props: Props) => {
                 mb="176px"
                 position={'relative'}
                 aspectRatio={'1348 / 1031'}
-                maxW={'80%'}
+                maxW={'70%'}
               >
                 <Image
                   layout="fill"
@@ -132,17 +132,15 @@ const LandingV5 = (props: Props) => {
             <div className={s.last_section}>
               <div className={s.title}>Start building</div>
               <div className={s.desc}>
-                Simply set a fee for using your Eternal, and the Eternal AI
-                Decentralized Serving Network — with its 500 GPU nodes — will
-                handle everything else. Effortlessly monetize your AI agents and
-                enjoy passive income without any hassle.
+                Ready to dive in? Visit Bitcoin RaaS Studio to begin creating
+                your own chains on Bitcoin. Build, innovate, and lead the way.
               </div>
               <Flex alignItems={'center'} gap="20px">
                 <Link
                   href="/build-bitcoin"
                   className={cn(s.cta_btn, s.primary)}
                 >
-                  Open Studio
+                  Open Bitcoin RAAS Studio
                 </Link>
                 <Link
                   href="https://docs.bvm.network/bvm"

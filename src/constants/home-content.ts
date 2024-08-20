@@ -406,6 +406,7 @@ export const OPENSOURCE_SECTION = {
   id: 'opensource',
   tag: 'Open source. ',
   title: 'Reuse our code and build whatever you want.',
+  desc: 'Use our existing codebase to accelerate your development process. Customize, innovate, and develop anything you want while saving time and resources.',
   item: [
     {
       title: 'MetaMask for Bitcoin',
@@ -470,6 +471,7 @@ export const NEWS_SECTION = {
   id: 'news',
   tag: 'News. ',
   title: 'Follow our progress.',
+  desc: 'Stay informed with the latest updates and developments from our ecosystem. Get the inside scoop on breakthroughs, features, and more.',
   item: BLOGS.map((item, idx) => {
     return {
       title: item.title,
