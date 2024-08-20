@@ -27,6 +27,7 @@ class CStakingAPI {
 
     if (isLocalhost()) {
       // data = data.slice(data?.length - 3, data?.length);
+      // data = data.slice(0, 1);
     }
 
     let pools: ISTToken[] = [];
