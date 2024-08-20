@@ -157,6 +157,7 @@ class CDappAPI {
       let tokens = await api.tokenList(network_id);
       if (isLocalhost()) {
         // tokens = tokens.slice(tokens?.length - 3, tokens?.length);
+        // tokens = tokens.slice(0, 1);
       }
       const tasks = tokens?.map((t) =>
         api.tokenVesting({
