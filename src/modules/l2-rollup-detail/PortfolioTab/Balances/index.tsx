@@ -39,9 +39,18 @@ const Balances = () => {
               width={'100%'}
               justifyContent={'space-between'}
             >
-              <Text className={s.title}>
-                {data.token_name} ({data?.chain?.name})
-              </Text>
+              <Flex position={'relative'}>
+                <Text className={s.title}>{data.token_name}</Text>
+                <Image
+                  position={'absolute'}
+                  right={'-20px'}
+                  top={0}
+                  w={'16px'}
+                  h={'16px'}
+                  borderRadius={'50%'}
+                  src={data.chain?.icon}
+                />
+              </Flex>
             </Flex>
           );
         },
