@@ -1133,7 +1133,7 @@ export const dappMockupData: DappModel[] = [
     baseBlock: {
       key: '',
       title: 'Create a YOLO Game',
-      icon: '',
+      icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-yolo.svg',
       placableAmount: -1,
       section: 'yolo',
       preview: false,
