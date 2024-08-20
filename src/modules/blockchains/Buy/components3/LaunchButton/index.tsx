@@ -570,9 +570,9 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       new: dynamicFormNew,
     });
 
-    setDyanmicFormAllData(dynamicForm);
+    setDyanmicFormAllData(dynamicFormNew);
     // setShowPreviewModal(true);
-    onLaunchExecute(dynamicForm);
+    onLaunchExecute(dynamicFormNew);
   };
 
   return (
