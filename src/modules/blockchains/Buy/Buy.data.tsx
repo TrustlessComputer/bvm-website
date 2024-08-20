@@ -549,6 +549,8 @@ export const iconToolNames = [
   '/icons-tool/icon-zk.svg',
   '/icons-tool/icon-gas.svg',
   '/icons-tool/icon-address.svg',
+  '/icons-tool/ic-doge.svg',
+  '/icons-tool/ic-fractal.svg',
 ];
 
 export const mockupOptions: IModelCategory[] = [
