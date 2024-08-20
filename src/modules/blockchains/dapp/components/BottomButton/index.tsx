@@ -9,6 +9,7 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 import { compareString } from '@/utils/string';
 import { formatCurrency } from '@/utils/format';
 import { DappModel } from '@/types/customize-model';
+import { Text } from '@chakra-ui/react';
 
 interface IProps {
   color: string;
@@ -33,7 +34,20 @@ const BottomButton = (props: IProps) => {
         if (data) {
           setTopupInfo([
             {
-              title: `Pool ${data.principle_token?.symbol}/${data.reward_token?.symbol}`,
+              title: (
+                <Text>
+                  Please send{' '}
+                  <Text
+                    as="span"
+                    fontWeight={700}
+                    color={'#000'}
+                    textAlign={'center'}
+                  >
+                    {data.reward_token?.symbol}{' '}
+                  </Text>
+                  to the following wallet address below.
+                </Text>
+              ),
               tokenSymbol: data.reward_token?.symbol,
               tokenAddress: data.reward_token_address,
               paymentAddress: data.reward_pool_address,
@@ -42,6 +56,35 @@ const BottomButton = (props: IProps) => {
           ]);
           setIsShowTopup(true);
         }
+        break;
+      case DappType.airdrop:
+        console.log('params.dapp', params.dapp);
+        const actionInfo = params.dapp.action as any;
+        setTopupInfo([
+          {
+            title: (
+              <Text>
+                Please send{' '}
+                <Text
+                  as="span"
+                  fontWeight={700}
+                  color={'#000'}
+                  textAlign={'center'}
+                >
+                  {`${formatCurrency(actionInfo?.paymentAmount, 0, 2)} ${
+                    actionInfo?.tokenInfo?.symbol
+                  } `}
+                </Text>
+                to the following wallet address below.
+              </Text>
+            ),
+            tokenSymbol: ``,
+            tokenAddress: ``,
+            paymentAddress: (params.dapp.action as any)?.paymentAddress,
+            networkName: dappState.chain?.chainName || '',
+          },
+        ]);
+        setIsShowTopup(true);
         break;
       default:
         break;

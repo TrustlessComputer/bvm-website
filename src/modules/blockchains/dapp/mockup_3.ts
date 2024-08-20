@@ -309,7 +309,7 @@ export const dappMockupData: DappModel[] = [
             title: 'Vesting',
             type: 'extends',
             icon: '',
-            value: 0,
+            value: 1,
             tooltip: '',
             background: '#F8B200',
             options: [

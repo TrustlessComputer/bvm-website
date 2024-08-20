@@ -1,22 +1,22 @@
 import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
 import CStakingAPI from '@/services/api/dapp/staking';
 import { useAppSelector } from '@/stores/hooks';
+import { requestReload } from '@/stores/states/common/reducer';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { getError } from '@/utils/error';
 import { formatCurrency } from '@/utils/format';
 import { Dispatch, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-import { requestReload } from '@/stores/states/common/reducer';
 import { TopUpDappInfor } from '../components/TopupModal';
-import { formDappSignal } from '../signals/useFormDappsSignal';
-import { FormDappUtil } from '../utils';
 import { draggedIds2DSignal } from '../signals/useDragSignal';
 import {
   formDappDropdownSignal,
   formDappInputSignal,
+  formDappSignal,
   formDappToggleSignal,
 } from '../signals/useFormDappsSignal';
+import { cloneDeep, FormDappUtil } from '../utils';
 interface IProps {
   setErrorData: Dispatch<
     SetStateAction<{ key: string; error: string }[] | undefined>
@@ -51,7 +51,7 @@ const useSubmitFormStaking = ({
         string,
         { key: string; value: string }[]
       >[] = [];
-      const formDapp = formDappSignal.value;
+      const formDapp = cloneDeep(formDappSignal.value);
       const formDappInBase = Object.keys(formDapp).filter(
         (key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key),
       );

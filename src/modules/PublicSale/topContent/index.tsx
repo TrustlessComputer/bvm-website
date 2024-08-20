@@ -8,6 +8,7 @@ import ModalVideo from 'react-modal-video';
 import { formatCurrency } from '@/utils/format';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
+import {VIDEO_HERO_MAIN} from "@constants/common";
 
 const TopContent = () => {
   const [isOpen, setOpen] = useState(false);
@@ -31,7 +32,7 @@ const TopContent = () => {
               What is BVM? </a>
             <ModalVideo
               channel="custom"
-              url={'/public-sale/public_sale_video_2.mp4'}
+              url={VIDEO_HERO_MAIN}
               isOpen={isOpen}
               onClose={() => {
                 setOpen(false);

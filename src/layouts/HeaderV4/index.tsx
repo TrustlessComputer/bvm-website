@@ -12,9 +12,7 @@ const HeaderV4 = ({ position, color, colorLogo, bgColor }: HeaderV3Props) => {
   const isMobile = useIsMobile();
   return (
     <div className={`${s.header}`} style={{ position: position }}>
-      {
-        !isMobile && <TopMenu />
-      }
+      {!isMobile && <TopMenu />}
       <Main color={color} colorLogo={colorLogo} backgroundColor={bgColor} />
     </div>
   );

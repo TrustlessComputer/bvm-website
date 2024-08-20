@@ -3,6 +3,7 @@ import s from './styles.module.scss';
 import SectionTitle from '../SectionTitle';
 import CardLearn from './CardLearn';
 import ModalVideo from 'react-modal-video';
+import {VIDEO_HERO_MAIN} from "@constants/common";
 
 const DATA_LEARN = [
   {
@@ -49,7 +50,7 @@ export default function Learning() {
                 </div>
                 <ModalVideo
                   channel="custom"
-                  url={'/public-sale/public_sale_video_2.mp4'}
+                  url={VIDEO_HERO_MAIN}
                   isOpen={isOpen}
                   onClose={() => {
                     setOpen(false);

@@ -16,6 +16,15 @@
       background: rgba(250, 78, 14, 0.8);
     }
   }
+
+  &.disabled {
+    background: rgb(102, 102, 102);
+    cursor: not-allowed;
+
+    &:hover {
+      background: rgb(102, 102, 102);
+    }
+  }
 }
 
 .inner {
@@ -24,13 +33,13 @@
   align-items: center;
   position: relative;
 
-  &:hover{
-    .tooltip{
+  &:hover {
+    .tooltip {
       opacity: 1;
     }
   }
 
-  .tooltip{
+  .tooltip {
     background: #fff;
     padding: 12px;
     border-radius: 12px;

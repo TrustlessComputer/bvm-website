@@ -3,6 +3,10 @@
   --h: 96px;
   height: calc(100dvh - var(--h));
 
+  * {
+    font-family: var(--font-SFProDisplay);
+  }
+
   .fontJetBrains {
     font-family: var(--font-JetBrainsMono) !important;
   }
@@ -27,7 +31,6 @@
 }
 
 .container_text {
-  font-family: var(--font-JetBrainsMono) !important;
   font-size: 20px;
   margin: 10px 0 30px 0;
   text-align: center;
@@ -50,12 +53,10 @@
 }
 
 .left {
-  width: 48%;
+  width: 34%;
 }
 
 .heading {
-  font-family: var(--font-JetBrainsMono);
-
   font-size: 20px;
   font-weight: 500;
   line-height: calc(30 / 20);
@@ -73,7 +74,14 @@
 }
 
 .right {
-  width: 52%;
+  position: relative;
+  //width: 52%;
+  width: 100%;
+  :global {
+    .react-flow__panel {
+      display: none !important;
+    }
+  }
 
   &_top {
     display: flex;
@@ -94,8 +102,6 @@
       align-items: center;
 
       p {
-        font-family: var(--font-JetBrainsMono);
-
         font-size: 20px;
         font-weight: 500;
         line-height: 30 / 20;
@@ -110,7 +116,6 @@
         font-size: 18px;
         font-weight: 500;
         cursor: pointer;
-        font-family: var(--font-JetBrainsMono);
 
         line-height: calc(28 / 18);
 
@@ -130,19 +135,20 @@
   align-items: center;
 
   &_captured {
-    position: relative;
-    width: 650px;
+    //position: relative;
+    //width: 650px;
     // margin-left: -100px;
-    transform: translateX(-100px);
+    //transform: translateX(-100px);
   }
 }
 
 .left_box {
   margin-top: 15px;
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.07);
-  background: #fff;
-  border-top-left-radius: 24px;
-  border-bottom-left-radius: 24px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  background-color: #ffffff;
+  overflow: hidden;
 
   &_inner {
     width: 100%;
@@ -152,28 +158,33 @@
     overflow: hidden;
 
     &_sidebar {
-      width: 15%;
+      max-width: 80px;
       height: var(--height-studio);
+      border-right: 3px solid #f2f2f2;
     }
 
     &_content {
-      width: 85%;
+      width: calc(100% - 80px);
       height: var(--height-studio);
       background: #fff;
       overflow-y: auto;
       overflow-x: hidden;
 
       &::-webkit-scrollbar {
-        width: 6px;
+        width: 1px;
+        visibility: hidden;
+        display: none;
       }
 
       &::-webkit-scrollbar-track {
         background: #fff;
+        display: none;
       }
 
       &::-webkit-scrollbar-thumb {
-        border-radius: 10px;
+        border-radius: 0px;
         background: #e0e0e0;
+        display: none;
       }
     }
   }
@@ -195,10 +206,11 @@
   margin-top: 16px;
   height: var(--height-studio);
   position: relative;
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
-  background-color: #fff;
+  background-color: #ffffff;
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.07);
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -210,10 +222,9 @@
     &_left {
       display: flex;
       flex-direction: column;
-      text-align: left;
+      justify-content: center;
 
       &_title {
-        font-family: var(--font-JetBrainsMono);
         font-size: 12px;
         font-weight: 700;
         line-height: 16px;
@@ -221,7 +232,6 @@
       }
 
       &_content {
-        font-family: var(--font-JetBrainsMono);
         font-size: 18px;
         font-weight: 600;
         line-height: 28px;
@@ -238,7 +248,6 @@
   width: 100%;
   padding: 0 12px;
   border-radius: 17px;
-  font-family: var(--font-JetBrainsMono);
   font-size: 18px;
 
   &::placeholder {
@@ -574,5 +583,24 @@
 
   .labelInput {
     color: white;
+  }
+}
+
+.resetButton {
+  position: absolute;
+  right: 1%;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  align-items: flex-end;
+  bottom: 1%;
+}
+
+.dappBoxOption {
+  margin-left: -20px;
+  margin-top: -15px;
+
+  &:first-child {
+    margin-top: -10px;
   }
 }

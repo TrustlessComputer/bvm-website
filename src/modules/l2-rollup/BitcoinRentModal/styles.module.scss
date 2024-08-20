@@ -1,0 +1,91 @@
+.modalManualHeader {
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
+  p {
+    color: white;
+  }
+}
+
+.modalContent {
+  background-color: #fff !important;
+  border-radius: 20px !important;
+  // overflow: hidden !important;
+  max-width: 1100px !important;
+  padding: 0 !important;
+
+  :global {
+    .chakra-modal__body {
+      padding: 0 !important;
+    }
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.wrapScroll {
+  overflow-x: auto !important;
+  min-height: 50vh;
+  max-height: 60vh;
+}
+
+table {
+  &.tableContainer {
+    overflow-x: hidden;
+
+    :global {
+      .isActiveRow {
+        background-color: rgba(26, 172, 235, 0.2) !important;
+
+        p {
+          color: black !important;
+        }
+      }
+    }
+
+    thead {
+      position: sticky;
+      top: 0;
+      tr {
+        th {
+          padding-bottom: 12px !important;
+          background: #fff;
+          color: #b1b154;
+          font-size: 16px;
+          font-weight: 600 !important;
+          border-bottom: none;
+
+          border-bottom: 0px;
+        }
+      }
+    }
+
+    tbody {
+      border-top: 1px solid #6c6f93;
+
+      tr {
+        td {
+          border-bottom: 0px;
+        }
+      }
+    }
+
+    .title {
+      font-style: normal;
+      font-size: 16px;
+      line-height: 160%;
+
+      color: #000;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.loading {
+  margin-top: 16px;
+}

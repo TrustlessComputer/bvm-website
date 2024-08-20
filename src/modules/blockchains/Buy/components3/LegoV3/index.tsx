@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
 import Image from 'next/image';
+import React from 'react';
 
 import SvgInset from '@/components/SvgInset';
 
-import styles from './styles.module.scss';
-import { hexToHSB, hsbToHex } from '../../utils';
-import useStoreDropDown from '@/modules/blockchains/Buy/stores/useStoreDropdown';
-import { iconToolNames } from '../../Buy.data';
 import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
+import { iconToolNames } from '../../Buy.data';
+import { hexToHSB, hsbToHex } from '../../utils';
+import styles from './styles.module.scss';
 
 type LegoV3 = {
   background?: string;
@@ -47,7 +46,6 @@ function LegoV3({
 }: LegoV3) {
   const refTooltip = React.useRef<HTMLDivElement>(null);
   const legoRef = React.useRef<HTMLDivElement | null>(null);
-  const { idDropdownCurrent, setIdDropdownCurrent } = useStoreDropDown();
   const { isCapture } = useCaptureStore();
 
   const _icon =
@@ -90,17 +88,12 @@ function LegoV3({
   const notiMapping = React.useMemo(() => {
     return {
       updatable: {
-        Icon: (
-          <SvgInset
-            svgUrl="/landingV3/svg/up-right-bottom-left.svg"
-            size={24}
-          />
-        ),
+        Icon: <SvgInset svgUrl="/landingV3/svg/draggable.svg" size={16} />,
         tooltip: 'This block is changeable.',
       },
       allowShuffle: {
         Icon: <SvgInset svgUrl="/landingV3/svg/replacable.svg" size={16} />,
-        tooltip: 'This block is shufflable.',
+        tooltip: 'This block is replacable.',
       },
     };
   }, []);
@@ -123,7 +116,22 @@ function LegoV3({
         // @ts-ignore
         {...props}
       >
-        {haveNoti && (
+        {updatable && (
+          <div
+            className={styles.updatableIcon}
+            onMouseEnter={onHover}
+            onMouseLeave={() => {
+              refTooltip.current?.classList.remove(styles.isBottom);
+              refTooltip.current?.classList.remove(styles.isHover);
+            }}
+          >
+            {notiMapping.updatable.Icon}
+            <div ref={refTooltip} className={`${styles.tooltip}`}>
+              {notiMapping.updatable.tooltip}
+            </div>
+          </div>
+        )}
+        {/* {haveNoti && (
           <div
             className={styles.updatableIcon}
             onMouseEnter={onHover}
@@ -141,7 +149,7 @@ function LegoV3({
                 : notiMapping.allowShuffle.tooltip}
             </div>
           </div>
-        )}
+        )} */}
 
         <SvgInset
           svgUrl="/landingV3/svg/stud_head.svg"

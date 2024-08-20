@@ -1,0 +1,190 @@
+.landing {
+    background: #000;
+    overflow: hidden;
+    padding-bottom: 150px;
+
+    .introduction {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10%;
+        margin-top: 80px;
+        margin-bottom: 62px;
+
+        .introduction_title {
+            color: #FFF;
+            font-family: "JetBrains Mono";
+            font-size: 60px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+        }
+
+        .introduction_desc {
+            color: rgba(255, 255, 255, 0.60);
+            font-family: "SF Pro Display";
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 180%;
+            /* 36px */
+            letter-spacing: 0.6px;
+        }
+
+        .introduction_links {
+
+
+
+            .link_item {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: #FFF;
+                font-family: "SF Pro Display";
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 140%;
+                /* 25.2px */
+            }
+
+            .link {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: var(--Color-newsystem-Secondary-Orange, #FF7E21);
+                font-family: "SF Pro Display";
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 150%;
+                /* 21px */
+
+                &:hover {
+                    text-decoration: underline;
+                }
+
+            }
+
+            .icon_link {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: #FFF;
+                display: grid;
+                place-items: center;
+            }
+        }
+
+    }
+
+
+    .tech_wrapper {
+        // grid 2 rows
+        display: grid;
+        grid-template-columns: repeat(5, 140px);
+        gap: 12px;
+
+
+
+    }
+
+    .tech_block {
+        // width: 140px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 16px 0;
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--Color-newsystem-White-100, #FFF);
+        font-family: "SF Pro Display";
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 140%;
+        align-items: center;
+        justify-content: center;
+        /* 19.6px */
+    }
+
+
+    .tag {
+        color: rgba(255, 255, 255, 0.60);
+        font-family: "JetBrains Mono";
+        font-size: 48px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+
+
+    }
+
+    .title {
+        color: #FFF;
+        font-family: "JetBrains Mono";
+        font-size: 48px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        margin-bottom: 24px;
+    }
+
+
+    .desc {
+        color: #FFF;
+        font-family: "SF Pro Display";
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 180%;
+        /* 36px */
+        letter-spacing: 0.6px;
+        margin-bottom: 40px;
+        max-width: 70%;
+    }
+
+    .last_section {
+        .cta_btn {
+            height: 48px;
+            padding: 0px 32px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            font-family: "JetBrains Mono";
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            display: grid;
+            place-items: center;
+            transition: all 0.3s ease;
+
+            &:hover {
+                opacity: 0.75;
+            }
+        }
+
+        .primary {
+            background: var(--1, linear-gradient(90deg, #FFE259 0%, #FFA751 100%));
+            color: #000;
+
+
+        }
+
+        .primary_outline {
+            width: 150px;
+            background: linear-gradient(black, black) padding-box,
+                linear-gradient(90deg, #FFE259 0%, #FFA751 100%) border-box;
+            border-radius: 50em;
+            border: 1px solid transparent;
+
+            span {
+                background: var(--1, linear-gradient(90deg, #FFE259 0%, #FFA751 100%));
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+    }
+
+}

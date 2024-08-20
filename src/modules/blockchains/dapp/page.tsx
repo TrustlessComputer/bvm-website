@@ -6,7 +6,6 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import cn from 'classnames';
-import Image from 'next/image';
 import React from 'react';
 
 import DragMask from './components/DragMask';
@@ -46,25 +45,24 @@ import { IToken } from '@/services/api/dapp/token_generation/interface';
 import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { compareString } from '@/utils/string';
-import { useThisDapp } from './hooks/useThisDapp';
 import { parseStakingPools } from './parseUtils/staking';
 import styles from './styles.module.scss';
 import { DappType } from './types';
 import { IAirdrop } from '@/services/api/dapp/airdrop/interface';
 import { parseAirdrop } from './parseUtils/airdrop';
-import { Button, Flex } from '@chakra-ui/react';
-import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
-import { TABS } from '@/modules/blockchains/Buy/constants';
+import { Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import { isProduction } from '@/config';
-import { DappModel, FieldModel } from '@/types/customize-model';
+import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
+import { useThisDapp } from './hooks/useThisDapp';
 
 const RollupsDappPage = () => {
   const { setDapps } = useDappsStore();
 
-  const { templateForm, setTemplateForm, setTemplateDapps } =
+  const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
   const dappState = useAppSelector(dappSelector);
+  const stakingPools = dappState.stakingPools;
   const configs = dappState?.configs;
 
   const router = useRouter();
@@ -72,7 +70,6 @@ const RollupsDappPage = () => {
   const tokens = dappState.tokens;
   const airdropTasks = dappState.airdropTasks;
   const airdrops = dappState.airdrops;
-  const stakingPools = dappState.stakingPools;
 
   const {
     thisDapp,
@@ -92,7 +89,10 @@ const RollupsDappPage = () => {
     return result;
   };
 
-  const parseAirdropsData = async (_airdrops: IAirdrop[], _tokens: IToken[]) => {
+  const parseAirdropsData = async (
+    _airdrops: IAirdrop[],
+    _tokens: IToken[],
+  ) => {
     const result: DappModel[] = [];
     for (const airdrop of _airdrops) {
       const _token = tokens.find((v) =>
@@ -133,11 +133,11 @@ const RollupsDappPage = () => {
     const { over, active } = event;
     subScribeDropEnd.value += 1;
 
-    console.log(
-      '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
-      over,
-      active,
-    );
+    // console.log(
+    //   '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
+    //   over,
+    //   active,
+    // );
 
     if (!over) return;
 
@@ -174,16 +174,15 @@ const RollupsDappPage = () => {
     const activeOriginalKey = DragUtil.getOriginalKey(activeId);
     const activeFieldKey = active.data.current?.fieldKey;
 
-    // Case 0: Drag to the block parent
+    // Case 0.1: Drag to the block parent
     if (activeFromLeftSide && activeIsAChildOfABlock && overIsABlock) {
       if (activeOriginalKey !== overOriginalKey) {
         showValidateError('Please drag to the same block!');
         return;
       }
 
-      const composedFieldKey = `right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${activeFieldKey}-${overIndex}-${overBaseIndex}`;
-
-      console.log(composedFieldKey);
+      // const composedFieldKey = `right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${activeFieldKey}-${overIndex}-${overBaseIndex}`;
+      const composedFieldKey = activeFieldKey;
 
       if (
         draggedIds2D[overBaseIndex][overIndex].children.some(
@@ -210,6 +209,7 @@ const RollupsDappPage = () => {
       draggedIds2DSignal.value = [...draggedIds2D];
     }
 
+    // Case 0.2: The child is dragged out of the block
     if (activeIsRightSide && overIsInput && activeIsAChildOfABlock) {
       const formDapp = cloneDeep(formDappSignal.value);
       const composedFieldKey = `right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${activeFieldKey}-${activeIndex}-${activeBaseIndex}`;
@@ -253,7 +253,7 @@ const RollupsDappPage = () => {
       draggedIds2D[activeBaseIndex][activeIndex] = {
         ...draggedIds2D[activeBaseIndex][activeIndex],
         children: draggedIds2D[activeBaseIndex][activeIndex].children.filter(
-          (item) => item.name !== composedFieldKey,
+          (item) => item.name !== activeFieldKey,
         ),
       };
 
@@ -720,7 +720,7 @@ const RollupsDappPage = () => {
 
     const _sortedDapps = preDataAirdropTask(sortedDapps, tokens, airdropTasks);
 
-    setDapps(_sortedDapps);
+    // setDapps(_sortedDapps);
   };
 
   React.useEffect(() => {
@@ -740,15 +740,29 @@ const RollupsDappPage = () => {
     Object.keys(templateForm.fieldValue).forEach((fieldKey) => {
       const value = templateForm.fieldValue[fieldKey];
       const baseIndex = FormDappUtil.getBaseIndex(fieldKey);
+      const thisDapp = templateDapps[baseIndex];
+      const blockFieldMapping = {} as Record<string, BlockModel>;
       const key = FormDappUtil.getOriginalKey(fieldKey);
       const index = FormDappUtil.getIndex(fieldKey);
       const blockKey = FormDappUtil.getBlockKey(fieldKey);
       const isInBase = FormDappUtil.isInBase(fieldKey);
       const isInBlock = FormDappUtil.isInBlock(fieldKey);
 
+      (thisDapp?.blockFields || []).forEach((item) => {
+        blockFieldMapping[item.key] = item;
+      });
+
       if (!draggedIds2D[baseIndex][index] && !isInBase) {
         const _key = isInBlock ? blockKey : key;
         const prefix = 'right-' + FormDappUtil.getBlockType(fieldKey);
+        const children = !isInBlock
+          ? []
+          : (blockFieldMapping[blockKey].childrenFields || []).map((item) => ({
+              name: item.key,
+              value: '',
+              parentNames: [],
+              children: [],
+            }));
 
         draggedIds2D[baseIndex] = [
           ...draggedIds2D[baseIndex],
@@ -756,7 +770,7 @@ const RollupsDappPage = () => {
             name: prefix + '-' + _key,
             value: '',
             parentNames: [],
-            children: [],
+            children,
           },
         ];
       }
@@ -767,9 +781,14 @@ const RollupsDappPage = () => {
       };
     });
 
+    console.log(
+      '🚀 -> file: page.tsx:785 -> React.useEffect -> formDapp ::',
+      formDapp,
+    );
+
     templateIds2DSignal.value = [...draggedIds2D];
     formTemplateDappSignal.value = { ...formDapp };
-  }, [templateForm]);
+  }, [templateDapps, templateForm]);
 
   React.useEffect(() => {
     getDataTemplateForm();
@@ -793,6 +812,7 @@ const RollupsDappPage = () => {
         setTemplateForm(model);
         break;
       }
+
       case DappType.token_generation: {
         const data = parseTokensData(tokens);
         const model = parseDappModel({
@@ -801,8 +821,22 @@ const RollupsDappPage = () => {
         });
         setTemplateDapps(data);
         setTemplateForm(model);
+
+        for (const item of data) {
+          if (item.baseBlock.fields[1].value === 'TEST125')
+            console.log(
+              '🚀 -> file: page.tsx:807 -> getDataTemplateForm -> item ::',
+              item,
+            );
+        }
+
+        // console.log(
+        //   '🚀 -> file: page.tsx:807 -> getDataTemplateForm -> model ::',
+        //   model,
+        // );
         break;
       }
+
       case DappType.airdrop: {
         const _data = await parseAirdropsData(airdrops, tokens);
 

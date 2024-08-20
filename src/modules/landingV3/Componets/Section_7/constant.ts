@@ -20,7 +20,7 @@ export const LOGOS = [
   },
   {
     id: 'blockworks',
-    img: 'landing/images/blockworks.png',
+    img: 'landing/images/blockwork.svg',
   },
   {
     id: 'cointelegraph_brazil',
@@ -49,7 +49,11 @@ export const LOGOS = [
 
   {
     id: 'coindesk',
-    img: 'landing/images/coindesk.png',
+    img: 'landing/images/coindesk.svg',
+  },
+  {
+    id: 'theblock_brazil',
+    img: '/landing/images/the-block.svg',
   },
   {
     id: 'clout_scoop',
@@ -73,7 +77,7 @@ const BLOGS = [
     title: `Bitcoin Virtual Machine team rolls out ZK rollups service to scale Bitcoin`,
     desc: `The team behind the Bitcoin Virtual Machine (BVM) last week launched BitZK, a zero-knowledge proofs service that enhances Bitcoin's scalability by allowing users to create rollups and migrate applications from Ethereum to Bitcoin.`,
     logo: 'theblock_brazil',
-    logoUrl: 'https://storage.googleapis.com/bvm-network/image/logo-url-v2.svg',
+    // logoUrl: 'https://storage.googleapis.com/bvm-network/image/logo-url-v2.svg',
     imageUrl: `https://storage.googleapis.com/bvm-network/image/20240509_Bitcoin_News_5-1200x675.jpg`,
     link: 'https://www.theblock.co/post/302137/bitcoin-virtual-machine-team-rolls-out-zk-rollups-service-to-scale-bitcoin',
     linkTarget: '_blank',
@@ -92,7 +96,7 @@ const BLOGS = [
   {
     id: '7',
     title: `DeFi on Bitcoin? Bitcoin Virtual Machine Says Yes`,
-    desc: `Developers can build decentralized apps on Bitcoin using Solidity smart contracts`,
+    desc: `Developers can build decentralized apps on Bitcoin using Solidity smart contracts.`,
     logo: 'blockworks',
     imageUrl: `${CDN_URL_BLOGS}/Blockworks.webp`,
     link: 'https://blockworks.co/news/defi-on-bitcoin',
@@ -157,15 +161,15 @@ const BLOGS = [
   //   link: 'https://gamestarter.com/blog/the-new-bitcoin-city',
   //   linkTarget: '_blank',
   // },
-  {
-    id: '15',
-    title: `A New Bitcoin Based Arcade Game Is Making Waves Among Gamers`,
-    desc: `New Bitcoin City Platform Elevates Gaming with Payouts and NFTs on the Bitcoin Blockchain.`,
-    logo: 'clout_scoop',
-    imageUrl: `${CDN_URL_BLOGS}/15.png`,
-    link: 'https://cloutscoop.com/2023/08/02/a-new-bitcoin-based-arcade-game-is-making-waves-among-gamers/',
-    linkTarget: '_blank',
-  },
+  // {
+  //   id: '15',
+  //   title: `A New Bitcoin Based Arcade Game Is Making Waves Among Gamers`,
+  //   desc: `New Bitcoin City Platform Elevates Gaming with Payouts and NFTs on the Bitcoin Blockchain.`,
+  //   logo: 'clout_scoop',
+  //   imageUrl: `${CDN_URL_BLOGS}/15.png`,
+  //   link: 'https://cloutscoop.com/2023/08/02/a-new-bitcoin-based-arcade-game-is-making-waves-among-gamers/',
+  //   linkTarget: '_blank',
+  // },
   {
     id: '9',
     title: `BRC-721: The Token Standard Defying Bitcoin’s 4MB Storage Limit`,
@@ -199,7 +203,7 @@ const BLOGS = [
   {
     id: '5',
     title: `DeFi is Coming to Bitcoin': Expert Talks Changes to Ordinals`,
-    desc: `Punk 3700, as the developer who integrates New Bitcoin City identifies himself, comments on Bitcoin's potential to become an efficient data layer`,
+    desc: `Punk 3700, as the developer who integrates New Bitcoin City identifies himself, comments on Bitcoin's potential to become an efficient data layer.`,
     logo: 'cointelegraph_brazil',
     imageUrl: `${CDN_URL_BLOGS}/CoinTelegraph_Brazil.jpeg`,
     link: 'https://br.cointelegraph.com/news/defi-is-coming-to-bitcoin-says-expert',
@@ -227,7 +231,7 @@ const BLOGS = [
     id: '8',
     title: `Trustless Computer Deploys Uniswap v2 Smart Contracts: Huge Milestone For Bitcoin`,
     desc: `The emergence of #Ordinals and #BRC20 tokens has led to a renaissance period for #Bitcoin  
-    With their deployment of Uniswap v2 smart contracts on #BTC, @TrustlessOnBTC is right at the forefront of this exciting development`,
+    With their deployment of Uniswap v2 smart contracts on #BTC, @TrustlessOnBTC is right at the forefront of this exciting development.`,
     logo: 'influencive',
     imageUrl: `${CDN_URL_BLOGS}/Influencive.png`,
     link: 'https://twitter.com/Influencive/status/1657455923692986370',

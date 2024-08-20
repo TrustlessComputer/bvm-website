@@ -12,6 +12,13 @@ import { IDApp } from '@/services/api/DAServices/types';
 import { IExploreItem } from '@/services/api/l2services/types';
 import { IModelCategory, IModelOption } from '@/types/customize-model';
 
+export type DappInstalledStatus =
+  | 'new'
+  | 'done'
+  | 'processing'
+  | 'requested_cancel'
+  | 'removed';
+
 interface IDAppInstalled {
   orderID: string;
   userAddress: string;
