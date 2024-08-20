@@ -13,14 +13,15 @@ export default function OptionInputValue({ option }: { option: IModelOption }) {
 
   const { setValue } = useOptionInputStore();
   const vl = useOptionInputValue(option.key);
-  useSignalEffect(()=>{
-    seSta(vl.value || option?.addOnInputs?.value || '');
-  })
+
+  useSignalEffect(() => {
+    seSta(vl.value || option?.addOnInputs?.value || option.addOnInputs?.default_value);
+  });
 
   return (
     <div className={classNames(styles.isOptionInput)}>
       <Label icon={option.icon} title={option.title} />
-      <input type={'text'} onChange={(e) => {
+      <input type={option.addOnInputs?.type || 'text'} placeholder={option.addOnInputs?.placeholder} onChange={(e) => {
         setValue(option.key, e.target.value);
       }} value={sta} />
     </div>

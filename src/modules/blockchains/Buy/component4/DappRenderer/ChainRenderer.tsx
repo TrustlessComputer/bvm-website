@@ -125,8 +125,6 @@ const ChainRenderer = () => {
         return item.options.map((option, opIdx) => {
           if (option.key !== field[item.key].value) return null;
 
-          console.log('option', option);
-          const isOptionInput = (option.key === 'layer1' || option.key === 'layer2');
           const isUpdatable =
             option.key !== 'account_abstraction' && // Must be hard coded
             selectedCategory?.updatable && //
@@ -160,7 +158,7 @@ const ChainRenderer = () => {
                   }
                 >
                   {
-                    isOptionInput ? <OptionInputValue option={option} /> :
+                    option.addOnInputs ? <OptionInputValue option={option} /> :
                       <Label icon={option.icon} title={option.title} />
                   }
                 </LegoV3>
