@@ -10,6 +10,7 @@ import { useParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import CYoloGameAPI from '@/services/api/dapp/yolo';
+import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 
 const useFetchDapp = () => {
   const params = useParams();
@@ -20,6 +21,7 @@ const useFetchDapp = () => {
   const [loaded, setLoaded] = React.useState<boolean>(false);
 
   const dappAPI = new CDappAPI();
+  const tokenAPI = new CTokenGenerationAPI();
   const stakingAPI = new CStakingAPI();
   const tokenAirdropAPI = new CTokenAirdropAPI();
   const yoloGameAPI = new CYoloGameAPI();
@@ -50,7 +52,7 @@ const useFetchDapp = () => {
   };
 
   const fetchTokenList = async () => {
-    await dappAPI.getListToken(dappState?.chain?.chainId || '');
+    await tokenAPI.getListToken(dappState?.chain?.chainId || '');
   };
 
   const fetchStakingPoolsList = async () => {
