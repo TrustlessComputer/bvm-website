@@ -49,10 +49,12 @@ export default function ActionsWorkArea(): ReactElement {
       {!isCapture && (
         <div className={s.resetButton}>
           <Capture />
-          <Button onClick={() => setIsShowModal(true)}>
-            RESET{' '}
-            <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
-          </Button>
+          <div className={`${s.reset2}`} onClick={() => setIsShowModal(true)}>
+            <p>RESET</p>
+            <div>
+              <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
+            </div>
+          </div>
         </div>
       )}
 
