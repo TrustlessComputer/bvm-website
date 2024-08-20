@@ -11,6 +11,8 @@
         margin-top: 80px;
         margin-bottom: 62px;
 
+
+
         .introduction_title {
             color: #FFF;
             font-family: "JetBrains Mono";
@@ -76,6 +78,31 @@
             }
         }
 
+        @include is-mobile {
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+
+            .introduction_title {
+                font-size: 36px;
+            }
+
+            .introduction_desc {
+                font-size: 16px;
+            }
+
+            .introduction_links {
+                .link_item {
+                    font-size: 16px;
+                }
+
+                .link {
+                    font-size: 12px;
+                }
+            }
+        }
+
     }
 
 
@@ -84,6 +111,10 @@
         display: grid;
         grid-template-columns: repeat(5, 140px);
         gap: 12px;
+
+        @include is-mobile {
+            grid-template-columns: repeat(2, 140px);
+        }
 
 
 
@@ -142,6 +173,26 @@
         letter-spacing: 0.6px;
         margin-bottom: 40px;
         max-width: 70%;
+        margin-top: 24px;
+    }
+
+    @include is-mobile {
+        .tag {
+            font-size: 28px;
+            max-width: 100%;
+
+        }
+
+        .title {
+            font-size: 28px;
+            max-width: 100%;
+
+        }
+
+        .desc {
+            font-size: 14px;
+            max-width: 100%;
+        }
     }
 
     .last_section {

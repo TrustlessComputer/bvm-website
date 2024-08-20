@@ -49,7 +49,7 @@ const BuildItem = ({
           viewport={{
             once: true,
           }}
-          minW={'48px'}
+          minW={{ base: '20px', md: '48px' }}
         >
           <Image src={iconUrl || '/landing-v5/ic-step-1.svg'} alt="build" />
         </Box>

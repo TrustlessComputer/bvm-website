@@ -4,10 +4,10 @@
 
 
 
-    @include is-mobile {
-        padding-top: 60px;
-        padding-bottom: 60px;
-    }
+    // @include is-mobile {
+    //     padding-top: 60px;
+    //     padding-bottom: 60px;
+    // }
 
 
 
@@ -51,8 +51,21 @@
         }
 
         @include is-mobile {
-            font-size: 28px;
-            margin-bottom: 40px;
+            .tag {
+                font-size: 28px;
+                max-width: 100%;
+            }
+
+            .title {
+                font-size: 28px;
+                max-width: 100%;
+            }
+
+            .desc {
+                font-size: 14px;
+                max-width: 100%;
+            }
+
         }
     }
 
