@@ -289,11 +289,9 @@ const useSubmitFormTokenGeneration = () => {
 
           // TODO: JACKIE - update position below
           const position: IPosition = {
-            positionID: uuidv4(),
-            position: {
-              x: 0,
-              y: 0,
-            }
+            position_id: uuidv4(),
+            position_x: 0,
+            position_y: 0,
           }
           console.log(position);
 

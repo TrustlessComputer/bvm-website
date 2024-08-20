@@ -1,11 +1,7 @@
-export interface ICoordinates {
-  x: number | string;
-  y: number | string;
-}
-
 export interface IPosition {
-  positionID: number | string;
-  position: ICoordinates;
+  position_id: string,
+  position_x: number,
+  position_y: number,
 }
 
 export interface ISTToken extends IPosition {
