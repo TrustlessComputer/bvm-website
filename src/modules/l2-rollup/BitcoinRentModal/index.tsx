@@ -34,7 +34,7 @@ const apiClient = createAxiosInstance({
   baseURL: 'https://raas.bvm.network/api/',
 });
 
-const BitcoinRentModal = ({ title, chain_id, isShow, onHide }: any) => {
+const BitcoinRentModal = ({ title, chain_id, isShow, onHide, total }: any) => {
   const [txs, setTxs] = useState<IBitcoinRent[]>([]);
 
   const [isFetching, setIsFetching] = useState(true);
@@ -233,6 +233,9 @@ const BitcoinRentModal = ({ title, chain_id, isShow, onHide }: any) => {
       <div className={s.container}>
         <Text fontWeight={'600'} fontSize={'24px'} color={'#000'} mb={'12px'}>
           {title}
+        </Text>
+        <Text color={'#fa4e0e'} pl={'8px'} fontWeight={'500'} fontSize={'16px'}>
+          Total Bitcoin Rent: {total} BTC
         </Text>
         <ScrollWrapper
           onFetch={() => {
