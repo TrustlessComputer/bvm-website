@@ -366,7 +366,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       // const result = {};
       if (result) {
         //Config Account Abstraction...
-        // configAccountAbstraction(dynamicForm);
+        configAccountAbstraction(dynamicForm);
         //Staking...
         if (stakingForms && stakingForms.length > 0) {
           await onSubmitStaking({
