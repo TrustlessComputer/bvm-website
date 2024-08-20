@@ -1,4 +1,14 @@
-export interface ISTToken {
+export interface ICoordinates {
+  x: number | string;
+  y: number | string;
+}
+
+export interface IPosition {
+  positionID: number | string;
+  position: ICoordinates;
+}
+
+export interface ISTToken extends IPosition {
   id: number;
   network_id: number;
   contract_address: string;

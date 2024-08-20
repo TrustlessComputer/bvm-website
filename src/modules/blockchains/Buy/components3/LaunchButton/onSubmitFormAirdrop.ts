@@ -17,6 +17,8 @@ import {
   FormDappUtil,
   getAirdropTaskKey,
 } from '@/modules/blockchains/dapp/utils';
+import { IPosition } from '@/services/api/dapp/staking/interface';
+import { v4 as uuidv4 } from 'uuid';
 
 const useSubmitFormAirdrop = () => {
   const dappState = useAppSelector(dappSelector);
@@ -167,6 +169,16 @@ const useSubmitFormAirdrop = () => {
               amount: v.reward_amount,
             }));
 
+          // TODO: JACKIE - update position below
+          const position: IPosition = {
+            positionID: uuidv4(),
+            position: {
+              x: 0,
+              y: 0,
+            }
+          }
+          console.log(position);
+
           const body: IBodySetupTask = {
             title: form.airdrop_title as unknown as string,
             token_address: form.reward_token as unknown as string,
@@ -176,6 +188,7 @@ const useSubmitFormAirdrop = () => {
               ? dayjs(form.start_date as unknown as string).unix()
               : dayjs().unix(),
             end_time: dayjs(form.end_date as unknown as string).unix(),
+            ...position, // TODO: JACKIE - update position
           };
 
           if (tasks.length > 0) {

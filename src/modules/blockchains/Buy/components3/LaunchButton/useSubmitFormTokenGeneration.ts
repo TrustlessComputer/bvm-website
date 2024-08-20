@@ -19,6 +19,8 @@ import { isEmpty } from 'lodash';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { IRetrieveFormsByDappKey } from '../../hooks/useOneForm';
+import { IPosition } from '@/services/api/dapp/staking/interface';
+import { v4 as uuidv4 } from 'uuid';
 
 const useSubmitFormTokenGeneration = () => {
   const dappState = useAppSelector(dappSelector);
@@ -285,11 +287,22 @@ const useSubmitFormTokenGeneration = () => {
           // console.log('body', body);
           // console.log('calldata', calldata);
 
+          // TODO: JACKIE - update position below
+          const position: IPosition = {
+            positionID: uuidv4(),
+            position: {
+              x: 0,
+              y: 0,
+            }
+          }
+          console.log(position);
+
           const api = new CTokenGenerationAPI();
           const tokenInfo = await api.generateNewToken({
             data_hex: calldata,
             type: 'token',
             network_id: Number(dappState?.chain?.chainId),
+            ...position // TODO: JACKIE - update position
           });
 
           let logoUrl = '';

@@ -1,4 +1,5 @@
 import { IToken } from '../token_generation/interface';
+import { IPosition } from '@/services/api/dapp/staking/interface';
 
 export interface IAirdropTask {
   id: number;
@@ -21,7 +22,7 @@ export interface ITask {
   content: string;
 }
 
-export interface IBodySetupTask {
+export interface IBodySetupTask extends IPosition {
   title: string;
   description?: string;
   start_time: number;
