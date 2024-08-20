@@ -50,7 +50,7 @@ const TopMenu = (): ReactElement => {
 
             <div className={s.right_item}>
               <div className={s.right_item_inner}>
-                <ContactUs />
+                <ContactUs color="white" />
               </div>
             </div>
             {/* <div className={s.right_item}>
