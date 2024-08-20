@@ -1,4 +1,5 @@
 import { IYoloGame } from '@/services/api/dapp/yolo/interface';
+import BigNumberJS from 'bignumber.js';
 
 export const parseYoloGames = (games: IYoloGame[]): any[] => {
   const result: any[] = [];
@@ -95,13 +96,13 @@ export const parseYoloGames = (games: IYoloGame[]): any[] => {
             },
             {
               key: 'protocol_fee_ratio',
-              title: 'Protocol Fee Ratio',
+              title: 'Protocol Fee Ratio (%)',
               inputType: 'number',
               type: 'input',
               icon: '',
-              value: game.protocol_fee_ratio,
+              value: new BigNumberJS(game.protocol_fee_ratio).multipliedBy(100).toString(),
               tooltip: 'Protocol Fee Ratio',
-              placeholder: 'eg. 0.1',
+              placeholder: 'eg. 10',
               options: [],
               background: '#C44127',
             },

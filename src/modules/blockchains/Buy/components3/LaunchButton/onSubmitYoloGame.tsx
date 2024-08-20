@@ -2,6 +2,7 @@ import { IRetrieveFormsByDappKey } from '@/modules/blockchains/Buy/hooks/useOneF
 import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
 import { FormDappUtil } from '@/modules/blockchains/dapp/utils';
 import CYoloGameAPI from '@/services/api/dapp/yolo';
+import BigNumberJS from 'bignumber.js';
 
 const useSubmitYoloGame = () => {
   const cYoloGameAPI = new CYoloGameAPI();
@@ -48,7 +49,7 @@ const useSubmitYoloGame = () => {
           value_per_entry: formFinal?.value_per_entry,
           round_duration: Number(formFinal?.round_duration),
           maximum_number_of_participants_per_round: Number(formFinal?.maximum_participants),
-          protocol_fee_ratio: formFinal?.protocol_fee_ratio,
+          protocol_fee_ratio: BigNumberJS(formFinal?.protocol_fee_ratio as any).dividedBy(100).toFixed(2),
         });
       } catch (error) {
         console.log(error);
