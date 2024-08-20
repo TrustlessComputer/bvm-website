@@ -42,6 +42,7 @@ interface IModelOption {
   disabled?: boolean;
   appTemplateUrl: string;
   needInstall?: boolean;
+  inputValue?: string;
 }
 
 interface IModelCategory {
