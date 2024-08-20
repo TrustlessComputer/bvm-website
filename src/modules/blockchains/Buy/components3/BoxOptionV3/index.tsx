@@ -100,7 +100,7 @@ const BoxOptionV3 = ({
           </Flex>
         </div>
 
-        <div className={s.options}>{children}</div>
+        <div className={`${s.options} ${label === 'DeFi' && s.column}`}>{children}</div>
       </div>
 
       {description?.title && (
