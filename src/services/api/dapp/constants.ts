@@ -6,6 +6,7 @@ const getMockupTemplate  = (configs: IDappConfigs): ITemplate => ({
     backupLogo: 'https://static-00.iconduck.com/assets.00/bitcoin-icon-2048x2048-t8gwld81.png',
     backgroundImage: "https://storage.googleapis.com/tc-cdn-prod/images/background_template_1.png",
     appName: configs.app_name || '',
+    headerMenu: [],
     template_1: {
         contentText: {
             first: "BUILD ",

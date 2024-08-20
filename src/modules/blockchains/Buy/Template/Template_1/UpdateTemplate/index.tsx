@@ -4,6 +4,7 @@ import { ITemplate } from '@/services/api/dapp/types';
 import React from 'react';
 import DropFile from '@/modules/blockchains/components/UpdateOrderModal/DropFile';
 import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
+import SvgInset from '@components/SvgInset';
 
 interface IProps {
   template: ITemplate | undefined;
@@ -18,12 +19,13 @@ enum UpdateKey {
   desc = 'desc',
   headings = 'headings',
   backgroundImage = 'backgroundImage',
-  appName = 'appName'
+  appName = 'appName',
+  headerMenu = 'headerMenu'
 }
 
 interface ITask {
   text: string;
-  type: 'upload-image' | 'input' | 'textarea'
+  type: 'upload-image' | 'input' | 'textarea' | 'add-delete-header'
   value?: string | any;
   key: UpdateKey;
 }
@@ -32,7 +34,6 @@ const MAXIMUM_FILE_UPLOAD = 10; //10 MB
 
 const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
   const api = new CTokenGenerationAPI();
-
   const ListTask: ITask[] = React.useMemo(() => {
     return [
       {
@@ -40,6 +41,16 @@ const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
         type: 'upload-image',
         value: template?.logo,
         key: UpdateKey.logo
+      },
+      {
+        text: "Header menu",
+        type: 'add-delete-header',
+        value: !!template?.headerMenu && template.headerMenu.length > 0 ? template.headerMenu : [{
+          slug: '',
+          title: '',
+          isNewWindow: false
+        }],
+        key: UpdateKey.headerMenu
       },
       {
         text: 'App name',
@@ -127,12 +138,49 @@ const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
         );
         break;
       }
+      case 'add-delete-header': {
+        valueBox = (
+          <Box>
+            <Flex gap="10px" mb="4px">
+              <p className={styles.title}>
+                {item.text}
+              </p>
+              <Box cursor="pointer">
+                <SvgInset svgUrl='/icons/studio-module/ic-add.svg' />
+              </Box>
+            </Flex>
+            <Flex gap='12px'>
+              <input
+                className={styles.input} value={item.value.title}
+                placeholder={'Name'}
+                onChange={(e) => onChangeText(item.key, e.target.value)}
+              />
+              <input
+                className={styles.input} value={item.value.slug}
+                placeholder={'Link'}
+                onChange={(e) => onChangeText(item.key, e.target.value)}
+              />
+              <button
+                className={styles.delete}
+                onClick={() => {
+                  onChangeText(item.key, '');
+                }}
+              >
+                <SvgInset svgUrl='/icons/studio-module/ic-delete.svg' />
+              </button>
+            </Flex>
+          </Box>
+        );
+        break;
+      }
     }
     return (
       <Box key={item.key}>
-        <p className={styles.title}>
-          {item.text}
-        </p>
+        {item.key !== UpdateKey.headerMenu && (
+          <p className={styles.title}>
+            {item.text}
+          </p>
+        )}
         {valueBox}
       </Box>
     );

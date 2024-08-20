@@ -31,9 +31,16 @@ export interface ITemplate {
   templateType: TemplateType;
   backgroundImage: string;
   logo?: string;
+  headerMenu: IHeaderMenu[];
   backupLogo?: string;
   appName: string;
   template_1?: ITemplate1;
+}
+
+export interface IHeaderMenu {
+  slug: string;
+  title: string;
+  isNewWindow: boolean;
 }
 
 export interface IContentTextTemplate1 {
