@@ -6,6 +6,7 @@ import {
   useOptionInputStore, useOptionInputValue,
 } from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
 import { useSignalEffect } from '@preact/signals-react';
+import { IModelOption } from '@/types/customize-model';
 
 export default function OptionInputValue({ option }: { option: IModelOption }) {
   const [sta, seSta] = useState<string>();
