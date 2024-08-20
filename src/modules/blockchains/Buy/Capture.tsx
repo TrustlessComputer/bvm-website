@@ -6,7 +6,7 @@ import s from '@/modules/blockchains/Buy/styles_v5.module.scss';
 // import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
 // import { useReactFlow } from '@xyflow/react';
 import { toPng } from 'html-to-image';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import Loading from '@components/Loading';
 import BaseModal from '@components/BaseModal';
 import { signal, useSignalEffect } from '@preact/signals-react';
@@ -17,7 +17,7 @@ const isSharing = signal(false);
 
 const Capture = () => {
   // const { setIsCapture } = useCaptureStore();
-  // const { getNodes } = useReactFlow();
+  const timerRef = useRef<any>();
   const [isCapturing, setIsCapturing] = useState<boolean>(false);
   const [seconds, setSeconds] = useState(10);
   const handleClickShareTwitter = (url: string) => {
@@ -110,6 +110,7 @@ https://bvm.network/studio/${url}`;
 
       setIsCapturing(false);
       isSharing.value = false;
+      setSeconds(10);
       handleClickShareTwitter(res);
     }, 150);
   };
@@ -169,20 +170,34 @@ https://bvm.network/studio/${url}`;
     a.click();
     setIsCapturing(false);
     isExportImage.value = false;
+    setSeconds(10);
   }
 
-  // useSignalEffect(() => {
-  //   if (isExportImage.value) {
-  //     const interval = setInterval(() => {
-  //       if(seconds > 0) {
-  //         setSeconds(prevState => prevState - 1);
-  //       }
-  //       if (seconds === 0) {
-  //         clearInterval(interval);
-  //       }
-  //     }, 1600);
-  //   }
-  // });
+
+  const clearIntervalTimer = () => {
+    clearInterval(timerRef.current);
+    timerRef.current = undefined;
+  };
+
+
+  useSignalEffect(() => {
+    if (isExportImage.value || isSharing.value) {
+      countDown();
+    }
+  });
+
+  const countDown = () => {
+    let num = seconds
+     timerRef.current = setInterval(() => {
+      if (num === 0) {
+        clearIntervalTimer();
+      }
+      if(num > 0) {
+        num--;
+        setSeconds(num);
+      }
+    }, 1000);
+  }
 
   // const onClick = () => {
   //   if (isCapturing) return;
@@ -205,7 +220,7 @@ https://bvm.network/studio/${url}`;
   return (
     <div className={s.wrapper_btn_top}>
       <div className={`${s.reset2} ${isCapturing && s.isCapturing}`} onClick={downloadImage}>
-        <p>{isExportImage.value ? `EXPORTING...` : 'EXPORT'}</p>
+        <p>{isExportImage.value ? `EXPORTING...${seconds}` : 'EXPORT'}</p>
         <div>
           <Image
             src={'/icons/ic_image_2.svg'}
@@ -216,7 +231,7 @@ https://bvm.network/studio/${url}`;
         </div>
       </div>
       <div className={`${s.reset2} ${isCapturing && s.isCapturing}`} onClick={handleShareTwitter}>
-        <p>{isSharing.value ? 'SHARING...' : 'SHARE'}</p>
+        <p>{isSharing.value ? `SHARING...${seconds}` : 'SHARE'}</p>
         <div>
           <Image src={'/icons/ic_x_v2.svg'} alt={'x'} width={20} height={20} />
         </div>
