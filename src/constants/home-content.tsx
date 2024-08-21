@@ -94,19 +94,19 @@ export const STEP_1_SECTION = {
       },
       tags: ['From $1,999/month'],
     },
-    // {
-    //   title: 'SVM',
-    //   description: 'Bitcoin L2 powered by Solana VM.',
-    //   homeImage: '/landing-v5/home-alpha.png',
+    {
+      title: 'SVM (Coming soon)',
+      description: 'Bitcoin L2 powered by Solana VM.',
+      homeImage: '/landing-v5/home-svm.png',
 
-    //   bgColor:
-    //     'linear-gradient(227deg, #AE71FF -7.83%, #9456FF 23.69%, #6610E6 67.99%, #ED68FB 100%)',
-    //   link: {
-    //     url: '/',
-    //     target: '_blank',
-    //   },
-    //   tags: ['From $99/month'],
-    // },
+      bgColor:
+        'linear-gradient(227deg, #AE71FF -7.83%, #9456FF 23.69%, #6610E6 67.99%, #ED68FB 100%)',
+      link: {
+        url: '/',
+        target: '_blank',
+      },
+      tags: ['From $99/month'],
+    },
     {
       title: 'GPU ROLLUP (Coming soon)',
       description: 'Bitcoin L2 with GPU-accelerated VM.',
