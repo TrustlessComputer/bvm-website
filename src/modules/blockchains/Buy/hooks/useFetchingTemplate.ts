@@ -12,7 +12,7 @@ import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
 import { Edge, MarkerType } from '@xyflow/react';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
 import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
 import { parseStakingPools } from '../../dapp/parseUtils/staking';
@@ -34,6 +34,7 @@ import useUpdateFlowStore from '../stores/useUpdateFlowStore';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
+import { useParams } from 'next/navigation';
 
 export default function useFetchingTemplate() {
   const { dapps } = useDapps();
@@ -49,6 +50,7 @@ export default function useFetchingTemplate() {
   } = useModelCategoriesStore();
   const { field, setFields } = useOrderFormStoreV3();
   const { setUpdated, updated } = useUpdateFlowStore();
+  const param = useParams();
 
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { initTemplate, setTemplate } = useTemplate();
@@ -118,6 +120,10 @@ export default function useFetchingTemplate() {
     setNeedSetDataTemplateToBox(true);
   };
 
+  const checkParam = useMemo(() => {
+    return !!param.id
+  }, [param.id])
+
   const dataTemplateToBox = async () => {
     formDappSignal.value = {};
     formTemplateDappSignal.value = {};
@@ -153,7 +159,7 @@ export default function useFetchingTemplate() {
       data: {
         node: 'chain',
         title: 'Blockchain',
-        sourceHandles: [],
+        sourceHandles: checkParam ? [`${rootNode}-s-account-abstraction`] : [],
         targetHandles: [],
       },
       dragHandle: '.drag-handle-area',
@@ -162,7 +168,6 @@ export default function useFetchingTemplate() {
     newNodes.unshift(chainNodeInitial);
 
     if (!templateForm) {
-      // TODO: @Max
       const edgeData: Edge[] = [];
 
       setEdges(edgeData);
@@ -323,7 +328,9 @@ export default function useFetchingTemplate() {
 
     templateIds2DSignal.value = [...draggedIds2D];
     formTemplateDappSignal.value = { ...formDapp };
-    setEdges([...edges, ...edgeData]);
+    console.log('[...edges, ...edgeData]', [...edgeData]);
+    console.log('Nodes', newArray);
+    setEdges([...edgeData]);
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
     setNeedCheckAndAddAA(true);
@@ -351,6 +358,12 @@ export default function useFetchingTemplate() {
       key: DappType.staking,
       model: parsedStakingPoolsData,
       startIndex: parsedTokensData.length + parsedAirdropsData.length,
+    });
+
+    console.log('[useFetchingTemplate] parsedTokensData', {
+      parsedTokensData,
+      parsedAirdropsData,
+      parsedStakingPoolsData,
     });
 
     setTemplateDapps([

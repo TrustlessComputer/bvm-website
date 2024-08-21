@@ -42,6 +42,18 @@ interface IModelOption {
   disabled?: boolean;
   appTemplateUrl: string;
   needInstall?: boolean;
+  inputValue?: string;
+  addOnInputs?: {
+    type: string;
+    attrs: {
+      name: string;
+      value: string;
+      default_value: string;
+      placeholder: string;
+      required: string;
+      api_check_valid: string;
+    };
+  };
 }
 
 interface IModelCategory {

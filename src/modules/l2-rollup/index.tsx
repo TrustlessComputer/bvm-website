@@ -243,7 +243,9 @@ const L2Rollup = () => {
                   justifyContent={'space-between'}
                   paddingLeft={'8px'}
                   cursor={'pointer'}
-                  color={'#fa4e0e !important'}
+                  textDecoration={'underline'}
+                  textUnderlineOffset={'2px'}
+                  // color={'#fa4e0e !important'}
                 >
                   <p className={s.title}>{data.name}</p>
                 </Flex>
@@ -507,7 +509,9 @@ const L2Rollup = () => {
                   onOpen();
                 }
               }}
-              color={isUnderReview ? '#000' : '#fa4e0e !important'}
+              textDecoration={isUnderReview ? 'unset' : 'underline'}
+              textUnderlineOffset={'2px'}
+              // color={isUnderReview ? '#000' : '#fa4e0e !important'}
             >
               <p className={s.title}>
                 {isUnderReview
@@ -568,7 +572,8 @@ const L2Rollup = () => {
               onClick={() => {
                 window.open(data.explorer);
               }}
-              color={'#fa4e0e !important'}
+              textDecoration={'underline'}
+              textUnderlineOffset={'2px'}
             >
               <p className={s.title}>{data.block_number}</p>
             </Flex>
@@ -712,13 +717,10 @@ const L2Rollup = () => {
               px={'2px'}
               onClick={() => haveLink && window.open(data.verification_url)}
               cursor={haveLink ? 'pointer' : 'unset'}
+              textDecoration={haveLink ? 'underline' : 'unset'}
+              textUnderlineOffset={'2px'}
             >
-              <Text
-                color={haveLink ? '#fa4e0e !important' : '#000'}
-                className={s.title}
-              >
-                {data.verification || '-'}
-              </Text>
+              <Text className={s.title}>{data.verification || '-'}</Text>
             </Flex>
           );
         },

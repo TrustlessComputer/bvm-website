@@ -44,6 +44,8 @@ import { formValuesAdapter } from './FormValuesAdapter';
 import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
+import { useOptionInputStore } from '../../component4/DappRenderer/OptionInputValue/useOptionInputStore';
+import { formValuesAdapterOptions } from './formValuesAdapterOptions';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -77,7 +79,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [dyanmicFormAllData, setDyanmicFormAllData] = useState<any[]>([]);
   const dispatch = useAppDispatch();
-
+  const { getValue } = useOptionInputStore();
   const { setUpdated } = useUpdateFlowStore();
   const { nodes, edges } = useFlowStore();
   const { dappCount } = useFormDappToFormChain();
@@ -520,7 +522,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     let missingRequiredFor = false;
     const {
       dynamicForm,
-
       allOptionKeyDragged,
       allRequiredForKey,
       optionMapping,
@@ -562,9 +563,16 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       return login();
     }
 
-    setDyanmicFormAllData(dynamicForm);
+    const dynamicFormNew = formValuesAdapterOptions(dynamicForm);
+
+    console.log('MAPPER --- ', {
+      old: dynamicForm,
+      new: dynamicFormNew,
+    });
+
+    setDyanmicFormAllData(dynamicFormNew);
     // setShowPreviewModal(true);
-    onLaunchExecute(dynamicForm);
+    onLaunchExecute(dynamicFormNew);
   };
 
   return (

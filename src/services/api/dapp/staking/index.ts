@@ -26,7 +26,7 @@ class CStakingAPI {
     let data: any = await this.api.get(this.getUrl('sttokens'));
 
     if (isLocalhost()) {
-      // data = data.slice(data?.length - 3, data?.length);
+      data = data.slice(0, 3);
     }
 
     let pools: ISTToken[] = [];

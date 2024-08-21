@@ -14,6 +14,7 @@ import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import useOverlappingChainLegoStore from '../../stores/useOverlappingChainLegoStore';
 
 import styles from './styles.module.scss';
+import OptionInputValue from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue';
 
 type Props = {};
 
@@ -156,7 +157,11 @@ const ChainRenderer = () => {
                       : ''
                   }
                 >
-                  <Label icon={option.icon} title={option.title} />
+                  {option.addOnInputs ? (
+                    <OptionInputValue option={option} />
+                  ) : (
+                    <Label icon={option.icon} title={option.title} />
+                  )}
                 </LegoV3>
               </DroppableV2>
             </ChainDraggable>

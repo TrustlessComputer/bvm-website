@@ -71,14 +71,16 @@ export default function OverlayControl() {
           }
 
           return item.options.map((option, opIdx) => {
+            const idDraggingKeys = idDragging.split('-');
+            const reIdDragging = idDraggingKeys.slice(0, 2).join('-');
             // console.log('OverlayControl', {
             //   idDragging,
             //   checkCondition: item.key + '-' + option.key,
             //   condition: idDragging.startsWith(item.key + '-' + option.key),
             // });
 
-            if (idDragging !== item.key + '-' + option.key) return null;
-            // if (!idDragging.startsWith(item.key + '-' + option.key))
+            if (reIdDragging !== item.key + '-' + option.key) return null;
+            // if (!reIdDragging.startsWith(item.key + '-' + option.key))
             //   return null;
 
             return (

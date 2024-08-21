@@ -231,12 +231,30 @@ const BitcoinRentModal = ({ title, chain_id, isShow, onHide, total }: any) => {
       icCloseUrl="/icons/ic-close-grey.svg"
     >
       <div className={s.container}>
-        <Text fontWeight={'600'} fontSize={'24px'} color={'#000'} mb={'12px'}>
+        <Text fontWeight={'600'} fontSize={'24px'} color={'#000'} mb={'8px'}>
           {title}
         </Text>
-        <Text color={'#fa4e0e'} pl={'8px'} fontWeight={'500'} fontSize={'16px'}>
-          Total Bitcoin Rent: {total} BTC
-        </Text>
+        <Flex direction={'column'} alignSelf={'center'} mb={'12px'}>
+          <Text
+            color={'#fa4e0e'}
+            pl={'8px'}
+            fontWeight={'600'}
+            fontSize={'28px'}
+            textAlign={'center'}
+          >
+            {total} BTC
+          </Text>
+          <Text
+            color={'#00000060'}
+            pl={'8px'}
+            fontWeight={'400'}
+            fontSize={'14px'}
+            textAlign={'center'}
+          >
+            TOTAL BITCOIN RENT
+          </Text>
+        </Flex>
+
         <ScrollWrapper
           onFetch={() => {
             refParams.current = {

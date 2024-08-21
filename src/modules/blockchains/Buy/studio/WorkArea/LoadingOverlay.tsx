@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 
 const LoadingOverlay = () => {
   const pathName = usePathname();
-  const { loading } = useFetchDapp();
+  const { loading, loaded } = useFetchDapp();
   
   const isStudio = useMemo(()=>{
     return pathName === '/studio';
