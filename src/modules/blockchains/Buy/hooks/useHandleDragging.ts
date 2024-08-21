@@ -34,6 +34,9 @@ import useFlowStore, { AppState } from '../stores/useFlowStore';
 import useOverlappingChainLegoStore from '../stores/useOverlappingChainLegoStore';
 import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 import { isShakeLego } from '@/modules/blockchains/Buy/components3/Draggable';
+import {
+  useOptionInputStore,
+} from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
 
 export default function useHandleDragging() {
   const { setOverlappingId } = useOverlappingChainLegoStore();
@@ -52,6 +55,7 @@ export default function useHandleDragging() {
   } = useDapps();
   const { selectedCategoryMapping, isUpdateFlow } = useChainProvider();
   const { templateDapps } = useTemplateFormStore();
+  const { setValue } = useOptionInputStore();
 
   // console.log('useHandleDragging -> field :: ', field);
 
@@ -183,6 +187,9 @@ export default function useHandleDragging() {
       } else {
         if (over && overIsParentDroppable) return;
 
+        const optionKey = active.data.current.value;
+        setValue(optionKey, '');
+
         setField(activeKey, active.data.current.value, false);
         setDraggedFields(draggedFields.filter((field) => field !== activeKey));
       }
@@ -218,7 +225,15 @@ export default function useHandleDragging() {
       const newValue = currentValues.filter(
         (value) => value !== active.data.current.value,
       );
+
+      const optionKeyRemove = currentValues.filter(
+        (value) => value === active.data.current.value,
+      );
       const isEmpty = newValue.length === 0;
+
+      optionKeyRemove.forEach((optionKey) => {
+        setValue(optionKey, '');
+      });
 
       setField(activeKey, newValue, !isEmpty);
       isEmpty &&
@@ -380,7 +395,7 @@ export default function useHandleDragging() {
       }
 
       // Case 0.3.1: The lego just dragged is a type module
-      if(activeIsAModule) {
+      if (activeIsAModule) {
         const totalPlaced = draggedIds2D[overBaseIndex].filter((item) =>
           item.name.startsWith(
             `right-${FieldKeyPrefix.MODULE}-${activeOriginalKey}`,
@@ -494,7 +509,7 @@ export default function useHandleDragging() {
       }
 
       // Case 0.3.2: The lego just dragged is a type block
-      if(activeIsABlock) {
+      if (activeIsABlock) {
         const totalPlaced = activeIsABlock
           ? draggedIds2D[overBaseIndex].filter((item) =>
             item.name.startsWith(
