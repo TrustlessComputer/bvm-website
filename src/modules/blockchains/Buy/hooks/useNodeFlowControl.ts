@@ -286,7 +286,7 @@ export default function useNodeFlowControl() {
 
     if (!isHandleExists) {
       getHandleNodeBlockChain?.data?.sourceHandles?.push(
-        `${rootNode}-s-${thisDapp.title}`,
+        `${rootNode}-s-${suffix}`,
       );
       nodesData = nodes.map((item) =>
         item.id === rootNode ? getHandleNodeBlockChain : item,
