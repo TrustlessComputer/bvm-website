@@ -6,8 +6,6 @@ import BridgeRenderer from '../DappRenderer/BridgeRenderer';
 import Node from '../Node/Node';
 
 const BridgeNode = ({ data }: NodeProps<ChainNodeAsDappNode>) => {
-  console.log('BridgeNode render', data);
-
   const notification: NodeNotificationProps | undefined = React.useMemo(() => {
     return undefined;
   }, []);

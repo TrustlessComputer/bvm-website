@@ -91,7 +91,7 @@ export default function useHandleDragging() {
     ).split('-');
     const overIsParentOfActiveDroppable =
       overKey === activeKey && overSuffix1 === 'droppable';
-    const overIsFinalDroppable = overKey === 'final';
+    const overIsFinalDroppable = overKey === 'final' || overKey === 'final_2';
     const overIsParentDroppable =
       !overIsFinalDroppable &&
       overSuffix1 === 'droppable' &&
@@ -107,10 +107,7 @@ export default function useHandleDragging() {
     )?.isChain;
     // const selectedCategory = selectedCategoryMapping?.[activeKey];
     const category = categoryMapping?.[activeKey];
-
-    if (!rightDragging && !overIsFinalDroppable) {
-      return;
-    }
+    const totalTemplateDapps = templateDapps.length;
 
     if (rightDragging && !overIsFinalDroppable && overSuffix1 === 'right') {
       // swap activeKey, overKey in draggedFields
@@ -140,6 +137,10 @@ export default function useHandleDragging() {
     }
 
     if (!isMultiChoice) {
+      if (!rightDragging && !overIsFinalDroppable) {
+        return;
+      }
+
       // Error case
       if (
         active.data.current.value !== field[activeKey].value &&
@@ -212,6 +213,28 @@ export default function useHandleDragging() {
 
       setField(activeKey, [], false);
       setDraggedFields(draggedFields.filter((field) => field !== activeKey));
+
+      console.log('activeKey', {
+        activeKey,
+        draggedDappIndexesSignal: draggedDappIndexesSignal.value,
+      });
+
+      if (activeKey === 'bridge_apps') {
+        const index = draggedDappIndexesSignal.value.indexOf(1);
+
+        if (index !== -1) {
+          draggedDappIndexesSignal.value = removeItemAtIndex(
+            draggedDappIndexesSignal.value,
+            index,
+          );
+          draggedIds2DSignal.value = removeItemAtIndex(
+            draggedIds2DSignal.value,
+            index,
+          );
+        }
+        setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
+      }
+
       return;
     }
 
@@ -253,8 +276,25 @@ export default function useHandleDragging() {
       });
 
       setField(activeKey, newValue, !isEmpty);
-      isEmpty &&
+      if (isEmpty) {
         setDraggedFields(draggedFields.filter((field) => field !== activeKey));
+
+        if (activeKey === 'bridge_apps') {
+          const index = draggedDappIndexesSignal.value.indexOf(1);
+
+          if (index !== -1) {
+            draggedDappIndexesSignal.value = removeItemAtIndex(
+              draggedDappIndexesSignal.value,
+              index,
+            );
+            draggedIds2DSignal.value = removeItemAtIndex(
+              draggedIds2DSignal.value,
+              index,
+            );
+            setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
+          }
+        }
+      }
     }
   };
 

@@ -40,7 +40,7 @@ const BridgeRenderer = () => {
   return (
     <DroppableV2
       key={draggedFields.length}
-      id="final"
+      id="final_2"
       style={{
         width: '100% !important',
         height: '100%',
