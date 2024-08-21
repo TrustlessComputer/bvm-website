@@ -83,6 +83,11 @@ const BridgeRenderer = () => {
                     labelInRight={!!item.confuseTitle || !!item.confuseIcon}
                     icon={item.confuseIcon}
                     zIndex={item.options.length - opIdx}
+                    // status={{
+                    //   label: 'Drafting',
+                    //   backgroundColor: '#97F095',
+                    //   textColor: '#000',
+                    // }}
                   >
                     <Label icon={option.icon} title={option.title} />
                   </LegoV3>
