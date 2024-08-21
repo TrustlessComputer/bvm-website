@@ -37,3 +37,11 @@ export interface IBalanceBitcoin {
   transferable_amount: string;
   inscription_number: string;
 }
+
+export interface IBalanceBitcoinInfo {
+  address: string;
+  balance: string;
+  transaction_count: string;
+  first_transaction_time: string;
+  last_transaction_time: string;
+}

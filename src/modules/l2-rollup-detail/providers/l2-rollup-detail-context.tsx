@@ -1,5 +1,7 @@
 'use client';
 import CRollupL2DetailAPI from '@/services/api/dapp/rollupl2-detail';
+import CRollupL2DetailBitcoinAPI from '@/services/api/dapp/rollupl2-detail-bitcoin';
+import { IBalanceBitcoinInfo } from '@/services/api/dapp/rollupl2-detail-bitcoin/interface';
 import {
   IRollupDetail,
   ITokenChain,
@@ -19,6 +21,7 @@ export interface IL2RollupDetailContext {
   rollupDetails: IRollupDetail[];
   rollupBalances: ITokenChain[];
   rollupTokensRate?: RollupTokenRate;
+  totalBTCBalance?: IBalanceBitcoinInfo;
 }
 
 const initialValue: IL2RollupDetailContext = {
@@ -29,6 +32,7 @@ const initialValue: IL2RollupDetailContext = {
   rollupDetails: [],
   rollupBalances: [],
   rollupTokensRate: undefined,
+  totalBTCBalance: undefined,
 };
 
 export const L2RollupDetailContext =
@@ -42,6 +46,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
   const address = useMemo(() => params?.id as string, [params]);
 
   const rollupApi = new CRollupL2DetailAPI();
+  const rollupBitcoinApi = new CRollupL2DetailBitcoinAPI();
 
   const isValidAddress = useMemo(
     () => validateEVMAddress(address) || validateBTCAddress(address),
@@ -49,6 +54,8 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
   );
 
   const isBTCAddress = useMemo(() => validateBTCAddress(address), [address]);
+
+  const [totalBTCBalance, setTotalBTCBalance] = useState<IBalanceBitcoinInfo>();
 
   const [rollupTokensRate, setRollupTokensRate] = useState<RollupTokenRate>();
   const [rollupDetails, setRollupDetails] = useState<IRollupDetail[]>([]);
@@ -93,6 +100,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
 
   useEffect(() => {
     fetchRollupBalances();
+    fetchRollupBitcoinBalance();
   }, [address]);
 
   const fetchTokensRate = async () => {
@@ -110,6 +118,16 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     } catch (error) {}
   };
 
+  const fetchRollupBitcoinBalance = async () => {
+    if (!isValidAddress) return;
+    try {
+      const data: any = await rollupBitcoinApi.getRollupL2BitcoinBalanceInfo(
+        address,
+      );
+      if (data) setTotalBTCBalance(data);
+    } catch (error) {}
+  };
+
   const contextValues = React.useMemo((): IL2RollupDetailContext => {
     return {
       address,
@@ -119,6 +137,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
       rollupDetails,
       rollupBalances,
       rollupTokensRate,
+      totalBTCBalance,
     };
   }, [
     address,
@@ -128,6 +147,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     rollupDetails,
     rollupBalances,
     rollupTokensRate,
+    totalBTCBalance,
   ]);
 
   return (
