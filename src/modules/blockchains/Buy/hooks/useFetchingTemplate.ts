@@ -208,8 +208,14 @@ export default function useFetchingTemplate() {
 
     const _newNodes: any[] = draggedIds2D.map((ids, index) => {
       const dappKey = templateDapps[index].key;
-      const xOffset = 30 + 500 * xOffsetCount[dappKey]++;
-      const yOffset = 30 + 500 * allDappKeys.indexOf(dappKey);
+      const defaultPositionX = 30 + 500 * xOffsetCount[dappKey]++;
+      const defaultPositionY = 30 + 500 * allDappKeys.indexOf(dappKey);
+      const xOffset =
+        [...tokens, ...airdrops, ...stakingPools][index].position_x ??
+        defaultPositionX;
+      const yOffset =
+        [...tokens, ...airdrops, ...stakingPools][index].position_y ??
+        defaultPositionY;
       const idNode = index.toString();
       const isHandleExists = getHandleNodeBlockChain?.data?.sourceHandles?.some(
         (handle) => handle === `${rootNode}-s-${templateDapps[index].title}`,
@@ -316,6 +322,14 @@ export default function useFetchingTemplate() {
       key: DappType.staking,
       model: parsedStakingPoolsData,
       startIndex: parsedTokensData.length + parsedAirdropsData.length,
+    });
+
+    console.log('[useFetchingTemplate] parsedTokensData', {
+      parsedTokensData,
+      parsedAirdropsData,
+      parsedStakingPoolsData,
+      tokens,
+      airdrops,
     });
 
     setTemplateDapps([

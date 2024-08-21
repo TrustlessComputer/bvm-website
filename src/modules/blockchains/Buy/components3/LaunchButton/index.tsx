@@ -12,15 +12,12 @@ import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
+import { orderBuyAPI_V3 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
-import { requestReload } from '@/stores/states/common/reducer';
-import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import {
   getL2ServicesStateSelector,
   getOrderDetailSelected,
 } from '@/stores/states/l2services/selector';
-import { OrderItem } from '@/stores/states/l2services/types';
 import { IModelOption } from '@/types/customize-model';
 import { getErrorMessage } from '@/utils/errorV2';
 import { formatCurrencyV2 } from '@/utils/format';
@@ -29,10 +26,8 @@ import { Image, Spinner, Text, useDisclosure } from '@chakra-ui/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { getChainIDRandom } from '../../Buy.helpers';
-import { LocalStorageKey } from '../../contants';
 import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
 import useOneForm from '../../hooks/useOneForm';
-import useOnlyFetchDapp from '../../hooks/useOnlyFetchDapp';
 import PreviewLaunchModal from '../../Preview';
 import { useOrderFormStore } from '../../stores/index_v2';
 import useOrderFormStoreV3 from '../../stores/index_v3';
@@ -100,7 +95,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   >([]);
 
   const { showContactUsModal } = useContactUs();
-  const { retrieveFormsByDappKey } = useOneForm();
+  const { retrieveFormsByDappKey, retrieveNodePositionsByDappKey } =
+    useOneForm();
   const { isUpdateFlow, isOwnerChain, isChainLoading } = useChainProvider();
 
   const router = useRouter();
@@ -121,14 +117,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { onSubmitStaking } = useSubmitStaking();
   const { onSubmitAirdrop } = useSubmitFormAirdrop();
   const { onSubmitTokenGeneration } = useSubmitFormTokenGeneration();
-  const {
-    fetchChain,
-    fetchListAirdrop,
-    fetchListReceivers,
-    fetchListStakingPool,
-    fetchListTask,
-    fetchListToken,
-  } = useOnlyFetchDapp();
 
   const { chainName } = useOrderFormStore();
   const searchParams = useSearchParams();
@@ -333,23 +321,26 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
     let isSuccess = false;
 
-    // console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
     const params = formValuesAdapter({
       computerName: orderDetail.chainName,
       chainId: orderDetail.chainId,
       dynamicFormValues: dynamicForm,
     });
 
-    // console.log('UPDATE FLOW: --- params --- ', params);
     const stakingForms = retrieveFormsByDappKey({
       dappKey: DappType.staking,
     });
-    // console.log('UPDATE FLOW: --- stakingForms --- ', stakingForms);
+    const stakingNodePositions = retrieveNodePositionsByDappKey({
+      dappKey: DappType.staking,
+    });
+    console.log('[LaunchButton] - staking', {
+      stakingForms,
+      stakingNodePositions,
+    });
 
     const airdropForms = retrieveFormsByDappKey({
       dappKey: DappType.airdrop,
     });
-    // console.log('UPDATE FLOW: --- airdropForms --- ', airdropForms);
 
     const tokensForms = retrieveFormsByDappKey({
       dappKey: DappType.token_generation,
@@ -360,75 +351,76 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     // console.log('LEON LOG: 111', tokensForms);
     let isConfigDapp = false;
 
-    try {
-      // Update and Call API install (behind the scene form BE Phuong)
-      const result = await orderUpdateV2(params, orderDetail.orderId);
-      // const result = {};
-      if (result) {
-        //Config Account Abstraction...
-        // configAccountAbstraction(dynamicForm);
-        //Staking...
-        if (stakingForms && stakingForms.length > 0) {
-          await onSubmitStaking({
-            forms: stakingForms,
-          });
-          isConfigDapp = true;
-        }
+    // try {
+    //   // Update and Call API install (behind the scene form BE Phuong)
+    //   const result = await orderUpdateV2(params, orderDetail.orderId);
+    //   // const result = {};
+    //   if (result) {
+    //     // TODO: JACKIE
+    //     //Config Account Abstraction...
+    //     configAccountAbstraction(dynamicForm);
+    //     //Staking...
+    //     if (stakingForms && stakingForms.length > 0) {
+    //       await onSubmitStaking({
+    //         forms: stakingForms,
+    //       });
+    //       isConfigDapp = true;
+    //     }
 
-        if (airdropForms && airdropForms.length > 0) {
-          await onSubmitAirdrop({ forms: airdropForms });
-          isConfigDapp = true;
-        }
+    //     if (airdropForms && airdropForms.length > 0) {
+    //       await onSubmitAirdrop({ forms: airdropForms });
+    //       isConfigDapp = true;
+    //     }
 
-        if (tokensForms && tokensForms.length > 0) {
-          await onSubmitTokenGeneration({ forms: tokensForms });
-          isConfigDapp = true;
-        }
+    //     if (tokensForms && tokensForms.length > 0) {
+    //       await onSubmitTokenGeneration({ forms: tokensForms });
+    //       isConfigDapp = true;
+    //     }
 
-        // Save nodes and edges to store
-        localStorage.setItem(
-          LocalStorageKey.UPDATE_FLOW_NODES,
-          JSON.stringify(nodes),
-        );
-        localStorage.setItem(
-          LocalStorageKey.UPDATE_FLOW_EDGES,
-          JSON.stringify(edges),
-        );
+    //     // Save nodes and edges to store
+    //     localStorage.setItem(
+    //       LocalStorageKey.UPDATE_FLOW_NODES,
+    //       JSON.stringify(nodes),
+    //     );
+    //     localStorage.setItem(
+    //       LocalStorageKey.UPDATE_FLOW_EDGES,
+    //       JSON.stringify(edges),
+    //     );
 
-        isSuccess = true;
-        dispatch(setOrderSelected(result as OrderItem));
-        await sleep(1);
+    //     isSuccess = true;
+    //     dispatch(setOrderSelected(result as OrderItem));
+    //     await sleep(1);
 
-        // if (isSuccess) {
-        //   toast.success('Update Successful');
-        // }
-      }
-    } catch (error) {
-      console.log('ERROR: ', error);
-      isSuccess = false;
-      const { message } = getErrorMessage(error);
-      // toast.error(message);
-      if (message && message.toLowerCase().includes('insufficient balance')) {
-        onOpenTopUpModal();
-      } else {
-        toast.error(message);
-      }
-    } finally {
-      console.log('[LaunchButton] - update flow', {
-        isSuccess,
-        isConfigDapp,
-      });
+    //     // if (isSuccess) {
+    //     //   toast.success('Update Successful');
+    //     // }
+    //   }
+    // } catch (error) {
+    //   console.log('ERROR: ', error);
+    //   isSuccess = false;
+    //   const { message } = getErrorMessage(error);
+    //   // toast.error(message);
+    //   if (message && message.toLowerCase().includes('insufficient balance')) {
+    //     onOpenTopUpModal();
+    //   } else {
+    //     toast.error(message);
+    //   }
+    // } finally {
+    //   console.log('[LaunchButton] - update flow', {
+    //     isSuccess,
+    //     isConfigDapp,
+    //   });
 
-      if (isConfigDapp) {
-        console.log('[LaunchButton] refresh dapp data');
-        setTimeout(() => {
-          dispatch(requestReload());
-          setUpdated(true);
-        }, 1000);
-      }
-      getOrderDetailByID(orderDetail.orderId);
-      setSubmitting(false);
-    }
+    //   if (isConfigDapp) {
+    //     console.log('[LaunchButton] refresh dapp data');
+    //     setTimeout(() => {
+    //       dispatch(requestReload());
+    //       setUpdated(true);
+    //     }, 1000);
+    //   }
+    //   getOrderDetailByID(orderDetail.orderId);
+    //   setSubmitting(false);
+    // }
   };
 
   const onLaunchExecute = async (formData?: any[]) => {

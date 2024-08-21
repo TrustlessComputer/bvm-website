@@ -12,10 +12,12 @@ import ClearStore from './ClearStore';
 import useGettingDappLego from './hooks/useGettingDappLego';
 import useNodeFlowControl from './hooks/useNodeFlowControl';
 import s from './styles_v6.module.scss';
+import useOnlyFetchDapp from './hooks/useOnlyFetchDapp';
 
 const BuyPage = () => {
   const { handleDragStart, handleDragEnd, sensors } = useHandleDragging();
 
+  useOnlyFetchDapp();
   useFetchingTemplate();
   useCheckingSupported();
   useCalcPrice();

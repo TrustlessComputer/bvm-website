@@ -1,52 +1,41 @@
-import {
-  IAirdrop,
-  ITask,
-  ITaskReceiver,
-} from '@/services/api/dapp/airdrop/interface';
-import { OrderItem } from '@/stores/states/l2services/types';
-import AirdropAPI from '../services/dapp/AirdropAPI';
-import DappAPI from '../services/dapp/DappAPI';
-import StakingAPI from '../services/dapp/StakingAPI';
-import TokenAPI from '../services/dapp/TokenAPI';
+import { useAppSelector } from '@/stores/hooks';
+import { commonSelector } from '@/stores/states/common/selector';
+import { dappSelector } from '@/stores/states/dapp/selector';
+import { useParams, usePathname } from 'next/navigation';
+import React from 'react';
+import { accountAbstractionAsADapp, dappMockupData } from '../mockup_3';
+import useDappsStore from '../stores/useDappStore';
+import { cloneDeep, preDataAirdropTask } from '../utils';
 
 const useOnlyFetchDapp = () => {
-  const dappAPI = new DappAPI();
-  const stakingAPI = new StakingAPI();
-  const airdropAPI = new AirdropAPI();
-  const tokenAPI = new TokenAPI();
+  const pathname = usePathname();
+  const params = useParams();
+  const isUpdateChain = React.useMemo(() => !!params?.id, [params?.id]);
 
-  const fetchChain = async (params: { orderID: string }) => {
-    return await dappAPI.getChainByOrderID(params);
+  const { setDapps } = useDappsStore();
+
+  const { counterFetchedDapp } = useAppSelector(commonSelector);
+  const dappState = useAppSelector(dappSelector);
+  const { configs, tokens, airdropTasks } = dappState;
+
+  const fetchDapps = () => {
+    const _dapps = [accountAbstractionAsADapp];
+
+    const otherDapps = isUpdateChain
+      ? // ? cloneDeep(dappFromAPIMockupData)
+        cloneDeep(configs)
+      : cloneDeep(dappMockupData); // defi_apps
+
+    _dapps.push(...otherDapps);
+
+    const sortedDapps = _dapps.sort((a, b) => a.order - b.order);
+
+    setDapps(preDataAirdropTask(sortedDapps, tokens, airdropTasks));
   };
 
-  const fetchListStakingPool = async (params: { chain: OrderItem }) => {
-    return await stakingAPI.getStakingPools(params);
-  };
-
-  const fetchListTask = async () => {
-    return (await airdropAPI.getListTask()) as ITask[];
-  };
-
-  const fetchListAirdrop = async () => {
-    return (await airdropAPI.getListAirdrop()) as IAirdrop[];
-  };
-
-  const fetchListReceivers = async ({ airdropId }: { airdropId: string }) => {
-    return (await airdropAPI.getListReceivers(airdropId)) as ITaskReceiver[];
-  };
-
-  const fetchListToken = async (params: { networkId: string }) => {
-    return await tokenAPI.tokenList(params.networkId);
-  };
-
-  return {
-    fetchChain,
-    fetchListStakingPool,
-    fetchListTask,
-    fetchListAirdrop,
-    fetchListReceivers,
-    fetchListToken,
-  };
+  React.useEffect(() => {
+    fetchDapps();
+  }, [counterFetchedDapp, pathname]);
 };
 
 export default useOnlyFetchDapp;

@@ -8,7 +8,11 @@ import { v4 as uuidv4 } from 'uuid';
 const useSubmitStaking = () => {
   const cStakeAPI = new CStakingAPI();
 
-  const onSubmitStaking = async ({ forms }: { forms: IRetrieveFormsByDappKey[][] }) => {
+  const onSubmitStaking = async ({
+    forms,
+  }: {
+    forms: IRetrieveFormsByDappKey[][];
+  }) => {
     // const stakingForms = retrieveFormsByDappKey({
     //   dappKey: 'staking',
     // });
@@ -23,7 +27,8 @@ const useSubmitStaking = () => {
         >[] = [];
         const formDapp = Object.assign({}, ...form);
         const formDappInBase = Object.keys(formDapp).filter(
-          (key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key),
+          (key) =>
+            !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key),
         );
         const formDappInModule = Object.keys(formDapp).filter(
           (key) => !FormDappUtil.isInModule(key),
@@ -49,17 +54,16 @@ const useSubmitStaking = () => {
           formDapp,
           finalFormMappings,
         );
-        const formFinal = finalFormMappings.find(item => !!item);
+        const formFinal = finalFormMappings.find((item) => !!item);
 
         const info: any = formFinal?.info.find((item) => !!item);
-
 
         // TODO: JACKIE - update position below
         const position: IPosition = {
           position_id: uuidv4(),
           position_x: 0,
           position_y: 0,
-        }
+        };
         console.log(position);
 
         await cStakeAPI.createNewStakingPool({
@@ -67,18 +71,17 @@ const useSubmitStaking = () => {
           reward_token: formFinal?.reward_token,
           base_ratio: Number(info?.apr?.replaceAll('%', '')) / 100,
           token_price: 1 / Number(info?.rate),
-          // ...position, // TODO: JACKIE - update position
+          ...position, // TODO: JACKIE - update position
         });
       } catch (error) {
         console.log(error);
       }
     }
-
   };
 
   return {
-    onSubmitStaking
-  }
-}
+    onSubmitStaking,
+  };
+};
 
 export default useSubmitStaking;
