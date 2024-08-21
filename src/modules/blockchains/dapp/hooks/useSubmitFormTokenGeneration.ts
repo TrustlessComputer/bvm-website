@@ -295,7 +295,7 @@ const useSubmitFormTokenGeneration = ({
           data_hex: calldata,
           type: 'token',
           network_id: Number(dappState?.chain?.chainId),
-        });
+        } as any);
 
         if (data?.logo) {
           const logoUrl = await api.uploadImage(
