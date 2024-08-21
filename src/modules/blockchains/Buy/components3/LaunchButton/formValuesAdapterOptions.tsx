@@ -1,11 +1,5 @@
 import { useOptionInputStore } from '../../component4/DappRenderer/OptionInputValue/useOptionInputStore';
 
-type Params = {
-  computerName: string;
-  chainId: string;
-  dynamicFormValues: any[];
-};
-
 export const formValuesAdapterOptions = (dynamicForm: any[]) => {
   const { getValue } = useOptionInputStore();
 
