@@ -30,6 +30,9 @@ export function useOptionInputStore() {
         });
       }
     },
+    deleteValue(key: string) {
+      optionInputStore.value = optionInputStore.peek().filter((item) => item.key !== key);
+    }
   };
 }
 
