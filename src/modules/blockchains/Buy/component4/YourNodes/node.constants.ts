@@ -6,6 +6,7 @@ export const nodeKey = Object.freeze({
   // V2
   DAPP_NODE: 'dappNode',
   ACCOUNT_ABSTRACTION_NODE: 'accountAbstractionNode',
+  BRIDGE_NODE: 'bridgeNode',
 });
 
 export const nodeOverlayType = Object.freeze({

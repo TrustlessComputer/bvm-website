@@ -6,6 +6,7 @@ import '@xyflow/react/dist/style.css';
 import React, { useState } from 'react';
 import DappTemplateNode from '../../component4/CustomNode/DappTemplateNode';
 import AANode from '../../component4/YourNodes/AANode';
+import BridgeNode from '../../component4/YourNodes/BridgeNode';
 import ChainNodeV2 from '../../component4/YourNodes/ChainNodeV2';
 import DappNode from '../../component4/YourNodes/DappNode';
 import { nodeKey } from '../../component4/YourNodes/node.constants';
@@ -44,6 +45,7 @@ const ReactFlowRenderer = React.memo(() => {
         [nodeKey.DAPP_NODE]: DappNode,
         [nodeKey.CHAIN_NODE]: ChainNodeV2,
         [nodeKey.ACCOUNT_ABSTRACTION_NODE]: AANode,
+        [nodeKey.BRIDGE_NODE]: BridgeNode,
       }}
       edgeTypes={{
         customEdge: CustomEdge,
