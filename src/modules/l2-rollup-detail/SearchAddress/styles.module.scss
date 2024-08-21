@@ -6,7 +6,8 @@
   border: 1px solid #cecece;
   border-radius: 100px;
   font-size: 16px;
-  max-width: 280px !important;
+  width: 320px !important;
+  background: #fff;
 
   &:focus-within {
     border: 1px solid #fa4e0e;
@@ -35,4 +36,10 @@
       color: gray;
     }
   }
+}
+
+.searchResult {
+  background: white;
+  padding: 16px;
+  box-shadow: 0px 0px 20px -6px #00000050;
 }

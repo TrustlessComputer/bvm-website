@@ -56,10 +56,14 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
   const rollupBalances = useMemo(() => {
     let balances: ITokenChain[] = [];
     rollupDetails.forEach((data) => {
-      balances = [
-        ...balances,
-        ...data.balances.map((balance) => ({ ...balance, chain: data.rollup })),
-      ];
+      if (data.balances?.length > 0)
+        balances = [
+          ...balances,
+          ...data.balances.map((balance) => ({
+            ...balance,
+            chain: data.rollup,
+          })),
+        ];
     });
     return balances;
   }, [rollupDetails]);

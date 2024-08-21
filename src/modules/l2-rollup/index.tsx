@@ -28,6 +28,7 @@ import { orderBy } from 'lodash';
 import { DotLottiePlayer } from '@dotlottie/react-player';
 import BitcoinRentModal from './BitcoinRentModal';
 import AppLoading from '@/components/AppLoading';
+import SearchAddress from '../l2-rollup-detail/SearchAddress';
 
 enum SortRollupType {
   name,
@@ -927,7 +928,7 @@ const L2Rollup = () => {
           direction={{ base: 'column', md: 'row' }}
           alignItems={'center'}
           gap={{ base: '0px', md: '8px' }}
-          mb={'48px'}
+          mb={'16px'}
         >
           <Text
             className={s.fontType2}
@@ -959,6 +960,11 @@ const L2Rollup = () => {
             <Image maxW={'40px'} src={'/heartbeat/ic-submit.svg'} />
           </Flex>
         </Flex>
+
+        <Flex mb={'48px'}>
+          <SearchAddress placeholder={'Search Bitcoin or EVM address'} />
+        </Flex>
+
         <Flex
           className={s.totalContainer}
           bg="#FAFAFA"
