@@ -32,12 +32,13 @@ import SearchBar from './SearchBar';
 import s from './styles.module.scss';
 import TransactionsTab from './TransactionsTab';
 import TokenTransferTab from './TokenTransferTab';
+import PortfolioTabBitcoin from './PortfolioTabBitcoin';
 
 const L2RollupDetail = () => {
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
 
-  const { address, isValidAddress, totalBalanceUsd } = useContext(
+  const { address, isValidAddress, isBTCAddress, totalBalanceUsd } = useContext(
     L2RollupDetailContext,
   );
 
@@ -146,7 +147,9 @@ const L2RollupDetail = () => {
           />
           <Flex gap="6px" direction={'column'}>
             <Text fontWeight={'500'} fontSize={{ base: '28px', md: '32px' }}>
-              ${formatCurrency(totalBalanceUsd, 2, 2)}
+              {isBTCAddress
+                ? '$-'
+                : `$${formatCurrency(totalBalanceUsd, 2, 2)}`}
             </Text>
             <Flex direction={'row'} alignItems={'center'} gap={'8px'}>
               <Text fontWeight={'400'} fontSize={'16px'}>
@@ -170,22 +173,47 @@ const L2RollupDetail = () => {
           mt={{ base: '24px', md: '32px' }}
           defaultIndex={0}
         >
-          <TabList className={s.tabList} fontSize={['16px', '18px', ' 20px']}>
-            <Tab>Portfolio</Tab>
-            <Tab>Transactions</Tab>
-            <Tab>Token Transfer</Tab>
-          </TabList>
-          <TabPanels className={s.tabPanel}>
-            <TabPanel minH={'40vh'}>
-              <PortfolioTab />
-            </TabPanel>
-            <TabPanel minH={'40vh'}>
-              <TransactionsTab />
-            </TabPanel>
-            <TabPanel minH={'40vh'}>
-              <TokenTransferTab />
-            </TabPanel>
-          </TabPanels>
+          {isBTCAddress ? (
+            <>
+              <TabList
+                className={s.tabList}
+                fontSize={['16px', '18px', ' 20px']}
+              >
+                <Tab>Portfolio</Tab>
+                <Tab>Transactions</Tab>
+              </TabList>
+              <TabPanels className={s.tabPanel}>
+                <TabPanel minH={'40vh'}>
+                  <PortfolioTabBitcoin />
+                </TabPanel>
+                <TabPanel minH={'40vh'}>
+                  <TransactionsTab />
+                </TabPanel>
+              </TabPanels>
+            </>
+          ) : (
+            <>
+              <TabList
+                className={s.tabList}
+                fontSize={['16px', '18px', ' 20px']}
+              >
+                <Tab>Portfolio</Tab>
+                <Tab>Transactions</Tab>
+                <Tab>Token Transfer</Tab>
+              </TabList>
+              <TabPanels className={s.tabPanel}>
+                <TabPanel minH={'40vh'}>
+                  <PortfolioTab />
+                </TabPanel>
+                <TabPanel minH={'40vh'}>
+                  <TransactionsTab />
+                </TabPanel>
+                <TabPanel minH={'40vh'}>
+                  <TokenTransferTab />
+                </TabPanel>
+              </TabPanels>
+            </>
+          )}
         </Tabs>
       </Flex>
     </Box>
