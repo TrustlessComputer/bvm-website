@@ -16,10 +16,13 @@ import {
   STEP_2_SECTION,
 } from '@/constants/home-content';
 import { motion } from 'framer-motion';
+import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 
 type Props = {};
 
 const LandingV5 = (props: Props) => {
+  const { showContactUsModal } = useContactUs();
+
   return (
     <div className={s.landing}>
       <Box>
@@ -66,12 +69,12 @@ const LandingV5 = (props: Props) => {
               </div>
               <Flex gap="4px" flexDir={'column'}>
                 <p>Need development help?</p>
-                <Link href="/" className={s.link}>
+                <Box onClick={showContactUsModal} className={s.link}>
                   Talk to a BVM dev
                   <div className={s.icon_link}>
                     <ChakraImage src="/landing-v5/ic-link.svg" />
                   </div>
-                </Link>
+                </Box>
               </Flex>
             </div>
             <Box mt={'24px'} className={s.link_item}>

@@ -136,7 +136,7 @@ export const STEP_2_SECTION = {
     {
       title: 'Token Issuance',
       description: 'Issue your own token with drag and drop.',
-      homeImage: '/landing-v5/home-token-issue.png',
+      homeImage: '/landing-v5/home-token-issue-1.png',
       bgColor:
         'linear-gradient(138deg, rgba(120, 170, 143, 0.40) 1.72%, rgba(2, 47, 22, 0.32) 101.88%)',
       link: {
@@ -148,7 +148,7 @@ export const STEP_2_SECTION = {
     {
       title: 'YOLO',
       description: 'Have some fun with your users.',
-      homeImage: '/landing-v5/home-yolo.png',
+      homeImage: '/landing-v5/home-yolo-1.png',
       bgColor:
         'linear-gradient(171deg, rgba(255, 212, 103, 0.40) 4.5%, rgba(106, 57, 0, 0.32) 94.43%)',
       link: {
@@ -171,7 +171,7 @@ export const STEP_2_SECTION = {
     {
       title: 'Bridge',
       description: 'Bring more assets to your chain & enhance liquidity.',
-      homeImage: '/landing-v5/home-bridge.png',
+      homeImage: '/landing-v5/home-bridge-1.png',
       bgColor:
         'linear-gradient(198deg, rgba(40, 142, 185, 0.40) 7.57%, rgba(0, 57, 75, 0.32) 105.99%)',
       link: {
@@ -183,7 +183,7 @@ export const STEP_2_SECTION = {
     {
       title: 'EXPLORER',
       description: 'Your block explorer & analytics site.',
-      homeImage: '/landing-v5/home-explorer.png',
+      homeImage: '/landing-v5/home-explorer-1.png',
       bgColor:
         'linear-gradient(138deg, rgba(179, 179, 179, 0.40) 1.72%, rgba(43, 43, 43, 0.32) 101.88%)',
       link: {
