@@ -1,5 +1,16 @@
 import { Position } from '@xyflow/react';
 
+export type DAppKeys =
+  | 'blockchain' //hard code FE (only view's purpore)
+  | 'create_token'
+  | 'staking'
+  | 'account_abstraction'
+  | 'dex'
+  | 'order_book'
+  | 'perpetual'
+  | 'btc_bridge'
+  | 'eth_bridge';
+
 interface IDappValue {
   key: string;
   value: string | number | { key: string; value: string | number }[];
@@ -15,7 +26,7 @@ interface IModelOption {
   key: string;
   icon: string;
   supportNetwork: 'both' | '' | 'testnet' | 'mainnet';
-  supportLayer: '' | 'layer2' | 'layer3' | 'both';
+  supportLayer: '' | 'layer1' | 'layer2' | 'layer3' | 'both';
   supportLayers?: ('layer1' | 'layer2' | 'layer3')[];
   requiredFor: string[] | null;
   order: number;
@@ -29,6 +40,8 @@ interface IModelOption {
   valueStr?: string;
   type?: 'text' | 'number';
   disabled?: boolean;
+  appTemplateUrl: string;
+  needInstall?: boolean;
 }
 
 interface IModelCategory {
@@ -52,6 +65,7 @@ interface IModelCategory {
   hidden?: boolean;
   updatable?: boolean;
   whitelistAddress?: any;
+  isChain: boolean;
 }
 
 interface ITemplate {
@@ -168,6 +182,7 @@ interface DappModel {
 }
 
 interface TemplateForm {
+  [key: string]: any;
   dappKey: string;
   fieldValue: Record<string, any>;
 }
@@ -196,3 +211,17 @@ interface BlockchainMap {
   blockchain: OrderItem | null;
   dapps: DappModel[];
 }
+
+type ElkNodeStatus = 'Drafting' | 'Ready' | 'Missing' | 'Running' | 'Down';
+
+type ElkNodeData = {
+  label: string;
+  positionDot: Position;
+  handleType: HandleType;
+  status: ElkNodeStatus;
+  legoList: [];
+  sourceHandles: { id: string }[];
+  targetHandles: { id: string }[];
+};
+
+type ElkNode = Node<ElkNodeData, 'elk'>;

@@ -7,6 +7,7 @@ import Banner from '@/modules/landingV3/Componets/Banner';
 import { Box, Flex } from '@chakra-ui/react';
 import Fade from '@/interactive/Fade';
 import ModalVideo from 'react-modal-video';
+import {VIDEO_HERO_MAIN} from "@constants/common";
 
 const DELAY = 2;
 
@@ -64,6 +65,8 @@ export default function HeroVideo() {
                   alignItems={'center'}
                   justifyContent={'center'}
                   className={s.more_info}
+                  px="20px"
+                  flexWrap={'wrap'}
                 >
                   {/* <Fade delay={DELAY + 0.6}> */}
                   <div>
@@ -90,7 +93,7 @@ export default function HeroVideo() {
                       style={{ textAlign: 'center', display: 'block' }}
                     >
                       <img
-                        src={`/landing-v4/frame-bvm-own.png`}
+                        src={`/landing-v4/frame-own-bvm-1.png`}
                         width={224}
                         alt={'right'}
                         style={{ margin: 'auto', marginBottom: '8px' }}
@@ -107,7 +110,7 @@ export default function HeroVideo() {
                       style={{ textAlign: 'center', display: 'block' }}
                     >
                       <img
-                        src={`/landing-v4/frame-studio.png`}
+                        src={`/landing-v4/frame-studio-1.png`}
                         width={224}
                         alt={'right'}
                         style={{ margin: 'auto', marginBottom: '8px' }}
@@ -126,7 +129,7 @@ export default function HeroVideo() {
 
       <ModalVideo
         channel="custom"
-        url={'/public-sale/public_sale_video_2.mp4'}
+        url={VIDEO_HERO_MAIN}
         isOpen={isOpen}
         onClose={() => {
           setOpen(false);

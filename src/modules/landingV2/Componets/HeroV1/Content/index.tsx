@@ -85,7 +85,7 @@ export default function HeroContent() {
       {/*</Fade>*/}
       {/*<ModalVideo*/}
       {/*  channel='custom'*/}
-      {/*  url={'/public-sale/public_sale_video_2.mp4'}*/}
+      {/*  url={VIDEO_HERO_MAIN}*/}
       {/*  isOpen={isOpen}*/}
       {/*  onClose={() => {*/}
       {/*    setOpen(false);*/}

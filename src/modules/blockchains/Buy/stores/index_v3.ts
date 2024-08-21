@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-type UseOrderFormStoreV3 = {
+export type UseOrderFormStoreV3 = {
   form: Record<string, any>;
   field: Record<
     string,
@@ -12,6 +12,15 @@ type UseOrderFormStoreV3 = {
   needContactUs: boolean;
   priceUSD: number;
   priceBVM: number;
+  setFields: (
+    fields: Record<
+      string,
+      {
+        dragged: boolean;
+        value: string | number | string[] | number[] | null;
+      }
+    >,
+  ) => void;
   setField: (
     field: string,
     value: string | number | string[] | number[] | null,
@@ -21,12 +30,6 @@ type UseOrderFormStoreV3 = {
   setPriceBVM: (price: number) => void;
   setNeedContactUs: (needContactUs: boolean) => void;
 };
-
-type CaptureStore = {
-  isCapture: boolean;
-  setIsCapture: (isCapture: boolean) => void;
-};
-
 const useOrderFormStoreV3 = create<UseOrderFormStoreV3>((set) => ({
   form: {},
 
@@ -34,6 +37,7 @@ const useOrderFormStoreV3 = create<UseOrderFormStoreV3>((set) => ({
   setNeedContactUs: (needContactUs) => set({ needContactUs }),
 
   field: {},
+  setFields: (fields) => set({ field: fields }),
   setField: (field, value, dragged = false) =>
     set((state) => ({
       form: {
@@ -62,6 +66,10 @@ const useOrderFormStoreV3 = create<UseOrderFormStoreV3>((set) => ({
     })),
 }));
 
+type CaptureStore = {
+  isCapture: boolean;
+  setIsCapture: (isCapture: boolean) => void;
+};
 export const useCaptureStore = create<CaptureStore>((set) => ({
   isCapture: false,
   setIsCapture: (isCapture) => set({ isCapture }),

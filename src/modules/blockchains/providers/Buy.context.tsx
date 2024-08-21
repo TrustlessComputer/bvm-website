@@ -69,7 +69,7 @@ import {
   setViewMode,
   setViewPage,
 } from '@/stores/states/l2services/reducer';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import useL2Service from '@/hooks/useL2Service';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { IOrderBuyReq } from '@/stores/states/l2services/types';
@@ -104,6 +104,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
   } = useNakaAuthen();
 
   const router = useRouter();
+  const params = useParams();
 
   const accountInfo = true;
   const { availableList } = useAppSelector(getL2ServicesStateSelector);
@@ -849,6 +850,10 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     }
   };
 
+  const isUpdate = useMemo(() => {
+    return !!params?.id
+  }, []);
+
   const values = {
     computerNameField,
     setComputerNameField,
@@ -953,6 +958,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     setProverSelected,
 
     pricingPackageValues,
+    isUpdate
   };
 
   // console.log('[DEBUG] Buy Provider ALL DATA: ', {

@@ -1,0 +1,64 @@
+.container {
+  padding: 20px;
+
+  &__disable {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  sup {
+    font-size: 12px;
+    color: #ff0000;
+    margin-top: 16px;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+
+    &__title {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 20px;
+    }
+  }
+
+  &__body {
+    //display: flex;
+    //gap: 8px;
+    width: 100%;
+
+    &__header {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 24px;
+    }
+
+    &__item {
+      width: 100%;
+
+      &:not(:last-child) {
+        margin-bottom: 16px;
+      }
+
+      &__inner {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px 8px;
+      }
+    }
+
+    &__content {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 8px 16px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+  }
+}

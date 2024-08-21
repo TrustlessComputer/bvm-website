@@ -18,7 +18,7 @@ class CDappApiClient {
     baseURL: `https://generral.appstore${
       isProduction() ? '' : '.dev'
     }.bvm.network/api`,
-    timeout: 5 * 60000,
+    timeout: 1 * 60000,
     headers: {
       'Content-Type': 'application/json',
     },

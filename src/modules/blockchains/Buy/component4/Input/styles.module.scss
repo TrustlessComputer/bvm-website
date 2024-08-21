@@ -1,0 +1,29 @@
+.input {
+  background-color: #ffffff;
+  color: #000000 !important;
+  width: 200px;
+  padding: 0 12px;
+  border-radius: 99999px;
+  outline: none;
+  height: 22px;
+  line-height: calc(20 / 14);
+  &::placeholder {
+    color: #000000;
+    opacity: 0.5;
+  }
+
+  &__disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  &__file {
+    width: 240px;
+    font-size: 16px;
+    height: 42px;
+    padding: 4px 12px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+}

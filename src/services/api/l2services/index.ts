@@ -38,6 +38,7 @@ import {
 } from './types';
 import { IModelCategory } from '@/types/customize-model';
 import { isEmpty } from 'lodash';
+import { ORDER_MOCKUP_DATA } from './OrderMockupData';
 
 const isInValidAccessToken = () => {
   const accessToken = LocalStorage.getItem(
@@ -244,7 +245,7 @@ export const orderDetailByID = async (
     if (data && data.orderId) {
       return data as OrderItem;
     }
-    return undefined;
+    // return ORDER_MOCKUP_DATA;
   } catch (error: any) {
     throw error;
   }
@@ -297,6 +298,48 @@ export const cancelOrder = async (orderID: string) => {
       },
     );
   }
+};
+
+export const removeOrder = async (orderID: string) => {
+  await httpClient.post(
+    `/order/remove`,
+    {
+      orderId: orderID,
+    },
+    {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    },
+  );
+};
+
+export const activeOrder = async (orderID: string) => {
+  await httpClient.post(
+    `/order/active`,
+    {
+      orderId: orderID,
+    },
+    {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    },
+  );
+};
+
+export const activeAA = async (orderID: string) => {
+  await httpClient.post(
+    `/order/active-aa`,
+    {
+      orderId: orderID,
+    },
+    {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    },
+  );
 };
 
 export const getAllOrders = async (): Promise<OrderItem[]> => {
@@ -636,6 +679,9 @@ const l2ServicesAPI = {
   getConfigInfor,
   updateConfigInfor,
   cancelOrder,
+  removeOrder,
+  activeOrder,
+  activeAA,
 
   orderUpdateAPI,
   orderDetailByID,

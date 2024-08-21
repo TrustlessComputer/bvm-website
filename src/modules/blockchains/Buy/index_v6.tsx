@@ -24,10 +24,11 @@ import s from './styles_v6.module.scss';
 import { MouseSensor } from './utils';
 // import { mockupOptions } from './Buy.data';
 import Capture from '@/modules/blockchains/Buy/Capture';
-import { IModelCategory } from '@/types/customize-model';
 import Label from './components3/Label';
 import { TABS } from './constants';
 import ExplorePage from './Explore';
+import { categoriesMockup } from './Buy.data';
+import { IModelCategory } from '@/types/customize-model';
 
 const BuyPage = () => {
   const router = useRouter();
@@ -704,7 +705,7 @@ const BuyPage = () => {
                 <div className={s.left_box}>
                   <div className={s.left_box_inner}>
                     <div className={s.left_box_inner_sidebar}>
-                      <SidebarV2 items={data} />
+                      <SidebarV2 />
                     </div>
 
                     <div
@@ -970,27 +971,27 @@ const BuyPage = () => {
                 <div className={s.right}>
                   <div className={s.top_right}>
                     <div className={s.right_box_footer}>
-                      {/* {!needContactUs && (
+                      {!needContactUs && (
+                        <div className={s.right_box_footer_left}>
+                          <h4 className={s.right_box_footer_left_content}>
+                            {formatCurrencyV2({
+                              amount: priceBVM,
+                              decimals: 0,
+                            })}{' '}
+                            BVM{'/'}month
+                          </h4>
+                          <h6 className={s.right_box_footer_left_title}>
+                            $
+                            {formatCurrencyV2({
+                              amount: priceUSD,
+                              decimals: 0,
+                            })}
+                            {'/'}month
+                          </h6>
+                        </div>
+                      )}
 
-                      )} */}
-                      <div className={s.right_box_footer_left}>
-                        <h4 className={s.right_box_footer_left_content}>
-                          {formatCurrencyV2({
-                            amount: priceBVM,
-                            decimals: 0,
-                          })}{' '}
-                          BVM{'/'}month
-                        </h4>
-                        <h6 className={s.right_box_footer_left_title}>
-                          $
-                          {formatCurrencyV2({
-                            amount: priceUSD,
-                            decimals: 0,
-                          })}
-                          {'/'}month
-                        </h6>
-                      </div>
-                      <LaunchButton data={data} originalData={originalData} />
+                      <LaunchButton />
                     </div>
                   </div>
 

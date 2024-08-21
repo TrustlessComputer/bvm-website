@@ -8,7 +8,6 @@ import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
 import { useAppSelector } from '@/stores/hooks';
 import { getOrderDetailSelected } from '@/stores/states/l2services/selector';
-import PreviewMapModal from '@/modules/blockchains/blockchain-map/components/PreviewMapModal';
 import React, { useState } from 'react';
 import { IModelOption } from '@/types/customize-model';
 
@@ -104,10 +103,6 @@ const AppViewer = (props: Props) => {
       <BottomView
         onExportClick={onExportHandler}
         onShareClick={onShareHandler}
-      />
-      <PreviewMapModal
-        show={isShowModalPreview}
-        onClose={() => setIsShowModalPreview(false)}
       />
     </Flex>
   );
