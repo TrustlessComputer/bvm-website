@@ -4,14 +4,7 @@ import s from './styles.module.scss';
 import Link from 'next/link';
 import cn from 'classnames';
 import SectionBlock from './components/SectionBlock';
-// import {
-//   APPS_SECTION,
-//   NEWS_SECTION,
-//   OPENSOURCE_SECTION,
-//   RESEARCH_SECTION,
-//   STEP_1_SECTION,
-//   TECH_STACKS,
-// } from '@/constants/home-content';
+
 import Image from 'next/image';
 import {
   STEP_1_SECTION,
@@ -22,6 +15,7 @@ import {
   TECH_STACKS,
   STEP_2_SECTION,
 } from '@/constants/home-content';
+import { motion } from 'framer-motion';
 
 type Props = {};
 
@@ -30,7 +24,19 @@ const LandingV5 = (props: Props) => {
     <div className={s.landing}>
       <Box>
         <div className={cn(s.introduction, 'containerV3')}>
-          <Box flex="1">
+          <Box
+            flex="1"
+            as={motion.div}
+            initial={{ x: -100, opacity: 0 }}
+            animate={{
+              x: 0,
+              opacity: 1,
+              transition: {
+                delay: 0.5,
+                duration: 1,
+              },
+            }}
+          >
             <div className={s.introduction_title}>
               Development infrastructure for Bitcoin
             </div>
@@ -41,7 +47,19 @@ const LandingV5 = (props: Props) => {
               <br /> Let’s build.
             </div>
           </Box>
-          <Box className={s.introduction_links}>
+          <Box
+            className={s.introduction_links}
+            as={motion.div}
+            initial={{ x: 100, opacity: 0 }}
+            animate={{
+              x: 0,
+              opacity: 1,
+              transition: {
+                delay: 0.5,
+                duration: 1,
+              },
+            }}
+          >
             <div className={s.link_item}>
               <div className={s.link_ic}>
                 <ChakraImage src="/landing-v5/ic-headphone.svg" />
@@ -73,7 +91,7 @@ const LandingV5 = (props: Props) => {
           </Box>
         </div>
         <Box ml={{ base: '20px', '2xl': 'calc((100vw - 1480px) / 2)' }}>
-          <BuildItem>
+          <BuildItem stagger={1}>
             <SectionBlock {...STEP_1_SECTION} spacing="160px" />
           </BuildItem>
           <BuildItem iconUrl="/landing-v5/ic-step-2.svg">
