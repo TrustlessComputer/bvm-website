@@ -33,6 +33,7 @@ import BitcoinRentModal from './BitcoinRentModal';
 import L2RollupFee from './fees';
 import s from './styles.module.scss';
 import AppLoading from '@/components/AppLoading';
+import SearchAddress from '../l2-rollup-detail/SearchAddress';
 
 enum SortRollupType {
   name,
@@ -951,7 +952,7 @@ const L2Rollup = () => {
           direction={{ base: 'column', md: 'row' }}
           alignItems={'center'}
           gap={{ base: '0px', md: '8px' }}
-          mb={'48px'}
+          mb={'16px'}
         >
           <Text
             className={s.fontType2}
@@ -983,6 +984,11 @@ const L2Rollup = () => {
             <Image maxW={'40px'} src={'/heartbeat/ic-submit.svg'} />
           </Flex>
         </Flex>
+
+        <Flex mb={'48px'}>
+          <SearchAddress placeholder={'Search Bitcoin or EVM address'} />
+        </Flex>
+
         <SimpleGrid columns={3} gap={'16px'} mb={'32px'}>
           <L2RollupFee
             data={_dataChart.txs}
@@ -1016,6 +1022,7 @@ const L2Rollup = () => {
             )}</p>`}
           />
         </SimpleGrid>
+
         <Flex
           className={s.totalContainer}
           bg="#FAFAFA"

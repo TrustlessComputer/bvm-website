@@ -5,7 +5,6 @@
 import { HEART_BEAT } from '@/constants/route-path';
 import { shortCryptoAddress } from '@/utils/address';
 import { formatCurrency } from '@/utils/format';
-import { validateBTCAddress, validateEVMAddress } from '@/utils/validate';
 import {
   Box,
   Flex,
@@ -17,40 +16,28 @@ import {
   Tabs,
   Text,
 } from '@chakra-ui/react';
-import { useOnClickOutside } from '@hooks/useOnClickOutside';
 import copy from 'copy-to-clipboard';
 import { useRouter } from 'next/navigation';
-import React, { useContext, useMemo, useRef, useState } from 'react';
+import React, { useContext } from 'react';
 import { isMobile } from 'react-device-detect';
 import toast from 'react-hot-toast';
 import PortfolioTab from './PortfolioTab';
+import PortfolioTabBitcoin from './PortfolioTabBitcoin';
 import {
   L2RollupDetailContext,
   L2RollupDetailProvider,
 } from './providers/l2-rollup-detail-context';
-import SearchBar from './SearchBar';
+import SearchAddress from './SearchAddress';
 import s from './styles.module.scss';
-import TransactionsTab from './TransactionsTab';
 import TokenTransferTab from './TokenTransferTab';
-import PortfolioTabBitcoin from './PortfolioTabBitcoin';
+import TransactionsTab from './TransactionsTab';
 
 const L2RollupDetail = () => {
   const router = useRouter();
-  const ref = useRef<HTMLDivElement>(null);
 
   const { address, isValidAddress, isBTCAddress, totalBalanceUsd } = useContext(
     L2RollupDetailContext,
   );
-
-  const [searchAddress, setSearchAddress] = useState('');
-
-  const isValidSearchAddress = useMemo(
-    () =>
-      validateEVMAddress(searchAddress) || validateBTCAddress(searchAddress),
-    [searchAddress],
-  );
-
-  useOnClickOutside(ref, () => setSearchAddress(''));
 
   if (!isValidAddress) {
     return (
@@ -89,50 +76,7 @@ const L2RollupDetail = () => {
             <Image w={'24px'} src={'/heartbeat/ic-back.svg'} />
             <Text>Bitcoin Heartbeat Project</Text>
           </Flex>
-
-          <Flex ref={ref} position={'relative'} direction={'column'}>
-            <SearchBar
-              txtSearch={searchAddress}
-              setTxtSearch={setSearchAddress}
-              placeholder="Search address "
-              onEnterSearch={() => {
-                if (isValidSearchAddress) {
-                  router.push(`${HEART_BEAT}/${searchAddress}`);
-                }
-              }}
-            />
-            {searchAddress && (
-              <Flex
-                position={'absolute'}
-                top={'52px'}
-                left={'0px'}
-                borderRadius={'8px'}
-                className={s.searchResult}
-              >
-                {isValidSearchAddress ? (
-                  <Flex
-                    direction={'row'}
-                    alignItems={'center'}
-                    gap={'6px'}
-                    cursor={'pointer'}
-                    pr={'12px'}
-                    onClick={() =>
-                      router.push(`${HEART_BEAT}/${searchAddress}`)
-                    }
-                  >
-                    <Image w={'14px'} src={'/heartbeat/ic-link.svg'} />
-                    <Text fontSize={'12px'}>{searchAddress}</Text>
-                  </Flex>
-                ) : (
-                  <>
-                    <Text minW={'200px'} fontSize={'12px'}>
-                      No match
-                    </Text>
-                  </>
-                )}
-              </Flex>
-            )}
-          </Flex>
+          <SearchAddress />
         </Flex>
 
         <Flex

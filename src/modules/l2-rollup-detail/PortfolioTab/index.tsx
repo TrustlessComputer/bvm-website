@@ -30,7 +30,7 @@ const PortfolioTab = () => {
       >
         {rollupDetails.length > 0 &&
           rollupDetails.map((detail) => {
-            const totalUsd = detail.balances.reduce((accum, item) => {
+            const totalUsd = detail.balances?.reduce((accum, item) => {
               if (!rollupTokensRate) return accum;
               const tokenRateUsd = rollupTokensRate[item.token_name];
               if (!tokenRateUsd) return accum;
@@ -52,7 +52,7 @@ const PortfolioTab = () => {
                 />
                 <Flex direction={'column'}>
                   <Text fontWeight={'400'} color={'#808080'}>
-                    {detail.rollup.name}
+                    {detail.rollup?.name}
                   </Text>
                   <Flex direction={'row'} alignItems={'center'} gap={'8px'}>
                     <Text fontWeight={'600'} fontSize={'18px'}>
