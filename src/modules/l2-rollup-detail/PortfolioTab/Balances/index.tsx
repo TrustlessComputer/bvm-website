@@ -33,12 +33,7 @@ const Balances = () => {
         },
         render(data: ITokenChain) {
           return (
-            <Flex
-              gap={6}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'space-between'}
-            >
+            <Flex alignItems={'center'} justifyContent={'space-between'}>
               <Flex position={'relative'}>
                 <Text className={s.title}>{data.token_name}</Text>
                 <Image
@@ -73,13 +68,12 @@ const Balances = () => {
 
           return (
             <Flex
-              gap={6}
               alignItems={'center'}
               width={'100%'}
               justifyContent={'space-between'}
             >
               <Text className={s.title}>
-                {priceUSD ? `$${formatCurrency(priceUSD, 2, 2)}` : '-'}
+                {priceUSD ? `$${formatCurrency(priceUSD, 0, 6)}` : '-'}
               </Text>
             </Flex>
           );
@@ -130,12 +124,7 @@ const Balances = () => {
             .multipliedBy(new BigNumber(priceUSD))
             .toNumber();
           return (
-            <Flex
-              gap={6}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'space-between'}
-            >
+            <Flex alignItems={'center'}>
               <Text className={s.title}>
                 {priceUSD ? `$${formatCurrency(usdValue, 2, 2)}` : '-'}
               </Text>
