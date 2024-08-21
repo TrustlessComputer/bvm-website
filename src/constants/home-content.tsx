@@ -538,7 +538,9 @@ export const RESEARCH_SECTION = {
     <p>
       Research.
       <br />
-      <span>Pioneer research on Bitcoin utilities.</span>
+      <span className="whitespace-nowrap">
+        Pioneer research on Bitcoin utilities.
+      </span>
     </p>
   ),
   desc: 'Lead the way in exploring and developing innovative uses for Bitcoin.',
@@ -563,7 +565,9 @@ export const OPENSOURCE_SECTION = {
     <p>
       Open source.
       <br />
-      <span>Reuse our code and build whatever you want.</span>
+      <span>
+        Reuse our code and build <br /> whatever you want.
+      </span>
     </p>
   ),
   desc: 'Use our existing codebase to accelerate your development process. Customize, innovate, and develop anything you want while saving time and resources.',
