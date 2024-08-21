@@ -52,14 +52,12 @@ const SectionItemApp = ({ item }: Props) => {
       href={item.link?.url}
       target="_blank"
       style={{
-        backgroundImage: appBgColor[item.id as keyof typeof appBgColor],
+        backgroundImage: item.bgColor,
       }}
     >
       <div className={s.info}>
         <p className={s.title}>{item.title}</p>
-        <p className={s.desc}>
-          {appDescription[item.id as keyof typeof appDescription]}
-        </p>
+        <p className={s.desc}>{item.description}</p>
         <div className={s.tags}>
           {item.tags.map((tag, index) => {
             if (!tag) return null;
@@ -68,10 +66,7 @@ const SectionItemApp = ({ item }: Props) => {
         </div>
       </div>
       <div className={s.thumbnail}>
-        <img
-          src={appThumbnail[item.id as keyof typeof appThumbnail]}
-          alt={item.title}
-        />
+        <img src={item.homeImage} alt={item.title} />
       </div>
     </Link>
   );

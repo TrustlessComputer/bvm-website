@@ -1,3 +1,5 @@
+$text-max-width: 70%;
+
 .wrapper {
     // padding-bottom: 80px;
     position: relative;
@@ -22,17 +24,26 @@
             font-style: normal;
             font-weight: 700;
             line-height: normal;
-            max-width: 70%;
+
             display: inline-block;
         }
 
         .title {
-            color: #FFF;
+            color: rgba(255, 255, 255, 0.60);
             font-family: "JetBrains Mono";
             font-size: 48px;
             font-style: normal;
             font-weight: 700;
             line-height: normal;
+
+            p {
+                max-width: $text-max-width;
+
+                span {
+                    color: #FFF;
+                }
+            }
+
         }
 
         .desc {
@@ -45,7 +56,7 @@
             /* 36px */
             letter-spacing: 0.6px;
             margin-top: 24px;
-            max-width: 85%;
+            max-width: $text-max-width;
 
 
         }
@@ -134,7 +145,7 @@
 
         &.items_wrapper__apps {
 
-            gap: 44px;
+            gap: 32px;
 
             @include is-mobile {
                 gap: 24px;

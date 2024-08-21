@@ -2,10 +2,11 @@ import { TChainCard } from '@/modules/ExploreModule/components/ChainCard';
 import { TDappCardProps } from '@/modules/ExploreModule/components/DappCard';
 import { Box } from '@chakra-ui/react';
 import cn from 'classnames';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import SectionItemApp from './Item/App';
 import SectionItemGeneral from './Item/General';
 import s from './SectionBlock.module.scss';
+import Slider from 'react-slick';
 
 export type BlockCardItem = Omit<TDappCardProps, 'idx'> & {
   logo: string;
@@ -19,7 +20,7 @@ export type BlockChainItem = Omit<TChainCard, 'idx'> & {
 };
 
 const SectionBlock = (props: any) => {
-  const { tag, title, item, desc, spacing = '99px' } = props;
+  const { tag, title, item, desc, spacing = '83px' } = props;
 
   const scrollWrapperRef = React.useRef<HTMLDivElement>(null);
   const itemsWrapperRef = React.useRef<HTMLDivElement>(null);
@@ -35,7 +36,7 @@ const SectionBlock = (props: any) => {
 
       if (direction === 'prev') {
         scrollWrapperRef.current.scrollTo({
-          left: scrollWrapperRef.current.scrollLeft - 800,
+          left: scrollWrapperRef.current.scrollLeft - 1000,
           behavior: 'smooth',
         });
 
@@ -44,7 +45,7 @@ const SectionBlock = (props: any) => {
 
       if (direction === 'next') {
         scrollWrapperRef.current.scrollTo({
-          left: scrollWrapperRef.current.scrollLeft + 800,
+          left: scrollWrapperRef.current.scrollLeft + 1000,
           behavior: 'smooth',
         });
       }
@@ -56,6 +57,11 @@ const SectionBlock = (props: any) => {
       showControls.next,
     ],
   );
+
+  const isCardLayout = useMemo(() => {
+    // check if props.id is within the list of card layout
+    return ['apps', 'step-1', 'step-2'].includes(props.id);
+  }, [props.id]);
 
   useEffect(() => {
     if (scrollWrapperRef.current && itemsWrapperRef.current) {
@@ -115,21 +121,23 @@ const SectionBlock = (props: any) => {
   return (
     <Box>
       <div className={s.wrapper}>
-        <p className={s.heading}>
-          <span className={s.tag}>{tag}</span>
-          {!!title && <p className={s.title}>{title}</p>}
+        <div className={s.heading}>
+          <Box>
+            {!!tag && <span className={s.tag}>{tag}</span>}
+            {!!title && <span className={s.title}>{title}</span>}
+          </Box>
           <p className={s.desc}>{desc}</p>
-        </p>
+        </div>
         <div className={s.scroll_wrapper} ref={scrollWrapperRef}>
           <Box
             className={cn(s.items_wrapper, {
-              [s.items_wrapper__apps]: props.id === 'apps',
+              [s.items_wrapper__apps]: isCardLayout,
             })}
             ref={itemsWrapperRef}
             mb={spacing}
           >
             {item.map((item: BlockCardItem | BlockChainItem, index: number) => {
-              if (props.id === 'apps') {
+              if (isCardLayout) {
                 return (
                   <SectionItemApp
                     key={`${props.id}-${index}`}
