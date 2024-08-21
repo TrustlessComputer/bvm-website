@@ -3,6 +3,7 @@ import { DappType } from '@/modules/blockchains/dapp/types';
 import CDappApiClient from '@/services/api/dapp/dapp.client';
 import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 import {
+  AppCode,
   IAppInfo,
   IDappConfigs,
   IReqDapp,
@@ -186,6 +187,21 @@ class CDappAPI {
       template: JSON.stringify(template),
       network_id: Number(network_id),
     });
+  };
+
+  updatePosition = async (params: {
+    app_code: AppCode;
+    user_address: string;
+    id: string | number;
+    position_id: string;
+    position_x: number;
+    position_y: number;
+  }) => {
+    try {
+      await this.http.post(`/apps/position/`, [params]);
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 
