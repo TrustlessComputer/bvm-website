@@ -12,7 +12,8 @@ import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
 import { Edge, MarkerType } from '@xyflow/react';
-import React from 'react';
+import { useParams } from 'next/navigation';
+import React, { useMemo } from 'react';
 import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
 import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
 import { parseStakingPools } from '../../dapp/parseUtils/staking';
@@ -33,11 +34,14 @@ import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import useUpdateFlowStore from '../stores/useUpdateFlowStore';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
+import useDapps from './useDapps';
 
 export default function useFetchingTemplate() {
+  const { dapps } = useDapps();
   const { order, isAAInstalled, isUpdateFlow } = useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
+    categories,
     setParsedCategories,
     setCategories,
     setCategoriesTemplates,
@@ -46,6 +50,7 @@ export default function useFetchingTemplate() {
   } = useModelCategoriesStore();
   const { field, setFields } = useOrderFormStoreV3();
   const { setUpdated, updated } = useUpdateFlowStore();
+  const param = useParams();
 
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { initTemplate, setTemplate } = useTemplate();
@@ -58,6 +63,7 @@ export default function useFetchingTemplate() {
 
   const [needSetDataTemplateToBox, setNeedSetDataTemplateToBox] =
     React.useState(false);
+  const [needCheckAndAddAA, setNeedCheckAndAddAA] = React.useState(false);
 
   const convertData = (data: IModelCategory[]) => {
     const newData = data?.map((item) => {
@@ -101,10 +107,10 @@ export default function useFetchingTemplate() {
       categoryMapping[_field.key] = _field;
     });
 
-    if (isAAInstalled) {
-      draggedDappIndexesSignal.value = [0];
-      draggedIds2DSignal.value = [[]];
-    }
+    // if (isAAInstalled) {
+    //   draggedDappIndexesSignal.value = [0];
+    //   draggedIds2DSignal.value = [[]];
+    // }
 
     setCategoryMapping(categoryMapping);
     setParsedCategories(convertData(sortedCategories));
@@ -114,6 +120,10 @@ export default function useFetchingTemplate() {
     setNeedSetDataTemplateToBox(true);
   };
 
+  const checkParam = useMemo(() => {
+    return !!param.id;
+  }, [param.id]);
+
   const dataTemplateToBox = async () => {
     formDappSignal.value = {};
     formTemplateDappSignal.value = {};
@@ -121,6 +131,27 @@ export default function useFetchingTemplate() {
     console.log('SET DATA TEMPLATE TO BOX');
     const newNodes: AppNode[] = [];
     const rootNode = 'blockchain';
+    // const aaAsDapp = accountAbstractionAsADapp;
+    // if (isAAInstalled) {
+    //   newNodes.unshift({
+    //     id: '0',
+    //     type: nodeKey.ACCOUNT_ABSTRACTION_NODE,
+    //     dragHandle: '.drag-handle-area',
+    //     position: { x: 0, y: 0 },
+    //     data: {
+    //       node: 'dapp',
+    //       title: aaAsDapp.title,
+    //       dapp: aaAsDapp,
+    //       baseIndex: 0,
+    //       categoryOption:
+    //         (categories || []).find((dapp) => dapp.key === 'wallet')
+    //           ?.options[0] || {},
+    //       ids: [],
+    //       targetHandles: [`${0}-t-${rootNode}`],
+    //       sourceHandles: [],
+    //     },
+    //   });
+    // }
 
     const chainNodeInitial: ChainNode = {
       id: rootNode,
@@ -128,7 +159,7 @@ export default function useFetchingTemplate() {
       data: {
         node: 'chain',
         title: 'Blockchain',
-        sourceHandles: [],
+        sourceHandles: checkParam ? [`${rootNode}-s-account-abstraction`] : [],
         targetHandles: [],
       },
       dragHandle: '.drag-handle-area',
@@ -136,7 +167,15 @@ export default function useFetchingTemplate() {
     };
     newNodes.unshift(chainNodeInitial);
 
-    if (!templateForm) return;
+    if (!templateForm) {
+      const edgeData: Edge[] = [];
+
+      setEdges(edgeData);
+      setNodes(newNodes);
+      setNeedSetDataTemplateToBox(false);
+      setNeedCheckAndAddAA(true);
+      return;
+    }
 
     let formDapp: Record<string, any> = {};
 
@@ -295,9 +334,12 @@ export default function useFetchingTemplate() {
 
     templateIds2DSignal.value = [...draggedIds2D];
     formTemplateDappSignal.value = { ...formDapp };
-    setEdges([...edges, ...edgeData]);
+    console.log('[...edges, ...edgeData]', [...edgeData]);
+    console.log('Nodes', newArray);
+    setEdges([...edgeData]);
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
+    setNeedCheckAndAddAA(true);
   };
 
   const parseDappApiToDappModel = async () => {
@@ -328,8 +370,6 @@ export default function useFetchingTemplate() {
       parsedTokensData,
       parsedAirdropsData,
       parsedStakingPoolsData,
-      tokens,
-      airdrops,
     });
 
     setTemplateDapps([
@@ -375,14 +415,26 @@ export default function useFetchingTemplate() {
     return result;
   };
 
+  const checkAndAddAA = () => {
+    console.log(
+      '[useFetchingTemplate] MUST CALL LAST',
+      draggedIds2DSignal.value,
+    );
+
+    if (isAAInstalled) {
+      draggedDappIndexesSignal.value = [0];
+      draggedIds2DSignal.value = [[]];
+    }
+
+    setNeedCheckAndAddAA(false);
+  };
+
   React.useEffect(() => {
     fetchData();
     parseDappApiToDappModel();
   }, []);
 
   React.useEffect(() => {
-    console.log('[useFetchingTemplate] useEffect[counterFetchedDapp]');
-
     if (updated) {
       draggedDappIndexesSignal.value = [];
       draggedIds2DSignal.value = [];
@@ -392,6 +444,12 @@ export default function useFetchingTemplate() {
     parseDappApiToDappModel();
     setUpdated(false);
   }, [counterFetchedDapp]);
+
+  React.useEffect(() => {
+    if (!needCheckAndAddAA) return;
+
+    checkAndAddAA();
+  }, [needCheckAndAddAA, isAAInstalled]);
 
   React.useEffect(() => {
     if (!needSetDataTemplateToBox) return;

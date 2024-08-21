@@ -20,9 +20,9 @@ import {
 } from '@/stores/states/dapp/reducer';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { OrderItem } from '@/stores/states/l2services/types';
+import { isLocalhost } from '@utils/helpers';
 import { capitalizeFirstLetter } from '@web3auth/ui';
 import { orderBy } from 'lodash';
-import { isLocalhost } from '@utils/helpers';
 
 class CDappAPI {
   private dappState = useAppSelector(dappSelector);
@@ -156,7 +156,8 @@ class CDappAPI {
       const api = new CTokenGenerationAPI();
       let tokens = await api.tokenList(network_id);
       if (isLocalhost()) {
-        tokens = tokens.slice(tokens?.length - 3, tokens?.length);
+        // tokens = tokens.slice(tokens?.length - 3, tokens?.length);
+        // tokens = tokens.slice(0, 1);
       }
       const tasks = tokens?.map((t) =>
         api.tokenVesting({

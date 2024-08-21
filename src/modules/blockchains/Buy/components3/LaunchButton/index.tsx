@@ -26,6 +26,7 @@ import { Image, Spinner, Text, useDisclosure } from '@chakra-ui/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { getChainIDRandom } from '../../Buy.helpers';
+import { useOptionInputStore } from '../../component4/DappRenderer/OptionInputValue/useOptionInputStore';
 import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
 import useOneForm from '../../hooks/useOneForm';
 import PreviewLaunchModal from '../../Preview';
@@ -36,6 +37,7 @@ import useUpdateFlowStore from '../../stores/useUpdateFlowStore';
 import { chainKeyToDappKey } from '../../utils';
 import ErrorModal from '../ErrorModal';
 import { formValuesAdapter } from './FormValuesAdapter';
+import { formValuesAdapterOptions } from './formValuesAdapterOptions';
 import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
@@ -72,7 +74,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [dyanmicFormAllData, setDyanmicFormAllData] = useState<any[]>([]);
   const dispatch = useAppDispatch();
-
+  const { getValue } = useOptionInputStore();
   const { setUpdated } = useUpdateFlowStore();
   const { nodes, edges } = useFlowStore();
   const { dappCount } = useFormDappToFormChain();
@@ -356,7 +358,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     //   const result = await orderUpdateV2(params, orderDetail.orderId);
     //   // const result = {};
     //   if (result) {
-    //     // TODO: JACKIE
     //     //Config Account Abstraction...
     //     configAccountAbstraction(dynamicForm);
     //     //Staking...
@@ -512,7 +513,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     let missingRequiredFor = false;
     const {
       dynamicForm,
-
       allOptionKeyDragged,
       allRequiredForKey,
       optionMapping,
@@ -554,9 +554,16 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       return login();
     }
 
-    setDyanmicFormAllData(dynamicForm);
+    const dynamicFormNew = formValuesAdapterOptions(dynamicForm);
+
+    console.log('MAPPER --- ', {
+      old: dynamicForm,
+      new: dynamicFormNew,
+    });
+
+    setDyanmicFormAllData(dynamicFormNew);
     // setShowPreviewModal(true);
-    onLaunchExecute(dynamicForm);
+    onLaunchExecute(dynamicFormNew);
   };
 
   return (

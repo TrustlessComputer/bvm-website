@@ -61,7 +61,6 @@ export const accountAbstractionAsADapp: DappModel = {
     ],
   },
 };
-
 export const dappMockupData: DappModel[] = [
   {
     id: 'token_generation',

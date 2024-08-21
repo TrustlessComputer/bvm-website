@@ -6,8 +6,7 @@ export const APP_DEFAULT_TITLE =
 export const APP_TITLE_TEMPLATE = '%s'; // Don't need extra text for the title
 export const APP_DESCRIPTION = `Join the wave of developers building blockchains and decentralized applications. With its simple and intuitive interface, our blockchain platform is the perfect starting point for your blockchain journey.`;
 // const APP_THUMBNAIL = `${CDN_URL_ICONS}/metadata.jpg`;
-export const IMAGE_SHARING =
-  'https://storage.googleapis.com/bvm-network/image/metadata-sharing-bvm-v2.jpg';
+export const IMAGE_SHARING = 'https://storage.googleapis.com/bvm-network/image/Metadata%20(3).png';
 
 const metadataConfig: Metadata = {
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_DOMAIN_URL}`),
