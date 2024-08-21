@@ -7,7 +7,6 @@ export const accountAbstractionAsADapp: DappModel = {
   title: 'Account Abstraction',
   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
   order: 1,
-  order: 1,
   color: '#00c1cd',
   color_border: '#00c1cd',
   created_at: '2021-09-14T09:00:00.000Z',
