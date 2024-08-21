@@ -21,19 +21,19 @@ const ReactFlowRenderer = React.memo(() => {
   const [currentPosition, setCurrentPosition] = useState(
     currentPositionSignal.value,
   );
+  const [count, setCount] = React.useState(0);
 
   useSignalEffect(() => {
     if (needReactFlowRenderSignal.value) {
       setCurrentPosition(currentPositionSignal.value);
+      setCount(count + 1);
       needReactFlowRenderSignal.value = false;
     }
   });
-  console.log('nodes', nodes);
-  console.log('edges', edges);
 
   return (
     <ReactFlow
-      key={JSON.stringify(edges)}
+      key={JSON.stringify(edges) + count}
       nodes={nodes}
       nodeTypes={{
         // V1
@@ -53,7 +53,6 @@ const ReactFlowRenderer = React.memo(() => {
       defaultViewport={currentPosition}
       deleteKeyCode={''}
       onViewportChange={(viewState) => {
-        needReactFlowRenderSignal.value = true;
         currentPositionSignal.value = viewState;
       }}
       onEdgesChange={onEdgesChange}

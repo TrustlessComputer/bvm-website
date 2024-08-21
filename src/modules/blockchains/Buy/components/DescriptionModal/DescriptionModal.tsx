@@ -33,7 +33,7 @@ const DescriptionModal = forwardRef((props: IProps, ref: any) => {
           </Text>
         )}
 
-        {content && <Text fontSize={['15px', '16px', '18px']}>{content}</Text>}
+        {content && <Text fontSize={['15px', '16px', '18px']} dangerouslySetInnerHTML={{__html: content}}></Text>}
       </Flex>
     </BaseModal>
   );

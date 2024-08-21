@@ -150,6 +150,7 @@ export default function useNodeFlowControl() {
           },
         ]);
         needReactFlowRenderSignal.value = true;
+        return;
       }
     }
 

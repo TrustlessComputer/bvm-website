@@ -109,6 +109,10 @@ export default function useHandleDragging() {
     const category = categoryMapping?.[activeKey];
     const totalTemplateDapps = templateDapps.length;
 
+    if (!rightDragging && !overIsFinalDroppable && overSuffix1 !== 'right') {
+      return;
+    }
+
     if (rightDragging && !overIsFinalDroppable && overSuffix1 === 'right') {
       // swap activeKey, overKey in draggedFields
       const _draggedFields = cloneDeep(draggedFields);
