@@ -48,23 +48,27 @@ const useFetchDapp = () => {
   };
 
   const fetchTokenList = async () => {
+    console.time('[TIME] fetchTokenList')
     await dappAPI.getListToken(dappState?.chain?.chainId || '');
+    console.timeEnd('[TIME] fetchTokenList')
   };
 
   const fetchStakingPoolsList = async () => {
+    console.time('[TIME] fetchStakingPoolsList')
     await stakingAPI.getStakingPools();
+    console.timeEnd('[TIME] fetchStakingPoolsList')
   };
 
   const getDappTasks = async () => {
     console.log('[useFetchDapp] getDappTasks start');
     try {
-      setLoading(true);
       await Promise.all([
         fetchTokenList(),
         fetchStakingPoolsList(),
         getListTask(),
         getListAirdrop(),
       ]);
+      setLoading(true);
       console.log('[useFetchDapp] getDappTasks done');
       dispatch(setCounterFetchedDapp());
     } catch (error) {

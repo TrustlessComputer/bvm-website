@@ -49,7 +49,7 @@ export const ORDER_MOCKUP_DATA: OrderItem = {
   ],
   domain: 'my-bitcoin-rollup-bvm-9818',
   chainId: '90908',
-  chainName: 'My Bitcoin Rollup BVM 9818',
+  chainName: 'My Bitcoin Chain 9818',
   description: '',
   finalizationPeriod: 86400,
   blockTime: '1',

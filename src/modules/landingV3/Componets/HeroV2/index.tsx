@@ -24,7 +24,7 @@ export default function HeroV2() {
         <div className={s.content}>
           <div className={s.content_sub}>
             {/*<IcLogoText />*/}
-            <p>Bitcoin RaaS Studio</p>
+            <p>BVM Studio</p>
           </div>
           <h3 className={s.subTitle}>
             Launch your own Bitcoin-backed blockchain for just{' '}

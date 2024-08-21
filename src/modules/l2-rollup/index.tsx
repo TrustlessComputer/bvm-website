@@ -27,6 +27,7 @@ import s from './styles.module.scss';
 import { orderBy } from 'lodash';
 import { DotLottiePlayer } from '@dotlottie/react-player';
 import BitcoinRentModal from './BitcoinRentModal';
+import AppLoading from '@/components/AppLoading';
 
 enum SortRollupType {
   name,
@@ -242,11 +243,11 @@ const L2Rollup = () => {
                   justifyContent={'space-between'}
                   paddingLeft={'8px'}
                   cursor={'pointer'}
-                  _hover={{
-                    textDecoration: 'underline',
-                  }}
+                  textDecoration={'underline'}
+                  textUnderlineOffset={'2px'}
+                  // color={'#fa4e0e !important'}
                 >
-                  <Text className={s.title}>{data.name}</Text>
+                  <p className={s.title}>{data.name}</p>
                 </Flex>
               </PopoverTrigger>
               <PopoverContent
@@ -508,15 +509,15 @@ const L2Rollup = () => {
                   onOpen();
                 }
               }}
-              _hover={{
-                textDecoration: isUnderReview ? 'unset' : 'underline',
-              }}
+              textDecoration={isUnderReview ? 'unset' : 'underline'}
+              textUnderlineOffset={'2px'}
+              // color={isUnderReview ? '#000' : '#fa4e0e !important'}
             >
-              <Text className={s.title}>
+              <p className={s.title}>
                 {isUnderReview
                   ? '-'
                   : `${formatCurrency(data.fee_btc, 0, 4)} BTC`}
-              </Text>
+              </p>
             </Flex>
           );
         },
@@ -571,11 +572,10 @@ const L2Rollup = () => {
               onClick={() => {
                 window.open(data.explorer);
               }}
-              _hover={{
-                textDecoration: 'underline',
-              }}
+              textDecoration={'underline'}
+              textUnderlineOffset={'2px'}
             >
-              <Text className={s.title}>{data.block_number}</Text>
+              <p className={s.title}>{data.block_number}</p>
             </Flex>
           );
         },
@@ -715,15 +715,12 @@ const L2Rollup = () => {
               width={'100%'}
               maxW={'128px'}
               px={'2px'}
-              cursor={haveLink ? 'pointer' : 'unset'}
               onClick={() => haveLink && window.open(data.verification_url)}
+              cursor={haveLink ? 'pointer' : 'unset'}
+              textDecoration={haveLink ? 'underline' : 'unset'}
+              textUnderlineOffset={'2px'}
             >
-              <Text
-                className={s.title}
-                textDecoration={haveLink ? 'underline' : 'unset'}
-              >
-                {data.verification || '-'}
-              </Text>
+              <Text className={s.title}>{data.verification || '-'}</Text>
             </Flex>
           );
         },
@@ -1006,11 +1003,17 @@ const L2Rollup = () => {
           </Flex>
         </Flex>
         <Box w="100%" bg="#FAFAFA" minH={'450px'} mt={'56px'}>
-          <ListTable
-            data={data}
-            columns={columns}
-            className={s.tableContainer}
-          />
+          {data.length <= 0 ? (
+            <Box mt={'24px'}>
+              <AppLoading />
+            </Box>
+          ) : (
+            <ListTable
+              data={data}
+              columns={columns}
+              className={s.tableContainer}
+            />
+          )}
         </Box>
       </Flex>
       {isOpen && bitcoinRent && (
@@ -1019,6 +1022,7 @@ const L2Rollup = () => {
           chain_id={bitcoinRent.chain_id}
           isShow={isOpen}
           onHide={onClose}
+          total={formatCurrency(bitcoinRent.fee_btc, 0, 4)}
         />
       )}
     </Box>

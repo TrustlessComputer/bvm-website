@@ -12,7 +12,7 @@ import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import { orderBuyAPI_V3 } from '@/services/api/l2services';
+import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { requestReload } from '@/stores/states/common/reducer';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
@@ -318,16 +318,16 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
     const { dynamicForm } = getDynamicForm();
 
-    if (needContactUs) {
-      // showContactUsModal(dynamicForm as any);
-      showContactUsModal({
-        subjectDefault: 0,
-        disableSelect: true,
-        changeText: true,
-        nodeConfigs: dynamicForm || [],
-      });
-      return;
-    }
+    // if (needContactUs) {
+    //   // showContactUsModal(dynamicForm as any);
+    //   showContactUsModal({
+    //     subjectDefault: 0,
+    //     disableSelect: true,
+    //     changeText: true,
+    //     nodeConfigs: dynamicForm || [],
+    //   });
+    //   return;
+    // }
 
     setSubmitting(true);
 
@@ -366,7 +366,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       // const result = {};
       if (result) {
         //Config Account Abstraction...
-        // configAccountAbstraction(dynamicForm);
+        configAccountAbstraction(dynamicForm);
         //Staking...
         if (stakingForms && stakingForms.length > 0) {
           await onSubmitStaking({
@@ -545,16 +545,16 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       return;
     }
 
-    if (needContactUs) {
-      // showContactUsModal(dynamicForm as any);
-      showContactUsModal({
-        subjectDefault: 0,
-        disableSelect: true,
-        changeText: true,
-        nodeConfigs: dynamicForm || [],
-      });
-      return;
-    }
+    // if (needContactUs) {
+    //   // showContactUsModal(dynamicForm as any);
+    //   showContactUsModal({
+    //     subjectDefault: 0,
+    //     disableSelect: true,
+    //     changeText: true,
+    //     nodeConfigs: dynamicForm || [],
+    //   });
+    //   return;
+    // }
 
     if (!loggedIn) {
       localStorage.setItem('bvm.customize-form', JSON.stringify(dynamicForm));

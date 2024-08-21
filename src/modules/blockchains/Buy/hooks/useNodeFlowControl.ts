@@ -14,12 +14,13 @@ import React, { useEffect } from 'react';
 import useFlowStore, { AppState } from '../stores/useFlowStore';
 
 import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
+import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 import { DappNode } from '@/types/node';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
+import { accountAbstractionAsADapp } from '../mockup_3';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
-import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
@@ -63,6 +64,8 @@ export default function useNodeFlowControl() {
       const totalTemplateDapps = (templateDapps || []).length;
       const needSubtract = totalTemplateDapps > 0;
       const index = dragState.oneD[0] + 1 + totalTemplateDapps;
+      console.log('index', { index, nodes });
+
       const newNodes = cloneDeep(nodes);
 
       newNodes[index] = {
@@ -81,6 +84,69 @@ export default function useNodeFlowControl() {
   };
 
   useSignalEffect(() => {
+    if (draggedDappIndexesSignal.value.includes(0) && isAAInstalled) {
+      if (!nodes.some((node) => node.id === 'account-abstraction')) {
+        const rootNode = 'blockchain';
+        const thisDapp = accountAbstractionAsADapp;
+        const category = categories?.find((category) =>
+          category.options.some(
+            (option) => option.key === dappKeyToChainKey(thisDapp.key),
+          ),
+        );
+        const categoryOption = category?.options.find(
+          (option) => option.key === dappKeyToChainKey(thisDapp.key),
+        );
+        let nodesData = nodes;
+        const newNodeId =
+          thisDapp.key === accountAbstractionAsADapp.key
+            ? 'account-abstraction'
+            : `${nodes.length + 1}`;
+        const newNode: DappNode = {
+          id: newNodeId,
+          type: dappKeyToNodeKey(thisDapp.key),
+          dragHandle: '.drag-handle-area',
+          position: { x: 0, y: 0 },
+          data: {
+            node: 'dapp',
+            title: thisDapp.title,
+            dapp: thisDapp,
+            baseIndex: draggedIds2D.length - 1,
+            categoryOption,
+            ids: draggedIds2D[draggedIds2D.length - 1],
+            targetHandles: [`${newNodeId}-t-${rootNode}`],
+            sourceHandles: [],
+          },
+        };
+
+        setNodes([...nodesData, newNode]);
+        setEdges([
+          ...edges,
+          {
+            // id: `${edges.length + 1}`,
+            id: `${Math.random()}`,
+            source: rootNode,
+            sourceHandle: `${rootNode}-s-${thisDapp.title}`,
+            target: `${newNodeId}`,
+            targetHandle: `${newNodeId}-t-${rootNode}`,
+            type: 'customEdge',
+            label: '',
+            markerEnd: {
+              type: MarkerType.Arrow,
+              width: 25,
+              height: 25,
+              strokeWidth: 1,
+              color: '#AAAAAA',
+            },
+            style: {
+              stroke: '#AAAAAA',
+              strokeWidth: 2,
+            },
+          },
+        ]);
+        needReactFlowRenderSignal.value = true;
+      }
+    }
+
     if (draggedIds2DSignal.value.length === draggedIds2D.length) {
       for (let i = 0; i < draggedIds2DSignal.value.length; i++) {
         if (!isTwoObjectEqual(draggedIds2DSignal.value[i], draggedIds2D[i])) {
@@ -112,6 +178,8 @@ export default function useNodeFlowControl() {
   }, [dragState]);
 
   const handleAddBox = () => {
+    console.log('[useNodeFlowControl] MUST CALL LAST LAST');
+
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
     const category = categories?.find((category) =>
@@ -151,7 +219,10 @@ export default function useNodeFlowControl() {
       ) as AppState['nodes'];
     }
 
-    const newNodeId = `${nodes.length + 1}`;
+    const newNodeId =
+      thisDapp.key === accountAbstractionAsADapp.key
+        ? 'account-abstraction'
+        : `${nodes.length + 1}`;
     const newNode: DappNode = {
       id: newNodeId,
       type: dappKeyToNodeKey(thisDapp.key),
