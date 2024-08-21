@@ -12,13 +12,14 @@ import { Flex, Input, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { isEmpty, debounce } from 'lodash';
 import { getErrorMessage } from '@/utils/errorV2';
+import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 
 export default function OptionInputValue({ option }: { option: IModelOption }) {
-  const [sta, seSta] = useState<string>();
-
+  const { isUpdateFlow } = useChainProvider();
   const { setValue } = useOptionInputStore();
   const vl = useOptionInputValue(option.key);
 
+  const [sta, seSta] = useState<string>();
   const [errorMessage, setErrorMessage] = useState<undefined | string>(
     undefined,
   );
@@ -130,7 +131,7 @@ export default function OptionInputValue({ option }: { option: IModelOption }) {
           value={sta}
           borderColor={isError ? 'red' : 'transparent'}
           borderWidth={isError ? '2px' : 'none'}
-          // disabled={isCanNotEdit}
+          disabled={isUpdateFlow}
           onBlur={(e: any) => {
             const text = e.target.value;
             onChangeHandler(text);
@@ -139,6 +140,9 @@ export default function OptionInputValue({ option }: { option: IModelOption }) {
             const text = e.target.value;
             setValue(option.key, text);
             onChangeHandler(text);
+          }}
+          _hover={{
+            cursor: isUpdateFlow ? 'not-allowed' : 'auto',
           }}
           _focus={{
             borderColor: isError ? '#ff6666ff' : 'transparent',

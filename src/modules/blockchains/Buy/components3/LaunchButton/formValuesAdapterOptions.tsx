@@ -14,14 +14,17 @@ export const formValuesAdapterOptions = (dynamicForm: any[]) => {
       const valueInputBasedKey = getValue(optionKey);
       if (valueInputBasedKey) {
         let optionClone = { ...currentOption };
-        let addOnInputs = {
-          ...currentOption.addOnInputs,
-          attrs: {
-            ...currentOption.addOnInputs.attrs,
-            value: valueInputBasedKey?.value || '',
-          },
-        };
-        optionClone.addOnInputs = addOnInputs;
+
+        if (currentOption.addOnInputs) {
+          let addOnInputs = {
+            ...currentOption.addOnInputs,
+            attrs: {
+              ...currentOption.addOnInputs?.attrs,
+              value: valueInputBasedKey?.value || '',
+            },
+          };
+          optionClone.addOnInputs = addOnInputs;
+        }
         optionsNew.push(optionClone);
       } else {
         optionsNew.push(currentOption);
