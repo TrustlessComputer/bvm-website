@@ -11,14 +11,14 @@ import dayjs from 'dayjs';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 // @ts-ignore
-import Papa from 'papaparse';
-import { IRetrieveFormsByDappKey } from '../../hooks/useOneForm';
 import {
   FormDappUtil,
   getAirdropTaskKey,
 } from '@/modules/blockchains/dapp/utils';
 import { IPosition } from '@/services/api/dapp/staking/interface';
+import Papa from 'papaparse';
 import { v4 as uuidv4 } from 'uuid';
+import { IRetrieveFormsByDappKey } from '../../hooks/useOneForm';
 
 const useSubmitFormAirdrop = () => {
   const dappState = useAppSelector(dappSelector);
@@ -166,60 +166,60 @@ const useSubmitFormAirdrop = () => {
           console.log('form', { index, form });
 
           // @ts-ignore
-          // const tasks: ITask[] = _tasks
-          //   .filter((v) => !compareString(v.type, 'whitelist'))
-          //   .map((v) => ({
-          //     ...v,
-          //     amount: v.reward_amount,
-          //   }));
+          const tasks: ITask[] = _tasks
+            .filter((v) => !compareString(v.type, 'whitelist'))
+            .map((v) => ({
+              ...v,
+              amount: v.reward_amount,
+            }));
 
-          // // TODO: JACKIE - update position below
-          // const position: IPosition = {
-          //   position_id: uuidv4(),
-          //   position_x: positions[index].x ?? 0,
-          //   position_y: positions[index].y ?? 0,
-          // };
+          // TODO: JACKIE - update position below
+          const position: IPosition = {
+            position_id: uuidv4(),
+            position_x: positions[index].x ?? 0,
+            position_y: positions[index].y ?? 0,
+          };
 
-          // const body: IBodySetupTask = {
-          //   title: form.airdrop_title as unknown as string,
-          //   token_address: form.reward_token as unknown as string,
-          //   amount: form.airdrop_amount as unknown as string,
-          //   is_bvm_shard: Boolean(form.is_bvm_shard),
-          //   start_time: form.start_date
-          //     ? dayjs(form.start_date as unknown as string).unix()
-          //     : dayjs().unix(),
-          //   end_time: dayjs(form.end_date as unknown as string).unix(),
-          //   ...position, // TODO: JACKIE - update position
-          // };
+          const body: IBodySetupTask = {
+            title: form.airdrop_title as unknown as string,
+            token_address: form.reward_token as unknown as string,
+            amount: form.airdrop_amount as unknown as string,
+            is_bvm_shard: Boolean(form.is_bvm_shard),
+            start_time: form.start_date
+              ? dayjs(form.start_date as unknown as string).unix()
+              : dayjs().unix(),
+            end_time: dayjs(form.end_date as unknown as string).unix(),
+            ...position, // TODO: JACKIE - update position
+          };
 
-          // if (tasks.length > 0) {
-          //   body.tasks = tasks;
-          //   await cAirdropAPI.setupTask(body);
-          //   showSuccess({ message: 'Airdrop created successfully!.' });
-          //   dispatch(requestReload());
-          //   handleReset();
-          //   // setLoading(false);
-          // } else {
-          //   const files = (document?.getElementById?.('whitelist') as any)
-          //     ?.files;
-          //   if (files?.length > 0) {
-          //     const file = files[0];
+          if (tasks.length > 0) {
+            body.tasks = tasks;
+            await cAirdropAPI.setupTask(body);
+            showSuccess({ message: 'Airdrop created successfully!.' });
+            dispatch(requestReload());
+            handleReset();
+            // setLoading(false);
+          } else {
+            const files = (document?.getElementById?.('whitelist') as any)
+              ?.files;
+            if (files?.length > 0) {
+              const file = files[0];
 
-          //     Papa.parse(file, {
-          //       complete: async (result: any) => {
-          //         body.receivers = result.data;
-          //         await cAirdropAPI.setupTask(body);
-          //         showSuccess({ message: 'Airdrop created successfully!.' });
-          //         dispatch(requestReload());
-          //         handleReset();
-          //         // setLoading(false);
-          //       },
-          //       header: true,
-          //       dynamicTyping: true,
-          //       skipEmptyLines: true,
-          //     });
-          //   }
-          // }
+              Papa.parse(file, {
+                complete: async (result: any) => {
+                  body.receivers = result.data;
+                  await cAirdropAPI.setupTask(body);
+                  showSuccess({ message: 'Airdrop created successfully!.' });
+                  dispatch(requestReload());
+                  handleReset();
+                  // setLoading(false);
+                },
+                header: true,
+                dynamicTyping: true,
+                skipEmptyLines: true,
+              });
+            }
+          }
         }
       }
     } catch (error) {
