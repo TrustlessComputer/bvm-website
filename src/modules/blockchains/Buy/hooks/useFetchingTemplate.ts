@@ -12,7 +12,7 @@ import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
 import { Edge, MarkerType } from '@xyflow/react';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import React, { useMemo } from 'react';
 import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
 import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
@@ -38,6 +38,7 @@ import useDapps from './useDapps';
 
 export default function useFetchingTemplate() {
   const { dapps } = useDapps();
+  const path = usePathname();
   const { order, isAAInstalled, isUpdateFlow, isBridgeInstalled } =
     useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
@@ -337,7 +338,12 @@ export default function useFetchingTemplate() {
     formTemplateDappSignal.value = { ...formDapp };
     console.log('[...edges, ...edgeData]', [...edges, ...edgeData]);
     console.log('Nodes', newArray);
-    setEdges([...edges,...edgeData]);
+    if(path === '/studio') {
+      setEdges([...edgeData]);
+    } else {
+      setEdges([...edges,...edgeData]);
+    }
+
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
     setNeedCheckAndAddAA(true);

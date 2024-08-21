@@ -307,6 +307,12 @@ export default function useNodeFlowControl() {
         break;
     }
 
+    if(nodes.some((node) => node.id === newNodeId)) {
+      needReactFlowRenderSignal.value = true;
+      resetDragState();
+      return;
+    }
+
     const newNode: DappNode = {
       id: newNodeId,
       type: dappKeyToNodeKey(thisDapp.key),
