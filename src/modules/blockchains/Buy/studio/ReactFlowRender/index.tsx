@@ -44,6 +44,8 @@ const ReactFlowRenderer = React.memo(() => {
     }
   },[rfInstance,dapps.length]);
 
+  console.log('init', nodes, edges);
+
 
   return (
     <ReactFlow

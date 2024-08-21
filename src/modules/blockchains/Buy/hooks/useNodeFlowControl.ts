@@ -150,7 +150,6 @@ export default function useNodeFlowControl() {
           },
         ]);
         needReactFlowRenderSignal.value = true;
-        return;
       }
     }
 
@@ -256,16 +255,6 @@ export default function useNodeFlowControl() {
 
     if (!categoryOption && !thisDapp.isDefaultDapp) return;
 
-    console.log('[useNodeFlowControl] handleAddBox', {
-      dappIndex,
-      thisDapp,
-      category,
-      categoryOption,
-      draggedDappIndexesSignal: draggedDappIndexesSignal.value,
-      draggedIds2D,
-      type: dappKeyToNodeKey(thisDapp.key),
-    });
-
     const transformedX =
       (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
     const transformedY =
@@ -281,6 +270,9 @@ export default function useNodeFlowControl() {
     switch (thisDapp.key) {
       case accountAbstractionAsADapp.key:
         suffix = 'account-abstraction'
+        break;
+      case bridgesAsADapp.key:
+        suffix = 'bridge_apps'
         break;
       default:
         break;

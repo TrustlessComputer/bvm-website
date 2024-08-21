@@ -160,7 +160,7 @@ export default function useFetchingTemplate() {
       data: {
         node: 'chain',
         title: 'Blockchain',
-        sourceHandles: checkParam ? [`${rootNode}-s-account-abstraction`] : [],
+        sourceHandles: checkParam ? [`${rootNode}-s-account-abstraction`, `${rootNode}-s-bridge_apps`] : [],
         targetHandles: [],
       },
       dragHandle: '.drag-handle-area',
