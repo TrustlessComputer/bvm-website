@@ -1,6 +1,6 @@
 'use client';
 
-import { isShakeLego } from '@/modules/blockchains/Buy/components3/Draggable';
+
 import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import {
@@ -18,7 +18,6 @@ import {
 import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
 import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
-import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 import {
   cloneDeep,
   DragUtil,
@@ -34,8 +33,6 @@ import toast from 'react-hot-toast';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import useFlowStore, { AppState } from '../stores/useFlowStore';
 import useOverlappingChainLegoStore from '../stores/useOverlappingChainLegoStore';
-import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
-import { isShakeLego } from '@/modules/blockchains/Buy/components3/Draggable';
 import {
   useOptionInputStore,
 } from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
