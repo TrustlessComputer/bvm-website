@@ -113,7 +113,7 @@ export default function useNodeFlowControl() {
             baseIndex: draggedIds2D.length - 1,
             categoryOption,
             ids: draggedIds2D[draggedIds2D.length - 1],
-            targetHandles: [`${newNodeId}-t-${rootNode}`],
+            targetHandles: [`account-abstraction-t-${rootNode}`],
             sourceHandles: [],
           },
         };
@@ -125,9 +125,10 @@ export default function useNodeFlowControl() {
             // id: `${edges.length + 1}`,
             id: `${Math.random()}`,
             source: rootNode,
-            sourceHandle: `${rootNode}-s-${thisDapp.title}`,
-            target: `${newNodeId}`,
-            targetHandle: `${newNodeId}-t-${rootNode}`,
+            sourceHandle: `${rootNode}-s-account-abstraction`,
+            // target: `${newNodeId}`,
+            target: `account-abstraction`,
+            targetHandle: `account-abstraction-t-${rootNode}`,
             type: 'customEdge',
             label: '',
             markerEnd: {
