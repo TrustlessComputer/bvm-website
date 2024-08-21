@@ -178,7 +178,7 @@ const LandingV5 = (props: Props) => {
                   href="/build-bitcoin"
                   className={cn(s.cta_btn, s.primary)}
                 >
-                  Open Bitcoin RAAS Studio
+                  Open Bitcoin Studio
                 </Link>
                 <Link
                   href="https://docs.bvm.network/bvm"
