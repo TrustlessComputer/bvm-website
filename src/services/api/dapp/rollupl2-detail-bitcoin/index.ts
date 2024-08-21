@@ -1,5 +1,5 @@
 import CDappApiClient from './dapp.client';
-import { IBalanceBitcoin } from './interface';
+import { IBalanceBitcoin, IBalanceBitcoinInfo } from './interface';
 
 class CRollupL2DetailBitcoinAPI extends CDappApiClient {
   getRollupL2BitcoinBalances = async (
@@ -12,6 +12,17 @@ class CRollupL2DetailBitcoinAPI extends CDappApiClient {
       return rs;
     } catch (error) {
       return [];
+    }
+  };
+
+  getRollupL2BitcoinBalanceInfo = async (
+    user_address: string,
+  ): Promise<IBalanceBitcoinInfo | undefined> => {
+    try {
+      const rs: any = await this.api.get(`/explorer/info/${user_address}`);
+      return rs;
+    } catch (error) {
+      return undefined;
     }
   };
 }

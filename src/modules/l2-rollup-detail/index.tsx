@@ -35,9 +35,13 @@ import TransactionsTab from './TransactionsTab';
 const L2RollupDetail = () => {
   const router = useRouter();
 
-  const { address, isValidAddress, isBTCAddress, totalBalanceUsd } = useContext(
-    L2RollupDetailContext,
-  );
+  const {
+    address,
+    isValidAddress,
+    isBTCAddress,
+    totalBalanceUsd,
+    totalBTCBalance,
+  } = useContext(L2RollupDetailContext);
 
   if (!isValidAddress) {
     return (
@@ -92,7 +96,7 @@ const L2RollupDetail = () => {
           <Flex gap="6px" direction={'column'}>
             <Text fontWeight={'500'} fontSize={{ base: '28px', md: '32px' }}>
               {isBTCAddress
-                ? '$-'
+                ? `${formatCurrency(totalBTCBalance?.balance, 2, 6)} BTC`
                 : `$${formatCurrency(totalBalanceUsd, 2, 2)}`}
             </Text>
             <Flex direction={'row'} alignItems={'center'} gap={'8px'}>
