@@ -93,6 +93,7 @@ const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
       },
     ]
   }, [template]);
+  console.log('SANG TEST', ListTask);
 
   const onConvertImage = async (key: UpdateKey, file: File | undefined) => {
     if (!file) return;
@@ -113,8 +114,12 @@ const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
         ]
       } as any);
     } else {
-      const _headerMenu = template?.headerMenu || [];
-      _headerMenu.splice(deleteIndex, 1);
+      let _headerMenu = template?.headerMenu || [];
+      if (_headerMenu?.length === 1) {
+        _headerMenu = [EmptyHeaderMenu]
+      } else {
+        _headerMenu.splice(deleteIndex, 1);
+      }
       onUpdateState({
         ...template,
         headerMenu: _headerMenu
@@ -124,7 +129,6 @@ const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
 
   const onChangeHeaderMenuInput = (key: string, value: string, index: number) => {
     let _headerMenu = template?.headerMenu || [];
-    console.log('SANG TEST:', _headerMenu[index], index);
     if (_headerMenu?.length <= index) return;
     _headerMenu = _headerMenu.map((item, itemIndex) => {
       if (itemIndex === index) {
@@ -139,7 +143,6 @@ const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
         isNewWindow: true
       }
     })
-    console.log('SANG TEST:', _headerMenu);
     onUpdateState({
       ...template,
       headerMenu: _headerMenu
@@ -201,20 +204,22 @@ const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
               return (
                 <Flex gap='12px' key={`header-menu-${index}`}>
                   <input
-                    className={styles.input} value={item.value.title}
+                    className={styles.input} value={header.title}
                     placeholder={'Name'}
                     onChange={(e) => {
                       onChangeHeaderMenuInput('title', e.target.value, index);
                     }}
                   />
                   <input
-                    className={styles.input} value={item.value.slug}
+                    className={styles.input} value={header.slug}
                     placeholder={'https://'}
                     onChange={(e) => {
                       onChangeHeaderMenuInput('slug', e.target.value, index);
                     }}
                   />
-                  {item.value.length > 1 && (
+                  {item.value?.some(
+                    item1 => !!item1?.slug && !!item1?.title
+                  ) && (
                     <button
                       className={styles.delete}
                       onClick={() => {
