@@ -55,7 +55,7 @@ export default function useHandleDragging() {
   } = useDapps();
   const { selectedCategoryMapping, isUpdateFlow } = useChainProvider();
   const { templateDapps } = useTemplateFormStore();
-  const { setValue } = useOptionInputStore();
+  const { setValue: setValueOptionInputStore } = useOptionInputStore();
 
   // console.log('useHandleDragging -> field :: ', field);
 
@@ -188,7 +188,7 @@ export default function useHandleDragging() {
         if (over && overIsParentDroppable) return;
 
         const optionKey = active.data.current.value;
-        setValue(optionKey, '');
+        setValueOptionInputStore(optionKey, '');
 
         setField(activeKey, active.data.current.value, false);
         setDraggedFields(draggedFields.filter((field) => field !== activeKey));
@@ -202,6 +202,12 @@ export default function useHandleDragging() {
       activeIsParent &&
       (!over || (over && !overIsFinalDroppable && !overIsParentDroppable))
     ) {
+
+      const currentValues = (field[activeKey].value || []) as string[];
+      currentValues.forEach(optionKey => {
+        setValueOptionInputStore(optionKey, '');
+      });
+
       setField(activeKey, [], false);
       setDraggedFields(draggedFields.filter((field) => field !== activeKey));
       return;
@@ -232,7 +238,7 @@ export default function useHandleDragging() {
       const isEmpty = newValue.length === 0;
 
       optionKeyRemove.forEach((optionKey) => {
-        setValue(optionKey, '');
+        setValueOptionInputStore(optionKey, '');
       });
 
       setField(activeKey, newValue, !isEmpty);
