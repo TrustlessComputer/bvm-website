@@ -7,14 +7,14 @@ import s from './styles.module.scss';
 const STEP_SECTION = [
   {
     id: 1,
-    subTile: 'Craft the Bitcoin Wars blockchain with Bitcoin RaaS Studio',
+    subTile: 'Craft the Bitcoin Wars blockchain with BVM Studio',
     subDescription:
-      'Bitcoin RaaS Studio makes blockchain building a breeze! We whipped up the Bitcoin Wars blockchain as a ZK rollup on Bitcoin using simple drag-and-drop tools. No sweat, just pure innovation.',
+      'BVM Studio makes blockchain building a breeze! We whipped up the Bitcoin Wars blockchain as a ZK rollup on Bitcoin using simple drag-and-drop tools. No sweat, just pure innovation.',
     image: '/maga/step-1.1.gif',
     specialImage: true,
     link: '/studio',
     isExternal: false,
-    buttonText: 'Visit Bitcoin RaaS Studio',
+    buttonText: 'Visit BVM Studio',
   },
   {
     id: 2,
