@@ -110,6 +110,7 @@ https://bvm.network/studio/${url}`;
 
       setIsCapturing(false);
       isSharing.value = false;
+      clearIntervalTimer();
       setSeconds(10);
       handleClickShareTwitter(res);
     }, 150);
@@ -155,7 +156,7 @@ https://bvm.network/studio/${url}`;
         height: `${imageHeight}`,
       },
     });
-  },[])
+  }, []);
 
   async function downloadImage() {
     if (isCapturing) return;
@@ -170,6 +171,7 @@ https://bvm.network/studio/${url}`;
     a.click();
     setIsCapturing(false);
     isExportImage.value = false;
+    clearIntervalTimer();
     setSeconds(10);
   }
 
@@ -187,17 +189,17 @@ https://bvm.network/studio/${url}`;
   });
 
   const countDown = () => {
-    let num = seconds
-     timerRef.current = setInterval(() => {
+    let num = seconds;
+    timerRef.current = setInterval(() => {
       if (num === 0) {
         clearIntervalTimer();
       }
-      if(num > 0) {
+      if (num > 0) {
         num--;
         setSeconds(num);
       }
     }, 1000);
-  }
+  };
 
   // const onClick = () => {
   //   if (isCapturing) return;
