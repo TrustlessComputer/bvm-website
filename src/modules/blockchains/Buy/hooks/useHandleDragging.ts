@@ -111,7 +111,7 @@ export default function useHandleDragging() {
     // const selectedCategory = selectedCategoryMapping?.[activeKey];
     const category = categoryMapping?.[activeKey];
 
-    if (!rightDragging && !overIsFinalDroppable) {
+    if (!rightDragging && !overIsFinalDroppable && overSuffix1 !== 'right') {
       return;
     }
 
