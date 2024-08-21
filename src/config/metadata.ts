@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
-export const APP_NAME = 'Launch your own ZK Rollup on Bitcoin for $99/month.';
+export const APP_NAME = 'Launch your own Bitcoin chain for $199/month.';
 export const APP_DEFAULT_TITLE =
-  'Launch your own ZK Rollup on Bitcoin for $99/month.';
+  'Launch your own Bitcoin chain for $199/month.';
 export const APP_TITLE_TEMPLATE = '%s'; // Don't need extra text for the title
 export const APP_DESCRIPTION = `Join the wave of developers building blockchains and decentralized applications. With its simple and intuitive interface, our blockchain platform is the perfect starting point for your blockchain journey.`;
 // const APP_THUMBNAIL = `${CDN_URL_ICONS}/metadata.jpg`;
