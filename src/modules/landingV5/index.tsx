@@ -135,7 +135,7 @@ const LandingV5 = (props: Props) => {
                 Ready to dive in? Visit Bitcoin RaaS Studio to begin creating
                 your own chains on Bitcoin. Build, innovate, and lead the way.
               </div>
-              <Flex alignItems={'center'} gap="20px">
+              <Flex alignItems={'center'} gap="20px" flexWrap={'wrap'}>
                 <Link
                   href="/build-bitcoin"
                   className={cn(s.cta_btn, s.primary)}
