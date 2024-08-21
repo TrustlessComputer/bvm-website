@@ -276,10 +276,19 @@ export default function useNodeFlowControl() {
     };
 
     const rootNode = 'blockchain';
+    let suffix = thisDapp.title
+
+    switch (thisDapp.key) {
+      case accountAbstractionAsADapp.key:
+        suffix = 'account-abstraction'
+        break;
+      default:
+        break;
+    }
 
     const getHandleNodeBlockChain = nodes.find((item) => item.id === rootNode);
     const isHandleExists = edges.some(
-      (handle) => handle.sourceHandle === `${rootNode}-s-${thisDapp.title}`,
+      (handle) => handle.sourceHandle === `${rootNode}-s-${suffix}`,
     );
     let nodesData = nodes;
 
@@ -323,6 +332,8 @@ export default function useNodeFlowControl() {
       },
     };
 
+
+
     setNodes([...nodesData, newNode]);
     setEdges([
       ...edges,
@@ -330,7 +341,7 @@ export default function useNodeFlowControl() {
         // id: `${edges.length + 1}`,
         id: `${Math.random()}`,
         source: rootNode,
-        sourceHandle: `${rootNode}-s-${thisDapp.title}`,
+        sourceHandle: `${rootNode}-s-${suffix}`,
         target: `${newNodeId}`,
         targetHandle: `${newNodeId}-t-${rootNode}`,
         type: 'customEdge',
