@@ -367,9 +367,9 @@ export default function useFetchingTemplate() {
     });
 
     console.log('[useFetchingTemplate] parsedTokensData', {
-      parsedTokensData,
-      parsedAirdropsData,
-      parsedStakingPoolsData,
+      tokens,
+      airdrops,
+      stakingPools,
     });
 
     setTemplateDapps([

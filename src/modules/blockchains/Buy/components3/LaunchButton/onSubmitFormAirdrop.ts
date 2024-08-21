@@ -40,6 +40,8 @@ const useSubmitFormAirdrop = () => {
     forms: IRetrieveFormsByDappKey[][];
     positions?: Vector2[];
   }) => {
+    let index = 0;
+
     try {
       for (const form of forms) {
         let finalFormMappings: Record<string, any[]>[] = [];
@@ -162,9 +164,7 @@ const useSubmitFormAirdrop = () => {
 
         // setLoading(true);
 
-        for (const [index, form] of finalFormMappings) {
-          console.log('form', { index, form });
-
+        for (const form of finalFormMappings) {
           // @ts-ignore
           const tasks: ITask[] = _tasks
             .filter((v) => !compareString(v.type, 'whitelist'))
@@ -179,6 +179,7 @@ const useSubmitFormAirdrop = () => {
             position_x: positions[index].x ?? 0,
             position_y: positions[index].y ?? 0,
           };
+          index++;
 
           const body: IBodySetupTask = {
             title: form.airdrop_title as unknown as string,

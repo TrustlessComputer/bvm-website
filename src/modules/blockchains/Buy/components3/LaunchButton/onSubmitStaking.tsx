@@ -10,14 +10,17 @@ const useSubmitStaking = () => {
 
   const onSubmitStaking = async ({
     forms,
+    positions = [],
   }: {
     forms: IRetrieveFormsByDappKey[][];
+    positions?: Vector2[];
   }) => {
     // const stakingForms = retrieveFormsByDappKey({
     //   dappKey: 'staking',
     // });
 
     const params = [];
+    let index = 0;
 
     for (const form of forms) {
       try {
@@ -61,10 +64,11 @@ const useSubmitStaking = () => {
         // TODO: JACKIE - update position below
         const position: IPosition = {
           position_id: uuidv4(),
-          position_x: 0,
-          position_y: 0,
+          position_x: positions[index].x ?? 0,
+          position_y: positions[index].y ?? 0,
         };
-        console.log(position);
+        index++;
+        // console.log(position);
 
         await cStakeAPI.createNewStakingPool({
           principle_token: formFinal?.staking_token,

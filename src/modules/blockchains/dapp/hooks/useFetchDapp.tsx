@@ -56,7 +56,7 @@ const useFetchDapp = () => {
   };
 
   const getDappTasks = async () => {
-    console.log('[useFetchDapp] getDappTasks start');
+    console.time('[useFetchDapp] getDappTasks time');
     try {
       await Promise.all([
         fetchTokenList(),
@@ -65,7 +65,7 @@ const useFetchDapp = () => {
         getListAirdrop(),
       ]);
       setLoading(true);
-      console.log('[useFetchDapp] getDappTasks done');
+      console.time('[useFetchDapp] getDappTasks time');
       dispatch(setCounterFetchedDapp());
     } catch (error) {
       console.log('getDappTasks', error);

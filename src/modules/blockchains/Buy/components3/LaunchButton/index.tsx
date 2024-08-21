@@ -339,21 +339,32 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     const stakingNodePositions = retrieveNodePositionsByDappKey({
       dappKey: DappType.staking,
     });
-    console.log('[LaunchButton] - staking', {
-      stakingForms,
-      stakingNodePositions,
-    });
 
     const airdropForms = retrieveFormsByDappKey({
+      dappKey: DappType.airdrop,
+    });
+    const airdropNodePositions = retrieveNodePositionsByDappKey({
       dappKey: DappType.airdrop,
     });
 
     const tokensForms = retrieveFormsByDappKey({
       dappKey: DappType.token_generation,
     });
-    // console.log('UPDATE FLOW: --- tokensForms --- ', tokensForms);
+    const tokensNodePositions = retrieveNodePositionsByDappKey({
+      dappKey: DappType.token_generation,
+    });
 
-    console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
+    console.log('[LaunchButton] - onUpdateHandler', {
+      params,
+      stakingForms,
+      stakingNodePositions,
+      airdropForms,
+      airdropNodePositions,
+      tokensForms,
+      tokensNodePositions,
+    });
+
+    // console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
     // console.log('LEON LOG: 111', tokensForms);
     let isConfigDapp = false;
 
@@ -368,17 +379,24 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         if (stakingForms && stakingForms.length > 0) {
           await onSubmitStaking({
             forms: stakingForms,
+            positions: stakingNodePositions,
           });
           isConfigDapp = true;
         }
 
         if (airdropForms && airdropForms.length > 0) {
-          await onSubmitAirdrop({ forms: airdropForms });
+          await onSubmitAirdrop({
+            forms: airdropForms,
+            positions: airdropNodePositions,
+          });
           isConfigDapp = true;
         }
 
         if (tokensForms && tokensForms.length > 0) {
-          await onSubmitTokenGeneration({ forms: tokensForms });
+          await onSubmitTokenGeneration({
+            forms: tokensForms,
+            positions: tokensNodePositions,
+          });
           isConfigDapp = true;
         }
 
