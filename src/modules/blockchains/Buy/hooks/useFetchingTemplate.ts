@@ -334,8 +334,8 @@ export default function useFetchingTemplate() {
 
     templateIds2DSignal.value = [...draggedIds2D];
     formTemplateDappSignal.value = { ...formDapp };
-    console.log('[...edges, ...edgeData]', [...edgeData]);
-    console.log('Nodes', newArray);
+    // console.log('[...edges, ...edgeData]', [...edgeData]);
+    // console.log('Nodes', newArray);
     setEdges([...edgeData]);
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
