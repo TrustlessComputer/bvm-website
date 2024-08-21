@@ -128,6 +128,7 @@ interface SectionModel {
   title: string;
   tooltip: string;
   required: boolean;
+  show?: boolean;
 }
 
 interface FieldModel {

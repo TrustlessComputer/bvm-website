@@ -1124,9 +1124,10 @@ export const dappMockupData: DappModel[] = [
       {
         key: 'yolo',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-        title: 'YOLO',
+        title: 'Payment Token',
         tooltip: '',
-        required: true,
+        required: false,
+        show: true
       },
     ],
     baseModuleFields: [
