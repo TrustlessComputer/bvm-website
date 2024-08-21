@@ -7,7 +7,7 @@ interface IProps {
   title: string;
   show: boolean;
   onClose: (() => void) | any;
-  content: React.ReactNode | null;
+  content: React.ReactNode | null | string;
 }
 
 const DescriptionModal = forwardRef((props: IProps, ref: any) => {
@@ -32,8 +32,7 @@ const DescriptionModal = forwardRef((props: IProps, ref: any) => {
             {title}
           </Text>
         )}
-
-        {content && <Text fontSize={['15px', '16px', '18px']} dangerouslySetInnerHTML={{__html: content}}></Text>}
+        {content &&  <div className={s.content} dangerouslySetInnerHTML={{ __html: content }} />}
       </Flex>
     </BaseModal>
   );
