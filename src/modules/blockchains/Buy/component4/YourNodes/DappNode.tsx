@@ -2,21 +2,21 @@ import React from 'react';
 
 import { useChainStatus } from '@/modules/blockchains/detail_v4/hook/useChainStatus';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import { useAppSelector } from '@/stores/hooks';
+import { isInstalledIssueTokenSelector } from '@/stores/states/dapp/selector';
 import { OrderStatus } from '@/stores/states/l2services/types';
 import { DappNode as DappNodeProps, NodeNotificationProps } from '@/types/node';
 import { NodeProps } from '@xyflow/react';
 import DappRenderer from '../DappRenderer';
 import Node from '../Node/Node';
-import { useAppSelector } from '@/stores/hooks';
-import { isInstalledIssueTokenSelector } from '@/stores/states/dapp/selector';
 
 const DappNode = ({ data }: NodeProps<DappNodeProps>) => {
   const { statusCode, statusStr } = useChainStatus();
   const { isUpdateFlow } = useChainProvider();
 
-  const isInstalledIssueToken = useAppSelector(isInstalledIssueTokenSelector)
+  const isInstalledIssueToken = useAppSelector(isInstalledIssueTokenSelector);
 
-  console.log('SANG TEST', data);
+  // console.log('SANG TEST', data);
 
   const notification: NodeNotificationProps | undefined = React.useMemo(() => {
     if (isUpdateFlow && statusCode !== OrderStatus.Started) {
@@ -33,7 +33,12 @@ const DappNode = ({ data }: NodeProps<DappNodeProps>) => {
       };
     }
 
-    if (isUpdateFlow && !isInstalledIssueToken && data?.node === 'dapp' && data?.dapp?.key !== 'create_token') {
+    if (
+      isUpdateFlow &&
+      !isInstalledIssueToken &&
+      data?.node === 'dapp' &&
+      data?.dapp?.key !== 'create_token'
+    ) {
       return {
         label: 'IMPORTANT',
         message: 'Please install issue token module to use this feature.',
@@ -41,7 +46,13 @@ const DappNode = ({ data }: NodeProps<DappNodeProps>) => {
     }
 
     return undefined;
-  }, [isUpdateFlow, statusCode, isInstalledIssueToken, data?.node, data?.dapp?.key]);
+  }, [
+    isUpdateFlow,
+    statusCode,
+    isInstalledIssueToken,
+    data?.node,
+    data?.dapp?.key,
+  ]);
 
   return (
     <Node

@@ -12,6 +12,7 @@ import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
 import { Edge, MarkerType } from '@xyflow/react';
+import { useParams } from 'next/navigation';
 import React, { useMemo } from 'react';
 import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
 import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
@@ -34,7 +35,6 @@ import useUpdateFlowStore from '../stores/useUpdateFlowStore';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
-import { useParams } from 'next/navigation';
 
 export default function useFetchingTemplate() {
   const { dapps } = useDapps();
@@ -121,8 +121,8 @@ export default function useFetchingTemplate() {
   };
 
   const checkParam = useMemo(() => {
-    return !!param.id
-  }, [param.id])
+    return !!param.id;
+  }, [param.id]);
 
   const dataTemplateToBox = async () => {
     formDappSignal.value = {};
@@ -247,8 +247,14 @@ export default function useFetchingTemplate() {
 
     const _newNodes: any[] = draggedIds2D.map((ids, index) => {
       const dappKey = templateDapps[index].key;
-      const xOffset = 30 + 500 * xOffsetCount[dappKey]++;
-      const yOffset = 30 + 500 * allDappKeys.indexOf(dappKey);
+      const defaultPositionX = 30 + 500 * xOffsetCount[dappKey]++;
+      const defaultPositionY = 30 + 500 * allDappKeys.indexOf(dappKey);
+      const xOffset =
+        [...tokens, ...airdrops, ...stakingPools][index].position_x ??
+        defaultPositionX;
+      const yOffset =
+        [...tokens, ...airdrops, ...stakingPools][index].position_y ??
+        defaultPositionY;
       const idNode = index.toString();
       const isHandleExists = getHandleNodeBlockChain?.data?.sourceHandles?.some(
         (handle) => handle === `${rootNode}-s-${templateDapps[index].title}`,
@@ -328,8 +334,8 @@ export default function useFetchingTemplate() {
 
     templateIds2DSignal.value = [...draggedIds2D];
     formTemplateDappSignal.value = { ...formDapp };
-    console.log('[...edges, ...edgeData]', [...edgeData]);
-    console.log('Nodes', newArray);
+    // console.log('[...edges, ...edgeData]', [...edgeData]);
+    // console.log('Nodes', newArray);
     setEdges([...edgeData]);
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
@@ -361,9 +367,9 @@ export default function useFetchingTemplate() {
     });
 
     console.log('[useFetchingTemplate] parsedTokensData', {
-      parsedTokensData,
-      parsedAirdropsData,
-      parsedStakingPoolsData,
+      tokens,
+      airdrops,
+      stakingPools,
     });
 
     setTemplateDapps([

@@ -56,3 +56,5 @@ export interface IAppInfo {
   icon_url: string
   image_url: string
 }
+
+export type AppCode = 'create_token' | 'staking' | 'account_abstraction' | 'btc_bridge' | 'eth_bridge' | 'airdrop' | 'yologame';
