@@ -78,7 +78,11 @@ const ReactFlowRenderer = React.memo(() => {
       edges={edges}
       fitViewOptions={{ padding: 1 }}
       className={s.reactFlow}
-      onNodeDragStop={() =>  onSave()}
+      onNodeDragStop={() =>  {
+        if(path === '/studio') {
+          onSave()
+        }
+      }}
     />
   );
 });
