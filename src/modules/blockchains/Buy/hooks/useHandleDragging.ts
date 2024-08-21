@@ -36,6 +36,8 @@ import useOverlappingChainLegoStore from '../stores/useOverlappingChainLegoStore
 import {
   useOptionInputStore,
 } from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
+import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
+import { isShakeLego } from '@/modules/blockchains/Buy/components3/Draggable';
 
 export default function useHandleDragging() {
   const { setOverlappingId } = useOverlappingChainLegoStore();
