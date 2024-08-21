@@ -118,8 +118,6 @@ $text-max-width: 80ch;
 
         .next_btn {
             right: 140px;
-
-
         }
 
         @include not-pc {
@@ -161,5 +159,51 @@ $text-max-width: 80ch;
         }
 
 
+    }
+
+    :global {
+        .slick-list {
+            max-width: 100vw;
+        }
+
+        .slick-slide {
+            width: 360px !important;
+            margin-right: 32px;
+        }
+
+        .slick-arrow {
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+            height: 48px;
+            width: 48px;
+            display: grid !important;
+            place-items: center;
+            background: rgba(207, 207, 207, 0.80);
+
+            &::before {
+                display: none;
+            }
+
+            &:hover {
+                opacity: 0.75;
+            }
+
+            z-index: 1;
+        }
+
+        .slick-prev {
+            left: 20px;
+
+            img {
+                transform: rotate(180deg);
+
+            }
+        }
+
+        .slick-next {
+            left: 76vw;
+
+        }
     }
 }

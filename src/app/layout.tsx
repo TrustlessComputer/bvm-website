@@ -1,6 +1,8 @@
 import '@/styles/index.scss';
 import '@fontsource/space-mono';
 import '@fontsource/urbanist';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 import { Metadata, Viewport } from 'next';
 

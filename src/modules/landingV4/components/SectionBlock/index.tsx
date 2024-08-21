@@ -12,6 +12,7 @@ import cn from 'classnames';
 import Link from 'next/link';
 import SectionItemGeneral from './Item/General';
 import SectionItemApp from './Item/App';
+import Slider from 'react-slick';
 
 export type BlockCardItem = Omit<TDappCardProps, 'idx'> & {
   logo: string;

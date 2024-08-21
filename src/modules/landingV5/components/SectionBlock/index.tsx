@@ -7,6 +7,7 @@ import SectionItemApp from './Item/App';
 import SectionItemGeneral from './Item/General';
 import s from './SectionBlock.module.scss';
 import Slider from 'react-slick';
+import next from 'next';
 
 export type BlockCardItem = Omit<TDappCardProps, 'idx'> & {
   logo: string;
@@ -29,6 +30,46 @@ const SectionBlock = (props: any) => {
     prev: false,
     next: true,
   });
+
+  const settings = {
+    slidesToShow: 4,
+    // swipeToSlide: true,
+    infinite: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+    nextArrow: (
+      <Box
+        className={cn(s.prev_btn, s.control_btn)}
+        top={props.id === 'news' ? 'calc(50% - 44px)' : '50%'}
+        onClick={() => handleChangeDirection('prev')}
+      >
+        <img src="\landing-v4\ic-angle-right.svg"></img>
+      </Box>
+    ),
+    prevArrow: (
+      <Box
+        className={cn(s.next_btn, s.control_btn)}
+        top={props.id === 'news' ? 'calc(50% - 44px)' : '50%'}
+        onClick={() => handleChangeDirection('next')}
+      >
+        <img src="\landing-v4\ic-angle-right.svg"></img>
+      </Box>
+    ),
+  };
 
   const handleChangeDirection = useCallback(
     (direction: 'next' | 'prev') => {
@@ -133,30 +174,34 @@ const SectionBlock = (props: any) => {
             className={cn(s.items_wrapper, {
               [s.items_wrapper__apps]: isCardLayout,
             })}
-            ref={itemsWrapperRef}
             mb={spacing}
+            // ref={itemsWrapperRef}
           >
-            {item.map((item: BlockCardItem | BlockChainItem, index: number) => {
-              if (isCardLayout) {
-                return (
-                  <SectionItemApp
-                    key={`${props.id}-${index}`}
-                    item={item as BlockCardItem}
-                  />
-                );
-              }
+            <Slider {...settings}>
+              {item.map(
+                (item: BlockCardItem | BlockChainItem, index: number) => {
+                  if (isCardLayout) {
+                    return (
+                      <SectionItemApp
+                        key={`${props.id}-${index}`}
+                        item={item as BlockCardItem}
+                      />
+                    );
+                  }
 
-              return (
-                <SectionItemGeneral
-                  key={`${props.id}-${index}`}
-                  id={props.id}
-                  item={item}
-                />
-              );
-            })}
+                  return (
+                    <SectionItemGeneral
+                      key={`${props.id}-${index}`}
+                      id={props.id}
+                      item={item}
+                    />
+                  );
+                },
+              )}
+            </Slider>
           </Box>
 
-          {!!showControls.prev && (
+          {/* {!!showControls.prev && (
             <Box
               className={cn(s.prev_btn, s.control_btn)}
               top={props.id === 'news' ? 'calc(50% - 44px)' : '50%'}
@@ -174,7 +219,7 @@ const SectionBlock = (props: any) => {
             >
               <img src="\landing-v4\ic-angle-right.svg"></img>
             </Box>
-          )}
+          )} */}
         </div>
       </div>
     </Box>
