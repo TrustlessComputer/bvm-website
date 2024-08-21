@@ -56,11 +56,15 @@ const useFetchDapp = () => {
   };
 
   const fetchTokenList = async () => {
+    console.time('[TIME] fetchTokenList')
     await tokenAPI.getListToken(dappState?.chain?.chainId || '');
+    console.timeEnd('[TIME] fetchTokenList')
   };
 
   const fetchStakingPoolsList = async () => {
+    console.time('[TIME] fetchStakingPoolsList')
     await stakingAPI.getStakingPools();
+    console.timeEnd('[TIME] fetchStakingPoolsList')
   };
 
   const fetchYoloGameList = async () => {
