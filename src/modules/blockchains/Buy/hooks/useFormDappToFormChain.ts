@@ -1,8 +1,8 @@
-import React from 'react';
-import useDapps from './useDapps';
 import { useSignalEffect } from '@preact/signals-react';
+import React from 'react';
 import { draggedDappIndexesSignal } from '../signals/useDragSignal';
 import { cloneDeep } from '../utils';
+import useDapps from './useDapps';
 
 const useFormDappToFormChain = () => {
   const { dapps } = useDapps();
@@ -19,11 +19,17 @@ const useFormDappToFormChain = () => {
   React.useEffect(() => {
     const dappCount: Record<string, number> = {};
 
+    console.log('[useFormDappToFormChain]', {
+      dappIndexes: draggedDappIndexesSignal.value,
+    });
+
     const dappIndexes = cloneDeep(draggedDappIndexesSignal.value);
     dappIndexes.forEach((dappIndex) => {
       const dapp = dapps[dappIndex];
 
-      if (dappCount[dapp.key] === undefined) {
+      if (!dapp) return;
+
+      if (typeof dappCount[dapp.key] === 'undefined') {
         dappCount[dapp.key] = 1;
       } else {
         dappCount[dapp.key]++;

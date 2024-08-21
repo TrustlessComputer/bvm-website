@@ -1,0 +1,38 @@
+.inputContainer {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #cecece;
+  border-radius: 100px;
+  font-size: 16px;
+  max-width: 280px !important;
+
+  &:focus-within {
+    border: 1px solid #fa4e0e;
+  }
+
+  input {
+    border-radius: 16px;
+    padding-inline-start: 40px;
+    padding-inline-end: 12px;
+    border: none !important;
+    outline: 0;
+    background-color: transparent;
+    color: #000;
+
+    font-weight: 400;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    &:focus-visible {
+      box-shadow: none;
+    }
+
+    &::placeholder {
+      color: gray;
+    }
+  }
+}

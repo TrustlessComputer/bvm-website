@@ -318,16 +318,16 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
     const { dynamicForm } = getDynamicForm();
 
-    if (needContactUs) {
-      // showContactUsModal(dynamicForm as any);
-      showContactUsModal({
-        subjectDefault: 0,
-        disableSelect: true,
-        changeText: true,
-        nodeConfigs: dynamicForm || [],
-      });
-      return;
-    }
+    // if (needContactUs) {
+    //   // showContactUsModal(dynamicForm as any);
+    //   showContactUsModal({
+    //     subjectDefault: 0,
+    //     disableSelect: true,
+    //     changeText: true,
+    //     nodeConfigs: dynamicForm || [],
+    //   });
+    //   return;
+    // }
 
     setSubmitting(true);
 
@@ -366,7 +366,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       // const result = {};
       if (result) {
         //Config Account Abstraction...
-        // configAccountAbstraction(dynamicForm);
+        configAccountAbstraction(dynamicForm);
         //Staking...
         if (stakingForms && stakingForms.length > 0) {
           await onSubmitStaking({
@@ -545,16 +545,16 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       return;
     }
 
-    if (needContactUs) {
-      // showContactUsModal(dynamicForm as any);
-      showContactUsModal({
-        subjectDefault: 0,
-        disableSelect: true,
-        changeText: true,
-        nodeConfigs: dynamicForm || [],
-      });
-      return;
-    }
+    // if (needContactUs) {
+    //   // showContactUsModal(dynamicForm as any);
+    //   showContactUsModal({
+    //     subjectDefault: 0,
+    //     disableSelect: true,
+    //     changeText: true,
+    //     nodeConfigs: dynamicForm || [],
+    //   });
+    //   return;
+    // }
 
     if (!loggedIn) {
       localStorage.setItem('bvm.customize-form', JSON.stringify(dynamicForm));

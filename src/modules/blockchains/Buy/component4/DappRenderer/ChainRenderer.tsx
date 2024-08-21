@@ -48,7 +48,7 @@ const ChainRenderer = () => {
     >
       <LegoV3
         background={'#FF3A3A'}
-        label="Rollup Name"
+        label="Bitcoin Chain Name"
         labelInLeft
         zIndex={45}
       >
