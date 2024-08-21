@@ -12,7 +12,7 @@ import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import { orderBuyAPI_V3 } from '@/services/api/l2services';
+import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { requestReload } from '@/stores/states/common/reducer';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
