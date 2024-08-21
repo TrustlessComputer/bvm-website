@@ -18,6 +18,7 @@ export const dappKeyMapNodeKey: Record<
   (typeof nodeKey)[keyof typeof nodeKey]
 > = Object.freeze({
   account_abstraction: nodeKey.ACCOUNT_ABSTRACTION_NODE,
+  bridge_apps: nodeKey.BRIDGE_NODE,
   issue_a_token: nodeKey.DAPP_NODE,
   staking: nodeKey.DAPP_NODE,
   airdrop: nodeKey.DAPP_NODE,

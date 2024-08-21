@@ -1,6 +1,7 @@
 'use client';
 
-
+import { useOptionInputStore } from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
+import { isShakeLego } from '@/modules/blockchains/Buy/components3/Draggable';
 import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import {
@@ -18,6 +19,7 @@ import {
 import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
 import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 import {
   cloneDeep,
   DragUtil,
@@ -33,11 +35,6 @@ import toast from 'react-hot-toast';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import useFlowStore, { AppState } from '../stores/useFlowStore';
 import useOverlappingChainLegoStore from '../stores/useOverlappingChainLegoStore';
-import {
-  useOptionInputStore,
-} from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
-import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
-import { isShakeLego } from '@/modules/blockchains/Buy/components3/Draggable';
 
 export default function useHandleDragging() {
   const { setOverlappingId } = useOverlappingChainLegoStore();
@@ -208,9 +205,8 @@ export default function useHandleDragging() {
       activeIsParent &&
       (!over || (over && !overIsFinalDroppable && !overIsParentDroppable))
     ) {
-
       const currentValues = (field[activeKey].value || []) as string[];
-      currentValues.forEach(optionKey => {
+      currentValues.forEach((optionKey) => {
         setValueOptionInputStore(optionKey, '');
       });
 
@@ -232,6 +228,15 @@ export default function useHandleDragging() {
 
       setField(activeKey, newValue, true);
       isCurrentEmpty && setDraggedFields([...draggedFields, activeKey]);
+
+      if (
+        activeKey === 'bridge_apps' &&
+        !draggedDappIndexesSignal.value.includes(1) &&
+        !activeIsParent
+      ) {
+        draggedDappIndexesSignal.value = [...draggedDappIndexesSignal.value, 1];
+        draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
+      }
     } else {
       const currentValues = (field[activeKey].value || []) as string[];
       const newValue = currentValues.filter(

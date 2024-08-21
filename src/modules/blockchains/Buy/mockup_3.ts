@@ -1,10 +1,12 @@
 import { DappModel } from '@/types/customize-model';
 
 export const accountAbstractionAsADapp: DappModel = {
+  isDefaultDapp: true,
   id: 'account_abstraction',
   key: 'account_abstraction',
   title: 'Account Abstraction',
   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
+  order: 1,
   order: 1,
   color: '#00c1cd',
   color_border: '#00c1cd',
@@ -61,6 +63,46 @@ export const accountAbstractionAsADapp: DappModel = {
     ],
   },
 };
+
+export const bridgesAsADapp: DappModel = {
+  isDefaultDapp: true,
+  id: 'bridge_apps',
+  key: 'bridge_apps',
+  title: 'Bridges',
+  icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
+  order: 2,
+  color: '#855AFF',
+  color_border: '#855AFF',
+  created_at: '2021-09-14T09:00:00.000Z',
+  updated_at: '2021-09-14T09:00:00.000Z',
+  tooltip: '',
+  label: {
+    title: '',
+    color: '',
+    background: '',
+    status: '',
+  },
+  sections: [
+    {
+      key: 'modules',
+      icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
+      title: '',
+      tooltip: '',
+      required: false,
+    },
+  ],
+  baseBlock: {
+    key: 'bridge_info',
+    title: 'Bridges',
+    icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
+    placableAmount: 1,
+    section: 'modules',
+    preview: false,
+    background: '#855AFF',
+    fields: [],
+  },
+};
+
 export const dappMockupData: DappModel[] = [
   {
     id: 'token_generation',

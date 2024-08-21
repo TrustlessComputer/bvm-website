@@ -191,6 +191,7 @@ interface DappModel {
     actionMapperID: string;
     color?: string;
   };
+  isDefaultDapp?: boolean;
 }
 
 interface TemplateForm {

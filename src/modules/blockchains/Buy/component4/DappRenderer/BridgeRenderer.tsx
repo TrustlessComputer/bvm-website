@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ComputerNameInput from '@/modules/blockchains/Buy/components3/ComputerNameInput';
 import ChainDraggable from '@/modules/blockchains/Buy/components3/Draggable';
 import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
 import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
@@ -18,7 +17,7 @@ import styles from './styles.module.scss';
 
 type Props = {};
 
-const ChainRenderer = () => {
+const BridgeRenderer = () => {
   const { parsedCategories } = useModelCategoriesStore();
   const { draggedFields } = useDragStore();
   const { overlappingId } = useOverlappingChainLegoStore();
@@ -47,17 +46,8 @@ const ChainRenderer = () => {
         height: '100%',
       }}
     >
-      <LegoV3
-        background={'#FF3A3A'}
-        label="Bitcoin Chain Name"
-        labelInLeft
-        zIndex={45}
-      >
-        <ComputerNameInput />
-      </LegoV3>
-
       {draggedFields.map((key, index) => {
-        if (key === 'bridge_apps') return null;
+        if (key !== 'bridge_apps') return null;
 
         const item = parsedCategories?.find((i) => i.key === key);
         const selectedCategory = selectedCategoryMapping?.[key];
@@ -174,4 +164,4 @@ const ChainRenderer = () => {
   );
 };
 
-export default ChainRenderer;
+export default BridgeRenderer;

@@ -84,6 +84,11 @@ export default function useNodeFlowControl() {
   };
 
   useSignalEffect(() => {
+    console.log('[useNodeFlowControl] useSignalEffect', {
+      new: draggedIds2DSignal.value,
+      old: draggedIds2D,
+    });
+
     if (draggedDappIndexesSignal.value.includes(0) && isAAInstalled) {
       if (!nodes.some((node) => node.id === 'account-abstraction')) {
         const rootNode = 'blockchain';
@@ -192,7 +197,17 @@ export default function useNodeFlowControl() {
       (option) => option.key === dappKeyToChainKey(thisDapp.key),
     );
 
-    if (!categoryOption) return;
+    if (!categoryOption && !thisDapp.isDefaultDapp) return;
+
+    console.log('[useNodeFlowControl] handleAddBox', {
+      dappIndex,
+      thisDapp,
+      category,
+      categoryOption,
+      draggedDappIndexesSignal: draggedDappIndexesSignal.value,
+      draggedIds2D,
+      type: dappKeyToNodeKey(thisDapp.key),
+    });
 
     const transformedX =
       (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
