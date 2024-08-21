@@ -386,7 +386,7 @@ export const MODULE_DATAS = {
     hero: {
       theme:
         'linear-gradient(180deg, rgba(255, 132, 86, 0.80) -5.57%, rgba(255, 132, 86, 0.00) 98.47%)',
-      title: 'Bitcoin RaaS Studio',
+      title: 'BVM Studio',
       subTitle: 'TOOLS',
       desc: 'A fast, simple, and fun way to build your own ZK rollup on Bitcoin.',
       start: {
@@ -395,11 +395,11 @@ export const MODULE_DATAS = {
       },
     },
     why: {
-      title: 'Why Bitcoin RaaS Studio?',
-      desc: `No code required! Bitcoin RaaS Studio makes it fun and accessible for anyone to create a blockchain tailored to their needs.`,
+      title: 'Why BVM Studio?',
+      desc: `No code required! BVM Studio makes it fun and accessible for anyone to create a blockchain tailored to their needs.`,
     },
     benefit: {
-      title: 'Benefits of Bitcoin RaaS Studio',
+      title: 'Benefits of BVM Studio',
       contents: [
         {
           title: 'No code required',

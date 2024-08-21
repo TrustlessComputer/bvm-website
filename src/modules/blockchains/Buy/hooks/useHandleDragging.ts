@@ -1,5 +1,6 @@
 'use client';
 
+import { isShakeLego } from '@/modules/blockchains/Buy/components3/Draggable';
 import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import {
@@ -17,6 +18,7 @@ import {
 import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
 import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 import {
   cloneDeep,
   DragUtil,
@@ -82,6 +84,7 @@ export default function useHandleDragging() {
     setRightDragging(false);
 
     const { over, active } = event;
+    console.log('over, active', { over, active });
 
     // Format ID of single option = <key>-<value>
     // Format ID of parent option = <key>-parent-<suffix>
@@ -109,8 +112,12 @@ export default function useHandleDragging() {
     // const selectedCategory = selectedCategoryMapping?.[activeKey];
     const category = categoryMapping?.[activeKey];
 
-    // swap activeKey, overKey in draggedFields
+    if (!rightDragging && !overIsFinalDroppable) {
+      return;
+    }
+
     if (rightDragging && !overIsFinalDroppable && overSuffix1 === 'right') {
+      // swap activeKey, overKey in draggedFields
       const _draggedFields = cloneDeep(draggedFields);
       const activeIndex = draggedFields.indexOf(activeKey);
       const overIndex = draggedFields.indexOf(overKey);
@@ -243,7 +250,7 @@ export default function useHandleDragging() {
 
       setField(activeKey, newValue, !isEmpty);
       isEmpty &&
-      setDraggedFields(draggedFields.filter((field) => field !== activeKey));
+        setDraggedFields(draggedFields.filter((field) => field !== activeKey));
     }
   };
 
@@ -269,8 +276,8 @@ export default function useHandleDragging() {
     const noBaseBlockInOutput = draggedIds2D.length === 0;
     const canPlaceMoreBase =
       Number(thisDapp.baseBlock.placableAmount) >
-      draggedDappIndexesSignal.value.filter((index) => index === dappIndex)
-        .length || thisDapp.baseBlock.placableAmount === -1;
+        draggedDappIndexesSignal.value.filter((index) => index === dappIndex)
+          .length || thisDapp.baseBlock.placableAmount === -1;
     // const canPlaceMoreBase =
     //   Number(thisDapp.baseBlock.placableAmount) > draggedIds2D.length ||
     //   thisDapp.baseBlock.placableAmount === -1;
@@ -409,9 +416,9 @@ export default function useHandleDragging() {
         ).length;
         const canPlaceMore =
           totalPlaced <
-          moduleFieldMapping[dappIndex][activeOriginalKey].placableAmount ||
+            moduleFieldMapping[dappIndex][activeOriginalKey].placableAmount ||
           moduleFieldMapping[dappIndex][activeOriginalKey].placableAmount ===
-          -1;
+            -1;
         const composedFieldKey =
           'right-' + FieldKeyPrefix.MODULE + '-' + activeOriginalKey;
         const thisField = moduleFieldMapping[dappIndex][activeOriginalKey];
@@ -518,25 +525,27 @@ export default function useHandleDragging() {
       if (activeIsABlock) {
         const totalPlaced = activeIsABlock
           ? draggedIds2D[overBaseIndex].filter((item) =>
-            item.name.startsWith(
-              `right-${FieldKeyPrefix.BLOCK}-${activeOriginalKey}`,
-            ),
-          ).length
+              item.name.startsWith(
+                `right-${FieldKeyPrefix.BLOCK}-${activeOriginalKey}`,
+              ),
+            ).length
           : draggedIds2D[overBaseIndex].filter((item) =>
-            item.name.startsWith(
-              `right-${FieldKeyPrefix.SINGLE}-${activeOriginalKey}`,
-            ),
-          ).length;
+              item.name.startsWith(
+                `right-${FieldKeyPrefix.SINGLE}-${activeOriginalKey}`,
+              ),
+            ).length;
 
         const canPlaceMore =
           (activeIsABlock
-            ? blockFieldMapping[dappIndex][activeOriginalKey]?.placableAmount ===
-            -1
-            : singleFieldMapping[dappIndex][activeOriginalKey]?.placableAmount === -1) ||
+            ? blockFieldMapping[dappIndex][activeOriginalKey]
+                ?.placableAmount === -1
+            : singleFieldMapping[dappIndex][activeOriginalKey]
+                ?.placableAmount === -1) ||
           totalPlaced <
-          (activeIsABlock
-            ? blockFieldMapping[dappIndex][activeOriginalKey]?.placableAmount
-            : singleFieldMapping[dappIndex][activeOriginalKey]?.placableAmount);
+            (activeIsABlock
+              ? blockFieldMapping[dappIndex][activeOriginalKey]?.placableAmount
+              : singleFieldMapping[dappIndex][activeOriginalKey]
+                  ?.placableAmount);
 
         const prefix =
           'right-' +
@@ -553,7 +562,6 @@ export default function useHandleDragging() {
 
           return;
         }
-
 
         draggedIds2D[overBaseIndex] = [
           ...draggedIds2D[overBaseIndex],
@@ -634,7 +642,6 @@ export default function useHandleDragging() {
 
         return;
       }
-
     }
 
     // Case 1: Drag to the right
@@ -748,27 +755,27 @@ export default function useHandleDragging() {
         }
         const totalPlaced = activeIsABlock
           ? draggedIds2D[overBaseIndex].filter((item) =>
-            item.name.startsWith(
-              `right-${FieldKeyPrefix.BLOCK}-${activeOriginalKey}`,
-            ),
-          ).length
+              item.name.startsWith(
+                `right-${FieldKeyPrefix.BLOCK}-${activeOriginalKey}`,
+              ),
+            ).length
           : draggedIds2D[overBaseIndex].filter((item) =>
-            item.name.startsWith(
-              `right-${FieldKeyPrefix.SINGLE}-${activeOriginalKey}`,
-            ),
-          ).length;
+              item.name.startsWith(
+                `right-${FieldKeyPrefix.SINGLE}-${activeOriginalKey}`,
+              ),
+            ).length;
 
         const canPlaceMore =
           (activeIsABlock
             ? blockFieldMapping[dappIndex][activeOriginalKey].placableAmount ===
-            -1
+              -1
             : singleFieldMapping[dappIndex][activeOriginalKey]
-            .placableAmount === -1) ||
+                .placableAmount === -1) ||
           totalPlaced <
-          (activeIsABlock
-            ? blockFieldMapping[dappIndex][activeOriginalKey].placableAmount
-            : singleFieldMapping[dappIndex][activeOriginalKey]
-              .placableAmount);
+            (activeIsABlock
+              ? blockFieldMapping[dappIndex][activeOriginalKey].placableAmount
+              : singleFieldMapping[dappIndex][activeOriginalKey]
+                  .placableAmount);
 
         const prefix =
           'right-' +
@@ -810,9 +817,9 @@ export default function useHandleDragging() {
         ).length;
         const canPlaceMore =
           totalPlaced <
-          moduleFieldMapping[dappIndex][activeOriginalKey].placableAmount ||
+            moduleFieldMapping[dappIndex][activeOriginalKey].placableAmount ||
           moduleFieldMapping[dappIndex][activeOriginalKey].placableAmount ===
-          -1;
+            -1;
         const composedFieldKey =
           'right-' + FieldKeyPrefix.MODULE + '-' + activeOriginalKey;
         const thisField = moduleFieldMapping[dappIndex][activeOriginalKey];
@@ -1166,7 +1173,7 @@ export default function useHandleDragging() {
             item.value = newValue;
             formDapp[
               `${activeBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-${activeIndex}`
-              ] = newValue;
+            ] = newValue;
           }
         }
 
