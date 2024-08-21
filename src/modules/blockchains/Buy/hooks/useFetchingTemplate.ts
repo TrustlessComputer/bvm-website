@@ -38,7 +38,8 @@ import useDapps from './useDapps';
 
 export default function useFetchingTemplate() {
   const { dapps } = useDapps();
-  const { order, isAAInstalled, isUpdateFlow } = useChainProvider();
+  const { order, isAAInstalled, isUpdateFlow, isBridgeInstalled } =
+    useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
     categories,
@@ -421,10 +422,25 @@ export default function useFetchingTemplate() {
       draggedIds2DSignal.value,
     );
 
+    const newDraggedIds2D = [];
+    const newDraggedDappIndexes = [];
+
     if (isAAInstalled) {
-      draggedDappIndexesSignal.value = [0];
-      draggedIds2DSignal.value = [[]];
+      newDraggedDappIndexes.push(0);
+      newDraggedIds2D.push([]);
+      // draggedDappIndexesSignal.value = [0];
+      // draggedIds2DSignal.value = [[]];
     }
+
+    if (isBridgeInstalled) {
+      newDraggedDappIndexes.push(1);
+      newDraggedIds2D.push([]);
+      // draggedDappIndexesSignal.value = [...draggedDappIndexesSignal.value, 1];
+      // draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
+    }
+
+    draggedDappIndexesSignal.value = newDraggedDappIndexes;
+    draggedIds2DSignal.value = newDraggedIds2D;
 
     setNeedCheckAndAddAA(false);
   };
