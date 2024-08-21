@@ -4,9 +4,8 @@ import React, { useCallback, useState } from 'react';
 import { debounce } from 'lodash';
 import { STORAGE_KEYS } from '@constants/storage-key';
 import { useReactFlow } from '@xyflow/react';
-import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
-import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import { draggedDappIndexesSignal, draggedIds2DSignal } from '@/modules/blockchains/Buy/signals/useDragSignal';
+import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
 
 function useHandleReloadNode() {
   const { nodes, setNodes, setEdges, edges, onNodesChange } = useFlowStore();
@@ -26,6 +25,7 @@ function useHandleReloadNode() {
         setEdges(flow.edges);
         draggedDappIndexesSignal.value = signals.draggedDappIndexesSignal
         draggedIds2DSignal.value = signals.draggedIds2DSignal
+        formDappSignal.value = signals.formDappSignal
         await setViewport({ x, y, zoom });
       }
     };
@@ -39,7 +39,9 @@ function useHandleReloadNode() {
       const signals = {
         draggedDappIndexesSignal,
         draggedIds2DSignal,
+        formDappSignal
       };
+
       LocalStorage.setItem(STORAGE_KEYS.LAST_NODES, JSON.stringify(flow));
       LocalStorage.setItem(STORAGE_KEYS.USE_DRAG_SIGNALS, JSON.stringify(signals));
     }
