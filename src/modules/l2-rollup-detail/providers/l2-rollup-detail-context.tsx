@@ -14,6 +14,7 @@ import React, { PropsWithChildren, useEffect, useMemo, useState } from 'react';
 export interface IL2RollupDetailContext {
   address: string;
   isValidAddress: boolean;
+  isBTCAddress: boolean;
   totalBalanceUsd: number;
   rollupDetails: IRollupDetail[];
   rollupBalances: ITokenChain[];
@@ -23,6 +24,7 @@ export interface IL2RollupDetailContext {
 const initialValue: IL2RollupDetailContext = {
   address: '',
   isValidAddress: false,
+  isBTCAddress: false,
   totalBalanceUsd: 0,
   rollupDetails: [],
   rollupBalances: [],
@@ -45,6 +47,8 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     () => validateEVMAddress(address) || validateBTCAddress(address),
     [address],
   );
+
+  const isBTCAddress = useMemo(() => validateBTCAddress(address), [address]);
 
   const [rollupTokensRate, setRollupTokensRate] = useState<RollupTokenRate>();
   const [rollupDetails, setRollupDetails] = useState<IRollupDetail[]>([]);
@@ -106,6 +110,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     return {
       address,
       isValidAddress,
+      isBTCAddress,
       totalBalanceUsd,
       rollupDetails,
       rollupBalances,
@@ -114,6 +119,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
   }, [
     address,
     isValidAddress,
+    isBTCAddress,
     totalBalanceUsd,
     rollupDetails,
     rollupBalances,
