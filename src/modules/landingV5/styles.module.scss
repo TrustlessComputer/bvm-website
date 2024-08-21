@@ -31,6 +31,7 @@
             line-height: 180%;
             /* 36px */
             letter-spacing: 0.6px;
+            margin-top: 24px;
         }
 
         .introduction_links {
@@ -137,6 +138,11 @@
         align-items: center;
         justify-content: center;
         /* 19.6px */
+        transition: all 0.3s ease;
+
+        &:hover {
+            border-color: rgba(255, 255, 255, 0.70);
+        }
     }
 
 
@@ -172,7 +178,7 @@
         /* 36px */
         letter-spacing: 0.6px;
         margin-bottom: 40px;
-        max-width: 70%;
+        max-width: 60%;
         margin-top: 24px;
     }
 

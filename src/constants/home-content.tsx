@@ -34,6 +34,154 @@ export const APPS_SECTION = {
   }),
 };
 
+export const STEP_1_SECTION = {
+  id: 'step-1',
+  tag: '',
+  title: (
+    <p>
+      Launch your own Bitcoin chain with <span>BVM Studio.</span>
+    </p>
+  ),
+  desc: 'BVM Studio lets you launch a Bitcoin chain with just a few clicks. These Bitcoin L2s enable smart contracts and dapps to use Bitcoin as the secure base layer, extending its capabilities without altering the core protocol, and unlocking trillions in capital.',
+  item: [
+    {
+      title: 'ZK RollUp',
+      description: 'Bitcoin L2 with the power of ZK Proofs',
+      homeImage: '/landing-v5/home-zk.png',
+
+      bgColor:
+        'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
+      link: {
+        url: '/',
+        target: '_blank',
+      },
+      tags: ['From $99/month'],
+    },
+    {
+      title: 'optimistic Rollup',
+      description: 'Bitcoin L2 with optimistic scaling.',
+      homeImage: '/landing-v5/home-op.png',
+
+      bgColor:
+        'linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
+      link: {
+        url: '/',
+        target: '_blank',
+      },
+      tags: ['From $999/month'],
+    },
+    {
+      title: 'SIDECHAIN',
+      description: 'Bitcoin L2 with OP_CAT enabled.',
+      homeImage: '/landing-v5/home-sidechain.png',
+
+      bgColor: 'linear-gradient(180deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
+      link: {
+        url: '/',
+        target: '_blank',
+      },
+      tags: ['From $499/month'],
+    },
+    {
+      title: 'MEtaProtocol',
+      description: 'Bitcoin L1 smart contract metaprotocol.',
+      homeImage: '/landing-v5/home-alpha.png',
+
+      bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%)',
+      link: {
+        url: '/',
+        target: '_blank',
+      },
+      tags: ['From $1,999/month'],
+    },
+    {
+      title: 'SVM',
+      description: 'Bitcoin L2 powered by Solana VM.',
+      homeImage: '/landing-v5/home-alpha.png',
+
+      bgColor:
+        'linear-gradient(227deg, #AE71FF -7.83%, #9456FF 23.69%, #6610E6 67.99%, #ED68FB 100%)',
+      link: {
+        url: '/',
+        target: '_blank',
+      },
+      tags: ['From $99/month'],
+    },
+  ],
+};
+
+export const STEP_2_SECTION = {
+  id: 'step-2',
+  tag: '',
+  title: (
+    <p>
+      Level up your Bitcoin chain with <span>Bitcoin apps.</span>
+    </p>
+  ),
+  desc: 'Not sure where to begin? Jumpstart your Bitcoin chain with pre-installed apps that cover a wide range of your needs. Just drag and drop to unlock tools that boost engagement, TVL, and more.',
+  item: [
+    {
+      title: 'Token Issuance',
+      description: 'Issue your own token with drag and drop.',
+      homeImage: '/landing-v5/home-token-issue.png',
+      bgColor:
+        'linear-gradient(138deg, rgba(120, 170, 143, 0.40) 1.72%, rgba(2, 47, 22, 0.32) 101.88%)',
+      link: {
+        url: '/',
+        target: '_blank',
+      },
+      tags: [''],
+    },
+    {
+      title: 'YOLO',
+      description: 'Have some fun with your users.',
+      homeImage: '/landing-v5/home-yolo.png',
+      bgColor:
+        'linear-gradient(171deg, rgba(255, 212, 103, 0.40) 4.5%, rgba(106, 57, 0, 0.32) 94.43%)',
+      link: {
+        url: '/',
+        target: '_blank',
+      },
+      tags: [''],
+    },
+    {
+      title: 'STAKING',
+      description: 'Boost TVL & offer community rewards.',
+      homeImage: '/landing-v5/home-yolo.png',
+      bgColor: 'linear-gradient(#2E2E2E, #2E2E2E)',
+      link: {
+        url: '/',
+        target: '_blank',
+      },
+      tags: [''],
+    },
+    {
+      title: 'Bridge',
+      description: 'Bring more assets to your chain & enhance liquidity.',
+      homeImage: '/landing-v5/home-bridge.png',
+      bgColor:
+        'linear-gradient(198deg, rgba(40, 142, 185, 0.40) 7.57%, rgba(0, 57, 75, 0.32) 105.99%)',
+      link: {
+        url: '/',
+        target: '_blank',
+      },
+      tags: [''],
+    },
+    {
+      title: 'EXPLORER',
+      description: 'Your block explorer & analytics site.',
+      homeImage: '/landing-v5/home-explorer.png',
+      bgColor:
+        'linear-gradient(138deg, rgba(179, 179, 179, 0.40) 1.72%, rgba(43, 43, 43, 0.32) 101.88%)',
+      link: {
+        url: '/',
+        target: '_blank',
+      },
+      tags: [''],
+    },
+  ],
+};
+
 export const GAME_SECTION = {
   id: 'games',
   tag: 'Games. ',
@@ -385,9 +533,15 @@ export const BOB_SECTION = {
 
 export const RESEARCH_SECTION = {
   id: 'research',
-  tag: 'Research. ',
-  title: 'Pioneer research on Bitcoin utilities.',
-  desc: 'Simply set a fee for using your Eternal, and the Eternal AI Decentralized Serving Network — with its 500 GPU nodes — will handle everything else. Effortlessly monetize your AI agents and enjoy passive income without any hassle.',
+  tag: '',
+  title: (
+    <p>
+      Research.
+      <br />
+      <span>Pioneer research on Bitcoin utilities.</span>
+    </p>
+  ),
+  desc: 'Lead the way in exploring and developing innovative uses for Bitcoin.',
   item: Research.map((item, idx) => {
     return {
       title: item.title,
@@ -404,8 +558,14 @@ export const RESEARCH_SECTION = {
 
 export const OPENSOURCE_SECTION = {
   id: 'opensource',
-  tag: 'Open source. ',
-  title: 'Reuse our code and build whatever you want.',
+  tag: '',
+  title: (
+    <p>
+      Open source.
+      <br />
+      <span>Reuse our code and build whatever you want.</span>
+    </p>
+  ),
   desc: 'Use our existing codebase to accelerate your development process. Customize, innovate, and develop anything you want while saving time and resources.',
   item: [
     {
@@ -469,8 +629,15 @@ export const OPENSOURCE_SECTION = {
 
 export const NEWS_SECTION = {
   id: 'news',
-  tag: 'News. ',
-  title: 'Follow our progress.',
+  tag: '',
+  title: (
+    <p>
+      News.
+      <br />
+      <span>Follow our progress.</span>
+    </p>
+  ),
+
   desc: 'Stay informed with the latest updates and developments from our ecosystem. Get the inside scoop on breakthroughs, features, and more.',
   item: BLOGS.map((item, idx) => {
     return {
@@ -500,7 +667,7 @@ export const TECH_STACKS = [
     title: 'OP Stack',
     logo: '/landing-v5/ic-bitop.svg',
     link: {
-      url: '/module/bitzk',
+      url: '/module/bitop',
       target: '',
     },
   },
@@ -508,7 +675,7 @@ export const TECH_STACKS = [
     title: 'Celestia',
     logo: '/landing-v5/ic-celestia.svg',
     link: {
-      url: '/module/bitzk',
+      url: '/module/bitcoin-celestia',
       target: '',
     },
   },
@@ -516,7 +683,7 @@ export const TECH_STACKS = [
     title: 'Eigen',
     logo: '/landing-v5/ic-eigen.svg',
     link: {
-      url: '/module/bitzk',
+      url: '/module/bitcoin-eigen',
       target: '',
     },
   },
@@ -524,7 +691,7 @@ export const TECH_STACKS = [
     title: 'Avail',
     logo: '/landing-v5/ic-avail.svg',
     link: {
-      url: '/module/bitzk',
+      url: '/module/bitcoin-avail',
       target: '',
     },
   },
@@ -532,7 +699,7 @@ export const TECH_STACKS = [
     title: 'Near',
     logo: '/landing-v5/ic-near.svg',
     link: {
-      url: '/module/bitzk',
+      url: '/module/bitcoin-near',
       target: '',
     },
   },
@@ -540,7 +707,7 @@ export const TECH_STACKS = [
     title: 'Polygon',
     logo: '/landing-v5/ic-polygon.svg',
     link: {
-      url: '/module/bitzk',
+      url: '/module/bitcoin-polygon',
       target: '',
     },
   },
@@ -548,7 +715,7 @@ export const TECH_STACKS = [
     title: 'Filecoin',
     logo: '/landing-v5/ic-filecoin.svg',
     link: {
-      url: '/module/bitzk',
+      url: '/module/bitcoin-filecoin',
       target: '',
     },
   },

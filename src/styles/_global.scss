@@ -58,6 +58,7 @@ input[type='number'] {
 }
 
 @keyframes flip {
+
   0%,
   45% {
     transform: rotate(0);
@@ -129,6 +130,7 @@ input[type='number'] {
 }
 
 @keyframes top-drip {
+
   0%,
   50% {
     left: 45%;
@@ -174,6 +176,7 @@ input[type='number'] {
 .block {
   display: block !important;
 }
+
 .block {
   display: block !important;
 }
@@ -185,4 +188,12 @@ input[type='number'] {
 
 .react-flow__nodes {
   width: fit-content !important;
+}
+
+.flex {
+  display: flex !important;
+}
+
+.overflow-x-scroll {
+  overflow-x: scroll !important;
 }

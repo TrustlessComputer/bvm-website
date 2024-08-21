@@ -4,14 +4,24 @@ import s from './styles.module.scss';
 import Link from 'next/link';
 import cn from 'classnames';
 import SectionBlock from './components/SectionBlock';
+// import {
+//   APPS_SECTION,
+//   NEWS_SECTION,
+//   OPENSOURCE_SECTION,
+//   RESEARCH_SECTION,
+//   STEP_1_SECTION,
+//   TECH_STACKS,
+// } from '@/constants/home-content';
+import Image from 'next/image';
 import {
-  APPS_SECTION,
+  STEP_1_SECTION,
   NEWS_SECTION,
+  APPS_SECTION,
   OPENSOURCE_SECTION,
   RESEARCH_SECTION,
   TECH_STACKS,
+  STEP_2_SECTION,
 } from '@/constants/home-content';
-import Image from 'next/image';
 
 type Props = {};
 
@@ -27,7 +37,8 @@ const LandingV5 = (props: Props) => {
             <div className={s.introduction_desc}>
               Join the next generation of Bitcoin builders who use the BVM
               infrastructure to deploy Bitcoin chains, build Bitcoin apps, and
-              together bring Bitcoin to the people. Let’s build.
+              together bring Bitcoin to the people.
+              <br /> Let’s build.
             </div>
           </Box>
           <Box className={s.introduction_links}>
@@ -63,30 +74,37 @@ const LandingV5 = (props: Props) => {
         </div>
         <Box ml={{ base: '20px', '2xl': 'calc((100vw - 1480px) / 2)' }}>
           <BuildItem>
-            <SectionBlock {...APPS_SECTION} spacing="147px" />
+            <SectionBlock {...STEP_1_SECTION} spacing="160px" />
           </BuildItem>
           <BuildItem iconUrl="/landing-v5/ic-step-2.svg">
-            <SectionBlock {...APPS_SECTION} spacing="147px" />
+            <SectionBlock {...STEP_2_SECTION} spacing="185px" />
           </BuildItem>
           <BuildItem iconUrl="/landing-v5/ic-step-3.svg">
             <Box>
-              <div className={s.tag}>Build your own apps.</div>
+              <div className={s.tag}>
+                Build your own{' '}
+                <Text as="span" color="#fff">
+                  {' '}
+                  apps.
+                </Text>
+              </div>
               <Box mb="40px" className={s.desc}>
                 Build custom applications tailored to your needs, powered by
-                smart contracts. BVM provides the tools to develop powerful,
-                personalized apps that enhance your Bitcoin chain’s
-                functionality and drive innovation.
+                smart contracts. BVM is EVM compatible, allowing you to
+                seamlessly integrate Etherum applications into your Bitcoin
+                chain.
               </Box>
               <Box
                 mb="176px"
                 position={'relative'}
                 aspectRatio={'1348 / 1031'}
-                maxW={'70%'}
+                maxW={'60%'}
               >
                 <Image
                   layout="fill"
-                  src="/landing-v5/home-step3.png"
+                  src="/landing-v5/home-step-3.png"
                   alt="home-step3"
+                  objectFit="cover"
                 />
               </Box>
             </Box>
@@ -104,7 +122,9 @@ const LandingV5 = (props: Props) => {
                   <Link
                     href={tech.link.url}
                     target="_blank"
-                    className={s.tech_block}
+                    className={cn(s.tech_block, {
+                      ['pointer-none']: !tech.link.url,
+                    })}
                     key={tech.title}
                   >
                     <ChakraImage
@@ -120,13 +140,13 @@ const LandingV5 = (props: Props) => {
           </BuildItem>
 
           <BuildItem iconUrl="/landing-v5/ic-research.svg">
-            <SectionBlock {...RESEARCH_SECTION} />
+            <SectionBlock {...RESEARCH_SECTION} spacing="119px" />
           </BuildItem>
           <BuildItem iconUrl="/landing-v5/ic-opensource.svg">
             <SectionBlock {...OPENSOURCE_SECTION} />
           </BuildItem>
           <BuildItem iconUrl="/landing-v5/ic-news.svg">
-            <SectionBlock {...NEWS_SECTION} />
+            <SectionBlock {...NEWS_SECTION} spacing="119px" />
           </BuildItem>
           <BuildItem iconUrl="/landing-v5/ic-puzzle.svg" lastItem>
             <div className={s.last_section}>

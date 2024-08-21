@@ -1,7 +1,7 @@
 .wrapper {
     border-radius: 32px;
     padding-top: 20px;
-    width: 448px;
+    width: 360px;
     align-self: stretch;
     display: flex;
     flex-direction: column;
@@ -18,7 +18,7 @@
         transition: all .4s ease-in-out;
 
         .thumbnail {
-            // transform: scale(1.1);
+            transform: scale(1.1);
         }
     }
 
@@ -62,12 +62,12 @@
                 font-family: "SF Pro Display";
                 font-size: 14px;
                 font-style: normal;
-                font-weight: 600;
-                line-height: 150%;
+                font-weight: 500;
+                line-height: 120%;
                 /* 21px */
-                border-radius: 100px;
-                background: rgba(255, 255, 255, 0.30);
-                padding: 4px 12px;
+                // border-radius: 100px;
+                // background: rgba(255, 255, 255, 0.30);
+                // padding: 4px 12px;
             }
         }
     }
