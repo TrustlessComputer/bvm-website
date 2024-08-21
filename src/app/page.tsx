@@ -12,6 +12,7 @@ export default function Home() {
         color: 'white',
         colorLogo: 'white',
         bgColor: '#1C1C1C',
+        theme: 'black',
       }}
       hideFooter
     >

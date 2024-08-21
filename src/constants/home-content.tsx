@@ -52,7 +52,7 @@ export const STEP_1_SECTION = {
       bgColor:
         'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
       link: {
-        url: '/',
+        url: '/studio',
         target: '_blank',
       },
       tags: ['From $99/month'],
@@ -65,44 +65,57 @@ export const STEP_1_SECTION = {
       bgColor:
         'linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
       link: {
-        url: '/',
+        url: '/studio',
         target: '_blank',
       },
       tags: ['From $999/month'],
     },
     {
-      title: 'SIDECHAIN',
+      title: 'SIDECHAIN (Coming soon)',
       description: 'Bitcoin L2 with OP_CAT enabled.',
-      homeImage: '/landing-v5/home-sidechain.png',
+      homeImage: '/landing-v5/home-sidechain-1.png',
 
       bgColor: 'linear-gradient(180deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
       link: {
-        url: '/',
+        url: '',
         target: '_blank',
       },
       tags: ['From $499/month'],
     },
     {
-      title: 'MEtaProtocol',
+      title: 'MEtaProtocol (Coming soon)',
       description: 'Bitcoin L1 smart contract metaprotocol.',
-      homeImage: '/landing-v5/home-alpha.png',
+      homeImage: '/landing-v5/home-metaprotocol.png',
 
       bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%)',
       link: {
-        url: '/',
+        url: '',
         target: '_blank',
       },
       tags: ['From $1,999/month'],
     },
+    // {
+    //   title: 'SVM',
+    //   description: 'Bitcoin L2 powered by Solana VM.',
+    //   homeImage: '/landing-v5/home-alpha.png',
+
+    //   bgColor:
+    //     'linear-gradient(227deg, #AE71FF -7.83%, #9456FF 23.69%, #6610E6 67.99%, #ED68FB 100%)',
+    //   link: {
+    //     url: '/',
+    //     target: '_blank',
+    //   },
+    //   tags: ['From $99/month'],
+    // },
     {
-      title: 'SVM',
-      description: 'Bitcoin L2 powered by Solana VM.',
-      homeImage: '/landing-v5/home-alpha.png',
+      title: 'GPU ROLLUP (Coming soon)',
+      description: 'Bitcoin L2 with GPU-accelerated VM.',
+      homeImage: '/landing-v5/home-gpu.png',
 
       bgColor:
-        'linear-gradient(227deg, #AE71FF -7.83%, #9456FF 23.69%, #6610E6 67.99%, #ED68FB 100%)',
+        'linear-gradient(227deg, #C488E0 -7.83%, #B93ECC 21.47%, #8E28A8 69.37%, #DF93EB 118.41%)',
       link: {
-        url: '/',
+        url: '',
         target: '_blank',
       },
       tags: ['From $99/month'],
@@ -147,7 +160,7 @@ export const STEP_2_SECTION = {
     {
       title: 'STAKING',
       description: 'Boost TVL & offer community rewards.',
-      homeImage: '/landing-v5/home-yolo.png',
+      homeImage: '/landing-v5/home-staking.png',
       bgColor: 'linear-gradient(#2E2E2E, #2E2E2E)',
       link: {
         url: '/',
