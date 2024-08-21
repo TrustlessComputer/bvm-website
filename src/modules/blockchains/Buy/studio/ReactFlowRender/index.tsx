@@ -11,15 +11,21 @@ import DappNode from '../../component4/YourNodes/DappNode';
 import { nodeKey } from '../../component4/YourNodes/node.constants';
 import useFlowStore from '../../stores/useFlowStore';
 import s from './styles.module.scss';
+import useHandleReloadNode from '@/modules/blockchains/Buy/hooks/useHandleReloadNode';
+import { usePathname } from 'next/navigation';
+import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
 
 const ReactFlowRenderer = React.memo(() => {
-  const { nodes, onNodesChange, edges, onEdgesChange } = useFlowStore();
+  const { nodes, onNodesChange, edges, onEdgesChange,  } = useFlowStore();
+  const { setRfInstance, onRestore, rfInstance, onSave } = useHandleReloadNode()
   const [currentPosition, setCurrentPosition] = useState(
     currentPositionSignal.value,
   );
+  const path = usePathname();
+  const { dapps } = useDapps();
 
   useSignalEffect(() => {
     if (needReactFlowRenderSignal.value) {
@@ -27,8 +33,14 @@ const ReactFlowRenderer = React.memo(() => {
       needReactFlowRenderSignal.value = false;
     }
   });
-  // console.log('nodes', nodes);
-  // console.log('edges', edges);
+
+  React.useEffect(()=>{
+    if(path === '/studio') {
+      if(dapps.length == 0) return
+      onRestore().then(() => needReactFlowRenderSignal.value = true);
+    }
+  },[rfInstance,dapps.length]);
+
 
   return (
     <ReactFlow
@@ -56,10 +68,12 @@ const ReactFlowRenderer = React.memo(() => {
       }}
       onEdgesChange={onEdgesChange}
       onNodesChange={onNodesChange}
+      onInit={setRfInstance}
       zoomOnDoubleClick={false}
       edges={edges}
       fitViewOptions={{ padding: 1 }}
       className={s.reactFlow}
+      onNodeDragStop={() =>  onSave()}
     />
   );
 });
