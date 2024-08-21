@@ -41,6 +41,13 @@ function useHandleReloadNode() {
   }, []);
 
   useSignalEffect(() => {
+    const signalsForm = LocalStorage.getItem(STORAGE_KEYS.USE_SIGNALS_FORM) || {};
+    if(signalsForm.value) {
+      LocalStorage.setItem(STORAGE_KEYS.USE_SIGNALS_FORM, JSON.stringify({signalsForm}))
+    }
+  })
+
+  useSignalEffect(() => {
     if(Object.keys(formDappSignal.value).length > 0) {
       LocalStorage.setItem(STORAGE_KEYS.USE_SIGNALS_FORM, JSON.stringify({formDappSignal}))
     }
