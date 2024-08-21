@@ -37,7 +37,7 @@ const ReactFlowRenderer = React.memo(() => {
   React.useEffect(()=>{
     if(path === '/studio') {
       if(dapps.length == 0) return
-      onRestore().then(() => needReactFlowRenderSignal.value = true);
+      onRestore();
     }
   },[rfInstance,dapps.length]);
 

@@ -23,4 +23,5 @@ export enum STORAGE_KEYS {
   L2_SERVICE_USER_ADDRESS = 'L2_SERVICE_USER_ADDRESS',
   LAST_NODES = 'last_nodes',
   USE_DRAG_SIGNALS = 'use_drag_signals',
+  USE_SIGNALS_FORM = 'use_signals_form',
 }
