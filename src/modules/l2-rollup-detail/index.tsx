@@ -31,6 +31,7 @@ import {
 import SearchBar from './SearchBar';
 import s from './styles.module.scss';
 import TransactionsTab from './TransactionsTab';
+import TokenTransferTab from './TokenTransferTab';
 
 const L2RollupDetail = () => {
   const router = useRouter();
@@ -172,6 +173,7 @@ const L2RollupDetail = () => {
           <TabList className={s.tabList} fontSize={['16px', '18px', ' 20px']}>
             <Tab>Portfolio</Tab>
             <Tab>Transactions</Tab>
+            <Tab>Token Transfer</Tab>
           </TabList>
           <TabPanels className={s.tabPanel}>
             <TabPanel minH={'40vh'}>
@@ -179,6 +181,9 @@ const L2RollupDetail = () => {
             </TabPanel>
             <TabPanel minH={'40vh'}>
               <TransactionsTab />
+            </TabPanel>
+            <TabPanel minH={'40vh'}>
+              <TokenTransferTab />
             </TabPanel>
           </TabPanels>
         </Tabs>

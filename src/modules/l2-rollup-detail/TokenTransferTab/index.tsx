@@ -4,8 +4,8 @@ import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
 import { MIN_DECIMAL } from '@/constants/constants';
 import CRollupL2DetailAPI from '@/services/api/dapp/rollupl2-detail';
 import {
-  IRollupTransaction,
-  ITransaction,
+  IRollupTokenTransfer,
+  ITokenTransfer,
 } from '@/services/api/dapp/rollupl2-detail/interface';
 import { shortCryptoAddress } from '@/utils/address';
 import { formatCurrency } from '@/utils/format';
@@ -17,22 +17,22 @@ import s from './styles.module.scss';
 
 interface IProps {}
 
-const TransactionsTab = (props: IProps) => {
+const TokenTransferTab = (props: IProps) => {
   const { address } = useContext(L2RollupDetailContext);
 
   const rollupApi = new CRollupL2DetailAPI();
 
   const [rollupTransactions, setRollupTransactions] = useState<
-    IRollupTransaction[]
+    IRollupTokenTransfer[]
   >([]);
 
   const list = useMemo(() => {
-    let transactions: ITransaction[] = [];
+    let transactions: ITokenTransfer[] = [];
     rollupTransactions.forEach((data) => {
       transactions = [
         ...transactions,
-        ...data.transactions.map((transaction) => ({
-          ...transaction,
+        ...data.transfers.map((transfer) => ({
+          ...transfer,
           chain: data.rollup,
         })),
       ];
@@ -68,14 +68,14 @@ const TransactionsTab = (props: IProps) => {
           ...refParams.current,
           page: 1,
         };
-        const res = (await rollupApi.getRollupL2Transactions({
+        const res = (await rollupApi.getRollupL2TokenTransfers({
           user_address: address,
           ...refParams.current,
         })) as any;
 
         setRollupTransactions(res);
       } else {
-        const res = (await rollupApi.getRollupL2Transactions({
+        const res = (await rollupApi.getRollupL2TokenTransfers({
           user_address: address,
           ...refParams.current,
         })) as any;
@@ -126,7 +126,7 @@ const TransactionsTab = (props: IProps) => {
           letterSpacing: '-0.5px',
           paddingLeft: '16px !important',
         },
-        render(data: ITransaction) {
+        render(data: ITokenTransfer) {
           return (
             <Flex
               direction={'column'}
@@ -135,7 +135,9 @@ const TransactionsTab = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                window.open(`${data.chain?.explorer}/tx/${data.hash}`);
+                window.open(
+                  `${data.chain?.explorer}/tx/${data.transaction_hash}`,
+                );
               }}
             >
               <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
@@ -145,7 +147,9 @@ const TransactionsTab = (props: IProps) => {
                   borderRadius={'50%'}
                   src={data.chain?.icon}
                 />
-                <Text className={s.title}>{shortCryptoAddress(data.hash)}</Text>
+                <Text className={s.title}>
+                  {shortCryptoAddress(data.transaction_hash)}
+                </Text>
               </Flex>
             </Flex>
           );
@@ -162,7 +166,7 @@ const TransactionsTab = (props: IProps) => {
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
         },
-        render(data: ITransaction) {
+        render(data: ITokenTransfer) {
           return (
             <Flex
               gap={6}
@@ -197,7 +201,7 @@ const TransactionsTab = (props: IProps) => {
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
         },
-        render(data: ITransaction) {
+        render(data: ITokenTransfer) {
           return (
             <Flex
               gap={6}
@@ -232,13 +236,12 @@ const TransactionsTab = (props: IProps) => {
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
         },
-        render(data: ITransaction) {
+        render(data: ITokenTransfer) {
           return (
             <Flex gap={3} alignItems={'center'} width={'100%'}>
               <Flex gap={2} alignItems={'center'}>
                 <Text className={s.title}>
-                  {formatCurrency(data?.value, MIN_DECIMAL, 6)}{' '}
-                  {data.chain?.symbol}
+                  {formatCurrency(data?.amount, MIN_DECIMAL, 6)} {data?.symbol}
                 </Text>
               </Flex>
             </Flex>
@@ -302,4 +305,4 @@ const TransactionsTab = (props: IProps) => {
   );
 };
 
-export default TransactionsTab;
+export default TokenTransferTab;

@@ -36,8 +36,62 @@ export interface IRollupChain {
   level: string;
   fdv_usd: string;
   icon: string;
+  symbol: string;
 }
 
 export type RollupTokenRate = {
   [key in string]: string | number;
 };
+
+export interface ITransaction {
+  cumulative_gas_used: string;
+  error: string;
+  gas_fee: string;
+  gas_price: string;
+  gas_used: string;
+  hash: string;
+  index: number;
+  input: string;
+  nonce: number;
+  r: string;
+  s: string;
+  status: number;
+  v: string;
+  value: string;
+  inserted_at: string;
+  updated_at: string;
+  block_hash: string;
+  block_number: number;
+  from_address: string;
+  to_address: string;
+  revert_reason: string;
+  has_error_in_internal_txs: boolean;
+  chain?: IRollupChain;
+}
+
+export interface IRollupTransaction {
+  rollup: IRollupChain;
+  transactions: ITransaction[];
+}
+
+export interface ITokenTransfer {
+  transaction_hash: string;
+  log_index: number;
+  from_address: string;
+  to_address: string;
+  amount: string;
+  token_id: number;
+  token_contract_address: string;
+  inserted_at: Date;
+  updated_at: Date;
+  block_number: number;
+  block_hash: string;
+  symbol: string;
+  decimals: number;
+  chain?: IRollupChain;
+}
+
+export interface IRollupTokenTransfer {
+  rollup: IRollupChain;
+  transfers: ITokenTransfer[];
+}

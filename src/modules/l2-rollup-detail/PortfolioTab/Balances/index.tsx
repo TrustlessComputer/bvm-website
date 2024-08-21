@@ -144,7 +144,7 @@ const Balances = () => {
         },
       },
     ];
-  }, []);
+  }, [rollupTokensRate]);
 
   return (
     <Box className={s.container}>
