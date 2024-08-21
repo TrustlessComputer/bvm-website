@@ -26,6 +26,7 @@ export type IUserContest = {
   team?: string;
   university?: string;
   contest_problems?: IContestProblem[];
+  name: string;
   user: {
     profile_image: string;
     name: string;

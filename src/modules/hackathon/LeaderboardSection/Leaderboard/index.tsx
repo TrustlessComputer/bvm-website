@@ -81,6 +81,7 @@ const Leaderboard = (props: Props) => {
     )?.[0];
 
     const nameText =
+      data.name ||
       data.user.name ||
       data.user.twitter_username ||
       data.user.email?.split('@')?.[0];
