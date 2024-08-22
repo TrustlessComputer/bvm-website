@@ -44,7 +44,6 @@ function useHandleReloadNode() {
         await setViewport({ x, y, zoom });
       }
       restoreLocal.value = true
-
     };
 
     // await restoreFlow().then(() => restoreLocal.value = true);
@@ -75,9 +74,9 @@ function useHandleReloadNode() {
       LocalStorage.setItem(STORAGE_KEYS.USE_SIGNALS_FORM, JSON.stringify({formDappSignal}))
     }
 
-    // if(Object.keys(formAccountAbtractionSignal.value).length > 0) {
-    //   LocalStorage.setItem(STORAGE_KEYS.USE_AA_SIGNALS_FORM, JSON.stringify({formAccountAbtractionSignal}))
-    // }
+    if(Object.keys(formAccountAbtractionSignal.value).length > 0) {
+      LocalStorage.setItem(STORAGE_KEYS.USE_AA_SIGNALS_FORM, JSON.stringify({formAccountAbtractionSignal}))
+    }
   })
 
   const onSave = useCallback(() => {

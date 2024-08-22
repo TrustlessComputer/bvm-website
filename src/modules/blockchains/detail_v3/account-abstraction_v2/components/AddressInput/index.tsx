@@ -19,9 +19,7 @@ const AddressInput = (props: Props) => {
   const { option } = props;
   // const { setChainName } = useOrderFormStore();
   // const { value, errorMessage } = computerNameField;
-  const formAccount = formAccountAbtractionSignal.value
 
-  const { isCapture } = useCaptureStore();
   const { isUpdateFlow } = useChainProvider();
   const { aaStatusData, aaInstalledData, isCanNotEdit } = useAAModule();
   const { statusCode } = aaStatusData;
@@ -47,10 +45,10 @@ const AddressInput = (props: Props) => {
     setTokenContractAddress(text);
     if (needValidate) {
       checkTokenContractAddress();
-      formAccountAbtractionSignal.value = {
-        ...formAccount,
-        addressInput: text,
-      }
+    }
+    formAccountAbtractionSignal.value = {
+      ...formAccountAbtractionSignal.value,
+      tokenContractAddress: text,
     }
   };
 
@@ -90,7 +88,7 @@ const AddressInput = (props: Props) => {
             type="text"
             placeholder="Example: 0xabc...xzy"
             fontSize={'14px'}
-            // defaultValue={formAccountAbtractionSignal.value?.tokenContractAddress || ''}
+            defaultValue={formAccountAbtractionSignal.value?.tokenContractAddress || ''}
             value={tokenContractAddress}
             borderColor={isError ? 'red' : 'transparent'}
             borderWidth={isError ? '2px' : 'none'}

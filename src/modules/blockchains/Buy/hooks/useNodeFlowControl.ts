@@ -241,8 +241,6 @@ export default function useNodeFlowControl() {
   }, [dragState]);
 
   const handleAddBox = () => {
-    console.log('[useNodeFlowControl] MUST CALL LAST LAST');
-
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
     const category = categories?.find((category) =>
@@ -331,8 +329,6 @@ export default function useNodeFlowControl() {
       },
     };
 
-
-    console.log('was add box');
     setNodes([...nodesData, newNode]);
     setEdges([
       ...edges,

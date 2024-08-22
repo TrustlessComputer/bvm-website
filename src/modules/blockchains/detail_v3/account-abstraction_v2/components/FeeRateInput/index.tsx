@@ -26,12 +26,9 @@ const FeeRateInput = (props: Props) => {
   const { option } = props;
   // const { setChainName } = useOrderFormStore();
   // const { value, errorMessage } = computerNameField;
-
-  const { isCapture } = useCaptureStore();
   const { aaStatusData, aaInstalledData, isCanNotEdit } = useAAModule();
   const { isUpdateFlow } = useChainProvider();
   const { statusCode } = aaStatusData;
-  const formAccount = formAccountAbtractionSignal.value;
 
   const {
     feeRate,
@@ -81,10 +78,10 @@ const FeeRateInput = (props: Props) => {
     setFeeRate(text);
     if (needValidate) {
       checkFeeRate(text);
-      formAccountAbtractionSignal.value = {
-        ...formAccount,
-        feeRate: text,
-      }
+    }
+    formAccountAbtractionSignal.value = {
+      ...formAccountAbtractionSignal.value,
+      feeRate: text,
     }
   };
 
@@ -135,7 +132,7 @@ const FeeRateInput = (props: Props) => {
           placeholder="0 (gasless)"
           value={feeRate}
           disabled={isCanNotEdit}
-          // defaultValue={formAccountAbtractionSignal.value?.feeRate || ''}
+          defaultValue={formAccountAbtractionSignal.value?.feeRate || ''}
           onChange={(e) => {
             const text = e.target.value;
             setFeeRateFocused(true);
