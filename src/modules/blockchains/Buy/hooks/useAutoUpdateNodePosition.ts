@@ -25,7 +25,7 @@ const useAutoUpdateNodePosition = () => {
       if (_node.data.node !== 'dapp' || !l2ServiceUserAddress) return;
 
       const { data } = _node as DappNode;
-      if (data.dapp.isDefaultDapp) return;
+      if (data.dapp.isDefaultDapp || !!!data.positionId) return;
 
       promises.push(
         dappApi.updatePosition({
