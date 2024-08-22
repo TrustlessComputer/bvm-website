@@ -143,6 +143,7 @@ const Balances = () => {
           columns={columns}
           className={s.tableContainer}
           showEmpty
+          emptyLabel={'No token found.'}
           emptyIcon={<Image src={'/icons/icon-empty.svg'} />}
         />
       </Box>

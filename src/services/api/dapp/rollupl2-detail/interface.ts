@@ -95,3 +95,18 @@ export interface IRollupTokenTransfer {
   rollup: IRollupChain;
   transfers: ITokenTransfer[];
 }
+
+export interface INFT {
+  token_contract_address: string;
+  value: string;
+  token_name: string;
+  token_type: string;
+  value_fetched_at: Date;
+  block_number: number;
+  is_native: boolean;
+}
+
+export interface IRollupNFT {
+  rollup: IRollupChain;
+  balances: INFT[];
+}
