@@ -1181,16 +1181,16 @@ export const dappMockupData: DappModel[] = [
         preview: false,
         background: '#A041FF',
         fields: [
-          // {
-          //   key: 'bvm',
-          //   title: 'BVM', // symbol
-          //   value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
-          //   icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
-          //   tooltip: '',
-          //   type: '',
-          //   options: [],
-          //   selectable: true,
-          // },
+          {
+            key: 'bvm',
+            title: 'BVM', // symbol
+            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
+            icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
+            tooltip: '',
+            type: '',
+            options: [],
+            selectable: true,
+          },
           // {
           //   key: 'eth',
           //   title: 'ETH (Upgrade plan 99$)', // symbol
@@ -1242,7 +1242,7 @@ export const dappMockupData: DappModel[] = [
       title: 'Create a YOLO Game',
       icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-yolo.svg',
       placableAmount: -1,
-      section: 'yolo',
+      section: '',
       preview: false,
       fields: [
         // {
