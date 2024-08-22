@@ -252,7 +252,7 @@ export default function useFetchingTemplate() {
 
     const _newNodes: any[] = draggedIds2D.map((ids, index) => {
       const dappKey = templateDapps[index].key;
-      const thisNode = [...tokens, ...airdrops, ...stakingPools][index];
+      const thisNode = [...tokens, ...airdrops, ...stakingPools, ...yoloGames][index];
       const defaultPositionX = 30 + 500 * xOffsetCount[dappKey]++;
       const defaultPositionY = 30 + 500 * allDappKeys.indexOf(dappKey);
       const xOffset = thisNode?.position_x ?? defaultPositionX;
