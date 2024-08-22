@@ -8,8 +8,8 @@
         align-items: flex-start;
         justify-content: space-between;
         gap: 10%;
-        margin-top: 80px;
         margin-bottom: 80px;
+        margin-left: 0;
 
 
 
@@ -20,6 +20,7 @@
             font-style: normal;
             font-weight: 700;
             line-height: normal;
+            max-width: 28ch;
         }
 
         .introduction_desc {
@@ -29,6 +30,8 @@
             font-style: normal;
             font-weight: 500;
             line-height: 180%;
+            max-width: 75ch;
+
             /* 36px */
             letter-spacing: 0.6px;
             margin-top: 24px;

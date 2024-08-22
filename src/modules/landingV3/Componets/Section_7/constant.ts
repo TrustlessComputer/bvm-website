@@ -14,51 +14,61 @@ export interface IBlog {
 }
 
 export const LOGOS = [
-  {
-    id: 'cryptobriefing',
-    img: 'landing/images/cryptobriefing.png',
-  },
+  // {
+  //   id: 'cryptobriefing',
+  //   whiteLogo: 'landing/images/cryptobriefing.png',
+  // },
   {
     id: 'blockworks',
-    img: 'landing/images/blockwork.svg',
+    whiteLogo: 'landing/images/blockwork.svg',
+    blackLogo: 'landing/images/blockwork_black.svg',
   },
   {
     id: 'cointelegraph_brazil',
-    img: 'landing/images/cointelegraph.svg',
+    whiteLogo: 'landing/images/cointelegraph.svg',
+    blackLogo: 'landing/images/cointelegraph_black.svg',
   },
   {
     id: 'coinmarketcap',
-    img: 'landing/images/coinmarketcap.svg',
+    whiteLogo: 'landing/images/coinmarketcap.svg',
+    blackLogo: 'landing/images/coinmarketcap_black.svg',
   },
   {
     id: 'nftnow',
-    img: 'landing/images/ic-nftnow.svg',
+    whiteLogo: 'landing/images/ic-nftnow.svg',
+    blackLogo: 'landing/images/ic-nftnow_black.svg',
   },
   {
     id: 'defiant',
-    img: 'landing/images/defiant.svg',
+    whiteLogo: 'landing/images/defiant.svg',
+    blackLogo: 'landing/images/defiant_black.svg',
   },
   {
     id: 'nft-evening',
-    img: 'landing/images/nft-evening.svg',
+    whiteLogo: 'landing/images/nft-evening.svg',
+    blackLogo: 'landing/images/nft-evening_black.svg',
   },
   {
     id: 'bsc_news',
-    img: 'landing/images/bscn.svg',
+    whiteLogo: 'landing/images/bscn.svg',
+    blackLogo: 'landing/images/bscn_black.svg',
   },
 
   {
     id: 'coindesk',
-    img: 'landing/images/coindesk.svg',
+    whiteLogo: 'landing/images/coindesk.svg',
+    blackLogo: 'landing/images/coindesk_black.svg',
   },
   {
     id: 'theblock_brazil',
-    img: '/landing/images/the-block.svg',
+    whiteLogo: '/landing/images/the-block.svg',
+    blackLogo: 'landing/images/the-block_black.svg',
   },
-  {
-    id: 'clout_scoop',
-    img: 'landing/images/clout_scoop.png',
-  },
+  // {
+  //   id: 'clout_scoop',
+  //   whiteLogo: 'landing/images/clout_scoop.png',
+  //   blackLogo: 'landing/images/blockwork.svg',
+  // },
 ];
 
 const BLOGS = [
