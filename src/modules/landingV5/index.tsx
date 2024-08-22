@@ -47,6 +47,7 @@ const LandingV5 = (props: Props) => {
               Join the next generation of Bitcoin builders who use the BVM
               infrastructure to deploy Bitcoin chains, build Bitcoin apps, and
               together bring Bitcoin to the people.
+              <br />
               <br /> Let’s build.
             </div>
           </Box>
