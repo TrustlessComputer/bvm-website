@@ -13,7 +13,6 @@ import useAutoUpdateNodePosition from './hooks/useAutoUpdateNodePosition';
 import useGettingDappLego from './hooks/useGettingDappLego';
 import useNodeFlowControl from './hooks/useNodeFlowControl';
 import useOnlyFetchDapp from './hooks/useOnlyFetchDapp';
-import useRemoveBridgeNode from './hooks/useRemoveBridgeNode';
 import s from './styles_v6.module.scss';
 
 const BuyPage = () => {
@@ -27,7 +26,7 @@ const BuyPage = () => {
   useFixScrollOverDrag();
   useNodeFlowControl();
   useGettingDappLego();
-  useRemoveBridgeNode();
+  // useRemoveBridgeNode();
 
   const { tabActive } = useTabs((state) => state);
   const isTabCode = React.useMemo(() => {
