@@ -21,13 +21,12 @@ const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
 
 const ReactFlowRenderer = React.memo(() => {
   const { nodes, onNodesChange, edges, onEdgesChange,  } = useFlowStore();
-  const { setRfInstance, onRestore, rfInstance, onSave } = useHandleReloadNode()
+  const { setRfInstance, onSave } = useHandleReloadNode()
   const [currentPosition, setCurrentPosition] = useState(
     currentPositionSignal.value,
   );
   const [count, setCount] = React.useState(0);
   const path = usePathname();
-  const { dapps } = useDapps();
 
   useSignalEffect(() => {
     if (needReactFlowRenderSignal.value) {
@@ -37,12 +36,6 @@ const ReactFlowRenderer = React.memo(() => {
     }
   });
 
-  React.useEffect(()=>{
-    if(path === '/studio') {
-      if(dapps.length == 0) return
-      onRestore();
-    }
-  },[rfInstance,dapps.length]);
 
   console.log('init', nodes, edges);
 
