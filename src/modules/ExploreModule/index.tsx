@@ -51,7 +51,7 @@ export default function ExploreModule(): React.JSX.Element {
           <TabList className={s.tabList}>
             <Tab>Apps</Tab>
             <Tab>Games</Tab>
-            <Tab>Rollups</Tab>
+            <Tab>Chains</Tab>
           </TabList>
           <TabPanels>
             <TabPanel p="0">
