@@ -259,12 +259,32 @@ export function isLocalhost() {
   return window.location.href.includes('http://localhost');
 }
 
-export default function handleStatusEdges(status: string) {
+export default function handleStatusEdges(status: aa) {
   const isStatusAnimate = ['']
   const isStatusHaveIcon = ['']
 
-  return {
-    animate: isStatusAnimate.includes(status),
-    icon: isStatusHaveIcon.includes(status),
+  switch (status) {
+    case "draft":
+      return {
+        animate: true,
+        icon: false,
+      }
+    case "down":
+      return {
+        animate: true,
+        icon: true,
+      }
+    default:
+      return {
+        animate: false,
+        icon: false,
+      }
   }
+
+  // return {
+  //   animate: isStatusAnimate.includes(status),
+  //   icon: isStatusHaveIcon.includes(status),
+  // }
 }
+
+type aa = "draft" | "running" | "down"
