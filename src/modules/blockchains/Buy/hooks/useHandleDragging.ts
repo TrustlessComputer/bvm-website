@@ -8,7 +8,7 @@ import {
   blockDraggingSignal,
   draggedDappIndexesSignal,
   draggedIds2DSignal,
-  idBlockErrorSignal, isDragging,
+  idBlockErrorSignal,
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';

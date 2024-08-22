@@ -12,6 +12,8 @@ import { formAccountAbtractionSignal, formDappSignal } from '@/modules/blockchai
 import { useSignalEffect } from '@preact/signals-react';
 import { usePathname } from 'next/navigation';
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
+import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
+import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
 
 
 function useHandleReloadNode() {
@@ -20,6 +22,8 @@ function useHandleReloadNode() {
   const { setViewport } = useReactFlow();
   const path = usePathname();
   const { dapps } = useDapps();
+  const { field, setFields } =useOrderFormStoreV3()
+  const { draggedFields, setDraggedFields } = useDragStore();
 
   React.useEffect(()=>{
     if(path === '/studio') {
@@ -33,6 +37,7 @@ function useHandleReloadNode() {
       const signals = LocalStorage.getItem(STORAGE_KEYS.USE_DRAG_SIGNALS) || {};
       const signalsForm = LocalStorage.getItem(STORAGE_KEYS.USE_SIGNALS_FORM) || {};
       const aaSignalsForm = LocalStorage.getItem(STORAGE_KEYS.USE_AA_SIGNALS_FORM) || {};
+      const blockchainForm = LocalStorage.getItem(STORAGE_KEYS.USE_BLOCKCHAIN_FORM) || {};
       if (flow) {
         const { x = 0, y = 0, zoom = 1 } = flow.viewport;
         setNodes(flow.nodes);
@@ -41,12 +46,22 @@ function useHandleReloadNode() {
         draggedIds2DSignal.value = signals.draggedIds2DSignal
         formDappSignal.value = signalsForm.formDappSignal
         formAccountAbtractionSignal.value = aaSignalsForm.formAccountAbtractionSignal
+        console.log('useHandleReloadNode', {
+          draggedDappIndexesSignal : signals.draggedDappIndexesSignal,
+          draggedIds2DSignal : signals.draggedIds2DSignal,
+          formDappSignal : signalsForm.formDappSignal,
+          formAccountAbtractionSignal : aaSignalsForm.formAccountAbtractionSignal,
+          blockchainForm: blockchainForm,
+          flow
+        });
+        if(Object.keys(blockchainForm.field).length > 0) {
+          setFields(blockchainForm.field);
+          setDraggedFields(blockchainForm.draggedFields);
+        }
         await setViewport({ x, y, zoom });
       }
       restoreLocal.value = true
     };
-
-    // await restoreFlow().then(() => restoreLocal.value = true);
 
     await restoreFlow()
   }, []);
@@ -92,6 +107,7 @@ function useHandleReloadNode() {
       LocalStorage.setItem(STORAGE_KEYS.USE_DRAG_SIGNALS, JSON.stringify(signals));
       LocalStorage.setItem(STORAGE_KEYS.USE_SIGNALS_FORM, JSON.stringify({ formDappSignal }))
       LocalStorage.setItem(STORAGE_KEYS.USE_AA_SIGNALS_FORM, JSON.stringify({ formAccountAbtractionSignal }))
+      LocalStorage.setItem(STORAGE_KEYS.USE_BLOCKCHAIN_FORM, JSON.stringify({ field, draggedFields }))
     }
   }, [rfInstance]);
 

@@ -25,4 +25,5 @@ export enum STORAGE_KEYS {
   USE_DRAG_SIGNALS = 'use_drag_signals',
   USE_SIGNALS_FORM = 'use_signals_form',
   USE_AA_SIGNALS_FORM = 'use_aa_signals_form',
+  USE_BLOCKCHAIN_FORM = 'use_blockchain_form',
 }

@@ -89,7 +89,7 @@ export default function useNodeFlowControl() {
     console.log('[useNodeFlowControl] useSignalEffect', {
       new: draggedIds2DSignal.value,
       old: draggedIds2D,
-      isDragging: isDragging.value,
+      isDragging
     });
 
     if (draggedDappIndexesSignal.value.includes(0) && isAAInstalled) {
@@ -236,10 +236,11 @@ export default function useNodeFlowControl() {
         new: true,
         remove: false,
       });
+      setIsDragging(false);
+
     } else {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
     }
-    setIsDragging(false);
   });
 
   useEffect(() => {
@@ -247,6 +248,7 @@ export default function useNodeFlowControl() {
   }, [dragState]);
 
   const handleAddBox = () => {
+    console.log('runnn add box');
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
 
