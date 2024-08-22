@@ -18,7 +18,7 @@ const SectionItemGeneral = ({ id, item }: Props) => {
     const tmp = LOGOS.filter((itemLogo) => {
       return itemLogo.id === logo;
     });
-    return tmp.length ? tmp[0].img : '';
+    return tmp.length ? tmp[0].blackLogo : '';
   };
 
   const renderNewsLogo = (logo: string, logoUrl?: string) => {
