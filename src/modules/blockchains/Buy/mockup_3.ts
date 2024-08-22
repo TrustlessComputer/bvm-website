@@ -1168,7 +1168,7 @@ export const dappMockupData: DappModel[] = [
         title: 'Payment Token',
         tooltip: '',
         required: false,
-        show: true
+        show: true,
       },
     ],
     baseModuleFields: [
@@ -1181,16 +1181,16 @@ export const dappMockupData: DappModel[] = [
         preview: false,
         background: '#A041FF',
         fields: [
-          // {
-          //   key: 'bvm',
-          //   title: 'BVM', // symbol
-          //   value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
-          //   icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
-          //   tooltip: '',
-          //   type: '',
-          //   options: [],
-          //   selectable: true,
-          // },
+          {
+            key: 'bvm',
+            title: 'BVM', // symbol
+            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
+            icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
+            tooltip: '',
+            type: '',
+            options: [],
+            selectable: true,
+          },
           // {
           //   key: 'eth',
           //   title: 'ETH (Upgrade plan 99$)', // symbol
@@ -1286,7 +1286,8 @@ export const dappMockupData: DappModel[] = [
           type: 'input',
           icon: '',
           value: '',
-          tooltip: 'Enter the maximum number of participants allowed per round.',
+          tooltip:
+            'Enter the maximum number of participants allowed per round.',
           placeholder: 'eg. 500',
           options: [],
           background: '#0d2dd0',
@@ -1298,7 +1299,8 @@ export const dappMockupData: DappModel[] = [
           type: 'input',
           icon: '',
           value: '',
-          tooltip: 'Specify the percentage of the fee that will be paid to the creators.',
+          tooltip:
+            'Specify the percentage of the fee that will be paid to the creators.',
           placeholder: 'eg. 10',
           options: [],
           background: '#C44127',
