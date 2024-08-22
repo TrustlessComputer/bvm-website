@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 'use client';
 
+import AppLoading from '@/components/AppLoading';
 import ListTable, { ColumnProp } from '@/components/ListTable';
 import { MIN_DECIMAL } from '@/constants/constants';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
@@ -29,11 +30,11 @@ import {
 import { DotLottiePlayer } from '@dotlottie/react-player';
 import { orderBy } from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import SearchAddress from '../l2-rollup-detail/SearchAddress';
 import BitcoinRentModal from './BitcoinRentModal';
 import L2RollupFee from './fees';
 import s from './styles.module.scss';
-import AppLoading from '@/components/AppLoading';
-import SearchAddress from '../l2-rollup-detail/SearchAddress';
 
 enum SortRollupType {
   name,
@@ -59,6 +60,7 @@ interface ISort {
 
 const L2Rollup = () => {
   const { showContactUsModal } = useContactUs();
+  const dispatch = useDispatch();
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const [bitcoinRent, setBitcoinRent] = useState<IRollupL2Info>();
@@ -125,7 +127,12 @@ const L2Rollup = () => {
     if (!loaded.current) return;
     loaded.current = false;
     try {
-      const res = await rollupL2Api.getRollupL2Info();
+      const [res, res2] = await Promise.all([
+        rollupL2Api.getRollupL2Info(),
+        rollupL2Api.getFeeAddress1D(),
+      ]);
+
+      setDataChart(res2);
       if (res.length <= 0) return;
       let data: IRollupL2Info[] = [];
 
@@ -1022,7 +1029,6 @@ const L2Rollup = () => {
             )}</p>`}
           />
         </SimpleGrid>
-
         <Flex
           className={s.totalContainer}
           bg="#FAFAFA"
