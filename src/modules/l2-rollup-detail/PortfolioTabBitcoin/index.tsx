@@ -13,7 +13,7 @@ import {
 } from '@/services/api/dapp/rollupl2-detail-bitcoin/interface';
 import { ITokenChain } from '@/services/api/dapp/rollupl2-detail/interface';
 import { formatCurrency } from '@/utils/format';
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, Text, Grid } from '@chakra-ui/react';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
@@ -210,82 +210,6 @@ const PortfolioTabBitcoin = () => {
     ];
   }, []);
 
-  const columnsOridinals: ColumnProp[] = useMemo(() => {
-    return [
-      {
-        id: 'tx',
-        label: 'Token',
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '14px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-          paddingLeft: '16px !important',
-        },
-        render(data: IBalanceBitcoin) {
-          return (
-            <Flex alignItems={'center'} justifyContent={'space-between'}>
-              <Flex position={'relative'}>
-                <Text className={s.title}>{data.symbol}</Text>
-              </Flex>
-            </Flex>
-          );
-        },
-      },
-      {
-        id: 'exc',
-        label: 'Inscription',
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '14px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: IBalanceBitcoin) {
-          return (
-            <Flex
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'space-between'}
-            >
-              <Text className={s.title}>#{data.inscription_number}</Text>
-            </Flex>
-          );
-        },
-      },
-      {
-        id: 'exc',
-        label: 'Amount',
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '14px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: IBalanceBitcoin) {
-          return (
-            <Flex
-              gap={6}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'space-between'}
-            >
-              <Text className={s.title}>
-                {formatCurrency(data.holding_amount, 2, 2)}
-              </Text>
-            </Flex>
-          );
-        },
-      },
-    ];
-  }, []);
-
   return (
     <Flex direction={'column'}>
       <Flex
@@ -308,7 +232,12 @@ const PortfolioTabBitcoin = () => {
           </Box>
         ))}
       </Flex>
-      <Box className={s.container} h="60vh">
+      <Box
+        className={`${s.container} ${
+          balanceType != 'ordinals_nft' ? s.shadow : ''
+        }`}
+        h="60vh"
+      >
         <ScrollWrapper
           onFetch={() => {
             refParams.current = {
@@ -324,15 +253,38 @@ const PortfolioTabBitcoin = () => {
           wrapClassName={s.wrapScroll}
           dependData={list}
         >
-          <ListTable
-            data={list}
-            columns={
-              balanceType === 'ordinals_nft' ? columnsOridinals : columns
-            }
-            className={s.tableContainer}
-            showEmpty={!isFetching}
-            emptyIcon={<Image src={'/icons/icon-empty.svg'} />}
-          />
+          {balanceType === 'ordinals_nft' ? (
+            <Grid
+              w="100%"
+              gridTemplateColumns={{
+                base: 'repeat(auto-fill, 196px)',
+              }}
+              gap={{ base: '16px', lg: '24px' }}
+            >
+              {list.length > 0 &&
+                list.map((item) => {
+                  return (
+                    <Flex direction={'column'} className={s.chains}>
+                      <Image w={'100%'} aspectRatio={1} />
+                      <Flex direction={'column'} p={'8px'}>
+                        <Text color={'#898989'}>
+                          #{item.inscription_number}
+                        </Text>
+                        <Text>{item.symbol}</Text>
+                      </Flex>
+                    </Flex>
+                  );
+                })}
+            </Grid>
+          ) : (
+            <ListTable
+              data={list}
+              columns={columns}
+              className={s.tableContainer}
+              showEmpty={!isFetching}
+              emptyIcon={<Image src={'/icons/icon-empty.svg'} />}
+            />
+          )}
           {isFetching && <AppLoading className={s.loading} />}
         </ScrollWrapper>
       </Box>

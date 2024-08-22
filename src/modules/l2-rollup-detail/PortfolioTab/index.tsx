@@ -30,6 +30,8 @@ const PortfolioTab = () => {
       >
         {rollupDetails.length > 0 &&
           rollupDetails.map((detail) => {
+            if (!detail.rollup) return;
+
             const totalUsd = detail.balances?.reduce((accum, item) => {
               if (!rollupTokensRate) return accum;
               const tokenRateUsd = rollupTokensRate[item.token_name];

@@ -137,7 +137,7 @@ const Balances = () => {
 
   return (
     <Box className={s.container}>
-      <Box w={'100%'} className={s.wrapScroll}>
+      <Box w={'100%'} className={s.wrapScroll} minH={'30vh'}>
         <ListTable
           data={rollupBalances}
           columns={columns}
