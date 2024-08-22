@@ -1,10 +1,12 @@
 import CustomEdge from '@/modules/blockchains/Buy/component4/CustomEdge';
 import CustomNode from '@/modules/blockchains/Buy/component4/CustomNode';
+import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
+import useHandleReloadNode from '@/modules/blockchains/Buy/hooks/useHandleReloadNode';
 import { signal, useSignalEffect } from '@preact/signals-react';
 import { ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { usePathname } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import DappTemplateNode from '../../component4/CustomNode/DappTemplateNode';
 import AANode from '../../component4/YourNodes/AANode';
 import BridgeNode from '../../component4/YourNodes/BridgeNode';
@@ -13,8 +15,6 @@ import DappNode from '../../component4/YourNodes/DappNode';
 import { nodeKey } from '../../component4/YourNodes/node.constants';
 import useFlowStore from '../../stores/useFlowStore';
 import s from './styles.module.scss';
-import useHandleReloadNode from '@/modules/blockchains/Buy/hooks/useHandleReloadNode';
-import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
@@ -45,7 +45,9 @@ const ReactFlowRenderer = React.memo(() => {
     }
   }, [rfInstance, dapps.length]);
 
-
+  // console.log('[ReactFlowRenderer]', {
+  //   nodes,
+  // });
 
   // console.log('init', nodes, edges);
 
@@ -82,7 +84,7 @@ const ReactFlowRenderer = React.memo(() => {
       className={s.reactFlow}
       onNodeDragStop={() => {
         if (path === '/studio') {
-        onSave();
+          onSave();
         }
       }}
     />
