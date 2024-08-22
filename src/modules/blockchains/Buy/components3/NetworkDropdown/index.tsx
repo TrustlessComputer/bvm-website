@@ -31,7 +31,7 @@ const getIcon = (icon?: string) => {
 
 const NetworkDropdown = ({}: Props) => {
   const { categories } = useModelCategoriesStore();
-  const { setField } = useOrderFormStoreV3();
+  const { field, setField } = useOrderFormStoreV3();
 
   const options = React.useMemo(
     () => categories?.find((i) => i.key === 'network')?.options || [],
@@ -44,6 +44,16 @@ const NetworkDropdown = ({}: Props) => {
   const [currentValue, setCurrentValue] = React.useState<IModelOption>(
     options[0],
   );
+
+  if (
+    typeof field['network']?.value === 'string' &&
+    typeof currentValue !== 'undefined' &&
+    field['network']?.value !== currentValue?.key
+  ) {
+    setCurrentValue(
+      options.find((i) => i.key === field['network'].value) || options[0],
+    );
+  }
 
   useOnClickOutside(ref, () => setIsOpenDropdown(false));
 
