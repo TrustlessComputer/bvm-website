@@ -1,4 +1,6 @@
+import { useMemo } from 'react';
 import { accountAbstractionStore } from './accountAbstractionStore';
+import { isAddress } from 'ethers/lib/utils';
 
 export const useAccountAbstractionStore = () => {
   const storeData = accountAbstractionStore();
@@ -9,6 +11,10 @@ export const useAccountAbstractionStore = () => {
     setTokenContractFocused,
     setTokenContractAddress,
     setTokenContractAddressErrMsg,
+
+    isTokenContractAddressFocused,
+    tokenContractAddressErrMsg,
+    tokenContractAddress,
   } = storeData;
 
   const resetAAStore = () => {
@@ -21,8 +27,27 @@ export const useAccountAbstractionStore = () => {
     setTokenContractAddressErrMsg(undefined);
   };
 
+  const checkTokenContractAddress = () => {
+    let errorMsg = undefined;
+    if (!tokenContractAddress || tokenContractAddress.length < 1) {
+      errorMsg = 'Address is required!';
+    } else if (!isAddress(tokenContractAddress)) {
+      errorMsg = 'Address is invalid!';
+    } else {
+      errorMsg = undefined;
+    }
+    setTokenContractAddressErrMsg(errorMsg);
+    setTokenContractFocused(true);
+  };
+
+  const isValid = useMemo(() => {
+    return !!isTokenContractAddressFocused && !tokenContractAddressErrMsg;
+  }, [isTokenContractAddressFocused, tokenContractAddressErrMsg]);
+
   return {
     ...storeData,
     resetAAStore,
+    isValid,
+    checkTokenContractAddress,
   };
 };

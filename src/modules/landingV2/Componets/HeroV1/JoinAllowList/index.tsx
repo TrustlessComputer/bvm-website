@@ -22,6 +22,7 @@ import ModalVideo from 'react-modal-video';
 import SvgInset from '@/components/SvgInset';
 import { MenuBuild } from '@/layouts/Header/menuConfig';
 import useWindowSize from '@/hooks/useWindowSize';
+import {VIDEO_HERO_MAIN} from "@constants/common";
 
 const DELAY = 2;
 const JoinAllowList = ({ isFooter }: { isFooter?: boolean }) => {
@@ -247,7 +248,7 @@ const JoinAllowList = ({ isFooter }: { isFooter?: boolean }) => {
         {/*</form>*/}
         <ModalVideo
           channel="custom"
-          url={'/public-sale/public_sale_video_2.mp4'}
+          url={VIDEO_HERO_MAIN}
           isOpen={isOpen}
           onClose={() => {
             setOpen(false);

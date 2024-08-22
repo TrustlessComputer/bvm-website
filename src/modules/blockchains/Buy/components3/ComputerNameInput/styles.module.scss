@@ -4,8 +4,9 @@
   width: 100%;
   padding: 0 12px;
   border-radius: 17px;
-  font-family: var(--font-JetBrainsMono);
-  font-size: 18px;
+  font-size: 16px;
+  line-height: calc(20 / 16);
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   outline: none;
   &::placeholder {
     color: red;
@@ -15,12 +16,12 @@
 .setLine {
   input {
     display: block;
-    margin-top: -7px;
+    margin-top: -10px;
   }
 }
 
 .wrapper_input   {
-  height: 27px;
+  height: 23px;
   width: 100%;
   background-color: #fff;
   border-radius: 17px;

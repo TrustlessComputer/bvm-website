@@ -21,6 +21,7 @@ import {
 import { FormDappUtil, getAirdropTaskKey } from '../utils';
 // @ts-ignore
 import Papa from 'papaparse';
+import { cloneDeep } from '../../Buy/utils';
 
 interface IProps {
   setErrorData: Dispatch<
@@ -50,7 +51,7 @@ const useSubmitFormAirdrop = ({
   const onSubmitFormAirdrop = async () => {
     try {
       let finalFormMappings: Record<string, any[]>[] = [];
-      const formDapp = formDappSignal.value;
+      const formDapp = cloneDeep(formDappSignal.value);
 
       const formDappInBase = Object.keys(formDapp).filter(
         (key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key),

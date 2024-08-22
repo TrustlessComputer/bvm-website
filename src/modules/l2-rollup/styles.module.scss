@@ -121,7 +121,7 @@ table {
           padding-bottom: 16px !important;
           background: #fff;
           color: #b1b154;
-          font-size: 17px;
+          font-size: 16px;
           font-weight: 600 !important;
           border-bottom: none;
 
@@ -155,13 +155,23 @@ table {
 
       tr:hover {
         background: #fa4e0e !important;
+
+        // td:nth-child(1),
+        // :nth-child(3),
+        // :nth-child(4),
+        // :nth-child(10) {
+        //   text-decoration: underline;
+        //   p {
+        //     color: #000 !important;
+        //   }
+        // }
       }
     }
 
     .title {
       font-style: normal;
-      font-size: 17px;
-      line-height: 170%;
+      font-size: 16px;
+      line-height: 160%;
 
       color: var(--naka-text);
 

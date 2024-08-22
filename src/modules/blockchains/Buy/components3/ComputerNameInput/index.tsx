@@ -13,6 +13,7 @@ import s from './styles.module.scss';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useOrderFormStore } from '../../stores/index_v2';
 import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
+import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 
 type Props = {
   chainNameDefault?: string;
@@ -24,6 +25,8 @@ const ComputerNameInput = (props: Props) => {
   const { computerNameField, setComputerNameField, isMainnet } = useBuy();
   const { value, errorMessage } = computerNameField;
   const { isCapture } = useCaptureStore();
+
+  const { isUpdateFlow, order } = useChainProvider();
 
   const onChangeHandler = React.useCallback(
     debounce(async (e: any) => {
@@ -67,8 +70,7 @@ const ComputerNameInput = (props: Props) => {
   );
 
   React.useEffect(() => {
-    const computerName =
-      'My Bitcoin ZK Rollup ' + getRandonComputerName(isMainnet);
+    const computerName = 'My Bitcoin Chain ' + getRandonComputerName(isMainnet);
 
     setChainName(computerName);
     setComputerNameField({
@@ -80,12 +82,24 @@ const ComputerNameInput = (props: Props) => {
     });
   }, [chainNameDefault, isMainnet]);
 
+  useEffect(() => {
+    if (isUpdateFlow) {
+      setComputerNameField({
+        ...computerNameField,
+        value: order?.chainName,
+        hasError: false,
+        errorMessage: undefined,
+      });
+    }
+  }, [isUpdateFlow, order]);
+
   return (
     <div className={`${isCapture ? s.setLine : ''} ${s.wrapper_input}`}>
       <input
         type="text"
         placeholder="Enter chain name"
         className={`${s.input} `}
+        disabled={!!isUpdateFlow}
         value={value}
         onChange={(e) => {
           const text = e.target.value;

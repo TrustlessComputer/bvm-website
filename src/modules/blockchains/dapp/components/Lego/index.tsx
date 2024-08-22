@@ -8,6 +8,7 @@ import { adjustBrightness } from '../../utils';
 import styles from './styles.module.scss';
 import { Box, Image, Tooltip } from '@chakra-ui/react';
 import { FieldModel } from '@/types/customize-model';
+import { legoDragging } from '@/modules/blockchains/dapp/ui-helper/LegoDragging';
 
 type Position =
   | {
@@ -84,7 +85,7 @@ const Lego = (props: Props) => {
       legoRef.current.style.zIndex = `${zIndex}`;
       legoRef.current.style.position = 'relative';
     }
-  }, [legoRef.current]);
+  }, [legoRef.current, zIndex]);
 
   return (
     <div

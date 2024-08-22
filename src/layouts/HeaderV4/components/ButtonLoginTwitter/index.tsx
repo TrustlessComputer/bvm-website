@@ -9,6 +9,7 @@ import { accountInforSelector } from '@/stores/states/l2services/selector';
 import { useRouter } from 'next/navigation';
 import useL2Service from '@/hooks/useL2Service';
 import { Image, Skeleton } from '@chakra-ui/react';
+import copy from 'copy-to-clipboard';
 
 type Props = {
   color?: 'black' | 'white';
@@ -42,6 +43,7 @@ const ButtonLoginTwitter = (props: Props) => {
         if (!loggedIn) {
           handleConnect();
         } else {
+          copy(accInfor?.tcAddress || '');
           router.push('/chains');
         }
       }}

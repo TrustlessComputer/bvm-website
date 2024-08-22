@@ -395,7 +395,7 @@ const ContactUsModal = ({
                 {params?.description
                   ? params.description
                   : params.changeText
-                  ? "You've chosen Optimistic Rollup for your blockchain and it can't be done automatically yet. We will reach out to you shortly to help complete your setup."
+                  ? 'Your setup requires manual assistance. We’ll reach out to you shortly to help complete it.'
                   : 'Help us tailor the demo experience to your needs.'}
               </Text>
             </div>
