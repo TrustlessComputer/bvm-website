@@ -255,8 +255,8 @@ export default function useFetchingTemplate() {
       const thisNode = [...tokens, ...airdrops, ...stakingPools][index];
       const defaultPositionX = 30 + 500 * xOffsetCount[dappKey]++;
       const defaultPositionY = 30 + 500 * allDappKeys.indexOf(dappKey);
-      const xOffset = thisNode.position_x ?? defaultPositionX;
-      const yOffset = thisNode.position_y ?? defaultPositionY;
+      const xOffset = thisNode?.position_x ?? defaultPositionX;
+      const yOffset = thisNode?.position_y ?? defaultPositionY;
       const idNode = index.toString();
       const isHandleExists = getHandleNodeBlockChain?.data?.sourceHandles?.some(
         (handle) => handle === `${rootNode}-s-${templateDapps[index].title}`,
@@ -307,8 +307,8 @@ export default function useFetchingTemplate() {
           baseIndex: index,
           targetHandles: [`${idNode}-t-${rootNode}`],
           sourceHandles: [],
-          itemId: thisNode.id,
-          positionId: thisNode.position_id,
+          itemId: thisNode?.id,
+          positionId: thisNode?.position_id,
         },
         position: { x: xOffset, y: yOffset },
       };

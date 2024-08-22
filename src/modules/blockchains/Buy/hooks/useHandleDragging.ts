@@ -16,6 +16,7 @@ import {
   subScribeDropEnd,
   useTemplateFormStore,
 } from '@/modules/blockchains/Buy/stores/useDappStore';
+import useDraggingStore from '@/modules/blockchains/Buy/stores/useDraggingStore';
 import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
 import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
@@ -35,7 +36,6 @@ import toast from 'react-hot-toast';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import useFlowStore, { AppState } from '../stores/useFlowStore';
 import useOverlappingChainLegoStore from '../stores/useOverlappingChainLegoStore';
-import useDraggingStore from '@/modules/blockchains/Buy/stores/useDraggingStore';
 
 export default function useHandleDragging() {
   const { setOverlappingId } = useOverlappingChainLegoStore();
@@ -43,7 +43,7 @@ export default function useHandleDragging() {
   const { setIdDragging, rightDragging, setRightDragging } = useDragMask();
   const { draggedFields, setDraggedFields } = useDragStore();
   const { field, setField } = useOrderFormStoreV3();
-  const { setIsDragging } =useDraggingStore()
+  const { setIsDragging } = useDraggingStore();
   const { parsedCategories, categories, categoryMapping } =
     useModelCategoriesStore();
   const {

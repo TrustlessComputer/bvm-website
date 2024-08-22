@@ -89,7 +89,7 @@ export default function useNodeFlowControl() {
     console.log('[useNodeFlowControl] useSignalEffect', {
       new: draggedIds2DSignal.value,
       old: draggedIds2D,
-      isDragging
+      isDragging,
     });
 
     if (draggedDappIndexesSignal.value.includes(0) && isAAInstalled) {
@@ -226,8 +226,8 @@ export default function useNodeFlowControl() {
         }
       }
     } else if (
-      draggedIds2DSignal.value.length > draggedIds2D.length &&
-      isDragging
+      draggedIds2DSignal.value.length > draggedIds2D.length
+      // && isDragging
     ) {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
       setDragState({
