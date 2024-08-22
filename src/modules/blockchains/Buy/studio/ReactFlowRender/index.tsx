@@ -4,7 +4,7 @@ import { signal, useSignalEffect } from '@preact/signals-react';
 import { ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { usePathname } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DappTemplateNode from '../../component4/CustomNode/DappTemplateNode';
 import AANode from '../../component4/YourNodes/AANode';
 import BridgeNode from '../../component4/YourNodes/BridgeNode';
@@ -13,21 +13,23 @@ import DappNode from '../../component4/YourNodes/DappNode';
 import { nodeKey } from '../../component4/YourNodes/node.constants';
 import useFlowStore from '../../stores/useFlowStore';
 import s from './styles.module.scss';
+import useHandleReloadNode from '@/modules/blockchains/Buy/hooks/useHandleReloadNode';
+import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
 
 const ReactFlowRenderer = React.memo(() => {
   const { nodes, onNodesChange, edges, onEdgesChange } = useFlowStore();
-  // const { setRfInstance, onRestore, rfInstance, onSave } =
-  //   useHandleReloadNode();
+  const { setRfInstance, onRestore, rfInstance, onSave } =
+    useHandleReloadNode();
   const [currentPosition, setCurrentPosition] = useState(
     currentPositionSignal.value,
   );
   const [count, setCount] = React.useState(0);
   const path = usePathname();
 
-  // const { dapps } = useDapps();
+  const { dapps } = useDapps();
 
   useSignalEffect(() => {
     if (needReactFlowRenderSignal.value) {
@@ -37,11 +39,13 @@ const ReactFlowRenderer = React.memo(() => {
     }
   });
 
-  // React.useEffect(() => {
-  //   if (path === '/studio' && rfInstance && dapps.length > 0) {
-  //     onRestore();
-  //   }
-  // }, [rfInstance, dapps.length]);
+  React.useEffect(() => {
+    if (path === '/studio' && rfInstance && dapps.length > 0) {
+      onRestore();
+    }
+  }, [rfInstance, dapps.length]);
+
+
 
   // console.log('init', nodes, edges);
 
@@ -71,16 +75,16 @@ const ReactFlowRenderer = React.memo(() => {
       }}
       onEdgesChange={onEdgesChange}
       onNodesChange={onNodesChange}
-      // onInit={setRfInstance}
+      onInit={setRfInstance}
       zoomOnDoubleClick={false}
       edges={edges}
       fitViewOptions={{ padding: 1 }}
       className={s.reactFlow}
-      // onNodeDragStop={() => {
-      // if (path === '/studio') {
-      // onSave();
-      // }
-      // }}
+      onNodeDragStop={() => {
+        if (path === '/studio') {
+        onSave();
+        }
+      }}
     />
   );
 });
