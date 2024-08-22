@@ -61,7 +61,7 @@ function LegoParent({
   const _background = hsbToHex(
     fillBackgroundAsHSB?.h || 0,
     fillBackgroundAsHSB?.s || 0,
-    (fillBackgroundAsHSB?.b || 100) - 10,
+    (fillBackgroundAsHSB?.b || 100) - 20,
   )?.split('.')[0];
 
   const haveNoti = React.useMemo(
