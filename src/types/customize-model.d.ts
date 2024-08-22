@@ -22,6 +22,8 @@ interface IModelOption {
   updatable?: boolean;
   priceUSD: number;
   priceBVM: number;
+  priceUSDTestnet?: number;
+  priceBVMTestnet?: number;
   tooltip: string;
   key: string;
   icon: string;

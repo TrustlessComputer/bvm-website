@@ -1,12 +1,10 @@
-import React from 'react';
 import Image from 'next/image';
+import React from 'react';
 
 import SvgInset from '@/components/SvgInset';
 
-import { LegoColor } from '../BoxOption';
-
-import styles from './styles.module.scss';
 import { hexToHSB, hsbToHex } from '../../utils';
+import styles from './styles.module.scss';
 
 type LegoParent = {
   background: string;
@@ -58,12 +56,12 @@ function LegoParent({
   const _fillBackground = hsbToHex(
     fillBackgroundAsHSB?.h || 0,
     fillBackgroundAsHSB?.s || 0,
-    (fillBackgroundAsHSB?.b || 100) - 20,
+    fillBackgroundAsHSB?.b || 100,
   )?.split('.')[0];
   const _background = hsbToHex(
     fillBackgroundAsHSB?.h || 0,
     fillBackgroundAsHSB?.s || 0,
-    (fillBackgroundAsHSB?.b || 100) - 40,
+    (fillBackgroundAsHSB?.b || 100) - 10,
   )?.split('.')[0];
 
   const haveNoti = React.useMemo(
@@ -98,7 +96,7 @@ function LegoParent({
         zIndex: zIndex,
         // cursor: active ? 'not-allowed' : 'grabbing'
         // @ts-ignore
-        '--fillBackground': _fillBackground,
+        '--fillBackground': background,
         '--background': _background,
       }}
       {...props}
