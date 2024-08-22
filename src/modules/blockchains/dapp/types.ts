@@ -28,4 +28,5 @@ export enum DappType {
   staking = 'staking',
   token_generation = 'token_generation',
   airdrop = 'airdrop',
+  yologame = 'yologame',
 }
