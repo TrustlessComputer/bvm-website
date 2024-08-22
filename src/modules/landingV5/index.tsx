@@ -26,79 +26,64 @@ const LandingV5 = (props: Props) => {
   return (
     <div className={s.landing}>
       <Box>
-        <div className={cn(s.introduction, 'containerV3')}>
-          <Box
-            flex="1"
-            as={motion.div}
-            initial={{ x: -100, opacity: 0 }}
-            animate={{
-              x: 0,
-              opacity: 1,
-              transition: {
-                delay: 0.5,
-                duration: 1,
-              },
-            }}
-          >
-            <div className={s.introduction_title}>
-              Development infrastructure for Bitcoin
-            </div>
-            <div className={s.introduction_desc}>
-              Join the next generation of Bitcoin builders who use the BVM
-              infrastructure to deploy Bitcoin chains, build Bitcoin apps, and
-              together bring Bitcoin to the people.
-              <br />
-              <br /> Let’s build.
-            </div>
-          </Box>
-          <Box
-            className={s.introduction_links}
-            as={motion.div}
-            initial={{ x: 100, opacity: 0 }}
-            animate={{
-              x: 0,
-              opacity: 1,
-              transition: {
-                delay: 0.5,
-                duration: 1,
-              },
-            }}
-          >
-            <div className={s.link_item}>
-              <div className={s.link_ic}>
-                <ChakraImage src="/landing-v5/ic-headphone.svg" />
-              </div>
-              <Flex gap="4px" flexDir={'column'}>
-                <p>Need development help?</p>
-                <Box
-                  onClick={showContactUsModal}
-                  className={s.link}
-                  cursor="pointer"
-                >
-                  Talk to a BVM dev
-                  <div className={s.icon_link}>
-                    <ChakraImage src="/landing-v5/ic-link.svg" />
+        <Box
+          ml={{ base: '20px', '2xl': 'calc((100vw - 1480px) / 2)' }}
+          mt={'80px'}
+        >
+          <BuildItem stagger={0} iconUrl="/landing-v5/ic-bvm.svg">
+            <Box
+              className={cn(s.introduction)}
+              mr={{ base: '0px', '2xl': 'calc((100vw - 1480px) / 2)' }}
+              pr="20px"
+            >
+              <Box flex="1">
+                <div className={s.introduction_title}>
+                  Development infrastructure for Bitcoin
+                </div>
+                <div className={s.introduction_desc}>
+                  Join the next generation of Bitcoin builders who use the BVM
+                  infrastructure to deploy Bitcoin chains, build Bitcoin apps,
+                  and together bring Bitcoin to the people.
+                  <br />
+                  <br /> Let’s build.
+                </div>
+              </Box>
+              <Box className={s.introduction_links}>
+                <div className={s.link_item}>
+                  <div className={s.link_ic}>
+                    <ChakraImage src="/landing-v5/ic-headphone.svg" />
                   </div>
+                  <Flex gap="4px" flexDir={'column'}>
+                    <p>Need development help?</p>
+                    <Box
+                      onClick={showContactUsModal}
+                      className={s.link}
+                      cursor="pointer"
+                    >
+                      Talk to a BVM dev
+                      <div className={s.icon_link}>
+                        <ChakraImage src="/landing-v5/ic-link.svg" />
+                      </div>
+                    </Box>
+                  </Flex>
+                </div>
+                <Box mt={'24px'} className={s.link_item}>
+                  <div className={s.link_ic}>
+                    <ChakraImage src="/landing-v5/ic-appstore.svg" />
+                  </div>
+                  <Flex gap="4px" flexDir={'column'}>
+                    <p>Experience Bitcoin apps</p>
+                    <Link href="/explore" className={s.link}>
+                      Visit bitcoin App Store
+                      <div className={s.icon_link}>
+                        <ChakraImage src="/landing-v5/ic-link.svg" />
+                      </div>
+                    </Link>
+                  </Flex>
                 </Box>
-              </Flex>
-            </div>
-            <Box mt={'24px'} className={s.link_item}>
-              <div className={s.link_ic}>
-                <ChakraImage src="/landing-v5/ic-appstore.svg" />
-              </div>
-              <Flex gap="4px" flexDir={'column'}>
-                <p>Experience Bitcoin apps</p>
-                <Link href="/explore" className={s.link}>
-                  Visit bitcoin App Store
-                  <div className={s.icon_link}>
-                    <ChakraImage src="/landing-v5/ic-link.svg" />
-                  </div>
-                </Link>
-              </Flex>
+              </Box>
             </Box>
-          </Box>
-        </div>
-        <Box ml={{ base: '20px', '2xl': 'calc((100vw - 1480px) / 2)' }}>
+          </BuildItem>
           <BuildItem stagger={1}>
             <SectionBlock {...STEP_1_SECTION} spacing="160px" />
           </BuildItem>
