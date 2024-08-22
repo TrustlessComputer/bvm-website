@@ -1168,7 +1168,7 @@ export const dappMockupData: DappModel[] = [
         title: 'Payment Token',
         tooltip: '',
         required: false,
-        show: true
+        show: true,
       },
     ],
     baseModuleFields: [
@@ -1242,7 +1242,7 @@ export const dappMockupData: DappModel[] = [
       title: 'Create a YOLO Game',
       icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-yolo.svg',
       placableAmount: -1,
-      section: '',
+      section: 'yolo',
       preview: false,
       fields: [
         // {
@@ -1286,7 +1286,8 @@ export const dappMockupData: DappModel[] = [
           type: 'input',
           icon: '',
           value: '',
-          tooltip: 'Enter the maximum number of participants allowed per round.',
+          tooltip:
+            'Enter the maximum number of participants allowed per round.',
           placeholder: 'eg. 500',
           options: [],
           background: '#0d2dd0',
@@ -1298,7 +1299,8 @@ export const dappMockupData: DappModel[] = [
           type: 'input',
           icon: '',
           value: '',
-          tooltip: 'Specify the percentage of the fee that will be paid to the creators.',
+          tooltip:
+            'Specify the percentage of the fee that will be paid to the creators.',
           placeholder: 'eg. 10',
           options: [],
           background: '#C44127',
