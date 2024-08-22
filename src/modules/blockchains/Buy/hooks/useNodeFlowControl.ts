@@ -1,7 +1,8 @@
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import {
   draggedDappIndexesSignal,
-  draggedIds2DSignal, isDragging,
+  draggedIds2DSignal,
+  isDragging,
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import {
   cloneDeep,
@@ -87,6 +88,7 @@ export default function useNodeFlowControl() {
     console.log('[useNodeFlowControl] useSignalEffect', {
       new: draggedIds2DSignal.value,
       old: draggedIds2D,
+      isDragging: isDragging.value,
     });
 
     if (draggedDappIndexesSignal.value.includes(0) && isAAInstalled) {
@@ -222,7 +224,7 @@ export default function useNodeFlowControl() {
           break;
         }
       }
-    } else if (draggedIds2DSignal.value.length > draggedIds2D.length && isDragging.value) {
+    } else if (draggedIds2DSignal.value.length > draggedIds2D.length) {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
       setDragState({
         oneD: [-1],
@@ -233,7 +235,8 @@ export default function useNodeFlowControl() {
     } else {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
     }
-    isDragging.value = false
+
+    isDragging.value = false;
   });
 
   useEffect(() => {
@@ -317,7 +320,7 @@ export default function useNodeFlowControl() {
         break;
     }
 
-    if(nodes.some((node) => node.id === newNodeId)) {
+    if (nodes.some((node) => node.id === newNodeId)) {
       needReactFlowRenderSignal.value = true;
       resetDragState();
       return;
