@@ -52,7 +52,7 @@ export const STEP_1_SECTION = {
       bgColor:
         'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
       link: {
-        url: '/studio',
+        url: '/studio?template=1',
         target: '_blank',
       },
       tags: ['From $99/month'],
@@ -65,7 +65,7 @@ export const STEP_1_SECTION = {
       bgColor:
         'linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
       link: {
-        url: '/studio',
+        url: 'studio?template=2',
         target: '_blank',
       },
       tags: ['From $999/month'],
@@ -102,7 +102,7 @@ export const STEP_1_SECTION = {
       bgColor:
         'linear-gradient(227deg, #AE71FF -7.83%, #9456FF 23.69%, #6610E6 67.99%, #ED68FB 100%)',
       link: {
-        url: '/',
+        url: '',
         target: '_blank',
       },
       tags: ['From $99/month'],
@@ -140,7 +140,7 @@ export const STEP_2_SECTION = {
       bgColor:
         'linear-gradient(138deg, rgba(120, 170, 143, 0.40) 1.72%, rgba(2, 47, 22, 0.32) 101.88%)',
       link: {
-        url: '/',
+        url: '',
         target: '_blank',
       },
       tags: [''],
@@ -152,7 +152,7 @@ export const STEP_2_SECTION = {
       bgColor:
         'linear-gradient(171deg, rgba(255, 212, 103, 0.40) 4.5%, rgba(106, 57, 0, 0.32) 94.43%)',
       link: {
-        url: '/',
+        url: '',
         target: '_blank',
       },
       tags: [''],
@@ -163,7 +163,7 @@ export const STEP_2_SECTION = {
       homeImage: '/landing-v5/home-staking.png',
       bgColor: 'linear-gradient(#2E2E2E, #2E2E2E)',
       link: {
-        url: '/',
+        url: '',
         target: '_blank',
       },
       tags: [''],
@@ -175,7 +175,7 @@ export const STEP_2_SECTION = {
       bgColor:
         'linear-gradient(198deg, rgba(40, 142, 185, 0.40) 7.57%, rgba(0, 57, 75, 0.32) 105.99%)',
       link: {
-        url: '/',
+        url: '',
         target: '_blank',
       },
       tags: [''],
@@ -187,7 +187,7 @@ export const STEP_2_SECTION = {
       bgColor:
         'linear-gradient(138deg, rgba(179, 179, 179, 0.40) 1.72%, rgba(43, 43, 43, 0.32) 101.88%)',
       link: {
-        url: '/',
+        url: '',
         target: '_blank',
       },
       tags: [''],
