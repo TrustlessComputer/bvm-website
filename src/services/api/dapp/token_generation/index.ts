@@ -15,7 +15,7 @@ class CTokenGenerationAPI {
       const ts = orderBy(
         rs,
         [(token) => token.id],
-        ['asc'],
+        ['desc'],
       );
 
       this.dispatch(setTokensAll(ts));
@@ -42,7 +42,7 @@ class CTokenGenerationAPI {
       const ts = orderBy(
         tokens?.map((t, i) => ({ ...t, vestings: vestings[i] })),
         [(token) => token.id],
-        ['asc'],
+        ['desc'],
       );
 
       this.dispatch(setTokens(ts));
