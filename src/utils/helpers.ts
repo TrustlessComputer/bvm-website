@@ -258,3 +258,13 @@ export function decodeBase64(encoded: string): string {
 export function isLocalhost() {
   return window.location.href.includes('http://localhost');
 }
+
+export default function handleStatusEdges(status: string) {
+  const isStatusAnimate = ['']
+  const isStatusHaveIcon = ['']
+
+  return {
+    animate: isStatusAnimate.includes(status),
+    icon: isStatusHaveIcon.includes(status),
+  }
+}
