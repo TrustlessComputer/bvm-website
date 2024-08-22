@@ -50,7 +50,7 @@ const useAutoUpdateNodePosition = () => {
 
     timeoutRef.current = setTimeout(() => {
       update();
-    }, 1000);
+    }, 3000);
   }, [nodes]);
 };
 
