@@ -50,6 +50,7 @@ const SearchBar = (props: ISearchBarProps) => {
 
 type ISearchAddressProps = {
   placeholder?: string;
+  className?: string;
 };
 
 const SearchAddress = (props: ISearchAddressProps) => {
@@ -83,6 +84,7 @@ const SearchAddress = (props: ISearchAddressProps) => {
             router.push(`${HEART_BEAT}/${searchAddress}`);
           }
         }}
+        className={props.className}
       />
       {searchAddress && (
         <Flex

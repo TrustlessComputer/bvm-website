@@ -1,7 +1,5 @@
 .container {
   width: 100%;
-  box-shadow: 0px 0px 20px -6px #00000014;
-  border-radius: 12px;
   margin-top: 24px;
 }
 
@@ -21,6 +19,15 @@
       }
     }
   }
+}
+
+.shadow {
+  box-shadow: 0px 0px 20px -6px #00000014;
+  border-radius: 12px;
+}
+
+.chains {
+  box-shadow: 0px 0px 20px -6px #00000014;
 }
 
 table {

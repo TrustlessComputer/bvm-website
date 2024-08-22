@@ -115,7 +115,7 @@ const TokenTransferTab = (props: IProps) => {
     return [
       {
         id: 'tx',
-        label: 'Tx',
+        label: 'Transaction',
         labelConfig,
         config: {
           borderBottom: 'none',

@@ -80,7 +80,7 @@ const L2RollupDetail = () => {
             <Image w={'24px'} src={'/heartbeat/ic-back.svg'} />
             <Text>Bitcoin Heartbeat Project</Text>
           </Flex>
-          <SearchAddress />
+          <SearchAddress className={s.search} />
         </Flex>
 
         <Flex
