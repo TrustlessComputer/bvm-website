@@ -1,7 +1,7 @@
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import {
   draggedDappIndexesSignal,
-  draggedIds2DSignal, isDragging,
+  draggedIds2DSignal,
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import {
   cloneDeep,
@@ -21,11 +21,13 @@ import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import { accountAbstractionAsADapp, bridgesAsADapp } from '../mockup_3';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
+import useDraggingStore from '@/modules/blockchains/Buy/stores/useDraggingStore';
 
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
   const { categories } = useModelCategoriesStore();
   const { nodes, setNodes, setEdges, edges } = useFlowStore();
+  const {isDragging, setIsDragging} = useDraggingStore();
   const store = useStoreApi();
   const {
     transform: [transformX, transformY, zoomLevel],
@@ -222,7 +224,7 @@ export default function useNodeFlowControl() {
           break;
         }
       }
-    } else if (draggedIds2DSignal.value.length > draggedIds2D.length && isDragging.value) {
+    } else if (draggedIds2DSignal.value.length > draggedIds2D.length && isDragging) {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
       setDragState({
         oneD: [-1],
@@ -233,7 +235,7 @@ export default function useNodeFlowControl() {
     } else {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
     }
-    isDragging.value = false
+    setIsDragging(false);
   });
 
   useEffect(() => {
