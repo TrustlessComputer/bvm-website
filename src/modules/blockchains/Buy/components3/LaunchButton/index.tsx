@@ -336,6 +336,9 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     const yoloGameForms = retrieveFormsByDappKey({
       dappKey: DappType.yologame,
     });
+    const yoloNodePositions = retrieveNodePositionsByDappKey({
+      dappKey: DappType.yologame,
+    });
     const stakingForms = retrieveFormsByDappKey({
       dappKey: DappType.staking,
     });
@@ -365,6 +368,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       airdropNodePositions,
       tokensForms,
       tokensNodePositions,
+      yoloGameForms,
+      yoloNodePositions,
     });
 
     // console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
@@ -382,6 +387,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         if (yoloGameForms && yoloGameForms.length > 0) {
           await onSubmitYoloGame({
             forms: yoloGameForms,
+            positions: yoloNodePositions
           });
           isConfigDapp = true;
         }
