@@ -268,3 +268,17 @@
     border-top-color: #fff;
   }
 }
+
+.status {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 28px;
+  padding: 0 12px;
+  position: absolute;
+  top: 50%;
+  right: -16px;
+  transform: translate(100%, -50%);
+  background: #97f095;
+  color: #000000;
+  border-radius: 99999px;
+}

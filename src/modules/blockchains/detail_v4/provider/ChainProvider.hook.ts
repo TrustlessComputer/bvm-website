@@ -1,4 +1,6 @@
 'use client';
+import { useAppSelector } from '@/stores/hooks';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import { IDAppInstalled, OrderStatus } from '@/stores/states/l2services/types';
 import {
   DAppKeys,
@@ -8,14 +10,12 @@ import {
 import { ResponsiveValue } from '@chakra-ui/react';
 import * as CSS from 'csstype';
 import { useContext, useMemo } from 'react';
-import { ChainContext } from './ChainProvider';
-import { useAppSelector } from '@/stores/hooks';
-import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import useCheckAllFilled from '../../Buy/hooks/useCheckAllFilled';
 import {
   ModuleTypeIcon,
   getModuleIconUrlByType,
 } from '../helper/moduleIconHelper';
-import useCheckAllFilled from '../../Buy/hooks/useCheckAllFilled';
+import { ChainContext } from './ChainProvider';
 
 export const useChainProvider = () => {
   const context = useContext(ChainContext);
@@ -352,7 +352,12 @@ export const useChainProvider = () => {
   };
 
   const isAAInstalled = useMemo(
-    () => order?.selectedOptions?.some((opt) => opt.key === 'wallet'),
+    () => !!order?.selectedOptions?.some((opt) => opt.key === 'wallet'),
+    [order?.selectedOptions],
+  );
+
+  const isBridgeInstalled = useMemo(
+    () => !!order?.selectedOptions?.some((opt) => opt.key === 'bridge_apps'),
     [order?.selectedOptions],
   );
 
@@ -367,6 +372,7 @@ export const useChainProvider = () => {
     isBlockChainReady,
     selectedCategoryMapping,
     isAAInstalled,
+    isBridgeInstalled,
     isOwnerChain,
     isInsufficientBalance,
     textCTA,

@@ -6,17 +6,20 @@ import s from '@/modules/blockchains/Buy/styles_v5.module.scss';
 // import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
 // import { useReactFlow } from '@xyflow/react';
 import { toPng } from 'html-to-image';
-import { useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import Loading from '@components/Loading';
 import BaseModal from '@components/BaseModal';
+import { signal, useSignalEffect } from '@preact/signals-react';
 
-// const imageWidth = 1920;
-// const imageHeight = 1080;
+
+const isExportImage = signal(false);
+const isSharing = signal(false);
 
 const Capture = () => {
   // const { setIsCapture } = useCaptureStore();
-  // const { getNodes } = useReactFlow();
+  const timerRef = useRef<any>();
   const [isCapturing, setIsCapturing] = useState<boolean>(false);
+  const [seconds, setSeconds] = useState(10);
   const handleClickShareTwitter = (url: string) => {
     try {
       // const imgEncode = encodeBase64(url);
@@ -93,6 +96,7 @@ https://bvm.network/studio/${url}`;
 
   const handleShareTwitter = async () => {
     if (isCapturing) return;
+    isSharing.value = true;
     setIsCapturing(true);
     setTimeout(async () => {
       const image = await convertToBase64();
@@ -105,14 +109,38 @@ https://bvm.network/studio/${url}`;
       if (!res) return;
 
       setIsCapturing(false);
+      isSharing.value = false;
+      clearIntervalTimer();
+      setSeconds(10);
       handleClickShareTwitter(res);
     }, 150);
   };
 
-  async function convertToBase64() {
+  // async function convertToBase64() {
+  //   const viewport = document.querySelector('#viewport');
+  //
+  //   if (!viewport) return '';
+  //   const imageWidth = viewport.clientWidth;
+  //   const imageHeight = viewport.clientHeight;
+  //
+  //   return await toPng(document.querySelector('.react-flow__viewport') as HTMLElement, {
+  //     backgroundColor: '#fff',
+  //     width: imageWidth,
+  //     height: imageHeight,
+  //     canvasWidth: imageWidth,
+  //     canvasHeight: imageHeight,
+  //     quality: 1,
+  //     style: {
+  //       width: `${imageWidth}`,
+  //       height: `${imageHeight}`,
+  //     },
+  //   });
+  // }
+
+  const convertToBase64 = useCallback(async () => {
     const viewport = document.querySelector('#viewport');
 
-    if(!viewport) return '';
+    if (!viewport) return '';
     const imageWidth = viewport.clientWidth;
     const imageHeight = viewport.clientHeight;
 
@@ -127,11 +155,13 @@ https://bvm.network/studio/${url}`;
         width: `${imageWidth}`,
         height: `${imageHeight}`,
       },
-    })
-  }
+    });
+  }, []);
 
   async function downloadImage() {
     if (isCapturing) return;
+
+    isExportImage.value = true;
     setIsCapturing(true);
 
     const a = document.createElement('a');
@@ -139,8 +169,37 @@ https://bvm.network/studio/${url}`;
     a.setAttribute('download', `${new Date()}.png`);
     a.setAttribute('href', dataUrl);
     a.click();
-    setIsCapturing(false)
+    setIsCapturing(false);
+    isExportImage.value = false;
+    clearIntervalTimer();
+    setSeconds(10);
   }
+
+
+  const clearIntervalTimer = () => {
+    clearInterval(timerRef.current);
+    timerRef.current = undefined;
+  };
+
+
+  useSignalEffect(() => {
+    if (isExportImage.value || isSharing.value) {
+      countDown();
+    }
+  });
+
+  const countDown = () => {
+    let num = seconds;
+    timerRef.current = setInterval(() => {
+      if (num === 0) {
+        clearIntervalTimer();
+      }
+      if (num > 0) {
+        num--;
+        setSeconds(num);
+      }
+    }, 1000);
+  };
 
   // const onClick = () => {
   //   if (isCapturing) return;
@@ -162,9 +221,8 @@ https://bvm.network/studio/${url}`;
 
   return (
     <div className={s.wrapper_btn_top}>
-      {/*<div className={s.reset2} onClick={() => download()}>*/}
       <div className={`${s.reset2} ${isCapturing && s.isCapturing}`} onClick={downloadImage}>
-        <p>EXPORT</p>
+        <p>{isExportImage.value ? `EXPORTING...${seconds}` : 'EXPORT'}</p>
         <div>
           <Image
             src={'/icons/ic_image_2.svg'}
@@ -175,25 +233,25 @@ https://bvm.network/studio/${url}`;
         </div>
       </div>
       <div className={`${s.reset2} ${isCapturing && s.isCapturing}`} onClick={handleShareTwitter}>
-        <p>SHARE</p>
+        <p>{isSharing.value ? `SHARING...${seconds}` : 'SHARE'}</p>
         <div>
           <Image src={'/icons/ic_x_v2.svg'} alt={'x'} width={20} height={20} />
         </div>
       </div>
-      <BaseModal
-        isShow={isCapturing}
-        onHide={() => setIsCapturing(false)}
-        className={s.modalContent}
-        size="custom"
-        icCloseUrl="/icons/ic-close-grey.svg"
-      >
-        <div className={s.inner}>
-          <Image src={'/loading.gif'} alt={'loading'} width={150} height={150} />
-          <p className={s.loading_text}>Exporting as PNG...</p>
-        </div>
-      </BaseModal>
+      {/*<BaseModal*/}
+      {/*  isShow={isCapturing}*/}
+      {/*  onHide={() => setIsCapturing(false)}*/}
+      {/*  className={s.modalContent}*/}
+      {/*  size="custom"*/}
+      {/*  icCloseUrl="/icons/ic-close-grey.svg"*/}
+      {/*>*/}
+      {/*  <div className={s.inner}>*/}
+      {/*    <Image src={'/loading.gif'} alt={'loading'} width={150} height={150} />*/}
+      {/*    <p className={s.loading_text}>Exporting as PNG...</p>*/}
+      {/*  </div>*/}
+      {/*</BaseModal>*/}
     </div>
   );
 };
 
-export default Capture;
+export default memo(Capture);

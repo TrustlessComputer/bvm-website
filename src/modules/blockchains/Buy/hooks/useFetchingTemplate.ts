@@ -12,7 +12,8 @@ import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
 import { Edge, MarkerType } from '@xyflow/react';
-import React from 'react';
+import { useParams, usePathname } from 'next/navigation';
+import React, { useMemo } from 'react';
 import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
 import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
 import { parseStakingPools } from '../../dapp/parseUtils/staking';
@@ -37,7 +38,9 @@ import useDapps from './useDapps';
 
 export default function useFetchingTemplate() {
   const { dapps } = useDapps();
-  const { order, isAAInstalled, isUpdateFlow } = useChainProvider();
+  const path = usePathname();
+  const { order, isAAInstalled, isUpdateFlow, isBridgeInstalled } =
+    useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
     categories,
@@ -49,6 +52,7 @@ export default function useFetchingTemplate() {
   } = useModelCategoriesStore();
   const { field, setFields } = useOrderFormStoreV3();
   const { setUpdated, updated } = useUpdateFlowStore();
+  const param = useParams();
 
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { initTemplate, setTemplate } = useTemplate();
@@ -118,6 +122,10 @@ export default function useFetchingTemplate() {
     setNeedSetDataTemplateToBox(true);
   };
 
+  const checkParam = useMemo(() => {
+    return !!param.id;
+  }, [param.id]);
+
   const dataTemplateToBox = async () => {
     formDappSignal.value = {};
     formTemplateDappSignal.value = {};
@@ -153,7 +161,7 @@ export default function useFetchingTemplate() {
       data: {
         node: 'chain',
         title: 'Blockchain',
-        sourceHandles: [],
+        sourceHandles: checkParam ? [`${rootNode}-s-account-abstraction`, `${rootNode}-s-bridge_apps`] : [],
         targetHandles: [],
       },
       dragHandle: '.drag-handle-area',
@@ -162,7 +170,6 @@ export default function useFetchingTemplate() {
     newNodes.unshift(chainNodeInitial);
 
     if (!templateForm) {
-      // TODO: @Max
       const edgeData: Edge[] = [];
 
       setEdges(edgeData);
@@ -242,8 +249,14 @@ export default function useFetchingTemplate() {
 
     const _newNodes: any[] = draggedIds2D.map((ids, index) => {
       const dappKey = templateDapps[index].key;
-      const xOffset = 30 + 500 * xOffsetCount[dappKey]++;
-      const yOffset = 30 + 500 * allDappKeys.indexOf(dappKey);
+      const defaultPositionX = 30 + 500 * xOffsetCount[dappKey]++;
+      const defaultPositionY = 30 + 500 * allDappKeys.indexOf(dappKey);
+      const xOffset =
+        [...tokens, ...airdrops, ...stakingPools][index].position_x ??
+        defaultPositionX;
+      const yOffset =
+        [...tokens, ...airdrops, ...stakingPools][index].position_y ??
+        defaultPositionY;
       const idNode = index.toString();
       const isHandleExists = getHandleNodeBlockChain?.data?.sourceHandles?.some(
         (handle) => handle === `${rootNode}-s-${templateDapps[index].title}`,
@@ -323,7 +336,14 @@ export default function useFetchingTemplate() {
 
     templateIds2DSignal.value = [...draggedIds2D];
     formTemplateDappSignal.value = { ...formDapp };
-    setEdges([...edges, ...edgeData]);
+    console.log('[...edges, ...edgeData]', [...edges, ...edgeData]);
+    console.log('Nodes', newArray);
+    if(path === '/studio') {
+      setEdges([...edgeData]);
+    } else {
+      setEdges([...edges,...edgeData]);
+    }
+
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
     setNeedCheckAndAddAA(true);
@@ -351,6 +371,12 @@ export default function useFetchingTemplate() {
       key: DappType.staking,
       model: parsedStakingPoolsData,
       startIndex: parsedTokensData.length + parsedAirdropsData.length,
+    });
+
+    console.log('[useFetchingTemplate] parsedTokensData', {
+      tokens,
+      airdrops,
+      stakingPools,
     });
 
     setTemplateDapps([
@@ -402,10 +428,25 @@ export default function useFetchingTemplate() {
       draggedIds2DSignal.value,
     );
 
+    const newDraggedIds2D = [];
+    const newDraggedDappIndexes = [];
+
     if (isAAInstalled) {
-      draggedDappIndexesSignal.value = [0];
-      draggedIds2DSignal.value = [[]];
+      newDraggedDappIndexes.push(0);
+      newDraggedIds2D.push([]);
+      // draggedDappIndexesSignal.value = [0];
+      // draggedIds2DSignal.value = [[]];
     }
+
+    if (isBridgeInstalled) {
+      newDraggedDappIndexes.push(1);
+      newDraggedIds2D.push([]);
+      // draggedDappIndexesSignal.value = [...draggedDappIndexesSignal.value, 1];
+      // draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
+    }
+
+    draggedDappIndexesSignal.value = newDraggedDappIndexes;
+    draggedIds2DSignal.value = newDraggedIds2D;
 
     setNeedCheckAndAddAA(false);
   };
