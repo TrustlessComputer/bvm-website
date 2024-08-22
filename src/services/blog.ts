@@ -1,6 +1,6 @@
 import { WP_API_URL } from '@/config';
 
-const BASE_URL = `${WP_API_URL}/wp-json/blog/v1`;
+const BASE_URL = `${WP_API_URL}/blog/v1`;
 
 // Fetch related posts by post ID
 export async function fetchRelatedPostsById(postId: number): Promise<Blog[]> {
