@@ -227,7 +227,7 @@ export default function useNodeFlowControl() {
       }
     } else if (
       draggedIds2DSignal.value.length > draggedIds2D.length
-      // && isDragging
+      && isDragging
     ) {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
       setDragState({
