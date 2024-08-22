@@ -1,32 +1,17 @@
 import React from 'react';
 
-import { useAppSelector } from '@/stores/hooks';
-import { commonSelector } from '@/stores/states/common/selector';
-import { dappSelector } from '@/stores/states/dapp/selector';
 import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
-import { useParams, usePathname } from 'next/navigation';
 import DateTimeInput from '../component4/DateTimeInput';
 import Dropdown from '../component4/Dropdown';
 import ExtendsInput from '../component4/ExtendsInput';
 import Input from '../component4/Input';
 import Lego from '../component4/Lego';
-import { accountAbstractionAsADapp, dappMockupData } from '../mockup_3';
 import useDappsStore from '../stores/useDappStore';
-import useUpdateFlowStore from '../stores/useUpdateFlowStore';
 import { FieldOption } from '../types';
-import { adjustBrightness, cloneDeep, preDataAirdropTask, preDataYoloGame } from '../utils';
+import { adjustBrightness } from '../utils';
 
 const useDapps = () => {
-  const pathname = usePathname();
-  const params = useParams();
-  const isUpdateChain = React.useMemo(() => !!params?.id, [params?.id]);
-
-  const { setUpdated, updated } = useUpdateFlowStore();
-  const { dapps, setDapps } = useDappsStore();
-
-  const { counterFetchedDapp } = useAppSelector(commonSelector);
-  const dappState = useAppSelector(dappSelector);
-  const { configs, tokens, airdropTasks, tokensAll } = dappState;
+  const { dapps } = useDappsStore();
 
   const blockFieldMapping = React.useMemo(() => {
     return dapps.map((dapp) => {
@@ -444,34 +429,6 @@ const useDapps = () => {
       return acc;
     }, {} as Record<string, DappModel>);
   }, [dapps]);
-
-  const fetchDapps = () => {
-    const _dapps = [accountAbstractionAsADapp];
-
-    const otherDapps = isUpdateChain
-      ? // ? cloneDeep(dappFromAPIMockupData)
-        cloneDeep(configs)
-      : cloneDeep(dappMockupData); // defi_apps
-
-    _dapps.push(...otherDapps);
-
-    const sortedDapps = _dapps.sort((a, b) => a.order - b.order);
-
-    setDapps(preDataAirdropTask(sortedDapps, tokens, airdropTasks));
-    setDapps(preDataYoloGame(sortedDapps, tokensAll));
-  };
-
-  // React.useEffect(() => {
-  //   if (!updated) return;
-
-  //   fetchDapps();
-
-  //   setUpdated(false);
-  // }, [updated]);
-
-  React.useEffect(() => {
-    fetchDapps();
-  }, [counterFetchedDapp, pathname]);
 
   return {
     dapps,

@@ -181,7 +181,7 @@ const useSubmitFormAirdrop = ({
             ? dayjs(form.start_date as unknown as string).unix()
             : dayjs().unix(),
           end_time: dayjs(form.end_date as unknown as string).unix(),
-        };
+        } as IBodySetupTask;
 
         if (tasks.length > 0) {
           body.tasks = tasks;

@@ -16,10 +16,7 @@ import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { requestReload } from '@/stores/states/common/reducer';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
-import {
-  getL2ServicesStateSelector,
-  getOrderDetailSelected,
-} from '@/stores/states/l2services/selector';
+import { getL2ServicesStateSelector, getOrderDetailSelected } from '@/stores/states/l2services/selector';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { IModelOption } from '@/types/customize-model';
 import { getErrorMessage } from '@/utils/errorV2';
@@ -29,10 +26,10 @@ import { Image, Spinner, Text, useDisclosure } from '@chakra-ui/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { getChainIDRandom } from '../../Buy.helpers';
+import { useOptionInputStore } from '../../component4/DappRenderer/OptionInputValue/useOptionInputStore';
 import { LocalStorageKey } from '../../contants';
 import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
 import useOneForm from '../../hooks/useOneForm';
-import useOnlyFetchDapp from '../../hooks/useOnlyFetchDapp';
 import PreviewLaunchModal from '../../Preview';
 import { useOrderFormStore } from '../../stores/index_v2';
 import useOrderFormStoreV3 from '../../stores/index_v3';
@@ -41,11 +38,10 @@ import useUpdateFlowStore from '../../stores/useUpdateFlowStore';
 import { chainKeyToDappKey } from '../../utils';
 import ErrorModal from '../ErrorModal';
 import { formValuesAdapter } from './FormValuesAdapter';
+import { formValuesAdapterOptions } from './formValuesAdapterOptions';
 import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
-import { useOptionInputStore } from '../../component4/DappRenderer/OptionInputValue/useOptionInputStore';
-import { formValuesAdapterOptions } from './formValuesAdapterOptions';
 import useSubmitYoloGame from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitYoloGame';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
@@ -103,7 +99,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   >([]);
 
   const { showContactUsModal } = useContactUs();
-  const { retrieveFormsByDappKey } = useOneForm();
+  const { retrieveFormsByDappKey, retrieveNodePositionsByDappKey } =
+    useOneForm();
   const { isUpdateFlow, isOwnerChain, isChainLoading } = useChainProvider();
 
   const router = useRouter();
@@ -339,34 +336,47 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
     let isSuccess = false;
 
-    // console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
     const params = formValuesAdapter({
       computerName: orderDetail.chainName,
       chainId: orderDetail.chainId,
       dynamicFormValues: dynamicForm,
     });
 
-    // console.log('UPDATE FLOW: --- params --- ', params);
     const yoloGameForms = retrieveFormsByDappKey({
       dappKey: DappType.yologame,
     });
-    // console.log('UPDATE FLOW: --- yoloGameForms --- ', yoloGameForms);
     const stakingForms = retrieveFormsByDappKey({
       dappKey: DappType.staking,
     });
-    // console.log('UPDATE FLOW: --- stakingForms --- ', stakingForms);
+    const stakingNodePositions = retrieveNodePositionsByDappKey({
+      dappKey: DappType.staking,
+    });
 
     const airdropForms = retrieveFormsByDappKey({
       dappKey: DappType.airdrop,
     });
-    // console.log('UPDATE FLOW: --- airdropForms --- ', airdropForms);
+    const airdropNodePositions = retrieveNodePositionsByDappKey({
+      dappKey: DappType.airdrop,
+    });
 
     const tokensForms = retrieveFormsByDappKey({
       dappKey: DappType.token_generation,
     });
-    // console.log('UPDATE FLOW: --- tokensForms --- ', tokensForms);
+    const tokensNodePositions = retrieveNodePositionsByDappKey({
+      dappKey: DappType.token_generation,
+    });
 
-    console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
+    console.log('[LaunchButton] - onUpdateHandler', {
+      params,
+      stakingForms,
+      stakingNodePositions,
+      airdropForms,
+      airdropNodePositions,
+      tokensForms,
+      tokensNodePositions,
+    });
+
+    // console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
     // console.log('LEON LOG: 111', tokensForms);
     let isConfigDapp = false;
 
@@ -388,17 +398,24 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         if (stakingForms && stakingForms.length > 0) {
           await onSubmitStaking({
             forms: stakingForms,
+            positions: stakingNodePositions,
           });
           isConfigDapp = true;
         }
 
         if (airdropForms && airdropForms.length > 0) {
-          await onSubmitAirdrop({ forms: airdropForms });
+          await onSubmitAirdrop({
+            forms: airdropForms,
+            positions: airdropNodePositions,
+          });
           isConfigDapp = true;
         }
 
         if (tokensForms && tokensForms.length > 0) {
-          await onSubmitTokenGeneration({ forms: tokensForms });
+          await onSubmitTokenGeneration({
+            forms: tokensForms,
+            positions: tokensNodePositions,
+          });
           isConfigDapp = true;
         }
 

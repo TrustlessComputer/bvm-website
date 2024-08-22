@@ -9,7 +9,7 @@ import {
   IUserContest,
 } from '@/services/api/EternalServices/types';
 import s from './Leaderboard.module.scss';
-import { formatCurrency } from '@/utils/format';
+import { formatAddressOrName, formatCurrency } from '@/utils/format';
 import { PROBLEM_DATASOURCE } from '../../Problems/ProblemData';
 
 type Props = {
@@ -35,6 +35,12 @@ const LeaderboardModal = (props: Props) => {
       {} as Record<string, IContestProblem>,
     );
 
+    const nameText =
+      data.name ||
+      data.user.name ||
+      data.user.twitter_username ||
+      data.user.email?.split('@')?.[0];
+
     return (
       <Box className={cn(s.item, s.table_group)} style={rowStyle}>
         <Box className={s.first_col}>{data.rank}</Box>
@@ -47,15 +53,13 @@ const LeaderboardModal = (props: Props) => {
               className={s.avatar}
             />
             <p
-              title={data.user.name}
+              title={nameText}
               style={{
                 whiteSpace: 'nowrap',
                 textOverflow: 'ellipsis',
               }}
             >
-              {data.user.name ||
-                data.user.twitter_username ||
-                data.user.email?.split('@')?.[0]}
+              {formatAddressOrName(nameText)}
             </p>
           </Flex>
         </div>

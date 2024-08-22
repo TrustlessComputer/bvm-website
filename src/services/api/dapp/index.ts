@@ -2,7 +2,7 @@ import { API_BASE_URL } from '@/config';
 import { DappType } from '@/modules/blockchains/dapp/types';
 import CDappApiClient from '@/services/api/dapp/dapp.client';
 
-import { IAppInfo, IDappConfigs, IReqDapp, ITemplate } from '@/services/api/dapp/types';
+import { AppCode, IAppInfo, IDappConfigs, IReqDapp, ITemplate } from '@/services/api/dapp/types';
 import { templateMapper } from '@/services/api/dapp/utils';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { setAppInfos, setChain, setConfigs, setDappConfigs, setLoading } from '@/stores/states/dapp/reducer';
@@ -146,6 +146,21 @@ class CDappAPI {
       template: JSON.stringify(template),
       network_id: Number(network_id),
     });
+  };
+
+  updatePosition = async (params: {
+    app_code: AppCode;
+    user_address: string;
+    id: string | number;
+    position_id: string;
+    position_x: number;
+    position_y: number;
+  }) => {
+    try {
+      await this.http.post(`/apps/position/`, [params]);
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 

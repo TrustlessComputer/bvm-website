@@ -1,6 +1,7 @@
 'use client';
 
-
+import { useOptionInputStore } from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
+import { isShakeLego } from '@/modules/blockchains/Buy/components3/Draggable';
 import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import {
@@ -18,6 +19,7 @@ import {
 import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
 import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 import {
   cloneDeep,
   DragUtil,
@@ -33,11 +35,6 @@ import toast from 'react-hot-toast';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import useFlowStore, { AppState } from '../stores/useFlowStore';
 import useOverlappingChainLegoStore from '../stores/useOverlappingChainLegoStore';
-import {
-  useOptionInputStore,
-} from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
-import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
-import { isShakeLego } from '@/modules/blockchains/Buy/components3/Draggable';
 
 export default function useHandleDragging() {
   const { setOverlappingId } = useOverlappingChainLegoStore();
@@ -94,7 +91,7 @@ export default function useHandleDragging() {
     ).split('-');
     const overIsParentOfActiveDroppable =
       overKey === activeKey && overSuffix1 === 'droppable';
-    const overIsFinalDroppable = overKey === 'final';
+    const overIsFinalDroppable = overKey === 'final' || overKey === 'final_2';
     const overIsParentDroppable =
       !overIsFinalDroppable &&
       overSuffix1 === 'droppable' &&
@@ -110,8 +107,9 @@ export default function useHandleDragging() {
     )?.isChain;
     // const selectedCategory = selectedCategoryMapping?.[activeKey];
     const category = categoryMapping?.[activeKey];
+    const totalTemplateDapps = templateDapps.length;
 
-    if (!rightDragging && !overIsFinalDroppable) {
+    if (!rightDragging && !overIsFinalDroppable && overSuffix1 !== 'right') {
       return;
     }
 
@@ -143,6 +141,10 @@ export default function useHandleDragging() {
     }
 
     if (!isMultiChoice) {
+      if (!rightDragging && !overIsFinalDroppable) {
+        return;
+      }
+
       // Error case
       if (
         active.data.current.value !== field[activeKey].value &&
@@ -209,15 +211,36 @@ export default function useHandleDragging() {
       activeIsParent &&
       (!over || (over && !overIsFinalDroppable && !overIsParentDroppable))
     ) {
-
       const currentValues = (field[activeKey].value || []) as string[];
-      currentValues.forEach(optionKey => {
+      currentValues.forEach((optionKey) => {
         // setValueOptionInputStore(optionKey, '');
         deleteValueOptionInputStore(optionKey);
       });
 
       setField(activeKey, [], false);
       setDraggedFields(draggedFields.filter((field) => field !== activeKey));
+
+      console.log('activeKey', {
+        activeKey,
+        draggedDappIndexesSignal: draggedDappIndexesSignal.value,
+      });
+
+      if (activeKey === 'bridge_apps') {
+        const index = draggedDappIndexesSignal.value.indexOf(1);
+
+        if (index !== -1) {
+          draggedDappIndexesSignal.value = removeItemAtIndex(
+            draggedDappIndexesSignal.value,
+            index,
+          );
+          draggedIds2DSignal.value = removeItemAtIndex(
+            draggedIds2DSignal.value,
+            index,
+          );
+        }
+        setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
+      }
+
       return;
     }
 
@@ -234,6 +257,15 @@ export default function useHandleDragging() {
 
       setField(activeKey, newValue, true);
       isCurrentEmpty && setDraggedFields([...draggedFields, activeKey]);
+
+      if (
+        activeKey === 'bridge_apps' &&
+        !draggedDappIndexesSignal.value.includes(1) &&
+        !activeIsParent
+      ) {
+        draggedDappIndexesSignal.value = [...draggedDappIndexesSignal.value, 1];
+        draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
+      }
     } else {
       const currentValues = (field[activeKey].value || []) as string[];
       const newValue = currentValues.filter(
@@ -251,8 +283,25 @@ export default function useHandleDragging() {
       });
 
       setField(activeKey, newValue, !isEmpty);
-      isEmpty &&
+      if (isEmpty) {
         setDraggedFields(draggedFields.filter((field) => field !== activeKey));
+
+        if (activeKey === 'bridge_apps') {
+          const index = draggedDappIndexesSignal.value.indexOf(1);
+
+          if (index !== -1) {
+            draggedDappIndexesSignal.value = removeItemAtIndex(
+              draggedDappIndexesSignal.value,
+              index,
+            );
+            draggedIds2DSignal.value = removeItemAtIndex(
+              draggedIds2DSignal.value,
+              index,
+            );
+            setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
+          }
+        }
+      }
     }
   };
 

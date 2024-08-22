@@ -74,3 +74,4 @@ type DappNode = Node<
 >;
 
 type ChainNode = Node<{} & BaseNodeData>;
+type ChainNodeAsDappNode = Node<{} & BaseNodeData>;
