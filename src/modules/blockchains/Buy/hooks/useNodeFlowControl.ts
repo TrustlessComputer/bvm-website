@@ -2,7 +2,6 @@ import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
-  isDragging,
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import {
   cloneDeep,
@@ -15,6 +14,7 @@ import React, { useEffect } from 'react';
 import useFlowStore, { AppState } from '../stores/useFlowStore';
 
 import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
+import useDraggingStore from '@/modules/blockchains/Buy/stores/useDraggingStore';
 import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 import { DappNode } from '@/types/node';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
@@ -27,6 +27,7 @@ export default function useNodeFlowControl() {
   const { dapps } = useDapps();
   const { categories } = useModelCategoriesStore();
   const { nodes, setNodes, setEdges, edges } = useFlowStore();
+  const { isDragging, setIsDragging } = useDraggingStore();
   const store = useStoreApi();
   const {
     transform: [transformX, transformY, zoomLevel],
@@ -224,7 +225,10 @@ export default function useNodeFlowControl() {
           break;
         }
       }
-    } else if (draggedIds2DSignal.value.length > draggedIds2D.length) {
+    } else if (
+      draggedIds2DSignal.value.length > draggedIds2D.length &&
+      isDragging
+    ) {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
       setDragState({
         oneD: [-1],
@@ -235,8 +239,7 @@ export default function useNodeFlowControl() {
     } else {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
     }
-
-    isDragging.value = false;
+    setIsDragging(false);
   });
 
   useEffect(() => {

@@ -35,6 +35,7 @@ import toast from 'react-hot-toast';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import useFlowStore, { AppState } from '../stores/useFlowStore';
 import useOverlappingChainLegoStore from '../stores/useOverlappingChainLegoStore';
+import useDraggingStore from '@/modules/blockchains/Buy/stores/useDraggingStore';
 
 export default function useHandleDragging() {
   const { setOverlappingId } = useOverlappingChainLegoStore();
@@ -42,6 +43,7 @@ export default function useHandleDragging() {
   const { setIdDragging, rightDragging, setRightDragging } = useDragMask();
   const { draggedFields, setDraggedFields } = useDragStore();
   const { field, setField } = useOrderFormStoreV3();
+  const { setIsDragging } =useDraggingStore()
   const { parsedCategories, categories, categoryMapping } =
     useModelCategoriesStore();
   const {
@@ -355,7 +357,7 @@ export default function useHandleDragging() {
     const activeIsABlock = DragUtil.idDraggingIsABlock(activeId);
     const activeIsASingle = DragUtil.idDraggingIsASingle(activeId);
     const activeIsABaseModule = DragUtil.idDraggingIsABaseModule(activeId);
-    isDragging.value = true;
+
     // Case 0.1: Drag to the block parent
     if (activeFromLeftSide && activeIsAChildOfABlock && overIsABlock) {
       if (activeOriginalKey !== overOriginalKey) {
@@ -1236,6 +1238,7 @@ export default function useHandleDragging() {
   };
 
   const handleDragEnd = (event: any) => {
+    setIsDragging(true);
     if (event.active.data.current.isChain) {
       handleChainDragEnd(event);
       return;
