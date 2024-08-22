@@ -128,7 +128,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const packageParam = searchParams.get('use-case') || PRICING_PACKGE.Hacker;
 
   const isDisabledBtn = useMemo(() => {
-    return false;
     return (isUpdateFlow && !isOwnerChain) || isChainLoading;
   }, [isUpdateFlow, isOwnerChain, isChainLoading]);
 
