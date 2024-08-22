@@ -123,15 +123,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { onSubmitTokenGeneration } = useSubmitFormTokenGeneration();
   const { onSubmitYoloGame } = useSubmitYoloGame();
 
-  const {
-    fetchChain,
-    fetchListAirdrop,
-    fetchListReceivers,
-    fetchListStakingPool,
-    fetchListTask,
-    fetchListToken,
-  } = useOnlyFetchDapp();
-
   const { chainName } = useOrderFormStore();
   const searchParams = useSearchParams();
   const packageParam = searchParams.get('use-case') || PRICING_PACKGE.Hacker;
