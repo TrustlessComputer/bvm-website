@@ -8,6 +8,7 @@ import { IModelOption } from '@/types/customize-model';
 
 import { adjustBrightness } from '../../utils';
 
+import { useParams } from 'next/navigation';
 import useOrderFormStoreV3 from '../../stores/index_v3';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import styles from './styles.module.scss';
@@ -30,11 +31,18 @@ const getIcon = (icon?: string) => {
 };
 
 const NetworkDropdown = ({}: Props) => {
+  const params = useParams();
+  const isUpdateFlow = React.useMemo(() => !!params?.id, [params?.id]);
+
   const { categories } = useModelCategoriesStore();
   const { field, setField } = useOrderFormStoreV3();
 
+  const thisCategory = React.useMemo(
+    () => categories?.find((i) => i.key === 'network'),
+    [categories],
+  );
   const options = React.useMemo(
-    () => categories?.find((i) => i.key === 'network')?.options || [],
+    () => thisCategory?.options || [],
     [categories],
   );
 
@@ -58,6 +66,8 @@ const NetworkDropdown = ({}: Props) => {
   useOnClickOutside(ref, () => setIsOpenDropdown(false));
 
   const handleOnClickOption = (item: IModelOption) => {
+    if (isUpdateFlow) return;
+
     setField('network', item.key, true);
     setCurrentValue(item);
     setIsOpenDropdown(false);
