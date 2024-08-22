@@ -1,3 +1,13 @@
+import { IPosition } from '@/services/api/dapp/staking/interface';
+
+export interface IYoloGameParams extends IPosition{
+  settlement_token: string,
+  value_per_entry: string,
+  round_duration: number,
+  maximum_number_of_participants_per_round: number,
+  protocol_fee_ratio: string,
+}
+
 export interface IYoloGame {
   id: number
   created_at: string
