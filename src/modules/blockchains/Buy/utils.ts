@@ -43,65 +43,58 @@ export class TouchSensor extends LibTouchSensor {
   ] as (typeof LibTouchSensor)['activators'];
 }
 
-export function hexToHSB(hex: string) {
-  // Remove the hash at the start if it's there
-  hex = hex.replace(/^#/, '');
+export function hexToHSB(hex: string): { h: number; s: number; b: number } {
+  // Convert hex to RGB
+  let r = parseInt(hex.slice(1, 3), 16) / 255;
+  let g = parseInt(hex.slice(3, 5), 16) / 255;
+  let b = parseInt(hex.slice(5, 7), 16) / 255;
 
-  // Parse the r, g, b values
-  let r = parseInt(hex.substring(0, 2), 16);
-  let g = parseInt(hex.substring(2, 4), 16);
-  let b = parseInt(hex.substring(4, 6), 16);
+  let max = Math.max(r, g, b);
+  let min = Math.min(r, g, b);
+  let delta = max - min;
 
-  // Convert RGB to HSB
-  let max = Math.max(r, g, b),
-    min = Math.min(r, g, b);
-  let h,
-    s,
-    v = max;
+  // Calculate Brightness
+  let brightness = max;
 
-  let d = max - min;
-  s = max === 0 ? 0 : d / max;
+  // Calculate Saturation
+  let saturation = max === 0 ? 0 : delta / max;
 
-  if (max === min) {
-    h = 0; // achromatic
-  } else {
+  // Calculate Hue
+  let hue = 0;
+  if (delta !== 0) {
     switch (max) {
       case r:
-        h = (g - b) / d + (g < b ? 6 : 0);
+        hue = (g - b) / delta + (g < b ? 6 : 0);
         break;
       case g:
-        h = (b - r) / d + 2;
+        hue = (b - r) / delta + 2;
         break;
       case b:
-        h = (r - g) / d + 4;
+        hue = (r - g) / delta + 4;
         break;
     }
-    if (!h) return;
-    h /= 6;
+    hue *= 60;
   }
 
   return {
-    h: h * 360, // Hue in degrees
-    s: s * 100, // Saturation in percentage
-    b: (v / 255) * 100, // Brightness in percentage
+    h: Math.round(hue),
+    s: Math.round(saturation * 100),
+    b: Math.round(brightness * 100)
   };
 }
 
-export function hsbToHex(h: number, s: number, b: number) {
+export function hsbToHex(h: number, s: number, b: number): string {
   s /= 100;
   b /= 100;
 
-  let k = (n: any) => (n + h / 60) % 6;
-  let f = (n: any) => b * (1 - s * Math.max(Math.min(k(n), 4 - k(n), 1), 0));
+  let k = (n: number): number => (n + h / 60) % 6;
+  let f = (n: number): number => b * (1 - s * Math.max(0, Math.min(k(n), 4 - k(n), 1)));
 
-  let _r = Math.round(f(5) * 255);
-  let _g = Math.round(f(3) * 255);
-  let _b = Math.round(f(1) * 255);
+  let r = Math.round(f(5) * 255);
+  let g = Math.round(f(3) * 255);
+  let b_ = Math.round(f(1) * 255);
 
-  return `#${((1 << 24) + (_r << 16) + (_g << 8) + _b)
-    .toString(16)
-    .slice(1)
-    .toUpperCase()}`;
+  return `#${((1 << 24) + (r << 16) + (g << 8) + b_).toString(16).slice(1).toUpperCase()}`;
 }
 
 export const adjustBrightness = (hex: string, percent: number) => {
@@ -381,6 +374,47 @@ export const preDataAirdropTask = (
 
           _sortedDapps[_airdropIndex].blockFields = singleFields;
         }
+      }
+    }
+  }
+  return _sortedDapps;
+};
+
+export const preDataYoloGame = (
+  sortedDapps: DappModel[] = [],
+  tokens: IToken[],
+) => {
+  const _sortedDapps = cloneDeep(sortedDapps);
+
+  if (tokens.length > 0) {
+    const _appIndex = _sortedDapps.findIndex((v) =>
+      compareString(v.key, DappType.yologame),
+    );
+
+    if (_appIndex > -1) {
+      const fieldSettlementToken = _sortedDapps[
+        _appIndex
+      ].baseModuleFields?.findIndex((v: BlockModel) =>
+        compareString(v.key, 'settlement_token'),
+      );
+
+      // @ts-ignore
+      if (fieldSettlementToken > -1) {
+        // // @ts-ignore
+        const options: any = tokens.map((t) => ({
+          key: t.id,
+          title: t.name,
+          value: t.contract_address,
+          icon: t.image_url,
+          tooltip: '',
+          type: '',
+          options: [],
+          selectable: true,
+        }));
+
+        // @ts-ignore
+        _sortedDapps[_appIndex].baseModuleFields[fieldSettlementToken].fields =
+          options;
       }
     }
   }

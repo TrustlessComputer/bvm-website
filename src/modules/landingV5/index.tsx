@@ -124,11 +124,11 @@ const LandingV5 = (props: Props) => {
                 mb="176px"
                 position={'relative'}
                 aspectRatio={'1348 / 1031'}
-                maxW={'60%'}
+                maxW={'80%'}
               >
                 <Image
                   layout="fill"
-                  src="/landing-v5/home-step-3.png"
+                  src="/landing-v5/home-step-3a.png"
                   alt="home-step3"
                   objectFit="cover"
                 />
@@ -137,8 +137,8 @@ const LandingV5 = (props: Props) => {
           </BuildItem>
           <BuildItem iconUrl="/landing-v5/ic-stack.svg">
             <Box mb="125px">
-              <p className={s.tag}>Powered by</p>
-              <p className={s.title}>the best blockchain tech.</p>
+              <span className={s.tag}>Powered by</span>
+              <span className={s.title}> the best blockchain tech.</span>
               <div className={s.desc}>
                 Build your blockchain with ease using modules from the best
                 blockchain technologies.

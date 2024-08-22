@@ -33,7 +33,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   //   bgColor:
   //     'linear-gradient(226.59deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
   //   description:
-  //     'Experience trading on a Dex with the same seamless experience as a Cex using an order book system.',
+  //     'Experience trading on a DEX with the same seamless experience as a Cex using an order book system.',
   //   tags: ['RuneChain'],
   //   link: {
   //     url: 'https://runechain.com/',
@@ -44,7 +44,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   {
     id: 'runedex',
     image: '/explore/dapp-runedex.png',
-    title: 'Rune Dex ',
+    title: 'Rune DEX ',
     bgColor:
       'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
     description:
@@ -89,7 +89,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   {
     id: 'nakaFuture',
     image: '/explore/dapp4.png',
-    title: 'Naka Dex ',
+    title: 'Naka DEX ',
     bgColor:
       'linear-gradient(227deg, #FD8DFF -7.83%, #FF63B7 21.47%, #E400CD 69.37%, #FADEFF 118.41%)',
     description: 'Trade Bitcoin and BRC-20 futures.',
@@ -145,7 +145,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   },
   {
     id: 'capsule',
-    image: '/explore/time-capsule.png',
+    image: '/explore/explore-capsule.png',
     title: 'Time Capsule (Soon)',
     bgColor:
       'linear-gradient(227deg, #00F9DB -7.83%, #63FFBD 21.47%, #05E400 69.37%, #339898 118.41%)',
@@ -204,7 +204,7 @@ export const GAMES_DATA: Omit<TDappCardProps, 'idx'>[] = [
     homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   },
   {
-    image: '/explore/game-wombat.png',
+    image: '/explore/game-wombat-1.png',
     title: 'Wombat (Soon)',
     description:
       'Deploy your units smartly in lines to face off against your opponent. Strategize carefully to ensure your lineup dominates the battlefield!',

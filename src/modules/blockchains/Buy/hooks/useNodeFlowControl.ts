@@ -1,7 +1,7 @@
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import {
   draggedDappIndexesSignal,
-  draggedIds2DSignal,
+  draggedIds2DSignal, isDragging,
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import {
   cloneDeep,
@@ -222,7 +222,7 @@ export default function useNodeFlowControl() {
           break;
         }
       }
-    } else if (draggedIds2DSignal.value.length > draggedIds2D.length) {
+    } else if (draggedIds2DSignal.value.length > draggedIds2D.length && isDragging.value) {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
       setDragState({
         oneD: [-1],
@@ -233,6 +233,7 @@ export default function useNodeFlowControl() {
     } else {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
     }
+    isDragging.value = false
   });
 
   useEffect(() => {
@@ -240,8 +241,6 @@ export default function useNodeFlowControl() {
   }, [dragState]);
 
   const handleAddBox = () => {
-    console.log('[useNodeFlowControl] MUST CALL LAST LAST');
-
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
     const category = categories?.find((category) =>
@@ -329,8 +328,6 @@ export default function useNodeFlowControl() {
         sourceHandles: [],
       },
     };
-
-
 
     setNodes([...nodesData, newNode]);
     setEdges([

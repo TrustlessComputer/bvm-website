@@ -549,8 +549,7 @@ export const RESEARCH_SECTION = {
   tag: '',
   title: (
     <p>
-      Research.
-      <br />
+      Research.{' '}
       <span className="whitespace-nowrap">
         Pioneer research on Bitcoin utilities.
       </span>
@@ -576,11 +575,7 @@ export const OPENSOURCE_SECTION = {
   tag: '',
   title: (
     <p>
-      Open source.
-      <br />
-      <span>
-        Reuse our code and build <br /> whatever you want.
-      </span>
+      Open source. <span>Reuse our code and build whatever you want.</span>
     </p>
   ),
   desc: 'Use our existing codebase to accelerate your development process. Customize, innovate, and develop anything you want while saving time and resources.',
@@ -649,9 +644,7 @@ export const NEWS_SECTION = {
   tag: '',
   title: (
     <p>
-      News.
-      <br />
-      <span>Follow our progress.</span>
+      News. <span>Follow our progress.</span>
     </p>
   ),
 

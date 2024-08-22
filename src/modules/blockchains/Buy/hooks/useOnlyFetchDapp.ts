@@ -10,7 +10,7 @@ import {
   dappMockupData,
 } from '../mockup_3';
 import useDappsStore from '../stores/useDappStore';
-import { cloneDeep, preDataAirdropTask } from '../utils';
+import { cloneDeep, preDataAirdropTask, preDataYoloGame } from '../utils';
 
 const useOnlyFetchDapp = () => {
   const pathname = usePathname();
@@ -21,7 +21,7 @@ const useOnlyFetchDapp = () => {
 
   const { counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
-  const { configs, tokens, airdropTasks } = dappState;
+  const { configs, tokens, airdropTasks, tokensAll } = dappState;
 
   const fetchDapps = () => {
     const _dapps = [accountAbstractionAsADapp, bridgesAsADapp];
@@ -36,6 +36,7 @@ const useOnlyFetchDapp = () => {
     const sortedDapps = _dapps.sort((a, b) => a.order - b.order);
 
     setDapps(preDataAirdropTask(sortedDapps, tokens, airdropTasks));
+    setDapps(preDataYoloGame(sortedDapps, tokensAll));
   };
 
   React.useEffect(() => {
