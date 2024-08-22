@@ -15,7 +15,7 @@ import { compareString } from '@utils/string';
 import { useParams } from 'next/navigation';
 import React, { memo } from 'react';
 import useDapps from '../../hooks/useDapps';
-import { accountAbstractionAsADapp } from '../../mockup_3';
+import { accountAbstractionAsADapp, dappMockupData } from '../../mockup_3';
 import { chainKeyToDappKey, isChainOptionDisabled } from '../../utils';
 
 export default memo(function StudioControls() {
@@ -238,7 +238,7 @@ export default memo(function StudioControls() {
               );
             }
 
-            if (item.key === 'defi_apps') {
+            if (['defi_apps', 'degen_apps'].includes(item.key)) {
               const currentPrice =
                 item.options.find(
                   (opt) =>
@@ -282,7 +282,7 @@ export default memo(function StudioControls() {
                         <BoxOption
                           info={{
                             ...option,
-                            disabled: item.disable || !option.selectable,
+                            disabled: false, //item.disable || !option.selectable,
                             description: {
                               title: option.title,
                               content: option.tooltip,
