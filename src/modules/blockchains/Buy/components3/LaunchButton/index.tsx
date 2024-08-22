@@ -304,7 +304,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       !allFilled ||
       hasError ||
       !originalData ||
-      !orderDetail
+      !orderDetail ||
+      !orderDetail?.chainId
     ) {
       return;
     }

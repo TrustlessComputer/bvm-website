@@ -9,6 +9,7 @@ import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/Chain
 import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
 import copy from 'copy-to-clipboard';
 import toast from 'react-hot-toast';
+import { formAccountAbtractionSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
 
 type Props = {
   option: any;
@@ -19,7 +20,6 @@ const AddressInput = (props: Props) => {
   // const { setChainName } = useOrderFormStore();
   // const { value, errorMessage } = computerNameField;
 
-  const { isCapture } = useCaptureStore();
   const { isUpdateFlow } = useChainProvider();
   const { aaStatusData, aaInstalledData, isCanNotEdit } = useAAModule();
   const { statusCode } = aaStatusData;
@@ -45,6 +45,10 @@ const AddressInput = (props: Props) => {
     setTokenContractAddress(text);
     if (needValidate) {
       checkTokenContractAddress();
+    }
+    formAccountAbtractionSignal.value = {
+      ...formAccountAbtractionSignal.value,
+      tokenContractAddress: text,
     }
   };
 
@@ -84,6 +88,7 @@ const AddressInput = (props: Props) => {
             type="text"
             placeholder="Example: 0xabc...xzy"
             fontSize={'14px'}
+            defaultValue={formAccountAbtractionSignal.value?.tokenContractAddress || ''}
             value={tokenContractAddress}
             borderColor={isError ? 'red' : 'transparent'}
             borderWidth={isError ? '2px' : 'none'}
