@@ -21,7 +21,7 @@ import Node from '../Node_v2/Node';
 
 import styles from './styles.module.scss';
 import { useAccountAbstractionStore } from '@/modules/blockchains/detail_v3/account-abstraction_v2/store/hook';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   const { dapp } = data;

@@ -145,7 +145,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   },
   {
     id: 'capsule',
-    image: '/explore/time-capsule.png',
+    image: '/explore/explore-capsule.png',
     title: 'Time Capsule (Soon)',
     bgColor:
       'linear-gradient(227deg, #00F9DB -7.83%, #63FFBD 21.47%, #05E400 69.37%, #339898 118.41%)',
@@ -204,7 +204,7 @@ export const GAMES_DATA: Omit<TDappCardProps, 'idx'>[] = [
     homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   },
   {
-    image: '/explore/game-wombat.png',
+    image: '/explore/game-wombat-1.png',
     title: 'Wombat (Soon)',
     description:
       'Deploy your units smartly in lines to face off against your opponent. Strategize carefully to ensure your lineup dominates the battlefield!',

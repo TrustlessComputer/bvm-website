@@ -1,7 +1,7 @@
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import {
   draggedDappIndexesSignal,
-  draggedIds2DSignal,
+  draggedIds2DSignal, isDragging,
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import {
   cloneDeep,
@@ -222,7 +222,7 @@ export default function useNodeFlowControl() {
           break;
         }
       }
-    } else if (draggedIds2DSignal.value.length > draggedIds2D.length) {
+    } else if (draggedIds2DSignal.value.length > draggedIds2D.length && isDragging.value) {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
       setDragState({
         oneD: [-1],
@@ -233,6 +233,7 @@ export default function useNodeFlowControl() {
     } else {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
     }
+    isDragging.value = false
   });
 
   useEffect(() => {
@@ -240,8 +241,6 @@ export default function useNodeFlowControl() {
   }, [dragState]);
 
   const handleAddBox = () => {
-    console.log('[useNodeFlowControl] MUST CALL LAST LAST');
-
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
 
@@ -297,7 +296,7 @@ export default function useNodeFlowControl() {
 
     if (!isHandleExists) {
       getHandleNodeBlockChain?.data?.sourceHandles?.push(
-        `${rootNode}-s-${thisDapp.title}`,
+        `${rootNode}-s-${suffix}`,
       );
       nodesData = nodes.map((item) =>
         item.id === rootNode ? getHandleNodeBlockChain : item,
@@ -316,6 +315,12 @@ export default function useNodeFlowControl() {
       default:
         newNodeId = `${nodes.length + 1}`;
         break;
+    }
+
+    if(nodes.some((node) => node.id === newNodeId)) {
+      needReactFlowRenderSignal.value = true;
+      resetDragState();
+      return;
     }
 
     const newNode: DappNode = {

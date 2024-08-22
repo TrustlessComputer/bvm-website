@@ -10,4 +10,5 @@ export const formDappSignal = signal<Record<string, any>>({});
 
 export const formTemplateDappSignal = signal<Record<string, any>>({});
 
+export const formAccountAbtractionSignal = signal<Record<string, any>>({});
 // export const formDappExtendsSignal = signal<Record<string, any>>({});

@@ -1,6 +1,7 @@
 import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import { parseYoloGames } from '@/modules/blockchains/dapp/parseUtils/yologame';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { IAirdrop } from '@/services/api/dapp/airdrop/interface';
 import { IToken } from '@/services/api/dapp/token_generation/interface';
@@ -12,7 +13,7 @@ import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
 import { Edge, MarkerType } from '@xyflow/react';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import React, { useMemo } from 'react';
 import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
 import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
@@ -38,6 +39,7 @@ import useDapps from './useDapps';
 
 export default function useFetchingTemplate() {
   const { dapps } = useDapps();
+  const path = usePathname();
   const { order, isAAInstalled, isUpdateFlow, isBridgeInstalled } =
     useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
@@ -60,7 +62,7 @@ export default function useFetchingTemplate() {
 
   const { counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
-  const { tokens, airdrops, stakingPools } = dappState;
+  const { tokens, airdrops, stakingPools, yoloGames } = dappState;
 
   const [needSetDataTemplateToBox, setNeedSetDataTemplateToBox] =
     React.useState(false);
@@ -339,7 +341,12 @@ export default function useFetchingTemplate() {
     formTemplateDappSignal.value = { ...formDapp };
     // console.log('[...edges, ...edgeData]', [...edges, ...edgeData]);
     // console.log('Nodes', newArray);
-    setEdges([...edges, ...edgeData]);
+    if (path === '/studio') {
+      setEdges([...edgeData]);
+    } else {
+      setEdges([...edges, ...edgeData]);
+    }
+
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
     setNeedCheckAndAddAA(true);
@@ -348,25 +355,37 @@ export default function useFetchingTemplate() {
   const parseDappApiToDappModel = async () => {
     console.log('PARSE DAPP API TO DAPP MODEL');
 
+    let startIndex = 0;
+
     const parsedTokensData = parseTokensData(tokens);
     const parsedTokensForm = parseDappModel({
       key: DappType.token_generation,
       model: parsedTokensData,
-      startIndex: 0,
+      startIndex: startIndex,
     });
 
+    startIndex += parsedTokensData.length;
     const parsedAirdropsData = await parseAirdropsData(airdrops, tokens);
     const parsedAirdropsForm = parseDappModel({
       key: DappType.airdrop,
       model: parsedAirdropsData,
-      startIndex: parsedTokensData.length,
+      startIndex: startIndex,
     });
 
+    startIndex += parsedAirdropsData.length;
     const parsedStakingPoolsData = parseStakingPools(stakingPools);
     const parsedStakingPoolsForm = parseDappModel({
       key: DappType.staking,
       model: parsedStakingPoolsData,
-      startIndex: parsedTokensData.length + parsedAirdropsData.length,
+      startIndex: startIndex,
+    });
+
+    startIndex += parsedStakingPoolsData.length;
+    const parsedYoloGameData = parseYoloGames(yoloGames);
+    const parsedYoloGameForm = parseDappModel({
+      key: DappType.yologame,
+      model: parsedYoloGameData,
+      startIndex: startIndex,
     });
 
     console.log('[useFetchingTemplate] parsedTokensData', {
@@ -379,11 +398,13 @@ export default function useFetchingTemplate() {
       ...parsedTokensData,
       ...parsedAirdropsData,
       ...parsedStakingPoolsData,
+      ...parsedYoloGameData,
     ]);
     setTemplateForm({
       ...parsedTokensForm.fieldValue,
       ...parsedAirdropsForm.fieldValue,
       ...parsedStakingPoolsForm.fieldValue,
+      ...parsedYoloGameForm.fieldValue,
     } as any);
 
     setNeedSetDataTemplateToBox(true);

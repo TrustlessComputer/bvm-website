@@ -8,7 +8,7 @@ import {
   blockDraggingSignal,
   draggedDappIndexesSignal,
   draggedIds2DSignal,
-  idBlockErrorSignal,
+  idBlockErrorSignal, isDragging,
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
@@ -141,10 +141,6 @@ export default function useHandleDragging() {
     }
 
     if (!isMultiChoice) {
-      if (!rightDragging && !overIsFinalDroppable) {
-        return;
-      }
-
       // Error case
       if (
         active.data.current.value !== field[activeKey].value &&
@@ -359,6 +355,7 @@ export default function useHandleDragging() {
     const activeIsABlock = DragUtil.idDraggingIsABlock(activeId);
     const activeIsASingle = DragUtil.idDraggingIsASingle(activeId);
     const activeIsABaseModule = DragUtil.idDraggingIsABaseModule(activeId);
+    isDragging.value = true;
     // Case 0.1: Drag to the block parent
     if (activeFromLeftSide && activeIsAChildOfABlock && overIsABlock) {
       if (activeOriginalKey !== overOriginalKey) {

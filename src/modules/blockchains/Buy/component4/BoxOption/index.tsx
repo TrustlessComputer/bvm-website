@@ -126,19 +126,19 @@ const BoxOption = ({
 
             return (
               <React.Fragment key={section.key}>
-                {/*{section?.title && (*/}
-                {/*  <div className={styles.container__body__header}>*/}
-                {/*    {section?.title} {section?.required && <sup>*</sup>}*/}
-                {/*    {section.tooltip && (*/}
-                {/*      <InfoTooltip*/}
-                {/*        iconSize="sm"*/}
-                {/*        placement="top-start"*/}
-                {/*        label={section.tooltip}*/}
-                {/*        iconName={'/icons/ic-tooltip-blue.svg'}*/}
-                {/*      />*/}
-                {/*    )}*/}
-                {/*  </div>*/}
-                {/*)}*/}
+                {section?.title && section.show && (
+                  <div className={styles.container__body__header}>
+                    {section?.title} {section?.required && <sup>*</sup>}
+                    {section.tooltip && (
+                      <InfoTooltip
+                        iconSize="sm"
+                        placement="top-start"
+                        label={section.tooltip}
+                        iconName={'/icons/ic-tooltip-blue.svg'}
+                      />
+                    )}
+                  </div>
+                )}
 
                 {section.key === thisDapp.baseBlock.section && (
                   <div className={styles.container__body__item}>
