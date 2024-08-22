@@ -246,10 +246,10 @@ export default function useFetchingTemplate() {
       const defaultPositionX = 30 + 500 * xOffsetCount[dappKey]++;
       const defaultPositionY = 30 + 500 * allDappKeys.indexOf(dappKey);
       const xOffset =
-        [...tokens, ...airdrops, ...stakingPools][index]?.position_x ??
+        [...tokens, ...airdrops, ...stakingPools, ...yoloGames][index]?.position_x ??
         defaultPositionX;
       const yOffset =
-        [...tokens, ...airdrops, ...stakingPools][index]?.position_y ??
+        [...tokens, ...airdrops, ...stakingPools, ...yoloGames][index]?.position_y ??
         defaultPositionY;
       const idNode = index.toString();
       const isHandleExists = getHandleNodeBlockChain?.data?.sourceHandles?.some(
