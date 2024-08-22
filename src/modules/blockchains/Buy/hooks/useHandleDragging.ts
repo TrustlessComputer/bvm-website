@@ -8,7 +8,7 @@ import {
   blockDraggingSignal,
   draggedDappIndexesSignal,
   draggedIds2DSignal,
-  idBlockErrorSignal, isDragging,
+  idBlockErrorSignal,
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
@@ -16,6 +16,7 @@ import {
   subScribeDropEnd,
   useTemplateFormStore,
 } from '@/modules/blockchains/Buy/stores/useDappStore';
+import useDraggingStore from '@/modules/blockchains/Buy/stores/useDraggingStore';
 import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
 import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
@@ -42,6 +43,7 @@ export default function useHandleDragging() {
   const { setIdDragging, rightDragging, setRightDragging } = useDragMask();
   const { draggedFields, setDraggedFields } = useDragStore();
   const { field, setField } = useOrderFormStoreV3();
+  const { setIsDragging } = useDraggingStore();
   const { parsedCategories, categories, categoryMapping } =
     useModelCategoriesStore();
   const {
@@ -355,7 +357,7 @@ export default function useHandleDragging() {
     const activeIsABlock = DragUtil.idDraggingIsABlock(activeId);
     const activeIsASingle = DragUtil.idDraggingIsASingle(activeId);
     const activeIsABaseModule = DragUtil.idDraggingIsABaseModule(activeId);
-    isDragging.value = true;
+
     // Case 0.1: Drag to the block parent
     if (activeFromLeftSide && activeIsAChildOfABlock && overIsABlock) {
       if (activeOriginalKey !== overOriginalKey) {
@@ -1236,6 +1238,7 @@ export default function useHandleDragging() {
   };
 
   const handleDragEnd = (event: any) => {
+    setIsDragging(true);
     if (event.active.data.current.isChain) {
       handleChainDragEnd(event);
       return;
