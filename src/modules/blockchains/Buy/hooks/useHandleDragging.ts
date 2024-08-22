@@ -141,10 +141,6 @@ export default function useHandleDragging() {
     }
 
     if (!isMultiChoice) {
-      if (!rightDragging && !overIsFinalDroppable) {
-        return;
-      }
-
       // Error case
       if (
         active.data.current.value !== field[activeKey].value &&

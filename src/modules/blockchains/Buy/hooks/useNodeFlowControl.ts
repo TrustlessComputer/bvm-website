@@ -286,7 +286,7 @@ export default function useNodeFlowControl() {
 
     if (!isHandleExists) {
       getHandleNodeBlockChain?.data?.sourceHandles?.push(
-        `${rootNode}-s-${thisDapp.title}`,
+        `${rootNode}-s-${suffix}`,
       );
       nodesData = nodes.map((item) =>
         item.id === rootNode ? getHandleNodeBlockChain : item,
@@ -305,6 +305,12 @@ export default function useNodeFlowControl() {
       default:
         newNodeId = `${nodes.length + 1}`;
         break;
+    }
+
+    if(nodes.some((node) => node.id === newNodeId)) {
+      needReactFlowRenderSignal.value = true;
+      resetDragState();
+      return;
     }
 
     const newNode: DappNode = {
