@@ -1,7 +1,7 @@
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import {
   draggedDappIndexesSignal,
-  draggedIds2DSignal, isDragging,
+  draggedIds2DSignal,
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import {
   cloneDeep,
@@ -14,6 +14,7 @@ import React, { useEffect } from 'react';
 import useFlowStore, { AppState } from '../stores/useFlowStore';
 
 import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
+import useDraggingStore from '@/modules/blockchains/Buy/stores/useDraggingStore';
 import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 import { DappNode } from '@/types/node';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
@@ -26,6 +27,7 @@ export default function useNodeFlowControl() {
   const { dapps } = useDapps();
   const { categories } = useModelCategoriesStore();
   const { nodes, setNodes, setEdges, edges } = useFlowStore();
+  const { isDragging, setIsDragging } = useDraggingStore();
   const store = useStoreApi();
   const {
     transform: [transformX, transformY, zoomLevel],
@@ -87,6 +89,7 @@ export default function useNodeFlowControl() {
     console.log('[useNodeFlowControl] useSignalEffect', {
       new: draggedIds2DSignal.value,
       old: draggedIds2D,
+      isDragging,
     });
 
     if (draggedDappIndexesSignal.value.includes(0) && isAAInstalled) {
@@ -222,7 +225,10 @@ export default function useNodeFlowControl() {
           break;
         }
       }
-    } else if (draggedIds2DSignal.value.length > draggedIds2D.length && isDragging.value) {
+    } else if (
+      draggedIds2DSignal.value.length > draggedIds2D.length
+      && isDragging
+    ) {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
       setDragState({
         oneD: [-1],
@@ -230,10 +236,11 @@ export default function useNodeFlowControl() {
         new: true,
         remove: false,
       });
+      setIsDragging(false);
+
     } else {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
     }
-    isDragging.value = false
   });
 
   useEffect(() => {
@@ -241,8 +248,16 @@ export default function useNodeFlowControl() {
   }, [dragState]);
 
   const handleAddBox = () => {
+    console.log('runnn add box');
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
+
+    if (!thisDapp) {
+      needReactFlowRenderSignal.value = true;
+      resetDragState();
+      return;
+    }
+
     const category = categories?.find((category) =>
       category.options.some(
         (option) => option.key === dappKeyToChainKey(thisDapp.key),
@@ -252,7 +267,11 @@ export default function useNodeFlowControl() {
       (option) => option.key === dappKeyToChainKey(thisDapp.key),
     );
 
-    if (!categoryOption && !thisDapp.isDefaultDapp) return;
+    if (!categoryOption && !thisDapp.isDefaultDapp) {
+      needReactFlowRenderSignal.value = true;
+      resetDragState();
+      return;
+    }
 
     const transformedX =
       (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
@@ -264,14 +283,14 @@ export default function useNodeFlowControl() {
     };
 
     const rootNode = 'blockchain';
-    let suffix = thisDapp.title
+    let suffix = thisDapp.title;
 
     switch (thisDapp.key) {
       case accountAbstractionAsADapp.key:
-        suffix = 'account-abstraction'
+        suffix = 'account-abstraction';
         break;
       case bridgesAsADapp.key:
-        suffix = 'bridge_apps'
+        suffix = 'bridge_apps';
         break;
       default:
         break;
@@ -306,7 +325,7 @@ export default function useNodeFlowControl() {
         break;
     }
 
-    if(nodes.some((node) => node.id === newNodeId)) {
+    if (nodes.some((node) => node.id === newNodeId)) {
       needReactFlowRenderSignal.value = true;
       resetDragState();
       return;
