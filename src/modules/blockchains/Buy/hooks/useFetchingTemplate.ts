@@ -160,7 +160,9 @@ export default function useFetchingTemplate() {
       data: {
         node: 'chain',
         title: 'Blockchain',
-        sourceHandles: checkParam ? [`${rootNode}-s-account-abstraction`, `${rootNode}-s-bridge_apps`] : [],
+        sourceHandles: checkParam
+          ? [`${rootNode}-s-account-abstraction`, `${rootNode}-s-bridge_apps`]
+          : [],
         targetHandles: [],
       },
       dragHandle: '.drag-handle-area',
@@ -248,14 +250,11 @@ export default function useFetchingTemplate() {
 
     const _newNodes: any[] = draggedIds2D.map((ids, index) => {
       const dappKey = templateDapps[index].key;
+      const thisNode = [...tokens, ...airdrops, ...stakingPools][index];
       const defaultPositionX = 30 + 500 * xOffsetCount[dappKey]++;
       const defaultPositionY = 30 + 500 * allDappKeys.indexOf(dappKey);
-      const xOffset =
-        [...tokens, ...airdrops, ...stakingPools][index].position_x ??
-        defaultPositionX;
-      const yOffset =
-        [...tokens, ...airdrops, ...stakingPools][index].position_y ??
-        defaultPositionY;
+      const xOffset = thisNode.position_x ?? defaultPositionX;
+      const yOffset = thisNode.position_y ?? defaultPositionY;
       const idNode = index.toString();
       const isHandleExists = getHandleNodeBlockChain?.data?.sourceHandles?.some(
         (handle) => handle === `${rootNode}-s-${templateDapps[index].title}`,
@@ -297,6 +296,7 @@ export default function useFetchingTemplate() {
         type: 'dappTemplate',
         dragHandle: '.drag-handle-area',
         data: {
+          node: 'dapp',
           label: templateDapps[index].title,
           status: 'Running',
           isChain: false,
@@ -305,6 +305,8 @@ export default function useFetchingTemplate() {
           baseIndex: index,
           targetHandles: [`${idNode}-t-${rootNode}`],
           sourceHandles: [],
+          itemId: thisNode.id,
+          positionId: thisNode.position_id,
         },
         position: { x: xOffset, y: yOffset },
       };
@@ -335,9 +337,9 @@ export default function useFetchingTemplate() {
 
     templateIds2DSignal.value = [...draggedIds2D];
     formTemplateDappSignal.value = { ...formDapp };
-    console.log('[...edges, ...edgeData]', [...edges, ...edgeData]);
-    console.log('Nodes', newArray);
-    setEdges([...edges,...edgeData]);
+    // console.log('[...edges, ...edgeData]', [...edges, ...edgeData]);
+    // console.log('Nodes', newArray);
+    setEdges([...edges, ...edgeData]);
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
     setNeedCheckAndAddAA(true);

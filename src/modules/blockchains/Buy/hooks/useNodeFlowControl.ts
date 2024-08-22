@@ -244,6 +244,13 @@ export default function useNodeFlowControl() {
 
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
+
+    if (!thisDapp) {
+      needReactFlowRenderSignal.value = true;
+      resetDragState();
+      return;
+    }
+
     const category = categories?.find((category) =>
       category.options.some(
         (option) => option.key === dappKeyToChainKey(thisDapp.key),
@@ -253,7 +260,11 @@ export default function useNodeFlowControl() {
       (option) => option.key === dappKeyToChainKey(thisDapp.key),
     );
 
-    if (!categoryOption && !thisDapp.isDefaultDapp) return;
+    if (!categoryOption && !thisDapp.isDefaultDapp) {
+      needReactFlowRenderSignal.value = true;
+      resetDragState();
+      return;
+    }
 
     const transformedX =
       (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
@@ -265,14 +276,14 @@ export default function useNodeFlowControl() {
     };
 
     const rootNode = 'blockchain';
-    let suffix = thisDapp.title
+    let suffix = thisDapp.title;
 
     switch (thisDapp.key) {
       case accountAbstractionAsADapp.key:
-        suffix = 'account-abstraction'
+        suffix = 'account-abstraction';
         break;
       case bridgesAsADapp.key:
-        suffix = 'bridge_apps'
+        suffix = 'bridge_apps';
         break;
       default:
         break;
@@ -323,8 +334,6 @@ export default function useNodeFlowControl() {
         sourceHandles: [],
       },
     };
-
-
 
     setNodes([...nodesData, newNode]);
     setEdges([

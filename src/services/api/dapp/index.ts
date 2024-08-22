@@ -196,6 +196,8 @@ class CDappAPI {
     position_x: number;
     position_y: number;
   }) => {
+    console.log('UPDATE POSITION', params);
+
     try {
       await this.http.post(`/apps/position/`, [params]);
     } catch (error) {
