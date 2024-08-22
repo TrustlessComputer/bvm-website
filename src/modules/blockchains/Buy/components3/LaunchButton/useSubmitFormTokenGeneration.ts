@@ -7,6 +7,7 @@ import {
 } from '@/modules/blockchains/CreateToken/utils';
 import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
 import { FormDappUtil } from '@/modules/blockchains/dapp/utils';
+import { IPosition } from '@/services/api/dapp/staking/interface';
 import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
@@ -18,6 +19,7 @@ import { ethers } from 'ethers';
 import { isEmpty } from 'lodash';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import { IRetrieveFormsByDappKey } from '../../hooks/useOneForm';
 
 const useSubmitFormTokenGeneration = () => {
@@ -170,9 +172,13 @@ const useSubmitFormTokenGeneration = () => {
 
   const onSubmitForm = async ({
     forms,
+    positions = [],
   }: {
     forms: IRetrieveFormsByDappKey[][];
+    positions?: Vector2[];
   }) => {
+    let index = 0;
+
     try {
       for (const form of forms) {
         // console.log('formxxxx', form);
@@ -213,8 +219,6 @@ const useSubmitFormTokenGeneration = () => {
         // }
 
         for (const data of dataMapping) {
-          // console.log('data', data);
-
           // @ts-ignore
           const getTokenomicsDefault: ITokenomics[] = () => {
             if (
@@ -285,11 +289,20 @@ const useSubmitFormTokenGeneration = () => {
           // console.log('body', body);
           // console.log('calldata', calldata);
 
+          // TODO: JACKIE - update position below
+          const position: IPosition = {
+            position_id: uuidv4(),
+            position_x: positions[index].x ?? 0,
+            position_y: positions[index].y ?? 0,
+          };
+          index++;
+
           const api = new CTokenGenerationAPI();
           const tokenInfo = await api.generateNewToken({
             data_hex: calldata,
             type: 'token',
             network_id: Number(dappState?.chain?.chainId),
+            ...position, // TODO: JACKIE - update position
           });
 
           let logoUrl = '';

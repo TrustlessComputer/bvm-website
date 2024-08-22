@@ -3,6 +3,7 @@ import { DappType } from '@/modules/blockchains/dapp/types';
 import CDappApiClient from '@/services/api/dapp/dapp.client';
 import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 import {
+  AppCode,
   IAppInfo,
   IDappConfigs,
   IReqDapp,
@@ -20,9 +21,9 @@ import {
 } from '@/stores/states/dapp/reducer';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { OrderItem } from '@/stores/states/l2services/types';
+import { isLocalhost } from '@utils/helpers';
 import { capitalizeFirstLetter } from '@web3auth/ui';
 import { orderBy } from 'lodash';
-import { isLocalhost } from '@utils/helpers';
 
 class CDappAPI {
   private dappState = useAppSelector(dappSelector);
@@ -169,7 +170,7 @@ class CDappAPI {
       const ts = orderBy(
         tokens?.map((t, i) => ({ ...t, vestings: vestings[i] })),
         [(token) => token.id],
-        ['asc'],
+        ['desc'],
       );
 
       this.dispatch(setTokens(ts));
@@ -185,6 +186,21 @@ class CDappAPI {
       template: JSON.stringify(template),
       network_id: Number(network_id),
     });
+  };
+
+  updatePosition = async (params: {
+    app_code: AppCode;
+    user_address: string;
+    id: string | number;
+    position_id: string;
+    position_x: number;
+    position_y: number;
+  }) => {
+    try {
+      await this.http.post(`/apps/position/`, [params]);
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 

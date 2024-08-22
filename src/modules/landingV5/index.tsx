@@ -47,6 +47,7 @@ const LandingV5 = (props: Props) => {
               Join the next generation of Bitcoin builders who use the BVM
               infrastructure to deploy Bitcoin chains, build Bitcoin apps, and
               together bring Bitcoin to the people.
+              <br />
               <br /> Let’s build.
             </div>
           </Box>
@@ -69,7 +70,11 @@ const LandingV5 = (props: Props) => {
               </div>
               <Flex gap="4px" flexDir={'column'}>
                 <p>Need development help?</p>
-                <Box onClick={showContactUsModal} className={s.link}>
+                <Box
+                  onClick={showContactUsModal}
+                  className={s.link}
+                  cursor="pointer"
+                >
                   Talk to a BVM dev
                   <div className={s.icon_link}>
                     <ChakraImage src="/landing-v5/ic-link.svg" />

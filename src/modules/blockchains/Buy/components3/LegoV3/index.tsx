@@ -24,6 +24,11 @@ type LegoV3 = {
   suffix?: string;
   updatable?: boolean;
   allowShuffle?: boolean;
+  status?: {
+    label: string;
+    backgroundColor: string;
+    textColor: string;
+  };
 } & React.HTMLAttributes<HTMLDivElement>;
 
 function LegoV3({
@@ -42,6 +47,7 @@ function LegoV3({
   updatable = false,
   allowShuffle = false,
   children,
+  status,
   ...props
 }: LegoV3) {
   const refTooltip = React.useRef<HTMLDivElement>(null);
@@ -176,6 +182,18 @@ function LegoV3({
             <p>{suffix}</p>
           </div>
         </div>
+
+        {status && (
+          <div
+            className={styles.status}
+            style={{
+              backgroundColor: status.backgroundColor,
+              color: status.textColor,
+            }}
+          >
+            {status.label}
+          </div>
+        )}
       </div>
     </React.Fragment>
   );
