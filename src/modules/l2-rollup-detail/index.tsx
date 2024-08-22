@@ -31,6 +31,7 @@ import SearchAddress from './SearchAddress';
 import s from './styles.module.scss';
 import TokenTransferTab from './TokenTransferTab';
 import TransactionsTab from './TransactionsTab';
+import NFTTab from './NFTTab';
 
 const L2RollupDetail = () => {
   const router = useRouter();
@@ -148,6 +149,7 @@ const L2RollupDetail = () => {
                 <Tab>Portfolio</Tab>
                 <Tab>Transactions</Tab>
                 <Tab>Token Transfer</Tab>
+                <Tab>NFTs</Tab>
               </TabList>
               <TabPanels className={s.tabPanel}>
                 <TabPanel minH={'40vh'}>
@@ -158,6 +160,9 @@ const L2RollupDetail = () => {
                 </TabPanel>
                 <TabPanel minH={'40vh'}>
                   <TokenTransferTab />
+                </TabPanel>
+                <TabPanel minH={'40vh'}>
+                  <NFTTab />
                 </TabPanel>
               </TabPanels>
             </>

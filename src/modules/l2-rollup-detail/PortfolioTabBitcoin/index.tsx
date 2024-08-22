@@ -17,6 +17,7 @@ import { Box, Flex, Image, Text, Grid } from '@chakra-ui/react';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
+import EmptyList from '@/components/ListTable/EmptyList';
 
 const PortfolioTabBitcoin = () => {
   const { address } = useContext(L2RollupDetailContext);
@@ -48,8 +49,9 @@ const PortfolioTabBitcoin = () => {
 
   const fetchData = async (isNew?: boolean) => {
     try {
+      setIsFetching(true);
+
       if (isNew) {
-        setIsFetching(true);
         setList([]);
         refParams.current = {
           ...refParams.current,
@@ -254,28 +256,41 @@ const PortfolioTabBitcoin = () => {
           dependData={list}
         >
           {balanceType === 'ordinals_nft' ? (
-            <Grid
-              w="100%"
-              gridTemplateColumns={{
-                base: 'repeat(auto-fill, 196px)',
-              }}
-              gap={{ base: '16px', lg: '24px' }}
-            >
-              {list.length > 0 &&
-                list.map((item) => {
-                  return (
-                    <Flex direction={'column'} className={s.chains}>
-                      <Image w={'100%'} aspectRatio={1} />
-                      <Flex direction={'column'} p={'8px'}>
-                        <Text color={'#898989'}>
-                          #{item.inscription_number}
-                        </Text>
-                        <Text>{item.symbol}</Text>
+            <>
+              <Grid
+                w="100%"
+                gridTemplateColumns={{
+                  base: 'repeat(auto-fill, 196px)',
+                }}
+                gap={{ base: '16px', lg: '24px' }}
+              >
+                {list.length > 0 &&
+                  list.map((item) => {
+                    return (
+                      <Flex direction={'column'} className={s.shadow}>
+                        <Image
+                          borderTopRadius={'12px'}
+                          w={'100%'}
+                          aspectRatio={1}
+                        />
+                        <Flex direction={'column'} p={'8px'}>
+                          <Text color={'#898989'}>
+                            #{item.inscription_number}
+                          </Text>
+                          <Text>{item.symbol}</Text>
+                        </Flex>
                       </Flex>
-                    </Flex>
-                  );
-                })}
-            </Grid>
+                    );
+                  })}
+              </Grid>
+              {!isFetching && list.length === 0 && (
+                <EmptyList
+                  color={'#000'}
+                  labelText={`There's no Oridinals NFT`}
+                  emptyIcon={<Image src={'/icons/icon-empty.svg'} />}
+                />
+              )}
+            </>
           ) : (
             <ListTable
               data={list}

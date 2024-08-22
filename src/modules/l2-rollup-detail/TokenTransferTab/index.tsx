@@ -62,6 +62,7 @@ const TokenTransferTab = (props: IProps) => {
 
   const fetchData = async (isNew?: boolean) => {
     try {
+      setIsFetching(true);
       if (isNew) {
         refParams.current = {
           ...refParams.current,
