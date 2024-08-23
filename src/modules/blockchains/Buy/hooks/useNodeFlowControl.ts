@@ -24,6 +24,7 @@ import { useTemplateFormStore } from '../stores/useDappStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 import handleStatusEdges from '@utils/helpers';
 import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
+import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
 
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
@@ -32,6 +33,7 @@ export default function useNodeFlowControl() {
   const { isDragging, setIsDragging } = useDraggingStore();
   const store = useStoreApi();
   const  { lineAAStatus } = useAAModule()
+  const  { lineBridgeStatus } = useBridgesModule()
   const {
     transform: [transformX, transformY, zoomLevel],
   } = store.getState();
@@ -138,8 +140,8 @@ export default function useNodeFlowControl() {
             target: `account-abstraction`,
             targetHandle: `account-abstraction-t-${rootNode}`,
             type: 'customEdge',
-            label: handleStatusEdges(lineAAStatus, 'account-abstraction').icon,
-            animated: handleStatusEdges(lineAAStatus, 'account-abstraction').animate,
+            label: handleStatusEdges('', lineAAStatus, 'account-abstraction').icon,
+            animated: handleStatusEdges('', lineAAStatus, 'account-abstraction').animate,
             markerEnd: {
               type: MarkerType.Arrow,
               width: 25,
@@ -190,9 +192,10 @@ export default function useNodeFlowControl() {
             sourceHandle: `${rootNode}-s-bridge_apps`,
             // target: `${newNodeId}`,
             target: `bridge_apps`,
+            label: handleStatusEdges('', lineBridgeStatus, 'bridge_apps').icon,
+            animated: handleStatusEdges('', lineBridgeStatus, 'bridge_apps').animate,
             targetHandle: `bridge_apps-t-${rootNode}`,
             type: 'customEdge',
-            label: '',
             markerEnd: {
               type: MarkerType.Arrow,
               width: 25,
@@ -281,13 +284,16 @@ export default function useNodeFlowControl() {
 
     const rootNode = 'blockchain';
     let suffix = thisDapp.title;
+    let statusMapping: any = '';
 
     switch (thisDapp.key) {
       case accountAbstractionAsADapp.key:
         suffix = 'account-abstraction';
+        statusMapping = lineAAStatus;
         break;
       case bridgesAsADapp.key:
         suffix = 'bridge_apps';
+        statusMapping = lineBridgeStatus;
         break;
       default:
         break;
@@ -313,9 +319,11 @@ export default function useNodeFlowControl() {
     switch (thisDapp.key) {
       case accountAbstractionAsADapp.key:
         newNodeId = 'account-abstraction';
+        statusMapping = lineAAStatus;
         break;
       case bridgesAsADapp.key:
         newNodeId = 'bridge_apps';
+        statusMapping = lineBridgeStatus;
         break;
       default:
         newNodeId = `${nodes.length + 1}`;
@@ -359,8 +367,8 @@ export default function useNodeFlowControl() {
         selectable: false,
         selected: false,
         focusable: false,
-        label: handleStatusEdges(statusDapp, lineAAStatus, newNodeId).icon,
-        animated: handleStatusEdges(statusDapp, lineAAStatus, newNodeId).animate,
+        label: handleStatusEdges(statusDapp, statusMapping, newNodeId).icon,
+        animated: handleStatusEdges(statusDapp, statusMapping, newNodeId).animate,
         markerEnd: {
           type: MarkerType.Arrow,
           width: 25,
