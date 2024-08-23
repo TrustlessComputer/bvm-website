@@ -151,16 +151,17 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
         }
         const totalUsd = assetBitcoin[balanceType.type].reduce(
           (accum, item) => {
-            if (!rollupTokensRate) return accum;
             return (
               accum +
               new BigNumber(item.holding_amount)
-                .multipliedBy(new BigNumber(item.token_price))
+                .multipliedBy(item.token_price)
                 .toNumber()
             );
           },
           0,
         );
+        console.log('===totalUsd', totalUsd, balanceType.type);
+
         return {
           amountUsd: totalUsd,
           title: balanceType.title,
@@ -189,7 +190,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
           const res = (await rollupBitcoinApi.getRollupL2BitcoinBalances({
             user_address: address,
             type: balanceType.type,
-            page: 1,
+            page: 0,
             limit: 50,
           })) as any;
           return { [balanceType.type]: res };
