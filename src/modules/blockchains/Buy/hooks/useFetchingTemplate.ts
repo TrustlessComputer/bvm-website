@@ -40,7 +40,7 @@ import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
 
 export default function useFetchingTemplate() {
-  const { templateList } = useAvailableListTemplate();
+  const { templateList, templateDefault } = useAvailableListTemplate();
   const { modelCategoryList } = useModelCategory();
   const { dapps } = useDapps();
   const path = usePathname();
@@ -522,7 +522,9 @@ export default function useFetchingTemplate() {
     if (isUpdateFlow && order) {
       setTemplate(order.selectedOptions || []);
     } else {
-      initTemplate(0);
+      // initTemplate(0);
+      console.log('LOG - 1 - templateDefault ', templateDefault);
+      setTemplate(templateDefault || []);
     }
-  }, [categoriesTemplates, isUpdateFlow]);
+  }, [categoriesTemplates, isUpdateFlow, templateDefault]);
 }
