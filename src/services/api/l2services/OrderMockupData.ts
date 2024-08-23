@@ -33,7 +33,7 @@ export const ORDER_MOCKUP_DATA: any = {
       appDescription: '',
       appImageURL:
         'https://storage.googleapis.com/bvm-network/image/btc_bridge_ic.png',
-      status: 'processing',
+      status: 'done',
       statusJob: 0,
       priceUsd: 0,
       priceBvm: 0,

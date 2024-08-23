@@ -18,6 +18,25 @@ export const useBridgesModule = () => {
     );
   }, [order]);
 
+  const detailBridgesMapperStatus = useMemo(() => {
+    let detailBridgeMapper: any = {};
+
+    bridgeDAppsIntalledList.map((item) => {
+      const isSettingUp =
+        item?.status === 'new' || item?.status === 'processing';
+
+      const mapper = {
+        ...item,
+        label: isSettingUp ? 'Setting up' : 'Running',
+        backgroundColor: isSettingUp ? '#FFF6D8' : '#EEFFF9',
+        textColor: isSettingUp ? '#E59700' : '#00AA6C',
+      };
+      detailBridgeMapper[item.appCode] = mapper;
+    });
+
+    return detailBridgeMapper;
+  }, [bridgeDAppsIntalledList]);
+
   const bridgeModuleStatus: BridgeModuleStatus = useMemo(() => {
     if (!isUpdateFlow || !isBridgeInstalled) {
       return 'draft';
@@ -146,5 +165,6 @@ export const useBridgesModule = () => {
     bridgeModuleStatus,
 
     getBridgeTypeIconUrl,
+    detailBridgesMapperStatus,
   };
 };
