@@ -254,7 +254,7 @@ export default memo(function StudioControls() {
               );
             }
 
-            if (item.key === 'defi_apps') {
+            if (['defi_apps', 'degen_apps'].includes(item.key)) {
               const currentPrice =
                 item.options.find(
                   (opt) =>

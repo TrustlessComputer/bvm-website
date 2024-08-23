@@ -21,6 +21,8 @@ export type AAModuleStatusDetail =
   | 'processing'
   | 'done';
 
+export type LineAAStatus = 'draft' | 'running' | 'down';
+
 export const useAAModule = () => {
   const dispatch = useAppDispatch();
   const { order, getAAStatus, isUpdateFlow, getDAppInstalledByKey } =
@@ -133,7 +135,21 @@ export const useAAModule = () => {
     return getModuleIconUrlByType(getAATypeIcon());
   };
 
+  const lineAAStatus: LineAAStatus = useMemo(() => {
+    const typeIcon = getAATypeIcon();
+    switch (typeIcon) {
+      case 'Drafting':
+      case 'Setting_Up':
+        return 'draft';
+      case 'Running':
+        return 'running';
+      default:
+        return 'down';
+    }
+  }, [isUpdateFlow, aaStatusDetail]);
+
   return {
+    lineAAStatus,
     aaStatusData,
     configAAHandler,
     isCanConfigAA,

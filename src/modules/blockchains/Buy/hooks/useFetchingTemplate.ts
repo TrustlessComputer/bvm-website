@@ -1,6 +1,7 @@
 import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import { parseYoloGames } from '@/modules/blockchains/dapp/parseUtils/yologame';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { IAirdrop } from '@/services/api/dapp/airdrop/interface';
 import { IToken } from '@/services/api/dapp/token_generation/interface';
@@ -12,7 +13,7 @@ import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
 import { Edge, MarkerType } from '@xyflow/react';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import React, { useMemo } from 'react';
 import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
 import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
@@ -35,11 +36,18 @@ import useUpdateFlowStore from '../stores/useUpdateFlowStore';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
+import useAvailableListTemplate from '../studio/useAvailableListTemplate';
+import useModelCategory from '../studio/useModelCategory';
 
 export default function useFetchingTemplate() {
+  const { templateList } = useAvailableListTemplate();
+  const { modelCategoryList } = useModelCategory();
   const { dapps } = useDapps();
-  const { order, isAAInstalled, isUpdateFlow, isBridgeInstalled } =
-    useChainProvider();
+  const path = usePathname();
+  const params = useParams();
+  const isUpdateFlow = React.useMemo(() => !!params?.id, [params?.id]);
+
+  const { order, isAAInstalled, isBridgeInstalled } = useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
     categories,
@@ -60,7 +68,7 @@ export default function useFetchingTemplate() {
 
   const { counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
-  const { tokens, airdrops, stakingPools } = dappState;
+  const { tokens, airdrops, stakingPools, yoloGames } = dappState;
 
   const [needSetDataTemplateToBox, setNeedSetDataTemplateToBox] =
     React.useState(false);
@@ -191,6 +199,10 @@ export default function useFetchingTemplate() {
       totalBase,
     ).fill([]);
 
+
+
+
+
     Object.keys(templateForm).forEach((fieldKey) => {
       const value = templateForm[fieldKey];
       const baseIndex = FormDappUtil.getBaseIndex(fieldKey);
@@ -250,11 +262,13 @@ export default function useFetchingTemplate() {
 
     const _newNodes: any[] = draggedIds2D.map((ids, index) => {
       const dappKey = templateDapps[index].key;
-      const thisNode = [...tokens, ...airdrops, ...stakingPools][index];
+      const thisNode = [...tokens, ...airdrops, ...stakingPools, ...yoloGames][
+        index
+      ];
       const defaultPositionX = 30 + 500 * xOffsetCount[dappKey]++;
       const defaultPositionY = 30 + 500 * allDappKeys.indexOf(dappKey);
-      const xOffset = thisNode.position_x ?? defaultPositionX;
-      const yOffset = thisNode.position_y ?? defaultPositionY;
+      const xOffset = thisNode?.position_x ?? defaultPositionX;
+      const yOffset = thisNode?.position_y ?? defaultPositionY;
       const idNode = index.toString();
       const isHandleExists = getHandleNodeBlockChain?.data?.sourceHandles?.some(
         (handle) => handle === `${rootNode}-s-${templateDapps[index].title}`,
@@ -305,8 +319,8 @@ export default function useFetchingTemplate() {
           baseIndex: index,
           targetHandles: [`${idNode}-t-${rootNode}`],
           sourceHandles: [],
-          itemId: thisNode.id,
-          positionId: thisNode.position_id,
+          itemId: thisNode?.id,
+          positionId: thisNode?.position_id,
         },
         position: { x: xOffset, y: yOffset },
       };
@@ -339,34 +353,53 @@ export default function useFetchingTemplate() {
     formTemplateDappSignal.value = { ...formDapp };
     // console.log('[...edges, ...edgeData]', [...edges, ...edgeData]);
     // console.log('Nodes', newArray);
-    setEdges([...edges, ...edgeData]);
+    if (path === '/studio') {
+      setEdges([...edgeData]);
+    } else {
+      setEdges([...edges, ...edgeData]);
+    }
+
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
     setNeedCheckAndAddAA(true);
+
+    console.log('nodes----', {newArray, edgeData,formDapp, totalBase, draggedIds2D });
   };
 
   const parseDappApiToDappModel = async () => {
     console.log('PARSE DAPP API TO DAPP MODEL');
 
+    let startIndex = 0;
+
     const parsedTokensData = parseTokensData(tokens);
     const parsedTokensForm = parseDappModel({
       key: DappType.token_generation,
       model: parsedTokensData,
-      startIndex: 0,
+      startIndex: startIndex,
     });
 
+    startIndex += parsedTokensData.length;
     const parsedAirdropsData = await parseAirdropsData(airdrops, tokens);
     const parsedAirdropsForm = parseDappModel({
       key: DappType.airdrop,
       model: parsedAirdropsData,
-      startIndex: parsedTokensData.length,
+      startIndex: startIndex,
     });
 
+    startIndex += parsedAirdropsData.length;
     const parsedStakingPoolsData = parseStakingPools(stakingPools);
     const parsedStakingPoolsForm = parseDappModel({
       key: DappType.staking,
       model: parsedStakingPoolsData,
-      startIndex: parsedTokensData.length + parsedAirdropsData.length,
+      startIndex: startIndex,
+    });
+
+    startIndex += parsedStakingPoolsData.length;
+    const parsedYoloGameData = parseYoloGames(yoloGames);
+    const parsedYoloGameForm = parseDappModel({
+      key: DappType.yologame,
+      model: parsedYoloGameData,
+      startIndex: startIndex,
     });
 
     console.log('[useFetchingTemplate] parsedTokensData', {
@@ -379,11 +412,13 @@ export default function useFetchingTemplate() {
       ...parsedTokensData,
       ...parsedAirdropsData,
       ...parsedStakingPoolsData,
+      ...parsedYoloGameData,
     ]);
     setTemplateForm({
       ...parsedTokensForm.fieldValue,
       ...parsedAirdropsForm.fieldValue,
       ...parsedStakingPoolsForm.fieldValue,
+      ...parsedYoloGameForm.fieldValue,
     } as any);
 
     setNeedSetDataTemplateToBox(true);
@@ -453,6 +488,10 @@ export default function useFetchingTemplate() {
   }, []);
 
   React.useEffect(() => {
+    if (!isUpdateFlow) return;
+
+    console.log('zzzzzzzzzzz');
+
     if (updated) {
       draggedDappIndexesSignal.value = [];
       draggedIds2DSignal.value = [];

@@ -25,8 +25,6 @@ const FeeRateInput = (props: Props) => {
   const { option } = props;
   // const { setChainName } = useOrderFormStore();
   // const { value, errorMessage } = computerNameField;
-
-  const { isCapture } = useCaptureStore();
   const { aaStatusData, aaInstalledData, isCanNotEdit } = useAAModule();
   const { isUpdateFlow } = useChainProvider();
   const { statusCode } = aaStatusData;

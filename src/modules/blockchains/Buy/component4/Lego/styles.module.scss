@@ -3,6 +3,7 @@
   border-radius: 4px;
   padding: 5px;
   display: flex;
+  min-width: 60px;
   width: max-content;
   flex-wrap: nowrap;
   align-items: center;
@@ -105,6 +106,8 @@
 
 .titleSingle {
   width: max-content;
+  padding-top: .15em;
+  display: block;
   // font-size: 14px;
   // font-weight: 500;
   // line-height: calc(28 / 14);

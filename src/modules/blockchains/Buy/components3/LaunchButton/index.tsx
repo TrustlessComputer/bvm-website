@@ -16,10 +16,7 @@ import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { requestReload } from '@/stores/states/common/reducer';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
-import {
-  getL2ServicesStateSelector,
-  getOrderDetailSelected,
-} from '@/stores/states/l2services/selector';
+import { getL2ServicesStateSelector, getOrderDetailSelected } from '@/stores/states/l2services/selector';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { IModelOption } from '@/types/customize-model';
 import { getErrorMessage } from '@/utils/errorV2';
@@ -45,6 +42,7 @@ import { formValuesAdapterOptions } from './formValuesAdapterOptions';
 import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
+import useSubmitYoloGame from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitYoloGame';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -123,6 +121,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { onSubmitStaking } = useSubmitStaking();
   const { onSubmitAirdrop } = useSubmitFormAirdrop();
   const { onSubmitTokenGeneration } = useSubmitFormTokenGeneration();
+  const { onSubmitYoloGame } = useSubmitYoloGame();
 
   const { chainName } = useOrderFormStore();
   const searchParams = useSearchParams();
@@ -305,7 +304,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       !allFilled ||
       hasError ||
       !originalData ||
-      !orderDetail
+      !orderDetail ||
+      !orderDetail?.chainId
     ) {
       return;
     }
@@ -333,6 +333,12 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       dynamicFormValues: dynamicForm,
     });
 
+    const yoloGameForms = retrieveFormsByDappKey({
+      dappKey: DappType.yologame,
+    });
+    const yoloNodePositions = retrieveNodePositionsByDappKey({
+      dappKey: DappType.yologame,
+    });
     const stakingForms = retrieveFormsByDappKey({
       dappKey: DappType.staking,
     });
@@ -362,6 +368,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       airdropNodePositions,
       tokensForms,
       tokensNodePositions,
+      yoloGameForms,
+      yoloNodePositions,
     });
 
     // console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
@@ -375,6 +383,14 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       if (result) {
         //Config Account Abstraction...
         configAccountAbstraction(dynamicForm);
+        let isConfigDapp = false;
+        if (yoloGameForms && yoloGameForms.length > 0) {
+          await onSubmitYoloGame({
+            forms: yoloGameForms,
+            positions: yoloNodePositions
+          });
+          isConfigDapp = true;
+        }
         //Staking...
         if (stakingForms && stakingForms.length > 0) {
           await onSubmitStaking({

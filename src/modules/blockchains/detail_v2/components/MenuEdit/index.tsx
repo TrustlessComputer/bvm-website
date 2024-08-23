@@ -24,11 +24,11 @@ export type MenuEditItemType = {
 };
 
 const MenuEditItemList: MenuEditItemType[] = [
-  {
-    key: 'A',
-    value: MenuEditItemEnum.ABC,
-    title: 'ABC Title',
-  },
+  // {
+  //   key: 'A',
+  //   value: MenuEditItemEnum.ABC,
+  //   title: 'ABC Title',
+  // },
   {
     key: 'B',
     value: MenuEditItemEnum.ConfigYourDAppsDomain,

@@ -11,6 +11,8 @@ const initialState: DappState = {
   airdrops: [],
   dappConfigs: undefined,
   appInfos: [],
+  yoloGames: [],
+  tokensAll: []
 };
 
 const slice = createSlice({
@@ -43,7 +45,13 @@ const slice = createSlice({
     },
     setAppInfos: (state, actions) => {
       state.appInfos = actions.payload;
-    }
+    },
+    setYoloGames: (state, actions) => {
+      state.yoloGames = actions.payload;
+    },
+    setTokensAll: (state, actions) => {
+      state.tokensAll = actions.payload;
+    },
   },
 });
 
@@ -56,7 +64,9 @@ export const {
   setAirdropTasks,
   setAirdrops,
   setDappConfigs,
-  setAppInfos
+  setAppInfos,
+  setYoloGames,
+  setTokensAll,
 } = slice.actions;
 
 export default slice.reducer;
