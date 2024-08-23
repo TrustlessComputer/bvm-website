@@ -15,12 +15,12 @@
 
 
     :global(.imagePreload) {
-      display: grid;
-      place-items: center;
+      // display: grid;
+      // place-items: center;
 
       img {
-        padding-left: 20px;
-        padding-right: 20px;
+        border-top-left-radius: 32px;
+        border-top-right-radius: 32px;
       }
 
 
