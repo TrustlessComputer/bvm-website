@@ -13,7 +13,7 @@ import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
 import { Edge, MarkerType } from '@xyflow/react';
-import { useParams, usePathname } from 'next/navigation';
+import { useParams, usePathname, useSearchParams } from 'next/navigation';
 import React, { useMemo } from 'react';
 import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
 import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
@@ -60,6 +60,8 @@ export default function useFetchingTemplate() {
   const { field, setFields } = useOrderFormStoreV3();
   const { setUpdated, updated } = useUpdateFlowStore();
   const param = useParams();
+  const searchParams = useSearchParams();
+  const refUpdatedBaseDapp = React.useRef(false)
 
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { initTemplate, setTemplate } = useTemplate();
@@ -482,6 +484,19 @@ export default function useFetchingTemplate() {
     setNeedCheckAndAddAA(false);
   };
 
+
+  const updateBaseDapp = () => {
+    const appName = searchParams.get('dapp');
+    if (param?.id || !dapps?.length || !categories?.length || !appName || refUpdatedBaseDapp?.current) return;
+    const dappIndex = dapps.findIndex((dapp) => dapp.key === appName);
+    if (dappIndex === -1) return;
+    draggedDappIndexesSignal.value = [...draggedDappIndexesSignal.value, dappIndex];
+    draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
+    refUpdatedBaseDapp.current = true;
+  }
+
+  console.log('LEON TEST: 111', draggedDappIndexesSignal.value);
+
   React.useEffect(() => {
     fetchData();
     parseDappApiToDappModel();
@@ -513,6 +528,10 @@ export default function useFetchingTemplate() {
 
     dataTemplateToBox();
   }, [needSetDataTemplateToBox]);
+
+  React.useEffect(() => {
+    updateBaseDapp()
+  }, [dapps, categories])
 
   React.useEffect(() => {
     if (isUpdateFlow && order) {
