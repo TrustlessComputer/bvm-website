@@ -106,10 +106,7 @@ export default function useNodeFlowControl() {
           (option) => option.key === dappKeyToChainKey(thisDapp.key),
         );
         let nodesData = nodes;
-        const newNodeId =
-          thisDapp.key === accountAbstractionAsADapp.key
-            ? 'account-abstraction'
-            : `${nodes.length + 1}`;
+        const newNodeId = 'account-abstraction';
         const newNode: DappNode = {
           id: newNodeId,
           type: dappKeyToNodeKey(thisDapp.key),
@@ -163,10 +160,7 @@ export default function useNodeFlowControl() {
         const rootNode = 'blockchain';
         const thisDapp = bridgesAsADapp;
         let nodesData = nodes;
-        const newNodeId =
-          thisDapp.key === bridgesAsADapp.key
-            ? 'bridge_apps'
-            : `${nodes.length + 1}`;
+        const newNodeId = 'bridge_apps';
         const newNode: DappNode = {
           id: newNodeId,
           type: dappKeyToNodeKey(thisDapp.key),
@@ -228,8 +222,8 @@ export default function useNodeFlowControl() {
         }
       }
     } else if (
-      draggedIds2DSignal.value.length > draggedIds2D.length
-      && isDragging
+      draggedIds2DSignal.value.length > draggedIds2D.length &&
+      isDragging
     ) {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
       setDragState({
@@ -239,7 +233,6 @@ export default function useNodeFlowControl() {
         remove: false,
       });
       setIsDragging(false);
-
     } else {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
     }
