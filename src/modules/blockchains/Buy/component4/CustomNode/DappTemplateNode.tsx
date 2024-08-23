@@ -487,12 +487,36 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
         return 'Ready to launch';
       case StatusBox.MISSING:
         return 'Missing fields';
-      default:
+      case StatusBox.RUNNING:
         return 'Running';
+      default:
+        return data.status;
     }
   }
+
+  function handleColorStatusNode(status: string) {
+    console.log('status out', status);
+
+    switch (status) {
+      case 'Down temporarily':
+      case 'Run out':
+      case 'Ended':
+      case 'Expired':
+        return StatusBox.DOWN;
+      case 'Drafting modules':
+      case 'Deposit now':
+        return StatusBox.DRAFTING;
+      case  'Ready to launch':
+        return StatusBox.READY;
+      case 'Missing fields':
+        return StatusBox.MISSING;
+      default:
+        return StatusBox.RUNNING;
+    }
+  }
+
   return (
-    <div className={`${s.wrapperBox} ${cn(s[`borderColor_${data.status}`])}`}>
+    <div className={`${s.wrapperBox} ${cn(s[`borderColor_${handleColorStatusNode(data.status)}`])}`}>
       <div className={`${s.handles} ${s.target}`}>
         {data.targetHandles?.map((handle) => (
           <Handle
@@ -506,7 +530,7 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
       </div>
       <div
         className={`${s.wrapperBox_top} drag-handle-area ${cn(
-          s[`borderColor_${data.status}`],
+          s[`borderColor_${handleColorStatusNode(data.status)}`],
         )}`}
       >
         <p
@@ -519,14 +543,14 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
         {
           <div className={s.tag}>
             <p
-              className={`${s.titleTag} ${cn(s[`titleTag_${data.status}`])} ${
+              className={`${s.titleTag} ${cn(s[`titleTag_${handleColorStatusNode(data.status)}`])} ${
                 isCapture ? s.label_margin : ''
               }`}
             >
               {renderTitleStatus(data.status)}
             </p>
             <div
-              className={`${s.tag_dot}  ${cn(s[`tag_${data.status}`])}`}
+              className={`${s.tag_dot}  ${cn(s[`tag_${handleColorStatusNode(data.status)}`])}`}
             ></div>
           </div>
         }
