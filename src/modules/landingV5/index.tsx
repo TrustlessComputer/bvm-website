@@ -109,7 +109,7 @@ const LandingV5 = (props: Props) => {
                 mb="176px"
                 position={'relative'}
                 aspectRatio={'1348 / 1031'}
-                maxW={'80%'}
+                maxW={'68%'}
               >
                 <Image
                   layout="fill"
