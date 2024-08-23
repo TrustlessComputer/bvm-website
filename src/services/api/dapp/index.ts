@@ -109,6 +109,7 @@ class CDappAPI {
           DappType.staking,
           DappType.airdrop,
           DappType.yologame,
+          DappType.orderbook,
         ].map((app) =>
           this.getDappConfig({
             appName: app,
@@ -156,8 +157,10 @@ class CDappAPI {
     position_x: number;
     position_y: number;
   }) => {
+    console.log('UPDATE POSITION', params);
+
     try {
-      await this.http.post(`/apps/position/`, [params]);
+      await this.http.post(`/apps/position/`, [{ ...params, chain_id: Number(this.dappState?.chain?.chainId || '0') }]);
     } catch (error) {
       console.log(error);
     }

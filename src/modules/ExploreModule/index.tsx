@@ -47,7 +47,12 @@ export default function ExploreModule(): React.JSX.Element {
           currency. */}
         </Text>
         {/* tab */}
-        <Tabs index={tabIndex} onChange={handleTabsChange} mt="40px">
+        <Tabs
+          index={tabIndex}
+          onChange={handleTabsChange}
+          mt="60px"
+          className={s.tabWrapper}
+        >
           <TabList className={s.tabList}>
             <Tab>Apps</Tab>
             <Tab>Games</Tab>
@@ -55,7 +60,7 @@ export default function ExploreModule(): React.JSX.Element {
           </TabList>
           <TabPanels>
             <TabPanel p="0">
-              <Flex direction="column" gap="60px">
+              <Flex direction="column" gap="44px">
                 <div className={s.wrapperCardDapps}>
                   {DAPPS_DATA.map((item, idx) => {
                     return <DappCard {...item} idx={idx} key={item.title} />;
@@ -65,7 +70,7 @@ export default function ExploreModule(): React.JSX.Element {
               </Flex>
             </TabPanel>
             <TabPanel p="0">
-              <Flex direction="column" gap="60px">
+              <Flex direction="column" gap="44px">
                 <div className={s.wrapperCardDapps}>
                   {GAMES_DATA.map((item, idx) => {
                     return <DappCard {...item} idx={idx} key={item.title} />;
@@ -76,7 +81,7 @@ export default function ExploreModule(): React.JSX.Element {
             </TabPanel>
 
             <TabPanel p="0">
-              <Flex direction="column" gap="60px">
+              <Flex direction="column" gap="44px">
                 <div className={s.wrapperCardChains}>
                   {CHAIN_DATA.map((item, index) => {
                     return <ChainCard idx={index} {...item} key={item.image} />;
