@@ -1,5 +1,4 @@
 import LocalStorage from '@/libs/localStorage';
-import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
@@ -14,19 +13,15 @@ import { useSignalEffect } from '@preact/signals-react';
 import { useReactFlow } from '@xyflow/react';
 import { usePathname } from 'next/navigation';
 import React, { useCallback, useState } from 'react';
-import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 
 function useHandleReloadNode() {
-  const { nodes, setNodes, setEdges, edges, onNodesChange } = useFlowStore();
+  const { nodes, setNodes, setEdges } = useFlowStore();
   const [rfInstance, setRfInstance] = useState<any>(null);
+  const [haveOldData, setHaveOldData] = useState(false);
   const { setViewport } = useReactFlow();
   const path = usePathname();
-  const { dapps } = useDapps();
   const { field, setFields } = useOrderFormStoreV3();
   const { draggedFields, setDraggedFields } = useDragStore();
-  const { categories } = useModelCategoriesStore();
-
-  const isFetched = React.useMemo(() => !!categories?.length, [categories]);
 
   React.useEffect(() => {
     if (path === '/studio') {
@@ -61,12 +56,6 @@ function useHandleReloadNode() {
 
     await restoreFlow();
   }, []);
-
-  React.useEffect(() => {
-    if (path === '/studio' && (dapps.length <= 2 || !isFetched)) {
-      onRestore();
-    }
-  }, [rfInstance, dapps.length, isFetched]);
 
   useSignalEffect(() => {
     const signalsForm =
@@ -113,7 +102,12 @@ function useHandleReloadNode() {
     }
   }, [rfInstance]);
 
+  React.useEffect(() => {
+    setHaveOldData(!!LocalStorage.getItem(STORAGE_KEYS.LAST_NODES));
+  }, [rfInstance]);
+
   return {
+    haveOldData,
     setRfInstance,
     onRestore,
     rfInstance,

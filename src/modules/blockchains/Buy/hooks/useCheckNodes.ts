@@ -3,8 +3,13 @@ import useFlowStore from '@/modules/blockchains/Buy/stores/useFlowStore';
 import { DappNode } from '@/types/node';
 import { MarkerType } from '@xyflow/react';
 import { useEffect } from 'react';
+import { removeItemAtIndex } from '../../dapp/utils';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import { bridgesAsADapp } from '../mockup_3';
+import {
+  draggedDappIndexesSignal,
+  draggedIds2DSignal,
+} from '../signals/useDragSignal';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import useFormChain from './useFormChain';
 
@@ -15,16 +20,22 @@ export default function useCheckNodes() {
 
   useEffect(() => {
     if (!getCurrentFieldFromChain('bridge_apps')) {
-      const index = nodes.findIndex((node) => node.id == 'bridge_apps');
+      const nodeIndex = nodes.findIndex((node) => node.id == 'bridge_apps');
+      const dappIndex = draggedDappIndexesSignal.value.findIndex(
+        (i) => i === 1,
+      );
 
-      if (index != -1) {
-        nodes.splice(index, 1);
-        setNodes([...nodes]);
+      if (nodeIndex != -1) {
+        nodes.splice(nodeIndex, 1);
+        setNodes(removeItemAtIndex(nodes, nodeIndex));
+
+        removeItemAtIndex(draggedDappIndexesSignal.value, dappIndex);
+        removeItemAtIndex(draggedIds2DSignal.value, dappIndex);
       }
     } else {
-      const index = nodes.findIndex((node) => node.id == 'bridge_apps');
+      const nodeIndex = nodes.findIndex((node) => node.id == 'bridge_apps');
 
-      if (index === -1) {
+      if (nodeIndex === -1) {
         const rootNode = 'blockchain';
         const thisDapp = bridgesAsADapp;
         let nodesData = nodes;
