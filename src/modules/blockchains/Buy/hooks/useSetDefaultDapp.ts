@@ -134,7 +134,7 @@ const useSetDefaultDapp = () => {
   React.useEffect(() => {
     if (!categories || categories.length === 0 || dapps.length <= 2) return;
 
-    const dappKey = searchParams.get('template');
+    const dappKey = searchParams.get('dapp');
     if (!dappKey) return;
 
     const dappIndex = dapps.findIndex((dapp) => dapp.key === dappKey);
