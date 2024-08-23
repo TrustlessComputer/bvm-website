@@ -38,6 +38,7 @@ import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
 import useAvailableListTemplate from '../studio/useAvailableListTemplate';
 import useModelCategory from '../studio/useModelCategory';
+import { parseWhitePapers } from '@/modules/blockchains/dapp/parseUtils/whitePaper';
 
 export default function useFetchingTemplate() {
   const { templateList } = useAvailableListTemplate();
@@ -68,7 +69,7 @@ export default function useFetchingTemplate() {
 
   const { counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
-  const { tokens, airdrops, stakingPools, yoloGames } = dappState;
+  const { tokens, airdrops, stakingPools, yoloGames, whitePapers } = dappState;
 
   const [needSetDataTemplateToBox, setNeedSetDataTemplateToBox] =
     React.useState(false);
@@ -258,7 +259,7 @@ export default function useFetchingTemplate() {
 
     const _newNodes: any[] = draggedIds2D.map((ids, index) => {
       const dappKey = templateDapps[index].key;
-      const thisNode = [...tokens, ...airdrops, ...stakingPools, ...yoloGames][
+      const thisNode = [...tokens, ...airdrops, ...stakingPools, ...yoloGames, ...whitePapers][
         index
       ];
       const defaultPositionX = 30 + 500 * xOffsetCount[dappKey]++;
@@ -396,10 +397,20 @@ export default function useFetchingTemplate() {
       startIndex: startIndex,
     });
 
+    startIndex += parsedYoloGameData.length;
+    const parsedWhitePaperData = parseWhitePapers(whitePapers);
+    const parsedWhitePaperForm = parseDappModel({
+      key: DappType.orderbook,
+      model: parsedWhitePaperData,
+      startIndex: startIndex,
+    });
+
     console.log('[useFetchingTemplate] parsedTokensData', {
       tokens,
       airdrops,
       stakingPools,
+      yoloGames,
+      whitePapers,
     });
 
     setTemplateDapps([
@@ -407,12 +418,14 @@ export default function useFetchingTemplate() {
       ...parsedAirdropsData,
       ...parsedStakingPoolsData,
       ...parsedYoloGameData,
+      ...parsedWhitePaperData,
     ]);
     setTemplateForm({
       ...parsedTokensForm.fieldValue,
       ...parsedAirdropsForm.fieldValue,
       ...parsedStakingPoolsForm.fieldValue,
       ...parsedYoloGameForm.fieldValue,
+      ...parsedWhitePaperForm.fieldValue,
     } as any);
 
     setNeedSetDataTemplateToBox(true);

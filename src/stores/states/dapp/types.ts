@@ -18,4 +18,5 @@ export interface DappState {
   appInfos: IAppInfo[];
   yoloGames: IYoloGame[];
   tokensAll: IToken[];
+  whitePapers: IYoloGame[];
 }

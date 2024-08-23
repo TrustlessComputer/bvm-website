@@ -11,6 +11,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import CYoloGameAPI from '@/services/api/dapp/yolo';
 import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
+import CWhitePaperAPI from '@/services/api/dapp/whitePapers';
 
 const useFetchDapp = () => {
   const params = useParams();
@@ -25,6 +26,7 @@ const useFetchDapp = () => {
   const stakingAPI = new CStakingAPI();
   const tokenAirdropAPI = new CTokenAirdropAPI();
   const yoloGameAPI = new CYoloGameAPI();
+  const whitePaperAPI = new CWhitePaperAPI();
 
   const dappState = useAppSelector(dappSelector);
   const needReload = useAppSelector(commonSelector).needReload;
@@ -71,6 +73,10 @@ const useFetchDapp = () => {
     await yoloGameAPI.getYoloGameList(dappState?.chain?.chainId || '');
   };
 
+  const fetchWhitePaperList = async () => {
+    await whitePaperAPI.getWhitePaperList(dappState?.chain?.chainId || '');
+  };
+
   const getDappTasks = async () => {
     console.time('[useFetchDapp] getDappTasks time');
     try {
@@ -81,6 +87,7 @@ const useFetchDapp = () => {
         getListTask(),
         getListAirdrop(),
         fetchYoloGameList(),
+        fetchWhitePaperList(),
       ]);
       setLoading(true);
       console.time('[useFetchDapp] getDappTasks time');

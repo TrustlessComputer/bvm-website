@@ -12,7 +12,8 @@ const initialState: DappState = {
   dappConfigs: undefined,
   appInfos: [],
   yoloGames: [],
-  tokensAll: []
+  tokensAll: [],
+  whitePapers: [],
 };
 
 const slice = createSlice({
@@ -52,6 +53,9 @@ const slice = createSlice({
     setTokensAll: (state, actions) => {
       state.tokensAll = actions.payload;
     },
+    setWhitePapers: (state, actions) => {
+      state.whitePapers = actions.payload;
+    },
   },
 });
 
@@ -67,6 +71,7 @@ export const {
   setAppInfos,
   setYoloGames,
   setTokensAll,
+  setWhitePapers,
 } = slice.actions;
 
 export default slice.reducer;
