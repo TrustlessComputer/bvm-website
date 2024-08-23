@@ -45,7 +45,7 @@ export default function useFetchingTemplate() {
   const { dapps } = useDapps();
   const path = usePathname();
   const params = useParams();
-  const isUpdateFlow = React.useMemo(() => !params?.id, [params?.id]);
+  const isUpdateFlow = React.useMemo(() => !!params?.id, [params?.id]);
 
   const { order, isAAInstalled, isBridgeInstalled } = useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
@@ -198,6 +198,10 @@ export default function useFetchingTemplate() {
     const draggedIds2D: typeof templateIds2DSignal.value = Array(
       totalBase,
     ).fill([]);
+
+
+
+
 
     Object.keys(templateForm).forEach((fieldKey) => {
       const value = templateForm[fieldKey];
@@ -358,6 +362,8 @@ export default function useFetchingTemplate() {
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
     setNeedCheckAndAddAA(true);
+
+    console.log('nodes----', {newArray, edgeData,formDapp, totalBase, draggedIds2D });
   };
 
   const parseDappApiToDappModel = async () => {
@@ -483,6 +489,8 @@ export default function useFetchingTemplate() {
 
   React.useEffect(() => {
     if (!isUpdateFlow) return;
+
+    console.log('zzzzzzzzzzz');
 
     if (updated) {
       draggedDappIndexesSignal.value = [];
