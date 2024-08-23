@@ -22,6 +22,7 @@ import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import { accountAbstractionAsADapp, bridgesAsADapp } from '../mockup_3';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
+import handleStatusEdges from '@utils/helpers';
 
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
@@ -138,7 +139,8 @@ export default function useNodeFlowControl() {
             target: `account-abstraction`,
             targetHandle: `account-abstraction-t-${rootNode}`,
             type: 'customEdge',
-            label: '',
+            // label: handleStatusEdges('draft').icon.toString(),
+            // animated: handleStatusEdges('draft').animate,
             markerEnd: {
               type: MarkerType.Arrow,
               width: 25,
@@ -248,7 +250,6 @@ export default function useNodeFlowControl() {
   }, [dragState]);
 
   const handleAddBox = () => {
-    console.log('runnn add box');
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
 
@@ -359,7 +360,8 @@ export default function useNodeFlowControl() {
         target: `${newNodeId}`,
         targetHandle: `${newNodeId}-t-${rootNode}`,
         type: 'customEdge',
-        label: '',
+        label: handleStatusEdges('down').icon,
+        animated: handleStatusEdges('down').animate,
         markerEnd: {
           type: MarkerType.Arrow,
           width: 25,

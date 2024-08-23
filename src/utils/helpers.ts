@@ -260,31 +260,24 @@ export function isLocalhost() {
 }
 
 export default function handleStatusEdges(status: aa) {
-  const isStatusAnimate = ['']
-  const isStatusHaveIcon = ['']
-
   switch (status) {
     case "draft":
       return {
         animate: true,
-        icon: false,
+        icon: '',
       }
     case "down":
       return {
         animate: true,
-        icon: true,
+        icon: 'true',
       }
     default:
       return {
         animate: false,
-        icon: false,
+        icon: '',
       }
   }
 
-  // return {
-  //   animate: isStatusAnimate.includes(status),
-  //   icon: isStatusHaveIcon.includes(status),
-  // }
 }
 
 type aa = "draft" | "running" | "down"
