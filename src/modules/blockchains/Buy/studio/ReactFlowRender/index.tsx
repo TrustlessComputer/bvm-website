@@ -1,5 +1,7 @@
 import CustomEdge from '@/modules/blockchains/Buy/component4/CustomEdge';
 import CustomNode from '@/modules/blockchains/Buy/component4/CustomNode';
+import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
+import useHandleReloadNode from '@/modules/blockchains/Buy/hooks/useHandleReloadNode';
 import { signal, useSignalEffect } from '@preact/signals-react';
 import { ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
@@ -19,15 +21,15 @@ const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
 
 const ReactFlowRenderer = React.memo(() => {
   const { nodes, onNodesChange, edges, onEdgesChange } = useFlowStore();
-  // const { setRfInstance, onRestore, rfInstance, onSave } =
-  //   useHandleReloadNode();
+  const { setRfInstance, onRestore, rfInstance, onSave } =
+    useHandleReloadNode();
   const [currentPosition, setCurrentPosition] = useState(
     currentPositionSignal.value,
   );
   const [count, setCount] = React.useState(0);
   const path = usePathname();
 
-  // const { dapps } = useDapps();
+  const { dapps } = useDapps();
 
   useSignalEffect(() => {
     if (needReactFlowRenderSignal.value) {
@@ -37,11 +39,15 @@ const ReactFlowRenderer = React.memo(() => {
     }
   });
 
-  // React.useEffect(() => {
-  //   if (path === '/studio' && rfInstance && dapps.length > 0) {
-  //     onRestore();
-  //   }
-  // }, [rfInstance, dapps.length]);
+  React.useEffect(() => {
+    if (path === '/studio' && rfInstance && dapps.length > 0) {
+      onRestore();
+    }
+  }, [rfInstance, dapps.length]);
+
+  // console.log('[ReactFlowRenderer]', {
+  //   nodes,
+  // });
 
   // console.log('init', nodes, edges);
 
@@ -71,16 +77,16 @@ const ReactFlowRenderer = React.memo(() => {
       }}
       onEdgesChange={onEdgesChange}
       onNodesChange={onNodesChange}
-      // onInit={setRfInstance}
+      onInit={setRfInstance}
       zoomOnDoubleClick={false}
       edges={edges}
       fitViewOptions={{ padding: 1 }}
       className={s.reactFlow}
-      // onNodeDragStop={() => {
-      // if (path === '/studio') {
-      // onSave();
-      // }
-      // }}
+      onNodeDragStop={() => {
+        if (path === '/studio') {
+          onSave();
+        }
+      }}
     />
   );
 });

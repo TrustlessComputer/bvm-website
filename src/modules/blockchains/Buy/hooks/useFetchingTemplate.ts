@@ -36,12 +36,18 @@ import useUpdateFlowStore from '../stores/useUpdateFlowStore';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
+import useAvailableListTemplate from '../studio/useAvailableListTemplate';
+import useModelCategory from '../studio/useModelCategory';
 
 export default function useFetchingTemplate() {
+  const { templateList } = useAvailableListTemplate();
+  const { modelCategoryList } = useModelCategory();
   const { dapps } = useDapps();
   const path = usePathname();
-  const { order, isAAInstalled, isUpdateFlow, isBridgeInstalled } =
-    useChainProvider();
+  const params = useParams();
+  const isUpdateFlow = React.useMemo(() => !params?.id, [params?.id]);
+
+  const { order, isAAInstalled, isBridgeInstalled } = useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
     categories,
@@ -252,7 +258,9 @@ export default function useFetchingTemplate() {
 
     const _newNodes: any[] = draggedIds2D.map((ids, index) => {
       const dappKey = templateDapps[index].key;
-      const thisNode = [...tokens, ...airdrops, ...stakingPools, ...yoloGames][index];
+      const thisNode = [...tokens, ...airdrops, ...stakingPools, ...yoloGames][
+        index
+      ];
       const defaultPositionX = 30 + 500 * xOffsetCount[dappKey]++;
       const defaultPositionY = 30 + 500 * allDappKeys.indexOf(dappKey);
       const xOffset = thisNode?.position_x ?? defaultPositionX;
@@ -474,6 +482,8 @@ export default function useFetchingTemplate() {
   }, []);
 
   React.useEffect(() => {
+    if (!isUpdateFlow) return;
+
     if (updated) {
       draggedDappIndexesSignal.value = [];
       draggedIds2DSignal.value = [];

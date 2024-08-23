@@ -99,7 +99,6 @@ const BridgeRenderer = () => {
 
           return (
             <ChainDraggable
-              key={item.key + '-parent' + '-right'}
               id={item.key + '-parent' + '-right'}
               useMask
               value={{
@@ -131,7 +130,6 @@ const BridgeRenderer = () => {
           return (
             <ChainDraggable
               right
-              key={item.key + '-' + option.key + '-right'}
               id={item.key + '-' + option.key + '-right'}
               useMask
               tooltip={item.tooltip}

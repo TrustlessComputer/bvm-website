@@ -1238,7 +1238,6 @@ export default function useHandleDragging() {
   };
 
   const handleDragEnd = (event: any) => {
-    setIsDragging(true);
     if (event.active.data.current.isChain) {
       handleChainDragEnd(event);
       return;
@@ -1249,6 +1248,7 @@ export default function useHandleDragging() {
 
   const handleDragStart = (event: any) => {
     const { active } = event;
+    setIsDragging(true);
 
     if (active.data.current.isChain) {
       const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
