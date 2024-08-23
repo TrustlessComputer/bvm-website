@@ -1,8 +1,14 @@
 .modal {
+  $main-color: #fa4e0e;
+
   display: block;
   width: 400px !important;
   padding: 28px !important;
   border-radius: 20px !important;
+
+  * {
+    color: #000000;
+  }
 
   &__title {
     font-family: var(--font-SFProDisplay) !important;
@@ -34,12 +40,13 @@
       border-radius: 99999px;
 
       &__close {
-        background-color: #fa4e0e;
+        background-color: $main-color;
+        color: #ffffff;
       }
 
       &__ok {
-        border: 1px solid #fa4e0e;
-        color: #fa4e0e;
+        border: 1px solid $main-color;
+        color: $main-color;
       }
     }
   }

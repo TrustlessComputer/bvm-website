@@ -57,6 +57,13 @@ const LegoParent = ({
         );
         return;
       }
+      case DappType.yologame: {
+        if (!label?.actionID) return;
+        window.open(
+          `${dappState?.chain?.dappURL || ''}/apps/yolo-games?pool_id=${label.actionID}`,
+        );
+        return;
+      }
     }
   };
 
