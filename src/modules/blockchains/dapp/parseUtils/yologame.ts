@@ -19,7 +19,7 @@ export const parseYoloGames = (games: IYoloGame[]): any[] => {
           title: 'Running',
           color: '#000',
           background: '#00AA6C',
-          status: '',
+          status: '', // run
         },
         sections: [
           {

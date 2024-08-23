@@ -38,6 +38,7 @@ import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
 import useAvailableListTemplate from '../studio/useAvailableListTemplate';
 import useModelCategory from '../studio/useModelCategory';
+import handleStatusEdges from '@utils/helpers';
 
 export default function useFetchingTemplate() {
   const { templateList } = useAvailableListTemplate();
@@ -168,10 +169,12 @@ export default function useFetchingTemplate() {
       data: {
         node: 'chain',
         title: 'Blockchain',
-        sourceHandles: [],
         // sourceHandles: checkParam
         //   ? [`${rootNode}-s-account-abstraction`, `${rootNode}-s-bridge_apps`]
         //   : [],
+        sourceHandles: checkParam
+          ? [`${rootNode}-s-account-abstraction`]
+          : [],
         targetHandles: [],
       },
       dragHandle: '.drag-handle-area',
@@ -214,7 +217,6 @@ export default function useFetchingTemplate() {
       const blockKey = FormDappUtil.getBlockKey(fieldKey);
       const isInBase = FormDappUtil.isInBase(fieldKey);
       const isInBlock = FormDappUtil.isInBlock(fieldKey);
-
       (thisDapp?.blockFields || []).forEach((item) => {
         blockFieldMapping[item.key] = item;
       });
@@ -263,6 +265,8 @@ export default function useFetchingTemplate() {
 
     const _newNodes: any[] = draggedIds2D.map((ids, index) => {
       const dappKey = templateDapps[index].key;
+      const statusDapp = templateDapps[index].label?.status || '';
+
       const thisNode = [...tokens, ...airdrops, ...stakingPools, ...yoloGames][
         index
       ];
@@ -292,7 +296,8 @@ export default function useFetchingTemplate() {
         target: `${idNode}`,
         targetHandle: `${idNode}-t-${rootNode}`,
         type: 'customEdge',
-        label: '',
+        label: handleStatusEdges(statusDapp,'running', idNode).icon,
+        animated: handleStatusEdges(statusDapp,'running', idNode).animate,
         markerEnd: {
           type: MarkerType.Arrow,
           width: 25,

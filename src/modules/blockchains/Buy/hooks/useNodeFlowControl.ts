@@ -253,6 +253,7 @@ export default function useNodeFlowControl() {
       resetDragState();
       return;
     }
+    const statusDapp = thisDapp.label?.status || '';
 
     const category = categories?.find((category) =>
       category.options.some(
@@ -355,8 +356,8 @@ export default function useNodeFlowControl() {
         target: `${newNodeId}`,
         targetHandle: `${newNodeId}-t-${rootNode}`,
         type: 'customEdge',
-        label: handleStatusEdges(lineAAStatus, newNodeId).icon,
-        animated: handleStatusEdges(lineAAStatus, newNodeId).animate,
+        label: handleStatusEdges(statusDapp, lineAAStatus, newNodeId).icon,
+        animated: handleStatusEdges(statusDapp, lineAAStatus, newNodeId).animate,
         markerEnd: {
           type: MarkerType.Arrow,
           width: 25,

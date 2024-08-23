@@ -8,6 +8,7 @@ import last from 'lodash/last';
 import { NETWORK_TO_EXPLORER } from '@/Providers/AuthenticatedProvider/chainConfig';
 import { User } from '@/stores/states/user/types';
 import { isMobile } from 'react-device-detect';
+import { EAirdropStatus } from '@/services/api/dapp/airdrop/interface';
 
 export const getUuid = (): string => {
   let uuidText = window.localStorage.getItem(UUID) as string;
@@ -259,32 +260,37 @@ export function isLocalhost() {
   return window.location.href.includes('http://localhost');
 }
 
-export default function handleStatusEdges(status: aa, idNode: string) {
-  if(idNode === 'account-abstraction' || idNode === 'bridge_apps') {
-    switch (status) {
-      case "draft":
-      case "setting_up":
-        return {
-          animate: true,
-          icon: '',
-        }
-      case "down":
-        return {
-          animate: true,
-          icon: 'true',
-        }
-      default:
-        return {
-          animate: false,
-          icon: '',
-        }
-    }
-  }
-
-  return {
-    animate: true,
-    icon: '',
+function handleStatusEdgeByBox(status: aa) {
+  switch (status) {
+    case "draft" || "setting_up":
+    case EAirdropStatus.new:
+      //draft
+      return {
+        animate: true,
+        icon: '',
+      }
+      // down
+    case "down" || "stopped" || "run_out":
+    case EAirdropStatus.ended:
+      return {
+        animate: true,
+        icon: 'true',
+      }
+      //run
+    default:
+      return {
+        animate: false,
+        icon: '',
+      }
   }
 }
 
-type aa = "draft" | "running" | "down" | 'setting_up'
+export default function handleStatusEdges(statusDapp: any, status: aa, idNode: string) {
+  if(idNode === 'account-abstraction' || idNode === 'bridge_apps') {
+   return handleStatusEdgeByBox(status)
+  }
+
+  return handleStatusEdgeByBox(statusDapp)
+}
+
+type aa = "draft" | "running" | "down" | 'setting_up' | EAirdropStatus
