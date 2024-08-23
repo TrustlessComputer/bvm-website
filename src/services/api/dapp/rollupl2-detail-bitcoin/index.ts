@@ -34,6 +34,12 @@ class CRollupL2DetailBitcoinAPI extends CDappApiClient {
     params: any,
   ): Promise<IBitcoinTokenTransaction[]> => {
     try {
+      if (params.type === 'bitcoin') {
+        const rs: any = await this.api.get(
+          `/explorer/transaction-list/${params.user_address}?page=${params.page}&limit=${params.limit}&type=${params.type}`,
+        );
+        return rs;
+      }
       const rs: any = await this.api.get(
         `/explorer/token-transaction-list/${params.user_address}?page=${params.page}&limit=${params.limit}&type=${params.type}`,
       );

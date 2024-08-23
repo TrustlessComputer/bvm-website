@@ -150,6 +150,16 @@ const TransactionsTabBitcoin = (props: IProps) => {
           letterSpacing: '-0.5px',
         },
         render(data: IBitcoinTokenTransaction) {
+          let from = '';
+          if (balanceType === 'bitcoin') {
+            if (
+              data.from.toLowerCase().split(',').includes(address.toLowerCase())
+            ) {
+              from = address;
+            }
+          } else {
+            from = data.from;
+          }
           return (
             <Flex
               gap={6}
@@ -161,12 +171,11 @@ const TransactionsTabBitcoin = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                if (data.from)
-                  window.open(`https://mempool.space/address/${data.from}`);
+                if (from) window.open(`https://mempool.space/address/${from}`);
               }}
             >
               <Text className={s.title}>
-                {data.from ? shortCryptoAddress(data.from, 10) : '-'}
+                {from ? shortCryptoAddress(from, 10) : '-'}
               </Text>
             </Flex>
           );
@@ -184,6 +193,20 @@ const TransactionsTabBitcoin = (props: IProps) => {
           letterSpacing: '-0.5px',
         },
         render(data: IBitcoinTokenTransaction) {
+          let to = '';
+          if (balanceType === 'bitcoin') {
+            if (
+              data.to
+                .toLowerCase()
+                .split(',')
+                .includes(address.toLowerCase()) &&
+              Number(data?.amount) > 0
+            ) {
+              to = address;
+            }
+          } else {
+            to = data.to;
+          }
           return (
             <Flex
               gap={6}
@@ -195,10 +218,12 @@ const TransactionsTabBitcoin = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                window.open(`https://mempool.space/address/${data.to}`);
+                if (to) window.open(`https://mempool.space/address/${to}`);
               }}
             >
-              <Text className={s.title}>{shortCryptoAddress(data.to, 10)}</Text>
+              <Text className={s.title}>
+                {to ? shortCryptoAddress(to, 10) : '-'}
+              </Text>
             </Flex>
           );
         },
@@ -218,7 +243,19 @@ const TransactionsTabBitcoin = (props: IProps) => {
           return (
             <Flex gap={3} alignItems={'center'} width={'100%'}>
               <Flex gap={2} alignItems={'center'}>
-                <Text className={s.title}>
+                <Text
+                  className={s.title}
+                  color={
+                    Number(data?.amount) === 0 || balanceType !== 'bitcoin'
+                      ? '#000'
+                      : Number(data?.amount) < 0
+                      ? 'red !important'
+                      : 'green !important'
+                  }
+                >
+                  {Number(data?.amount) > 0 && balanceType === 'bitcoin'
+                    ? '+'
+                    : ''}
                   {formatCurrency(data?.amount, 0, 6)}{' '}
                   {data.transaction_symbol || data.symbol}
                 </Text>
@@ -227,6 +264,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
           );
         },
       },
+
       {
         id: 'time',
         label: 'Time',
@@ -252,8 +290,49 @@ const TransactionsTabBitcoin = (props: IProps) => {
           );
         },
       },
+      {
+        id: 'state',
+        label: 'Status',
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: IBitcoinTokenTransaction) {
+          let color = '#000';
+          let status = '';
+          switch (data.state) {
+            case 'pending':
+              status = 'Pending';
+              color = 'orange';
+              break;
+            case 'success':
+              status = 'Completed';
+              color = 'green';
+              break;
+            case 'fail':
+              status = 'Failed';
+              color = 'red';
+              break;
+            default:
+              break;
+          }
+          return (
+            <Flex gap={3} alignItems={'center'} width={'100%'}>
+              <Flex gap={2} alignItems={'center'}>
+                <Text className={s.title} color={`${color} !important`}>
+                  {status || '-'}
+                </Text>
+              </Flex>
+            </Flex>
+          );
+        },
+      },
     ];
-  }, []);
+  }, [address, balanceType]);
 
   return (
     <Flex direction={'column'}>
@@ -284,7 +363,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
           </Box>
         ))}
       </Flex>
-      <Box className={s.container} h="60vh">
+      <Box className={`${s.container}`} h="60vh">
         <ScrollWrapper
           onFetch={() => {
             refParams.current = {
@@ -300,43 +379,14 @@ const TransactionsTabBitcoin = (props: IProps) => {
           wrapClassName={s.wrapScroll}
           dependData={list}
         >
-          {balanceType === 'bitcoin' ? (
-            <>
-              <Flex w="100%" gap={{ base: '16px', lg: '24px' }}>
-                {list.length > 0 &&
-                  list.map((item) => {
-                    return (
-                      <Flex direction={'column'} className={s.shadow}>
-                        <Flex direction={'column'} p={'8px'}>
-                          <Text color={'#898989'}>
-                            {item.inscription_number}
-                          </Text>
-                          <Text>
-                            {item.symbol || item.inscription_id || '-'}
-                          </Text>
-                        </Flex>
-                      </Flex>
-                    );
-                  })}
-              </Flex>
-              {!isFetching && list.length === 0 && (
-                <EmptyList
-                  color={'#000'}
-                  labelText={`No transactions found.`}
-                  emptyIcon={<Image src={'/icons/icon-empty.svg'} />}
-                />
-              )}
-            </>
-          ) : (
-            <ListTable
-              data={list}
-              columns={columns}
-              className={s.tableContainer}
-              showEmpty={!isFetching}
-              emptyLabel="No transactions found."
-              emptyIcon={<Image src={'/icons/icon-empty.svg'} />}
-            />
-          )}
+          <ListTable
+            data={list}
+            columns={columns}
+            className={s.tableContainer}
+            showEmpty={!isFetching}
+            emptyLabel="No transactions found."
+            emptyIcon={<Image src={'/icons/icon-empty.svg'} />}
+          />
           {isFetching && <AppLoading className={s.loading} />}
         </ScrollWrapper>
       </Box>
