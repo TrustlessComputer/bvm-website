@@ -64,11 +64,6 @@ const BridgeRenderer = () => {
 
             if (!option) return null;
 
-            console.log('BRIDGE APP CODE --- ', {
-              detailBridgesMapperStatus,
-              AA: option.key,
-              BB: item.key,
-            });
             return (
               <ChainDraggable
                 right
@@ -90,15 +85,11 @@ const BridgeRenderer = () => {
                     zIndex={item.options.length - opIdx}
                     // TODO: @Tony
                     status={{
-                      label:
-                        detailBridgesMapperStatus[option.key]?.label ||
-                        'Setting up',
+                      label: detailBridgesMapperStatus[option.key]?.label,
                       backgroundColor:
-                        detailBridgesMapperStatus[option.key]
-                          ?.backgroundColor || '#97F095',
+                        detailBridgesMapperStatus[option.key]?.backgroundColor,
                       textColor:
-                        detailBridgesMapperStatus[option.key]?.textColor ||
-                        '#000',
+                        detailBridgesMapperStatus[option.key]?.textColor,
                     }}
                   >
                     <Label icon={option.icon} title={option.title} />
