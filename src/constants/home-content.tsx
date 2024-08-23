@@ -125,7 +125,7 @@ export const STEP_1_SECTION = {
       bgColor:
         'linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
       link: {
-        url: 'studio?template=4',
+        url: '/studio?template=4',
         target: '_blank',
       },
       tags: ['$69/day'],
@@ -212,7 +212,7 @@ export const STEP_2_SECTION = {
       bgColor:
         'linear-gradient(198deg, rgba(40, 142, 185, 0.40) 7.57%, rgba(0, 57, 75, 0.32) 105.99%)',
       link: {
-        url: '/studio',
+        url: '/studio?template=5',
         target: '_blank',
       },
       tags: [''],

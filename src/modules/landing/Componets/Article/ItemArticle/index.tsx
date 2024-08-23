@@ -10,7 +10,7 @@ export default function ItemArticle({ data }: { data: IBlog }) {
     const tmp = LOGOS.filter((itemLogo) => {
       return itemLogo.id === data.logo;
     });
-    return tmp.length ? tmp[0].blackLogo : '';
+    return tmp.length ? tmp[0].img : '';
   }, [data]);
   return (
     <div className={s.itemArticle}>
