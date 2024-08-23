@@ -25,10 +25,20 @@ export default function useCheckNodes() {
         (i) => i === 1,
       );
 
+      console.log("[useCheckNodes] useEffect[field['bridge_apps']]", {
+        nodes,
+        nodeIndex,
+        dappIndex,
+        draggedDappIndexesSignal: draggedDappIndexesSignal.value,
+        draggedIds2DSignal: draggedIds2DSignal.value,
+      });
+
       if (nodeIndex != -1) {
         nodes.splice(nodeIndex, 1);
         setNodes(removeItemAtIndex(nodes, nodeIndex));
+      }
 
+      if (dappIndex !== -1) {
         removeItemAtIndex(draggedDappIndexesSignal.value, dappIndex);
         removeItemAtIndex(draggedIds2DSignal.value, dappIndex);
       }
