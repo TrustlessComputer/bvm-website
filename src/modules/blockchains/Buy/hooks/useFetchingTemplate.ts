@@ -13,7 +13,7 @@ import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
 import { Edge, MarkerType } from '@xyflow/react';
-import { useParams, usePathname } from 'next/navigation';
+import { useParams, usePathname, useSearchParams } from 'next/navigation';
 import React, { useMemo } from 'react';
 import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
 import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
@@ -33,11 +33,11 @@ import {
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import useUpdateFlowStore from '../stores/useUpdateFlowStore';
+import useAvailableListTemplate from '../studio/useAvailableListTemplate';
+import useModelCategory from '../studio/useModelCategory';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
-import useAvailableListTemplate from '../studio/useAvailableListTemplate';
-import useModelCategory from '../studio/useModelCategory';
 
 export default function useFetchingTemplate() {
   const { templateList } = useAvailableListTemplate();
@@ -60,6 +60,8 @@ export default function useFetchingTemplate() {
   const { field, setFields } = useOrderFormStoreV3();
   const { setUpdated, updated } = useUpdateFlowStore();
   const param = useParams();
+  const searchParams = useSearchParams();
+  const refUpdatedBaseDapp = React.useRef(false);
 
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { initTemplate, setTemplate } = useTemplate();
@@ -184,7 +186,8 @@ export default function useFetchingTemplate() {
       setEdges(edgeData);
       setNodes(newNodes);
       setNeedSetDataTemplateToBox(false);
-      setNeedCheckAndAddAA(true);
+
+      if (isUpdateFlow) setNeedCheckAndAddAA(true);
       return;
     }
 
@@ -198,10 +201,6 @@ export default function useFetchingTemplate() {
     const draggedIds2D: typeof templateIds2DSignal.value = Array(
       totalBase,
     ).fill([]);
-
-
-
-
 
     Object.keys(templateForm).forEach((fieldKey) => {
       const value = templateForm[fieldKey];
@@ -363,7 +362,13 @@ export default function useFetchingTemplate() {
     setNeedSetDataTemplateToBox(false);
     setNeedCheckAndAddAA(true);
 
-    console.log('nodes----', {newArray, edgeData,formDapp, totalBase, draggedIds2D });
+    console.log('nodes----', {
+      newArray,
+      edgeData,
+      formDapp,
+      totalBase,
+      draggedIds2D,
+    });
   };
 
   const parseDappApiToDappModel = async () => {
@@ -490,8 +495,6 @@ export default function useFetchingTemplate() {
   React.useEffect(() => {
     if (!isUpdateFlow) return;
 
-    console.log('zzzzzzzzzzz');
-
     if (updated) {
       draggedDappIndexesSignal.value = [];
       draggedIds2DSignal.value = [];
@@ -503,10 +506,10 @@ export default function useFetchingTemplate() {
   }, [counterFetchedDapp]);
 
   React.useEffect(() => {
-    if (!needCheckAndAddAA) return;
+    if (!needCheckAndAddAA || !isUpdateFlow) return;
 
     checkAndAddAA();
-  }, [needCheckAndAddAA, isAAInstalled]);
+  }, [needCheckAndAddAA, isAAInstalled, isUpdateFlow]);
 
   React.useEffect(() => {
     if (!needSetDataTemplateToBox) return;
@@ -520,5 +523,5 @@ export default function useFetchingTemplate() {
     } else {
       initTemplate(0);
     }
-  }, [categoriesTemplates]);
+  }, [categoriesTemplates, isUpdateFlow]);
 }
