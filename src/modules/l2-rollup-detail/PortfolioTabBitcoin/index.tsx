@@ -18,9 +18,12 @@ import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
 import EmptyList from '@/components/ListTable/EmptyList';
+import BigNumber from 'bignumber.js';
 
 const PortfolioTabBitcoin = () => {
-  const { address } = useContext(L2RollupDetailContext);
+  const { address, rollupBitcoinBalances, totalBitcoinBalanceUsd } = useContext(
+    L2RollupDetailContext,
+  );
 
   const rollupApi = new CRollupL2DetailBitcoinAPI();
 
@@ -124,6 +127,7 @@ const PortfolioTabBitcoin = () => {
               w={'100%'}
               alignItems={'center'}
               justifyContent={'space-between'}
+              minW={'100px'}
             >
               <Flex position={'relative'}>
                 <Text className={s.title}>{data.symbol}</Text>
@@ -159,7 +163,9 @@ const PortfolioTabBitcoin = () => {
               width={'100%'}
               justifyContent={'space-between'}
             >
-              <Text className={s.title}>-</Text>
+              <Text className={s.title}>
+                ${formatCurrency(data.token_price, 0, 6)}
+              </Text>
             </Flex>
           );
         },
@@ -201,10 +207,19 @@ const PortfolioTabBitcoin = () => {
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
         },
-        render(data: ITokenChain) {
+        render(data: IBalanceBitcoin) {
           return (
             <Flex alignItems={'center'}>
-              <Text className={s.title}>-</Text>
+              <Text className={s.title}>
+                $
+                {formatCurrency(
+                  new BigNumber(data.holding_amount)
+                    .multipliedBy(data.token_price)
+                    .toNumber(),
+                  0,
+                  2,
+                )}
+              </Text>
             </Flex>
           );
         },
@@ -212,14 +227,69 @@ const PortfolioTabBitcoin = () => {
     ];
   }, []);
 
+  const renderPorfolio = () => {
+    return (
+      <Grid
+        w="100%"
+        mb="32px"
+        gridTemplateColumns={{
+          base: 'repeat(auto-fill, 200px)',
+        }}
+        gap={{ base: '16px', lg: '20px' }}
+        p={{ base: '12px', lg: '24px' }}
+        borderRadius={'12px'}
+        className={s.shadow}
+      >
+        {rollupBitcoinBalances &&
+          rollupBitcoinBalances.map((detail) => {
+            const totalUsd = detail.amountUsd;
+            return (
+              <Flex direction={'row'} alignItems={'center'} gap={'12px'}>
+                {/* <Image
+                  src={detail.rollup?.icon}
+                  w={'40px'}
+                  h={'40px'}
+                  borderRadius={'50%'}
+                /> */}
+                <Flex direction={'column'}>
+                  <Text fontWeight={'400'} color={'#808080'}>
+                    {detail.title}
+                  </Text>
+                  <Flex direction={'row'} alignItems={'center'} gap={'8px'}>
+                    <Text fontWeight={'600'} fontSize={'18px'}>
+                      ${formatCurrency(totalUsd, 2, 2)}
+                    </Text>
+                    <Text
+                      color={'#808080'}
+                      fontSize={'14px'}
+                      fontWeight={'400'}
+                    >
+                      {totalUsd && totalBitcoinBalanceUsd
+                        ? ((totalUsd / totalBitcoinBalanceUsd) * 100).toFixed(0)
+                        : 0}
+                      %
+                    </Text>
+                  </Flex>
+                </Flex>
+              </Flex>
+            );
+          })}
+      </Grid>
+    );
+  };
+
   return (
     <Flex direction={'column'}>
+      {rollupBitcoinBalances &&
+        rollupBitcoinBalances?.length > 0 &&
+        renderPorfolio()}
       <Flex
         gap={'8px'}
         bg={'#F5F5F5'}
         w={'fit-content'}
-        p={'2px 8px'}
+        p={'2px 6px'}
         borderRadius={'8px'}
+        mb={'20px'}
       >
         {BalanceTypes.map((balance) => (
           <Box

@@ -28,60 +28,55 @@ const PortfolioTab = () => {
         borderRadius={'12px'}
         className={s.chains}
       >
-        {rollupDetails.length > 0 &&
-          rollupDetails.map((detail) => {
-            if (!detail.rollup) return;
+        {rollupDetails.map((detail) => {
+          if (!detail.rollup) return;
 
-            const totalUsd = detail.balances?.reduce((accum, item) => {
-              if (!rollupTokensRate) return accum;
-              const tokenRateUsd = rollupTokensRate[item.token_name];
-              if (!tokenRateUsd) return accum;
-              return (
-                accum +
-                new BigNumber(item.value)
-                  .multipliedBy(new BigNumber(tokenRateUsd))
-                  .toNumber()
-              );
-            }, 0);
-
+          const totalUsd = detail.balances?.reduce((accum, item) => {
+            if (!rollupTokensRate) return accum;
+            const tokenRateUsd = rollupTokensRate[item.token_name];
+            if (!tokenRateUsd) return accum;
             return (
-              <Flex direction={'row'} alignItems={'center'} gap={'12px'}>
-                <Image
-                  src={detail.rollup?.icon}
-                  w={'40px'}
-                  h={'40px'}
-                  borderRadius={'50%'}
-                />
-                <Flex direction={'column'}>
-                  <Text fontWeight={'400'} color={'#808080'}>
-                    {detail.rollup?.name}
+              accum +
+              new BigNumber(item.value)
+                .multipliedBy(new BigNumber(tokenRateUsd))
+                .toNumber()
+            );
+          }, 0);
+
+          return (
+            <Flex direction={'row'} alignItems={'center'} gap={'12px'}>
+              <Image
+                src={detail.rollup?.icon}
+                w={'40px'}
+                h={'40px'}
+                borderRadius={'50%'}
+              />
+              <Flex direction={'column'}>
+                <Text fontWeight={'400'} color={'#808080'}>
+                  {detail.rollup?.name}
+                </Text>
+                <Flex direction={'row'} alignItems={'center'} gap={'8px'}>
+                  <Text fontWeight={'600'} fontSize={'18px'}>
+                    ${formatCurrency(totalUsd, 2, 2)}
                   </Text>
-                  <Flex direction={'row'} alignItems={'center'} gap={'8px'}>
-                    <Text fontWeight={'600'} fontSize={'18px'}>
-                      ${formatCurrency(totalUsd, 2, 2)}
-                    </Text>
-                    <Text
-                      color={'#808080'}
-                      fontSize={'14px'}
-                      fontWeight={'400'}
-                    >
-                      {totalUsd
-                        ? ((totalUsd / totalBalanceUsd) * 100).toFixed(0)
-                        : 0}
-                      %
-                    </Text>
-                  </Flex>
+                  <Text color={'#808080'} fontSize={'14px'} fontWeight={'400'}>
+                    {totalUsd
+                      ? ((totalUsd / totalBalanceUsd) * 100).toFixed(0)
+                      : 0}
+                    %
+                  </Text>
                 </Flex>
               </Flex>
-            );
-          })}
+            </Flex>
+          );
+        })}
       </Grid>
     );
   };
 
   return (
     <Box className={s.container}>
-      {renderChains()}
+      {rollupDetails.length > 0 && renderChains()}
       <Balances />
     </Box>
   );

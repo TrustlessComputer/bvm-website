@@ -41,7 +41,7 @@ const L2RollupDetail = () => {
     isValidAddress,
     isBTCAddress,
     totalBalanceUsd,
-    totalBTCBalance,
+    totalBitcoinBalanceUsd,
   } = useContext(L2RollupDetailContext);
 
   if (!isValidAddress) {
@@ -97,7 +97,7 @@ const L2RollupDetail = () => {
           <Flex gap="6px" direction={'column'}>
             <Text fontWeight={'500'} fontSize={{ base: '28px', md: '32px' }}>
               {isBTCAddress
-                ? `${formatCurrency(totalBTCBalance?.balance, 2, 6)} BTC`
+                ? `$${formatCurrency(totalBitcoinBalanceUsd, 2, 2)}`
                 : `$${formatCurrency(totalBalanceUsd, 2, 2)}`}
             </Text>
             <Flex direction={'row'} alignItems={'center'} gap={'8px'}>
@@ -136,7 +136,7 @@ const L2RollupDetail = () => {
                   <PortfolioTabBitcoin />
                 </TabPanel>
                 <TabPanel minH={'40vh'}>
-                  <TransactionsTab />
+                  <div></div>
                 </TabPanel>
               </TabPanels>
             </>
