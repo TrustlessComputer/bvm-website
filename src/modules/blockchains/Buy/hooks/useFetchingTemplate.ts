@@ -132,10 +132,6 @@ export default function useFetchingTemplate() {
     setNeedSetDataTemplateToBox(true);
   };
 
-  const checkParam = useMemo(() => {
-    return !!param.id;
-  }, [param.id]);
-
   const dataTemplateToBox = async () => {
     formDappSignal.value = {};
     formTemplateDappSignal.value = {};
@@ -171,10 +167,10 @@ export default function useFetchingTemplate() {
       data: {
         node: 'chain',
         title: 'Blockchain',
-        sourceHandles: checkParam
+        sourceHandles: isUpdateFlow
           ? [`${rootNode}-s-account-abstraction`, `${rootNode}-s-bridge_apps`]
           : [],
-        // sourceHandles: checkParam
+        // sourceHandles: isUpdateFlow
         //   ? [`${rootNode}-s-account-abstraction`]
         //   : [],
         targetHandles: [],
@@ -351,7 +347,6 @@ export default function useFetchingTemplate() {
     //     };
     //   });
     // }
-
     const map: any = {};
     for (const element of [...newNodes, ...nodesData, ..._newNodes]) {
       map[element.id] = element;
@@ -371,14 +366,6 @@ export default function useFetchingTemplate() {
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
     setNeedCheckAndAddAA(true);
-
-    // console.log('nodes----', {
-    //   newArray,
-    //   edgeData,
-    //   formDapp,
-    //   totalBase,
-    //   draggedIds2D,
-    // });
   };
 
   const parseDappApiToDappModel = async () => {
