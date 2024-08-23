@@ -72,7 +72,7 @@ export const STEP_1_SECTION = {
       homeImage: '/landing-v5/home-zk-hybrid.png',
       bgColor: 'linear-gradient(180deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
       link: {
-        url: '',
+        url: '/studio',
         target: '_blank',
       },
       popular: true,
@@ -112,7 +112,7 @@ export const STEP_1_SECTION = {
 
       bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%)',
       link: {
-        url: '',
+        url: '/studio',
         target: '_blank',
       },
       tags: ['$199/day'],
@@ -212,7 +212,7 @@ export const STEP_2_SECTION = {
       bgColor:
         'linear-gradient(198deg, rgba(40, 142, 185, 0.40) 7.57%, rgba(0, 57, 75, 0.32) 105.99%)',
       link: {
-        url: '',
+        url: '/studio',
         target: '_blank',
       },
       tags: [''],
