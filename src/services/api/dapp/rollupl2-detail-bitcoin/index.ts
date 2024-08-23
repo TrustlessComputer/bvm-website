@@ -1,5 +1,9 @@
 import CDappApiClient from './dapp.client';
-import { IBalanceBitcoin, IBalanceBitcoinInfo } from './interface';
+import {
+  IBalanceBitcoin,
+  IBalanceBitcoinInfo,
+  IBitcoinTokenTransaction,
+} from './interface';
 
 class CRollupL2DetailBitcoinAPI extends CDappApiClient {
   getRollupL2BitcoinBalances = async (
@@ -23,6 +27,19 @@ class CRollupL2DetailBitcoinAPI extends CDappApiClient {
       return rs;
     } catch (error) {
       return undefined;
+    }
+  };
+
+  getRollupL2BitcoinTokenTransactions = async (
+    params: any,
+  ): Promise<IBitcoinTokenTransaction[]> => {
+    try {
+      const rs: any = await this.api.get(
+        `/explorer/token-transaction-list/${params.user_address}?page=${params.page}&limit=${params.limit}&type=${params.type}`,
+      );
+      return rs;
+    } catch (error) {
+      return [];
     }
   };
 }
