@@ -33,8 +33,7 @@ export default function HeroVideo() {
                 <p>Bitcoin Rollup as a Service</p>
               </div>
               <h3 className={s.content_heading}>
-                Launch your own ZK Rollup on Bitcoin with drags and drops for
-                just $99/month.
+                Launch your own Bitcoin chain with drags and drops.
               </h3>
               <div className={s.groupBtn}>
                 <div

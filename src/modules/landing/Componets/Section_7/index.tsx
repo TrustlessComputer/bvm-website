@@ -35,13 +35,12 @@ import { useMemo } from 'react';
 const Section_7 = () => {
   const numberSlide = isMobile ? 1 : isTablet ? 2 : 4;
 
-
   const renderCard = (item: IBlog) => {
     const getLogo = useMemo((): string => {
-      const tmp = LOGOS.filter((itemLogo => {
+      const tmp = LOGOS.filter((itemLogo) => {
         return itemLogo.id === item.logo;
-      }));
-      return tmp.length ? tmp[0].img : '';
+      });
+      return tmp.length ? tmp[0].blackLogo : '';
     }, [item]);
     return (
       <Box
@@ -55,22 +54,22 @@ const Section_7 = () => {
           <CardBody p={[0]} paddingRight={['20px']}>
             <Image
               src={item.imageUrl}
-              alt='thumb image'
+              alt="thumb image"
               width={'100%'}
               height={200}
               objectFit={'cover'}
             />
-            {
-              getLogo && <div className={s.cardLogo}>
+            {getLogo && (
+              <div className={s.cardLogo}>
                 <Image
                   src={getLogo}
-                  alt='thumb image'
+                  alt="thumb image"
                   width={'100%'}
                   height={28}
                   objectFit={'contain'}
                 />
               </div>
-            }
+            )}
 
             <Box height={'20px'} />
             <VStack align={'flex-start'}>
@@ -93,11 +92,8 @@ const Section_7 = () => {
   };
 
   return (
-    <Box
-      bgColor={'#fff'}
-      className={s.slide}
-    >
-      <Box className='container'>
+    <Box bgColor={'#fff'} className={s.slide}>
+      <Box className="container">
         <Text className={s.heading} fontSize={['48px']} color={'#000'}>
           <Chars>
             Oh, and the <span>press loves us too!</span>

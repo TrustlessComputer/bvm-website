@@ -33,7 +33,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   //   bgColor:
   //     'linear-gradient(226.59deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
   //   description:
-  //     'Experience trading on a Dex with the same seamless experience as a Cex using an order book system.',
+  //     'Experience trading on a DEX with the same seamless experience as a Cex using an order book system.',
   //   tags: ['RuneChain'],
   //   link: {
   //     url: 'https://runechain.com/',
@@ -102,8 +102,8 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
 
   {
     id: 'nakaFuture',
-    image: '/explore/naka-dex.png',
-    title: 'Naka Dex ',
+    image: '/explore/dapp4.png',
+    title: 'Naka DEX ',
     bgColor:
       'linear-gradient(227deg, #FD8DFF -7.83%, #FF63B7 21.47%, #E400CD 69.37%, #FADEFF 118.41%)',
     description:

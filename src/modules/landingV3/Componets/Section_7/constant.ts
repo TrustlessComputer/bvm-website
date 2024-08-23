@@ -14,47 +14,61 @@ export interface IBlog {
 }
 
 export const LOGOS = [
-  {
-    id: 'cryptobriefing',
-    img: 'landing/images/cryptobriefing.png',
-  },
+  // {
+  //   id: 'cryptobriefing',
+  //   whiteLogo: 'landing/images/cryptobriefing.png',
+  // },
   {
     id: 'blockworks',
-    img: 'landing/images/blockworks.png',
+    whiteLogo: 'landing/images/blockwork.svg',
+    blackLogo: 'landing/images/blockwork_black.svg',
   },
   {
     id: 'cointelegraph_brazil',
-    img: 'landing/images/cointelegraph.svg',
+    whiteLogo: 'landing/images/cointelegraph.svg',
+    blackLogo: 'landing/images/cointelegraph_black.svg',
   },
   {
     id: 'coinmarketcap',
-    img: 'landing/images/coinmarketcap.svg',
+    whiteLogo: 'landing/images/coinmarketcap.svg',
+    blackLogo: 'landing/images/coinmarketcap_black.svg',
   },
   {
     id: 'nftnow',
-    img: 'landing/images/ic-nftnow.svg',
+    whiteLogo: 'landing/images/ic-nftnow.svg',
+    blackLogo: 'landing/images/ic-nftnow_black.svg',
   },
   {
     id: 'defiant',
-    img: 'landing/images/defiant.svg',
+    whiteLogo: 'landing/images/defiant.svg',
+    blackLogo: 'landing/images/defiant_black.svg',
   },
   {
     id: 'nft-evening',
-    img: 'landing/images/nft-evening.svg',
+    whiteLogo: 'landing/images/nft-evening.svg',
+    blackLogo: 'landing/images/nft-evening_black.svg',
   },
   {
     id: 'bsc_news',
-    img: 'landing/images/bscn.svg',
+    whiteLogo: 'landing/images/bscn.svg',
+    blackLogo: 'landing/images/bscn_black.svg',
   },
 
   {
     id: 'coindesk',
-    img: 'landing/images/coindesk.png',
+    whiteLogo: 'landing/images/coindesk.svg',
+    blackLogo: 'landing/images/coindesk_black.svg',
   },
   {
-    id: 'clout_scoop',
-    img: 'landing/images/clout_scoop.png',
+    id: 'theblock_brazil',
+    whiteLogo: '/landing/images/the-block.svg',
+    blackLogo: 'landing/images/the-block_black.svg',
   },
+  // {
+  //   id: 'clout_scoop',
+  //   whiteLogo: 'landing/images/clout_scoop.png',
+  //   blackLogo: 'landing/images/blockwork.svg',
+  // },
 ];
 
 const BLOGS = [
@@ -73,7 +87,7 @@ const BLOGS = [
     title: `Bitcoin Virtual Machine team rolls out ZK rollups service to scale Bitcoin`,
     desc: `The team behind the Bitcoin Virtual Machine (BVM) last week launched BitZK, a zero-knowledge proofs service that enhances Bitcoin's scalability by allowing users to create rollups and migrate applications from Ethereum to Bitcoin.`,
     logo: 'theblock_brazil',
-    logoUrl: 'https://storage.googleapis.com/bvm-network/image/logo-url-v2.svg',
+    // logoUrl: 'https://storage.googleapis.com/bvm-network/image/logo-url-v2.svg',
     imageUrl: `https://storage.googleapis.com/bvm-network/image/20240509_Bitcoin_News_5-1200x675.jpg`,
     link: 'https://www.theblock.co/post/302137/bitcoin-virtual-machine-team-rolls-out-zk-rollups-service-to-scale-bitcoin',
     linkTarget: '_blank',
@@ -157,15 +171,15 @@ const BLOGS = [
   //   link: 'https://gamestarter.com/blog/the-new-bitcoin-city',
   //   linkTarget: '_blank',
   // },
-  {
-    id: '15',
-    title: `A New Bitcoin Based Arcade Game Is Making Waves Among Gamers`,
-    desc: `New Bitcoin City Platform Elevates Gaming with Payouts and NFTs on the Bitcoin Blockchain.`,
-    logo: 'clout_scoop',
-    imageUrl: `${CDN_URL_BLOGS}/15.png`,
-    link: 'https://cloutscoop.com/2023/08/02/a-new-bitcoin-based-arcade-game-is-making-waves-among-gamers/',
-    linkTarget: '_blank',
-  },
+  // {
+  //   id: '15',
+  //   title: `A New Bitcoin Based Arcade Game Is Making Waves Among Gamers`,
+  //   desc: `New Bitcoin City Platform Elevates Gaming with Payouts and NFTs on the Bitcoin Blockchain.`,
+  //   logo: 'clout_scoop',
+  //   imageUrl: `${CDN_URL_BLOGS}/15.png`,
+  //   link: 'https://cloutscoop.com/2023/08/02/a-new-bitcoin-based-arcade-game-is-making-waves-among-gamers/',
+  //   linkTarget: '_blank',
+  // },
   {
     id: '9',
     title: `BRC-721: The Token Standard Defying Bitcoin’s 4MB Storage Limit`,
