@@ -9,7 +9,6 @@ import { IModelOption } from '@/types/customize-model';
 import s from './styles.module.scss';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
-import { formAccountAbtractionSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
 
 const MIN_FEE_RATE = 0;
 const MAX_FEE_RATE = 1 * 1e9;
@@ -79,10 +78,6 @@ const FeeRateInput = (props: Props) => {
     if (needValidate) {
       checkFeeRate(text);
     }
-    formAccountAbtractionSignal.value = {
-      ...formAccountAbtractionSignal.value,
-      feeRate: text,
-    }
   };
 
   useEffect(() => {
@@ -132,7 +127,6 @@ const FeeRateInput = (props: Props) => {
           placeholder="0 (gasless)"
           value={feeRate}
           disabled={isCanNotEdit}
-          defaultValue={formAccountAbtractionSignal.value?.feeRate || ''}
           onChange={(e) => {
             const text = e.target.value;
             setFeeRateFocused(true);

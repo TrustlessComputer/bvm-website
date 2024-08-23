@@ -26,6 +26,8 @@ const BuyPage = () => {
   useFixScrollOverDrag();
   useNodeFlowControl();
   useGettingDappLego();
+  // useCheckNodes();
+  // useCheckEdges();
 
   const { tabActive } = useTabs((state) => state);
   const isTabCode = React.useMemo(() => {
