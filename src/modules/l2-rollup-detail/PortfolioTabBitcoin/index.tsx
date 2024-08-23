@@ -342,7 +342,7 @@ const PortfolioTabBitcoin = () => {
                           borderTopRadius={'12px'}
                           w={'100%'}
                           aspectRatio={1}
-                          src={`https://static.coinall.ltd/cdn/nft/files/collection/${item.inscription_number}-logo.webp`}
+                          // src={`https://static.coinall.ltd/cdn/nft/files/collection/${item.inscription_number}-logo.webp`}
                         />
                         <Flex direction={'column'} p={'8px'}>
                           <Text color={'#898989'}>
