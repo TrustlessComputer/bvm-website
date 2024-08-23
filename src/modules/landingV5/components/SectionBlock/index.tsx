@@ -13,6 +13,7 @@ export type BlockCardItem = Omit<TDappCardProps, 'idx'> & {
   logoUrl?: string;
   id?: string;
   date?: string;
+  popular?: boolean;
 };
 
 export type BlockChainItem = Omit<TChainCard, 'idx'> & {

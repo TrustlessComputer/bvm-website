@@ -54,9 +54,34 @@ export const STEP_1_SECTION = {
   ),
   item: [
     {
+      title: 'DAPP',
+      description: 'Deploy your dapp on an existing Bitcoin chain.',
+      homeImage: '/landing-v5/home-dapp.png',
+
+      bgColor:
+        'linear-gradient(227deg, #C488E0 -7.83%, #B93ECC 21.47%, #8E28A8 69.37%, #DF93EB 118.41%)',
+      link: {
+        url: 'https://docs.bvm.network/bvm/getting-started/deploy-your-own-bitcoin-dapp',
+        target: '_blank',
+      },
+      tags: ['Free'],
+    },
+    {
+      title: 'ZK ROLLUP Hybrid',
+      description: 'Bitcoin L2 with ZK and Hybrid DA',
+      homeImage: '/landing-v5/home-zk-hybrid.png',
+      bgColor: 'linear-gradient(180deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
+      link: {
+        url: '',
+        target: '_blank',
+      },
+      popular: true,
+      tags: ['$39/day'],
+    },
+    {
       title: 'ZK RollUp',
       description: 'Bitcoin L2 with ZK and 100% Bitcoin DA',
-      homeImage: '/landing-v5/home-zk-l2.png',
+      homeImage: '/landing-v5/home-zk-2.png',
 
       bgColor:
         'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
@@ -64,32 +89,7 @@ export const STEP_1_SECTION = {
         url: '/studio?template=1',
         target: '_blank',
       },
-      tags: ['$7,099/month'],
-    },
-    {
-      title: 'ZK ROLLUP Hybrid',
-      description: 'Bitcoin L2 with ZK and Hybrid DA',
-      homeImage: '/landing-v5/home-zk-l3.png',
-
-      bgColor: 'linear-gradient(180deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
-      link: {
-        url: '',
-        target: '_blank',
-      },
-      tags: ['$2,099/month'],
-    },
-    {
-      title: 'Optimistic Rollup Hybrid',
-      description: 'Bitcoin L2 with Optimistic scaling and Hybrid DA',
-      homeImage: '/landing-v5/home-op-1.png',
-
-      bgColor:
-        'linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
-      link: {
-        url: 'studio?template=2',
-        target: '_blank',
-      },
-      tags: ['$1,599/month'],
+      tags: ['$149/day'],
     },
 
     // {
@@ -115,8 +115,22 @@ export const STEP_1_SECTION = {
         url: '',
         target: '_blank',
       },
-      tags: ['$5,124/month'],
+      tags: ['$199/day'],
     },
+    {
+      title: 'Optimistic Rollup Hybrid',
+      description: 'Bitcoin L2 with Optimistic scaling and Hybrid DA',
+      homeImage: '/landing-v5/home-op-1.png',
+
+      bgColor:
+        'linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
+      link: {
+        url: 'studio?template=2',
+        target: '_blank',
+      },
+      tags: ['$69/day'],
+    },
+
     // {
     //   title: 'SVM (Coming soon)',
     //   description: 'Bitcoin L2 powered by Solana VM.',
@@ -163,7 +177,7 @@ export const STEP_2_SECTION = {
       bgColor:
         'linear-gradient(138deg, rgba(120, 170, 143, 0.40) 1.72%, rgba(2, 47, 22, 0.32) 101.88%)',
       link: {
-        url: '',
+        url: '/studio?dapp=token_generation',
         target: '_blank',
       },
       tags: [''],
@@ -175,7 +189,7 @@ export const STEP_2_SECTION = {
       bgColor:
         'linear-gradient(171deg, rgba(255, 212, 103, 0.40) 4.5%, rgba(106, 57, 0, 0.32) 94.43%)',
       link: {
-        url: '',
+        url: '/studio?dapp=yologame',
         target: '_blank',
       },
       tags: [''],
@@ -186,7 +200,7 @@ export const STEP_2_SECTION = {
       homeImage: '/landing-v5/home-staking.png',
       bgColor: 'linear-gradient(#2E2E2E, #2E2E2E)',
       link: {
-        url: '',
+        url: '/studio?dapp=staking',
         target: '_blank',
       },
       tags: [''],
@@ -210,7 +224,7 @@ export const STEP_2_SECTION = {
       bgColor:
         'linear-gradient(138deg, rgba(179, 179, 179, 0.40) 1.72%, rgba(43, 43, 43, 0.32) 101.88%)',
       link: {
-        url: '',
+        url: '/studio',
         target: '_blank',
       },
       tags: [''],
