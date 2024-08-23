@@ -195,3 +195,19 @@ input[type='number'] {
 .whitespace-nowrap {
   white-space: nowrap !important;
 }
+
+.flex-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transform: translateY(1px);
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+}
+
+.text-orange {
+  color: #FA4E0E;
+}

@@ -39,15 +39,24 @@ export const STEP_1_SECTION = {
   tag: '',
   title: (
     <p>
-      Launch your own Bitcoin chain with <span>BVM Studio.</span>
+      Build a <span>Bitcoin chain</span>
     </p>
   ),
-  desc: 'BVM Studio lets you launch a Bitcoin chain with just a few clicks. These Bitcoin L2s enable smart contracts and dapps to use Bitcoin as the secure base layer, extending its capabilities without altering the core protocol, and unlocking trillions in capital.',
+  desc: (
+    <>
+      {' '}
+      <p>
+        Bitcoin chains extend Bitcoin’s capabilities without changing Bitcoin.
+        Drag, drop, and deploy with BVM Studio.
+      </p>{' '}
+      <p>No coding expertise required — just just your big idea.</p>
+    </>
+  ),
   item: [
     {
       title: 'ZK RollUp',
-      description: 'Bitcoin L2 with the power of ZK Proofs',
-      homeImage: '/landing-v5/home-zk.png',
+      description: 'Bitcoin L2 with ZK and 100% Bitcoin DA',
+      homeImage: '/landing-v5/home-zk-l2.png',
 
       bgColor:
         'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
@@ -55,12 +64,24 @@ export const STEP_1_SECTION = {
         url: '/studio?template=1',
         target: '_blank',
       },
-      tags: ['From $99/month'],
+      tags: ['$7,099/month'],
     },
     {
-      title: 'optimistic Rollup',
-      description: 'Bitcoin L2 with optimistic scaling.',
-      homeImage: '/landing-v5/home-op.png',
+      title: 'ZK ROLLUP Hybrid',
+      description: 'Bitcoin L2 with ZK and Hybrid DA',
+      homeImage: '/landing-v5/home-zk-l3.png',
+
+      bgColor: 'linear-gradient(180deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
+      link: {
+        url: '',
+        target: '_blank',
+      },
+      tags: ['$2,099/month'],
+    },
+    {
+      title: 'Optimistic Rollup Hybrid',
+      description: 'Bitcoin L2 with Optimistic scaling and Hybrid DA',
+      homeImage: '/landing-v5/home-op-1.png',
 
       bgColor:
         'linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
@@ -68,58 +89,60 @@ export const STEP_1_SECTION = {
         url: 'studio?template=2',
         target: '_blank',
       },
-      tags: ['From $999/month'],
+      tags: ['$1,599/month'],
     },
-    {
-      title: 'SIDECHAIN (Coming soon)',
-      description: 'Bitcoin L2 with OP_CAT enabled.',
-      homeImage: '/landing-v5/home-sidechain-1.png',
 
-      bgColor: 'linear-gradient(180deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
-      link: {
-        url: '',
-        target: '_blank',
-      },
-      tags: ['From $499/month'],
-    },
+    // {
+    //   title: 'SIDECHAIN (Coming soon)',
+    //   description: 'Bitcoin L2 with OP_CAT enabled.',
+    //   homeImage: '/landing-v5/home-sidechain-1.png',
+
+    //   bgColor: 'linear-gradient(180deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
+    //   link: {
+    //     url: '',
+    //     target: '_blank',
+    //   },
+    //   tags: ['From $499/month'],
+    // },
     {
-      title: 'MEtaProtocol (Coming soon)',
-      description: 'Bitcoin L1 smart contract metaprotocol.',
-      homeImage: '/landing-v5/home-metaprotocol.png',
+      title: 'MEtaProtocol',
+      description:
+        'Bitcoin L1 smart contract metaprotocol with 100% Bitcoin DA',
+      homeImage: '/landing-v5/home-metaprotocol-1.png',
 
       bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%)',
       link: {
         url: '',
         target: '_blank',
       },
-      tags: ['From $1,999/month'],
+      tags: ['$5,124/month'],
     },
-    {
-      title: 'SVM (Coming soon)',
-      description: 'Bitcoin L2 powered by Solana VM.',
-      homeImage: '/landing-v5/home-svm.png',
+    // {
+    //   title: 'SVM (Coming soon)',
+    //   description: 'Bitcoin L2 powered by Solana VM.',
+    //   homeImage: '/landing-v5/home-svm.png',
 
-      bgColor:
-        'linear-gradient(227deg, #AE71FF -7.83%, #9456FF 23.69%, #6610E6 67.99%, #ED68FB 100%)',
-      link: {
-        url: '',
-        target: '_blank',
-      },
-      tags: ['From $99/month'],
-    },
-    {
-      title: 'GPU ROLLUP (Coming soon)',
-      description: 'Bitcoin L2 with GPU-accelerated VM.',
-      homeImage: '/landing-v5/home-gpu.png',
+    //   bgColor:
+    //     'linear-gradient(227deg, #AE71FF -7.83%, #9456FF 23.69%, #6610E6 67.99%, #ED68FB 100%)',
+    //   link: {
+    //     url: '',
+    //     target: '_blank',
+    //   },
+    //   tags: ['From $99/month'],
+    // },
+    // {
+    //   title: 'GPU ROLLUP (Coming soon)',
+    //   description: 'Bitcoin L2 with GPU-accelerated VM.',
+    //   homeImage: '/landing-v5/home-gpu.png',
 
-      bgColor:
-        'linear-gradient(227deg, #C488E0 -7.83%, #B93ECC 21.47%, #8E28A8 69.37%, #DF93EB 118.41%)',
-      link: {
-        url: '',
-        target: '_blank',
-      },
-      tags: ['From $99/month'],
-    },
+    //   bgColor:
+    //     'linear-gradient(227deg, #C488E0 -7.83%, #B93ECC 21.47%, #8E28A8 69.37%, #DF93EB 118.41%)',
+    //   link: {
+    //     url: '',
+    //     target: '_blank',
+    //   },
+    //   tags: ['From $99/month'],
+    // },
   ],
 };
 
@@ -128,10 +151,10 @@ export const STEP_2_SECTION = {
   tag: '',
   title: (
     <p>
-      Level up your Bitcoin chain with <span>Bitcoin apps.</span>
+      Jumpstart with <span>ready-made dapps</span>
     </p>
   ),
-  desc: 'Not sure where to begin? Jumpstart your Bitcoin chain with pre-installed apps that cover a wide range of your needs. Just drag and drop to unlock tools that boost engagement, TVL, and more.',
+  desc: 'Start immediately with pre-installed apps or add new ones from BVM Studio. Drag, drop, and boost engagement, TVL, and more.',
   item: [
     {
       title: 'Token Issuance',
@@ -549,13 +572,11 @@ export const RESEARCH_SECTION = {
   tag: '',
   title: (
     <p>
-      Research.{' '}
-      <span className="whitespace-nowrap">
-        Pioneer research on Bitcoin utilities.
-      </span>
+      Fastest pace of{' '}
+      <span className="whitespace-nowrap">applied research.</span>
     </p>
   ),
-  desc: 'Lead the way in exploring and developing innovative uses for Bitcoin.',
+  desc: 'With BVM, you can experiment and innovate rapidly using the latest technologies. We’re constantly accelerating our innovation to create new ways of building on Bitcoin.',
   item: Research.map((item, idx) => {
     return {
       title: item.title,
@@ -575,10 +596,10 @@ export const OPENSOURCE_SECTION = {
   tag: '',
   title: (
     <p>
-      Open source. <span>Reuse our code and build whatever you want.</span>
+      <span>Open source. </span>
     </p>
   ),
-  desc: 'Use our existing codebase to accelerate your development process. Customize, innovate, and develop anything you want while saving time and resources.',
+  desc: 'We believe our open-source projects will help transform Bitcoin into more than just a currency. Leverage our codebase to get started fast. Customize and build as you need.',
   item: [
     {
       title: 'MetaMask for Bitcoin',
@@ -644,11 +665,57 @@ export const NEWS_SECTION = {
   tag: '',
   title: (
     <p>
-      News. <span>Follow our progress.</span>
+      <span>Follow our progress.</span>
     </p>
   ),
 
-  desc: 'Stay informed with the latest updates and developments from our ecosystem. Get the inside scoop on breakthroughs, features, and more.',
+  desc: (
+    <p>
+      Stay updated on our latest developments.{' '}
+      <a
+        href="https://x.com/BVMnetwork"
+        target="_blank"
+        className="text-orange flex-link"
+        rel="noreferrer"
+      >
+        Follow BVM on
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+        >
+          <path
+            d="M12.6007 0.769531H15.054L9.694 6.8962L16 15.2315H11.0627L7.196 10.1755L2.77067 15.2315H0.316L6.04933 8.6782L0 0.770198H5.06267L8.558 5.39153L12.6007 0.769531ZM11.74 13.7635H13.0993L4.324 2.16086H2.86533L11.74 13.7635Z"
+            fill="#FA4E0E"
+          />
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+        >
+          <path
+            d="M3.33317 12.666L12.6665 3.33268"
+            stroke="#FA4E0E"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M4.6665 3.33398L12.6665 3.33398L12.6665 11.334"
+            stroke="#FA4E0E"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </a>
+    </p>
+  ),
   item: BLOGS.map((item, idx) => {
     return {
       title: item.title,

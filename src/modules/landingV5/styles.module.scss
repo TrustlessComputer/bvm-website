@@ -26,11 +26,11 @@
         .introduction_desc {
             color: rgba(255, 255, 255, 0.60);
             font-family: "SF Pro Display";
-            font-size: 16px;
+            font-size: 20px;
             font-style: normal;
             font-weight: 500;
             line-height: 180%;
-            max-width: 75ch;
+            max-width: 80ch;
 
             /* 36px */
             letter-spacing: 0.6px;
@@ -73,10 +73,10 @@
             }
 
             .icon_link {
-                width: 20px;
-                height: 20px;
+                width: 14px;
+                height: 14px;
                 border-radius: 50%;
-                background: #FFF;
+                // background: #FFF;
                 display: grid;
                 place-items: center;
             }
@@ -182,7 +182,7 @@
         /* 36px */
         letter-spacing: 0.6px;
         margin-bottom: 40px;
-        max-width: 90ch;
+        max-width: 100ch;
         margin-top: 24px;
     }
 

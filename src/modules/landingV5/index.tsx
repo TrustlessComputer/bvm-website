@@ -41,11 +41,12 @@ const LandingV5 = (props: Props) => {
                   Development infrastructure for Bitcoin
                 </div>
                 <div className={s.introduction_desc}>
-                  Join the next generation of Bitcoin builders who use the BVM
-                  infrastructure to deploy Bitcoin chains, build Bitcoin apps,
-                  and together bring Bitcoin to the people.
-                  <br />
-                  <br /> Let’s build.
+                  Bitcoin Virtual Machine (BVM) is Bitcoin’s most comprehensive
+                  development infrastructure for building on Bitcoin. From L2
+                  rollups to GPU-accelerated VMs, we offer everything you need
+                  to push Bitcoin further.
+                  {/* <br />
+                  <br /> Let’s build. */}
                 </div>
               </Box>
               <Box className={s.introduction_links}>
@@ -93,17 +94,15 @@ const LandingV5 = (props: Props) => {
           <BuildItem iconUrl="/landing-v5/ic-step-3.svg">
             <Box>
               <div className={s.tag}>
-                Build your own{' '}
+                Launch your own{' '}
                 <Text as="span" color="#fff">
                   {' '}
                   apps.
                 </Text>
               </div>
               <Box mb="40px" className={s.desc}>
-                Build custom applications tailored to your needs, powered by
-                smart contracts. BVM is EVM compatible, allowing you to
-                seamlessly integrate Etherum applications into your Bitcoin
-                chain.
+                BVM is EVM-compatible. Easily port your Solidity dapps to
+                Bitcoin or build new ones on Bitcoin from scratch.
               </Box>
               <Box
                 mb="176px"
@@ -123,10 +122,12 @@ const LandingV5 = (props: Props) => {
           <BuildItem iconUrl="/landing-v5/ic-stack.svg">
             <Box mb="125px">
               <span className={s.tag}>Powered by</span>
-              <span className={s.title}> the best blockchain tech.</span>
+              <span className={s.title}> the best crypto tech.</span>
               <div className={s.desc}>
-                Build your blockchain with ease using modules from the best
-                blockchain technologies.
+                BVM partners with top crypto projects to create a fully
+                integrated suite of Bitcoin products, offering the widest and
+                deepest functionality across rollups, data layers, and more —
+                all on Bitcoin.
               </div>
               <Box className={s.tech_wrapper}>
                 {TECH_STACKS.map((tech) => (
@@ -163,15 +164,15 @@ const LandingV5 = (props: Props) => {
             <div className={s.last_section}>
               <div className={s.title}>Start building</div>
               <div className={s.desc}>
-                Ready to dive in? Visit Bitcoin RaaS Studio to begin creating
-                your own chains on Bitcoin. Build, innovate, and lead the way.
+                Bring your vision to life with our drag-and-drop tool. No coding
+                expertise needed — just your next big idea.
               </div>
               <Flex alignItems={'center'} gap="20px" flexWrap={'wrap'}>
                 <Link
                   href="/build-bitcoin"
                   className={cn(s.cta_btn, s.primary)}
                 >
-                  Open Bitcoin Studio
+                  Open BVM Studio
                 </Link>
                 <Link
                   href="https://docs.bvm.network/bvm"

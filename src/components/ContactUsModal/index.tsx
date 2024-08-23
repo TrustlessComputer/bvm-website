@@ -40,7 +40,9 @@ const ContactUsModal = ({
   params,
 }: any) => {
   const [subject, setSubject] = useState(subjectDefault);
-  const [methodContact, setMethodContact] = useState(0);
+  const [methodContact, setMethodContact] = useState(
+    METHODS_CONTACT_ENUM.Telegram,
+  );
 
   const { tracking } = useL2ServiceTracking();
 
