@@ -21,6 +21,7 @@ import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import { accountAbstractionAsADapp, bridgesAsADapp } from '../mockup_3';
 import { useTemplateFormStore } from '../stores/useDappStore';
+import useDraggedId2DStore from '../stores/useDraggedId2DStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 
 export default function useNodeFlowControl() {
@@ -33,9 +34,7 @@ export default function useNodeFlowControl() {
     transform: [transformX, transformY, zoomLevel],
   } = store.getState();
   const { templateDapps } = useTemplateFormStore();
-  const [draggedIds2D, setDraggedIds2D] = React.useState<
-    typeof draggedIds2DSignal.value
-  >([]);
+  const { draggedIds2D, setDraggedIds2D } = useDraggedId2DStore();
   const { isAAInstalled, isBridgeInstalled } = useChainProvider();
 
   const [dragState, setDragState] = React.useState<{
@@ -66,7 +65,6 @@ export default function useNodeFlowControl() {
       const totalTemplateDapps = (templateDapps || []).length;
       const needSubtract = totalTemplateDapps > 0;
       const index = dragState.oneD[0] + 1 + totalTemplateDapps;
-      console.log('index', { index, nodes });
 
       const newNodes = cloneDeep(nodes);
 

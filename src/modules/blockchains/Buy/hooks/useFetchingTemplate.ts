@@ -33,11 +33,11 @@ import {
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import useUpdateFlowStore from '../stores/useUpdateFlowStore';
+import useAvailableListTemplate from '../studio/useAvailableListTemplate';
+import useModelCategory from '../studio/useModelCategory';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
-import useAvailableListTemplate from '../studio/useAvailableListTemplate';
-import useModelCategory from '../studio/useModelCategory';
 
 export default function useFetchingTemplate() {
   const { templateList } = useAvailableListTemplate();
@@ -61,7 +61,7 @@ export default function useFetchingTemplate() {
   const { setUpdated, updated } = useUpdateFlowStore();
   const param = useParams();
   const searchParams = useSearchParams();
-  const refUpdatedBaseDapp = React.useRef(false)
+  const refUpdatedBaseDapp = React.useRef(false);
 
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { initTemplate, setTemplate } = useTemplate();
@@ -186,7 +186,8 @@ export default function useFetchingTemplate() {
       setEdges(edgeData);
       setNodes(newNodes);
       setNeedSetDataTemplateToBox(false);
-      setNeedCheckAndAddAA(true);
+
+      if (isUpdateFlow) setNeedCheckAndAddAA(true);
       return;
     }
 
@@ -200,10 +201,6 @@ export default function useFetchingTemplate() {
     const draggedIds2D: typeof templateIds2DSignal.value = Array(
       totalBase,
     ).fill([]);
-
-
-
-
 
     Object.keys(templateForm).forEach((fieldKey) => {
       const value = templateForm[fieldKey];
@@ -365,7 +362,13 @@ export default function useFetchingTemplate() {
     setNeedSetDataTemplateToBox(false);
     setNeedCheckAndAddAA(true);
 
-    console.log('nodes----', {newArray, edgeData,formDapp, totalBase, draggedIds2D });
+    console.log('nodes----', {
+      newArray,
+      edgeData,
+      formDapp,
+      totalBase,
+      draggedIds2D,
+    });
   };
 
   const parseDappApiToDappModel = async () => {
@@ -484,19 +487,6 @@ export default function useFetchingTemplate() {
     setNeedCheckAndAddAA(false);
   };
 
-
-  const updateBaseDapp = () => {
-    const appName = searchParams.get('dapp');
-    if (param?.id || !dapps?.length || !categories?.length || !appName || refUpdatedBaseDapp?.current) return;
-    const dappIndex = dapps.findIndex((dapp) => dapp.key === appName);
-    if (dappIndex === -1) return;
-    draggedDappIndexesSignal.value = [...draggedDappIndexesSignal.value, dappIndex];
-    draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
-    refUpdatedBaseDapp.current = true;
-  }
-
-  console.log('LEON TEST: 111', draggedDappIndexesSignal.value);
-
   React.useEffect(() => {
     fetchData();
     parseDappApiToDappModel();
@@ -504,8 +494,6 @@ export default function useFetchingTemplate() {
 
   React.useEffect(() => {
     if (!isUpdateFlow) return;
-
-    console.log('zzzzzzzzzzz');
 
     if (updated) {
       draggedDappIndexesSignal.value = [];
@@ -518,10 +506,10 @@ export default function useFetchingTemplate() {
   }, [counterFetchedDapp]);
 
   React.useEffect(() => {
-    if (!needCheckAndAddAA) return;
+    if (!needCheckAndAddAA || !isUpdateFlow) return;
 
     checkAndAddAA();
-  }, [needCheckAndAddAA, isAAInstalled]);
+  }, [needCheckAndAddAA, isAAInstalled, isUpdateFlow]);
 
   React.useEffect(() => {
     if (!needSetDataTemplateToBox) return;
@@ -530,14 +518,10 @@ export default function useFetchingTemplate() {
   }, [needSetDataTemplateToBox]);
 
   React.useEffect(() => {
-    updateBaseDapp()
-  }, [dapps, categories])
-
-  React.useEffect(() => {
     if (isUpdateFlow && order) {
       setTemplate(order.selectedOptions || []);
     } else {
       initTemplate(0);
     }
-  }, [categoriesTemplates]);
+  }, [categoriesTemplates, isUpdateFlow]);
 }

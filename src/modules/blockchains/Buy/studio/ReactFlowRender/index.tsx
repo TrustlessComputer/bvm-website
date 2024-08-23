@@ -1,6 +1,5 @@
 import CustomEdge from '@/modules/blockchains/Buy/component4/CustomEdge';
 import CustomNode from '@/modules/blockchains/Buy/component4/CustomNode';
-import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import useHandleReloadNode from '@/modules/blockchains/Buy/hooks/useHandleReloadNode';
 import MModal from '@/modules/blockchains/dapp/components/Modal';
 import { signal, useSignalEffect } from '@preact/signals-react';
@@ -14,6 +13,10 @@ import BridgeNode from '../../component4/YourNodes/BridgeNode';
 import ChainNodeV2 from '../../component4/YourNodes/ChainNodeV2';
 import DappNode from '../../component4/YourNodes/DappNode';
 import { nodeKey } from '../../component4/YourNodes/node.constants';
+import {
+  draggedDappIndexesSignal,
+  draggedIds2DSignal,
+} from '../../signals/useDragSignal';
 import useFlowStore from '../../stores/useFlowStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import s from './styles.module.scss';
@@ -31,7 +34,6 @@ const ReactFlowRenderer = React.memo(() => {
   const [count, setCount] = React.useState(0);
   const path = usePathname();
   const { categories } = useModelCategoriesStore();
-  const { dapps } = useDapps();
 
   const [loaded, setLoaded] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
@@ -47,6 +49,13 @@ const ReactFlowRenderer = React.memo(() => {
       setCount(count + 1);
       needReactFlowRenderSignal.value = false;
     }
+  });
+
+  console.log('[ReactFlowRenderer]', {
+    nodes,
+
+    draggedDappIndexesSignal: draggedDappIndexesSignal.value,
+    draggedIds2DSignal: draggedIds2DSignal.value,
   });
 
   React.useEffect(() => {
