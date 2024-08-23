@@ -12,7 +12,7 @@ import { STORAGE_KEYS } from '@constants/storage-key';
 import { useSignalEffect } from '@preact/signals-react';
 import { useReactFlow } from '@xyflow/react';
 import { usePathname } from 'next/navigation';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 function useHandleReloadNode() {
   const { nodes, setNodes, setEdges } = useFlowStore();
@@ -102,27 +102,13 @@ function useHandleReloadNode() {
     }
   }, [rfInstance]);
 
-  function isExitAANode() {
-    const flow = LocalStorage.getItem(STORAGE_KEYS.LAST_NODES);
-    if (flow?.nodes) {
-      return flow.nodes.some(
-        (node: AppNode) => node.id === 'account-abstraction',
-      );
-    }
-    return false;
-  }
-
-  React.useEffect(() => {
-    setHaveOldData(!!LocalStorage.getItem(STORAGE_KEYS.LAST_NODES));
-  }, [rfInstance]);
 
   return {
     haveOldData,
     setRfInstance,
     onRestore,
     rfInstance,
-    onSave,
-    isExitAANode,
+    onSave
   };
 }
 

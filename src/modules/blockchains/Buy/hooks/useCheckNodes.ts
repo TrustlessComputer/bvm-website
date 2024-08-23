@@ -1,5 +1,5 @@
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
-import useFlowStore from '@/modules/blockchains/Buy/stores/useFlowStore';
+import useFlowStore, { AppState } from '@/modules/blockchains/Buy/stores/useFlowStore';
 import { DappNode } from '@/types/node';
 import { MarkerType } from '@xyflow/react';
 import { useEffect } from 'react';
@@ -66,6 +66,16 @@ export default function useCheckNodes() {
             sourceHandles: [],
           },
         };
+
+        const getHandleNodeBlockChain = nodes.find((item) => item.id === rootNode);
+        getHandleNodeBlockChain?.data?.sourceHandles?.push(
+          `${rootNode}-s-bridge_apps`,
+        );
+
+        nodesData = nodes.map((item) =>
+          item.id === rootNode ? getHandleNodeBlockChain : item,
+        ) as AppState['nodes'];
+
 
         setNodes([...nodesData, newNode]);
         setEdges([
