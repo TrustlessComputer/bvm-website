@@ -10,9 +10,11 @@ import { DndContext } from '@dnd-kit/core';
 import React from 'react';
 import ClearStore from './ClearStore';
 import useAutoUpdateNodePosition from './hooks/useAutoUpdateNodePosition';
+import useCheckNodes from './hooks/useCheckNodes';
 import useGettingDappLego from './hooks/useGettingDappLego';
 import useNodeFlowControl from './hooks/useNodeFlowControl';
 import useOnlyFetchDapp from './hooks/useOnlyFetchDapp';
+import useSetDefaultDapp from './hooks/useSetDefaultDapp';
 import s from './styles_v6.module.scss';
 
 const BuyPage = () => {
@@ -25,8 +27,9 @@ const BuyPage = () => {
   useCalcPrice();
   useFixScrollOverDrag();
   useNodeFlowControl();
+  useSetDefaultDapp();
   useGettingDappLego();
-  // useCheckNodes();
+  useCheckNodes();
   // useCheckEdges();
 
   const { tabActive } = useTabs((state) => state);

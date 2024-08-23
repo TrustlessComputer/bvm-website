@@ -196,6 +196,8 @@ export default memo(function StudioControls() {
                   }
                 }
 
+                if(option?.hidden) return null;
+
                 return (
                   <Draggable
                     key={item.key + '-' + option.key}
@@ -209,6 +211,7 @@ export default memo(function StudioControls() {
                     }}
                     tooltip={option.tooltip}
                   >
+
                     <LegoV3
                       background={item.color}
                       zIndex={item.options.length - optIdx}
