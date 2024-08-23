@@ -190,7 +190,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
           const res = (await rollupBitcoinApi.getRollupL2BitcoinBalances({
             user_address: address,
             type: balanceType.type,
-            page: 0,
+            page: 1,
             limit: 50,
           })) as any;
           return { [balanceType.type]: res };
