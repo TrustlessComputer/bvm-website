@@ -1,7 +1,12 @@
 'use client';
 import CRollupL2DetailAPI from '@/services/api/dapp/rollupl2-detail';
 import CRollupL2DetailBitcoinAPI from '@/services/api/dapp/rollupl2-detail-bitcoin';
-import { IBalanceBitcoinInfo } from '@/services/api/dapp/rollupl2-detail-bitcoin/interface';
+import {
+  BalanceBitcoinType,
+  BalanceTypes,
+  IBalanceBitcoin,
+  IBalanceBitcoinInfo,
+} from '@/services/api/dapp/rollupl2-detail-bitcoin/interface';
 import {
   IRollupDetail,
   ITokenChain,
@@ -21,7 +26,9 @@ export interface IL2RollupDetailContext {
   rollupDetails: IRollupDetail[];
   rollupBalances: ITokenChain[];
   rollupTokensRate?: RollupTokenRate;
-  totalBTCBalance?: IBalanceBitcoinInfo;
+  // Bitcoin
+  totalBitcoinBalanceUsd?: number;
+  rollupBitcoinBalances?: any[];
 }
 
 const initialValue: IL2RollupDetailContext = {
@@ -32,7 +39,9 @@ const initialValue: IL2RollupDetailContext = {
   rollupDetails: [],
   rollupBalances: [],
   rollupTokensRate: undefined,
-  totalBTCBalance: undefined,
+  // Bitcoin
+  totalBitcoinBalanceUsd: 0,
+  rollupBitcoinBalances: [],
 };
 
 export const L2RollupDetailContext =
@@ -48,14 +57,13 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
   const rollupApi = new CRollupL2DetailAPI();
   const rollupBitcoinApi = new CRollupL2DetailBitcoinAPI();
 
-  const isValidAddress = useMemo(
-    () => validateEVMAddress(address) || validateBTCAddress(address),
-    [address],
-  );
-
+  const isEVMAddress = useMemo(() => validateEVMAddress(address), [address]);
   const isBTCAddress = useMemo(() => validateBTCAddress(address), [address]);
 
-  const [totalBTCBalance, setTotalBTCBalance] = useState<IBalanceBitcoinInfo>();
+  const isValidAddress = useMemo(
+    () => isEVMAddress || isBTCAddress,
+    [isEVMAddress, isBTCAddress],
+  );
 
   const [rollupTokensRate, setRollupTokensRate] = useState<RollupTokenRate>();
   const [rollupDetails, setRollupDetails] = useState<IRollupDetail[]>([]);
@@ -100,7 +108,6 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
 
   useEffect(() => {
     fetchRollupBalances();
-    fetchRollupBitcoinBalance();
   }, [address]);
 
   const fetchTokensRate = async () => {
@@ -111,20 +118,99 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
   };
 
   const fetchRollupBalances = async () => {
-    if (!isValidAddress) return;
+    if (!isEVMAddress) return;
     try {
       const data = await rollupApi.getRollupL2Detail(address);
       setRollupDetails(data);
     } catch (error) {}
   };
 
+  // Bitcoin Porfolio
+
+  const [balanceBitcoinInfo, setBalanceBitcoinInfo] =
+    useState<IBalanceBitcoinInfo>();
+  const [assetBitcoin, setAssetBitcoin] =
+    useState<{ [x in BalanceBitcoinType]: IBalanceBitcoin[] }>();
+
+  const rollupBitcoinBalances = useMemo(() => {
+    return [
+      {
+        amountUsd: new BigNumber(balanceBitcoinInfo?.balance || '0')
+          .multipliedBy(
+            new BigNumber(rollupTokensRate ? rollupTokensRate['BTC'] : 0),
+          )
+          .toNumber(),
+        title: 'BTC',
+      },
+      ...BalanceTypes.map((balanceType) => {
+        if (!assetBitcoin) {
+          return {
+            amountUsd: 0,
+            title: balanceType.title,
+          };
+        }
+        const totalUsd = assetBitcoin[balanceType.type].reduce(
+          (accum, item) => {
+            if (!rollupTokensRate) return accum;
+            return (
+              accum +
+              new BigNumber(item.holding_amount)
+                .multipliedBy(new BigNumber(item.token_price))
+                .toNumber()
+            );
+          },
+          0,
+        );
+        return {
+          amountUsd: totalUsd,
+          title: balanceType.title,
+        };
+      }),
+    ];
+  }, [balanceBitcoinInfo, rollupTokensRate, assetBitcoin]);
+
+  const totalBitcoinBalanceUsd = useMemo(() => {
+    const total = rollupBitcoinBalances.reduce((accum, item) => {
+      return accum + item.amountUsd;
+    }, 0);
+    return total;
+  }, [rollupBitcoinBalances]);
+
+  useEffect(() => {
+    fetchRollupBitcoinBalance();
+    fetchRollupAssetBitcoinBalance();
+  }, [address]);
+
+  const fetchRollupAssetBitcoinBalance = async () => {
+    if (!isBTCAddress) return;
+    try {
+      const data = await Promise.all(
+        BalanceTypes.map(async (balanceType) => {
+          const res = (await rollupBitcoinApi.getRollupL2BitcoinBalances({
+            user_address: address,
+            type: balanceType.type,
+            page: 1,
+            limit: 50,
+          })) as any;
+          return { [balanceType.type]: res };
+        }),
+      );
+
+      let asset: any = {};
+      data.forEach((item) => {
+        asset = { ...asset, ...item };
+      });
+      setAssetBitcoin(asset);
+    } catch (error) {}
+  };
+
   const fetchRollupBitcoinBalance = async () => {
-    if (!isValidAddress) return;
+    if (!isBTCAddress) return;
     try {
       const data: any = await rollupBitcoinApi.getRollupL2BitcoinBalanceInfo(
         address,
       );
-      if (data) setTotalBTCBalance(data);
+      if (data) setBalanceBitcoinInfo(data);
     } catch (error) {}
   };
 
@@ -137,7 +223,8 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
       rollupDetails,
       rollupBalances,
       rollupTokensRate,
-      totalBTCBalance,
+      totalBitcoinBalanceUsd,
+      rollupBitcoinBalances,
     };
   }, [
     address,
@@ -147,7 +234,8 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     rollupDetails,
     rollupBalances,
     rollupTokensRate,
-    totalBTCBalance,
+    totalBitcoinBalanceUsd,
+    rollupBitcoinBalances,
   ]);
 
   return (

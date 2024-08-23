@@ -36,6 +36,7 @@ export interface IBalanceBitcoin {
   available_amount: string;
   transferable_amount: string;
   inscription_number: string;
+  token_price: number;
 }
 
 export interface IBalanceBitcoinInfo {
