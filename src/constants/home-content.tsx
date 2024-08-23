@@ -72,7 +72,7 @@ export const STEP_1_SECTION = {
       homeImage: '/landing-v5/home-zk-hybrid.png',
       bgColor: 'linear-gradient(180deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
       link: {
-        url: '/studio',
+        url: '/studio?template=1',
         target: '_blank',
       },
       popular: true,
@@ -86,7 +86,7 @@ export const STEP_1_SECTION = {
       bgColor:
         'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
       link: {
-        url: '/studio?template=1',
+        url: '/studio?template=2',
         target: '_blank',
       },
       tags: ['$149/day'],
@@ -112,7 +112,7 @@ export const STEP_1_SECTION = {
 
       bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%)',
       link: {
-        url: '/studio',
+        url: '/studio?template=3',
         target: '_blank',
       },
       tags: ['$199/day'],
@@ -125,7 +125,7 @@ export const STEP_1_SECTION = {
       bgColor:
         'linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
       link: {
-        url: 'studio?template=2',
+        url: 'studio?template=4',
         target: '_blank',
       },
       tags: ['$69/day'],
