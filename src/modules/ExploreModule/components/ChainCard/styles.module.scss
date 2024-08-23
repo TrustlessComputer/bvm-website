@@ -12,6 +12,10 @@
   @include is-pc {
     flex-direction: row;
   }
+
+  @include is-mobile {
+    align-items: center;
+  }
 }
 
 .left {

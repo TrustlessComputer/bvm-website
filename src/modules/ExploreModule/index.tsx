@@ -81,7 +81,7 @@ export default function ExploreModule(): React.JSX.Element {
             </TabPanel>
 
             <TabPanel p="0">
-              <Flex direction="column" gap="60px">
+              <Flex direction="column" gap="44px">
                 <div className={s.wrapperCardChains}>
                   {CHAIN_DATA.map((item, index) => {
                     return <ChainCard idx={index} {...item} key={item.image} />;

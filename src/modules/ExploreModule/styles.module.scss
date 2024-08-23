@@ -49,12 +49,21 @@
   flex-direction: row;
   gap: 120px;
   justify-content: space-between;
+
+  @include is-mobile {
+    flex-direction: column;
+    gap: 30px;
+  }
 }
 
 .tabList {
   flex-direction: column !important;
   align-items: center;
   gap: 10px;
+
+  @include is-mobile {
+    flex-direction: row !important;
+  }
 
   >button {
     width: 200px;
