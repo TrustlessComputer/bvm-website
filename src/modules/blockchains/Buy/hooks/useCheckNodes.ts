@@ -12,12 +12,14 @@ import {
 } from '../signals/useDragSignal';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import useFormChain from './useFormChain';
+import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
+import handleStatusEdges from '@utils/helpers';
 
 export default function useCheckNodes() {
   const { field } = useOrderFormStoreV3();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const { getCurrentFieldFromChain } = useFormChain();
-
+  const { lineBridgeStatus } = useBridgesModule();
   useEffect(() => {
     if (!getCurrentFieldFromChain('bridge_apps')) {
       const nodeIndex = nodes.findIndex((node) => node.id == 'bridge_apps');
@@ -87,7 +89,8 @@ export default function useCheckNodes() {
             target: `bridge_apps`,
             targetHandle: `bridge_apps-t-${rootNode}`,
             type: 'customEdge',
-            label: '',
+            label: handleStatusEdges('', lineBridgeStatus, 'bridge_apps').icon,
+            animated: handleStatusEdges('', lineBridgeStatus, 'bridge_apps').animate,
             markerEnd: {
               type: MarkerType.Arrow,
               width: 25,
