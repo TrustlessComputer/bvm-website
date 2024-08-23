@@ -145,3 +145,36 @@ export async function  deletePositionItemById(id: number): Promise<void> {
     console.error('Error deleting related posts:', error);
   }
 }
+
+export async function getPositionByPositionId(order_id:string, positionId: string): Promise<BoxItemPosition | null> {
+  try {
+    const response = await fetch(`${BASE_URL}/get-position/${order_id}/${positionId}`, {
+      method: 'GET',
+      cache: 'force-cache',
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch related posts');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching related posts:', error);
+    return null;
+  }
+}
+
+export async function updatePositionByPositionId(order_id:string, positionId: string, position: BoxItemPosition): Promise<void> {
+  try {
+    const response = await fetchWithAuth(`${BASE_URL}/update-position/${order_id}/${positionId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(position),
+    });
+    if (!response.ok) {
+      throw new Error('Failed to update related posts');
+    }
+  } catch (error) {
+    console.error('Error updating related posts:', error);
+  }
+}
