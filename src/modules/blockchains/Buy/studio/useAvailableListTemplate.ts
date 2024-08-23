@@ -40,6 +40,7 @@ export default function useAvailableListTemplate() {
   // });
 
   return {
+    templateList,
     templateIndexDefault,
     setTemplateDefault,
     getTemplateList,
