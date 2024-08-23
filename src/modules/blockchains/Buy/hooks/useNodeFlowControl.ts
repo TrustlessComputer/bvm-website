@@ -138,8 +138,8 @@ export default function useNodeFlowControl() {
             target: `account-abstraction`,
             targetHandle: `account-abstraction-t-${rootNode}`,
             type: 'customEdge',
-            // label: handleStatusEdges('draft').icon.toString(),
-            // animated: handleStatusEdges('draft').animate,
+            label: handleStatusEdges(lineAAStatus, 'account-abstraction').icon,
+            animated: handleStatusEdges(lineAAStatus, 'account-abstraction').animate,
             markerEnd: {
               type: MarkerType.Arrow,
               width: 25,

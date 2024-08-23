@@ -9,7 +9,6 @@ import {
 import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
-import useFlowStore from '@/modules/blockchains/Buy/stores/useFlowStore';
 import { STORAGE_KEYS } from '@constants/storage-key';
 import { useSignalEffect } from '@preact/signals-react';
 import { useReactFlow } from '@xyflow/react';

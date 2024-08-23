@@ -260,9 +260,10 @@ export function isLocalhost() {
 }
 
 export default function handleStatusEdges(status: aa, idNode: string) {
-  if(idNode === 'account-abstraction') {
+  if(idNode === 'account-abstraction' || idNode === 'bridge_apps') {
     switch (status) {
       case "draft":
+      case "setting_up":
         return {
           animate: true,
           icon: '',
@@ -280,11 +281,10 @@ export default function handleStatusEdges(status: aa, idNode: string) {
     }
   }
 
-
   return {
     animate: true,
     icon: '',
   }
 }
 
-type aa = "draft" | "running" | "down"
+type aa = "draft" | "running" | "down" | 'setting_up'
