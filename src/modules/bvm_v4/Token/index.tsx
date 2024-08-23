@@ -91,11 +91,21 @@ const Tokens = () => {
         px={'24px'}
         position={'relative'}
       >
-        <Text mb={{ base: '24px', md: '40px' }} className={s.title1}>
-          Token Circulation
-        </Text>
         <Flex direction="column" className={s.content}>
-          <Flex w="100%" flex={1} justifyContent="center">
+          <Flex
+            w="100%"
+            flex={1}
+            direction={{ base: 'column', lg: 'row' }}
+            alignItems={'center'}
+            justifyContent="center"
+          >
+            <Text
+              className={s.title1}
+              mr={{ base: '0px', lg: '100px' }}
+              mb={{ base: '40px', lg: '0px' }}
+            >
+              Token Circulation
+            </Text>
             <BoxContent>
               <Flex
                 w="100%"
