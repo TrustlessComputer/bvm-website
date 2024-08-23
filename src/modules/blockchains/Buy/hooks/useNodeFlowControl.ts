@@ -241,7 +241,6 @@ export default function useNodeFlowControl() {
   }, [dragState]);
 
   const handleAddBox = () => {
-    console.log('runnn add box');
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
 
