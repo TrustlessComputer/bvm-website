@@ -49,7 +49,7 @@ const ReactFlowRenderer = React.memo(() => {
   //   nodes,
   // });
 
-  // console.log('init', nodes, edges);
+  console.log('init', nodes, edges);
 
   return (
     <ReactFlow
