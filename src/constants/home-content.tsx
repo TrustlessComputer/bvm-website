@@ -47,9 +47,9 @@ export const STEP_1_SECTION = {
       {' '}
       <p>
         Bitcoin chains extend Bitcoin’s capabilities without changing Bitcoin.
-        Drag, drop, and deploy with BVM Studio.
-      </p>{' '}
-      <p>No coding expertise required — just just your big idea.</p>
+        Drag, drop, and deploy with BVM Studio. No coding expertise required —
+        just your big idea.
+      </p>
     </>
   ),
   item: [
