@@ -233,7 +233,7 @@ const PortfolioTabBitcoin = () => {
         w="100%"
         mb="32px"
         gridTemplateColumns={{
-          base: 'repeat(auto-fill, 200px)',
+          base: 'repeat(auto-fill, 160px)',
         }}
         gap={{ base: '16px', lg: '20px' }}
         p={{ base: '12px', lg: '24px' }}
