@@ -23,6 +23,7 @@ import { accountAbstractionAsADapp, bridgesAsADapp } from '../mockup_3';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 import handleStatusEdges from '@utils/helpers';
+import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
 
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
@@ -30,6 +31,7 @@ export default function useNodeFlowControl() {
   const { nodes, setNodes, setEdges, edges } = useFlowStore();
   const { isDragging, setIsDragging } = useDraggingStore();
   const store = useStoreApi();
+  const  { lineAAStatus } = useAAModule()
   const {
     transform: [transformX, transformY, zoomLevel],
   } = store.getState();
@@ -353,8 +355,8 @@ export default function useNodeFlowControl() {
         target: `${newNodeId}`,
         targetHandle: `${newNodeId}-t-${rootNode}`,
         type: 'customEdge',
-        label: handleStatusEdges('down').icon,
-        animated: handleStatusEdges('down').animate,
+        label: handleStatusEdges(lineAAStatus, newNodeId).icon,
+        animated: handleStatusEdges(lineAAStatus, newNodeId).animate,
         markerEnd: {
           type: MarkerType.Arrow,
           width: 25,

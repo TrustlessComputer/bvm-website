@@ -259,25 +259,32 @@ export function isLocalhost() {
   return window.location.href.includes('http://localhost');
 }
 
-export default function handleStatusEdges(status: aa) {
-  switch (status) {
-    case "draft":
-      return {
-        animate: true,
-        icon: '',
-      }
-    case "down":
-      return {
-        animate: true,
-        icon: 'true',
-      }
-    default:
-      return {
-        animate: false,
-        icon: '',
-      }
+export default function handleStatusEdges(status: aa, idNode: string) {
+  if(idNode === 'account-abstraction') {
+    switch (status) {
+      case "draft":
+        return {
+          animate: true,
+          icon: '',
+        }
+      case "down":
+        return {
+          animate: true,
+          icon: 'true',
+        }
+      default:
+        return {
+          animate: false,
+          icon: '',
+        }
+    }
   }
 
+
+  return {
+    animate: true,
+    icon: '',
+  }
 }
 
 type aa = "draft" | "running" | "down"
