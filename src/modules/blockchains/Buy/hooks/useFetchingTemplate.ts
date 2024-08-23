@@ -168,9 +168,10 @@ export default function useFetchingTemplate() {
       data: {
         node: 'chain',
         title: 'Blockchain',
-        sourceHandles: checkParam
-          ? [`${rootNode}-s-account-abstraction`, `${rootNode}-s-bridge_apps`]
-          : [],
+        sourceHandles: [],
+        // sourceHandles: checkParam
+        //   ? [`${rootNode}-s-account-abstraction`, `${rootNode}-s-bridge_apps`]
+        //   : [],
         targetHandles: [],
       },
       dragHandle: '.drag-handle-area',
@@ -362,8 +363,6 @@ export default function useFetchingTemplate() {
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
     setNeedCheckAndAddAA(true);
-
-    console.log('nodes----', {newArray, edgeData,formDapp, totalBase, draggedIds2D });
   };
 
   const parseDappApiToDappModel = async () => {
@@ -489,8 +488,6 @@ export default function useFetchingTemplate() {
 
   React.useEffect(() => {
     if (!isUpdateFlow) return;
-
-    console.log('zzzzzzzzzzz');
 
     if (updated) {
       draggedDappIndexesSignal.value = [];
