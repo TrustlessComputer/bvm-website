@@ -26,7 +26,7 @@ const Section_7 = () => {
       const tmp = LOGOS.filter((itemLogo) => {
         return itemLogo.id === item.logo;
       });
-      return tmp.length ? tmp[0].blackLogo : '';
+      return tmp.length ? tmp[0].img : '';
     }, [item]);
     return (
       <Box
