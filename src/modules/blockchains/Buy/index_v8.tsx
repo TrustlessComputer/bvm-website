@@ -10,8 +10,6 @@ import { DndContext } from '@dnd-kit/core';
 import React from 'react';
 import ClearStore from './ClearStore';
 import useAutoUpdateNodePosition from './hooks/useAutoUpdateNodePosition';
-import useCheckEdges from './hooks/useCheckEdges';
-import useCheckNodes from './hooks/useCheckNodes';
 import useGettingDappLego from './hooks/useGettingDappLego';
 import useNodeFlowControl from './hooks/useNodeFlowControl';
 import useOnlyFetchDapp from './hooks/useOnlyFetchDapp';
@@ -28,8 +26,8 @@ const BuyPage = () => {
   useFixScrollOverDrag();
   useNodeFlowControl();
   useGettingDappLego();
-  useCheckNodes();
-  useCheckEdges();
+  // useCheckNodes();
+  // useCheckEdges();
 
   const { tabActive } = useTabs((state) => state);
   const isTabCode = React.useMemo(() => {
