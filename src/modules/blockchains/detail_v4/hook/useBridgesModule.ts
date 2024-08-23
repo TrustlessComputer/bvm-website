@@ -25,11 +25,23 @@ export const useBridgesModule = () => {
       const isSettingUp =
         item?.status === 'new' || item?.status === 'processing';
 
+      let label = !isUpdateFlow ? '' : isSettingUp ? 'Setting up' : 'Running';
+      let backgroundColor = !isUpdateFlow
+        ? 'transparent'
+        : isSettingUp
+        ? '#FFF6D8'
+        : '#EEFFF9';
+      let textColor = !isUpdateFlow
+        ? 'transparent'
+        : isSettingUp
+        ? '#E59700'
+        : '#00AA6C';
+
       const mapper = {
         ...item,
-        label: isSettingUp ? 'Setting up' : 'Running',
-        backgroundColor: isSettingUp ? '#FFF6D8' : '#EEFFF9',
-        textColor: isSettingUp ? '#E59700' : '#00AA6C',
+        label: label,
+        backgroundColor: backgroundColor,
+        textColor: textColor,
       };
       detailBridgeMapper[item.appCode] = mapper;
     });

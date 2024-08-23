@@ -41,7 +41,7 @@ import useDapps from './useDapps';
 import handleStatusEdges from '@utils/helpers';
 
 export default function useFetchingTemplate() {
-  const { templateList } = useAvailableListTemplate();
+  const { templateList, templateDefault } = useAvailableListTemplate();
   const { modelCategoryList } = useModelCategory();
   const { dapps } = useDapps();
   const path = usePathname();
@@ -296,8 +296,8 @@ export default function useFetchingTemplate() {
         target: `${idNode}`,
         targetHandle: `${idNode}-t-${rootNode}`,
         type: 'customEdge',
-        label: handleStatusEdges(statusDapp,'running', idNode).icon,
-        animated: handleStatusEdges(statusDapp,'running', idNode).animate,
+        label: handleStatusEdges(statusDapp, 'running', idNode).icon,
+        animated: handleStatusEdges(statusDapp, 'running', idNode).animate,
         selectable: false,
         selected: false,
         focusable: false,
@@ -371,6 +371,14 @@ export default function useFetchingTemplate() {
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
     setNeedCheckAndAddAA(true);
+
+    // console.log('nodes----', {
+    //   newArray,
+    //   edgeData,
+    //   formDapp,
+    //   totalBase,
+    //   draggedIds2D,
+    // });
   };
 
   const parseDappApiToDappModel = async () => {
@@ -523,7 +531,9 @@ export default function useFetchingTemplate() {
     if (isUpdateFlow && order) {
       setTemplate(order.selectedOptions || []);
     } else {
-      initTemplate(0);
+      // initTemplate(0);
+      console.log('LOG - 1 - templateDefault ', templateDefault);
+      setTemplate(templateDefault || []);
     }
-  }, [categoriesTemplates, isUpdateFlow]);
+  }, [categoriesTemplates, isUpdateFlow, templateDefault]);
 }
