@@ -31,6 +31,7 @@ import SearchAddress from './SearchAddress';
 import s from './styles.module.scss';
 import TokenTransferTab from './TokenTransferTab';
 import TransactionsTab from './TransactionsTab';
+import TransactionsTabBitcoin from './TransactionsTabBitcoin';
 import NFTTab from './NFTTab';
 
 const L2RollupDetail = () => {
@@ -136,7 +137,7 @@ const L2RollupDetail = () => {
                   <PortfolioTabBitcoin />
                 </TabPanel>
                 <TabPanel minH={'40vh'}>
-                  <div></div>
+                  <TransactionsTabBitcoin />
                 </TabPanel>
               </TabPanels>
             </>
