@@ -95,6 +95,7 @@ const ReactFlowRenderer = React.memo(() => {
         }}
         onEdgesChange={onEdgesChange}
         onNodesChange={onNodesChange}
+        edgesFocusable={false}
         onInit={setRfInstance}
         zoomOnDoubleClick={false}
         edges={edges}

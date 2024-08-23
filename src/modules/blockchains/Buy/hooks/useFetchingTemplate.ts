@@ -38,6 +38,7 @@ import useModelCategory from '../studio/useModelCategory';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
+import handleStatusEdges from '@utils/helpers';
 
 export default function useFetchingTemplate() {
   const { templateList, templateDefault } = useAvailableListTemplate();
@@ -170,9 +171,11 @@ export default function useFetchingTemplate() {
       data: {
         node: 'chain',
         title: 'Blockchain',
-        sourceHandles: [],
+        sourceHandles: checkParam
+          ? [`${rootNode}-s-account-abstraction`, `${rootNode}-s-bridge_apps`]
+          : [],
         // sourceHandles: checkParam
-        //   ? [`${rootNode}-s-account-abstraction`, `${rootNode}-s-bridge_apps`]
+        //   ? [`${rootNode}-s-account-abstraction`]
         //   : [],
         targetHandles: [],
       },
@@ -213,7 +216,6 @@ export default function useFetchingTemplate() {
       const blockKey = FormDappUtil.getBlockKey(fieldKey);
       const isInBase = FormDappUtil.isInBase(fieldKey);
       const isInBlock = FormDappUtil.isInBlock(fieldKey);
-
       (thisDapp?.blockFields || []).forEach((item) => {
         blockFieldMapping[item.key] = item;
       });
@@ -262,6 +264,9 @@ export default function useFetchingTemplate() {
 
     const _newNodes: any[] = draggedIds2D.map((ids, index) => {
       const dappKey = templateDapps[index].key;
+      const statusDapp = templateDapps[index].label?.status || '';
+      const titleStatusDapp = templateDapps[index].label?.title || '';
+
       const thisNode = [...tokens, ...airdrops, ...stakingPools, ...yoloGames][
         index
       ];
@@ -291,7 +296,11 @@ export default function useFetchingTemplate() {
         target: `${idNode}`,
         targetHandle: `${idNode}-t-${rootNode}`,
         type: 'customEdge',
-        label: '',
+        label: handleStatusEdges(statusDapp, 'running', idNode).icon,
+        animated: handleStatusEdges(statusDapp, 'running', idNode).animate,
+        selectable: false,
+        selected: false,
+        focusable: false,
         markerEnd: {
           type: MarkerType.Arrow,
           width: 25,
@@ -312,7 +321,7 @@ export default function useFetchingTemplate() {
         data: {
           node: 'dapp',
           label: templateDapps[index].title,
-          status: 'Running',
+          status: titleStatusDapp,
           isChain: false,
           dapp: templateDapps[index],
           ids,
