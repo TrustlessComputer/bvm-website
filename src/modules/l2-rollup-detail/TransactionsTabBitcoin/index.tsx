@@ -313,6 +313,10 @@ const TransactionsTabBitcoin = (props: IProps) => {
               status = 'Completed';
               color = 'green';
               break;
+            case 'fail':
+              status = 'Failed';
+              color = 'red';
+              break;
             default:
               break;
           }
