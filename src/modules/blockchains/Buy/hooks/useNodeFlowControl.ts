@@ -356,6 +356,9 @@ export default function useNodeFlowControl() {
         target: `${newNodeId}`,
         targetHandle: `${newNodeId}-t-${rootNode}`,
         type: 'customEdge',
+        selectable: false,
+        selected: false,
+        focusable: false,
         label: handleStatusEdges(statusDapp, lineAAStatus, newNodeId).icon,
         animated: handleStatusEdges(statusDapp, lineAAStatus, newNodeId).animate,
         markerEnd: {

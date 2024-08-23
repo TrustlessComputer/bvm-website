@@ -266,6 +266,7 @@ export default function useFetchingTemplate() {
     const _newNodes: any[] = draggedIds2D.map((ids, index) => {
       const dappKey = templateDapps[index].key;
       const statusDapp = templateDapps[index].label?.status || '';
+      const titleStatusDapp = templateDapps[index].label?.title || '';
 
       const thisNode = [...tokens, ...airdrops, ...stakingPools, ...yoloGames][
         index
@@ -298,6 +299,9 @@ export default function useFetchingTemplate() {
         type: 'customEdge',
         label: handleStatusEdges(statusDapp,'running', idNode).icon,
         animated: handleStatusEdges(statusDapp,'running', idNode).animate,
+        selectable: false,
+        selected: false,
+        focusable: false,
         markerEnd: {
           type: MarkerType.Arrow,
           width: 25,
@@ -318,7 +322,7 @@ export default function useFetchingTemplate() {
         data: {
           node: 'dapp',
           label: templateDapps[index].title,
-          status: 'Running',
+          status: titleStatusDapp,
           isChain: false,
           dapp: templateDapps[index],
           ids,

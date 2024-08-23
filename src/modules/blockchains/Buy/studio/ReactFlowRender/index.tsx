@@ -78,6 +78,7 @@ const ReactFlowRenderer = React.memo(() => {
       onEdgesChange={onEdgesChange}
       onNodesChange={onNodesChange}
       onInit={setRfInstance}
+      edgesFocusable={false}
       zoomOnDoubleClick={false}
       edges={edges}
       fitViewOptions={{ padding: 1 }}

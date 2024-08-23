@@ -26,7 +26,7 @@ export default function CustomEdge({
 
   return (
     <React.Fragment key={id}>
-      <BaseEdge id={id} path={edgePath} markerEnd={markerEnd} className={s.edge_line} />
+      <BaseEdge id={id} path={edgePath}  markerEnd={markerEnd} className={s.edge_line} />
       {
         label && (
           <EdgeLabelRenderer>

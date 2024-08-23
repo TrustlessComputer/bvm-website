@@ -260,18 +260,22 @@ export function isLocalhost() {
   return window.location.href.includes('http://localhost');
 }
 
-function handleStatusEdgeByBox(status: aa) {
+function handleStatusEdgeByBox(status: any) {
   switch (status) {
-    case "draft" || "setting_up":
+    case "draft":
+    case "setting_up":
     case EAirdropStatus.new:
+    case '':
       //draft
       return {
         animate: true,
         icon: '',
       }
       // down
-    case "down" || "stopped" || "run_out":
+    case "down":
+    case "run_out":
     case EAirdropStatus.ended:
+    case "stopped":
       return {
         animate: true,
         icon: 'true',

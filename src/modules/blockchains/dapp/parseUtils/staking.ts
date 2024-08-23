@@ -33,7 +33,7 @@ export const parseStakingPools = (pools: ISTToken[]): DappModel[] => {
             title: 'Deployed',
             color: '#000',
             background: '#00AA6C',
-            status: '', // run
+            status: 'deployed', // run
           },
       sections: [
         {

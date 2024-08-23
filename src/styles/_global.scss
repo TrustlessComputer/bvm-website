@@ -180,3 +180,7 @@ input[type='number'] {
 .react-flow__nodes {
   width: fit-content !important;
 }
+
+.react-flow__edge-custom {
+  pointer-events: none !important;
+}
