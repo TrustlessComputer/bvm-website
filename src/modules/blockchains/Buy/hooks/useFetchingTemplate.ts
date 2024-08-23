@@ -36,8 +36,12 @@ import useUpdateFlowStore from '../stores/useUpdateFlowStore';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
+import useAvailableListTemplate from '../studio/useAvailableListTemplate';
+import useModelCategory from '../studio/useModelCategory';
 
 export default function useFetchingTemplate() {
+  const { templateList } = useAvailableListTemplate();
+  const { modelCategoryList } = useModelCategory();
   const { dapps } = useDapps();
   const path = usePathname();
   const params = useParams();
