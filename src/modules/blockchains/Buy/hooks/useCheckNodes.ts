@@ -1,5 +1,5 @@
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
-import useFlowStore from '@/modules/blockchains/Buy/stores/useFlowStore';
+import useFlowStore, { AppState } from '@/modules/blockchains/Buy/stores/useFlowStore';
 import { DappNode } from '@/types/node';
 import { MarkerType } from '@xyflow/react';
 import { useEffect } from 'react';
@@ -12,12 +12,14 @@ import {
 } from '../signals/useDragSignal';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import useFormChain from './useFormChain';
+import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
+import handleStatusEdges from '@utils/helpers';
 
 export default function useCheckNodes() {
   const { field } = useOrderFormStoreV3();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const { getCurrentFieldFromChain } = useFormChain();
-
+  const { lineBridgeStatus } = useBridgesModule();
   useEffect(() => {
     if (!getCurrentFieldFromChain('bridge_apps')) {
       const nodeIndex = nodes.findIndex((node) => node.id == 'bridge_apps');
@@ -67,6 +69,16 @@ export default function useCheckNodes() {
           },
         };
 
+        const getHandleNodeBlockChain = nodes.find((item) => item.id === rootNode);
+        getHandleNodeBlockChain?.data?.sourceHandles?.push(
+          `${rootNode}-s-bridge_apps`,
+        );
+
+        nodesData = nodes.map((item) =>
+          item.id === rootNode ? getHandleNodeBlockChain : item,
+        ) as AppState['nodes'];
+
+
         setNodes([...nodesData, newNode]);
         setEdges([
           ...edges,
@@ -77,7 +89,8 @@ export default function useCheckNodes() {
             target: `bridge_apps`,
             targetHandle: `bridge_apps-t-${rootNode}`,
             type: 'customEdge',
-            label: '',
+            label: handleStatusEdges('', lineBridgeStatus, 'bridge_apps').icon,
+            animated: handleStatusEdges('', lineBridgeStatus, 'bridge_apps').animate,
             markerEnd: {
               type: MarkerType.Arrow,
               width: 25,
