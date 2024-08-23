@@ -8,7 +8,7 @@ import {
 import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
-import useFlowStore from '@/modules/blockchains/Buy/stores/useFlowStore';
+import useFlowStore, { AppNode } from '@/modules/blockchains/Buy/stores/useFlowStore';
 import { STORAGE_KEYS } from '@constants/storage-key';
 import { useSignalEffect } from '@preact/signals-react';
 import { useReactFlow } from '@xyflow/react';
@@ -113,11 +113,20 @@ function useHandleReloadNode() {
     }
   }, [rfInstance]);
 
+  function isExitAANode() {
+    const flow = LocalStorage.getItem(STORAGE_KEYS.LAST_NODES);
+    if (flow?.nodes) {
+      return flow.nodes.some((node: AppNode) => node.id === 'account-abstraction')
+    }
+    return false;
+  }
+
   return {
     setRfInstance,
     onRestore,
     rfInstance,
     onSave,
+    isExitAANode
   };
 }
 
