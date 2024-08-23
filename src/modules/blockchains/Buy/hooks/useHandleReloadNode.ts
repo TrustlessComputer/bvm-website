@@ -113,20 +113,11 @@ function useHandleReloadNode() {
     }
   }, [rfInstance]);
 
-  function isAANode() {
-    const flow = LocalStorage.getItem(STORAGE_KEYS.LAST_NODES);
-    if (flow?.nodes) {
-      return flow.nodes.some((node:AppNode) => node.id === 'account-abstraction')
-    }
-    return false;
-  }
-
   return {
     setRfInstance,
     onRestore,
     rfInstance,
     onSave,
-    isAANode,
   }
 }
 
