@@ -110,3 +110,7 @@ export interface IRollupNFT {
   rollup: IRollupChain;
   balances: INFT[];
 }
+
+export interface IWatchList {
+  address: string;
+}

@@ -33,6 +33,7 @@ import TokenTransferTab from './TokenTransferTab';
 import TransactionsTab from './TransactionsTab';
 import TransactionsTabBitcoin from './TransactionsTabBitcoin';
 import NFTTab from './NFTTab';
+import ButtonFavorite from './FavoriteAddress';
 
 const L2RollupDetail = () => {
   const router = useRouter();
@@ -114,6 +115,7 @@ const L2RollupDetail = () => {
                   toast.success('Copied');
                 }}
               />
+              <ButtonFavorite address={address} />
             </Flex>
           </Flex>
         </Flex>
