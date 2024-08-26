@@ -25,9 +25,9 @@ function useHandleReloadNode() {
   const path = usePathname();
   const { field, setFields } = useOrderFormStoreV3();
   const { draggedFields, setDraggedFields } = useDragStore();
-  const {isFirstLoadTemplateBox} = useFirstLoadTemplateBoxStore()
+  const { isFirstLoadTemplateBox } = useFirstLoadTemplateBoxStore();
   React.useEffect(() => {
-    if(!isFirstLoadTemplateBox || !restoreLocal.value) return;
+    if (!isFirstLoadTemplateBox || !restoreLocal.value) return;
     if (path === '/studio') {
       onSave();
     }
@@ -46,10 +46,9 @@ function useHandleReloadNode() {
         LocalStorage.getItem(STORAGE_KEYS.USE_BLOCKCHAIN_FORM) || {};
       if (flow) {
         const { x = 0, y = 0, zoom = 1 } = flow.viewport;
-
+        formDappSignal.value = signalsForm.formDappSignal;
         draggedDappIndexesSignal.value = signals.draggedDappIndexesSignal;
         draggedIds2DSignal.value = signals.draggedIds2DSignal;
-        formDappSignal.value = signalsForm.formDappSignal;
 
         if (Object.keys(blockchainForm.field).length > 0) {
           setFields(blockchainForm.field);
@@ -67,32 +66,51 @@ function useHandleReloadNode() {
   }, []);
 
   useSignalEffect(() => {
-    if(!isFirstLoadTemplateBox || !restoreLocal.value) return;
+    if (!isFirstLoadTemplateBox || !restoreLocal.value) return;
+    onSave()
 
-    const signalsForm =
-      LocalStorage.getItem(STORAGE_KEYS.USE_SIGNALS_FORM) || {};
-    if (signalsForm.value) {
-      LocalStorage.setItem(
-        STORAGE_KEYS.USE_SIGNALS_FORM,
-        JSON.stringify({ signalsForm }),
-      );
-    }
+    LocalStorage.setItem(
+      STORAGE_KEYS.USE_SIGNALS_FORM,
+      JSON.stringify({ formDappSignal }),
+    );
+    const signals = {
+      draggedDappIndexesSignal,
+      draggedIds2DSignal,
+    };
+    LocalStorage.setItem(
+      STORAGE_KEYS.USE_DRAG_SIGNALS,
+      JSON.stringify(signals),
+    );
+
   });
 
-  useSignalEffect(() => {
-    if(!isFirstLoadTemplateBox || !restoreLocal.value) return;
-
-    if (Object.keys(formDappSignal.value).length > 0) {
-      LocalStorage.setItem(
-        STORAGE_KEYS.USE_SIGNALS_FORM,
-        JSON.stringify({ formDappSignal }),
-      );
-    }
-  });
+  // useSignalEffect(() => {
+  //   if(!isFirstLoadTemplateBox || !restoreLocal.value) return;
+  //
+  //   const signalsForm =
+  //     LocalStorage.getItem(STORAGE_KEYS.USE_SIGNALS_FORM) || {};
+  //   if (signalsForm.value) {
+  //     LocalStorage.setItem(
+  //       STORAGE_KEYS.USE_SIGNALS_FORM,
+  //       JSON.stringify({ signalsForm }),
+  //     );
+  //   }
+  // });
+  //
+  // useSignalEffect(() => {
+  //   if(!isFirstLoadTemplateBox || !restoreLocal.value) return;
+  //
+  //   if (Object.keys(formDappSignal.value).length > 0) {
+  //     LocalStorage.setItem(
+  //       STORAGE_KEYS.USE_SIGNALS_FORM,
+  //       JSON.stringify({ formDappSignal }),
+  //     );
+  //   }
+  // });
 
   const onSave = useCallback(() => {
-    
-    if(!isFirstLoadTemplateBox || !restoreLocal.value) return;
+
+    if (!isFirstLoadTemplateBox || !restoreLocal.value) return;
     if (rfInstance) {
       const flow = rfInstance.toObject();
       const signals = {
@@ -126,7 +144,7 @@ function useHandleReloadNode() {
     setRfInstance,
     onRestore,
     rfInstance,
-    onSave
+    onSave,
   };
 }
 
