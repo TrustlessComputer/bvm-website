@@ -179,7 +179,7 @@ export default memo(function StudioControls() {
                       })} BVM)`
                     : '';
 
-                const isThisOptionDragged =
+                let isThisOptionDragged =
                   field[item.key].dragged &&
                   field[item.key].value === option.key;
 
@@ -193,19 +193,20 @@ export default memo(function StudioControls() {
                 const isDisabled = isChainOptionDisabled(field, item, option);
 
                 if (item.multiChoice && field[item.key].dragged) {
-                  const currentValues = field[item.key].value as any[];
-
-                  if (currentValues.includes(option.key)) {
-                    return null;
-                  }
+                  isThisOptionDragged = ((field[item.key]?.value as any) || []).includes(option.key)
+                  // const currentValues = field[item.key].value as any[];
+                  //
+                  // if (currentValues.includes(option.key)) {
+                  //   return null;
+                  // }
                 }
 
                 if (option?.hidden) return null;
 
                 return (
                   <Draggable
-                    key={item.key + '-' + option.key}
-                    id={item.key + '-' + option.key}
+                    key={item.key + '-' + option.key + '-left'}
+                    id={item.key + '-' + option.key + '-left'}
                     useMask
                     disabled={isDisabled}
                     isLabel={true}
