@@ -10,6 +10,7 @@ import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
 import EmptyList from '@/components/ListTable/EmptyList';
+import NFTItem from '@/modules/l2-rollup-detail/NFTTab/item';
 
 interface IProps {}
 
@@ -133,13 +134,7 @@ const NFTTab = (props: IProps) => {
           {list.length > 0 &&
             list.map((item) => {
               return (
-                <Flex direction={'column'} className={s.shadow}>
-                  <Image borderTopRadius={'12px'} w={'100%'} aspectRatio={1} />
-                  <Flex direction={'column'} p={'8px'}>
-                    <Text color={'#898989'}>#{item.block_number}</Text>
-                    <Text>{item.token_name}</Text>
-                  </Flex>
-                </Flex>
+                <NFTItem item={item} />
               );
             })}
         </Grid>
