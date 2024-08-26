@@ -1,8 +1,8 @@
 import AppLoading from '@/components/AppLoading';
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
 import CRollupL2DetailAPI from '@/services/api/dapp/rollupl2-detail';
-import { INFT, IRollupNFT } from '@/services/api/dapp/rollupl2-detail/interface';
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { INFT, IRollupDetail, IRollupNFT } from '@/services/api/dapp/rollupl2-detail/interface';
+import { Box, Flex, Grid, Image, Text } from '@chakra-ui/react';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
@@ -14,6 +14,10 @@ interface IProps {}
 
 const NFTTab = (props: IProps) => {
   const { address } = useContext(L2RollupDetailContext);
+  const { rollupDetails } = useContext(
+    L2RollupDetailContext,
+  );
+  const [selectedRollup, setSelectedRollup] = useState<IRollupDetail | undefined>(undefined);
 
   const rollupApi = new CRollupL2DetailAPI();
 
@@ -24,7 +28,7 @@ const NFTTab = (props: IProps) => {
   const list = useMemo(() => {
     let transactions: INFT[] = [];
     rollupTransactions.forEach((data) => {
-      if (data.balances)
+      if (data.balances && (!selectedRollup || (selectedRollup && data?.rollup?.id === selectedRollup?.rollup?.id)))
         transactions = [
           ...transactions,
           ...data.balances.map((balance) => ({
@@ -34,7 +38,7 @@ const NFTTab = (props: IProps) => {
         ];
     });
     return transactions;
-  }, [rollupTransactions]);
+  }, [rollupTransactions, selectedRollup]);
 
   const [isFetching, setIsFetching] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -165,8 +169,53 @@ const NFTTab = (props: IProps) => {
     ];
   }, []);
 
+  const renderChains = () => {
+    return (
+      <Grid
+        w="100%"
+        mt="20px"
+        gridTemplateColumns={{
+          base: 'repeat(auto-fill, 200px)',
+        }}
+        gap={{ base: '16px', lg: '20px' }}
+        p={{ base: '12px', lg: '24px' }}
+        borderRadius={'12px'}
+        className={s.chains}
+      >
+        {rollupDetails.map((detail) => {
+          if (!detail.rollup) return;
+
+          return (
+            <Flex
+              bg={detail?.rollup?.id === selectedRollup?.rollup.id ? '#fa4e0e' : ''}
+              direction={'row'}
+              alignItems={'center'} gap={'12px'}
+              cursor={'pointer'}
+              onClick={() => setSelectedRollup(detail)}
+              borderRadius={"8px"}
+              p={"4px"}
+            >
+              <Image
+                src={detail.rollup?.icon}
+                w={'40px'}
+                h={'40px'}
+                borderRadius={'50%'}
+              />
+              <Flex direction={'column'}>
+                <Text fontWeight={'400'} color={detail?.rollup?.id === selectedRollup?.rollup.id ? '#FFF' : '#808080'}>
+                  {detail.rollup?.name}
+                </Text>
+              </Flex>
+            </Flex>
+          );
+        })}
+      </Grid>
+    );
+  };
+
   return (
     <Box className={s.container} h="60vh">
+      {rollupDetails.length > 0 && renderChains()}
       <ScrollWrapper
         onFetch={() => {
           refParams.current = {

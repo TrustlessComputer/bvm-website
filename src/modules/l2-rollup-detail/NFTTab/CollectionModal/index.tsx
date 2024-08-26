@@ -43,7 +43,6 @@ const CollectionModal = ({isOpen, onClose, title, item}: { isOpen: boolean, onCl
   const fetchData = async (isNew?: boolean) => {
     try {
       setIsFetching(true);
-      console.log('fetchData', isNew)
       if (isNew) {
         refParams.current = {
           ...refParams.current,
