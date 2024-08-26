@@ -1,3 +1,5 @@
+// @refresh reset
+
 import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
@@ -106,12 +108,19 @@ export default function useFetchingTemplate() {
       getTemplates(),
     ]);
 
+    // console.log('LOG: data ', {
+    //   l2ServiceUserAddress,
+    //   categories,
+    //   templates,
+    //   templateList,
+    //   templateDefault,
+    //   modelCategoryList,
+    // });
+
     // Use mockup data
     // const sortedCategories = (categoriesMockup || []).sort(
     // Use API
-    const sortedCategories = (categories || []).sort(
-      (a, b) => a.order - b.order,
-    );
+    const sortedCategories = [...modelCategoryList];
 
     sortedCategories.forEach((_field) => {
       newFields[_field.key] = {
@@ -124,7 +133,7 @@ export default function useFetchingTemplate() {
     setCategoryMapping(categoryMapping);
     setParsedCategories(convertData(sortedCategories));
     setCategories(sortedCategories);
-    setCategoriesTemplates(templates);
+    setCategoriesTemplates(templateList);
     setFields(newFields);
     setNeedSetDataTemplateToBox(true);
   };
@@ -518,9 +527,8 @@ export default function useFetchingTemplate() {
       setTemplate(order.selectedOptions || []);
     } else {
       // initTemplate(0);
-      console.log('LOG - 1 - templateDefault ', templateDefault);
+      console.log('LOG -- templateDefault -- ', templateDefault);
       setTemplate(templateDefault || []);
-      // setTemplate(defaultTemplateMockupData || []);
     }
   }, [categoriesTemplates, isUpdateFlow, templateDefault]);
 }

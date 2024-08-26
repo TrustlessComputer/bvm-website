@@ -39,6 +39,7 @@ import {
 import { IModelCategory } from '@/types/customize-model';
 import { isEmpty } from 'lodash';
 import { ORDER_MOCKUP_DATA } from './OrderMockupData';
+import { MODEL_CATEGORY_MOCKUP } from './ModelCategoryMockup';
 
 const isInValidAccessToken = () => {
   const accessToken = LocalStorage.getItem(
@@ -373,6 +374,8 @@ export const getModalCategories = async (
   )) as IModelCategory[];
 
   return data;
+
+  // return MODEL_CATEGORY_MOCKUP;
 };
 
 export const getAvailableListTemplate = async (): Promise<
