@@ -25,6 +25,7 @@ import Chars from '@interactive/Chars';
 import Disclaimer from '@/modules/ExploreModule/components/Disclaimer';
 
 import s from './styles.module.scss';
+import AppCard from './components/AppCard';
 
 export default function ExploreModule(): React.JSX.Element {
   useWhiteBackground();
@@ -63,7 +64,8 @@ export default function ExploreModule(): React.JSX.Element {
               <Flex direction="column" gap="44px">
                 <div className={s.wrapperCardDapps}>
                   {DAPPS_DATA.map((item, idx) => {
-                    return <DappCard {...item} idx={idx} key={item.title} />;
+                    // return <DappCard {...item} idx={idx} key={item.title} />;
+                    return <AppCard item={item} key={item.title} />;
                   })}
                 </div>
                 <Disclaimer />

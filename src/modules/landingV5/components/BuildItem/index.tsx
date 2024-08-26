@@ -37,6 +37,7 @@ const BuildItem = ({
         alignItems="center"
         // opacity={isInView ? 0.5 : 1}
         gap="14px"
+        w={{ base: '36px', md: '48px' }}
       >
         <Box
           as={motion.div}
@@ -49,7 +50,6 @@ const BuildItem = ({
           viewport={{
             once: true,
           }}
-          minW={{ base: '20px', md: '48px' }}
         >
           <Image src={iconUrl || '/landing-v5/ic-step-1.svg'} alt="build" />
         </Box>
@@ -75,7 +75,8 @@ const BuildItem = ({
         </Box>
       </Flex>
       <Box
-        w="100%"
+        w="83%"
+        // flex="1"
         as={motion.div}
         initial={{ opacity: 0, x: 50 }}
         whileInView={{

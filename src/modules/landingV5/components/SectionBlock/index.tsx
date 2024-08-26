@@ -143,6 +143,7 @@ const SectionBlock = (props: any) => {
                   <SectionItemApp
                     key={`${props.id}-${index}`}
                     item={item as BlockCardItem}
+                    sectionId={props.id}
                   />
                 );
               }
