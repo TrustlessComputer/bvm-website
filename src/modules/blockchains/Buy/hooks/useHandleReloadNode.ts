@@ -11,12 +11,13 @@ import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
 import { STORAGE_KEYS } from '@constants/storage-key';
 import { useSignalEffect } from '@preact/signals-react';
 import { useReactFlow } from '@xyflow/react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react';
 import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 import useFirstLoadTemplateBoxStore from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 
 function useHandleReloadNode() {
+  const searchParamm = useSearchParams()
   const { nodes, edges, setNodes, setEdges } = useFlowStore();
   const [rfInstance, setRfInstance] = useState<any>(null);
   const [haveOldData, setHaveOldData] = useState(false);
@@ -33,6 +34,9 @@ function useHandleReloadNode() {
   }, [nodes.length, field, isFirstLoadTemplateBox]);
 
   const onRestore = useCallback(async () => {
+    const template = searchParamm.get('template') || searchParamm.get('dapp');
+    if(!!template) return;
+
     const restoreFlow = async () => {
       const flow = LocalStorage.getItem(STORAGE_KEYS.LAST_NODES);
       const signals = LocalStorage.getItem(STORAGE_KEYS.USE_DRAG_SIGNALS) || {};

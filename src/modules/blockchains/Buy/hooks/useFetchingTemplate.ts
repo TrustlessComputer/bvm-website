@@ -109,7 +109,7 @@ export default function useFetchingTemplate() {
     // Use mockup data
     // const sortedCategories = (categoriesMockup || []).sort(
     // Use API
-    const sortedCategories = (categoriesMockupData || []).sort(
+    const sortedCategories = (categories || []).sort(
       (a, b) => a.order - b.order,
     );
 
@@ -519,8 +519,8 @@ export default function useFetchingTemplate() {
     } else {
       // initTemplate(0);
       console.log('LOG - 1 - templateDefault ', templateDefault);
-      // setTemplate(templateDefault || []);
-      setTemplate(defaultTemplateMockupData || []);
+      setTemplate(templateDefault || []);
+      // setTemplate(defaultTemplateMockupData || []);
     }
   }, [categoriesTemplates, isUpdateFlow, templateDefault]);
 }
