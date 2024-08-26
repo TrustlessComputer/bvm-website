@@ -20,6 +20,7 @@ import {
 import useFlowStore from '../../stores/useFlowStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import s from './styles.module.scss';
+import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
@@ -31,6 +32,7 @@ const ReactFlowRenderer = React.memo(() => {
   const [currentPosition, setCurrentPosition] = useState(
     currentPositionSignal.value,
   );
+  const { isFirstLoadTemplateBox } = useStoreFirstLoadTemplateBox()
   const [count, setCount] = React.useState(0);
   const path = usePathname();
   const { categories } = useModelCategoriesStore();
@@ -59,6 +61,7 @@ const ReactFlowRenderer = React.memo(() => {
   });
 
   React.useEffect(() => {
+    if(!isFirstLoadTemplateBox) return;
     if (loaded) return;
 
     if ( categories && categories.length > 0) {
@@ -73,7 +76,7 @@ const ReactFlowRenderer = React.memo(() => {
 
     }
 
-  }, [haveOldData, categories, loaded, rfInstance]);
+  }, [haveOldData, categories, loaded, rfInstance, isFirstLoadTemplateBox]);
 
   return (
     <>
@@ -109,6 +112,7 @@ const ReactFlowRenderer = React.memo(() => {
         fitViewOptions={{ padding: 1 }}
         className={s.reactFlow}
         onNodeDragStop={() => {
+          if(!isFirstLoadTemplateBox) return;
           if (path === '/studio') {
             onSave();
           }

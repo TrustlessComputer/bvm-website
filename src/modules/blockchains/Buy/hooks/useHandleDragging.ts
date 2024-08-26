@@ -57,7 +57,6 @@ export default function useHandleDragging() {
   const { templateDapps } = useTemplateFormStore();
   const { deleteValue: deleteValueOptionInputStore } = useOptionInputStore();
 
-  // console.log('useHandleDragging -> field :: ', field);
 
   const getAllOptionKeysOfItem = (item: FieldModel) => {
     const result: string[] = [];

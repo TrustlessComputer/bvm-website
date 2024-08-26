@@ -39,6 +39,7 @@ import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
 import handleStatusEdges from '@utils/helpers';
+import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 
 export default function useFetchingTemplate() {
   const { templateList, templateDefault } = useAvailableListTemplate();
@@ -63,7 +64,7 @@ export default function useFetchingTemplate() {
   const param = useParams();
   const searchParams = useSearchParams();
   const refUpdatedBaseDapp = React.useRef(false);
-
+  const {setIsFirstLoadTemplateBox} =useStoreFirstLoadTemplateBox()
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { initTemplate, setTemplate } = useTemplate();
   const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =
@@ -133,6 +134,8 @@ export default function useFetchingTemplate() {
   };
 
   const dataTemplateToBox = async () => {
+
+    setIsFirstLoadTemplateBox(true)
     formDappSignal.value = {};
     formTemplateDappSignal.value = {};
 

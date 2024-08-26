@@ -14,6 +14,7 @@ import { useReactFlow } from '@xyflow/react';
 import { usePathname } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react';
 import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
+import useFirstLoadTemplateBoxStore from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 
 function useHandleReloadNode() {
   const { nodes, edges, setNodes, setEdges } = useFlowStore();
@@ -23,12 +24,13 @@ function useHandleReloadNode() {
   const path = usePathname();
   const { field, setFields } = useOrderFormStoreV3();
   const { draggedFields, setDraggedFields } = useDragStore();
-
+  const {isFirstLoadTemplateBox} = useFirstLoadTemplateBoxStore()
   React.useEffect(() => {
+    if(!isFirstLoadTemplateBox || !restoreLocal.value) return;
     if (path === '/studio') {
       onSave();
     }
-  }, [nodes.length]);
+  }, [nodes.length, field, isFirstLoadTemplateBox]);
 
   const onRestore = useCallback(async () => {
     const restoreFlow = async () => {
@@ -51,7 +53,6 @@ function useHandleReloadNode() {
         }
 
         setNodes(flow.nodes);
-        console.log('flow onRestore', flow);
         setEdges(flow.edges);
         await setViewport({ x, y, zoom });
         needReactFlowRenderSignal.value = true;
@@ -62,6 +63,8 @@ function useHandleReloadNode() {
   }, []);
 
   useSignalEffect(() => {
+    if(!isFirstLoadTemplateBox || !restoreLocal.value) return;
+
     const signalsForm =
       LocalStorage.getItem(STORAGE_KEYS.USE_SIGNALS_FORM) || {};
     if (signalsForm.value) {
@@ -73,6 +76,8 @@ function useHandleReloadNode() {
   });
 
   useSignalEffect(() => {
+    if(!isFirstLoadTemplateBox || !restoreLocal.value) return;
+
     if (Object.keys(formDappSignal.value).length > 0) {
       LocalStorage.setItem(
         STORAGE_KEYS.USE_SIGNALS_FORM,
@@ -82,6 +87,8 @@ function useHandleReloadNode() {
   });
 
   const onSave = useCallback(() => {
+    
+    if(!isFirstLoadTemplateBox || !restoreLocal.value) return;
     if (rfInstance) {
       const flow = rfInstance.toObject();
       const signals = {
@@ -89,7 +96,6 @@ function useHandleReloadNode() {
         draggedIds2DSignal,
         // formDappSignal
       };
-      console.log('flow onSave', flow);
       LocalStorage.setItem(STORAGE_KEYS.LAST_NODES, JSON.stringify(flow));
       LocalStorage.setItem(
         STORAGE_KEYS.USE_DRAG_SIGNALS,
@@ -104,7 +110,7 @@ function useHandleReloadNode() {
         JSON.stringify({ field, draggedFields }),
       );
     }
-  }, [rfInstance]);
+  }, [rfInstance, isFirstLoadTemplateBox]);
 
   React.useEffect(() => {
     setHaveOldData(!!LocalStorage.getItem(STORAGE_KEYS.LAST_NODES));
