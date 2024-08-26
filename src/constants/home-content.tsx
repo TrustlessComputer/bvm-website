@@ -81,7 +81,7 @@ export const STEP_1_SECTION = {
     {
       title: 'ZK RollUp',
       description: 'Bitcoin L2 with ZK and 100% Bitcoin DA',
-      homeImage: '/landing-v5/home-zk-2.png',
+      homeImage: '/landing-v5/home-zk-3.png',
 
       bgColor:
         'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
