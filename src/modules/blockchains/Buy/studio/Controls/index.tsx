@@ -179,12 +179,16 @@ export default memo(function StudioControls() {
                       })} BVM)`
                     : '';
 
-                if (
-                  (option.key === field[item.key].value &&
-                    field[item.key].dragged) ||
-                  item.type === 'dropdown'
-                )
-                  return null;
+                const isThisOptionDragged =
+                  field[item.key].dragged &&
+                  field[item.key].value === option.key;
+
+                // if (
+                //   (option.key === field[item.key].value &&
+                //     field[item.key].dragged) ||
+                //   item.type === 'dropdown'
+                // )
+                //   return null;
 
                 const isDisabled = isChainOptionDisabled(field, item, option);
 
@@ -196,7 +200,7 @@ export default memo(function StudioControls() {
                   }
                 }
 
-                if(option?.hidden) return null;
+                if (option?.hidden) return null;
 
                 return (
                   <Draggable
@@ -211,11 +215,11 @@ export default memo(function StudioControls() {
                     }}
                     tooltip={option.tooltip}
                   >
-
                     <LegoV3
                       background={item.color}
                       zIndex={item.options.length - optIdx}
                       disabled={isDisabled}
+                      checked={isThisOptionDragged}
                     >
                       <Label icon={option.icon} title={option.title + suffix} />
                     </LegoV3>
