@@ -84,7 +84,10 @@ const L2RollupDetail = () => {
             <Image w={'24px'} src={'/heartbeat/ic-back.svg'} />
             <Text>Bitcoin Heartbeat Project</Text>
           </Flex>
-          <SearchAddress className={s.search} />
+          <Flex alignItems={'center'} gap={'4px'} position={'relative'}>
+            <SearchAddress className={s.search} />
+            <WatchListAddresses />
+          </Flex>
         </Flex>
 
         <Flex
@@ -169,7 +172,6 @@ const L2RollupDetail = () => {
               </>
             )}
           </Tabs>
-          <WatchListAddresses />
         </Box>
       </Flex>
     </Box>
