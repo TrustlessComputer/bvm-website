@@ -53,7 +53,6 @@ const ReactFlowRenderer = React.memo(() => {
 
   console.log('[ReactFlowRenderer]', {
     nodes,
-
     draggedDappIndexesSignal: draggedDappIndexesSignal.value,
     draggedIds2DSignal: draggedIds2DSignal.value,
   });
@@ -62,7 +61,8 @@ const ReactFlowRenderer = React.memo(() => {
     if (loaded) return;
 
     if (haveOldData && categories && categories.length > 0) {
-      setShowModal(true);
+      onRestore();
+      // setShowModal(true);
     }
 
     if (categories && categories.length > 0) setLoaded(true);

@@ -122,6 +122,7 @@ const useSetDefaultDapp = () => {
           strokeWidth: 1,
           color: '#AAAAAA',
         },
+        animated: true,
         style: {
           stroke: '#AAAAAA',
           strokeWidth: 2,

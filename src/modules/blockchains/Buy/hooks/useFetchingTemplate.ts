@@ -39,6 +39,7 @@ import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
 import handleStatusEdges from '@utils/helpers';
+import { categoriesMockupData, defaultTemplateMockupData } from '../mockup_3';
 
 export default function useFetchingTemplate() {
   const { templateList, templateDefault } = useAvailableListTemplate();
@@ -107,7 +108,7 @@ export default function useFetchingTemplate() {
     // Use mockup data
     // const sortedCategories = (categoriesMockup || []).sort(
     // Use API
-    const sortedCategories = (categories || []).sort(
+    const sortedCategories = (categoriesMockupData || []).sort(
       (a, b) => a.order - b.order,
     );
 
@@ -118,11 +119,6 @@ export default function useFetchingTemplate() {
       };
       categoryMapping[_field.key] = _field;
     });
-
-    // if (isAAInstalled) {
-    //   draggedDappIndexesSignal.value = [0];
-    //   draggedIds2DSignal.value = [[]];
-    // }
 
     setCategoryMapping(categoryMapping);
     setParsedCategories(convertData(sortedCategories));
@@ -168,10 +164,10 @@ export default function useFetchingTemplate() {
         node: 'chain',
         title: 'Blockchain',
         sourceHandles: isUpdateFlow
-          ? [`${rootNode}-s-account-abstraction`, `${rootNode}-s-bridge_apps`]
+          ? [`${rootNode}-s-account_abstraction`, `${rootNode}-s-bridge_apps`]
           : [],
         // sourceHandles: isUpdateFlow
-        //   ? [`${rootNode}-s-account-abstraction`]
+        //   ? [`${rootNode}-s-account_abstraction`]
         //   : [],
         targetHandles: [],
       },
@@ -520,7 +516,8 @@ export default function useFetchingTemplate() {
     } else {
       // initTemplate(0);
       console.log('LOG - 1 - templateDefault ', templateDefault);
-      setTemplate(templateDefault || []);
+      // setTemplate(templateDefault || []);
+      setTemplate(defaultTemplateMockupData || []);
     }
   }, [categoriesTemplates, isUpdateFlow, templateDefault]);
 }
