@@ -92,7 +92,10 @@ const LandingV5 = (props: Props) => {
             <SectionBlock {...STEP_1_SECTION} spacing="126px" />
           </BuildItem>
           <BuildItem iconUrl="/landing-v5/ic-step-2.svg">
-            <SectionBlock {...STEP_2_SECTION} spacing="185px" />
+            <SectionBlock
+              {...STEP_2_SECTION}
+              spacing={{ base: '100px', md: '185px' }}
+            />
           </BuildItem>
           <BuildItem iconUrl="/landing-v5/ic-step-3.svg">
             <Box>
@@ -103,7 +106,11 @@ const LandingV5 = (props: Props) => {
                   apps.
                 </Text>
               </div>
-              <Box mb="40px" className={s.desc} whiteSpace={'nowrap'}>
+              <Box
+                mb="40px"
+                className={s.desc}
+                whiteSpace={{ base: 'auto', '2xl': 'nowrap' }}
+              >
                 BVM is EVM-compatible. Easily port your Solidity dapps to
                 Bitcoin or build new ones on Bitcoin from scratch.{' '}
                 <Link
@@ -119,10 +126,10 @@ const LandingV5 = (props: Props) => {
                 </Link>
               </Box>
               <Box
-                mb="176px"
+                mb={{ base: '100px', xl: '176px' }}
                 position={'relative'}
                 aspectRatio={'1348 / 1031'}
-                maxW={'68%'}
+                maxW={{ base: '98%', xl: '68%' }}
               >
                 <Image
                   layout="fill"
