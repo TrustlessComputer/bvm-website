@@ -1,3 +1,5 @@
+// @refresh reset
+
 import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
@@ -525,14 +527,8 @@ export default function useFetchingTemplate() {
       setTemplate(order.selectedOptions || []);
     } else {
       // initTemplate(0);
-<<<<<<< HEAD
       console.log('LOG -- templateDefault -- ', templateDefault);
       setTemplate(templateDefault || []);
-=======
-      console.log('LOG - 1 - templateDefault ', templateDefault);
-      // setTemplate(templateDefault || []);
-      setTemplate(defaultTemplateMockupData || []);
->>>>>>> main
     }
   }, [categoriesTemplates, isUpdateFlow, templateDefault]);
 }
