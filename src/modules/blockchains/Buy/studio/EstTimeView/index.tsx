@@ -29,7 +29,7 @@ export const EstTimeView = () => {
         </Text>
       </Flex>
       <Text fontSize={['13px']} fontWeight={500} color={'#777'}>
-        Est completion time
+        Deploy time
       </Text>
     </Flex>
   );
