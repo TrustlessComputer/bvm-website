@@ -8,7 +8,7 @@ export interface IYoloGameParams extends IPosition{
   protocol_fee_ratio: string,
 }
 
-export interface IYoloGame {
+export interface IYoloGame extends IPosition {
   id: number
   created_at: string
   updated_at: string

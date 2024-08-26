@@ -14,12 +14,15 @@ import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import useOverlappingChainLegoStore from '../../stores/useOverlappingChainLegoStore';
 
 import OptionInputValue from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue';
+import NetworkDropdown from '../../components3/NetworkDropdown';
 import styles from './styles.module.scss';
 
 type Props = {};
 
+const hiddenFields = ['bridge_apps', 'network'];
+
 const ChainRenderer = () => {
-  const { parsedCategories } = useModelCategoriesStore();
+  const { parsedCategories, categories } = useModelCategoriesStore();
   const { draggedFields } = useDragStore();
   const { overlappingId } = useOverlappingChainLegoStore();
   const { field } = useOrderFormStoreV3();
@@ -55,9 +58,14 @@ const ChainRenderer = () => {
       >
         <ComputerNameInput />
       </LegoV3>
+      <LegoV3 background={'#FF7A41'} label="Network" labelInLeft zIndex={44}>
+        {/* <ComputerNameInput /> */}
+        <NetworkDropdown />
+      </LegoV3>
 
       {draggedFields.map((key, index) => {
-        if (key === 'bridge_apps') return null;
+        // if (key === 'bridge_apps') return null;
+        if (hiddenFields.includes(key)) return null;
 
         const item = parsedCategories?.find((i) => i.key === key);
         const selectedCategory = selectedCategoryMapping?.[key];

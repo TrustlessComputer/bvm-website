@@ -16,7 +16,7 @@ const DappNode = ({ data }: NodeProps<DappNodeProps>) => {
 
   const isInstalledIssueToken = useAppSelector(isInstalledIssueTokenSelector);
 
-  // console.log('SANG TEST', data);
+  // console.log('LEON TEST', data);
 
   const notification: NodeNotificationProps | undefined = React.useMemo(() => {
     if (isUpdateFlow && statusCode !== OrderStatus.Started) {

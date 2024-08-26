@@ -22,6 +22,8 @@ interface IModelOption {
   updatable?: boolean;
   priceUSD: number;
   priceBVM: number;
+  priceUSDTestnet?: number;
+  priceBVMTestnet?: number;
   tooltip: string;
   key: string;
   icon: string;
@@ -36,13 +38,13 @@ interface IModelOption {
   needConfig?: boolean;
   logo?: string;
   setupLogo?: string;
-
   valueStr?: string;
   type?: 'text' | 'number';
   disabled?: boolean;
   appTemplateUrl: string;
   needInstall?: boolean;
   inputValue?: string;
+  hidden?:boolean;
   addOnInputs?: {
     type: string;
     attrs: {

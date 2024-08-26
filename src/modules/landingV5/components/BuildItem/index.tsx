@@ -36,7 +36,7 @@ const BuildItem = ({
         direction="column"
         alignItems="center"
         // opacity={isInView ? 0.5 : 1}
-        gap="20px"
+        gap="14px"
       >
         <Box
           as={motion.div}

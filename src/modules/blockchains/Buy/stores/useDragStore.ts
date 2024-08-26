@@ -7,7 +7,8 @@ type UseDrag = {
 
 const useDragStore = create<UseDrag>((set) => ({
   draggedFields: [],
-  setDraggedFields: (draggedFields) => set({ draggedFields }),
+  setDraggedFields: (draggedFields) =>
+    set({ draggedFields: Array.from(new Set(draggedFields)) }),
 }));
 
 export default useDragStore;

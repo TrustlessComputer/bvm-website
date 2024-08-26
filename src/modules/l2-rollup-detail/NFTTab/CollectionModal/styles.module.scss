@@ -1,0 +1,21 @@
+.container {
+
+}
+
+.wrapScroll {
+  overflow-x: auto !important;
+
+  :global {
+    .chakra-table__container {
+      border-radius: 0px;
+      border: 0px solid transparent !important;
+    }
+    .isActiveRow {
+      background-color: rgba(26, 172, 235, 0.2) !important;
+
+      p {
+        color: black !important;
+      }
+    }
+  }
+}

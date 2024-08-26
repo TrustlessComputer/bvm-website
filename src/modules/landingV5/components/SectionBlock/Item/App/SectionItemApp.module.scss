@@ -9,6 +9,11 @@
     cursor: pointer;
     overflow: hidden;
 
+    &:not(.popular) {
+        margin-top: 18px;
+        margin-bottom: 18px;
+    }
+
     @include is-mobile {
         width: 300px;
     }
@@ -83,6 +88,34 @@
         //     object-fit: cover;
         // }
 
+    }
+
+    &.popular {
+        padding-top: 0;
+        border: 4px #FFF solid;
+        border-top: 0;
+        background-color: #fff;
+
+
+
+        .popular_tag {
+            border-radius: 32px 32px 0px 0px;
+            color: #000;
+            text-align: center;
+            font-family: "SF Pro Display";
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 120%;
+
+            /* 19.2px */
+            text-transform: uppercase;
+            height: 36px;
+            display: grid;
+            place-items: center;
+
+
+        }
     }
 
 }

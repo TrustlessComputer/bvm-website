@@ -14,31 +14,31 @@ import { getAirdropTaskKey } from '../utils';
 
 const renderLabel = {
   [EAirdropStatus.new]: {
-    label: 'Deposit now',
+    label: 'Deposit now', //draft
     color: '#fff',
     background: 'rgb(255, 98, 0)',
     status: EAirdropStatus.new,
   },
   [EAirdropStatus.processing]: {
-    label: 'Processing',
+    label: 'Processing', // run
     color: '#fff',
     background: '#00AA6C',
     status: EAirdropStatus.processing,
   },
   [EAirdropStatus.ended]: {
-    label: 'Ended',
+    label: 'Ended', // down
     color: '#fff',
     background: 'rgba(255, 0, 0, 1)',
     status: EAirdropStatus.ended,
   },
   [EAirdropStatus.deposited]: {
-    label: 'Processing',
+    label: 'Processing', // run
     color: '#fff',
     background: '#00AA6C',
     status: EAirdropStatus.deposited,
   },
   [EAirdropStatus.expired]: {
-    label: 'Expired',
+    label: 'Expired', // down
     color: '#fff',
     background: 'rgba(255, 0, 0, 1)',
     status: 'stopped',

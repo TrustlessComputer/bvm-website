@@ -104,11 +104,20 @@ export interface INFT {
   value_fetched_at: Date;
   block_number: number;
   is_native: boolean;
+  chain?: IRollupChain;
 }
 
 export interface IRollupNFT {
   rollup: IRollupChain;
   balances: INFT[];
+}
+
+export interface IRollupNFTDetail {
+  token_address: string
+  token_id: string
+  owner_address: string
+  token_uri: string
+  token_uri_fetched_at: string
 }
 
 export interface IWatchList {
