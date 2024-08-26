@@ -1,15 +1,29 @@
 .container {
-  position: absolute;
-  left: -200px;
-  top: 0px;
-  width: 180px;
+  //   width: 180px;
   border: 1px solid #ccc;
+  border-radius: 100px;
+  overflow: hidden;
+  height: 44px;
+  background-color: #f5f5f5;
   .header {
-    background-color: #f5f5f5;
-    padding: 10px;
     cursor: pointer;
+    height: 100%;
+    padding: 0 6px;
     p {
       font-size: 12px;
+    }
+  }
+}
+
+.popoverContent {
+  border-color: #ccc !important;
+  overflow: hidden;
+  max-width: fit-content;
+
+  :global {
+    .chakra-popover__body {
+      background: #fff !important;
+      padding: 0px;
     }
   }
   .item {
