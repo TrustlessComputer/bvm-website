@@ -44,7 +44,7 @@ interface IModelOption {
   appTemplateUrl: string;
   needInstall?: boolean;
   inputValue?: string;
-  hidden?:boolean;
+  hidden?: boolean;
   addOnInputs?: {
     type: string;
     attrs: {
@@ -56,6 +56,7 @@ interface IModelOption {
       api_check_valid: string;
     };
   };
+  deployTime?: string;
 }
 
 interface IModelCategory {
