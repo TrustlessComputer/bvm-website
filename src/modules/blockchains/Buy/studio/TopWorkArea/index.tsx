@@ -50,7 +50,7 @@ export default function TopWorkArea(): ReactElement {
       <EstTimeView />
 
       <Flex flexDir={'column'}>
-        <Text fontSize={['18px']} fontWeight={500} color={'#333'}>
+        <Text fontSize={['18px']} fontWeight={600} color={'#333'}>
           {formatCurrencyV2({
             amount: priceBVM,
             decimals: 0,

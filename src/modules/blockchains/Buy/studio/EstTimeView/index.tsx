@@ -24,11 +24,11 @@ export const EstTimeView = () => {
           w={'25px'}
           h={'25px'}
         ></Image>
-        <Text fontSize={['18px']} fontWeight={500} color={'#333'}>
+        <Text fontSize={['18px']} fontWeight={600} color={'#333'}>
           {estTimeStr}
         </Text>
       </Flex>
-      <Text fontSize={['13px']} fontWeight={400} color={'#777'}>
+      <Text fontSize={['13px']} fontWeight={500} color={'#777'}>
         Est completion time
       </Text>
     </Flex>
