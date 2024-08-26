@@ -918,6 +918,11 @@ const L2Rollup = () => {
     );
   };
 
+  const chainsSupportForChart = useMemo(
+    () => data.filter((d) => d.fee_chart_supported).map((v) => v.name),
+    [data],
+  );
+
   return (
     <Box className={s.container}>
       <Flex direction={'column'} w="100%" maxW={'1800px'} alignItems={'center'}>
@@ -996,39 +1001,50 @@ const L2Rollup = () => {
           <SearchAddress placeholder={'Search Bitcoin or EVM address'} />
         </Flex>
 
-        <SimpleGrid columns={3} gap={'16px'} mb={'32px'}>
-          <L2RollupFee
-            data={_dataChart.txs}
-            prefix='Ξ'
-            title={`<p>Transaction Count</p><p>Ξ${formatCurrency(
-              (_dataChart.txs?.[_dataChart.txs.length - 1] as any)?.[1] as any,
-              0,
-              2,
-            )}</p>`}
-          />
-          <L2RollupFee
-            data={_dataChart.addresses}
-            prefix='Ξ'
-            title={`<p>Active Addresses</p><p>Ξ${formatCurrency(
-              (
-                _dataChart.addresses?.[_dataChart.addresses.length - 1] as any
-              )?.[1] as any,
-              0,
-              2,
-            )}</p>`}
-          />
-          <L2RollupFee
-            data={_dataChart.fees}
-            prefix='$'
-            title={`<p>Fees Paid by Users</p><p>$${formatCurrency(
-              (
-                _dataChart.fees?.[_dataChart.fees.length - 1] as any
-              )?.[1] as any,
-              0,
-              2,
-            )}</p>`}
-          />
-        </SimpleGrid>
+        <Box w={'100%'} mb={'32px'}>
+          <SimpleGrid columns={3} gap={'16px'}>
+            <L2RollupFee
+              data={_dataChart.txs}
+              prefix="Ξ"
+              title={`<p>Transaction Count</p><p>Ξ${formatCurrency(
+                (
+                  _dataChart.txs?.[_dataChart.txs.length - 1] as any
+                )?.[1] as any,
+                0,
+                2,
+              )}</p>`}
+            />
+            <L2RollupFee
+              data={_dataChart.addresses}
+              prefix="Ξ"
+              title={`<p>Active Addresses</p><p>Ξ${formatCurrency(
+                (
+                  _dataChart.addresses?.[_dataChart.addresses.length - 1] as any
+                )?.[1] as any,
+                0,
+                2,
+              )}</p>`}
+            />
+            <L2RollupFee
+              data={_dataChart.fees}
+              prefix="$"
+              title={`<p>Fees Paid by Users</p><p>$${formatCurrency(
+                (
+                  _dataChart.fees?.[_dataChart.fees.length - 1] as any
+                )?.[1] as any,
+                0,
+                2,
+              )}</p>`}
+            />
+          </SimpleGrid>
+          <Box mt={'6px'}>
+            <Text fontSize={'12px'} opacity={'0.8'}>
+              * This data has been collected from{' '}
+              {chainsSupportForChart.join(', ')} chains. More chains will be
+              included in the next version.
+            </Text>
+          </Box>
+        </Box>
         <Flex
           className={s.totalContainer}
           bg="#FAFAFA"
