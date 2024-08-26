@@ -1,4 +1,5 @@
 import { DappModel, IModelCategory } from '@/types/customize-model';
+import { WalletType } from '@/stores/states/dapp/types';
 
 export const accountAbstractionAsADapp: DappModel = {
   isDefaultDapp: true,
@@ -1480,7 +1481,7 @@ export const dappMockupData: DappModel[] = [
           {
             key: 'naka-wallet',
             title: 'Naka wallet', // symbol
-            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222222', // contract_address
+            value: WalletType.naka, // contract_address
             icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
             tooltip: '',
             type: '',
@@ -1490,7 +1491,7 @@ export const dappMockupData: DappModel[] = [
           {
             key: 'ingame-wallet',
             title: 'InGame wallet', // symbol
-            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
+            value: WalletType.inGame, // contract_address
             icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
             tooltip: '',
             type: '',
