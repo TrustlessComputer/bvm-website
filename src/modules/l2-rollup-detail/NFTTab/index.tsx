@@ -1,7 +1,7 @@
 import AppLoading from '@/components/AppLoading';
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
 import CRollupL2DetailAPI from '@/services/api/dapp/rollupl2-detail';
-import { INFT, IRollupDetail, IRollupNFT } from '@/services/api/dapp/rollupl2-detail/interface';
+import { INFT, IRollupChain, IRollupDetail, IRollupNFT } from '@/services/api/dapp/rollupl2-detail/interface';
 import { Box, Flex, Grid, Image, Text } from '@chakra-ui/react';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
@@ -10,14 +10,22 @@ import ListTable, { ColumnProp } from '@components/ListTable';
 import { formatCurrency } from '@utils/format';
 import CollectionModal from '@/modules/l2-rollup-detail/NFTTab/CollectionModal';
 
-interface IProps {}
+interface IProps {};
+
+const RollupAll:IRollupDetail = {
+  rollup: {
+    id: 0,
+    name: 'All',
+  } as IRollupChain,
+  balances: []
+};
 
 const NFTTab = (props: IProps) => {
   const { address } = useContext(L2RollupDetailContext);
   const { rollupDetails } = useContext(
     L2RollupDetailContext,
   );
-  const [selectedRollup, setSelectedRollup] = useState<IRollupDetail | undefined>(undefined);
+  const [selectedRollup, setSelectedRollup] = useState<IRollupDetail | undefined>(RollupAll);
 
   const rollupApi = new CRollupL2DetailAPI();
 
@@ -28,7 +36,7 @@ const NFTTab = (props: IProps) => {
   const list = useMemo(() => {
     let transactions: INFT[] = [];
     rollupTransactions.forEach((data) => {
-      if (data.balances && (!selectedRollup || (selectedRollup && data?.rollup?.id === selectedRollup?.rollup?.id)))
+      if (data.balances && (selectedRollup?.rollup?.id === 0 || (selectedRollup && data?.rollup?.id === selectedRollup?.rollup?.id)))
         transactions = [
           ...transactions,
           ...data.balances.map((balance) => ({
@@ -182,7 +190,7 @@ const NFTTab = (props: IProps) => {
         borderRadius={'12px'}
         className={s.chains}
       >
-        {rollupDetails.map((detail) => {
+        {[RollupAll].concat(rollupDetails).map((detail) => {
           if (!detail.rollup) return;
 
           return (
@@ -193,14 +201,18 @@ const NFTTab = (props: IProps) => {
               cursor={'pointer'}
               onClick={() => setSelectedRollup(detail)}
               borderRadius={"8px"}
-              p={"4px"}
+              p={"8px"}
             >
-              <Image
-                src={detail.rollup?.icon}
-                w={'40px'}
-                h={'40px'}
-                borderRadius={'50%'}
-              />
+              {
+                detail.rollup?.icon && (
+                  <Image
+                    src={detail.rollup?.icon}
+                    w={'40px'}
+                    h={'40px'}
+                    borderRadius={'50%'}
+                  />
+                )
+              }
               <Flex direction={'column'}>
                 <Text fontWeight={'400'} color={detail?.rollup?.id === selectedRollup?.rollup.id ? '#FFF' : '#808080'}>
                   {detail.rollup?.name}
