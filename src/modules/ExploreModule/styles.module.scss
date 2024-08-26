@@ -28,7 +28,6 @@
   gap: 24px;
 
   @include is-min-table {
-    margin-bottom: 140px !important;
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -49,6 +48,10 @@
   flex-direction: row;
   gap: 120px;
   justify-content: space-between;
+
+  @include is-tablet {
+    gap: 60px;
+  }
 
   @include is-mobile {
     flex-direction: column;
@@ -89,6 +92,10 @@
       opacity: 1;
       font-weight: 700;
       background: rgba(250, 78, 14, 0.10);
+    }
+
+    @include is-tablet {
+      width: 100px;
     }
   }
 }
