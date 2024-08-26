@@ -115,6 +115,9 @@ const useSetDefaultDapp = () => {
         targetHandle: `${newNodeId}-t-${rootNode}`,
         type: 'customEdge',
         label: '',
+        selectable: false,
+        selected: false,
+        focusable: false,
         markerEnd: {
           type: MarkerType.Arrow,
           width: 25,

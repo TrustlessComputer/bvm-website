@@ -11,6 +11,7 @@ import { accountAbstractionAsADapp, bridgesAsADapp } from '../mockup_3';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
+  restoreLocal,
 } from '../signals/useDragSignal';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import useFormChain from './useFormChain';

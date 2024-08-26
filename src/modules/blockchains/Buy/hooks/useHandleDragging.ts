@@ -57,7 +57,6 @@ export default function useHandleDragging() {
   const { templateDapps } = useTemplateFormStore();
   const { deleteValue: deleteValueOptionInputStore } = useOptionInputStore();
 
-  // console.log('useHandleDragging -> field :: ', field);
 
   const getAllOptionKeysOfItem = (item: FieldModel) => {
     const result: string[] = [];
@@ -157,6 +156,7 @@ export default function useHandleDragging() {
           (option) => option.key === field[activeKey].value,
         );
         const msg = `You have already chosen ${currentOption?.title} as your ${currentField?.title}. Please remove it before selecting again.`;
+        // isShakeLego.value = field[activeKey].value as string;
         isShakeLego.value = currentOption?.value as string;
         toast.error(msg, {
           icon: null,
