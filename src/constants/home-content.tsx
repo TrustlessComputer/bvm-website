@@ -69,7 +69,7 @@ export const STEP_1_SECTION = {
     {
       title: 'ZK ROLLUP Hybrid',
       description: 'Bitcoin L2 with ZK and Hybrid DA',
-      homeImage: '/landing-v5/home-zk-hybrid.png',
+      homeImage: '/landing-v5/home-zk-hybrid-1.png',
       bgColor: 'linear-gradient(180deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
       link: {
         url: '/studio?template=1',
@@ -120,7 +120,7 @@ export const STEP_1_SECTION = {
     {
       title: 'Optimistic Rollup Hybrid',
       description: 'Bitcoin L2 with Optimistic scaling and Hybrid DA',
-      homeImage: '/landing-v5/home-op-1.png',
+      homeImage: '/landing-v5/home-op-2.png',
 
       bgColor:
         'linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
