@@ -57,6 +57,7 @@ interface IModelOption {
       api_check_valid: string;
     };
   } | null;
+  deployTime?: string;
 }
 
 interface IModelCategory {
