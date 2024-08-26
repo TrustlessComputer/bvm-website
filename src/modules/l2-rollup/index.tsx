@@ -962,7 +962,7 @@ const L2Rollup = () => {
         </Flex>
 
         <Flex mb={'48px'}>
-          <SearchAddress placeholder={'Search Bitcoin or EVM address'} />
+          <SearchAddress placeholder={'Search bitcoin or L2 Bitcoin address'} className={s.search}/>
         </Flex>
 
         <Flex
