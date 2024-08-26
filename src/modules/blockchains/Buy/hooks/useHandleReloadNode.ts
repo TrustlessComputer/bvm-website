@@ -13,21 +13,24 @@ import { useSignalEffect } from '@preact/signals-react';
 import { useReactFlow } from '@xyflow/react';
 import { usePathname } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react';
+import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
+import useFirstLoadTemplateBoxStore from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 
 function useHandleReloadNode() {
-  const { nodes, setNodes, setEdges } = useFlowStore();
+  const { nodes, edges, setNodes, setEdges } = useFlowStore();
   const [rfInstance, setRfInstance] = useState<any>(null);
   const [haveOldData, setHaveOldData] = useState(false);
   const { setViewport } = useReactFlow();
   const path = usePathname();
   const { field, setFields } = useOrderFormStoreV3();
   const { draggedFields, setDraggedFields } = useDragStore();
-
+  const {isFirstLoadTemplateBox} = useFirstLoadTemplateBoxStore()
   React.useEffect(() => {
+    if(!isFirstLoadTemplateBox || !restoreLocal.value) return;
     if (path === '/studio') {
       onSave();
     }
-  }, [nodes.length]);
+  }, [nodes.length, field, isFirstLoadTemplateBox]);
 
   const onRestore = useCallback(async () => {
     const restoreFlow = async () => {
@@ -39,8 +42,7 @@ function useHandleReloadNode() {
         LocalStorage.getItem(STORAGE_KEYS.USE_BLOCKCHAIN_FORM) || {};
       if (flow) {
         const { x = 0, y = 0, zoom = 1 } = flow.viewport;
-        setNodes(flow.nodes);
-        setEdges(flow.edges);
+
         draggedDappIndexesSignal.value = signals.draggedDappIndexesSignal;
         draggedIds2DSignal.value = signals.draggedIds2DSignal;
         formDappSignal.value = signalsForm.formDappSignal;
@@ -49,15 +51,20 @@ function useHandleReloadNode() {
           setFields(blockchainForm.field);
           setDraggedFields(blockchainForm.draggedFields);
         }
+
+        setNodes(flow.nodes);
+        setEdges(flow.edges);
         await setViewport({ x, y, zoom });
+        needReactFlowRenderSignal.value = true;
       }
-      restoreLocal.value = true;
     };
 
     await restoreFlow();
   }, []);
 
   useSignalEffect(() => {
+    if(!isFirstLoadTemplateBox || !restoreLocal.value) return;
+
     const signalsForm =
       LocalStorage.getItem(STORAGE_KEYS.USE_SIGNALS_FORM) || {};
     if (signalsForm.value) {
@@ -69,6 +76,8 @@ function useHandleReloadNode() {
   });
 
   useSignalEffect(() => {
+    if(!isFirstLoadTemplateBox || !restoreLocal.value) return;
+
     if (Object.keys(formDappSignal.value).length > 0) {
       LocalStorage.setItem(
         STORAGE_KEYS.USE_SIGNALS_FORM,
@@ -78,6 +87,8 @@ function useHandleReloadNode() {
   });
 
   const onSave = useCallback(() => {
+    
+    if(!isFirstLoadTemplateBox || !restoreLocal.value) return;
     if (rfInstance) {
       const flow = rfInstance.toObject();
       const signals = {
@@ -85,7 +96,6 @@ function useHandleReloadNode() {
         draggedIds2DSignal,
         // formDappSignal
       };
-
       LocalStorage.setItem(STORAGE_KEYS.LAST_NODES, JSON.stringify(flow));
       LocalStorage.setItem(
         STORAGE_KEYS.USE_DRAG_SIGNALS,
@@ -100,6 +110,10 @@ function useHandleReloadNode() {
         JSON.stringify({ field, draggedFields }),
       );
     }
+  }, [rfInstance, isFirstLoadTemplateBox]);
+
+  React.useEffect(() => {
+    setHaveOldData(!!LocalStorage.getItem(STORAGE_KEYS.LAST_NODES));
   }, [rfInstance]);
 
 

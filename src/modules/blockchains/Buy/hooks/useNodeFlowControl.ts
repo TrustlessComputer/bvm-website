@@ -1,7 +1,7 @@
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import {
   draggedDappIndexesSignal,
-  draggedIds2DSignal,
+  draggedIds2DSignal, restoreLocal,
 } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import {
   cloneDeep,
@@ -89,11 +89,12 @@ export default function useNodeFlowControl() {
   };
 
   useSignalEffect(() => {
-    console.log('[useNodeFlowControl] useSignalEffect', {
-      new: draggedIds2DSignal.value,
-      old: draggedIds2D,
-      isDragging,
-    });
+    needReactFlowRenderSignal.value = true;
+
+    if(!restoreLocal.value) return;
+
+    needReactFlowRenderSignal.value = true;
+
 
     if (draggedDappIndexesSignal.value.includes(0) && isAAInstalled) {
       if (!nodes.some((node) => node.id === 'account-abstraction')) {
@@ -138,6 +139,9 @@ export default function useNodeFlowControl() {
             target: `account-abstraction`,
             targetHandle: `account-abstraction-t-${rootNode}`,
             type: 'customEdge',
+            selectable: false,
+            selected: false,
+            focusable: false,
             label: handleStatusEdges('', lineAAStatus, 'account-abstraction').icon,
             animated: handleStatusEdges('', lineAAStatus, 'account-abstraction').animate,
             markerEnd: {
@@ -193,6 +197,9 @@ export default function useNodeFlowControl() {
             label: handleStatusEdges('', lineBridgeStatus, 'bridge_apps').icon,
             animated: handleStatusEdges('', lineBridgeStatus, 'bridge_apps').animate,
             targetHandle: `bridge_apps-t-${rootNode}`,
+            selectable: false,
+            selected: false,
+            focusable: false,
             type: 'customEdge',
             markerEnd: {
               type: MarkerType.Arrow,
