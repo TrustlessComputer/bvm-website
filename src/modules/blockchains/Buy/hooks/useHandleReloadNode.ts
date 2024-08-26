@@ -13,9 +13,10 @@ import { useSignalEffect } from '@preact/signals-react';
 import { useReactFlow } from '@xyflow/react';
 import { usePathname } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react';
+import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 
 function useHandleReloadNode() {
-  const { nodes, setNodes, setEdges } = useFlowStore();
+  const { nodes, edges, setNodes, setEdges } = useFlowStore();
   const [rfInstance, setRfInstance] = useState<any>(null);
   const [haveOldData, setHaveOldData] = useState(false);
   const { setViewport } = useReactFlow();
@@ -39,8 +40,7 @@ function useHandleReloadNode() {
         LocalStorage.getItem(STORAGE_KEYS.USE_BLOCKCHAIN_FORM) || {};
       if (flow) {
         const { x = 0, y = 0, zoom = 1 } = flow.viewport;
-        setNodes(flow.nodes);
-        setEdges(flow.edges);
+
         draggedDappIndexesSignal.value = signals.draggedDappIndexesSignal;
         draggedIds2DSignal.value = signals.draggedIds2DSignal;
         formDappSignal.value = signalsForm.formDappSignal;
@@ -49,9 +49,13 @@ function useHandleReloadNode() {
           setFields(blockchainForm.field);
           setDraggedFields(blockchainForm.draggedFields);
         }
+
+        setNodes(flow.nodes);
+        console.log('flow onRestore', flow);
+        setEdges(flow.edges);
         await setViewport({ x, y, zoom });
+        needReactFlowRenderSignal.value = true;
       }
-      restoreLocal.value = true;
     };
 
     await restoreFlow();
@@ -85,7 +89,7 @@ function useHandleReloadNode() {
         draggedIds2DSignal,
         // formDappSignal
       };
-
+      console.log('flow onSave', flow);
       LocalStorage.setItem(STORAGE_KEYS.LAST_NODES, JSON.stringify(flow));
       LocalStorage.setItem(
         STORAGE_KEYS.USE_DRAG_SIGNALS,
@@ -100,6 +104,10 @@ function useHandleReloadNode() {
         JSON.stringify({ field, draggedFields }),
       );
     }
+  }, [rfInstance]);
+
+  React.useEffect(() => {
+    setHaveOldData(!!LocalStorage.getItem(STORAGE_KEYS.LAST_NODES));
   }, [rfInstance]);
 
 

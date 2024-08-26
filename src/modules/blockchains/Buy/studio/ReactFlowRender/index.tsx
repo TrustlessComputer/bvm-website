@@ -15,7 +15,7 @@ import DappNode from '../../component4/YourNodes/DappNode';
 import { nodeKey } from '../../component4/YourNodes/node.constants';
 import {
   draggedDappIndexesSignal,
-  draggedIds2DSignal,
+  draggedIds2DSignal, restoreLocal,
 } from '../../signals/useDragSignal';
 import useFlowStore from '../../stores/useFlowStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
@@ -38,10 +38,10 @@ const ReactFlowRenderer = React.memo(() => {
   const [loaded, setLoaded] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
 
-  const confirmLoad = () => {
-    onRestore();
-    setShowModal(false);
-  };
+  // const confirmLoad = () => {
+  //   onRestore();
+  //   setShowModal(false);
+  // };
 
   useSignalEffect(() => {
     if (needReactFlowRenderSignal.value) {
@@ -61,12 +61,19 @@ const ReactFlowRenderer = React.memo(() => {
   React.useEffect(() => {
     if (loaded) return;
 
-    if (haveOldData && categories && categories.length > 0) {
-      setShowModal(true);
+    if ( categories && categories.length > 0) {
+      if(haveOldData) {
+        onRestore().then(() => {
+          restoreLocal.value = true;
+        })
+      } else {
+        restoreLocal.value = true;
+      }
+      setLoaded(true);
+
     }
 
-    if (categories && categories.length > 0) setLoaded(true);
-  }, [haveOldData, categories, loaded]);
+  }, [haveOldData, categories, loaded, rfInstance]);
 
   return (
     <>
@@ -108,15 +115,15 @@ const ReactFlowRenderer = React.memo(() => {
         }}
       />
 
-      <MModal
-        title="Do you want to load the last saved flow?"
-        okText="Load"
-        closeText="Cancel"
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        onOk={() => confirmLoad()}
-        className={s.modal}
-      />
+      {/*<MModal*/}
+      {/*  title="Do you want to load the last saved flow?"*/}
+      {/*  okText="Load"*/}
+      {/*  closeText="Cancel"*/}
+      {/*  show={showModal}*/}
+      {/*  onHide={() => setShowModal(false)}*/}
+      {/*  onOk={() => confirmLoad()}*/}
+      {/*  className={s.modal}*/}
+      {/*/>*/}
     </>
   );
 });

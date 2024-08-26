@@ -185,6 +185,7 @@ export default function useFetchingTemplate() {
 
       setEdges(edgeData);
       setNodes(newNodes);
+      console.log('newNodes ne', newNodes);
       setNeedSetDataTemplateToBox(false);
 
       if (isUpdateFlow) setNeedCheckAndAddAA(true);
@@ -486,7 +487,7 @@ export default function useFetchingTemplate() {
 
   React.useEffect(() => {
     fetchData();
-    parseDappApiToDappModel();
+    // parseDappApiToDappModel();
   }, []);
 
   React.useEffect(() => {

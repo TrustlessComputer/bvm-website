@@ -8,7 +8,7 @@ import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import { bridgesAsADapp } from '../mockup_3';
 import {
   draggedDappIndexesSignal,
-  draggedIds2DSignal,
+  draggedIds2DSignal, restoreLocal,
 } from '../signals/useDragSignal';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import useFormChain from './useFormChain';
@@ -21,6 +21,12 @@ export default function useCheckNodes() {
   const { getCurrentFieldFromChain } = useFormChain();
   const { lineBridgeStatus } = useBridgesModule();
   useEffect(() => {
+    checkBridge();
+  }, [field['bridge_apps']]);
+
+  function checkBridge() {
+    if(!restoreLocal.value) return;
+
     if (!getCurrentFieldFromChain('bridge_apps')) {
       const nodeIndex = nodes.findIndex((node) => node.id == 'bridge_apps');
       const dappIndex = draggedDappIndexesSignal.value.findIndex(
@@ -44,6 +50,7 @@ export default function useCheckNodes() {
         removeItemAtIndex(draggedDappIndexesSignal.value, dappIndex);
         removeItemAtIndex(draggedIds2DSignal.value, dappIndex);
       }
+
     } else {
       const nodeIndex = nodes.findIndex((node) => node.id == 'bridge_apps');
 
@@ -110,5 +117,5 @@ export default function useCheckNodes() {
         needReactFlowRenderSignal.value = true;
       }
     }
-  }, [field['bridge_apps']]);
+  }
 }
