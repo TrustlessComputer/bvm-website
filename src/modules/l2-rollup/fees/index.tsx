@@ -1,27 +1,25 @@
-import { Box, Text } from '@chakra-ui/react';
-import React, { useRef } from 'react';
+import { Box } from '@chakra-ui/react';
+import { useEffect, useRef } from 'react';
 
+import { formatCurrency } from '@/utils/format';
+import dayjs from 'dayjs';
 import * as Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import s from './styles.module.scss';
-import { formatCurrency } from '@/utils/format';
-import dayjs from 'dayjs';
 
 const L2RollupFee = ({
   data,
-  title,
+  header,
   prefix,
 }: {
   data: number[];
-  title: string;
+  header: any;
   prefix: string;
 }) => {
   const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
   const options: Highcharts.Options = {
     title: {
-      text: title,
-      align: 'left',
-      useHTML: true,
+      text: '',
     },
     xAxis: {
       visible: false,
@@ -99,8 +97,29 @@ const L2RollupFee = ({
     },
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      const addressChart =
+        document.getElementsByClassName('highcharts-title')?.[1];
+
+      if (addressChart) {
+        const span = addressChart.getElementsByTagName('span');
+        if (span[0]) {
+          span[0].setAttribute('flow', 'down');
+          span[0].setAttribute(
+            'tooltip',
+            'Active addresses are those that have executed at least one transaction.\nThe count of addresses is specific to Layer 2 on Bitcoin, excluding BTC addresses',
+          );
+          console.log('span[0]', span[0]);
+        }
+        // console.log('span', span);
+      }
+    }, 1000);
+  }, []);
+
   return (
     <Box className={s.chartContainer}>
+      {header}
       <HighchartsReact
         highcharts={Highcharts}
         options={options}
