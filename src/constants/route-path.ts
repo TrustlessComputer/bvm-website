@@ -20,4 +20,3 @@ export const ROLLUPS = `/rollups`;
 export const BVM_STUDIO = '/rollups/customizev2';
 export const BVM_CODE_BATTLE = '/PoC';
 export const HEART_BEAT = '/heartbeats';
-export const HEART_BEAT_WATCHLIST = '/heartbeats/watchlist';
