@@ -17,6 +17,8 @@ import styles from './styles.module.scss';
 import last from 'lodash/last';
 import SvgInset from '../SvgInset';
 import { compareString, getAvatarName } from '@/utils/string';
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
+import { validateEVMAddress } from '@/utils/validate';
 
 interface IAvatarProps {
   className?: string;
@@ -52,6 +54,7 @@ const DefaultAvatar = ({
   placeHolderStyles,
   fontSize,
   hideDefault,
+  width,
 }: {
   name?: string | undefined;
   address?: string | undefined;
@@ -60,17 +63,16 @@ const DefaultAvatar = ({
   fontSize?: number | undefined;
   hideDefault?: boolean | undefined;
 }) => {
+  let numColor = 0;
+
+  if (address && validateEVMAddress(address)) {
+    numColor =
+      parseFloat(BigNumber.from(address).toBigInt().toString(10).slice(0, 4)) %
+      10;
+  }
+
+  const colors = gradientColor[numColor > 9 ? 0 : numColor];
   if (name) {
-    let numColor = 0;
-
-    if (address) {
-      numColor =
-        parseFloat(
-          BigNumber.from(address).toBigInt().toString(10).slice(0, 4),
-        ) % 10;
-    }
-
-    const colors = gradientColor[numColor > 9 ? 0 : numColor];
     return (
       <Box
         style={{
@@ -90,6 +92,23 @@ const DefaultAvatar = ({
         >
           {getAvatarName(name).toUpperCase()}
         </Text>
+      </Box>
+    );
+  }
+
+  if (address && validateEVMAddress(address)) {
+    return (
+      <Box
+        style={{
+          ...placeHolderStyles,
+          alignItems: 'center',
+          justifyContent: 'center',
+          display: 'flex',
+          backgroundColor: colors,
+        }}
+        className={'imgError'}
+      >
+        <Jazzicon diameter={width} seed={jsNumberForAddress(address)} />
       </Box>
     );
   }

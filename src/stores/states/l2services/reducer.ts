@@ -84,6 +84,9 @@ export const initialState: L2ServicesState = {
   isModelCategoriesFetching: false,
   isModelCategoriesFetched: false,
   modelCategories: undefined,
+
+  //
+  openWatchList: false,
 };
 
 const slice = createSlice({
@@ -136,6 +139,9 @@ const slice = createSlice({
     },
     setDAppConfigSelected(state, action: PayloadAction<IModelOption>) {
       state.dAppConfigSelected = action.payload;
+    },
+    setOpenWatchList(state, action: PayloadAction<boolean>) {
+      state.openWatchList = action.payload;
     },
   },
 
@@ -308,5 +314,6 @@ export const {
   setMonitorViewPage,
   setDAppSelected,
   setDAppConfigSelected,
+  setOpenWatchList
 } = slice.actions;
 export default slice.reducer;

@@ -113,4 +113,5 @@ export interface IRollupNFT {
 
 export interface IWatchList {
   address: string;
+  org_address: string;
 }

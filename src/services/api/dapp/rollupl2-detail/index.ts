@@ -105,6 +105,19 @@ class CRollupL2DetailAPI extends CDappApiClient {
       throw [];
     }
   };
+
+  getWatchListValidate = async (
+    address: string | unknown = '',
+  ): Promise<IWatchList[]> => {
+    try {
+      const rs: any = await this.api.get(`/user/watchlist/validate`, {
+        params: { address },
+      });
+      return rs;
+    } catch (error) {
+      throw [];
+    }
+  };
 }
 
 export default CRollupL2DetailAPI;
