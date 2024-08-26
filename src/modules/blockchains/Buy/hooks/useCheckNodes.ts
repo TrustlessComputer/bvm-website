@@ -89,6 +89,9 @@ export default function useCheckNodes() {
             target: `bridge_apps`,
             targetHandle: `bridge_apps-t-${rootNode}`,
             type: 'customEdge',
+            selectable: false,
+            selected: false,
+            focusable: false,
             label: handleStatusEdges('', lineBridgeStatus, 'bridge_apps').icon,
             animated: handleStatusEdges('', lineBridgeStatus, 'bridge_apps').animate,
             markerEnd: {
