@@ -1,16 +1,13 @@
 import AppLoading from '@/components/AppLoading';
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
 import CRollupL2DetailAPI from '@/services/api/dapp/rollupl2-detail';
-import {
-  INFT,
-  IRollupNFT,
-} from '@/services/api/dapp/rollupl2-detail/interface';
-import { Box, Flex, Grid, Image, Text } from '@chakra-ui/react';
+import { INFT, IRollupNFT } from '@/services/api/dapp/rollupl2-detail/interface';
+import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
-import EmptyList from '@/components/ListTable/EmptyList';
-import NFTItem from '@/modules/l2-rollup-detail/NFTTab/item';
+import ListTable, { ColumnProp } from '@components/ListTable';
+import { formatCurrency } from '@utils/format';
 
 interface IProps {}
 
@@ -107,6 +104,65 @@ const NFTTab = (props: IProps) => {
     }
   };
 
+  const labelConfig = {
+    color: '#898989',
+  };
+
+  const columns: ColumnProp[] = useMemo(() => {
+    return [
+      {
+        id: 'collection',
+        label: 'Collection',
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: INFT) {
+          return (
+            <Flex
+              gap={6}
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'space-between'}
+              cursor="pointer"
+            >
+              <Text className={s.title}>
+                {data?.token_name}
+              </Text>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'balance',
+        label: 'Balance',
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: INFT) {
+          return (
+            <Flex gap={3} alignItems={'center'} width={'100%'}>
+              <Flex gap={2} alignItems={'center'}>
+                <Text className={s.title}>
+                  {formatCurrency(data.value, 0, 0)}
+                </Text>
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+    ];
+  }, []);
+
   return (
     <Box className={s.container} h="60vh">
       <ScrollWrapper
@@ -124,33 +180,18 @@ const NFTTab = (props: IProps) => {
         wrapClassName={s.wrapScroll}
         dependData={list}
       >
-        <Grid
-          w="100%"
-          gridTemplateColumns={{
-            base: 'repeat(auto-fill, 196px)',
+        <ListTable
+          data={list}
+          columns={columns}
+          className={s.tableContainer}
+          showEmpty={!isFetching}
+          emptyLabel="No NFTs found."
+          emptyIcon={<Image src={'/icons/icon-empty.svg'} />}
+          onItemClick={(item) => {
+            console.log('onItemClick', item);
           }}
-          gap={{ base: '16px', lg: '24px' }}
-        >
-          {list.length > 0 &&
-            list.map((item) => {
-              return (
-                <NFTItem item={item} />
-              );
-            })}
-        </Grid>
-        {isFetching ? (
-          <AppLoading className={s.loading} />
-        ) : (
-          <>
-            {list.length === 0 && (
-              <EmptyList
-                color={'#000'}
-                labelText={'No NFTs found.'}
-                emptyIcon={<Image src={'/icons/icon-empty.svg'} />}
-              />
-            )}
-          </>
-        )}
+        />
+        {isFetching && <AppLoading className={s.loading} />}
       </ScrollWrapper>
     </Box>
   );
