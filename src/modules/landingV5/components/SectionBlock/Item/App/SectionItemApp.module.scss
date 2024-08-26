@@ -1,7 +1,7 @@
 .wrapper {
     border-radius: 32px;
     padding-top: 20px;
-    width: 360px;
+    width: 400px;
     align-self: stretch;
     display: flex;
     flex-direction: column;
@@ -34,6 +34,7 @@
         display: flex;
         flex-direction: column;
         gap: 8px;
+        width: 100%;
 
         .title {
             color: #FFF;

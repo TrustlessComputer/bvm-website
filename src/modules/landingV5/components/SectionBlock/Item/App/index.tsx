@@ -3,13 +3,14 @@ import { BlockCardItem } from '../..';
 import s from './SectionItemApp.module.scss';
 import Link from 'next/link';
 import cn from 'classnames';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 
 type Props = {
   item: BlockCardItem;
+  sectionId: string;
 };
 
-const SectionItemApp = ({ item }: Props) => {
+const SectionItemApp = ({ item, sectionId }: Props) => {
   if (!!item.popular) {
     return (
       <Link
@@ -32,7 +33,12 @@ const SectionItemApp = ({ item }: Props) => {
         >
           <div className={s.info}>
             <p className={s.title}>{item.title}</p>
-            <p className={s.desc}>{item.description}</p>
+            <Text
+              className={s.desc}
+              fontSize={sectionId === 'step-1' ? '22px !important' : ''}
+            >
+              {item.description}
+            </Text>
             <div className={s.tags}>
               {item.tags.map((tag, index) => {
                 if (!tag) return null;
@@ -65,7 +71,12 @@ const SectionItemApp = ({ item }: Props) => {
     >
       <div className={s.info}>
         <p className={s.title}>{item.title}</p>
-        <p className={s.desc}>{item.description}</p>
+        <Text
+          className={s.desc}
+          fontSize={sectionId === 'step-1' ? '22px !important' : ''}
+        >
+          {item.description}
+        </Text>
         <div className={s.tags}>
           {item.tags.map((tag, index) => {
             if (!tag) return null;

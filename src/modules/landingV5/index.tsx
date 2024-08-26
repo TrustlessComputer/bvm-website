@@ -42,9 +42,12 @@ const LandingV5 = (props: Props) => {
                 </div>
                 <div className={s.introduction_desc}>
                   Bitcoin Virtual Machine (BVM) is Bitcoin’s most comprehensive
-                  development infrastructure for building on Bitcoin. From L2
-                  rollups to GPU-accelerated VMs, we offer everything you need
-                  to push Bitcoin further.
+                  development platform, offering builders over 30 products and
+                  services for building on Bitcoin. From scaling technologies
+                  like ZK rollups and Data Availability layers to emerging
+                  technologies like L1 metaprotocols and GPU-accelerated VMs,
+                  BVM equips you with the tools to push the boundaries of what's
+                  possible on Bitcoin.
                   {/* <br />
                   <br /> Let’s build. */}
                 </div>
@@ -75,7 +78,7 @@ const LandingV5 = (props: Props) => {
                   <Flex gap="4px" flexDir={'column'}>
                     <p>Experience Bitcoin apps</p>
                     <Link href="/explore" className={s.link}>
-                      Visit bitcoin App Store
+                      Visit Bitcoin App Store
                       <div className={s.icon_link}>
                         <ChakraImage src="/landing-v5/ic-link.svg" />
                       </div>
@@ -86,7 +89,7 @@ const LandingV5 = (props: Props) => {
             </Box>
           </BuildItem>
           <BuildItem stagger={1}>
-            <SectionBlock {...STEP_1_SECTION} spacing="160px" />
+            <SectionBlock {...STEP_1_SECTION} spacing="126px" />
           </BuildItem>
           <BuildItem iconUrl="/landing-v5/ic-step-2.svg">
             <SectionBlock {...STEP_2_SECTION} spacing="185px" />
@@ -100,9 +103,20 @@ const LandingV5 = (props: Props) => {
                   apps.
                 </Text>
               </div>
-              <Box mb="40px" className={s.desc}>
+              <Box mb="40px" className={s.desc} whiteSpace={'nowrap'}>
                 BVM is EVM-compatible. Easily port your Solidity dapps to
-                Bitcoin or build new ones on Bitcoin from scratch.
+                Bitcoin or build new ones on Bitcoin from scratch.{' '}
+                <Link
+                  href="https://docs.bvm.network/bvm/getting-started/deploy-your-own-bitcoin-dapp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-orange flex-link"
+                >
+                  Read developer docs
+                  <div className={s.icon_link}>
+                    <ChakraImage src="/landing-v5/ic-link.svg" />
+                  </div>
+                </Link>
               </Box>
               <Box
                 mb="176px"
