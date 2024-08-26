@@ -8,6 +8,7 @@ import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
 import ListTable, { ColumnProp } from '@components/ListTable';
 import { formatCurrency } from '@utils/format';
+import CollectionModal from '@/modules/l2-rollup-detail/NFTTab/CollectionModal';
 
 interface IProps {}
 
@@ -37,6 +38,7 @@ const NFTTab = (props: IProps) => {
 
   const [isFetching, setIsFetching] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [selectedCollection, setSelectedCollection] = useState<INFT | undefined>(undefined);
 
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
@@ -188,11 +190,19 @@ const NFTTab = (props: IProps) => {
           emptyLabel="No NFTs found."
           emptyIcon={<Image src={'/icons/icon-empty.svg'} />}
           onItemClick={(item) => {
-            console.log('onItemClick', item);
+            setSelectedCollection(item)
           }}
         />
         {isFetching && <AppLoading className={s.loading} />}
       </ScrollWrapper>
+      <CollectionModal
+        isOpen={!!selectedCollection}
+        onClose={() => {
+          setSelectedCollection(undefined);
+        }}
+        title={`${selectedCollection?.token_name} Collection`}
+        item={selectedCollection as INFT}
+      />
     </Box>
   );
 };
