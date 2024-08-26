@@ -29,6 +29,10 @@ export default memo(function StudioControls() {
 
   const params = useParams();
   const isUpdateChainFlow = React.useMemo(() => !!params?.id, [params?.id]);
+  const currentNetwork = React.useMemo(
+    () => field['network']?.value as string,
+    [field['network']?.value],
+  );
 
   // console.log('dappMapping :: ', dappMapping);
 
@@ -110,12 +114,15 @@ export default memo(function StudioControls() {
           //   disabled: isUpdateChainFlow && !item.updatable,
           // });
           if (item.hidden) return null;
+          const currentOption = item.options.find(
+            (opt) =>
+              opt.key === field[item.key].value && field[item.key].dragged,
+          );
+          let currentPrice = currentOption?.priceBVM ?? 0;
 
-          const currentPrice =
-            item.options.find(
-              (opt) =>
-                opt.key === field[item.key].value && field[item.key].dragged,
-            )?.priceBVM ?? 0;
+          if (currentNetwork === 'testnet') {
+            currentPrice = currentOption?.priceBVMTestnet ?? currentPrice;
+          }
 
           return (
             <BoxOptionV3
@@ -143,6 +150,13 @@ export default memo(function StudioControls() {
                 // if (option.hidden) return null;
 
                 let _price = option.priceBVM;
+                let thisPrice = option.priceBVM;
+
+                if (currentNetwork === 'testnet') {
+                  _price = option.priceBVMTestnet ?? _price;
+                  thisPrice = option.priceBVMTestnet ?? thisPrice;
+                }
+
                 let operator = '+';
                 let suffix =
                   Math.abs(_price) > 0
@@ -152,9 +166,11 @@ export default memo(function StudioControls() {
                       })} BVM)`
                     : '';
 
-                _price = option.priceBVM - currentPrice;
+                _price = thisPrice - currentPrice;
                 operator = _price > 0 ? '+' : '-';
+
                 if (item.multiChoice) operator = '';
+
                 suffix =
                   Math.abs(_price) > 0
                     ? ` (${operator}${formatCurrencyV2({
@@ -180,6 +196,8 @@ export default memo(function StudioControls() {
                   }
                 }
 
+                if(option?.hidden) return null;
+
                 return (
                   <Draggable
                     key={item.key + '-' + option.key}
@@ -193,6 +211,7 @@ export default memo(function StudioControls() {
                     }}
                     tooltip={option.tooltip}
                   >
+
                     <LegoV3
                       background={item.color}
                       zIndex={item.options.length - optIdx}
@@ -238,7 +257,7 @@ export default memo(function StudioControls() {
               );
             }
 
-            if (item.key === 'defi_apps') {
+            if (['defi_apps', 'degen_apps'].includes(item.key)) {
               const currentPrice =
                 item.options.find(
                   (opt) =>

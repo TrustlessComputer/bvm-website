@@ -58,6 +58,8 @@ type NodeProps = {
 
 type BaseNodeData = {
   title: string;
+  itemId?: string;
+  positionId?: string;
   node: 'chain' | 'dapp' | 'template';
   statusMessage?: string;
   sourceHandles: string[];
@@ -74,3 +76,4 @@ type DappNode = Node<
 >;
 
 type ChainNode = Node<{} & BaseNodeData>;
+type ChainNodeAsDappNode = Node<{} & BaseNodeData>;

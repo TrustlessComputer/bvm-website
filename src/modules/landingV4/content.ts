@@ -478,7 +478,7 @@ export const NEWS_SECTION = {
         url: item.link,
         target: item.linkTarget,
       },
-      logoUrl: item.logoUrl,
+      // logoUrl: item.logoUrl,
       logo: item.logo,
     };
   }),

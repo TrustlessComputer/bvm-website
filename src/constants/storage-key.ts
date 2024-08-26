@@ -21,4 +21,8 @@ export enum STORAGE_KEYS {
   API_ACCESS_TOKEN = 'API_ACCESS_TOKEN',
   L2_SERVICE_ACCESS_TOKEN_V2 = 'L2_SERVICE_ACCESS_TOKEN_V2',
   L2_SERVICE_USER_ADDRESS = 'L2_SERVICE_USER_ADDRESS',
+  LAST_NODES = 'last_nodes',
+  USE_DRAG_SIGNALS = 'use_drag_signals',
+  USE_SIGNALS_FORM = 'use_signals_form',
+  USE_BLOCKCHAIN_FORM = 'use_blockchain_form',
 }

@@ -9,6 +9,8 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 import { useParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import CYoloGameAPI from '@/services/api/dapp/yolo';
+import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 
 const useFetchDapp = () => {
   const params = useParams();
@@ -19,8 +21,10 @@ const useFetchDapp = () => {
   const [loaded, setLoaded] = React.useState<boolean>(false);
 
   const dappAPI = new CDappAPI();
+  const tokenAPI = new CTokenGenerationAPI();
   const stakingAPI = new CStakingAPI();
   const tokenAirdropAPI = new CTokenAirdropAPI();
+  const yoloGameAPI = new CYoloGameAPI();
 
   const dappState = useAppSelector(dappSelector);
   const needReload = useAppSelector(commonSelector).needReload;
@@ -47,9 +51,13 @@ const useFetchDapp = () => {
     }
   };
 
+  const fetchTokenListAll = async () => {
+    await tokenAPI.getListTokenAll(dappState?.chain?.chainId || '');
+  };
+
   const fetchTokenList = async () => {
     console.time('[TIME] fetchTokenList')
-    await dappAPI.getListToken(dappState?.chain?.chainId || '');
+    await tokenAPI.getListToken(dappState?.chain?.chainId || '');
     console.timeEnd('[TIME] fetchTokenList')
   };
 
@@ -59,17 +67,23 @@ const useFetchDapp = () => {
     console.timeEnd('[TIME] fetchStakingPoolsList')
   };
 
+  const fetchYoloGameList = async () => {
+    await yoloGameAPI.getYoloGameList(dappState?.chain?.chainId || '');
+  };
+
   const getDappTasks = async () => {
-    console.log('[useFetchDapp] getDappTasks start');
+    console.time('[useFetchDapp] getDappTasks time');
     try {
       await Promise.all([
+        fetchTokenListAll(),
         fetchTokenList(),
         fetchStakingPoolsList(),
         getListTask(),
         getListAirdrop(),
+        fetchYoloGameList(),
       ]);
       setLoading(true);
-      console.log('[useFetchDapp] getDappTasks done');
+      console.time('[useFetchDapp] getDappTasks time');
       dispatch(setCounterFetchedDapp());
     } catch (error) {
       console.log('getDappTasks', error);

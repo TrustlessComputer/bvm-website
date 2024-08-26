@@ -14,27 +14,33 @@ import React, { useEffect } from 'react';
 import useFlowStore, { AppState } from '../stores/useFlowStore';
 
 import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
+import useDraggingStore from '@/modules/blockchains/Buy/stores/useDraggingStore';
 import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 import { DappNode } from '@/types/node';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
-import { accountAbstractionAsADapp } from '../mockup_3';
+import { accountAbstractionAsADapp, bridgesAsADapp } from '../mockup_3';
 import { useTemplateFormStore } from '../stores/useDappStore';
+import useDraggedId2DStore from '../stores/useDraggedId2DStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
+import handleStatusEdges from '@utils/helpers';
+import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
+import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
 
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
   const { categories } = useModelCategoriesStore();
   const { nodes, setNodes, setEdges, edges } = useFlowStore();
+  const { isDragging, setIsDragging } = useDraggingStore();
   const store = useStoreApi();
+  const  { lineAAStatus } = useAAModule()
+  const  { lineBridgeStatus } = useBridgesModule()
   const {
     transform: [transformX, transformY, zoomLevel],
   } = store.getState();
   const { templateDapps } = useTemplateFormStore();
-  const [draggedIds2D, setDraggedIds2D] = React.useState<
-    typeof draggedIds2DSignal.value
-  >([]);
-  const { isAAInstalled } = useChainProvider();
+  const { draggedIds2D, setDraggedIds2D } = useDraggedId2DStore();
+  const { isAAInstalled, isBridgeInstalled } = useChainProvider();
 
   const [dragState, setDragState] = React.useState<{
     oneD: [number];
@@ -64,7 +70,6 @@ export default function useNodeFlowControl() {
       const totalTemplateDapps = (templateDapps || []).length;
       const needSubtract = totalTemplateDapps > 0;
       const index = dragState.oneD[0] + 1 + totalTemplateDapps;
-      console.log('index', { index, nodes });
 
       const newNodes = cloneDeep(nodes);
 
@@ -84,6 +89,12 @@ export default function useNodeFlowControl() {
   };
 
   useSignalEffect(() => {
+    console.log('[useNodeFlowControl] useSignalEffect', {
+      new: draggedIds2DSignal.value,
+      old: draggedIds2D,
+      isDragging,
+    });
+
     if (draggedDappIndexesSignal.value.includes(0) && isAAInstalled) {
       if (!nodes.some((node) => node.id === 'account-abstraction')) {
         const rootNode = 'blockchain';
@@ -97,10 +108,7 @@ export default function useNodeFlowControl() {
           (option) => option.key === dappKeyToChainKey(thisDapp.key),
         );
         let nodesData = nodes;
-        const newNodeId =
-          thisDapp.key === accountAbstractionAsADapp.key
-            ? 'account-abstraction'
-            : `${nodes.length + 1}`;
+        const newNodeId = 'account-abstraction';
         const newNode: DappNode = {
           id: newNodeId,
           type: dappKeyToNodeKey(thisDapp.key),
@@ -113,7 +121,7 @@ export default function useNodeFlowControl() {
             baseIndex: draggedIds2D.length - 1,
             categoryOption,
             ids: draggedIds2D[draggedIds2D.length - 1],
-            targetHandles: [`${newNodeId}-t-${rootNode}`],
+            targetHandles: [`account-abstraction-t-${rootNode}`],
             sourceHandles: [],
           },
         };
@@ -125,11 +133,67 @@ export default function useNodeFlowControl() {
             // id: `${edges.length + 1}`,
             id: `${Math.random()}`,
             source: rootNode,
-            sourceHandle: `${rootNode}-s-${thisDapp.title}`,
-            target: `${newNodeId}`,
-            targetHandle: `${newNodeId}-t-${rootNode}`,
+            sourceHandle: `${rootNode}-s-account-abstraction`,
+            // target: `${newNodeId}`,
+            target: `account-abstraction`,
+            targetHandle: `account-abstraction-t-${rootNode}`,
             type: 'customEdge',
-            label: '',
+            label: handleStatusEdges('', lineAAStatus, 'account-abstraction').icon,
+            animated: handleStatusEdges('', lineAAStatus, 'account-abstraction').animate,
+            markerEnd: {
+              type: MarkerType.Arrow,
+              width: 25,
+              height: 25,
+              strokeWidth: 1,
+              color: '#AAAAAA',
+            },
+            style: {
+              stroke: '#AAAAAA',
+              strokeWidth: 2,
+            },
+          },
+        ]);
+        needReactFlowRenderSignal.value = true;
+      }
+    }
+
+    if (draggedDappIndexesSignal.value.includes(1) && isBridgeInstalled) {
+      if (!nodes.some((node) => node.id === 'bridge_apps')) {
+        const rootNode = 'blockchain';
+        const thisDapp = bridgesAsADapp;
+        let nodesData = nodes;
+        const newNodeId = 'bridge_apps';
+        const newNode: DappNode = {
+          id: newNodeId,
+          type: dappKeyToNodeKey(thisDapp.key),
+          dragHandle: '.drag-handle-area',
+          position: { x: 0, y: 0 },
+          data: {
+            node: 'dapp',
+            title: thisDapp.title,
+            dapp: thisDapp,
+            baseIndex: -1,
+            categoryOption: {},
+            ids: [],
+            targetHandles: [`bridge_apps-t-${rootNode}`],
+            sourceHandles: [],
+          },
+        };
+
+        setNodes([...nodesData, newNode]);
+        setEdges([
+          ...edges,
+          {
+            // id: `${edges.length + 1}`,
+            id: `${Math.random()}`,
+            source: rootNode,
+            sourceHandle: `${rootNode}-s-bridge_apps`,
+            // target: `${newNodeId}`,
+            target: `bridge_apps`,
+            label: handleStatusEdges('', lineBridgeStatus, 'bridge_apps').icon,
+            animated: handleStatusEdges('', lineBridgeStatus, 'bridge_apps').animate,
+            targetHandle: `bridge_apps-t-${rootNode}`,
+            type: 'customEdge',
             markerEnd: {
               type: MarkerType.Arrow,
               width: 25,
@@ -160,7 +224,10 @@ export default function useNodeFlowControl() {
           break;
         }
       }
-    } else if (draggedIds2DSignal.value.length > draggedIds2D.length) {
+    } else if (
+      draggedIds2DSignal.value.length > draggedIds2D.length &&
+      isDragging
+    ) {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
       setDragState({
         oneD: [-1],
@@ -168,6 +235,7 @@ export default function useNodeFlowControl() {
         new: true,
         remove: false,
       });
+      setIsDragging(false);
     } else {
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
     }
@@ -178,10 +246,16 @@ export default function useNodeFlowControl() {
   }, [dragState]);
 
   const handleAddBox = () => {
-    console.log('[useNodeFlowControl] MUST CALL LAST LAST');
-
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
+
+    if (!thisDapp) {
+      needReactFlowRenderSignal.value = true;
+      resetDragState();
+      return;
+    }
+    const statusDapp = thisDapp.label?.status || '';
+
     const category = categories?.find((category) =>
       category.options.some(
         (option) => option.key === dappKeyToChainKey(thisDapp.key),
@@ -191,7 +265,11 @@ export default function useNodeFlowControl() {
       (option) => option.key === dappKeyToChainKey(thisDapp.key),
     );
 
-    if (!categoryOption) return;
+    if (!categoryOption && !thisDapp.isDefaultDapp) {
+      needReactFlowRenderSignal.value = true;
+      resetDragState();
+      return;
+    }
 
     const transformedX =
       (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
@@ -203,26 +281,59 @@ export default function useNodeFlowControl() {
     };
 
     const rootNode = 'blockchain';
+    let suffix = thisDapp.title;
+    let statusMapping: any = '';
+
+    switch (thisDapp.key) {
+      case accountAbstractionAsADapp.key:
+        suffix = 'account-abstraction';
+        statusMapping = lineAAStatus;
+        break;
+      case bridgesAsADapp.key:
+        suffix = 'bridge_apps';
+        statusMapping = lineBridgeStatus;
+        break;
+      default:
+        break;
+    }
 
     const getHandleNodeBlockChain = nodes.find((item) => item.id === rootNode);
     const isHandleExists = edges.some(
-      (handle) => handle.sourceHandle === `${rootNode}-s-${thisDapp.title}`,
+      (handle) => handle.sourceHandle === `${rootNode}-s-${suffix}`,
     );
     let nodesData = nodes;
 
     if (!isHandleExists) {
       getHandleNodeBlockChain?.data?.sourceHandles?.push(
-        `${rootNode}-s-${thisDapp.title}`,
+        `${rootNode}-s-${suffix}`,
       );
       nodesData = nodes.map((item) =>
         item.id === rootNode ? getHandleNodeBlockChain : item,
       ) as AppState['nodes'];
     }
 
-    const newNodeId =
-      thisDapp.key === accountAbstractionAsADapp.key
-        ? 'account-abstraction'
-        : `${nodes.length + 1}`;
+    let newNodeId = `${nodes.length + 1}`;
+
+    switch (thisDapp.key) {
+      case accountAbstractionAsADapp.key:
+        newNodeId = 'account-abstraction';
+        statusMapping = lineAAStatus;
+        break;
+      case bridgesAsADapp.key:
+        newNodeId = 'bridge_apps';
+        statusMapping = lineBridgeStatus;
+        break;
+      default:
+        newNodeId = `${nodes.length + 1}`;
+        break;
+    }
+
+    if (nodes.some((node) => node.id === newNodeId)) {
+      needReactFlowRenderSignal.value = true;
+      resetDragState();
+      return;
+    }
+
     const newNode: DappNode = {
       id: newNodeId,
       type: dappKeyToNodeKey(thisDapp.key),
@@ -247,11 +358,15 @@ export default function useNodeFlowControl() {
         // id: `${edges.length + 1}`,
         id: `${Math.random()}`,
         source: rootNode,
-        sourceHandle: `${rootNode}-s-${thisDapp.title}`,
+        sourceHandle: `${rootNode}-s-${suffix}`,
         target: `${newNodeId}`,
         targetHandle: `${newNodeId}-t-${rootNode}`,
         type: 'customEdge',
-        label: '',
+        selectable: false,
+        selected: false,
+        focusable: false,
+        label: handleStatusEdges(statusDapp, statusMapping, newNodeId).icon,
+        animated: handleStatusEdges(statusDapp, statusMapping, newNodeId).animate,
         markerEnd: {
           type: MarkerType.Arrow,
           width: 25,

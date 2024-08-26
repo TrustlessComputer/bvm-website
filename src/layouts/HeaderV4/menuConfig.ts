@@ -124,14 +124,14 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   //   isHide: false,
   // },
   {
-    label: 'Bitcoin App Store',
-    href: '/explore',
+    label: 'BVM Studio',
+    href: '/build-bitcoin',
     isNewWindow: false,
     isHide: false,
   },
   {
-    label: 'Build on Bitcoin',
-    href: '/build-bitcoin',
+    label: 'Bitcoin App Store',
+    href: '/explore',
     isNewWindow: false,
     isHide: false,
   },

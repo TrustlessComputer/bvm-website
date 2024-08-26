@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import AddressInput from '@/modules/blockchains/detail_v3/account-abstraction_v2/components/AddressInput';
 import FeeRateInput from '@/modules/blockchains/detail_v3/account-abstraction_v2/components/FeeRateInput';
@@ -21,10 +21,11 @@ import Node from '../Node_v2/Node';
 
 import styles from './styles.module.scss';
 import { useAccountAbstractionStore } from '@/modules/blockchains/detail_v3/account-abstraction_v2/store/hook';
+import { useParams } from 'next/navigation';
 
 const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   const { dapp } = data;
-
+  const param = useParams();
   const { isAAModuleLoading, aaStatusData, isCanNotEdit, getAATypeIconUrl } =
     useAAModule();
   const { getAAStatus, isUpdateFlow } = useChainProvider();
@@ -33,6 +34,10 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   const [draggedDappIndexes, setDraggedDappIndexes] = React.useState<number[]>(
     [],
   );
+
+  const checkParam = useMemo(() => {
+    return !!param.id
+  }, [param.id])
 
   const dappIndex = React.useMemo(
     () => draggedDappIndexes[data.baseIndex],
@@ -88,6 +93,7 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
         children: (
           <>
             <Draggable
+              disabled={checkParam}
               id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
               value={{
                 dappIndex,

@@ -6,15 +6,20 @@ import { useIsMobile } from '@hooks/useWindowResize';
 export type HeaderV3Props = TMainHeader & {
   position?: 'absolute' | 'relative';
   bgColor?: string;
+  theme?: 'black' | 'white';
 };
 
-const HeaderV4 = ({ position, color, colorLogo, bgColor }: HeaderV3Props) => {
+const HeaderV4 = ({
+  position,
+  color,
+  colorLogo,
+  bgColor,
+  theme,
+}: HeaderV3Props) => {
   const isMobile = useIsMobile();
   return (
     <div className={`${s.header}`} style={{ position: position }}>
-      {
-        !isMobile && <TopMenu />
-      }
+      {!isMobile && <TopMenu theme={theme} />}
       <Main color={color} colorLogo={colorLogo} backgroundColor={bgColor} />
     </div>
   );

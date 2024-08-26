@@ -26,7 +26,7 @@ const Section_7 = () => {
       const tmp = LOGOS.filter((itemLogo) => {
         return itemLogo.id === item.logo;
       });
-      return tmp.length ? tmp[0].img : '';
+      return tmp.length ? tmp[0].blackLogo : '';
     }, [item]);
     return (
       <Box
@@ -38,13 +38,15 @@ const Section_7 = () => {
       >
         <Card bgColor={'#FFF6F3'} boxShadow={'none'}>
           <CardBody p={[0]}>
-            {item.logoUrl ? <Image
-              src={item.logoUrl}
-              alt="thumb image"
-              width={'auto'}
-              height={'28px'}
-              objectFit={'contain'}
-            />: (getLogo ? (
+            {item.logoUrl ? (
+              <Image
+                src={item.logoUrl}
+                alt="thumb image"
+                width={'auto'}
+                height={'28px'}
+                objectFit={'contain'}
+              />
+            ) : getLogo ? (
               <div className={s.cardLogo}>
                 <Image
                   src={getLogo}
@@ -56,7 +58,7 @@ const Section_7 = () => {
               </div>
             ) : (
               <Box height={'28px'} />
-            ))}
+            )}
             <Image
               src={item.imageUrl}
               className={s.cardLogo_img}

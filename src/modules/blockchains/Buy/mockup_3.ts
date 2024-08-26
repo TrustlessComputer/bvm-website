@@ -1,6 +1,7 @@
 import { DappModel } from '@/types/customize-model';
 
 export const accountAbstractionAsADapp: DappModel = {
+  isDefaultDapp: true,
   id: 'account_abstraction',
   key: 'account_abstraction',
   title: 'Account Abstraction',
@@ -59,6 +60,45 @@ export const accountAbstractionAsADapp: DappModel = {
         placeholder: '21,000',
       },
     ],
+  },
+};
+
+export const bridgesAsADapp: DappModel = {
+  isDefaultDapp: true,
+  id: 'bridge_apps',
+  key: 'bridge_apps',
+  title: 'Bridges',
+  icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
+  order: 2,
+  color: '#855AFF',
+  color_border: '#855AFF',
+  created_at: '2021-09-14T09:00:00.000Z',
+  updated_at: '2021-09-14T09:00:00.000Z',
+  tooltip: '',
+  label: {
+    title: '',
+    color: '',
+    background: '',
+    status: '',
+  },
+  sections: [
+    {
+      key: 'modules',
+      icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
+      title: '',
+      tooltip: '',
+      required: false,
+    },
+  ],
+  baseBlock: {
+    key: 'bridge_info',
+    title: 'Bridges',
+    icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
+    placableAmount: 1,
+    section: 'modules',
+    preview: false,
+    background: '#855AFF',
+    fields: [],
   },
 };
 
@@ -1104,6 +1144,331 @@ export const dappMockupData: DappModel[] = [
         section: 'information',
       },
     ],
+  },
+  {
+    id: 'yologame',
+    key: 'yologame',
+    title: 'YOLO',
+    icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-yolo.svg',
+    order: 5,
+    color: '#F76649',
+    created_at: '2021-09-14T09:00:00.000Z',
+    updated_at: '2021-09-14T09:00:00.000Z',
+    tooltip: '',
+    label: {
+      title: 'New',
+      color: '#000',
+      background: '#00AA6C',
+      status: '',
+    },
+    sections: [
+      {
+        key: 'yolo',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        title: 'Payment Token',
+        tooltip: '',
+        required: false,
+        show: true,
+      },
+    ],
+    baseModuleFields: [
+      {
+        key: 'settlement_token',
+        title: 'Payment Token',
+        icon: '',
+        placableAmount: -1,
+        section: 'yolo',
+        preview: false,
+        background: '#A041FF',
+        fields: [
+          {
+            key: 'bvm',
+            title: 'BVM', // symbol
+            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
+            icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
+            tooltip: '',
+            type: '',
+            options: [],
+            selectable: true,
+          },
+          // {
+          //   key: 'eth',
+          //   title: 'ETH (Upgrade plan 99$)', // symbol
+          //   value: '0x1234', // contract_address
+          //   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+          //   tooltip: '',
+          //   type: '',
+          //   options: [],
+          //   selectable: true,
+          // },
+        ],
+      },
+    ],
+    // moduleFields: [
+    //   {
+    //     key: 'settlement_token',
+    //     title: 'Settlement Token',
+    //     icon: '',
+    //     placableAmount: -1,
+    //     section: 'yolo',
+    //     preview: false,
+    //     background: '#A041FF',
+    //     fields: [
+    //       {
+    //         key: 'bvm',
+    //         title: 'BVM', // symbol
+    //         value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
+    //         icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
+    //         tooltip: '',
+    //         type: '',
+    //         options: [],
+    //         selectable: true,
+    //       },
+    //       {
+    //         key: 'eth',
+    //         title: 'ETH (Upgrade plan 99$)', // symbol
+    //         value: '0x1234', // contract_address
+    //         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+    //         tooltip: '',
+    //         type: '',
+    //         options: [],
+    //         selectable: true,
+    //       },
+    //     ],
+    //   },
+    // ],
+    baseBlock: {
+      key: '',
+      title: 'Create a YOLO Game',
+      icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-yolo.svg',
+      placableAmount: -1,
+      section: '',
+      preview: false,
+      fields: [
+        // {
+        //   key: 'settlement_token',
+        //   title: 'Settlement Token',
+        //   type: 'dropdown',
+        //   icon: '',
+        //   value: '',
+        //   tooltip: '',
+        //   options: [],
+        //   background: '#A041FF',
+        // },
+        {
+          key: 'value_per_entry',
+          title: 'Entry Cost (Tokens per Ticket)',
+          inputType: 'number',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip: 'Enter the number of tokens required for each ticket/entry.',
+          placeholder: 'eg. 1000',
+          options: [],
+          background: '#C44127',
+        },
+        {
+          key: 'round_duration',
+          title: 'Round Duration (Seconds)',
+          inputType: 'number',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip: 'Set the duration of each round in seconds.',
+          placeholder: 'eg. 300',
+          options: [],
+          background: '#00AA6C',
+        },
+        {
+          key: 'maximum_participants',
+          title: 'Maximum Participants',
+          inputType: 'number',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip:
+            'Enter the maximum number of participants allowed per round.',
+          placeholder: 'eg. 500',
+          options: [],
+          background: '#0d2dd0',
+        },
+        {
+          key: 'protocol_fee_ratio',
+          title: 'Creator Fee (%)',
+          inputType: 'number',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip:
+            'Specify the percentage of the fee that will be paid to the creators.',
+          placeholder: 'eg. 10',
+          options: [],
+          background: '#C44127',
+        },
+      ],
+    },
+  },
+  {
+    id: 'orderbook',
+    key: 'orderbook',
+    title: 'White Paper',
+    icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-yolo.svg',
+    order: 5,
+    color: '#F76649',
+    created_at: '2021-09-14T09:00:00.000Z',
+    updated_at: '2021-09-14T09:00:00.000Z',
+    tooltip: '',
+    label: {
+      title: 'New',
+      color: '#000',
+      background: '#00AA6C',
+      status: '',
+    },
+    sections: [
+      {
+        key: 'information',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        title: 'Information',
+        tooltip: '',
+        required: false,
+      },
+    ],
+    baseModuleFields: [
+      {
+        key: 'white_paper_token',
+        title: 'White Paper Token',
+        icon: '',
+        placableAmount: -1,
+        section: 'information',
+        preview: false,
+        background: '#A041FF',
+        fields: [
+          {
+            key: 'bvm',
+            title: 'BVM', // symbol
+            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
+            icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
+            tooltip: '',
+            type: '',
+            options: [],
+            selectable: true,
+          },
+        ],
+      },
+    ],
+    baseBlock: {
+      key: '',
+      title: 'Create a White Paper',
+      icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-yolo.svg',
+      placableAmount: -1,
+      section: '',
+      preview: false,
+      fields: [
+        {
+          key: 'introduction',
+          title: 'Introduction',
+          inputType: 'text',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip: 'Set the duration of each round in seconds.',
+          placeholder: 'My token is called XYZ Coin, which is designed to facilitate fast, secure transactions on a decentralized network.',
+          options: [],
+          background: '#00AA6C',
+        },
+        {
+          key: 'problem_statement',
+          title: 'Problem Statement',
+          inputType: 'text',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip:
+            'Enter the maximum number of participants allowed per round.',
+          placeholder: 'The problem we are solving is the high transaction fees and slow processing times in current blockchain networks. ',
+          options: [],
+          background: '#0d2dd0',
+        },
+        {
+          key: 'solution',
+          title: 'Solution',
+          inputType: 'text',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip:
+            'Specify the percentage of the fee that will be paid to the creators.',
+          placeholder: 'XYZ Coin uses a new consensus algorithm that reduces fees and speeds up transaction times.',
+          options: [],
+          background: '#C44127',
+        },
+        // {
+        //   key: 'tokenomics',
+        //   title: 'Tokenomics',
+        //   inputType: 'text',
+        //   type: 'input',
+        //   icon: '',
+        //   value: '',
+        //   tooltip:
+        //     'Enter the maximum number of participants allowed per round.',
+        //   placeholder: '',
+        //   options: [],
+        //   background: '#0d2dd0',
+        // },
+        {
+          key: 'roadmap',
+          title: 'Roadmap',
+          inputType: 'text',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip:
+            'Enter the maximum number of participants allowed per round.',
+          placeholder: '',
+          options: [],
+          background: '#0d2dd0',
+        },
+        {
+          key: 'team',
+          title: 'Team',
+          inputType: 'text',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip:
+            'Enter the maximum number of participants allowed per round.',
+          placeholder: '',
+          options: [],
+          background: '#0d2dd0',
+        },
+        {
+          key: 'technology_unique_features',
+          title: 'Technology and Unique Features',
+          inputType: 'text',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip:
+            'Specify the percentage of the fee that will be paid to the creators.',
+          placeholder: 'Our token uses a unique proof-of-stake consensus algorithm that allows for faster transactions and greater scalability. We also support smart contracts for decentralized applications.',
+          options: [],
+          background: '#C44127',
+        },
+        {
+          key: 'legal_regulatory_compliance',
+          title: 'Legal and Regulatory Compliance',
+          inputType: 'text',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip:
+            'Specify the percentage of the fee that will be paid to the creators.',
+          placeholder: 'We are ensuring compliance with all relevant regulations and have a legal team dedicated to navigating the complex regulatory landscape of cryptocurrency.',
+          options: [],
+          background: '#C44127',
+        },
+      ],
+    },
   },
 ];
 

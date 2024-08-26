@@ -1,4 +1,10 @@
-export interface ISTToken {
+export interface IPosition {
+  position_id: string,
+  position_x: number,
+  position_y: number,
+}
+
+export interface ISTToken extends IPosition {
   id: number;
   network_id: number;
   contract_address: string;

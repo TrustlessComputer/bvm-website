@@ -4,6 +4,7 @@ import s from './style.module.scss';
 export type HeaderV3Props = TMainHeader & {
   position?: 'absolute' | 'relative';
   bgColor?: string;
+  theme?: 'black' | 'white';
 };
 
 const HeaderV3 = ({ position, color, colorLogo, bgColor }: HeaderV3Props) => {

@@ -9,11 +9,11 @@ const FakeData = [
     title: 'Easily deploy',
     desc: 'Launch your ZK rollups without writing a single line of code.',
   },
-  {
-    icon: '/images/home-list-icon-2.svg',
-    title: 'Affordable pricing',
-    desc: 'Get started with ZK rollups on Bitcoin from just $99/month.',
-  },
+  // {
+  //   icon: '/images/home-list-icon-2.svg',
+  //   title: 'Affordable pricing',
+  //   desc: 'Get started with ZK rollups on Bitcoin from just $99/month.',
+  // },
   {
     icon: '/images/home-list-icon-3.svg',
     title: 'Scalable solutions',

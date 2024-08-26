@@ -58,6 +58,7 @@ input[type='number'] {
 }
 
 @keyframes flip {
+
   0%,
   45% {
     transform: rotate(0);
@@ -129,6 +130,7 @@ input[type='number'] {
 }
 
 @keyframes top-drip {
+
   0%,
   50% {
     left: 45%;
@@ -168,6 +170,7 @@ input[type='number'] {
 .block {
   display: block !important;
 }
+
 .block {
   display: block !important;
 }
@@ -179,4 +182,36 @@ input[type='number'] {
 
 .react-flow__nodes {
   width: fit-content !important;
+}
+
+.flex {
+  display: flex !important;
+}
+
+.overflow-x-scroll {
+  overflow-x: scroll !important;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap !important;
+}
+
+.flex-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transform: translateY(1px);
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+}
+
+.text-orange {
+  color: #FA4E0E;
+}
+
+.react-flow__edge-custom {
+  pointer-events: none !important;
 }

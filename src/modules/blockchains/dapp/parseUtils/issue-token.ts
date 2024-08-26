@@ -20,7 +20,7 @@ export const parseIssuedToken = (token: IToken) => {
     title: 'Deployed',
     color: '#000',
     background: '#00AA6C',
-    status: 'deployed',
+    status: 'deployed', // run
     actionID: token?.contract_address,
   };
 
