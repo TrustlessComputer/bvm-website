@@ -22,14 +22,15 @@ interface IModelOption {
   updatable?: boolean;
   priceUSD: number;
   priceBVM: number;
-  priceUSDTestnet?: number;
-  priceBVMTestnet?: number;
+  priceUSDTestnet?: number | null;
+  priceBVMTestnet?: number | null;
   tooltip: string;
   key: string;
   icon: string;
   supportNetwork: 'both' | '' | 'testnet' | 'mainnet';
-  supportLayer: '' | 'layer1' | 'layer2' | 'layer3' | 'both';
-  supportLayers?: ('layer1' | 'layer2' | 'layer3')[];
+  // supportLayer: '' | 'layer1' | 'layer2' | 'layer3' | 'both';
+  supportLayer: string;
+  supportLayers?: string[] | null;
   requiredFor: string[] | null;
   order: number;
   value: string | number | IDappValue[];
@@ -55,7 +56,7 @@ interface IModelOption {
       required: string;
       api_check_valid: string;
     };
-  };
+  } | null;
   deployTime?: string;
 }
 

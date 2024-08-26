@@ -50,7 +50,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
       'Decentralized AI in your pocket. Permissionless. Censorship-resistant. Free.',
     tags: ['EternalAI Chain', 'AI'],
     link: {
-      url: '',
+      url: 'https://eternalai.org',
       target: '_blank',
     },
     homeImage: `${CDN_URL}/pages/landing-v4/home-eai-phone.png`,
@@ -102,7 +102,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
 
   {
     id: 'nakaFuture',
-    image: '/explore/dapp4.png',
+    image: '/explore/naka-dex.png',
     title: 'Naka DEX ',
     bgColor:
       'linear-gradient(227deg, #FD8DFF -7.83%, #FF63B7 21.47%, #E400CD 69.37%, #FADEFF 118.41%)',
@@ -130,19 +130,19 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
     },
     homeImage: `${CDN_URL}/pages/landing-v4/home-alpha.png`,
   },
-  {
-    id: 'neuron',
-    image: '/explore/neuron2.png',
-    title: 'Neurons',
-    bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%)',
-    description: 'Power decentralized networks and earn rewards.',
-    tags: ['EternalAI Chain', 'DePIN'],
-    link: {
-      url: 'https://eternalai.org/hardware',
-      target: '_blank',
-    },
-    homeImage: `${CDN_URL}/pages/landing-v4/home-neuron.png`,
-  },
+  // {
+  //   id: 'neuron',
+  //   image: '/explore/neuron2.png',
+  //   title: 'Neurons',
+  //   bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%)',
+  //   description: 'Power decentralized networks and earn rewards.',
+  //   tags: ['EternalAI Chain', 'DePIN'],
+  //   link: {
+  //     url: 'https://eternalai.org/hardware',
+  //     target: '_blank',
+  //   },
+  //   homeImage: `${CDN_URL}/pages/landing-v4/home-neuron.png`,
+  // },
   {
     id: 'capsule',
     image: '/explore/explore-capsule2.png',

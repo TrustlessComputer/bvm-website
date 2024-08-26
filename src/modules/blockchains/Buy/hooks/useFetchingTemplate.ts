@@ -39,6 +39,8 @@ import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
 import handleStatusEdges from '@utils/helpers';
+import { categoriesMockupData, defaultTemplateMockupData } from '../mockup_3';
+import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 
 export default function useFetchingTemplate() {
   const { templateList, templateDefault } = useAvailableListTemplate();
@@ -63,7 +65,7 @@ export default function useFetchingTemplate() {
   const param = useParams();
   const searchParams = useSearchParams();
   const refUpdatedBaseDapp = React.useRef(false);
-
+  const { setIsFirstLoadTemplateBox } = useStoreFirstLoadTemplateBox();
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { initTemplate, setTemplate } = useTemplate();
   const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =
@@ -126,11 +128,6 @@ export default function useFetchingTemplate() {
       categoryMapping[_field.key] = _field;
     });
 
-    // if (isAAInstalled) {
-    //   draggedDappIndexesSignal.value = [0];
-    //   draggedIds2DSignal.value = [[]];
-    // }
-
     setCategoryMapping(categoryMapping);
     setParsedCategories(convertData(sortedCategories));
     setCategories(sortedCategories);
@@ -140,6 +137,7 @@ export default function useFetchingTemplate() {
   };
 
   const dataTemplateToBox = async () => {
+    setIsFirstLoadTemplateBox(true);
     formDappSignal.value = {};
     formTemplateDappSignal.value = {};
 
@@ -175,10 +173,10 @@ export default function useFetchingTemplate() {
         node: 'chain',
         title: 'Blockchain',
         sourceHandles: isUpdateFlow
-          ? [`${rootNode}-s-account-abstraction`, `${rootNode}-s-bridge_apps`]
+          ? [`${rootNode}-s-account_abstraction`, `${rootNode}-s-bridge_apps`]
           : [],
         // sourceHandles: isUpdateFlow
-        //   ? [`${rootNode}-s-account-abstraction`]
+        //   ? [`${rootNode}-s-account_abstraction`]
         //   : [],
         targetHandles: [],
       },
@@ -192,6 +190,7 @@ export default function useFetchingTemplate() {
 
       setEdges(edgeData);
       setNodes(newNodes);
+      console.log('newNodes ne', newNodes);
       setNeedSetDataTemplateToBox(false);
 
       if (isUpdateFlow) setNeedCheckAndAddAA(true);
@@ -493,7 +492,7 @@ export default function useFetchingTemplate() {
 
   React.useEffect(() => {
     fetchData();
-    parseDappApiToDappModel();
+    // parseDappApiToDappModel();
   }, []);
 
   React.useEffect(() => {
@@ -526,8 +525,14 @@ export default function useFetchingTemplate() {
       setTemplate(order.selectedOptions || []);
     } else {
       // initTemplate(0);
+<<<<<<< HEAD
       console.log('LOG -- templateDefault -- ', templateDefault);
       setTemplate(templateDefault || []);
+=======
+      console.log('LOG - 1 - templateDefault ', templateDefault);
+      // setTemplate(templateDefault || []);
+      setTemplate(defaultTemplateMockupData || []);
+>>>>>>> main
     }
   }, [categoriesTemplates, isUpdateFlow, templateDefault]);
 }
