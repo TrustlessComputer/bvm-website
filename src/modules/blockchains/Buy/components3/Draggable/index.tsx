@@ -76,7 +76,7 @@ const Draggable = ({
   }, []);
 
   useSignalEffect(() => {
-    if (value?.value && isShakeLego.value === value.value) {
+    if (value?.value && isShakeLego.value === value.value && !value.left ) {
       setIsError(true);
       setTimeout(() => {
         isShakeLego.value = '';

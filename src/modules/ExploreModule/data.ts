@@ -102,7 +102,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
 
   {
     id: 'nakaFuture',
-    image: '/explore/dapp4.png',
+    image: '/explore/naka-dex.png',
     title: 'Naka DEX ',
     bgColor:
       'linear-gradient(227deg, #FD8DFF -7.83%, #FF63B7 21.47%, #E400CD 69.37%, #FADEFF 118.41%)',
