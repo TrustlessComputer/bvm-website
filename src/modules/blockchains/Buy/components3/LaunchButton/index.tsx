@@ -360,6 +360,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       dappKey: DappType.token_generation,
     });
 
+    const walletTypeForms = retrieveFormsByDappKey({
+      dappKey: DappType.walletType,
+    });
+
     console.log('[LaunchButton] - onUpdateHandler', {
       params,
       stakingForms,
@@ -370,6 +374,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       tokensNodePositions,
       yoloGameForms,
       yoloNodePositions,
+      walletTypeForms
     });
 
     // console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);

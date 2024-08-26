@@ -75,7 +75,7 @@ export default function useFetchingTemplate() {
 
   const { counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
-  const { tokens, airdrops, stakingPools, yoloGames } = dappState;
+  const { tokens, airdrops, stakingPools, yoloGames, walletType } = dappState;
 
   const [needSetDataTemplateToBox, setNeedSetDataTemplateToBox] =
     React.useState(false);
@@ -412,10 +412,19 @@ export default function useFetchingTemplate() {
       startIndex: startIndex,
     });
 
+    startIndex += yoloGames.length;
+    const parsedWalletData = !walletType ? [] : parseStakingPools([]);
+    const parsedWalletForm = parseDappModel({
+      key: DappType.walletType,
+      model: parsedWalletData,
+      startIndex: startIndex,
+    });
+
     console.log('[useFetchingTemplate] parsedTokensData', {
       tokens,
       airdrops,
       stakingPools,
+      parsedWalletForm
     });
 
     setTemplateDapps([
@@ -423,12 +432,14 @@ export default function useFetchingTemplate() {
       ...parsedAirdropsData,
       ...parsedStakingPoolsData,
       ...parsedYoloGameData,
+      ...parsedWalletData,
     ]);
     setTemplateForm({
       ...parsedTokensForm.fieldValue,
       ...parsedAirdropsForm.fieldValue,
       ...parsedStakingPoolsForm.fieldValue,
       ...parsedYoloGameForm.fieldValue,
+      ...parsedWalletForm.fieldValue,
     } as any);
 
     setNeedSetDataTemplateToBox(true);

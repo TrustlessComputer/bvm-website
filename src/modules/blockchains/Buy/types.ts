@@ -31,4 +31,5 @@ export enum DappType {
   airdrop = 'airdrop',
   yologame = 'yologame',
   orderbook = 'orderbook',
+  walletType = 'wallet_type',
 }
