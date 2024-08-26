@@ -75,8 +75,8 @@ const BuildItem = ({
         </Box>
       </Flex>
       <Box
-        w="87%"
-        flex="1"
+        w="83%"
+        // flex="1"
         as={motion.div}
         initial={{ opacity: 0, x: 50 }}
         whileInView={{
