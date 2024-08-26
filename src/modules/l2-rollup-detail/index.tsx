@@ -34,6 +34,7 @@ import TransactionsTab from './TransactionsTab';
 import TransactionsTabBitcoin from './TransactionsTabBitcoin';
 import NFTTab from './NFTTab';
 import ButtonFavorite from './FavoriteAddress';
+import WatchListAddresses from './Watchlist';
 
 const L2RollupDetail = () => {
   const router = useRouter();
@@ -120,57 +121,56 @@ const L2RollupDetail = () => {
           </Flex>
         </Flex>
 
-        <Tabs
-          className={s.tabContainer}
-          mt={{ base: '24px', md: '32px' }}
-          defaultIndex={0}
-        >
-          {isBTCAddress ? (
-            <>
-              <TabList
-                className={s.tabList}
-                fontSize={['16px', '18px', ' 20px']}
-              >
-                <Tab>Portfolio</Tab>
-                <Tab>Transactions</Tab>
-              </TabList>
-              <TabPanels className={s.tabPanel}>
-                <TabPanel minH={'40vh'}>
-                  <PortfolioTabBitcoin />
-                </TabPanel>
-                <TabPanel minH={'40vh'}>
-                  <TransactionsTabBitcoin />
-                </TabPanel>
-              </TabPanels>
-            </>
-          ) : (
-            <>
-              <TabList
-                className={s.tabList}
-                fontSize={['16px', '18px', ' 20px']}
-              >
-                <Tab>Portfolio</Tab>
-                <Tab>Transactions</Tab>
-                <Tab>Token Transfer</Tab>
-                <Tab>NFTs</Tab>
-              </TabList>
-              <TabPanels className={s.tabPanel}>
-                <TabPanel minH={'40vh'}>
-                  <PortfolioTab />
-                </TabPanel>
-                <TabPanel minH={'40vh'}>
-                  <TransactionsTab />
-                </TabPanel>
-                <TabPanel minH={'40vh'}>
-                  <TokenTransferTab />
-                </TabPanel>
-                <TabPanel minH={'40vh'}>
-                  <NFTTab />
-                </TabPanel>
-              </TabPanels>
-            </>
-          )}
-        </Tabs>
+        <Box position={'relative'} mt={{ base: '24px', md: '32px' }}>
+          <Tabs className={s.tabContainer} defaultIndex={0}>
+            {isBTCAddress ? (
+              <>
+                <TabList
+                  className={s.tabList}
+                  fontSize={['16px', '18px', ' 20px']}
+                >
+                  <Tab>Portfolio</Tab>
+                  <Tab>Transactions</Tab>
+                </TabList>
+                <TabPanels className={s.tabPanel}>
+                  <TabPanel minH={'40vh'}>
+                    <PortfolioTabBitcoin />
+                  </TabPanel>
+                  <TabPanel minH={'40vh'}>
+                    <TransactionsTabBitcoin />
+                  </TabPanel>
+                </TabPanels>
+              </>
+            ) : (
+              <>
+                <TabList
+                  className={s.tabList}
+                  fontSize={['16px', '18px', ' 20px']}
+                >
+                  <Tab>Portfolio</Tab>
+                  <Tab>Transactions</Tab>
+                  <Tab>Token Transfer</Tab>
+                  <Tab>NFTs</Tab>
+                </TabList>
+                <TabPanels className={s.tabPanel}>
+                  <TabPanel minH={'40vh'}>
+                    <PortfolioTab />
+                  </TabPanel>
+                  <TabPanel minH={'40vh'}>
+                    <TransactionsTab />
+                  </TabPanel>
+                  <TabPanel minH={'40vh'}>
+                    <TokenTransferTab />
+                  </TabPanel>
+                  <TabPanel minH={'40vh'}>
+                    <NFTTab />
+                  </TabPanel>
+                </TabPanels>
+              </>
+            )}
+          </Tabs>
+          <WatchListAddresses />
+        </Box>
       </Flex>
     </Box>
   );

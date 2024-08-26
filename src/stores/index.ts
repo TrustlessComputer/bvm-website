@@ -25,6 +25,7 @@ const persistConfig = getPersistConfig({
     'lpEAIPayment',
     'referrals',
     'createToken',
+    'l2Services.openWatchList'
   ],
   rootReducer: reducers,
 });

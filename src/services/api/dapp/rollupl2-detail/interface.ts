@@ -122,4 +122,5 @@ export interface IRollupNFTDetail {
 
 export interface IWatchList {
   address: string;
+  org_address: string;
 }

@@ -1,15 +1,17 @@
+import { showError, showSuccess } from '@/components/toast';
+import { HEART_BEAT_WATCHLIST } from '@/constants/route-path';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import CRollupL2DetailAPI from '@/services/api/dapp/rollupl2-detail';
+import { getErrorMessage } from '@/utils/errorV2';
 import { Flex, Spinner, Tooltip } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import s from './styles.module.scss';
-import { showError, showSuccess } from '@/components/toast';
-import { getErrorMessage } from '@/utils/errorV2';
-import { HEART_BEAT_WATCHLIST } from '@/constants/route-path';
-import { compareString } from '@/utils/string';
+import { useDispatch } from 'react-redux';
+import { requestReload } from '@/stores/states/common/reducer';
 
 const ButtonFavorite = ({ address }: { address: string }) => {
   const rollupApi = new CRollupL2DetailAPI();
+  const dispatch = useDispatch();
   const [isFavorite, setIsFavorite] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -24,10 +26,9 @@ const ButtonFavorite = ({ address }: { address: string }) => {
       if (!address) {
         return;
       }
-      const rs = await rollupApi.getWatchLists(address);
+      const rs: any = await rollupApi.getWatchListValidate(address);
 
-      const _address = rs?.[0]?.address;
-      setIsFavorite(compareString(address, _address));
+      setIsFavorite(rs);
     } catch (error) {}
   };
 
@@ -61,6 +62,7 @@ const ButtonFavorite = ({ address }: { address: string }) => {
       showError(getErrorMessage(error));
     } finally {
       setSubmitting(false);
+      dispatch(requestReload());
     }
   };
 

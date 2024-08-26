@@ -378,6 +378,8 @@ interface L2ServicesState {
 
   //App Config Selected
   dAppConfigSelected?: IModelOption;
+  //
+  openWatchList: boolean;
 }
 
 type MetaConfig = {
