@@ -212,6 +212,7 @@ export default memo(function StudioControls() {
                     value={{
                       isChain: true,
                       value: option.key,
+                      left: true,
                     }}
                     tooltip={option.tooltip}
                   >
