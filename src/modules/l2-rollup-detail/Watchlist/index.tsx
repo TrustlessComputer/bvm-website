@@ -133,56 +133,8 @@ const WatchListAddresses = () => {
                   alignItems={'center'}
                   gap={'8px'}
                 >
-                  <Avatar width={20} address={w.address} />
-                  <Text>{shortCryptoAddress(w.address, 10)}</Text>
-                </Flex>
-              ))}
-              {watchList.map((w) => (
-                <Flex
-                  onClick={() => router.push(`${HEART_BEAT}/${w.org_address}`)}
-                  className={s.item}
-                  key={w.address}
-                  alignItems={'center'}
-                  gap={'8px'}
-                >
-                  <Avatar width={20} address={w.address} />
-                  <Text>{shortCryptoAddress(w.address, 10)}</Text>
-                </Flex>
-              ))}
-              {watchList.map((w) => (
-                <Flex
-                  onClick={() => router.push(`${HEART_BEAT}/${w.org_address}`)}
-                  className={s.item}
-                  key={w.address}
-                  alignItems={'center'}
-                  gap={'8px'}
-                >
-                  <Avatar width={20} address={w.address} />
-                  <Text>{shortCryptoAddress(w.address, 10)}</Text>
-                </Flex>
-              ))}
-              {watchList.map((w) => (
-                <Flex
-                  onClick={() => router.push(`${HEART_BEAT}/${w.org_address}`)}
-                  className={s.item}
-                  key={w.address}
-                  alignItems={'center'}
-                  gap={'8px'}
-                >
-                  <Avatar width={20} address={w.address} />
-                  <Text>{shortCryptoAddress(w.address, 10)}</Text>
-                </Flex>
-              ))}
-              {watchList.map((w) => (
-                <Flex
-                  onClick={() => router.push(`${HEART_BEAT}/${w.org_address}`)}
-                  className={s.item}
-                  key={w.address}
-                  alignItems={'center'}
-                  gap={'8px'}
-                >
-                  <Avatar width={20} address={w.address} />
-                  <Text>{shortCryptoAddress(w.address, 10)}</Text>
+                  <Avatar width={20} address={w.org_address} />
+                  <Text>{shortCryptoAddress(w.org_address, 10)}</Text>
                 </Flex>
               ))}
             </>
