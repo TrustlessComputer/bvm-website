@@ -2,33 +2,39 @@
 /* eslint-disable jsx-a11y/alt-text */
 'use client';
 
+import AppLoading from '@/components/AppLoading';
 import ListTable, { ColumnProp } from '@/components/ListTable';
 import { MIN_DECIMAL } from '@/constants/constants';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import CRollupL2API from '@/services/api/dapp/rollupl2';
-import { IRollupL2Info } from '@/services/api/dapp/rollupl2/interface';
+import {
+  IRollupChart1D,
+  IRollupL2Info,
+} from '@/services/api/dapp/rollupl2/interface';
 import { calculateTimeAgo, formatCurrency } from '@/utils/format';
 import { compareString } from '@/utils/string';
 import {
   Box,
   Flex,
-  Text,
-  Tooltip,
+  Grid,
   Image,
   Popover,
-  PopoverContent,
   PopoverBody,
+  PopoverContent,
   PopoverTrigger,
-  Grid,
+  SimpleGrid,
+  Text,
+  Tooltip,
   useDisclosure,
 } from '@chakra-ui/react';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import s from './styles.module.scss';
-import { orderBy } from 'lodash';
 import { DotLottiePlayer } from '@dotlottie/react-player';
-import BitcoinRentModal from './BitcoinRentModal';
-import AppLoading from '@/components/AppLoading';
+import { orderBy } from 'lodash';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import SearchAddress from '../l2-rollup-detail/SearchAddress';
+import BitcoinRentModal from './BitcoinRentModal';
+import L2RollupFee from './fees';
+import s from './styles.module.scss';
 
 enum SortRollupType {
   name,
@@ -54,11 +60,13 @@ interface ISort {
 
 const L2Rollup = () => {
   const { showContactUsModal } = useContactUs();
+  const dispatch = useDispatch();
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const [bitcoinRent, setBitcoinRent] = useState<IRollupL2Info>();
 
   const [data, setData] = useState<IRollupL2Info[]>([]);
+  const [dataChart, setDataChart] = useState<IRollupChart1D[]>([]);
 
   const hasIncrementedPageRef = useRef(false);
   const loaded = useRef(true);
@@ -86,6 +94,24 @@ const L2Rollup = () => {
     return data.find((rollup) => compareString(rollup.name, 'bitcoin'));
   }, [data]);
 
+  const _dataChart: {
+    fees: number[];
+    txs: number[];
+    addresses: number[];
+  } = useMemo(() => {
+    const fees: any[] = [];
+    const txs: any[] = [];
+    const addresses: any[] = [];
+
+    dataChart.forEach((d) => {
+      fees.push([d.timestamp, parseFloat(d.fee_usd)] as any[]);
+      txs.push([d.timestamp, d.tx_count]);
+      addresses.push([Number(d.timestamp), Number(d.address_actived)]);
+    });
+
+    return { fees, txs, addresses };
+  }, [dataChart]);
+
   useEffect(() => {
     loaded.current = true;
     fetchData();
@@ -101,7 +127,12 @@ const L2Rollup = () => {
     if (!loaded.current) return;
     loaded.current = false;
     try {
-      const res = await rollupL2Api.getRollupL2Info();
+      const [res, res2] = await Promise.all([
+        rollupL2Api.getRollupL2Info(),
+        rollupL2Api.getFeeAddress1D(),
+      ]);
+
+      setDataChart(res2);
       if (res.length <= 0) return;
       let data: IRollupL2Info[] = [];
 
@@ -887,6 +918,11 @@ const L2Rollup = () => {
     );
   };
 
+  const chainsSupportForChart = useMemo(
+    () => data.filter((d) => d.fee_chart_supported).map((v) => v.name),
+    [data],
+  );
+
   return (
     <Box className={s.container}>
       <Flex direction={'column'} w="100%" maxW={'1800px'} alignItems={'center'}>
@@ -965,6 +1001,50 @@ const L2Rollup = () => {
           <SearchAddress placeholder={'Search bitcoin or L2 Bitcoin address'} className={s.search}/>
         </Flex>
 
+        <Box w={'100%'} mb={'32px'}>
+          <SimpleGrid columns={3} gap={'16px'}>
+            <L2RollupFee
+              data={_dataChart.txs}
+              prefix="Ξ"
+              title={`<p>Transaction Count</p><p>Ξ${formatCurrency(
+                (
+                  _dataChart.txs?.[_dataChart.txs.length - 1] as any
+                )?.[1] as any,
+                0,
+                2,
+              )}</p>`}
+            />
+            <L2RollupFee
+              data={_dataChart.addresses}
+              prefix="Ξ"
+              title={`<p>Active Addresses</p><p>Ξ${formatCurrency(
+                (
+                  _dataChart.addresses?.[_dataChart.addresses.length - 1] as any
+                )?.[1] as any,
+                0,
+                2,
+              )}</p>`}
+            />
+            <L2RollupFee
+              data={_dataChart.fees}
+              prefix="$"
+              title={`<p>Fees Paid by Users</p><p>$${formatCurrency(
+                (
+                  _dataChart.fees?.[_dataChart.fees.length - 1] as any
+                )?.[1] as any,
+                0,
+                2,
+              )}</p>`}
+            />
+          </SimpleGrid>
+          <Box mt={'6px'}>
+            <Text fontSize={'12px'} opacity={'0.8'}>
+              * This data has been collected from{' '}
+              {chainsSupportForChart.join(', ')} chains. More chains will be
+              included in the next version.
+            </Text>
+          </Box>
+        </Box>
         <Flex
           className={s.totalContainer}
           bg="#FAFAFA"
