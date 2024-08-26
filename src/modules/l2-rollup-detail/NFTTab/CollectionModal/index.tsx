@@ -6,7 +6,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import BaseModal from '@components/BaseModal';
 import { L2RollupDetailContext } from '@/modules/l2-rollup-detail/providers/l2-rollup-detail-context';
-import { Grid } from '@chakra-ui/react';
+import { Box, Grid } from '@chakra-ui/react';
 import NFTItem from '@/modules/l2-rollup-detail/NFTTab/item';
 
 const CollectionModal = ({isOpen, onClose, title, item}: { isOpen: boolean, onClose: any, title: string, item: INFT}) => {
@@ -23,7 +23,7 @@ const CollectionModal = ({isOpen, onClose, title, item}: { isOpen: boolean, onCl
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
     page: 1,
-    limit: 20,
+    limit: 21,
   });
 
   useEffect(() => {
@@ -56,8 +56,6 @@ const CollectionModal = ({isOpen, onClose, title, item}: { isOpen: boolean, onCl
           ...refParams.current,
         })) as any;
 
-        console.log('aaaaa', res);
-
         setRollupNFTs(res);
       } else {
         const res = (await rollupApi.getRollupL2NFTsList({
@@ -66,8 +64,6 @@ const CollectionModal = ({isOpen, onClose, title, item}: { isOpen: boolean, onCl
           token_address: item.token_contract_address,
           ...refParams.current,
         })) as any;
-
-        console.log('bbbb', res);
 
         setRollupNFTs([...rollupNFTs, ...res]);
       }
@@ -100,43 +96,45 @@ const CollectionModal = ({isOpen, onClose, title, item}: { isOpen: boolean, onCl
 
   return (
     <BaseModal theme="dark" isShow={isOpen} onHide={onClose} title={title} size="extra" className={s.container}>
-      <ScrollWrapper
-        onFetch={() => {
-          refParams.current = {
-            ...refParams.current,
-            page: refParams.current.page + 1,
-          };
-          hasIncrementedPageRef.current = true;
-          fetchData();
-        }}
-        isFetching={refreshing}
-        hasIncrementedPageRef={hasIncrementedPageRef}
-        onFetchNewData={onRefresh}
-        wrapClassName={s.wrapScroll}
-        dependData={rollupNFTs}
-      >
-        <Grid
-          w="100%"
-          gridTemplateColumns={{
-            base: 'repeat(auto-fill, minmax(196px, 1fr))',
+      <Box h={"80dvh"}>
+        <ScrollWrapper
+          onFetch={() => {
+            refParams.current = {
+              ...refParams.current,
+              page: refParams.current.page + 1,
+            };
+            hasIncrementedPageRef.current = true;
+            fetchData();
           }}
-          gap={{ base: '16px', lg: '24px' }}
+          isFetching={refreshing}
+          hasIncrementedPageRef={hasIncrementedPageRef}
+          onFetchNewData={onRefresh}
+          wrapClassName={s.wrapScroll}
+          dependData={rollupNFTs}
         >
-          {rollupNFTs.length > 0 &&
-            rollupNFTs.map((item) => {
-              return (
-                <NFTItem item={item} />
-              );
-            })}
-        </Grid>
-        {isFetching ? (
-          <AppLoading className={s.loading} />
-        ) : (
-          <>
+          <Grid
+            w="100%"
+            gridTemplateColumns={{
+              base: 'repeat(auto-fill, minmax(196px, 1fr))',
+            }}
+            gap={{ base: '16px', lg: '24px' }}
+          >
+            {rollupNFTs.length > 0 &&
+              rollupNFTs.map((item) => {
+                return (
+                  <NFTItem item={item} />
+                );
+              })}
+          </Grid>
+          {isFetching ? (
+            <AppLoading className={s.loading} />
+          ) : (
+            <>
 
-          </>
-        )}
-      </ScrollWrapper>
+            </>
+          )}
+        </ScrollWrapper>
+      </Box>
     </BaseModal>
   )
 };
