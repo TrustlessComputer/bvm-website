@@ -41,11 +41,11 @@ export default function ExploreModule(): React.JSX.Element {
       <Loader bgColor={'#FFF'} />
       <div className={`containerV3`}>
         <p className={s.heading}>
-          {/* <Chars delayEnter={0.5}>Welcome to the future of Bitcoin!</Chars> */}
+          <Chars delayEnter={0.5}>Welcome to the future of Bitcoin!</Chars>
         </p>
         <Text className={s.description} mt="12px">
-          {/* Let's explore the broader capabilities of Bitcoin that go beyond mere
-          currency. */}
+          Discover how BVM is unlocking Bitcoin's potential far beyond just
+          being a currency.
         </Text>
         {/* tab */}
         <Tabs

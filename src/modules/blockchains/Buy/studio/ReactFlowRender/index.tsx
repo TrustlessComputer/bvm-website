@@ -16,10 +16,13 @@ import { nodeKey } from '../../component4/YourNodes/node.constants';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
+  restoreLocal,
 } from '../../signals/useDragSignal';
 import useFlowStore from '../../stores/useFlowStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import s from './styles.module.scss';
+import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
+import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
@@ -31,6 +34,7 @@ const ReactFlowRenderer = React.memo(() => {
   const [currentPosition, setCurrentPosition] = useState(
     currentPositionSignal.value,
   );
+  const { isFirstLoadTemplateBox } = useStoreFirstLoadTemplateBox();
   const [count, setCount] = React.useState(0);
   const path = usePathname();
   const { categories } = useModelCategoriesStore();
@@ -38,10 +42,10 @@ const ReactFlowRenderer = React.memo(() => {
   const [loaded, setLoaded] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
 
-  const confirmLoad = () => {
-    onRestore();
-    setShowModal(false);
-  };
+  // const confirmLoad = () => {
+  //   onRestore();
+  //   setShowModal(false);
+  // };
 
   useSignalEffect(() => {
     if (needReactFlowRenderSignal.value) {
@@ -53,20 +57,26 @@ const ReactFlowRenderer = React.memo(() => {
 
   console.log('[ReactFlowRenderer]', {
     nodes,
-
     draggedDappIndexesSignal: draggedDappIndexesSignal.value,
     draggedIds2DSignal: draggedIds2DSignal.value,
+    formDappSignal: formDappSignal.value,
   });
 
   React.useEffect(() => {
+    if (!isFirstLoadTemplateBox) return;
     if (loaded) return;
 
-    if (haveOldData && categories && categories.length > 0) {
-      setShowModal(true);
+    if (categories && categories.length > 0) {
+      if (haveOldData) {
+        onRestore().then(() => {
+          restoreLocal.value = true;
+        });
+      } else {
+        restoreLocal.value = true;
+      }
+      setLoaded(true);
     }
-
-    if (categories && categories.length > 0) setLoaded(true);
-  }, [haveOldData, categories, loaded]);
+  }, [haveOldData, categories, loaded, rfInstance, isFirstLoadTemplateBox]);
 
   return (
     <>
@@ -102,21 +112,22 @@ const ReactFlowRenderer = React.memo(() => {
         fitViewOptions={{ padding: 1 }}
         className={s.reactFlow}
         onNodeDragStop={() => {
+          if (!isFirstLoadTemplateBox) return;
           if (path === '/studio') {
             onSave();
           }
         }}
       />
 
-      <MModal
-        title="Do you want to load the last saved flow?"
-        okText="Load"
-        closeText="Cancel"
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        onOk={() => confirmLoad()}
-        className={s.modal}
-      />
+      {/*<MModal*/}
+      {/*  title="Do you want to load the last saved flow?"*/}
+      {/*  okText="Load"*/}
+      {/*  closeText="Cancel"*/}
+      {/*  show={showModal}*/}
+      {/*  onHide={() => setShowModal(false)}*/}
+      {/*  onOk={() => confirmLoad()}*/}
+      {/*  className={s.modal}*/}
+      {/*/>*/}
     </>
   );
 });

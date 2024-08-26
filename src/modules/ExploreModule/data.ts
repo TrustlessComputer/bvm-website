@@ -49,7 +49,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
     description: 'Decentralized AI in your pocket.',
     tags: ['EternalAI', 'AI'],
     link: {
-      url: '',
+      url: 'https://eternalai.org',
       target: '_blank',
     },
     homeImage: `${CDN_URL}/pages/landing-v4/home-eai-phone.png`,
