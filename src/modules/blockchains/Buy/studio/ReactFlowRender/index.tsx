@@ -21,6 +21,7 @@ import useFlowStore from '../../stores/useFlowStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import s from './styles.module.scss';
 import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
+import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
@@ -58,6 +59,7 @@ const ReactFlowRenderer = React.memo(() => {
 
     draggedDappIndexesSignal: draggedDappIndexesSignal.value,
     draggedIds2DSignal: draggedIds2DSignal.value,
+    formDappSignal: formDappSignal.value,
   });
 
   React.useEffect(() => {
