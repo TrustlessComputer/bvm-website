@@ -1006,42 +1006,95 @@ const L2Rollup = () => {
             <L2RollupFee
               data={_dataChart.txs}
               prefix="Ξ"
-              title={`<p>Transaction Count</p><p>Ξ${formatCurrency(
-                (
-                  _dataChart.txs?.[_dataChart.txs.length - 1] as any
-                )?.[1] as any,
-                0,
-                2,
-              )}</p>`}
+              header={
+                <Flex
+                  alignItems={'center'}
+                  justifyContent={'space-between'}
+                  p={'6px'}
+                  backgroundColor={'#fff'}
+                >
+                  <Text fontSize={'14px'}>Transaction Count</Text>
+                  <Text fontSize={'14px'}>{`Today Ξ${formatCurrency(
+                    (
+                      _dataChart.txs?.[_dataChart.txs.length - 1] as any
+                    )?.[1] as any,
+                    0,
+                    2,
+                  )}`}</Text>
+                </Flex>
+              }
             />
             <L2RollupFee
               data={_dataChart.addresses}
               prefix="Ξ"
-              title={`<p>Active Addresses</p><p>Ξ${formatCurrency(
-                (
-                  _dataChart.addresses?.[_dataChart.addresses.length - 1] as any
-                )?.[1] as any,
-                0,
-                2,
-              )}</p>`}
+              header={
+                <Flex
+                  alignItems={'center'}
+                  justifyContent={'space-between'}
+                  p={'6px'}
+                  backgroundColor={'#fff'}
+                >
+                  <Text fontSize={'14px'}>Bitcoin l2 Active addresses</Text>
+                  <Tooltip label="Active addresses are those that have executed at least one transaction. The count of addresses is specific to Layer 2 on Bitcoin, excluding BTC addresses">
+                    <Flex alignItems={'center'} gap={'2px'}>
+                      <Text fontSize={'14px'} cursor={'pointer'}>
+                        {`Ξ${formatCurrency(
+                          (
+                            _dataChart.addresses?.[
+                              _dataChart.addresses.length - 1
+                            ] as any
+                          )?.[1] as any,
+                          0,
+                          2,
+                        )}`}
+                      </Text>
+                      <svg
+                        stroke="rgba(0, 0, 0, 0.5)"
+                        fill="none"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        height="10px"
+                        width="10px"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                      </svg>
+                    </Flex>
+                  </Tooltip>
+                </Flex>
+              }
             />
             <L2RollupFee
               data={_dataChart.fees}
               prefix="$"
-              title={`<p>Fees Paid by Users</p><p>$${formatCurrency(
-                (
-                  _dataChart.fees?.[_dataChart.fees.length - 1] as any
-                )?.[1] as any,
-                0,
-                2,
-              )}</p>`}
+              header={
+                <Flex
+                  alignItems={'center'}
+                  justifyContent={'space-between'}
+                  p={'6px'}
+                  backgroundColor={'#fff'}
+                >
+                  <Text fontSize={'14px'}>Fees Paid by Users</Text>
+                  <Text fontSize={'14px'}>{`Today $${formatCurrency(
+                    (
+                      _dataChart.fees?.[_dataChart.fees.length - 1] as any
+                    )?.[1] as any,
+                    0,
+                    2,
+                  )}`}</Text>
+                </Flex>
+              }
             />
           </SimpleGrid>
           <Box mt={'6px'}>
             <Text fontSize={'12px'} opacity={'0.8'}>
               * This data has been collected from{' '}
-              {chainsSupportForChart.join(', ')} chains. More chains will be
-              included in the next version.
+              {chainsSupportForChart.join(', ')} chains.{' '}
+              <b>Rollux, Merlin, Core, and Stacks will be coming soon.</b>
             </Text>
           </Box>
         </Box>
