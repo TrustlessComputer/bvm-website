@@ -1027,7 +1027,7 @@ const L2Rollup = () => {
                   <Text fontSize={'14px'}>{`Today Ξ${formatCurrency(
                     (
                       _dataChart.txs?.[_dataChart.txs.length - 1] as any
-                    )?.[1] as any,
+                    )?.y as any,
                     0,
                     2,
                   )}`}</Text>
@@ -1053,7 +1053,7 @@ const L2Rollup = () => {
                             _dataChart.addresses?.[
                               _dataChart.addresses.length - 1
                             ] as any
-                          )?.[1] as any,
+                          )?.y as any,
                           0,
                           2,
                         )}`}
@@ -1090,9 +1090,8 @@ const L2Rollup = () => {
                 >
                   <Text fontSize={'14px'}>Fees Paid by Users</Text>
                   <Text fontSize={'14px'}>{`Today $${formatCurrency(
-                    (
-                      _dataChart.fees?.[_dataChart.fees.length - 1] as any
-                    )?.[1] as any,
+                    (_dataChart.fees?.[_dataChart.fees.length - 1] as any)
+                      ?.y as any,
                     0,
                     2,
                   )}`}</Text>
