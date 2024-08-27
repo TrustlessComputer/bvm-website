@@ -58,6 +58,7 @@ interface IModelOption {
     };
   } | null;
   deployTime?: string;
+  deployTimeTestnet?: string;
 }
 
 interface IModelCategory {

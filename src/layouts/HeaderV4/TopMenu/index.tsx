@@ -67,11 +67,20 @@ const TopMenu = ({
               })}
             >
               <div className={s.right_item_inner}>
+                <Link href={'/open-source'}>Open Source</Link>
+              </div>
+            </div>
+            <div
+              className={cn(s.right_item, {
+                [s.black]: theme === 'black',
+              })}
+            >
+              <div className={s.right_item_inner}>
                 <Link href={'/team'}>Team</Link>
               </div>
             </div>
 
-            <div
+            {/* <div
               className={cn(s.right_item, {
                 [s.black]: theme === 'black',
               })}
@@ -79,7 +88,7 @@ const TopMenu = ({
               <div className={s.right_item_inner}>
                 <ContactUs color={theme === 'white' ? 'black' : 'white'} />
               </div>
-            </div>
+            </div> */}
             {/* <div className={s.right_item}>
               <ButtonLoginTwitter color={'white'} />
             </div> */}
