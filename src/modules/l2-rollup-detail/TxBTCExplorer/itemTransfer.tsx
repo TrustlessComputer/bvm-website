@@ -5,6 +5,7 @@ import React from 'react';
 import copy from 'copy-to-clipboard';
 import toast from 'react-hot-toast';
 import s from './styles.module.scss';
+import { shortCryptoAddress } from '@/utils/address';
 
 const ItemTransfer = ({
   data,
@@ -16,7 +17,9 @@ const ItemTransfer = ({
   return (
     <Flex alignItems={'center'} justifyContent={'space-between'}>
       <Flex gap={'6px'} alignItems={'center'}>
-        <Text className={s.address}>{data.output_hash}</Text>
+        <Text className={s.address}>
+          {shortCryptoAddress(data.output_hash, 34)}
+        </Text>
         {data.output_hash && (
           <Box
             onClick={() => {

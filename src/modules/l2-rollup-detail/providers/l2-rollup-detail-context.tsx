@@ -16,7 +16,7 @@ import { isValidBTCTxHash } from '@/utils/form-validate';
 import { validateBTCAddress } from '@/utils/format';
 import { validateEVMAddress } from '@/utils/validate';
 import BigNumber from 'bignumber.js';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import React, { PropsWithChildren, useEffect, useMemo, useState } from 'react';
 
 export interface IL2RollupDetailContext {
@@ -54,6 +54,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
   children,
 }: PropsWithChildren): React.ReactElement => {
   const params = useParams();
+  const router = useRouter();
 
   const address = useMemo(() => params?.id as string, [params]);
 

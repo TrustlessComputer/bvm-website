@@ -84,7 +84,11 @@ const SearchAddress = (props: ISearchAddressProps) => {
         placeholder={props.placeholder || 'Search address '}
         onEnterSearch={() => {
           if (isValidSearchAddress) {
-            router.push(`${HEART_BEAT}/${searchAddress}`);
+            if (isValidBTCTxHash(searchAddress)) {
+              router.push(`${HEART_BEAT}/tx/${searchAddress}`);
+            } else {
+              router.push(`${HEART_BEAT}/${searchAddress}`);
+            }
           }
         }}
         className={props.className}
