@@ -429,7 +429,7 @@ export const preDataWhitePaper = (
 
   if (tokens.length > 0) {
     const _appIndex = _sortedDapps.findIndex((v) =>
-      compareString(v.key, DappType.orderbook),
+      compareString(v.key, DappType.white_paper),
     );
 
     if (_appIndex > -1) {

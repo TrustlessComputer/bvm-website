@@ -24,7 +24,7 @@ export const dappKeyMapNodeKey: Record<
   staking: nodeKey.DAPP_NODE,
   airdrop: nodeKey.DAPP_NODE,
   yologame: nodeKey.DAPP_NODE,
-  orderbook: nodeKey.DAPP_NODE,
+  white_paper: nodeKey.DAPP_NODE,
 });
 
 export const dappKeyToNodeKey = (dappKey: string) => {

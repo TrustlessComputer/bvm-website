@@ -400,7 +400,7 @@ export default function useFetchingTemplate() {
     startIndex += parsedYoloGameData.length;
     const parsedWhitePaperData = parseWhitePapers(whitePapers);
     const parsedWhitePaperForm = parseDappModel({
-      key: DappType.orderbook,
+      key: DappType.white_paper,
       model: parsedWhitePaperData,
       startIndex: startIndex,
     });
