@@ -79,7 +79,7 @@ const ToolBar = (props: Props) => {
               {`$${priceBVMtoUSD || '--'}/month`}
             </Text>
           </Flex>
-          <LaunchButton data={[]} originalData={[]} />
+          <LaunchButton />
         </Flex>
       )}
     </Flex>

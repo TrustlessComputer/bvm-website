@@ -9,6 +9,7 @@ import ModalVideo from 'react-modal-video';
 import Fade from '@/interactive/Fade';
 import { useRouter } from 'next/navigation';
 import { isDesktop } from 'react-device-detect';
+import {VIDEO_HERO_MAIN} from "@constants/common";
 
 export default function HeroV2() {
   const [isOpen, setOpen] = useState(false);
@@ -96,7 +97,7 @@ export default function HeroV2() {
             </a>
             <ModalVideo
               channel="custom"
-              url={'/public-sale/public_sale_video_2.mp4'}
+              url={VIDEO_HERO_MAIN}
               isOpen={isOpen}
               onClose={() => {
                 setOpen(false);

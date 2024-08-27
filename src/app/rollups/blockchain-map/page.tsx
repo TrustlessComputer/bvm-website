@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 
 import { APP_NAME } from '@/config/metadata';
 import MainLayout from '@/layouts/MainLayout';
-import Page from '@/modules/blockchains/blockchain-map';
+import Page from '@/modules/blockchains/dapp';
 
 export const metadata: Metadata = {
   openGraph: {

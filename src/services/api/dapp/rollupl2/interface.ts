@@ -5,7 +5,7 @@ export interface IRollupL2Info {
   tps: number;
   mgas: number;
   kbs: number;
-  fdv: number;
+  fdv_usd: string;
   stack: string;
   da: string;
   settlement: string;
@@ -16,4 +16,16 @@ export interface IRollupL2Info {
   tvl_btc: string;
   index: number;
   verification?: string;
+  verification_url?: string;
+  level?: string;
+  fee_btc?: string;
+  chain_id: number;
+  fee_chart_supported: boolean;
+}
+
+export interface IRollupChart1D {
+  timestamp: number;
+  fee_usd: string;
+  tx_count: number;
+  address_actived: number;
 }

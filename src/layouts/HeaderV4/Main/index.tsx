@@ -1,5 +1,3 @@
-
-
 import Link from 'next/link';
 import s from './style.module.scss';
 import { IconButton, useDisclosure } from '@chakra-ui/react';
@@ -13,6 +11,7 @@ import GroupDownItem from '@layouts/HeaderV4/components/GroupDownItem';
 import { ReactElement } from 'react';
 import IconLogo from '../components/IcLogo';
 import Image from 'next/image';
+import ButtonLogin from './ButtonLogin';
 
 export type TMainHeader = {
   color?: 'black' | 'white';
@@ -22,11 +21,11 @@ export type TMainHeader = {
 };
 
 const Main = ({
-                color = 'black',
-                colorLogo = 'black',
-                backgroundColor = 'white',
-                // showBanner
-              }: TMainHeader): ReactElement => {
+  color = 'black',
+  colorLogo = 'black',
+  backgroundColor = 'white',
+}: // showBanner
+TMainHeader): ReactElement => {
   const { isOpen, onToggle } = useDisclosure();
   const { isDesktop } = useWindowSize();
   const pathname = usePathname();
@@ -37,9 +36,7 @@ const Main = ({
       className={`${s.wrapper} `}
       style={{ backgroundColor: backgroundColor }}
     >
-
       <div className={`${s.inner} containerV3`}>
-
         <div
           className={`${s.logo} ${s.logo_black}`}
           onClick={() => router.push('/')}
@@ -93,9 +90,10 @@ const Main = ({
 
         {isDesktop ? (
           <div>
-            <Link href={'/bvm'} className={s.getBVM}>
+            {/* <Link href={'/bvm'} className={s.getBVM}>
               Get BVM
-            </Link>
+            </Link> */}
+            <ButtonLogin className={s.getBVM} color="white" title="CONNECT" />
           </div>
         ) : (
           <>

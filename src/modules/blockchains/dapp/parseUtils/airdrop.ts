@@ -1,5 +1,9 @@
 import CTokenAirdropAPI from '@/services/api/dapp/airdrop';
-import { IAirdrop, IAirdropTask } from '@/services/api/dapp/airdrop/interface';
+import {
+  EAirdropStatus,
+  IAirdrop,
+  IAirdropTask,
+} from '@/services/api/dapp/airdrop/interface';
 import { IToken } from '@/services/api/dapp/token_generation/interface';
 import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
 import { compareString } from '@/utils/string';
@@ -7,6 +11,39 @@ import dayjs from 'dayjs';
 import stc from 'string-to-color';
 import { DappType } from '../types';
 import { getAirdropTaskKey } from '../utils';
+
+const renderLabel = {
+  [EAirdropStatus.new]: {
+    label: 'Deposit now',
+    color: '#fff',
+    background: 'rgb(255, 98, 0)',
+    status: EAirdropStatus.new,
+  },
+  [EAirdropStatus.processing]: {
+    label: 'Processing',
+    color: '#fff',
+    background: '#00AA6C',
+    status: EAirdropStatus.processing,
+  },
+  [EAirdropStatus.ended]: {
+    label: 'Ended',
+    color: '#fff',
+    background: 'rgba(255, 0, 0, 1)',
+    status: EAirdropStatus.ended,
+  },
+  [EAirdropStatus.deposited]: {
+    label: 'Processing',
+    color: '#fff',
+    background: '#00AA6C',
+    status: EAirdropStatus.deposited,
+  },
+  [EAirdropStatus.expired]: {
+    label: 'Expired',
+    color: '#fff',
+    background: 'rgba(255, 0, 0, 1)',
+    status: 'stopped',
+  },
+};
 
 export const parseAirdrop = async (airdrop: IAirdrop, _token: IToken) => {
   const api = new CTokenAirdropAPI();
@@ -21,6 +58,20 @@ export const parseAirdrop = async (airdrop: IAirdrop, _token: IToken) => {
   result.order = 1;
   result.color = stc(airdrop.token_address);
 
+  if (airdrop.status === EAirdropStatus.new) {
+    result.action = {
+      title: 'Top up reward',
+      actionMapperID: `${airdrop.id}`,
+      paymentAddress: airdrop.contract_address,
+      tokenInfo: airdrop.token,
+      paymentAmount: airdrop.amount,
+    } as any;
+  }
+
+  // console.log('renderLabel[airdrop.status]', renderLabel[airdrop.status]);
+
+  result.label = renderLabel[airdrop.status] as any;
+
   const baseBlock: BlockModel = {} as BlockModel;
 
   baseBlock.key = 'token_info';
@@ -30,6 +81,7 @@ export const parseAirdrop = async (airdrop: IAirdrop, _token: IToken) => {
   baseBlock.placableAmount = -1;
   baseBlock.section = 'information';
   baseBlock.preview = true;
+
   baseBlock.fields = [
     {
       key: 'airdrop_title',

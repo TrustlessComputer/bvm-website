@@ -1,3 +1,5 @@
+import { IToken } from '../token_generation/interface';
+
 export interface IAirdropTask {
   id: number;
   title: string;
@@ -47,6 +49,7 @@ export interface IAirdrop {
   expired_time: string;
   tasks: IAirdropTask[];
   is_bvm_shard: boolean;
+  token: IToken;
 }
 
 export enum EAirdropStatus {
@@ -54,4 +57,5 @@ export enum EAirdropStatus {
   deposited = 'deposited',
   processing = 'processing',
   ended = 'ended',
+  expired = 'expired',
 }

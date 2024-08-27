@@ -11,7 +11,7 @@ export interface TopUpDappInfor {
   networkName: string;
   tokenSymbol: string;
   tokenAddress: string;
-  title: string;
+  title: any;
   amount?: string;
   warningMessage?: string;
 }
@@ -28,8 +28,14 @@ const TopupModal = (props: IProps) => {
 
   const [currentIndexInfo, setCurrentIndexInfo] = useState(0);
 
-  const { paymentAddress, amount, tokenSymbol, warningMessage, networkName } =
-    infors[currentIndexInfo];
+  const {
+    paymentAddress,
+    amount,
+    tokenSymbol,
+    warningMessage,
+    networkName,
+    title,
+  } = infors[currentIndexInfo];
 
   const renderMessage = () => {
     return (
@@ -40,11 +46,7 @@ const TopupModal = (props: IProps) => {
         textAlign={'center'}
         w={['100%', '90%']}
       >
-        Please send
-        <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
-          {amount ? ` ${amount}` : ''} {tokenSymbol}{' '}
-        </Text>
-        to the following wallet address below.
+        {title}
       </Text>
     );
   };

@@ -27,9 +27,9 @@ const BodyInfor = (props: Props) => {
       gap={['10px', '18px', '28px']}
     >
       <WarningSection item={item} />
-      {item.serviceType === RollupEnum.Rollup_ZK && (
+      {/* {item.serviceType === RollupEnum.Rollup_ZK && (
         <PackageSection item={item} />
-      )}
+      )} */}
       {item.serviceType === RollupEnum.Rollup_ZK && (
         <HardwareSection item={item} />
       )}

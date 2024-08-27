@@ -7,6 +7,7 @@ import ImagePlaceholder from '@components/ImagePlaceholder';
 import Link from 'next/link';
 import Heading from '@/modules/bvm_v4/HeroV4/Heading';
 import Loader from '@/modules/builder-landing/Loader';
+import {VIDEO_HERO_MAIN} from "@constants/common";
 
 const HeroV4 = (): React.JSX.Element => {
   const [isOpen, setOpen] = useState(false);
@@ -57,7 +58,7 @@ const HeroV4 = (): React.JSX.Element => {
       </div>
       <ModalVideo
         channel="custom"
-        url={'/public-sale/public_sale_video_2.mp4'}
+        url={VIDEO_HERO_MAIN}
         isOpen={isOpen}
         onClose={() => {
           setOpen(false);
