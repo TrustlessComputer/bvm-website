@@ -422,18 +422,18 @@ export default function useFetchingTemplate() {
     });
 
     setTemplateDapps([
-      // ...parsedTokensData,
-      // ...parsedAirdropsData,
-      // ...parsedStakingPoolsData,
-      // ...parsedYoloGameData,
-      // ...parsedWalletData,
+      ...parsedTokensData,
+      ...parsedAirdropsData,
+      ...parsedStakingPoolsData,
+      ...parsedYoloGameData,
+      ...parsedWalletData,
     ]);
     setTemplateForm({
-      // ...parsedTokensForm.fieldValue,
-      // ...parsedAirdropsForm.fieldValue,
-      // ...parsedStakingPoolsForm.fieldValue,
-      // ...parsedYoloGameForm.fieldValue,
-      // ...((parsedWalletForm as any)?.fieldValue || {}),
+      ...parsedTokensForm.fieldValue,
+      ...parsedAirdropsForm.fieldValue,
+      ...parsedStakingPoolsForm.fieldValue,
+      ...parsedYoloGameForm.fieldValue,
+      ...((parsedWalletForm as any)?.fieldValue || {}),
     } as any);
 
     setNeedSetDataTemplateToBox(true);
