@@ -62,8 +62,9 @@ const TokenTransferTab = (props: IProps) => {
 
   const fetchData = async (isNew?: boolean) => {
     try {
-      setIsFetching(true);
       if (isNew) {
+        setIsFetching(true);
+
         refParams.current = {
           ...refParams.current,
           page: 1,
@@ -271,7 +272,10 @@ const TokenTransferTab = (props: IProps) => {
             <Flex gap={3} alignItems={'center'} width={'100%'}>
               <Flex gap={2} alignItems={'center'}>
                 <Text className={s.title}>
-                  {formatCurrency(data?.amount, 0, 6)} {data?.symbol}
+                  {formatCurrency(data?.amount, 0, 6)}{' '}
+                  {data?.symbol.length > 12
+                    ? data?.symbol.substr(0, 12) + '...'
+                    : data?.symbol}
                 </Text>
               </Flex>
             </Flex>

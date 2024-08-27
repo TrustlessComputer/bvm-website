@@ -63,8 +63,9 @@ const TransactionsTab = (props: IProps) => {
 
   const fetchData = async (isNew?: boolean) => {
     try {
-      setIsFetching(true);
       if (isNew) {
+        setIsFetching(true);
+
         refParams.current = {
           ...refParams.current,
           page: 1,

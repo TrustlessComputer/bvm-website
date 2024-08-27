@@ -11,6 +11,7 @@ export interface ITokenChain {
   value_fetched_at: Date;
   block_number: number;
   is_native: boolean;
+  icon_url?: string;
   chain?: IRollupChain;
 }
 
@@ -113,9 +114,9 @@ export interface IRollupNFT {
 }
 
 export interface IRollupNFTDetail {
-  token_address: string
-  token_id: string
-  owner_address: string
-  token_uri: string
-  token_uri_fetched_at: string
+  token_address: string;
+  token_id: string;
+  owner_address: string;
+  token_uri: string;
+  token_uri_fetched_at: string;
 }
