@@ -116,9 +116,9 @@ const PortfolioTabBitcoin = () => {
 
   const fetchData = async (isNew?: boolean) => {
     try {
-      setIsFetching(true);
-
       if (isNew) {
+        setIsFetching(true);
+
         setList([]);
         refParams.current = {
           ...refParams.current,
@@ -137,8 +137,7 @@ const PortfolioTabBitcoin = () => {
           type: balanceType,
           ...refParams.current,
         })) as any;
-
-        setList([...list, ...res]);
+        if (res && res?.length > 0) setList([...list, ...res]);
       }
     } catch (error) {
     } finally {

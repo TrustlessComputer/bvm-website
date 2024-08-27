@@ -1,8 +1,13 @@
 import AppLoading from '@/components/AppLoading';
 import ListTable, { ColumnProp } from '@/components/ListTable';
+import EmptyList from '@/components/ListTable/EmptyList';
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
 import CRollupL2DetailBitcoinAPI from '@/services/api/dapp/rollupl2-detail-bitcoin';
-import { IBitcoinTokenTransaction } from '@/services/api/dapp/rollupl2-detail-bitcoin/interface';
+import {
+  BalanceBitcoinType,
+  BalanceTypes,
+  IBitcoinTokenTransaction,
+} from '@/services/api/dapp/rollupl2-detail-bitcoin/interface';
 import { shortCryptoAddress } from '@/utils/address';
 import { formatCurrency } from '@/utils/format';
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
@@ -13,10 +18,11 @@ import s from './styles.module.scss';
 
 interface IProps {}
 
-const TransactionsTabBitcoin = (props: IProps) => {
+const TokenTransferTabBitcoin = (props: IProps) => {
   const { address } = useContext(L2RollupDetailContext);
 
   const rollupApi = new CRollupL2DetailBitcoinAPI();
+  const [balanceType, setBalanceType] = useState<BalanceBitcoinType>('runes');
 
   const [list, setList] = useState<IBitcoinTokenTransaction[]>([]);
 
@@ -39,7 +45,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
 
   useEffect(() => {
     fetchData(true);
-  }, [address]);
+  }, [address, balanceType]);
 
   const fetchData = async (isNew?: boolean) => {
     try {
@@ -53,7 +59,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
         };
         const res = (await rollupApi.getRollupL2BitcoinTokenTransactions({
           user_address: address,
-          type: 'bitcoin',
+          type: balanceType,
           ...refParams.current,
         })) as any;
 
@@ -61,7 +67,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
       } else {
         const res = (await rollupApi.getRollupL2BitcoinTokenTransactions({
           user_address: address,
-          type: 'bitcoin',
+          type: balanceType,
           ...refParams.current,
         })) as any;
         if (res && res?.length > 0) setList([...list, ...res]);
@@ -143,12 +149,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
           letterSpacing: '-0.5px',
         },
         render(data: IBitcoinTokenTransaction) {
-          let from = '';
-          if (
-            data.from.toLowerCase().split(',').includes(address.toLowerCase())
-          ) {
-            from = address;
-          }
+          let from = data.from;
           return (
             <Flex
               gap={6}
@@ -182,13 +183,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
           letterSpacing: '-0.5px',
         },
         render(data: IBitcoinTokenTransaction) {
-          let to = '';
-          if (
-            data.to.toLowerCase().split(',').includes(address.toLowerCase()) &&
-            Number(data?.amount) > 0
-          ) {
-            to = address;
-          }
+          let to = data.to;
           return (
             <Flex
               gap={6}
@@ -225,17 +220,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
           return (
             <Flex gap={3} alignItems={'center'} width={'100%'}>
               <Flex gap={2} alignItems={'center'}>
-                <Text
-                  className={s.title}
-                  color={
-                    Number(data?.amount) === 0
-                      ? '#000'
-                      : Number(data?.amount) < 0
-                      ? 'red !important'
-                      : 'green !important'
-                  }
-                >
-                  {Number(data?.amount) > 0 ? '+' : ''}
+                <Text className={s.title}>
                   {formatCurrency(data?.amount, 0, 6)}{' '}
                   {data.transaction_symbol || data.symbol}
                 </Text>
@@ -316,7 +301,28 @@ const TransactionsTabBitcoin = (props: IProps) => {
 
   return (
     <Flex direction={'column'}>
-      <Box className={`${s.container} ${s.shadow}`} h="60vh">
+      <Flex
+        gap={'8px'}
+        bg={'#F5F5F5'}
+        w={'fit-content'}
+        p={'2px 6px'}
+        borderRadius={'8px'}
+        mb={'20px'}
+      >
+        {BalanceTypes.map((balance) => (
+          <Box
+            bg={balanceType === balance.type ? '#ffff' : 'transparent'}
+            fontWeight={balanceType === balance.type ? '400' : '500'}
+            onClick={() => setBalanceType(balance.type as any)}
+            p={'6px'}
+            borderRadius={'8px'}
+            cursor={'pointer'}
+          >
+            <Text>{balance.title}</Text>
+          </Box>
+        ))}
+      </Flex>
+      <Box className={`${s.container}`} h="60vh">
         <ScrollWrapper
           onFetch={() => {
             refParams.current = {
@@ -347,4 +353,4 @@ const TransactionsTabBitcoin = (props: IProps) => {
   );
 };
 
-export default TransactionsTabBitcoin;
+export default TokenTransferTabBitcoin;
