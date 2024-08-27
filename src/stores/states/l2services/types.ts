@@ -9,6 +9,7 @@ import {
   HistoryType,
 } from '@/modules/blockchains/components/BillingModal/History.types';
 import { IDApp } from '@/services/api/DAServices/types';
+import { IWatchList } from '@/services/api/dapp/rollupl2-detail/interface';
 import { IExploreItem } from '@/services/api/l2services/types';
 import { IModelCategory, IModelOption } from '@/types/customize-model';
 
@@ -380,6 +381,7 @@ interface L2ServicesState {
   dAppConfigSelected?: IModelOption;
   //
   openWatchList: boolean;
+  watchLists: IWatchList[];
 }
 
 type MetaConfig = {

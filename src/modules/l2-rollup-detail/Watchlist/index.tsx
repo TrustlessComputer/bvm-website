@@ -8,27 +8,29 @@ import { setOpenWatchList } from '@/stores/states/l2services/reducer';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import { shortCryptoAddress } from '@/utils/address';
 import {
-    Box,
-    Center,
-    Flex,
-    Popover,
-    PopoverBody,
-    PopoverContent,
-    PopoverTrigger,
-    Spinner,
-    Text,
-    useDisclosure
+  Box,
+  Center,
+  Flex,
+  Popover,
+  PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
+  Spinner,
+  Text,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import s from './styles.module.scss';
+import uniqueBy from 'lodash.uniqby';
 
 const WatchListAddresses = () => {
   const router = useRouter();
   const { onToggle } = useDisclosure();
   const needReload = useSelector(commonSelector).needReload;
   const openWatchList = useSelector(getL2ServicesStateSelector).openWatchList;
+  const watchLists = useSelector(getL2ServicesStateSelector).watchLists;
   const dispatch = useDispatch();
 
   const rollupApi = new CRollupL2DetailAPI();
@@ -46,11 +48,13 @@ const WatchListAddresses = () => {
   const getWatchList = async () => {
     try {
       setLoading(true);
-      if (!loggedIn) {
-        return;
+      let _watchList = watchLists;
+      if (loggedIn) {
+        const rs = await rollupApi.getWatchLists();
+        _watchList = _watchList.concat(rs);
       }
-      const rs = await rollupApi.getWatchLists();
-      setWatchList(rs);
+
+      setWatchList(uniqueBy(_watchList, 'address'));
     } catch (error) {
     } finally {
       setLoading(false);
@@ -58,7 +62,7 @@ const WatchListAddresses = () => {
   };
 
   return (
-    <Popover placement='bottom-start'>
+    <Popover placement="bottom-start">
       <PopoverTrigger>
         <Box className={s.container}>
           <Flex
