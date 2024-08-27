@@ -10,17 +10,18 @@
   flex-direction: column;
 
   &_image {
+    max-height: 300px;
     width: 100%;
     flex: 1;
 
 
     :global(.imagePreload) {
-      display: grid;
-      place-items: center;
+      // display: grid;
+      // place-items: center;
 
       img {
-        padding-left: 20px;
-        padding-right: 20px;
+        border-top-left-radius: 32px;
+        border-top-right-radius: 32px;
       }
 
 
@@ -28,10 +29,14 @@
   }
 
   &_heading {
-    font-size: 28px;
-    font-weight: 600;
-    color: #fff;
-    line-height: calc(30 / 28)
+    color: #FFF;
+    font-family: "SF Pro Display";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    /* 16.8px */
+    text-transform: uppercase;
   }
 
   &_decs {

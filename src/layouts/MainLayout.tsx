@@ -4,7 +4,7 @@ import useAnimationStore from '@/stores/useAnimationStore';
 import Footer from '@layouts/Footer';
 import { usePathname } from 'next/navigation';
 import React, { useEffect } from 'react';
-import  { HeaderV3Props } from './HeaderV3';
+import { HeaderV3Props } from './HeaderV3';
 import HeaderCustom from './HeaderCustom';
 import HeaderV4 from '@layouts/HeaderV4';
 

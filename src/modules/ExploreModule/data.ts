@@ -33,7 +33,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   //   bgColor:
   //     'linear-gradient(226.59deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
   //   description:
-  //     'Experience trading on a Dex with the same seamless experience as a Cex using an order book system.',
+  //     'Experience trading on a DEX with the same seamless experience as a Cex using an order book system.',
   //   tags: ['RuneChain'],
   //   link: {
   //     url: 'https://runechain.com/',
@@ -42,34 +42,45 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   //   homeImage: `${CDN_URL}/pages/landing-v4/home-runedex.png`,
   // },
   {
-    id: 'runedex',
-    image: '/explore/dapp-runedex.png',
-    title: 'Rune Dex ',
-    bgColor:
-      'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
-    description:
-      'The “Decentralized Binance” — buy Bitcoin easily and permisionlessly.',
-    tags: ['RuneChain', 'DeFi'],
+    id: 'eternalAI',
+    image: '/explore/dapp-eai3.png',
+    title: 'Eternal AI',
+    bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
+    description: 'Decentralized AI in your pocket.',
+    tags: ['EternalAI', 'AI'],
     link: {
-      url: 'https://runechain.com/',
+      url: 'https://eternalai.org',
       target: '_blank',
     },
-    homeImage: `${CDN_URL}/pages/landing-v4/home-runedex.png`,
+    homeImage: `${CDN_URL}/pages/landing-v4/home-eai-phone.png`,
   },
   {
     id: 'heartbeats',
-    image: '/explore/dapp-heartbeat.png',
+    image: '/explore/dapp-heartbeat-3.png',
     title: 'Heartbeats',
     bgColor:
       'linear-gradient(226.66deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
-    description:
-      'Bringing transparency to the new Bitcoin economy for smarter decisions and investments.',
+    description: 'Insights into Bitcoin chains.',
     tags: ['', 'Analytics'],
     link: {
       url: '/heartbeats',
       target: '_self',
     },
     homeImage: `${CDN_URL}/pages/landing-v4/home-heartbeat.png`,
+  },
+  {
+    id: 'runedex',
+    image: '/explore/dapp-runedex2.png',
+    title: 'Rune DEX',
+    bgColor:
+      'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
+    description: 'Buy Bitcoin permisionlessly.',
+    tags: ['RuneChain', 'DeFi'],
+    link: {
+      url: 'https://runechain.com/',
+      target: '_blank',
+    },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-runedex.png`,
   },
   // {
   //   image: '/explore/runfun.png',
@@ -88,11 +99,11 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
 
   {
     id: 'nakaFuture',
-    image: '/explore/dapp4.png',
-    title: 'Naka Dex ',
+    image: '/explore/dapp-future.png',
+    title: 'Naka DEX ',
     bgColor:
       'linear-gradient(227deg, #FD8DFF -7.83%, #FF63B7 21.47%, #E400CD 69.37%, #FADEFF 118.41%)',
-    description: 'Trade Bitcoin and BRC-20 futures.',
+    description: 'Trade Bitcoin futures.',
     tags: ['NakaChain', 'DeFi'],
     link: {
       url: 'https://nakachain.xyz/perpetual',
@@ -102,12 +113,11 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   },
   {
     id: 'alpha',
-    image: '/explore/alpha.png',
+    image: '/explore/alpha2.png',
     title: 'Alpha',
     bgColor:
       'linear-gradient(227deg, #AE71FF -7.83%, #9456FF 23.69%, #6610E6 67.99%, #ED68FB 100%)',
-    description:
-      'The first social app on Bitcoin. $2.7M paid to creators as of today.',
+    description: 'The first social app on Bitcoin. ',
     tags: ['AlphaChain', 'SocialFi'],
     link: {
       url: 'https://alpha.wtf',
@@ -115,43 +125,27 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
     },
     homeImage: `${CDN_URL}/pages/landing-v4/home-alpha.png`,
   },
-  {
-    id: 'eternalAI',
-    image: '/explore/dapp-eai.png',
-    title: 'Eternal GPT (Soon)',
-    bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
-    description:
-      'The truly open AI that runs exactly as trained—no downtime, no censorship, no fraud. Fully decentralized with no ownership.',
-    tags: ['EternalAI Chain', 'AI'],
-    link: {
-      url: '',
-      target: '_blank',
-    },
-    homeImage: `${CDN_URL}/pages/landing-v4/home-eai-phone.png`,
-  },
-  {
-    id: 'neuron',
-    image: '/explore/neuron.png',
-    title: 'Neurons (Soon)',
-    bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%)',
-    description:
-      'Power multiple networks, including EternalAI, by providing decentralized infrastructure and connectivity under the DePIN model.',
-    tags: ['EternalAI Chain', 'DePIN'],
-    link: {
-      url: '',
-      target: '_blank',
-    },
-    homeImage: `${CDN_URL}/pages/landing-v4/home-neuron.png`,
-  },
+  // {
+  //   id: 'neuron',
+  //   image: '/explore/neuron2.png',
+  //   title: 'Neurons',
+  //   bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%)',
+  //   description: 'Preserve the Internet’s history.',
+  //   tags: ['EternalAI Chain', 'DePIN'],
+  //   link: {
+  //     url: 'https://eternalai.org/hardware',
+  //     target: '_blank',
+  //   },
+  //   homeImage: `${CDN_URL}/pages/landing-v4/home-neuron.png`,
+  // },
   {
     id: 'capsule',
-    image: '/explore/time-capsule.png',
+    image: '/explore/explore-capsule3.png',
     title: 'Time Capsule (Soon)',
     bgColor:
       'linear-gradient(227deg, #00F9DB -7.83%, #63FFBD 21.47%, #05E400 69.37%, #339898 118.41%)',
-    description:
-      'Protect and preserve the history of the Internet, ensuring that its legacy is safe and accessible.',
-    tags: ['Bitarchive Chain', 'Storage'],
+    description: 'Preserve the Internet’s history.',
+    tags: ['Bitarchive', 'Storage'],
     link: {
       url: '',
       target: '_blank',
@@ -162,20 +156,40 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
 
 export const GAMES_DATA: Omit<TDappCardProps, 'idx'>[] = [
   {
-    image: '/explore/dapp2.png',
+    image: '/explore/bitcoin-wars2.png',
     title: 'Bitcoin Wars',
     description:
       'The first fully on-chain game built on a ZK Rollup on the Bitcoin network.',
     bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%);',
-    tags: ['Bitcoin Wars Chain'],
+    tags: ['Bitcoin Wars Chain', 'GameFi'],
     link: { url: '/bitcoin-wars', target: '_self' },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
+  },
+  {
+    image: '/explore/blast.png',
+    title: 'Blast (Soon)',
+    description:
+      'Match and blast to clear the board in this fast-paced puzzle game.',
+    bgColor:
+      'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
+    tags: ['Bitcoin Arcade Chain', 'GameFi'],
+    link: { url: '', target: '' },
+    homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
+  },
+  {
+    image: '/explore/game-minesweeper.png',
+    title: 'Minesweepers (Soon)',
+    description:
+      'Mark all the mines on the board without triggering any of them.',
+    bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
+    tags: ['Bitcoin Arcade Chain', 'GameFi'],
+    link: { url: '', target: '' },
     homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   },
   {
     image: '/explore/key-merge.png',
     title: 'Key Merge (Soon)',
-    description:
-      'Combine matching keys to unlock higher levels. Strategically merge keys to progress and reach the ultimate goal.',
+    description: 'Combine matching keys to unlock higher levels.',
     bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
     tags: ['Bitcoin Arcade Chain', 'GameFi'],
     link: { url: '', target: '' },
@@ -184,8 +198,7 @@ export const GAMES_DATA: Omit<TDappCardProps, 'idx'>[] = [
   {
     image: '/explore/bitcoin-21.png',
     title: 'Bitcoin 21 (Soon)',
-    description:
-      'A classic card game where the objective is to reach a total of 21. Play smart and calculate your moves to win big!',
+    description: 'Play smart and calculate your moves to reach a total of 21.',
     bgColor:
       'linear-gradient(227deg, #FD8DFF -7.83%, #FF63B7 21.47%, #E400CD 69.37%, #FADEFF 118.41%)',
     tags: ['Bitcoin Arcade Chain', 'GameFi'],
@@ -193,44 +206,23 @@ export const GAMES_DATA: Omit<TDappCardProps, 'idx'>[] = [
     homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   },
   {
-    image: '/explore/blast.png',
-    title: 'Blast (Soon)',
-    description:
-      'Match and blast in this fast-paced puzzle game. Clear the board and create powerful combos to score high!',
-    bgColor:
-      'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
-    tags: ['Bitcoin Arcade Chain', 'GameFi'],
-    link: { url: '', target: '' },
-    homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
-  },
-  {
-    image: '/explore/game-wombat.png',
+    image: '/explore/game-wombat-1.png',
     title: 'Wombat (Soon)',
     description:
-      'Deploy your units smartly in lines to face off against your opponent. Strategize carefully to ensure your lineup dominates the battlefield!',
+      'Deploy your units smartly in lines to dominate the battlefield.',
     bgColor:
       ' linear-gradient(227deg, #AE71FF -7.83%, #9456FF 23.69%, #6610E6 67.99%, #ED68FB 100%)',
-    tags: ['Bitcoin Wars Chain'],
+    tags: ['Bitcoin Wars Chain', 'GameFi'],
     link: { url: '', target: '' },
     homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   },
   {
     image: '/explore/game-battleship.png',
     title: 'Battleship (Soon)',
-    description: `Engage in naval warfare by strategically placing your ships and guessing the locations of your opponent's fleet. Sink all their ships before they sink yours!`,
+    description: `Sink all their ships before they sink yours!`,
     bgColor:
       ' linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
-    tags: ['Bitcoin Wars Chain'],
-    link: { url: '', target: '' },
-    homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
-  },
-  {
-    image: '/explore/game-minesweeper.png',
-    title: 'Minesweepers (Soon)',
-    description:
-      'Test your logic in this classic puzzle game. Mark all the mines on the board without triggering any of them. One wrong move, and it’s game over!',
-    bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
-    tags: ['Bitcoin Arcade Chain', 'GameFi'],
+    tags: ['Bitcoin Wars Chain', 'GameFi'],
     link: { url: '', target: '' },
     homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   },
@@ -256,7 +248,7 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
     homeImage: `${CDN_URL}/pages/landing-v4/home-rollups-naka.png`,
   },
   {
-    image: '/explore/eternal.png',
+    image: '/explore/eternal2.png',
     title: 'Eternal AI',
     description:
       'The first Bitcoin L2 for fully on-chain AI, designed to preserve AI as censorship-resistant, tamper-proof, and permissionlessly accessible to every human.',
@@ -274,22 +266,22 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
     homeImage: `${CDN_URL}/pages/landing-v4/home-eai-1.png`,
   },
   {
-    image: '/explore/rune.png',
-    title: 'Runechain',
+    image: '/explore/bitcoin-wars.png',
+    title: 'Bitcoin Wars',
     description:
-      'The Bitcoin L2 for Runes.<br/> Making Runes trading possible and easy for everyone.',
+      'A ZK rollup on Bitcoin and EVM compatible. Every game state and logic was crafted as smart contracts in Solidity and deployed effortlessly with Hardhat.',
     social: [
       {
         icon: '/explore/x.svg',
-        link: 'https://x.com/RuneChain_L2',
+        link: 'https://x.com/BVMnetwork',
       },
       {
         icon: '/explore/web.svg',
-        link: 'https://runechain.com',
+        link: '/bitcoin-wars',
       },
     ],
-    tags: ['L2', 'Optimistic Rollup'],
-    homeImage: `${CDN_URL}/pages/landing-v4/home-rollups-rune.png`,
+    tags: ['L3', 'ZK Rollup'],
+    homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
   },
   {
     image: '/explore/alpha-app.png',
@@ -310,22 +302,22 @@ export const CHAIN_DATA: Omit<TChainCard, 'idx'>[] = [
     homeImage: `${CDN_URL}/pages/landing-v4/home-rollups-alpha.png`,
   },
   {
-    image: '/explore/bitcoin-wars.png',
-    title: 'Bitcoin Wars',
+    image: '/explore/rune.png',
+    title: 'Runechain',
     description:
-      'A ZK rollup on Bitcoin and EVM compatible. Every game state and logic was crafted as smart contracts in Solidity and deployed effortlessly with Hardhat.',
+      'The Bitcoin L2 for Runes.<br/> Making Runes trading possible and easy for everyone.',
     social: [
       {
         icon: '/explore/x.svg',
-        link: 'https://x.com/BVMnetwork',
+        link: 'https://x.com/RuneChain_L2',
       },
       {
         icon: '/explore/web.svg',
-        link: '/bitcoin-wars',
+        link: 'https://runechain.com',
       },
     ],
-    tags: ['L3', 'ZK Rollup'],
-    homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
+    tags: ['L2', 'Optimistic Rollup'],
+    homeImage: `${CDN_URL}/pages/landing-v4/home-rollups-rune.png`,
   },
   {
     image: '/explore/powd3r.jpg',

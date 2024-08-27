@@ -17,10 +17,12 @@ import TemplatePage from '@/modules/blockchains/Buy/Template';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 import { Flex } from '@chakra-ui/react';
 import ChainInforView from './ChainInforView';
+import useStudioHelper from '../useStudioHelper';
 
 const StudioMain = (): ReactElement => {
   // const { order } = useChainProvider();
   const { isUpdateFlow } = useChainProvider();
+  const { cloneHandler } = useStudioHelper();
   const { toggleErrorMessage } = useErrorMessage((state) => state);
   const { tabActive, setTab } = useTabs((state) => state);
   const isTabCode = React.useMemo(() => {
@@ -42,6 +44,8 @@ const StudioMain = (): ReactElement => {
     setTab(TABS.CODE);
     setDraggedFields([]);
     toggleErrorMessage(false);
+
+    cloneHandler(template);
   };
 
   // useEffect(() => {

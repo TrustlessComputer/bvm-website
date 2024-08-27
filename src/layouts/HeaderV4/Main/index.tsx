@@ -38,7 +38,7 @@ TMainHeader): ReactElement => {
     >
       <div className={`${s.inner} containerV3`}>
         <div
-          className={`${s.logo} ${s.logo_black}`}
+          className={`${s.logo}  ${colorLogo === 'black' ? s.logo_black : ''}`}
           onClick={() => router.push('/')}
         >
           <IconLogo />
@@ -78,7 +78,7 @@ TMainHeader): ReactElement => {
                     className={`${s.itemLabel} ${isActiveDark && s.activeDark} 
                     ${isActiveLight && s.activeLight}
                     `}
-                    style={{ color: 'black' }}
+                    style={{ color: color }}
                   >
                     {item.label}
                   </p>
@@ -93,7 +93,7 @@ TMainHeader): ReactElement => {
             {/* <Link href={'/bvm'} className={s.getBVM}>
               Get BVM
             </Link> */}
-            <ButtonLogin className={s.getBVM} color="white" title="CONNECT" />
+            <ButtonLogin className={s.getBVM} color={color} title="CONNECT" />
           </div>
         ) : (
           <>

@@ -22,12 +22,15 @@ interface IModelOption {
   updatable?: boolean;
   priceUSD: number;
   priceBVM: number;
+  priceUSDTestnet?: number | null;
+  priceBVMTestnet?: number | null;
   tooltip: string;
   key: string;
   icon: string;
   supportNetwork: 'both' | '' | 'testnet' | 'mainnet';
-  supportLayer: '' | 'layer1' | 'layer2' | 'layer3' | 'both';
-  supportLayers?: ('layer1' | 'layer2' | 'layer3')[];
+  // supportLayer: '' | 'layer1' | 'layer2' | 'layer3' | 'both';
+  supportLayer: string;
+  supportLayers?: string[] | null;
   requiredFor: string[] | null;
   order: number;
   value: string | number | IDappValue[];
@@ -36,12 +39,25 @@ interface IModelOption {
   needConfig?: boolean;
   logo?: string;
   setupLogo?: string;
-
   valueStr?: string;
   type?: 'text' | 'number';
   disabled?: boolean;
   appTemplateUrl: string;
   needInstall?: boolean;
+  inputValue?: string;
+  hidden?: boolean;
+  addOnInputs?: {
+    type: string;
+    attrs: {
+      name: string;
+      value: string;
+      default_value: string;
+      placeholder: string;
+      required: string;
+      api_check_valid: string;
+    };
+  } | null;
+  deployTime?: string;
 }
 
 interface IModelCategory {
@@ -116,6 +132,7 @@ interface SectionModel {
   title: string;
   tooltip: string;
   required: boolean;
+  show?: boolean;
 }
 
 interface FieldModel {
@@ -179,6 +196,7 @@ interface DappModel {
     actionMapperID: string;
     color?: string;
   };
+  isDefaultDapp?: boolean;
 }
 
 interface TemplateForm {

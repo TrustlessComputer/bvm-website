@@ -26,6 +26,10 @@ export type UseOrderFormStoreV3 = {
     value: string | number | string[] | number[] | null,
     dragged?: boolean,
   ) => void;
+  // setOptionInputFiled: (
+  //   field: string,
+  //   inputValue: string,
+  // ) => void;
   setPriceUSD: (price: number) => void;
   setPriceBVM: (price: number) => void;
   setNeedContactUs: (needContactUs: boolean) => void;
@@ -52,6 +56,21 @@ const useOrderFormStoreV3 = create<UseOrderFormStoreV3>((set) => ({
         },
       },
     })),
+
+
+  // setOptionInputFiled: (field, inputValue) =>
+  //   set((state) => ({
+  //     form: {
+  //       ...state.form,
+  //       [field]: inputValue,
+  //     },
+  //     field: {
+  //       ...state.field,
+  //       [field]: {
+  //         inputValue,
+  //       },
+  //     },
+  //   })),
 
   priceUSD: 0,
   setPriceUSD: (price) =>

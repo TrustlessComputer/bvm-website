@@ -1,28 +1,14 @@
 import { API_BASE_URL } from '@/config';
 import { DappType } from '@/modules/blockchains/dapp/types';
 import CDappApiClient from '@/services/api/dapp/dapp.client';
-import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
-import {
-  IAppInfo,
-  IDappConfigs,
-  IReqDapp,
-  ITemplate,
-} from '@/services/api/dapp/types';
+
+import { AppCode, IAppInfo, IDappConfigs, IReqDapp, ITemplate } from '@/services/api/dapp/types';
 import { templateMapper } from '@/services/api/dapp/utils';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
-import {
-  setAppInfos,
-  setChain,
-  setConfigs,
-  setDappConfigs,
-  setLoading,
-  setTokens,
-} from '@/stores/states/dapp/reducer';
+import { setAppInfos, setChain, setConfigs, setDappConfigs, setLoading } from '@/stores/states/dapp/reducer';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { capitalizeFirstLetter } from '@web3auth/ui';
-import { orderBy } from 'lodash';
-import { isLocalhost } from '@utils/helpers';
 
 class CDappAPI {
   private dappState = useAppSelector(dappSelector);
@@ -110,7 +96,7 @@ class CDappAPI {
 
     try {
       const chain = await this.getChainByOrderID({ orderID: params.orderID });
-      chain.dappURL = chain?.dappURL || this.getDappURL(chain);
+      chain.dappURL = chain?.dappURL || (!!chain?.domain ? `https://${chain?.domain}.appstore.bvm.network` : '') || this.getDappURL(chain);
 
       const _chain = chain;
       // if (isLocalhost()) {
@@ -118,8 +104,13 @@ class CDappAPI {
       // }
 
       this.dispatch(setChain({ ..._chain }));
-      const tasks =
-        ['create_token', DappType.staking, DappType.airdrop].map((app) =>
+      const tasks = [
+          'create_token',
+          DappType.staking,
+          DappType.airdrop,
+          DappType.yologame,
+          DappType.orderbook,
+        ].map((app) =>
           this.getDappConfig({
             appName: app,
             network_id: chain.chainId,
@@ -151,40 +142,28 @@ class CDappAPI {
     }
   };
 
-  getListToken = async (network_id: string) => {
-    try {
-      const api = new CTokenGenerationAPI();
-      let tokens = await api.tokenList(network_id);
-      if (isLocalhost()) {
-        tokens = tokens.slice(0, 3);
-      }
-      const tasks = tokens?.map((t) =>
-        api.tokenVesting({
-          token_address: t.contract_address as string,
-          network_id: network_id,
-        }),
-      );
-      const vestings = await Promise.all(tasks);
-
-      const ts = orderBy(
-        tokens?.map((t, i) => ({ ...t, vestings: vestings[i] })),
-        [(token) => token.id],
-        ['asc'],
-      );
-
-      this.dispatch(setTokens(ts));
-      return vestings;
-    } catch (error) {
-      console.log('error', error);
-    } finally {
-    }
-  };
-
   updateTemplate = async (template: ITemplate, network_id: string | number) => {
     await this.http.put(`/user/template/update`, {
       template: JSON.stringify(template),
       network_id: Number(network_id),
     });
+  };
+
+  updatePosition = async (params: {
+    app_code: AppCode;
+    user_address: string;
+    id: string | number;
+    position_id: string;
+    position_x: number;
+    position_y: number;
+  }) => {
+    console.log('UPDATE POSITION', params);
+
+    try {
+      await this.http.post(`/apps/position/`, [{ ...params, chain_id: Number(this.dappState?.chain?.chainId || '0') }]);
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 
