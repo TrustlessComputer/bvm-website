@@ -9,7 +9,7 @@
   font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   outline: none;
   &::placeholder {
-    color: red;
+    color: rgb(141, 141, 141);
   }
 }
 
@@ -20,7 +20,7 @@
   }
 }
 
-.wrapper_input   {
+.wrapper_input {
   height: 23px;
   width: 100%;
   background-color: #fff;

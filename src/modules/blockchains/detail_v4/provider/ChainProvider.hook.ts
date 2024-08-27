@@ -41,6 +41,10 @@ export const useChainProvider = () => {
     return !!order;
   }, [order]);
 
+  const isCreateChainFlow = useMemo(() => {
+    return !isUpdateFlow;
+  }, [isUpdateFlow]);
+
   const isChainLoading = useMemo(() => {
     return (
       isUpdateFlow &&
@@ -364,6 +368,7 @@ export const useChainProvider = () => {
   return {
     ...context,
     isUpdateFlow,
+    isCreateChainFlow,
     isChainLoading,
     isChainNeedAction,
     chainData: order,
