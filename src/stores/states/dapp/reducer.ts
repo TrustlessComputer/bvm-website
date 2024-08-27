@@ -13,7 +13,7 @@ const initialState: DappState = {
   appInfos: [],
   yoloGames: [],
   tokensAll: [],
-  walletType: WalletType.naka,
+  walletType: undefined,
 };
 
 const slice = createSlice({
@@ -53,6 +53,9 @@ const slice = createSlice({
     setTokensAll: (state, actions) => {
       state.tokensAll = actions.payload;
     },
+    setWalletType: (state, actions) => {
+      state.walletType = actions.payload;
+    },
   },
 });
 
@@ -68,6 +71,7 @@ export const {
   setAppInfos,
   setYoloGames,
   setTokensAll,
+  setWalletType,
 } = slice.actions;
 
 export default slice.reducer;

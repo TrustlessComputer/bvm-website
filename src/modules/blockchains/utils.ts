@@ -85,7 +85,6 @@ const parseDappModel = (params: {
       ) as IFieldValue;
 
       let options = {};
-
       const blockField = (curr.blockFields || []).reduce(
         (prevField, currField, indexField) => {
           const fields = currField.fields.reduce((prevItem, currItem) => {

@@ -16,22 +16,15 @@ import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
 import { Edge, MarkerType } from '@xyflow/react';
 import { useParams, usePathname, useSearchParams } from 'next/navigation';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
 import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
 import { parseStakingPools } from '../../dapp/parseUtils/staking';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { parseDappModel } from '../../utils';
 import { nodeKey } from '../component4/YourNodes/node.constants';
-import {
-  draggedDappIndexesSignal,
-  draggedIds2DSignal,
-  templateIds2DSignal,
-} from '../signals/useDragSignal';
-import {
-  formDappSignal,
-  formTemplateDappSignal,
-} from '../signals/useFormDappsSignal';
+import { draggedDappIndexesSignal, draggedIds2DSignal, templateIds2DSignal } from '../signals/useDragSignal';
+import { formDappSignal, formTemplateDappSignal } from '../signals/useFormDappsSignal';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import useUpdateFlowStore from '../stores/useUpdateFlowStore';
@@ -41,8 +34,9 @@ import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
 import handleStatusEdges from '@utils/helpers';
-import { categoriesMockupData, defaultTemplateMockupData } from '../mockup_3';
 import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
+import { parseWalletType } from '@/modules/blockchains/dapp/parseUtils/wallet-type';
+import { WalletType } from '@/stores/states/dapp/types';
 
 export default function useFetchingTemplate() {
   const { templateList, templateDefault } = useAvailableListTemplate();
@@ -413,33 +407,33 @@ export default function useFetchingTemplate() {
     });
 
     startIndex += yoloGames.length;
-    const parsedWalletData = !walletType ? [] : parseStakingPools([]);
-    const parsedWalletForm = parseDappModel({
+    const parsedWalletData = walletType ? parseWalletType(walletType) : [];
+    const parsedWalletForm = walletType ? parseDappModel({
       key: DappType.walletType,
       model: parsedWalletData,
       startIndex: startIndex,
-    });
+    }) : {};
 
     console.log('[useFetchingTemplate] parsedTokensData', {
       tokens,
       airdrops,
       stakingPools,
-      parsedWalletForm
+      parsedWalletData
     });
 
     setTemplateDapps([
-      ...parsedTokensData,
-      ...parsedAirdropsData,
-      ...parsedStakingPoolsData,
-      ...parsedYoloGameData,
-      ...parsedWalletData,
+      // ...parsedTokensData,
+      // ...parsedAirdropsData,
+      // ...parsedStakingPoolsData,
+      // ...parsedYoloGameData,
+      // ...parsedWalletData,
     ]);
     setTemplateForm({
-      ...parsedTokensForm.fieldValue,
-      ...parsedAirdropsForm.fieldValue,
-      ...parsedStakingPoolsForm.fieldValue,
-      ...parsedYoloGameForm.fieldValue,
-      ...parsedWalletForm.fieldValue,
+      // ...parsedTokensForm.fieldValue,
+      // ...parsedAirdropsForm.fieldValue,
+      // ...parsedStakingPoolsForm.fieldValue,
+      // ...parsedYoloGameForm.fieldValue,
+      // ...((parsedWalletForm as any)?.fieldValue || {}),
     } as any);
 
     setNeedSetDataTemplateToBox(true);

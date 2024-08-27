@@ -1470,10 +1470,10 @@ export const dappMockupData: DappModel[] = [
     ],
     baseModuleFields: [
       {
-        key: 'dapp_wallet_type',
+        key: 'wallet_type',
         title: '',
         icon: '',
-        placableAmount: 1,
+        placableAmount: -1,
         section: 'information',
         preview: false,
         background: '#A041FF',
