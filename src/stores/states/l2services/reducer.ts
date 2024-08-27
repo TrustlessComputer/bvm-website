@@ -24,6 +24,7 @@ import {
 import uniqBy from 'lodash/uniqBy';
 import { IDApp } from '@/services/api/DAServices/types';
 import { IModelOption } from '@/types/customize-model';
+import { compareString } from '@/utils/string';
 
 export const initialState: L2ServicesState = {
   isMyOrderListFetched: false,
@@ -87,6 +88,7 @@ export const initialState: L2ServicesState = {
 
   //
   openWatchList: false,
+  watchLists: [],
 };
 
 const slice = createSlice({
@@ -142,6 +144,24 @@ const slice = createSlice({
     },
     setOpenWatchList(state, action: PayloadAction<boolean>) {
       state.openWatchList = action.payload;
+    },
+    updateWatchLists(state, action: PayloadAction<string>) {
+      const currentWatchList = state.watchLists;
+
+      const findIndex = currentWatchList.findIndex((v) =>
+        compareString(v.address, action.payload),
+      );
+
+      if (findIndex > -1) {
+        currentWatchList.splice(findIndex, 1);
+      } else {
+        currentWatchList.push({
+          address: action.payload,
+          org_address: action.payload,
+        });
+      }
+
+      state.watchLists = currentWatchList;
     },
   },
 
@@ -314,6 +334,7 @@ export const {
   setMonitorViewPage,
   setDAppSelected,
   setDAppConfigSelected,
-  setOpenWatchList
+  setOpenWatchList,
+  updateWatchLists
 } = slice.actions;
 export default slice.reducer;

@@ -2,19 +2,23 @@ import { showError, showSuccess } from '@/components/toast';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import CRollupL2DetailAPI from '@/services/api/dapp/rollupl2-detail';
 import { requestReload } from '@/stores/states/common/reducer';
+import { updateWatchLists } from '@/stores/states/l2services/reducer';
 import { getErrorMessage } from '@/utils/errorV2';
 import { Flex, Spinner, Tooltip } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import s from './styles.module.scss';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import { compareString } from '@/utils/string';
 
 const ButtonFavorite = ({ address }: { address: string }) => {
   const rollupApi = new CRollupL2DetailAPI();
   const dispatch = useDispatch();
   const [isFavorite, setIsFavorite] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const watchLists = useSelector(getL2ServicesStateSelector).watchLists;
 
-  const { loggedIn, login } = useWeb3Auth();
+  const { loggedIn } = useWeb3Auth();
 
   useEffect(() => {
     getFavorite();
@@ -25,9 +29,17 @@ const ButtonFavorite = ({ address }: { address: string }) => {
       if (!address) {
         return;
       }
-      const rs: any = await rollupApi.getWatchListValidate(address);
 
-      setIsFavorite(rs);
+      if (loggedIn) {
+        const rs: any = await rollupApi.getWatchListValidate(address);
+
+        setIsFavorite(rs);
+      } else {
+        const _isFavorite = watchLists.findIndex((v) =>
+          compareString(v.address, address),
+        );
+        setIsFavorite(_isFavorite > -1);
+      }
     } catch (error) {}
   };
 
@@ -36,22 +48,23 @@ const ButtonFavorite = ({ address }: { address: string }) => {
       if (submitting) {
         return;
       }
-      if (!loggedIn) {
-        return login();
-      }
-      setSubmitting(true);
-      if (isFavorite) {
-        await rollupApi.removeToWatchList(address);
-        setIsFavorite((v) => !v);
-        showSuccess({
-          message: `Added ${address} to WatchList successfully.`,
-        });
-      } else {
-        await rollupApi.addToWatchList(address);
-        setIsFavorite((v) => !v);
-        showSuccess({
-          message: `Removed ${address} from WatchList successfully.`,
-        });
+
+      dispatch(updateWatchLists(address));
+      setIsFavorite((v) => !v);
+
+      if (loggedIn) {
+        setSubmitting(true);
+        if (isFavorite) {
+          await rollupApi.removeToWatchList(address);
+          showSuccess({
+            message: `Added ${address} to WatchList successfully.`,
+          });
+        } else {
+          await rollupApi.addToWatchList(address);
+          showSuccess({
+            message: `Removed ${address} from WatchList successfully.`,
+          });
+        }
       }
     } catch (error) {
       showError(getErrorMessage(error));
