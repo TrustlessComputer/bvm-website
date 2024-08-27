@@ -71,15 +71,10 @@ const useDapps = () => {
     });
   }, [dapps]);
 
-  const handleFieldClick = (dapp, field) => {
-    console.log('thisDapp, field, fieldOpt', dapp, field);
+  const handleFieldClick = (dapp: DappModel, field: any) => {
+    console.log('thisDapp, field', dapp, field);
     switch (dapp?.key) {
       case 'white_paper': {
-        alert(dapp?.key)
-        // if (!label?.actionID) return;
-        // window.open(
-        //   `${dappState?.chain?.dappURL || ''}/apps/yolo-games?pool_id=${label.actionID}`,
-        // );
         return;
       }
     }

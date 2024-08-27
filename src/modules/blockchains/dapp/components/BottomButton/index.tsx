@@ -10,6 +10,7 @@ import { compareString } from '@/utils/string';
 import { formatCurrency } from '@/utils/format';
 import { DappModel } from '@/types/customize-model';
 import { Text } from '@chakra-ui/react';
+import WhitePaperModal from '@/modules/blockchains/dapp/components/WhitePaperModal';
 
 interface IProps {
   color: string;
@@ -22,6 +23,7 @@ const BottomButton = (props: IProps) => {
   const stakingPools = dappState.stakingPools;
 
   const [isShowTopup, setIsShowTopup] = useState(false);
+  const [isShowPreview, setIsShowPreview] = useState(false);
   const [topupInfo, setTopupInfo] = useState<TopUpDappInfor[]>();
 
   const onActionClick = (params: { dapp: DappModel }) => {
@@ -86,6 +88,9 @@ const BottomButton = (props: IProps) => {
         ]);
         setIsShowTopup(true);
         break;
+      case DappType.white_paper:
+        setIsShowPreview(true);
+        break;
       default:
         break;
     }
@@ -115,6 +120,12 @@ const BottomButton = (props: IProps) => {
         infors={topupInfo}
         onClose={() => {
           setIsShowTopup(false);
+        }}
+      />
+      <WhitePaperModal
+        show={isShowPreview}
+        onClose={() => {
+          setIsShowPreview(false);
         }}
       />
     </>
