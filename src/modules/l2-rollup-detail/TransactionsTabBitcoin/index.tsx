@@ -170,7 +170,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                if (from) window.open(`https://mempool.space/address/${from}`);
+                if (from) router.push(`${HEART_BEAT}/${from}`);
               }}
             >
               <Text className={s.title}>
@@ -210,7 +210,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                if (to) window.open(`https://mempool.space/address/${to}`);
+                if (to) router.push(`${HEART_BEAT}/${to}`);
               }}
             >
               <Text className={s.title}>
