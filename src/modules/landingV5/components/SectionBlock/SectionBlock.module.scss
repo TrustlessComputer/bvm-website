@@ -38,6 +38,7 @@ $text-max-width: 85ch;
 
             p {
                 // max-width: 37ch;
+                color: #FFF;
 
 
                 span {
@@ -48,7 +49,7 @@ $text-max-width: 85ch;
         }
 
         .desc {
-            color: #FFF;
+            color: rgba($color: #fff, $alpha: 0.6);
             font-family: "SF Pro Display";
             font-size: 18px;
             font-style: normal;
