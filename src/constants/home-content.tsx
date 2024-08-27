@@ -122,7 +122,7 @@ export const STEP_1_SECTION = {
     {
       title: 'Optimistic Rollup Hybrid',
       description: 'Bitcoin L2 powered by OP Stack.',
-      homeImage: '/landing-v5/home-op-3.png',
+      homeImage: '/landing-v5/home-op-4.png',
 
       bgColor:
         'linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
