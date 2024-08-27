@@ -41,8 +41,8 @@ const Balances = () => {
                 position={'relative'}
               >
                 <Image
-                  w={'32px'}
-                  h={'32px'}
+                  w={'30px'}
+                  h={'30px'}
                   borderRadius={'50%'}
                   src={data.icon_url || '/heartbeat/ic-token-default.svg'}
                   bg={'lightgray'}
@@ -56,6 +56,7 @@ const Balances = () => {
                   h={'16px'}
                   borderRadius={'50%'}
                   src={data.chain?.icon}
+                  bg={'#fff'}
                 />
               </Flex>
             </Flex>

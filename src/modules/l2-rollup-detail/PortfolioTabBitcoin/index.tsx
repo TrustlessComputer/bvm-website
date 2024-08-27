@@ -98,6 +98,7 @@ const PortfolioTabBitcoin = () => {
   const [refreshing, setRefreshing] = useState(false);
 
   const refInitial = useRef(false);
+  const endOfPaging = useRef(false);
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
     page: 1,
@@ -117,8 +118,8 @@ const PortfolioTabBitcoin = () => {
   const fetchData = async (isNew?: boolean) => {
     try {
       if (isNew) {
+        endOfPaging.current = false;
         setIsFetching(true);
-
         setList([]);
         refParams.current = {
           ...refParams.current,
@@ -132,12 +133,18 @@ const PortfolioTabBitcoin = () => {
 
         setList(res);
       } else {
+        if (endOfPaging.current) return;
+        setIsFetching(true);
         const res = (await rollupApi.getRollupL2BitcoinBalances({
           user_address: address,
           type: balanceType,
           ...refParams.current,
         })) as any;
-        if (res && res?.length > 0) setList([...list, ...res]);
+        if (res && res?.length > 0) {
+          setList([...list, ...res]);
+        } else {
+          endOfPaging.current = true;
+        }
       }
     } catch (error) {
     } finally {

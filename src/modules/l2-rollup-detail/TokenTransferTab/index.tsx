@@ -47,6 +47,7 @@ const TokenTransferTab = (props: IProps) => {
     page: 1,
     limit: 20,
   });
+  const endOfPaging = useRef(false);
 
   useEffect(() => {
     refParams.current = {
@@ -64,6 +65,7 @@ const TokenTransferTab = (props: IProps) => {
     try {
       if (isNew) {
         setIsFetching(true);
+        endOfPaging.current = false;
 
         refParams.current = {
           ...refParams.current,
@@ -76,12 +78,18 @@ const TokenTransferTab = (props: IProps) => {
 
         setRollupTransactions(res);
       } else {
+        if (endOfPaging.current) return;
+        setIsFetching(true);
         const res = (await rollupApi.getRollupL2TokenTransfers({
           user_address: address,
           ...refParams.current,
         })) as any;
 
-        setRollupTransactions([...rollupTransactions, ...res]);
+        if (res && res?.length > 0) {
+          setRollupTransactions([...rollupTransactions, ...res]);
+        } else {
+          endOfPaging.current = true;
+        }
       }
     } catch (error) {
     } finally {

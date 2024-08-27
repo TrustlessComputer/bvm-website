@@ -926,7 +926,7 @@ const L2Rollup = () => {
   return (
     <Box className={s.container}>
       <Flex direction={'column'} w="100%" maxW={'1800px'} alignItems={'center'}>
-        <Flex alignItems="center" gap="6px" my={'12px'}>
+        {/* <Flex alignItems="center" gap="6px" my={'12px'}>
           <Text fontSize={'20px'}>Project Bitcoin Heartbeats</Text>
           <DotLottiePlayer
             autoplay
@@ -995,12 +995,13 @@ const L2Rollup = () => {
             <Text>Submit your project</Text>
             <Image maxW={'40px'} src={'/heartbeat/ic-submit.svg'} />
           </Flex>
-        </Flex>
+        </Flex> */}
 
         <Flex mb={'48px'}>
           <SearchAddress
             placeholder={'Search bitcoin or L2 Bitcoin address'}
             className={s.search}
+            autoFocus
           />
         </Flex>
 
