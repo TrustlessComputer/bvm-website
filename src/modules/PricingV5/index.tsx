@@ -1,9 +1,11 @@
-import React from 'react';
-import s from './PricingV5.module.scss';
-import { PRICE_DATA, PriceItemType } from './data';
-import cn from 'classnames';
+'use client';
 import { Box, Flex } from '@chakra-ui/react';
+import cn from 'classnames';
 import Link from 'next/link';
+import { PRICE_DATA, PriceItemType } from './data';
+import enhance from './enhance';
+import s from './PricingV5.module.scss';
+import { usePricingTemplate } from './usePricingTemplate';
 
 type Props = {};
 
@@ -14,8 +16,12 @@ const PriceItem = ({
   note,
   link,
   isFirst = false,
+  priceUSD = '0',
+  priceBVM = '0',
 }: PriceItemType & {
   isFirst?: boolean;
+  priceUSD: string;
+  priceBVM: string;
 }) => {
   return (
     <div className={cn(s.price_item_wrapper, { [s.popular]: !!isFirst })}>
@@ -23,8 +29,8 @@ const PriceItem = ({
       <div className={s.price_item_desc}>{desc}</div>
       <div className={s.price}>
         <Flex alignItems={'center'} justifyContent={'center'} gap="12px">
-          <span className={s.price_usd}>$39</span>
-          <span className={s.price_bvm}>100 BVM</span>
+          <span className={s.price_usd}>${priceUSD}</span>
+          <span className={s.price_bvm}>{priceBVM} BVM</span>
         </Flex>
         <p className={s.price_note}>per chain / day</p>
       </div>
@@ -42,6 +48,8 @@ const PriceItem = ({
 };
 
 const Pricing = () => {
+  const { dataList } = usePricingTemplate();
+
   return (
     <div className={s.wrapper}>
       <Box maxW={'1800px'}>
@@ -51,7 +59,13 @@ const Pricing = () => {
         </div>
         <div className={s.price_list}>
           {PRICE_DATA.map((item, index) => (
-            <PriceItem key={item.id} {...item} isFirst={index === 0} />
+            <PriceItem
+              key={item.id}
+              {...item}
+              isFirst={index === 0}
+              priceUSD={dataList[index]?.priceUSDPerDayFormated}
+              priceBVM={dataList[index]?.priceBVMPerDayFormated}
+            />
           ))}
         </div>
       </Box>
@@ -59,4 +73,4 @@ const Pricing = () => {
   );
 };
 
-export default Pricing;
+export default enhance(Pricing);

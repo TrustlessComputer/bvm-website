@@ -49,7 +49,7 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     children: (
       <div>
         <p>
-          Once you've selected the best building blocks for your rollup,
+          Once you've selected the best building blocks for your Bitcoin chain,
           assemble them into your unique rollup with simple drag-and-drop
           functionality.
         </p>
