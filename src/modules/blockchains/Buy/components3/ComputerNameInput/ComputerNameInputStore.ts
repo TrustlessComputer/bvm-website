@@ -44,8 +44,8 @@ export const useComputerNameInputStore = () => {
   };
 
   const isValid = useMemo(() => {
-    return !!isComputerNameFocused && !computerNameErrMsg;
-  }, [computerNameErrMsg, isComputerNameFocused]);
+    return !!computerName && !computerNameErrMsg;
+  }, [computerNameErrMsg, isComputerNameFocused, computerName]);
 
   return {
     ...storeData,

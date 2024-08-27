@@ -1,5 +1,5 @@
 import { debounce, isEmpty } from 'lodash';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
@@ -55,7 +55,7 @@ const ComputerNameInput = () => {
     validateNameDebouce(text);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     let computerName;
     if (isCreateChainFlow) {
       computerName = `${PREFIX} ${chainID}`;
@@ -71,7 +71,7 @@ const ComputerNameInput = () => {
       <input
         type="text"
         placeholder="Enter chain name"
-        className={`${s.input} `}
+        className={`${s.input} ${isUpdateFlow ? s.notAllowed : ''}`}
         disabled={!!isUpdateFlow}
         value={computerName}
         onChange={(e: any) => {

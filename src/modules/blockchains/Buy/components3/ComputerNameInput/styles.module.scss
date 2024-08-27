@@ -11,6 +11,10 @@
   &::placeholder {
     color: rgb(141, 141, 141);
   }
+
+  &.notAllowed {
+    cursor: not-allowed;
+  }
 }
 
 .setLine {
