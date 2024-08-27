@@ -34,10 +34,10 @@ const IframeComponent = (props: any) => {
 
   return (
     <Flex position={'relative'}>
-      {isImgType ? (
+      {isImgType || !src ? (
         <img
           ref={imgRef}
-          src={src}
+          src={src || '/images/default_nft.png'}
           style={style}
           onLoad={onLoaded}
           onError={onError}

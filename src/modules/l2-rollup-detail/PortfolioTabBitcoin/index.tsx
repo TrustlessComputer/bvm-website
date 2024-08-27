@@ -399,7 +399,9 @@ const PortfolioTabBitcoin = () => {
                             color={'#898989'}
                             onClick={() =>
                               window.open(
-                                `https://ordinals.com/inscription/${item.inscription_id}`,
+                                `https://ordinals.com/inscription/${
+                                  item.inscription_id || item.inscription_number
+                                }`,
                               )
                             }
                           >

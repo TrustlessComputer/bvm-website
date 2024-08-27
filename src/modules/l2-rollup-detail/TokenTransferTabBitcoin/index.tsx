@@ -15,11 +15,14 @@ import dayjs from 'dayjs';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
+import { useRouter } from 'next/navigation';
+import { HEART_BEAT } from '@/constants/route-path';
 
 interface IProps {}
 
 const TokenTransferTabBitcoin = (props: IProps) => {
   const { address } = useContext(L2RollupDetailContext);
+  const router = useRouter();
 
   const rollupApi = new CRollupL2DetailBitcoinAPI();
   const [balanceType, setBalanceType] = useState<BalanceBitcoinType>('runes');
@@ -133,7 +136,7 @@ const TokenTransferTabBitcoin = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                window.open(`https://mempool.space/tx/${data.tx_id}`);
+                router.push(`${HEART_BEAT}/${data.tx_id}`);
               }}
             >
               <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
@@ -169,7 +172,7 @@ const TokenTransferTabBitcoin = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                if (from) window.open(`https://mempool.space/address/${from}`);
+                if (from) router.push(`${HEART_BEAT}/${from}`);
               }}
             >
               <Text className={s.title}>
@@ -203,7 +206,7 @@ const TokenTransferTabBitcoin = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                if (to) window.open(`https://mempool.space/address/${to}`);
+                if (to) router.push(`${HEART_BEAT}/${to}`);
               }}
             >
               <Text className={s.title}>

@@ -1,6 +1,7 @@
 import { CDN_URL } from '@/config';
 import { APP_NAME } from '@/config/metadata';
 import MainLayout from '@/layouts/MainLayout';
+import OpenSourceModule from '@/modules/openSource';
 import ResearchModule from '@/modules/research';
 import { Metadata } from 'next';
 import React from 'react';
@@ -32,16 +33,18 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <MainLayout
-      headerProps={{
-        color: 'white',
-        colorLogo: 'white',
-        bgColor: 'black',
-        position: 'absolute',
-        theme: 'black',
-      }}
+      headerProps={
+        {
+          // color: 'white',
+          // colorLogo: 'white',
+          // bgColor: 'black',
+          // position: 'absolute',
+          // theme: 'black',
+        }
+      }
       hideFooter={true}
     >
-      <ResearchModule />
+      <OpenSourceModule />
     </MainLayout>
   );
 }
