@@ -1000,7 +1000,7 @@ const L2Rollup = () => {
           <SearchAddress placeholder={'Search Bitcoin or EVM address'} />
         </Flex> */}
 
-        <Box w={'100%'} mb={'32px'}>
+        <Box w={'100%'} mb={'32px'} mt={'48px'}>
           <SimpleGrid columns={3} gap={'16px'}>
             <L2RollupFee
               data={_dataChart.txs}
