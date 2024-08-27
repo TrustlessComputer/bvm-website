@@ -43,6 +43,7 @@ const BuildItem = ({
           as={motion.div}
           className={s.buildItem_icon}
           initial={{ opacity: 0 }}
+          w={{ base: '36px', md: '48px' }}
           whileInView={{
             opacity: 1,
             transition: { delay: stagger },
@@ -75,7 +76,7 @@ const BuildItem = ({
         </Box>
       </Flex>
       <Box
-        w="83%"
+        w={{ base: '100%' }}
         // flex="1"
         as={motion.div}
         initial={{ opacity: 0, x: 50 }}

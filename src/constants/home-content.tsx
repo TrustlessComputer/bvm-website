@@ -78,7 +78,7 @@ export const STEP_1_SECTION = {
         url: '/studio?template=1',
         target: '_blank',
       },
-      popular: true,
+      // popular: true,
       tags: ['$39/day'],
     },
     {
