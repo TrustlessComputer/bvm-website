@@ -13,6 +13,7 @@ import Button from '@/modules/blockchains/Buy/component4/Button';
 
 const useDapps = () => {
   const { dapps } = useDappsStore();
+  // const dappState = useAppSelector(dappSelector);
 
   const blockFieldMapping = React.useMemo(() => {
     return dapps.map((dapp) => {
@@ -69,6 +70,21 @@ const useDapps = () => {
       return mapping;
     });
   }, [dapps]);
+
+  const handleLabelClick = (dapp, field) => {
+    console.log('thisDapp, field, fieldOpt', dapp, field);
+    switch (dapp?.key) {
+      case 'white_paper': {
+        alert(dapp?.key)
+        // if (!label?.actionID) return;
+        // window.open(
+        //   `${dappState?.chain?.dappURL || ''}/apps/yolo-games?pool_id=${label.actionID}`,
+        // );
+        return;
+      }
+    }
+  };
+
 
   const getInputWithLego = React.useCallback(
     (
@@ -184,6 +200,7 @@ const useDapps = () => {
             key={fieldKey}
           >
             <Button
+              onClick={() => handleLabelClick(thisDapp, field)}
               {...field}
               {...fieldOpt}
               dappKey={thisDapp.key}
