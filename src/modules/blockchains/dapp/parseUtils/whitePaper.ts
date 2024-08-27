@@ -1,46 +1,67 @@
 import { IYoloGame } from '@/services/api/dapp/yolo/interface';
-import BigNumberJS from 'bignumber.js';
 
 export const parseWhitePapers = (games: IYoloGame[]): any[] => {
   const result: any[] = [];
   for (const game of games) {
     result.push(
       {
-        id: 'whitepaper',
-        key: 'whitepaper',
+        id: 'white_paper',
+        key: 'white_paper',
         title: 'White Paper',
-        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-yolo.svg',
+        icon: 'https://storage.googleapis.com/bvm-network/image/ic-whitepaper.svg',
         order: 5,
         color: '#F76649',
         created_at: '2021-09-14T09:00:00.000Z',
         updated_at: '2021-09-14T09:00:00.000Z',
         tooltip: '',
         label: {
-          title: 'Running',
+          title: 'New',
           color: '#000',
           background: '#00AA6C',
           status: '',
-          actionID: game.id,
         },
         sections: [
           {
             key: 'information',
             icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-            title: 'YOLO',
+            title: 'Information',
             tooltip: '',
-            required: true,
+            required: false,
           },
         ],
+        // baseModuleFields: [
+        //   {
+        //     key: 'token',
+        //     title: 'Token',
+        //     icon: '',
+        //     placableAmount: -1,
+        //     section: 'information',
+        //     preview: false,
+        //     background: '#A041FF',
+        //     fields: [
+        //       {
+        //         key: 'bvm',
+        //         title: 'BVM', // symbol
+        //         value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
+        //         icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
+        //         tooltip: '',
+        //         type: '',
+        //         options: [],
+        //         selectable: true,
+        //       },
+        //     ],
+        //   },
+        // ],
         baseBlock: {
           key: '',
-          title: `White Paper #${game.id}`,
-          icon: '',
+          title: 'Create a White Paper',
+          icon: 'https://storage.googleapis.com/bvm-network/image/ic-whitepaper.svg',
           placableAmount: -1,
-          section: 'information',
+          section: '',
           preview: false,
           fields: [
             {
-              key: 'settlement_token',
+              key: 'token',
               title: 'Token',
               type: 'dropdown',
               icon: '',
@@ -59,13 +80,25 @@ export const parseWhitePapers = (games: IYoloGame[]): any[] => {
               ],
               background: '#A041FF',
             },
+            {
+              key: 'download',
+              title: 'Download',
+              inputType: '',
+              type: 'button',
+              icon: '',
+              value: '',
+              tooltip: '',
+              placeholder: '',
+              options: [],
+              background: '#00AA6C',
+              action: {
+                title: 'Download Template',
+                actionMapperID: `${game.id}`,
+                tokenInfo: game.settlement_token,
+              } as any
+            },
           ],
         },
-        action: {
-          title: 'Download Template',
-          actionMapperID: `0`,
-          tokenInfo: null,
-        } as any
       }
     );
   }

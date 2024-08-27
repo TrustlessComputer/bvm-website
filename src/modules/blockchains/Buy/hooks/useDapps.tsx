@@ -71,7 +71,7 @@ const useDapps = () => {
     });
   }, [dapps]);
 
-  const handleLabelClick = (dapp, field) => {
+  const handleFieldClick = (dapp, field) => {
     console.log('thisDapp, field, fieldOpt', dapp, field);
     switch (dapp?.key) {
       case 'white_paper': {
@@ -200,7 +200,7 @@ const useDapps = () => {
             key={fieldKey}
           >
             <Button
-              onClick={() => handleLabelClick(thisDapp, field)}
+              onClick={() => handleFieldClick(thisDapp, field)}
               {...field}
               {...fieldOpt}
               dappKey={thisDapp.key}
@@ -385,6 +385,28 @@ const useDapps = () => {
               disabled
               onlyLabel
             />
+          </Lego>
+        );
+      } else if (field.type === 'button') {
+        return (
+          <Lego
+            first={false}
+            last={false}
+            titleInLeft={false}
+            titleInRight={false}
+            zIndex={_zIndex}
+            {...field}
+            key={fieldKey}
+          >
+            <Button
+              onClick={() => handleFieldClick(thisDapp, field)}
+              {...field}
+              {...fieldOpt}
+              dappKey={thisDapp.key}
+              name={fieldKey}
+              key={fieldKey}
+              variant={"outline"}
+            >{field.title}</Button>
           </Lego>
         );
       }

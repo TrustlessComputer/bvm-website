@@ -17,7 +17,6 @@ class CWhitePaperAPI {
 
   getWhitePaperList = async (network_id: string): Promise<IYoloGame[]> => {
     const data: any = await this.api.get(this.getUrl('pools'), {params: {network_id}});
-
     this.dispatch(setWhitePapers(data));
     return data;
   };
