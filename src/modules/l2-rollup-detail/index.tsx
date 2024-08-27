@@ -32,6 +32,7 @@ import s from './styles.module.scss';
 import TokenTransferTab from './TokenTransferTab';
 import TransactionsTab from './TransactionsTab';
 import TransactionsTabBitcoin from './TransactionsTabBitcoin';
+import TokenTransferTabBitcoin from './TokenTransferTabBitcoin';
 import NFTTab from './NFTTab';
 
 const L2RollupDetail = () => {
@@ -152,6 +153,7 @@ const L2RollupDetail = () => {
               >
                 <Tab>Portfolio</Tab>
                 <Tab>Transactions</Tab>
+                <Tab>Token Transfer</Tab>
               </TabList>
               <TabPanels className={s.tabPanel}>
                 <TabPanel minH={'40vh'}>
@@ -159,6 +161,9 @@ const L2RollupDetail = () => {
                 </TabPanel>
                 <TabPanel minH={'40vh'}>
                   <TransactionsTabBitcoin />
+                </TabPanel>
+                <TabPanel minH={'40vh'}>
+                  <TokenTransferTabBitcoin />
                 </TabPanel>
               </TabPanels>
             </>
