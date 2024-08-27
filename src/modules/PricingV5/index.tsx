@@ -11,7 +11,7 @@ const Pricing = (props: Props) => {
           <h3>Let’s build on Bitcoin.</h3>
           <p>Pricing for crypto teams of all sizes.</p>
         </div>
-        <div></div>
+        <div className={s.price_list}></div>
       </div>
     </div>
   );
