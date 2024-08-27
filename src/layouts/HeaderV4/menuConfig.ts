@@ -129,12 +129,12 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   //   isNewWindow: false,
   //   isHide: false,
   // },
-  // {
-  //   label: 'Pricing',
-  //   href: '/pricing',
-  //   isNewWindow: false,
-  //   isHide: false,
-  // },
+  {
+    label: 'Pricing',
+    href: '/pricing',
+    isNewWindow: false,
+    isHide: false,
+  },
 
   {
     label: 'BVM',
