@@ -162,13 +162,13 @@ export const useBridgesModule = () => {
     return getModuleIconUrlByType(getBridgeTypeIcon());
   };
 
-  console.log('[useBridgesModule] LOG --- ', {
-    isBridgeInstalled,
-    lineBridgeStatus,
-    bridgeDAppsIntalledList,
-    bridgeModuleStatus,
-    statusMapper,
-  });
+  // console.log('[useBridgesModule] LOG --- ', {
+  //   isBridgeInstalled,
+  //   lineBridgeStatus,
+  //   bridgeDAppsIntalledList,
+  //   bridgeModuleStatus,
+  //   statusMapper,
+  // });
 
   return {
     lineBridgeStatus,
