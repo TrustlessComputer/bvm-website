@@ -157,7 +157,26 @@ $text-max-width: 100ch;
         }
 
         a:last-child {
-            margin-right: 150px;
+            // margin-right: 150px;
+        }
+
+
+    }
+
+    :global {
+
+        .slick-track {
+            // max-width: calc(100vw - ((0vw - 1480px) / 2));
+        }
+
+
+        .slick-slider {
+            max-width: 100%;
+
+            .slick-slide {
+                width: 400px !important;
+                margin-right: 32px;
+            }
         }
 
 

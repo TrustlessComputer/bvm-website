@@ -2,7 +2,13 @@ import { TChainCard } from '@/modules/ExploreModule/components/ChainCard';
 import { TDappCardProps } from '@/modules/ExploreModule/components/DappCard';
 import { Box } from '@chakra-ui/react';
 import cn from 'classnames';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import SectionItemApp from './Item/App';
 import SectionItemGeneral from './Item/General';
 import s from './SectionBlock.module.scss';
@@ -21,7 +27,25 @@ export type BlockChainItem = Omit<TChainCard, 'idx'> & {
 };
 
 const SectionBlock = (props: any) => {
-  const { tag, title, item, desc, spacing = '83px' } = props;
+  const { tag, title, item, desc, spacing = '83px', id } = props;
+
+  let sliderRef = useRef(null);
+
+  const next = () => {
+    (sliderRef as any).slickNext();
+  };
+  const previous = () => {
+    (sliderRef as any).slickPrev();
+  };
+
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    arrows: false,
+  };
 
   const scrollWrapperRef = React.useRef<HTMLDivElement>(null);
   const itemsWrapperRef = React.useRef<HTMLDivElement>(null);
@@ -65,11 +89,11 @@ const SectionBlock = (props: any) => {
   }, [props.id]);
 
   useEffect(() => {
-    if (scrollWrapperRef.current && itemsWrapperRef.current) {
+    if (scrollWrapperRef.current && sliderRef.current) {
       const scrollWrapper = scrollWrapperRef.current;
-      const itemsWrapper = itemsWrapperRef.current;
+      const itemsWrapper = sliderRef.current;
 
-      if (itemsWrapper.offsetWidth > scrollWrapper.offsetWidth) {
+      if ((sliderRef as any).offsetWidth > scrollWrapper.offsetWidth) {
         setShowControls({
           prev: false,
           next: true,
@@ -81,7 +105,7 @@ const SectionBlock = (props: any) => {
         });
       }
     }
-  }, [scrollWrapperRef.current, itemsWrapperRef.current]);
+  }, [scrollWrapperRef.current, sliderRef.current]);
 
   useEffect(() => {
     // check `${props.id}-0` is fully visible
@@ -95,8 +119,8 @@ const SectionBlock = (props: any) => {
       { root: scrollWrapperRef.current, threshold: 1 },
     );
 
-    if (itemsWrapperRef.current) {
-      observer.observe(itemsWrapperRef.current.children[0]);
+    if (sliderRef.current) {
+      observer.observe((sliderRef.current as any).children[0]);
     }
   }, []);
 
@@ -112,9 +136,9 @@ const SectionBlock = (props: any) => {
       { root: scrollWrapperRef.current, threshold: 1 },
     );
 
-    if (itemsWrapperRef.current) {
+    if (sliderRef.current) {
       observer.observe(
-        itemsWrapperRef.current.children[item.length - 1] as HTMLElement,
+        (sliderRef.current as any).children[item.length - 1] as HTMLElement,
       );
     }
   }, []);
@@ -134,34 +158,63 @@ const SectionBlock = (props: any) => {
             className={cn(s.items_wrapper, {
               [s.items_wrapper__apps]: isCardLayout,
             })}
-            ref={itemsWrapperRef}
+            // ref={itemsWrapperRef}
             mb={spacing}
           >
-            {item.map((item: BlockCardItem | BlockChainItem, index: number) => {
-              if (isCardLayout) {
-                return (
-                  <SectionItemApp
-                    key={`${props.id}-${index}`}
-                    item={item as BlockCardItem}
-                  />
-                );
-              }
+            <Slider
+              {...settings}
+              ref={(slider) => {
+                sliderRef = slider as any;
+              }}
+            >
+              {item.map(
+                (item: BlockCardItem | BlockChainItem, index: number) => {
+                  return (
+                    <Box id={`${id}-${index}`}>
+                      {isCardLayout ? (
+                        <SectionItemApp
+                          key={`${props.id}-${index}`}
+                          item={item as BlockCardItem}
+                          sectionId={props.id}
+                        />
+                      ) : (
+                        <SectionItemGeneral
+                          key={`${props.id}-${index}`}
+                          id={props.id}
+                          item={item}
+                        />
+                      )}
+                    </Box>
+                  );
 
-              return (
-                <SectionItemGeneral
-                  key={`${props.id}-${index}`}
-                  id={props.id}
-                  item={item}
-                />
-              );
-            })}
+                  // if (isCardLayout) {
+                  //   return (
+                  //     <SectionItemApp
+                  //       key={`${props.id}-${index}`}
+                  //       item={item as BlockCardItem}
+                  //       sectionId={props.id}
+                  //     />
+                  //   );
+                  // }
+
+                  // return (
+                  //   <SectionItemGeneral
+                  //     key={`${props.id}-${index}`}
+                  //     id={props.id}
+                  //     item={item}
+                  //   />
+                  // );
+                },
+              )}
+            </Slider>
           </Box>
 
           {!!showControls.prev && (
             <Box
               className={cn(s.prev_btn, s.control_btn)}
               top={props.id === 'news' ? 'calc(50% - 44px)' : '50%'}
-              onClick={() => handleChangeDirection('prev')}
+              // onClick={() => handleChangeDirection('prev')}
+              onClick={previous}
             >
               <img src="\landing-v4\ic-angle-right.svg"></img>
             </Box>
@@ -171,7 +224,8 @@ const SectionBlock = (props: any) => {
             <Box
               className={cn(s.next_btn, s.control_btn)}
               top={props.id === 'news' ? 'calc(50% - 44px)' : '50%'}
-              onClick={() => handleChangeDirection('next')}
+              onClick={next}
+              // onClick={() => handleChangeDirection('next')}
             >
               <img src="\landing-v4\ic-angle-right.svg"></img>
             </Box>
