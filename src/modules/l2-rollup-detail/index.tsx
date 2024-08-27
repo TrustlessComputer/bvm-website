@@ -18,9 +18,11 @@ import {
 } from '@chakra-ui/react';
 import copy from 'copy-to-clipboard';
 import { useRouter } from 'next/navigation';
-import React, { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import toast from 'react-hot-toast';
+import ButtonFavorite from './FavoriteAddress';
+import NFTTab from './NFTTab';
 import PortfolioTab from './PortfolioTab';
 import PortfolioTabBitcoin from './PortfolioTabBitcoin';
 import {
@@ -32,11 +34,7 @@ import s from './styles.module.scss';
 import TokenTransferTab from './TokenTransferTab';
 import TransactionsTab from './TransactionsTab';
 import TransactionsTabBitcoin from './TransactionsTabBitcoin';
-import TokenTransferTabBitcoin from './TokenTransferTabBitcoin';
-import NFTTab from './NFTTab';
-import ButtonFavorite from './FavoriteAddress';
 import WatchListAddresses from './Watchlist';
-import TxBTCExplorer from './TxBTCExplorer';
 
 const L2RollupDetail = () => {
   const router = useRouter();
@@ -50,6 +48,12 @@ const L2RollupDetail = () => {
     totalBitcoinBalanceUsd,
     isBTCTxAddress,
   } = useContext(L2RollupDetailContext);
+
+  useEffect(() => {
+    if (isBTCTxAddress) {
+      router.replace(`${HEART_BEAT}/tx/${address}`);
+    }
+  }, [isBTCTxAddress]);
 
   if (!isValidAddress) {
     return (
@@ -71,7 +75,21 @@ const L2RollupDetail = () => {
 
   const renderContent = () => {
     if (isBTCTxAddress) {
-      return <TxBTCExplorer />;
+      return (
+        <Box className={s.container}>
+          <Flex
+            direction={'column'}
+            w="100%"
+            maxW={'1580px'}
+            minH={'50vh'}
+            alignItems={'center'}
+          >
+            <Text fontSize={'20px'} mt={'40px'}>
+              It looks like you're checking an BTC transaction hash...
+            </Text>
+          </Flex>
+        </Box>
+      );
     }
     return (
       <>
