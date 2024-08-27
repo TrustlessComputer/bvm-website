@@ -36,6 +36,7 @@ import TokenTransferTabBitcoin from './TokenTransferTabBitcoin';
 import NFTTab from './NFTTab';
 import ButtonFavorite from './FavoriteAddress';
 import WatchListAddresses from './Watchlist';
+import TxBTCExplorer from './TxBTCExplorer';
 
 const L2RollupDetail = () => {
   const router = useRouter();
@@ -47,6 +48,7 @@ const L2RollupDetail = () => {
     balanceBitcoinInfo,
     totalBalanceUsd,
     totalBitcoinBalanceUsd,
+    isBTCTxAddress,
   } = useContext(L2RollupDetailContext);
 
   if (!isValidAddress) {
@@ -67,9 +69,12 @@ const L2RollupDetail = () => {
     );
   }
 
-  return (
-    <Box className={s.container}>
-      <Flex direction={'column'} w="100%" maxW={'1140px'}>
+  const renderContent = () => {
+    if (isBTCTxAddress) {
+      return <TxBTCExplorer />;
+    }
+    return (
+      <>
         <Flex
           direction={{ base: 'column', md: 'row' }}
           alignItems={{ base: 'flex-start', md: 'center' }}
@@ -146,59 +151,83 @@ const L2RollupDetail = () => {
           </Flex>
         </Flex>
 
-        <Box position={'relative'} mt={{ base: '24px', md: '32px' }}>
-          <Tabs className={s.tabContainer} defaultIndex={0}>
-            {isBTCAddress ? (
-              <>
-                <TabList
-                  className={s.tabList}
-                  fontSize={['16px', '18px', ' 20px']}
-                >
-                  <Tab>Portfolio</Tab>
-                  <Tab>Transactions</Tab>
-                  <Tab>Token Transfer</Tab>
-                </TabList>
-                <TabPanels className={s.tabPanel}>
-                  <TabPanel minH={'40vh'}>
-                    <PortfolioTabBitcoin />
-                  </TabPanel>
-                  <TabPanel minH={'40vh'}>
-                    <TransactionsTabBitcoin />
-                  </TabPanel>
-                  <TabPanel minH={'40vh'}>
-                    <TokenTransferTabBitcoin />
-                  </TabPanel>
-                </TabPanels>
-              </>
-            ) : (
-              <>
-                <TabList
-                  className={s.tabList}
-                  fontSize={['16px', '18px', ' 20px']}
-                >
-                  <Tab>Portfolio</Tab>
-                  <Tab>Transactions</Tab>
-                  <Tab>Token Transfer</Tab>
-                  <Tab>NFTs</Tab>
-                </TabList>
-                <TabPanels className={s.tabPanel}>
-                  <TabPanel minH={'40vh'}>
-                    <PortfolioTab />
-                  </TabPanel>
-                  <TabPanel minH={'40vh'}>
-                    <TransactionsTab />
-                  </TabPanel>
-                  <TabPanel minH={'40vh'}>
-                    <TokenTransferTab />
-                  </TabPanel>
-                  <TabPanel minH={'40vh'}>
-                    <NFTTab />
-                  </TabPanel>
-                </TabPanels>
-              </>
-            )}
-          </Tabs>
-        </Box>
+        <Tabs
+          className={s.tabContainer}
+          mt={{ base: '24px', md: '32px' }}
+          defaultIndex={0}
+        >
+          {isBTCAddress ? (
+            <>
+              <TabList
+                className={s.tabList}
+                fontSize={['16px', '18px', ' 20px']}
+              >
+                <Tab>Portfolio</Tab>
+                <Tab>Transactions</Tab>
+              </TabList>
+              <TabPanels className={s.tabPanel}>
+                <TabPanel minH={'40vh'}>
+                  <PortfolioTabBitcoin />
+                </TabPanel>
+                <TabPanel minH={'40vh'}>
+                  <TransactionsTabBitcoin />
+                </TabPanel>
+              </TabPanels>
+            </>
+          ) : (
+            <>
+              <TabList
+                className={s.tabList}
+                fontSize={['16px', '18px', ' 20px']}
+              >
+                <Tab>Portfolio</Tab>
+                <Tab>Transactions</Tab>
+                <Tab>Token Transfer</Tab>
+                <Tab>NFTs</Tab>
+              </TabList>
+              <TabPanels className={s.tabPanel}>
+                <TabPanel minH={'40vh'}>
+                  <PortfolioTab />
+                </TabPanel>
+                <TabPanel minH={'40vh'}>
+                  <TransactionsTab />
+                </TabPanel>
+                <TabPanel minH={'40vh'}>
+                  <TokenTransferTab />
+                </TabPanel>
+                <TabPanel minH={'40vh'}>
+                  <NFTTab />
+                </TabPanel>
+              </TabPanels>
+            </>
+          )}
+        </Tabs>
+      </>
+    );
+  };
+
+  return (
+    <Box className={s.container}>
+      <Flex direction={'column'} w="100%" maxW={'1140px'}>
+        <Flex
+          direction={{ base: 'column', md: 'row' }}
+          alignItems={{ base: 'flex-start', md: 'center' }}
+          justifyContent={'space-between'}
+          gap={{ base: '16px', md: '8px' }}
+        >
+          <Flex
+            className={s.backBtn}
+            direction={{ base: 'row' }}
+            alignItems={'center'}
+            gap={'8px'}
+            onClick={() => router.push(HEART_BEAT)}
+          >
+            <Image w={'24px'} src={'/heartbeat/ic-back.svg'} />
+            <Text>Bitcoin Heartbeat Project</Text>
+          </Flex>
+          <SearchAddress className={s.search} />
+        </Flex>
+        {renderContent()}
       </Flex>
     </Box>
   );
