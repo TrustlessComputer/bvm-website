@@ -39,7 +39,7 @@ export const usePricingTemplate = () => {
 
       result.push({
         totalPriceBVM,
-        priceUSDPerDay,
+        totalPriceUSD,
         priceBVMPerDayFormated,
         priceUSDPerDayFormated,
       });
