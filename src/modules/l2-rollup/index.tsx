@@ -34,6 +34,7 @@ import { useDispatch } from 'react-redux';
 import BitcoinRentModal from './BitcoinRentModal';
 import L2RollupFee from './fees';
 import s from './styles.module.scss';
+import SearchAddress from '../l2-rollup-detail/SearchAddress';
 
 enum SortRollupType {
   name,
