@@ -1,5 +1,8 @@
 import { compose } from '@reduxjs/toolkit';
 import clearNodes from './enhance.clearNodes';
+
+import enhanceClearStudioLocalStorage from './enhance.clearStudioLocalStorage';
+
 import enhanceGetTemplateParam from './enhance.getTemplateParam';
 import enhancePrepareData from './enhance.prepareData';
 
@@ -10,6 +13,7 @@ const enhance = (WrappedComponent: any) => (props: any) =>
 
 export default compose<any>(
   clearNodes,
+  enhanceClearStudioLocalStorage,
 
   //
   enhanceGetTemplateParam,

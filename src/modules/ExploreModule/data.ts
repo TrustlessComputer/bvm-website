@@ -43,26 +43,24 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   // },
   {
     id: 'eternalAI',
-    image: '/explore/dapp-eai2.png',
+    image: '/explore/dapp-eai3.png',
     title: 'Eternal AI',
     bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
-    description:
-      'Decentralized AI in your pocket. Permissionless. Censorship-resistant. Free.',
-    tags: ['EternalAI Chain', 'AI'],
+    description: 'Decentralized AI in your pocket.',
+    tags: ['EternalAI', 'AI'],
     link: {
-      url: '',
+      url: 'https://eternalai.org',
       target: '_blank',
     },
     homeImage: `${CDN_URL}/pages/landing-v4/home-eai-phone.png`,
   },
   {
     id: 'heartbeats',
-    image: '/explore/dapp-heartbeat2.png',
+    image: '/explore/dapp-heartbeat-3.png',
     title: 'Heartbeats',
     bgColor:
       'linear-gradient(226.66deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
-    description:
-      'Provide transparent and verifiable insights into Bitcoin rollups.',
+    description: 'Insights into Bitcoin chains.',
     tags: ['', 'Analytics'],
     link: {
       url: '/heartbeats',
@@ -76,8 +74,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
     title: 'Rune DEX',
     bgColor:
       'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
-    description:
-      'Buy Bitcoin anonymously using an order book. Enjoy a DEX with the ease of a CEX experience.',
+    description: 'Buy Bitcoin permisionlessly.',
     tags: ['RuneChain', 'DeFi'],
     link: {
       url: 'https://runechain.com/',
@@ -102,12 +99,11 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
 
   {
     id: 'nakaFuture',
-    image: '/explore/naka-dex.png',
+    image: '/explore/dapp-future.png',
     title: 'Naka DEX ',
     bgColor:
       'linear-gradient(227deg, #FD8DFF -7.83%, #FF63B7 21.47%, #E400CD 69.37%, #FADEFF 118.41%)',
-    description:
-      'Trade perpetual contracts on Bitcoin. Decide whether to go long (buy) or short (sell) on BTC and ORDI.',
+    description: 'Trade Bitcoin futures.',
     tags: ['NakaChain', 'DeFi'],
     link: {
       url: 'https://nakachain.xyz/perpetual',
@@ -121,8 +117,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
     title: 'Alpha',
     bgColor:
       'linear-gradient(227deg, #AE71FF -7.83%, #9456FF 23.69%, #6610E6 67.99%, #ED68FB 100%)',
-    description:
-      'The first social app on Bitcoin.<br/> $2.7M paid to creators as of today.',
+    description: 'The first social app on Bitcoin. ',
     tags: ['AlphaChain', 'SocialFi'],
     link: {
       url: 'https://alpha.wtf',
@@ -130,28 +125,27 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
     },
     homeImage: `${CDN_URL}/pages/landing-v4/home-alpha.png`,
   },
-  {
-    id: 'neuron',
-    image: '/explore/neuron2.png',
-    title: 'Neurons',
-    bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%)',
-    description: 'Power decentralized networks and earn rewards.',
-    tags: ['EternalAI Chain', 'DePIN'],
-    link: {
-      url: 'https://eternalai.org/hardware',
-      target: '_blank',
-    },
-    homeImage: `${CDN_URL}/pages/landing-v4/home-neuron.png`,
-  },
+  // {
+  //   id: 'neuron',
+  //   image: '/explore/neuron2.png',
+  //   title: 'Neurons',
+  //   bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%)',
+  //   description: 'Preserve the Internet’s history.',
+  //   tags: ['EternalAI Chain', 'DePIN'],
+  //   link: {
+  //     url: 'https://eternalai.org/hardware',
+  //     target: '_blank',
+  //   },
+  //   homeImage: `${CDN_URL}/pages/landing-v4/home-neuron.png`,
+  // },
   {
     id: 'capsule',
-    image: '/explore/explore-capsule2.png',
+    image: '/explore/explore-capsule3.png',
     title: 'Time Capsule (Soon)',
     bgColor:
       'linear-gradient(227deg, #00F9DB -7.83%, #63FFBD 21.47%, #05E400 69.37%, #339898 118.41%)',
-    description:
-      'Protect and preserve the history of the Internet, ensuring that its legacy is safe and accessible.',
-    tags: ['Bitarchive Chain', 'Storage'],
+    description: 'Preserve the Internet’s history.',
+    tags: ['Bitarchive', 'Storage'],
     link: {
       url: '',
       target: '_blank',

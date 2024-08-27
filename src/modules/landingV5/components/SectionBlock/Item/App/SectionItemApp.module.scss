@@ -1,7 +1,7 @@
 .wrapper {
     border-radius: 32px;
     padding-top: 20px;
-    width: 360px;
+    width: 400px;
     align-self: stretch;
     display: flex;
     flex-direction: column;
@@ -10,7 +10,7 @@
     overflow: hidden;
 
     &:not(.popular) {
-        margin-top: 18px;
+        margin-top: 40px;
         margin-bottom: 18px;
     }
 
@@ -34,6 +34,7 @@
         display: flex;
         flex-direction: column;
         gap: 8px;
+        width: 100%;
 
         .title {
             color: #FFF;
@@ -110,7 +111,7 @@
 
             /* 19.2px */
             text-transform: uppercase;
-            height: 36px;
+            height: 40px;
             display: grid;
             place-items: center;
 

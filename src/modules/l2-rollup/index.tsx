@@ -31,7 +31,6 @@ import { DotLottiePlayer } from '@dotlottie/react-player';
 import { orderBy } from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import SearchAddress from '../l2-rollup-detail/SearchAddress';
 import BitcoinRentModal from './BitcoinRentModal';
 import L2RollupFee from './fees';
 import s from './styles.module.scss';
@@ -1005,7 +1004,7 @@ const L2Rollup = () => {
           />
         </Flex>
 
-        <Box w={'100%'} mb={'32px'}>
+        <Box w={'100%'} mb={'32px'} mt={'48px'}>
           <SimpleGrid columns={3} gap={'16px'}>
             <L2RollupFee
               data={_dataChart.txs}
