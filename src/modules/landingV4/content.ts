@@ -1,9 +1,9 @@
 import { CHAIN_DATA, DAPPS_DATA } from '../ExploreModule/data';
-import { Research } from '../Lab/data';
 import { CDN_URL, CDN_URL_IMAGES_NBC } from '@/config';
 import { BLOGS } from '../landingV3/Componets/Section_7/constant';
 import { id } from 'ethers/lib/utils';
 import { it } from 'node:test';
+import { Research } from '../Lab/data';
 
 export const APPS_SECTION = {
   id: 'apps',

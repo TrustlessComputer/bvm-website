@@ -7,6 +7,7 @@
     gap: 5px;
     color: #fff;
 
+
     line-height: (20 / 14);
     text-align: center;
     cursor: pointer;
@@ -15,7 +16,7 @@
     padding: var(--chakra-space-2);
 
     @include is-pc {
-      padding: 0;
+      padding: 8px 16px;
       font-size: 14px;
       font-family: var(--font-jetbrains);
       font-weight: 500;
@@ -52,6 +53,7 @@
       background: white;
       border: 1px solid #dcdcdc;
       border-radius: 8px;
+
       @include is-pc {
         min-height: auto;
       }
@@ -64,6 +66,7 @@
         display: none;
       }
     }
+
     &:hover {
       .dropMenu_list {
         opacity: 1;
