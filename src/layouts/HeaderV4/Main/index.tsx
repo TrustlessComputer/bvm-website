@@ -93,7 +93,7 @@ TMainHeader): ReactElement => {
             {/* <Link href={'/bvm'} className={s.getBVM}>
               Get BVM
             </Link> */}
-            <ButtonLogin className={s.getBVM} color="white" title="CONNECT" />
+            <ButtonLogin className={s.getBVM} color={color} title="CONNECT" />
           </div>
         ) : (
           <>
