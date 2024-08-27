@@ -9,6 +9,7 @@ import Lego from '../component4/Lego';
 import useDappsStore from '../stores/useDappStore';
 import { FieldOption } from '../types';
 import { adjustBrightness } from '../utils';
+import Button from '@/modules/blockchains/Buy/component4/Button';
 
 const useDapps = () => {
   const { dapps } = useDappsStore();
@@ -169,6 +170,27 @@ const useDapps = () => {
               dappKey={thisDapp.key}
               placeholder={field.placeholder}
             />
+          </Lego>
+        );
+      } else if (field.type === 'button') {
+        return (
+          <Lego
+            first={false}
+            last={false}
+            titleInLeft={false}
+            titleInRight={false}
+            zIndex={_zIndex}
+            {...field}
+            key={fieldKey}
+          >
+            <Button
+              {...field}
+              {...fieldOpt}
+              dappKey={thisDapp.key}
+              name={fieldKey}
+              key={fieldKey}
+              variant={"outline"}
+            >{field.title}</Button>
           </Lego>
         );
       }

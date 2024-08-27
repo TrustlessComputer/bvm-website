@@ -138,7 +138,7 @@ interface FieldModel {
   icon: string;
   title: string;
   value: string | number;
-  type: 'input' | 'dropdown' | 'extends' | 'group' | 'datetime' | 'list' | '';
+  type: 'input' | 'dropdown' | 'extends' | 'group' | 'datetime' | 'list' | 'button' | '';
   tooltip: string;
   options: FieldModel[];
   placeholder?: string;
@@ -146,7 +146,7 @@ interface FieldModel {
   selectable?: boolean;
   background?: string;
   previewTitle?: string;
-  inputType?: 'text' | 'number' | 'file';
+  inputType?: 'text' | 'number' | 'file' | '';
   inputAccept?: 'image/*' | '.csv';
   disabled?: boolean;
 }

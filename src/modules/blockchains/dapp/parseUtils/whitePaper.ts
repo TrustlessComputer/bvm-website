@@ -24,7 +24,7 @@ export const parseWhitePapers = (games: IYoloGame[]): any[] => {
         },
         sections: [
           {
-            key: 'yolo',
+            key: 'information',
             icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
             title: 'YOLO',
             tooltip: '',
@@ -36,16 +36,16 @@ export const parseWhitePapers = (games: IYoloGame[]): any[] => {
           title: `White Paper #${game.id}`,
           icon: '',
           placableAmount: -1,
-          section: 'yolo',
+          section: 'information',
           preview: false,
           fields: [
             {
               key: 'settlement_token',
-              title: 'Payment Token',
+              title: 'Token',
               type: 'dropdown',
               icon: '',
               value: game.settlement_token.contract_address,
-              tooltip: 'Specify the currency to be used for payments in the game.',
+              tooltip: '',
               options: [
                 {
                   key: game.settlement_token?.symbol as any,
@@ -59,56 +59,13 @@ export const parseWhitePapers = (games: IYoloGame[]): any[] => {
               ],
               background: '#A041FF',
             },
-            {
-              key: 'value_per_entry',
-              title: 'Entry Cost (Tokens per Ticket)',
-              inputType: 'number',
-              type: 'input',
-              icon: '',
-              value: game.value_per_entry,
-              tooltip: 'Enter the number of tokens required for each ticket/entry.',
-              placeholder: 'eg. 1000',
-              options: [],
-              background: '#C44127',
-            },
-            {
-              key: 'round_duration',
-              title: 'Round Duration (Seconds)',
-              inputType: 'number',
-              type: 'input',
-              icon: '',
-              value: game.round_duration,
-              tooltip: 'Set the duration of each round in seconds.',
-              placeholder: 'eg. 300',
-              options: [],
-              background: '#00AA6C',
-            },
-            {
-              key: 'maximum_participants',
-              title: 'Maximum Participants',
-              inputType: 'number',
-              type: 'input',
-              icon: '',
-              value: game.maximum_number_of_participants_per_round,
-              tooltip: 'Enter the maximum number of participants allowed per round.',
-              placeholder: 'eg. 500',
-              options: [],
-              background: '#0d2dd0',
-            },
-            {
-              key: 'protocol_fee_ratio',
-              title: 'Creator Fee (%)',
-              inputType: 'number',
-              type: 'input',
-              icon: '',
-              value: new BigNumberJS(game.protocol_fee_ratio).multipliedBy(100).toString(),
-              tooltip: 'Specify the percentage of the fee that will be paid to the creators.',
-              placeholder: 'eg. 10',
-              options: [],
-              background: '#C44127',
-            },
           ],
         },
+        action: {
+          title: 'Download Template',
+          actionMapperID: `0`,
+          tokenInfo: null,
+        } as any
       }
     );
   }
