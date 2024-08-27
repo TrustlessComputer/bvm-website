@@ -85,6 +85,20 @@ const L2RollupFee = ({
     },
     tooltip: {
       formatter: function () {
+        console.log('tooltip', this.key);
+
+        if (typeof this.key === 'string') {
+          return (
+            '<span class="tooltip-title">' +
+            dayjs.unix(this.x as any).format('ll') +
+            '</span><br/><span class="tooltip-desc">' +
+            prefix +
+            formatCurrency(this.y, 0, 2) +
+            '</span><br/><span class="tooltip-note">* ' +
+            this.key +
+            '</span>'
+          );
+        }
         return (
           '<span class="tooltip-title">' +
           dayjs.unix(this.x as any).format('ll') +

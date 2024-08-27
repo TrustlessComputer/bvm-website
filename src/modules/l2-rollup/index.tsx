@@ -103,9 +103,20 @@ const L2Rollup = () => {
     const addresses: any[] = [];
 
     dataChart.forEach((d) => {
-      fees.push([d.timestamp, parseFloat(d.fee_usd)] as any[]);
-      txs.push([d.timestamp, d.tx_count]);
-      addresses.push([Number(d.timestamp), Number(d.address_actived)]);
+      // fees.push([d.timestamp, parseFloat(d.fee_usd)] as any[]);
+      fees.push({
+        x: d.timestamp,
+        y: parseFloat(d.fee_usd),
+        name: d.notes,
+      });
+      txs.push({
+        x: d.timestamp,
+        y: d.tx_count,
+      });
+      addresses.push({
+        x: d.timestamp,
+        y: Number(d.address_actived),
+      });
     });
 
     return { fees, txs, addresses };
