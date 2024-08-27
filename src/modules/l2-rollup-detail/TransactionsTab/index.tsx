@@ -56,6 +56,7 @@ const TransactionsTab = (props: IProps) => {
   }, []);
 
   const refInitial = useRef(false);
+  const endOfPaging = useRef(false);
 
   useEffect(() => {
     fetchData(true);
@@ -63,8 +64,10 @@ const TransactionsTab = (props: IProps) => {
 
   const fetchData = async (isNew?: boolean) => {
     try {
-      setIsFetching(true);
       if (isNew) {
+        endOfPaging.current = false;
+        setIsFetching(true);
+
         refParams.current = {
           ...refParams.current,
           page: 1,
@@ -76,12 +79,18 @@ const TransactionsTab = (props: IProps) => {
 
         setRollupTransactions(res);
       } else {
+        if (endOfPaging.current) return;
+        setIsFetching(true);
         const res = (await rollupApi.getRollupL2Transactions({
           user_address: address,
           ...refParams.current,
         })) as any;
 
-        setRollupTransactions([...rollupTransactions, ...res]);
+        if (res && res?.length > 0) {
+          setRollupTransactions([...rollupTransactions, ...res]);
+        } else {
+          endOfPaging.current = true;
+        }
       }
     } catch (error) {
     } finally {

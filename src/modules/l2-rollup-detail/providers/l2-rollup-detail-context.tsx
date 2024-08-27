@@ -144,6 +144,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
           .toNumber(),
         title: 'BTC',
         btcBalance: balanceBitcoinInfo?.balance || '0',
+        color: 'orange',
       },
       ...BalanceTypes.map((balanceType) => {
         if (!assetBitcoin) {
@@ -167,6 +168,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
         return {
           amountUsd: totalUsd,
           title: balanceType.title,
+          color: balanceType.color,
         };
       }),
     ];

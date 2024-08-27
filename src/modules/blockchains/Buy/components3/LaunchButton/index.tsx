@@ -16,7 +16,10 @@ import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { requestReload } from '@/stores/states/common/reducer';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
-import { getL2ServicesStateSelector, getOrderDetailSelected } from '@/stores/states/l2services/selector';
+import {
+  getL2ServicesStateSelector,
+  getOrderDetailSelected,
+} from '@/stores/states/l2services/selector';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { IModelOption } from '@/types/customize-model';
 import { getErrorMessage } from '@/utils/errorV2';
@@ -133,7 +136,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
   const titleButton = useMemo(() => {
     if (!loggedIn) {
-      return 'Connect';
+      return 'Launch';
     }
     if (needContactUs) {
       return 'Launch';
@@ -387,7 +390,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         if (yoloGameForms && yoloGameForms.length > 0) {
           await onSubmitYoloGame({
             forms: yoloGameForms,
-            positions: yoloNodePositions
+            positions: yoloNodePositions,
           });
           isConfigDapp = true;
         }

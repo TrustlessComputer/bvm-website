@@ -37,8 +37,8 @@ export default function VideoSection() {
     <div className={s.wrapperVideoSection}>
       <div className="containerV3">
         <p className={s.wrapperVideoSection_heading}>
-          Comprehensive, cost-effective ZK rollup solution. Built for building
-          on Bitcoin.
+          Comprehensive, cost-effective scaling solution. Built for building on
+          Bitcoin.
         </p>
         <div className={s.wrapperItem}>
           {FakeData.map((item) => {

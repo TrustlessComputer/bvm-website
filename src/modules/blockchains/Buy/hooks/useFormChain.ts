@@ -20,13 +20,14 @@ const useFormChain = () => {
         optionMapping: {},
       };
 
+    const ignoreKeys = ['bridge_apps', 'wallet'];
     const dynamicForm: IModelCategory[] = [];
     const optionMapping: Record<string, IModelOption> = {};
     const allOptionKeyDragged: string[] = [];
     const allRequiredForKey: string[] = [];
 
     for (const _field of categories) {
-      if (!_field.isChain && _field.key !== 'bridge_apps') continue;
+      if (!_field.isChain && !ignoreKeys.includes(_field.key)) continue;
 
       _field.options.forEach((opt: IModelOption) => {
         optionMapping[opt.key] = opt;

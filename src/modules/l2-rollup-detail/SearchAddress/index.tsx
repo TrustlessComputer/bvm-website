@@ -20,11 +20,18 @@ type ISearchBarProps = {
   setTxtSearch: (data: string) => void;
   placeholder?: string;
   onEnterSearch?: () => void;
+  autoFocus?: boolean;
 };
 
 const SearchBar = (props: ISearchBarProps) => {
-  const { className, txtSearch, setTxtSearch, placeholder, onEnterSearch } =
-    props;
+  const {
+    className,
+    txtSearch,
+    setTxtSearch,
+    placeholder,
+    onEnterSearch,
+    autoFocus,
+  } = props;
   const onEnter = (e: any) => {
     if (e.code === 'Enter') {
       e.target.blur();
@@ -43,6 +50,7 @@ const SearchBar = (props: ISearchBarProps) => {
         enterKeyHint="search"
         onKeyDownCapture={onEnter}
         lang="en"
+        autoFocus={autoFocus}
       />
     </InputGroup>
   );
@@ -51,6 +59,7 @@ const SearchBar = (props: ISearchBarProps) => {
 type ISearchAddressProps = {
   placeholder?: string;
   className?: string;
+  autoFocus?: boolean;
 };
 
 const SearchAddress = (props: ISearchAddressProps) => {
@@ -85,6 +94,7 @@ const SearchAddress = (props: ISearchAddressProps) => {
           }
         }}
         className={props.className}
+        autoFocus={props.autoFocus}
       />
       {searchAddress && (
         <Flex
