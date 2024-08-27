@@ -27,6 +27,7 @@ export interface IL2RollupDetailContext {
   rollupBalances: ITokenChain[];
   rollupTokensRate?: RollupTokenRate;
   // Bitcoin
+  balanceBitcoinInfo?: IBalanceBitcoinInfo;
   totalBitcoinBalanceUsd?: number;
   rollupBitcoinBalances?: any[];
 }
@@ -40,6 +41,7 @@ const initialValue: IL2RollupDetailContext = {
   rollupBalances: [],
   rollupTokensRate: undefined,
   // Bitcoin
+  balanceBitcoinInfo: undefined,
   totalBitcoinBalanceUsd: 0,
   rollupBitcoinBalances: [],
 };
@@ -141,6 +143,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
           )
           .toNumber(),
         title: 'BTC',
+        btcBalance: balanceBitcoinInfo?.balance || '0',
       },
       ...BalanceTypes.map((balanceType) => {
         if (!assetBitcoin) {
@@ -160,7 +163,6 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
           },
           0,
         );
-        console.log('===totalUsd', totalUsd, balanceType.type);
 
         return {
           amountUsd: totalUsd,
@@ -224,6 +226,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
       rollupDetails,
       rollupBalances,
       rollupTokensRate,
+      balanceBitcoinInfo,
       totalBitcoinBalanceUsd,
       rollupBitcoinBalances,
     };
@@ -235,6 +238,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     rollupDetails,
     rollupBalances,
     rollupTokensRate,
+    balanceBitcoinInfo,
     totalBitcoinBalanceUsd,
     rollupBitcoinBalances,
   ]);

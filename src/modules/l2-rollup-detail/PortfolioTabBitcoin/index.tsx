@@ -11,14 +11,78 @@ import {
   BalanceTypes,
   IBalanceBitcoin,
 } from '@/services/api/dapp/rollupl2-detail-bitcoin/interface';
-import { ITokenChain } from '@/services/api/dapp/rollupl2-detail/interface';
 import { formatCurrency } from '@/utils/format';
-import { Box, Flex, Image, Text, Grid } from '@chakra-ui/react';
+import { Box, Flex, Image, Text, Grid, Skeleton } from '@chakra-ui/react';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
 import EmptyList from '@/components/ListTable/EmptyList';
 import BigNumber from 'bignumber.js';
+
+const IframeComponent = (props: any) => {
+  const { src, style, type } = props;
+  const imgRef = useRef<any>(null);
+
+  const [isLoaded, serIsLoaded] = React.useState(false);
+
+  const isImgType = useMemo(() => {
+    switch (type) {
+      case 'image/apng':
+      case 'image/avif':
+      case 'image/gif':
+      case 'image/jpeg':
+      case 'image/png':
+      case 'image/webp':
+      case 'image/svg+xml':
+        return true;
+      default:
+        return false;
+    }
+  }, [type]);
+
+  const onError = () => {
+    serIsLoaded(true);
+  };
+
+  const onLoaded = () => {
+    serIsLoaded(true);
+  };
+
+  return (
+    <Flex position={'relative'}>
+      {isImgType ? (
+        <img
+          ref={imgRef}
+          src={src}
+          style={style}
+          onLoad={onLoaded}
+          onError={onError}
+        />
+      ) : (
+        <iframe
+          ref={imgRef}
+          src={src}
+          style={style}
+          loading="lazy"
+          sandbox={'allow-scripts allow-pointer-lock allow-same-origin'}
+          onLoad={onLoaded}
+          onError={onError}
+        />
+      )}
+      {!isLoaded && (
+        <Skeleton
+          borderTopRadius={'12px'}
+          position={'absolute'}
+          speed={1.2}
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+        />
+      )}
+    </Flex>
+  );
+};
 
 const PortfolioTabBitcoin = () => {
   const { address, rollupBitcoinBalances, totalBitcoinBalanceUsd } = useContext(
@@ -131,15 +195,6 @@ const PortfolioTabBitcoin = () => {
             >
               <Flex position={'relative'}>
                 <Text className={s.title}>{data.symbol}</Text>
-                {/* <Image
-                  position={'absolute'}
-                  right={'-20px'}
-                  top={0}
-                  w={'16px'}
-                  h={'16px'}
-                  borderRadius={'50%'}
-                  src={data.chain?.icon}
-                /> */}
               </Flex>
             </Flex>
           );
@@ -245,12 +300,6 @@ const PortfolioTabBitcoin = () => {
             const totalUsd = detail.amountUsd;
             return (
               <Flex direction={'row'} alignItems={'center'} gap={'12px'}>
-                {/* <Image
-                  src={detail.rollup?.icon}
-                  w={'40px'}
-                  h={'40px'}
-                  borderRadius={'50%'}
-                /> */}
                 <Flex direction={'column'}>
                   <Text fontWeight={'400'} color={'#808080'}>
                     {detail.title}
@@ -338,14 +387,30 @@ const PortfolioTabBitcoin = () => {
                   list.map((item) => {
                     return (
                       <Flex direction={'column'} className={s.shadow}>
-                        <Image
-                          borderTopRadius={'12px'}
-                          w={'100%'}
-                          aspectRatio={1}
+                        <IframeComponent
+                          style={{
+                            width: '196px',
+                            aspectRatio: 1,
+                            borderTopLeftRadius: '12px',
+                            borderTopRightRadius: '12px',
+                            background: 'lightgray',
+                            objectFit: 'contain',
+                            position: 'relative',
+                          }}
                           src={item.image_url}
+                          type={item.content_type}
                         />
                         <Flex direction={'column'} p={'8px'}>
-                          <Text color={'#898989'}>
+                          <Text
+                            cursor={'pointer'}
+                            _hover={{ textDecoration: 'underline' }}
+                            color={'#898989'}
+                            onClick={() =>
+                              window.open(
+                                `https://ordinals.com/inscription/${item.inscription_id}`,
+                              )
+                            }
+                          >
                             #{item.inscription_number}
                           </Text>
                           <Text>
