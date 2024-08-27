@@ -5,26 +5,35 @@ export type BalanceBitcoinType =
   | 'arc20'
   | 'ordinals_nft';
 
-export const BalanceTypes: { type: BalanceBitcoinType; title: string }[] = [
+export const BalanceTypes: {
+  type: BalanceBitcoinType;
+  title: string;
+  color: string;
+}[] = [
   {
     type: 'runes',
     title: 'Runes',
+    color: '#D44DFA',
   },
   {
     type: 'brc20',
     title: 'BRC-20',
+    color: '#7660F5',
   },
   {
     type: 'src20',
     title: 'SRC-20',
+    color: '#34E178',
   },
   {
     type: 'arc20',
     title: 'ARC-20',
+    color: '#F8DB71',
   },
   {
     type: 'ordinals_nft',
     title: 'Ordinals NFT',
+    color: '#45C4FF',
   },
 ];
 

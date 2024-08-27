@@ -18,71 +18,10 @@ import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
 import EmptyList from '@/components/ListTable/EmptyList';
 import BigNumber from 'bignumber.js';
-
-const IframeComponent = (props: any) => {
-  const { src, style, type } = props;
-  const imgRef = useRef<any>(null);
-
-  const [isLoaded, serIsLoaded] = React.useState(false);
-
-  const isImgType = useMemo(() => {
-    switch (type) {
-      case 'image/apng':
-      case 'image/avif':
-      case 'image/gif':
-      case 'image/jpeg':
-      case 'image/png':
-      case 'image/webp':
-      case 'image/svg+xml':
-        return true;
-      default:
-        return false;
-    }
-  }, [type]);
-
-  const onError = () => {
-    serIsLoaded(true);
-  };
-
-  const onLoaded = () => {
-    serIsLoaded(true);
-  };
-
-  return (
-    <Flex position={'relative'}>
-      {isImgType ? (
-        <img
-          ref={imgRef}
-          src={src}
-          style={style}
-          onLoad={onLoaded}
-          onError={onError}
-        />
-      ) : (
-        <iframe
-          ref={imgRef}
-          src={src}
-          style={style}
-          loading="lazy"
-          sandbox={'allow-scripts allow-pointer-lock allow-same-origin'}
-          onLoad={onLoaded}
-          onError={onError}
-        />
-      )}
-      {!isLoaded && (
-        <Skeleton
-          borderTopRadius={'12px'}
-          position={'absolute'}
-          speed={1.2}
-          top={0}
-          left={0}
-          right={0}
-          bottom={0}
-        />
-      )}
-    </Flex>
-  );
-};
+import { Chart, ArcElement, Tooltip } from 'chart.js';
+Chart.register([ArcElement, Tooltip]);
+import { Pie } from 'react-chartjs-2';
+import IframeComponent from './IframeComponent';
 
 const PortfolioTabBitcoin = () => {
   const { address, rollupBitcoinBalances, totalBitcoinBalanceUsd } = useContext(
@@ -288,48 +227,95 @@ const PortfolioTabBitcoin = () => {
     ];
   }, []);
 
+  const options = {
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: (yDatapoint: any) => {
+            return ` $${formatCurrency(yDatapoint.raw, 2, 2, '', true)}`;
+          },
+        },
+      },
+    },
+  };
+
   const renderPorfolio = () => {
     return (
-      <Grid
-        w="100%"
-        mb="32px"
-        gridTemplateColumns={{
-          base: 'repeat(auto-fill, 160px)',
-        }}
-        gap={{ base: '16px', lg: '20px' }}
-        p={{ base: '12px', lg: '24px' }}
-        borderRadius={'12px'}
-        className={s.shadow}
+      <Flex
+        direction={{ base: 'column', md: 'row' }}
+        justifyContent={'center'}
+        gap={{ base: '20px', lg: '60px' }}
+        mb="36px"
       >
-        {rollupBitcoinBalances &&
-          rollupBitcoinBalances.map((detail) => {
-            const totalUsd = detail.amountUsd;
-            return (
-              <Flex direction={'row'} alignItems={'center'} gap={'12px'}>
-                <Flex direction={'column'}>
-                  <Text fontWeight={'400'} color={'#808080'}>
-                    {detail.title}
-                  </Text>
-                  <Flex direction={'row'} alignItems={'center'} gap={'8px'}>
-                    <Text fontWeight={'600'} fontSize={'18px'}>
-                      ${formatCurrency(totalUsd, 2, 2)}
-                    </Text>
-                    <Text
-                      color={'#808080'}
-                      fontSize={'14px'}
-                      fontWeight={'400'}
-                    >
-                      {totalUsd && totalBitcoinBalanceUsd
-                        ? ((totalUsd / totalBitcoinBalanceUsd) * 100).toFixed(0)
-                        : 0}
-                      %
-                    </Text>
+        {rollupBitcoinBalances && (
+          <Box maxW={'220px'}>
+            <Pie
+              options={options}
+              data={{
+                labels: rollupBitcoinBalances.map((item) => item.title),
+                datasets: [
+                  {
+                    data: rollupBitcoinBalances.map((item) => item.amountUsd),
+                    backgroundColor: rollupBitcoinBalances.map(
+                      (item) => item.color,
+                    ),
+                  },
+                ],
+              }}
+            />
+          </Box>
+        )}
+        <Grid
+          w="100%"
+          gridTemplateColumns={{
+            base: 'repeat(auto-fill, 160px)',
+          }}
+          columnGap={{ base: '16px', lg: '32px' }}
+          rowGap={'16px'}
+          p={{ base: '12px', lg: '24px' }}
+          borderRadius={'12px'}
+          className={s.shadow}
+        >
+          {rollupBitcoinBalances &&
+            rollupBitcoinBalances.map((detail) => {
+              const totalUsd = detail.amountUsd;
+              return (
+                <Flex direction={'row'} alignItems={'center'} gap={'12px'}>
+                  <Flex direction={'column'}>
+                    <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
+                      <Box
+                        w={'12px'}
+                        h={'12px'}
+                        borderRadius={'50%'}
+                        bg={detail.color}
+                      />
+                      <Text fontWeight={'400'} color={'#808080'}>
+                        {detail.title}
+                      </Text>
+                    </Flex>
+                    <Flex direction={'row'} alignItems={'center'} gap={'8px'}>
+                      <Text fontWeight={'600'} fontSize={'18px'}>
+                        ${formatCurrency(totalUsd, 2, 2)}
+                      </Text>
+                      <Text
+                        color={'#808080'}
+                        fontSize={'14px'}
+                        fontWeight={'400'}
+                      >
+                        {totalUsd && totalBitcoinBalanceUsd
+                          ? ((totalUsd / totalBitcoinBalanceUsd) * 100).toFixed(
+                              0,
+                            )
+                          : 0}
+                        %
+                      </Text>
+                    </Flex>
                   </Flex>
                 </Flex>
-              </Flex>
-            );
-          })}
-      </Grid>
+              );
+            })}
+        </Grid>
+      </Flex>
     );
   };
 

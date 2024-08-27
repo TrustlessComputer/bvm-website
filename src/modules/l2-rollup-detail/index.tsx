@@ -84,7 +84,10 @@ const L2RollupDetail = () => {
             <Image w={'24px'} src={'/heartbeat/ic-back.svg'} />
             <Text>Bitcoin Heartbeat Project</Text>
           </Flex>
-          <SearchAddress className={s.search} />
+          <SearchAddress
+            className={s.search}
+            placeholder={'Search bitcoin or L2 Bitcoin address'}
+          />
         </Flex>
 
         <Flex
