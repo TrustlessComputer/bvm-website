@@ -29,5 +29,5 @@ export enum DappType {
   token_generation = 'token_generation',
   airdrop = 'airdrop',
   yologame = 'yologame',
-  white_paper = 'yologame',
+  white_paper = 'white_paper',
 }

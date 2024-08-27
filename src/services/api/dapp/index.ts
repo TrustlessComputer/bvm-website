@@ -109,7 +109,7 @@ class CDappAPI {
           DappType.staking,
           DappType.airdrop,
           DappType.yologame,
-          DappType.yologame,
+          DappType.white_paper,
         ].map((app) =>
           this.getDappConfig({
             appName: app,
@@ -131,13 +131,6 @@ class CDappAPI {
         await this.getDappConfigs({ dappURL: chain.dappURL }),
         await this.getAppInfoList({ dappURL: chain.dappURL }),
       ]);
-
-      const whitePaper = configs[configs.length - 1];
-      whitePaper.id = 'white_paper';
-      whitePaper.key = 'white_paper';
-      whitePaper.title = 'White Paper';
-      configs[configs.length - 1] = whitePaper;
-      console.log('DUNG: configs', configs);
 
       this.dispatch(setConfigs(configs));
       this.dispatch(setDappConfigs(dappConfigs));
