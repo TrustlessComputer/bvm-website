@@ -1,4 +1,4 @@
-import { reduce } from "lodash";
+import { reduce } from 'lodash';
 
 export const composeValidators =
   (...validators: any[]) =>
@@ -6,11 +6,17 @@ export const composeValidators =
     reduce(
       validators,
       (error, validator) => error || validator(value, values, props),
-      undefined
+      undefined,
     );
 
-export const required = (value: unknown) => (value ? undefined : "Required");
+export const required = (value: unknown) => (value ? undefined : 'Required');
 
 export const containsOnlySpaces = (str: string) => {
   return str.trim().length === 0;
+};
+
+export const isValidBTCTxHash = (txHash: string) => {
+  // Check if txHash is a 64-character hexadecimal string
+  const regex = /^[0-9a-fA-F]{64}$/;
+  return regex.test(txHash);
 };
