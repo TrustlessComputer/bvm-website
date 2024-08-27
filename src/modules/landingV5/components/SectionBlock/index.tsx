@@ -44,7 +44,9 @@ const SectionBlock = (props: any) => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
+    swipeToSlide: true,
     arrows: false,
+    swipe: true,
   };
 
   const scrollWrapperRef = React.useRef<HTMLDivElement>(null);
@@ -119,8 +121,10 @@ const SectionBlock = (props: any) => {
       { root: scrollWrapperRef.current, threshold: 1 },
     );
 
-    if (sliderRef.current) {
-      observer.observe((sliderRef.current as any).children[0]);
+    const firstItem = document.getElementById(`${id}-0`);
+
+    if (firstItem) {
+      observer.observe(firstItem);
     }
   }, []);
 
@@ -136,11 +140,18 @@ const SectionBlock = (props: any) => {
       { root: scrollWrapperRef.current, threshold: 1 },
     );
 
-    if (sliderRef.current) {
-      observer.observe(
-        (sliderRef.current as any).children[item.length - 1] as HTMLElement,
-      );
+    // last item of the list
+    const lastItem = document.getElementById(`${id}-${item.length - 1}`);
+
+    if (lastItem) {
+      observer.observe(lastItem);
     }
+
+    // if (sliderRef.current) {
+    //   observer.observe(
+    //     (sliderRef.current as any).children[item.length - 1] as HTMLElement,
+    //   );
+    // }
   }, []);
 
   return (

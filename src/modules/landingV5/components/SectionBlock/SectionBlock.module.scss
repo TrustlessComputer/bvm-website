@@ -82,10 +82,10 @@ $text-max-width: 85ch;
     }
 
     .scroll_wrapper {
-        scroll-snap-type: x mandatory;
-        scroll-padding: 50%;
-        overflow-x: auto;
-        overflow-y: hidden;
+        // scroll-snap-type: x mandatory;
+        // scroll-padding: 50%;
+        // overflow-x: auto;
+        // overflow-y: hidden;
 
         & {
             -ms-overflow-style: none;
