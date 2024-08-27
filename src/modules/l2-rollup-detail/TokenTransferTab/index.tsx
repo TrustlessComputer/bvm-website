@@ -115,8 +115,8 @@ const TokenTransferTab = (props: IProps) => {
   const columns: ColumnProp[] = useMemo(() => {
     return [
       {
-        id: 'tx',
-        label: 'Transaction',
+        id: 'chain',
+        label: 'Chain',
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -135,9 +135,7 @@ const TokenTransferTab = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                window.open(
-                  `${data.chain?.explorer}/tx/${data.transaction_hash}`,
-                );
+                window.open(`${data.chain?.explorer}`);
               }}
             >
               <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
@@ -147,6 +145,38 @@ const TokenTransferTab = (props: IProps) => {
                   borderRadius={'50%'}
                   src={data.chain?.icon}
                 />
+                <Text className={s.title}>{data.chain?.name}</Text>
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'tx',
+        label: 'Transaction',
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ITokenTransfer) {
+          return (
+            <Flex
+              direction={'column'}
+              cursor="pointer"
+              _hover={{
+                textDecoration: 'underline',
+              }}
+              onClick={() => {
+                window.open(
+                  `${data.chain?.explorer}/tx/${data.transaction_hash}`,
+                );
+              }}
+            >
+              <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
                 <Text className={s.title}>
                   {shortCryptoAddress(data.transaction_hash)}
                 </Text>

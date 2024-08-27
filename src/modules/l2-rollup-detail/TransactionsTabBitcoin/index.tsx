@@ -31,6 +31,8 @@ const TransactionsTabBitcoin = (props: IProps) => {
   const [refreshing, setRefreshing] = useState(false);
 
   const refInitial = useRef(false);
+  const isLoaded = useRef(false);
+
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
     page: 1,
@@ -49,9 +51,9 @@ const TransactionsTabBitcoin = (props: IProps) => {
 
   const fetchData = async (isNew?: boolean) => {
     try {
-      setIsFetching(true);
-
       if (isNew) {
+        setIsFetching(true);
+
         setList([]);
         refParams.current = {
           ...refParams.current,
@@ -70,8 +72,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
           type: balanceType,
           ...refParams.current,
         })) as any;
-
-        setList([...list, ...res]);
+        if (res && res?.length > 0) setList([...list, ...res]);
       }
     } catch (error) {
     } finally {

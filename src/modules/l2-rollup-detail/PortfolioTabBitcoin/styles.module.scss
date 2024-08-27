@@ -25,6 +25,13 @@
   border-radius: 12px;
 }
 
+.iframe {
+  background: lightgray;
+  * img {
+    width: 196px !important;
+  }
+}
+
 table {
   &.tableContainer {
     overflow-x: hidden;

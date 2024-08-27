@@ -116,8 +116,8 @@ const TransactionsTab = (props: IProps) => {
   const columns: ColumnProp[] = useMemo(() => {
     return [
       {
-        id: 'tx',
-        label: 'Transaction',
+        id: 'chain',
+        label: 'Chain',
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -136,7 +136,7 @@ const TransactionsTab = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                window.open(`${data.chain?.explorer}/tx/${data.hash}`);
+                window.open(`${data.chain?.explorer}`);
               }}
             >
               <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
@@ -146,6 +146,36 @@ const TransactionsTab = (props: IProps) => {
                   borderRadius={'50%'}
                   src={data.chain?.icon}
                 />
+                <Text className={s.title}>{data.chain?.name}</Text>
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'tx',
+        label: 'Transaction',
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ITransaction) {
+          return (
+            <Flex
+              direction={'column'}
+              cursor="pointer"
+              _hover={{
+                textDecoration: 'underline',
+              }}
+              onClick={() => {
+                window.open(`${data.chain?.explorer}/tx/${data.hash}`);
+              }}
+            >
+              <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
                 <Text className={s.title}>{shortCryptoAddress(data.hash)}</Text>
               </Flex>
             </Flex>

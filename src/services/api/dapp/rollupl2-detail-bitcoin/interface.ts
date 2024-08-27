@@ -38,6 +38,7 @@ export interface IBalanceBitcoin {
   inscription_number: string;
   token_price: number;
   image_url?: string;
+  content_type?: string;
 }
 
 export interface IBalanceBitcoinInfo {
