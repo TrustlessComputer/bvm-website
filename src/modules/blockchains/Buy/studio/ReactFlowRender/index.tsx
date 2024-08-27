@@ -77,7 +77,7 @@ const ReactFlowRenderer = React.memo(() => {
       }
       setLoaded(true);
     }
-  }, [haveOldData, categories, loaded, rfInstance, isFirstLoadTemplateBox, searchParamm]);
+  }, [haveOldData, categories, loaded, rfInstance, isFirstLoadTemplateBox]);
 
   return (
     <>

@@ -1,18 +1,13 @@
 .wrapper {
     border-radius: 32px;
     padding-top: 20px;
-    width: 400px;
+    width: 340px;
     align-self: stretch;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
     overflow: hidden;
-
-    &:not(.popular) {
-        margin-top: 40px;
-        margin-bottom: 18px;
-    }
 
     @include is-mobile {
         width: 300px;
@@ -23,7 +18,7 @@
         transition: all .4s ease-in-out;
 
         .thumbnail {
-            transform: scale(1.1);
+            // transform: scale(1.1);
         }
     }
 
@@ -34,7 +29,6 @@
         display: flex;
         flex-direction: column;
         gap: 8px;
-        width: 100%;
 
         .title {
             color: #FFF;
@@ -45,7 +39,6 @@
             line-height: 120%;
             /* 16.8px */
             text-transform: uppercase;
-
         }
 
         .desc {
@@ -63,17 +56,24 @@
             align-items: center;
             gap: 8px;
 
+            .tag {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+            }
+
             p {
                 color: #FFF;
                 font-family: "SF Pro Display";
                 font-size: 14px;
                 font-style: normal;
-                font-weight: 500;
-                line-height: 120%;
+                font-weight: 600;
+                line-height: 150%;
                 /* 21px */
-                // border-radius: 100px;
-                // background: rgba(255, 255, 255, 0.30);
-                // padding: 4px 12px;
+                border-radius: 100px;
+                background: rgba(255, 255, 255, 0.30);
+                padding: 4px 12px;
             }
         }
     }
@@ -89,34 +89,6 @@
         //     object-fit: cover;
         // }
 
-    }
-
-    &.popular {
-        padding-top: 0;
-        border: 4px #FFF solid;
-        border-top: 0;
-        background-color: #fff;
-
-
-
-        .popular_tag {
-            border-radius: 32px 32px 0px 0px;
-            color: #000;
-            text-align: center;
-            font-family: "SF Pro Display";
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 120%;
-
-            /* 19.2px */
-            text-transform: uppercase;
-            height: 40px;
-            display: grid;
-            place-items: center;
-
-
-        }
     }
 
 }

@@ -122,13 +122,13 @@ const SectionBlock = (props: any) => {
   return (
     <Box>
       <div className={s.wrapper}>
-        <div className={s.heading}>
+        <Box w={{ base: '80%', md: '100%' }} className={s.heading}>
           <Box>
             {!!tag && <span className={s.tag}>{tag}</span>}
             {!!title && <span className={s.title}>{title}</span>}
           </Box>
           <p className={s.desc}>{desc}</p>
-        </div>
+        </Box>
         <div className={s.scroll_wrapper} ref={scrollWrapperRef}>
           <Box
             className={cn(s.items_wrapper, {
@@ -143,6 +143,7 @@ const SectionBlock = (props: any) => {
                   <SectionItemApp
                     key={`${props.id}-${index}`}
                     item={item as BlockCardItem}
+                    sectionId={props.id}
                   />
                 );
               }
