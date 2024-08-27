@@ -43,7 +43,7 @@ export default function ExploreModule(): React.JSX.Element {
         <p className={s.heading}>
           <Chars delayEnter={0.5}>Welcome to the future of Bitcoin!</Chars>
         </p>
-        <Text className={s.description} mt="12px">
+        <Text className={s.description} mt="12px" mb="80px">
           Discover how BVM is unlocking Bitcoin's potential far beyond just
           being a currency.
         </Text>
