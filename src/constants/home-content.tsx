@@ -39,7 +39,7 @@ export const STEP_1_SECTION = {
   tag: '',
   title: (
     <p>
-      Build a <span>Bitcoin chain</span>
+      Launch your own <span>Bitcoin chain with BVM Studio.</span>
     </p>
   ),
   desc: (
@@ -47,41 +47,44 @@ export const STEP_1_SECTION = {
       {' '}
       <p>
         Bitcoin chains extend Bitcoin’s capabilities without changing Bitcoin.
-        Drag, drop, and deploy with BVM Studio. No coding expertise required —
-        just your big idea.
+        BVM offers the broadest range of scaling solutions — including ZK,
+        Optimistic, and Sovereign rollups. Whether you’re migrating dapps from
+        Ethereum to Bitcoin or creating something entirely new, BVM Studio
+        simplifies and accelerates the process, making it cost-effective to
+        bring your ideas to Bitcoin.
       </p>
     </>
   ),
   item: [
-    {
-      title: 'DAPP',
-      description: 'Deploy your dapp on an existing Bitcoin chain.',
-      homeImage: '/landing-v5/home-dapp.png',
+    // {
+    //   title: 'DAPP',
+    //   description: 'Deploy your dapp on an existing Bitcoin chain.',
+    //   homeImage: '/landing-v5/home-dapp.png',
 
-      bgColor:
-        'linear-gradient(227deg, #C488E0 -7.83%, #B93ECC 21.47%, #8E28A8 69.37%, #DF93EB 118.41%)',
-      link: {
-        url: 'https://docs.bvm.network/bvm/getting-started/deploy-your-own-bitcoin-dapp',
-        target: '_blank',
-      },
-      tags: ['Free'],
-    },
+    //   bgColor:
+    //     'linear-gradient(227deg, #C488E0 -7.83%, #B93ECC 21.47%, #8E28A8 69.37%, #DF93EB 118.41%)',
+    //   link: {
+    //     url: 'https://docs.bvm.network/bvm/getting-started/deploy-your-own-bitcoin-dapp',
+    //     target: '_blank',
+    //   },
+    //   tags: ['Free'],
+    // },
     {
       title: 'ZK ROLLUP Hybrid',
-      description: 'Bitcoin L2 with ZK and Hybrid DA',
-      homeImage: '/landing-v5/home-zk-hybrid.png',
+      description: 'Bitcoin L2 with Hybrid DA.',
+      homeImage: '/landing-v5/home-zk-hybrid-2.png',
       bgColor: 'linear-gradient(180deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
       link: {
         url: '/studio?template=1',
         target: '_blank',
       },
-      popular: true,
+      // popular: true,
       tags: ['$39/day'],
     },
     {
       title: 'ZK RollUp',
-      description: 'Bitcoin L2 with ZK and 100% Bitcoin DA',
-      homeImage: '/landing-v5/home-zk-2.png',
+      description: 'Bitcoin L2 with 100% Bitcoin DA.',
+      homeImage: '/landing-v5/home-zk-4.png',
 
       bgColor:
         'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
@@ -106,9 +109,8 @@ export const STEP_1_SECTION = {
     // },
     {
       title: 'MEtaProtocol',
-      description:
-        'Bitcoin L1 smart contract metaprotocol with 100% Bitcoin DA',
-      homeImage: '/landing-v5/home-metaprotocol-1.png',
+      description: 'Bitcoin L1 scaling solution.',
+      homeImage: '/landing-v5/home-metaprotocol-2.png',
 
       bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%)',
       link: {
@@ -119,8 +121,8 @@ export const STEP_1_SECTION = {
     },
     {
       title: 'Optimistic Rollup Hybrid',
-      description: 'Bitcoin L2 with Optimistic scaling and Hybrid DA',
-      homeImage: '/landing-v5/home-op-1.png',
+      description: 'Bitcoin L2 powered by OP Stack.',
+      homeImage: '/landing-v5/home-op-3.png',
 
       bgColor:
         'linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
@@ -165,10 +167,10 @@ export const STEP_2_SECTION = {
   tag: '',
   title: (
     <p>
-      Jumpstart with <span>ready-made dapps</span>
+      <span>Jumpstart your Bitcoin chain</span> with ready-made apps.
     </p>
   ),
-  desc: 'Start immediately with pre-installed apps or add new ones from BVM Studio. Drag, drop, and boost engagement, TVL, and more.',
+  desc: 'Get up and running instantly with pre-installed apps or easily add new ones from BVM Studio. Simply drag, drop, and enhance engagement, TVL, and more—no coding required.',
   item: [
     {
       title: 'Token Issuance',
