@@ -21,7 +21,7 @@ const compareString = (a: unknown, b: unknown) => {
 };
 
 export const labelAmountOrNumberAdds = (amount: number | string) => {
-  return Number(amount) !== 1 ? 's' : '';
+  return Number(amount) > 1 ? 's' : '';
 };
 
 const formatAddressCenter = (address: string, length = 4): string => {

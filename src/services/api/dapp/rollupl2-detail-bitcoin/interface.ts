@@ -66,3 +66,27 @@ export interface IBitcoinTokenTransaction {
   inscription_number: string;
   output_index: string;
 }
+
+export interface ITxBTC {
+  tx_id: string;
+  height: string;
+  transaction_time: number;
+  amount: string;
+  transaction_symbol: string;
+  txfee: string;
+  index: string;
+  confirm: string;
+  input_details: ITxBTCPutDetail[];
+  output_details: ITxBTCPutDetail[];
+  state: string;
+  total_transaction_size: string;
+  virtual_size: string;
+  weight: string;
+  token_transfer: any[];
+}
+
+export interface ITxBTCPutDetail {
+  output_hash: string;
+  is_contract: boolean;
+  amount: string;
+}

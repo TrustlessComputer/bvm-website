@@ -33,6 +33,7 @@ import TokenTransferTab from './TokenTransferTab';
 import TransactionsTab from './TransactionsTab';
 import TransactionsTabBitcoin from './TransactionsTabBitcoin';
 import NFTTab from './NFTTab';
+import TxBTCExplorer from './TxBTCExplorer';
 
 const L2RollupDetail = () => {
   const router = useRouter();
@@ -43,6 +44,7 @@ const L2RollupDetail = () => {
     isBTCAddress,
     totalBalanceUsd,
     totalBitcoinBalanceUsd,
+    isBTCTxAddress,
   } = useContext(L2RollupDetailContext);
 
   if (!isValidAddress) {
@@ -63,28 +65,12 @@ const L2RollupDetail = () => {
     );
   }
 
-  return (
-    <Box className={s.container}>
-      <Flex direction={'column'} w="100%" maxW={'1140px'}>
-        <Flex
-          direction={{ base: 'column', md: 'row' }}
-          alignItems={{ base: 'flex-start', md: 'center' }}
-          justifyContent={'space-between'}
-          gap={{ base: '16px', md: '8px' }}
-        >
-          <Flex
-            className={s.backBtn}
-            direction={{ base: 'row' }}
-            alignItems={'center'}
-            gap={'8px'}
-            onClick={() => router.push(HEART_BEAT)}
-          >
-            <Image w={'24px'} src={'/heartbeat/ic-back.svg'} />
-            <Text>Bitcoin Heartbeat Project</Text>
-          </Flex>
-          <SearchAddress className={s.search} />
-        </Flex>
-
+  const renderContent = () => {
+    if (isBTCTxAddress) {
+      return <TxBTCExplorer />;
+    }
+    return (
+      <>
         <Flex
           mt={{ base: '28px', md: '36px' }}
           gap={{ base: '16px', md: '20px' }}
@@ -169,6 +155,32 @@ const L2RollupDetail = () => {
             </>
           )}
         </Tabs>
+      </>
+    );
+  };
+
+  return (
+    <Box className={s.container}>
+      <Flex direction={'column'} w="100%" maxW={'1140px'}>
+        <Flex
+          direction={{ base: 'column', md: 'row' }}
+          alignItems={{ base: 'flex-start', md: 'center' }}
+          justifyContent={'space-between'}
+          gap={{ base: '16px', md: '8px' }}
+        >
+          <Flex
+            className={s.backBtn}
+            direction={{ base: 'row' }}
+            alignItems={'center'}
+            gap={'8px'}
+            onClick={() => router.push(HEART_BEAT)}
+          >
+            <Image w={'24px'} src={'/heartbeat/ic-back.svg'} />
+            <Text>Bitcoin Heartbeat Project</Text>
+          </Flex>
+          <SearchAddress className={s.search} />
+        </Flex>
+        {renderContent()}
       </Flex>
     </Box>
   );

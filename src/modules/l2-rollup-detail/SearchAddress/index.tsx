@@ -13,6 +13,7 @@ import cs from 'classnames';
 import { useRouter } from 'next/navigation';
 import React, { useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
+import { isValidBTCTxHash } from '@/utils/form-validate';
 
 type ISearchBarProps = {
   className?: string;
@@ -62,7 +63,9 @@ const SearchAddress = (props: ISearchAddressProps) => {
 
   const isValidSearchAddress = useMemo(
     () =>
-      validateEVMAddress(searchAddress) || validateBTCAddress(searchAddress),
+      validateEVMAddress(searchAddress) ||
+      validateBTCAddress(searchAddress) ||
+      isValidBTCTxHash(searchAddress),
     [searchAddress],
   );
 

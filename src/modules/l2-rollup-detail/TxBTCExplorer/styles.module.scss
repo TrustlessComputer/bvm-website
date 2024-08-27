@@ -1,0 +1,21 @@
+.topHeader {
+  .title {
+    font-size: 30px;
+    line-height: 30px;
+  }
+  .txHash {
+    font-size: 14px;
+    color: #187cff;
+    line-height: 14px;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .tagConfirm {
+    color: #fff;
+    background-color: #1a9436;
+    border-color: #1a9436;
+    padding: 8px 12px;
+  }
+}

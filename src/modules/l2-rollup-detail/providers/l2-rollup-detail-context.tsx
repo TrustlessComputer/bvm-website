@@ -12,6 +12,7 @@ import {
   ITokenChain,
   RollupTokenRate,
 } from '@/services/api/dapp/rollupl2-detail/interface';
+import { isValidBTCTxHash } from '@/utils/form-validate';
 import { validateBTCAddress } from '@/utils/format';
 import { validateEVMAddress } from '@/utils/validate';
 import BigNumber from 'bignumber.js';
@@ -22,6 +23,7 @@ export interface IL2RollupDetailContext {
   address: string;
   isValidAddress: boolean;
   isBTCAddress: boolean;
+  isBTCTxAddress: boolean;
   totalBalanceUsd: number;
   rollupDetails: IRollupDetail[];
   rollupBalances: ITokenChain[];
@@ -35,6 +37,7 @@ const initialValue: IL2RollupDetailContext = {
   address: '',
   isValidAddress: false,
   isBTCAddress: false,
+  isBTCTxAddress: false,
   totalBalanceUsd: 0,
   rollupDetails: [],
   rollupBalances: [],
@@ -59,10 +62,11 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
 
   const isEVMAddress = useMemo(() => validateEVMAddress(address), [address]);
   const isBTCAddress = useMemo(() => validateBTCAddress(address), [address]);
+  const isBTCTxAddress = useMemo(() => isValidBTCTxHash(address), [address]);
 
   const isValidAddress = useMemo(
-    () => isEVMAddress || isBTCAddress,
-    [isEVMAddress, isBTCAddress],
+    () => isEVMAddress || isBTCAddress || isBTCTxAddress,
+    [isEVMAddress, isBTCAddress, isBTCTxAddress],
   );
 
   const [rollupTokensRate, setRollupTokensRate] = useState<RollupTokenRate>();
@@ -226,6 +230,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
       rollupTokensRate,
       totalBitcoinBalanceUsd,
       rollupBitcoinBalances,
+      isBTCTxAddress,
     };
   }, [
     address,
@@ -237,6 +242,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     rollupTokensRate,
     totalBitcoinBalanceUsd,
     rollupBitcoinBalances,
+    isBTCTxAddress,
   ]);
 
   return (
