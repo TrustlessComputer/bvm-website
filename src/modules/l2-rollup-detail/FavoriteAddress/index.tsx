@@ -1,13 +1,12 @@
 import { showError, showSuccess } from '@/components/toast';
-import { HEART_BEAT_WATCHLIST } from '@/constants/route-path';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import CRollupL2DetailAPI from '@/services/api/dapp/rollupl2-detail';
+import { requestReload } from '@/stores/states/common/reducer';
 import { getErrorMessage } from '@/utils/errorV2';
 import { Flex, Spinner, Tooltip } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import s from './styles.module.scss';
 import { useDispatch } from 'react-redux';
-import { requestReload } from '@/stores/states/common/reducer';
+import s from './styles.module.scss';
 
 const ButtonFavorite = ({ address }: { address: string }) => {
   const rollupApi = new CRollupL2DetailAPI();
@@ -46,16 +45,12 @@ const ButtonFavorite = ({ address }: { address: string }) => {
         setIsFavorite((v) => !v);
         showSuccess({
           message: `Added ${address} to WatchList successfully.`,
-          linkText: `Go to WatchList`,
-          url: HEART_BEAT_WATCHLIST,
         });
       } else {
         await rollupApi.addToWatchList(address);
         setIsFavorite((v) => !v);
         showSuccess({
           message: `Removed ${address} from WatchList successfully.`,
-          linkText: `Go to WatchList`,
-          url: HEART_BEAT_WATCHLIST,
         });
       }
     } catch (error) {
