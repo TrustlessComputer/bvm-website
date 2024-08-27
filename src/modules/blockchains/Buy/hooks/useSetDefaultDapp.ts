@@ -115,6 +115,9 @@ const useSetDefaultDapp = () => {
         targetHandle: `${newNodeId}-t-${rootNode}`,
         type: 'customEdge',
         label: '',
+        selectable: false,
+        selected: false,
+        focusable: false,
         markerEnd: {
           type: MarkerType.Arrow,
           width: 25,
@@ -122,6 +125,7 @@ const useSetDefaultDapp = () => {
           strokeWidth: 1,
           color: '#AAAAAA',
         },
+        animated: true,
         style: {
           stroke: '#AAAAAA',
           strokeWidth: 2,

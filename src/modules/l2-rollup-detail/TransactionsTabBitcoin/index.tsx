@@ -24,7 +24,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
   const [refreshing, setRefreshing] = useState(false);
 
   const refInitial = useRef(false);
-
+  const endOfPaging = useRef(false);
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
     page: 1,
@@ -45,6 +45,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
     try {
       if (isNew) {
         setIsFetching(true);
+        endOfPaging.current = false;
 
         setList([]);
         refParams.current = {
@@ -59,12 +60,18 @@ const TransactionsTabBitcoin = (props: IProps) => {
 
         setList(res);
       } else {
+        if (endOfPaging.current) return;
+        setIsFetching(true);
         const res = (await rollupApi.getRollupL2BitcoinTokenTransactions({
           user_address: address,
           type: 'bitcoin',
           ...refParams.current,
         })) as any;
-        if (res && res?.length > 0) setList([...list, ...res]);
+        if (res && res?.length > 0) {
+          setList([...list, ...res]);
+        } else {
+          endOfPaging.current = true;
+        }
       }
     } catch (error) {
     } finally {

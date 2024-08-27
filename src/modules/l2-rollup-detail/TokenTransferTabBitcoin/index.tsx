@@ -36,6 +36,7 @@ const TokenTransferTabBitcoin = (props: IProps) => {
     page: 1,
     limit: 20,
   });
+  const endOfPaging = useRef(false);
 
   useEffect(() => {
     refParams.current = {
@@ -51,6 +52,7 @@ const TokenTransferTabBitcoin = (props: IProps) => {
     try {
       if (isNew) {
         setIsFetching(true);
+        endOfPaging.current = false;
 
         setList([]);
         refParams.current = {
@@ -65,12 +67,18 @@ const TokenTransferTabBitcoin = (props: IProps) => {
 
         setList(res);
       } else {
+        if (endOfPaging.current) return;
+        setIsFetching(true);
         const res = (await rollupApi.getRollupL2BitcoinTokenTransactions({
           user_address: address,
           type: balanceType,
           ...refParams.current,
         })) as any;
-        if (res && res?.length > 0) setList([...list, ...res]);
+        if (res && res?.length > 0) {
+          setList([...list, ...res]);
+        } else {
+          endOfPaging.current = true;
+        }
       }
     } catch (error) {
     } finally {
@@ -322,7 +330,7 @@ const TokenTransferTabBitcoin = (props: IProps) => {
           </Box>
         ))}
       </Flex>
-      <Box className={`${s.container}`} h="60vh">
+      <Box className={`${s.container} ${s.shadow}`} h="60vh">
         <ScrollWrapper
           onFetch={() => {
             refParams.current = {

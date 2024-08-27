@@ -31,7 +31,6 @@ import { DotLottiePlayer } from '@dotlottie/react-player';
 import { orderBy } from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import SearchAddress from '../l2-rollup-detail/SearchAddress';
 import BitcoinRentModal from './BitcoinRentModal';
 import L2RollupFee from './fees';
 import s from './styles.module.scss';
@@ -926,7 +925,7 @@ const L2Rollup = () => {
   return (
     <Box className={s.container}>
       <Flex direction={'column'} w="100%" maxW={'1800px'} alignItems={'center'}>
-        <Flex alignItems="center" gap="6px" my={'12px'}>
+        {/* <Flex alignItems="center" gap="6px" my={'12px'}>
           <Text fontSize={'20px'}>Project Bitcoin Heartbeats</Text>
           <DotLottiePlayer
             autoplay
@@ -995,16 +994,17 @@ const L2Rollup = () => {
             <Text>Submit your project</Text>
             <Image maxW={'40px'} src={'/heartbeat/ic-submit.svg'} />
           </Flex>
-        </Flex>
+        </Flex> */}
 
         <Flex mb={'48px'}>
           <SearchAddress
             placeholder={'Search bitcoin or L2 Bitcoin address'}
             className={s.search}
+            autoFocus
           />
         </Flex>
 
-        <Box w={'100%'} mb={'32px'}>
+        <Box w={'100%'} mb={'32px'} mt={'48px'}>
           <SimpleGrid columns={3} gap={'16px'}>
             <L2RollupFee
               data={_dataChart.txs}

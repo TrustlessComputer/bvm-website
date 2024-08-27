@@ -34,16 +34,29 @@ const Balances = () => {
         render(data: ITokenChain) {
           return (
             <Flex alignItems={'center'} justifyContent={'space-between'}>
-              <Flex position={'relative'}>
+              <Flex
+                direction={'row'}
+                alignItems={'center'}
+                gap={'12px'}
+                position={'relative'}
+              >
+                <Image
+                  w={'30px'}
+                  h={'30px'}
+                  borderRadius={'50%'}
+                  src={data.icon_url || '/heartbeat/ic-token-default.svg'}
+                  bg={'lightgray'}
+                />
                 <Text className={s.title}>{data.token_name}</Text>
                 <Image
                   position={'absolute'}
-                  right={'-20px'}
-                  top={0}
+                  left={'22px'}
+                  top={'-6px'}
                   w={'16px'}
                   h={'16px'}
                   borderRadius={'50%'}
                   src={data.chain?.icon}
+                  bg={'#fff'}
                 />
               </Flex>
             </Flex>

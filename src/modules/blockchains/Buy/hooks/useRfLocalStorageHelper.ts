@@ -15,8 +15,16 @@ const useRfLocalStorageHelper = () => {
     return false;
   };
 
+  const clearStoreLocalStorage = () => {
+    LocalStorage.removeItem(STORAGE_KEYS.LAST_NODES);
+    LocalStorage.removeItem(STORAGE_KEYS.USE_DRAG_SIGNALS);
+    LocalStorage.removeItem(STORAGE_KEYS.USE_BLOCKCHAIN_FORM);
+    LocalStorage.removeItem(STORAGE_KEYS.USE_SIGNALS_FORM);
+  };
+
   return {
     isExitAANodeInLocal,
+    clearStoreLocalStorage,
   };
 };
 
