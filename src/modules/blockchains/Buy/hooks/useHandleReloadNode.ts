@@ -69,6 +69,8 @@ function useHandleReloadNode() {
   }, []);
 
   useSignalEffect(() => {
+    console.log('isFirstLoadTemplateBox', isFirstLoadTemplateBox);
+    console.log('restoreLocal.value', restoreLocal.value);
     if (!isFirstLoadTemplateBox || !restoreLocal.value) return;
     onSave()
 
