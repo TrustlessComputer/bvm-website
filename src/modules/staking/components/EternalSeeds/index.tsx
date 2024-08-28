@@ -11,107 +11,148 @@ import { nakaAddressSelector } from '@/stores/states/user/selector';
 import CPaymentEAIAPI from '@/services/payment.eai';
 
 const EternalSeeds = () => {
-    const cpaymentEAIAPI = useRef(new CPaymentEAIAPI()).current;
+  const cpaymentEAIAPI = useRef(new CPaymentEAIAPI()).current;
 
-    const address = useAppSelector(nakaAddressSelector)
-    const router = useRouter();
+  const address = useAppSelector(nakaAddressSelector);
+  const router = useRouter();
 
-    const [userContributeInfo, setUserContributeInfo] = useState<ILeaderBoardEAI | undefined>();
+  const [userContributeInfo, setUserContributeInfo] = useState<
+    ILeaderBoardEAI | undefined
+  >();
 
-    useEffect(() => {
-        getUserContributeInfo(address);
-    }, [address])
+  useEffect(() => {
+    getUserContributeInfo(address);
+  }, [address]);
 
-    const getUserContributeInfo = async (address?: string) => {
-        if (!address) return;
-        const { data } = await cpaymentEAIAPI.getPublicSaleLeaderBoards({
-          page: 1,
-          limit: 0,
-        });
+  const getUserContributeInfo = async (address?: string) => {
+    if (!address) return;
+    const { data } = await cpaymentEAIAPI.getPublicSaleLeaderBoards({
+      page: 1,
+      limit: 0,
+    });
 
-        if (data[0]?.need_active) {
-          const contribute = data[0] as ILeaderBoardEAI;
-          setUserContributeInfo(contribute);
-        }
-    };
+    if (data[0]?.need_active) {
+      const contribute = data[0] as ILeaderBoardEAI;
+      setUserContributeInfo(contribute);
+    }
+  };
 
-    const arrayRange = (start: any, stop: any, step: any) =>
-        Array.from(
-        { length: (stop - start) / step + 1 },
-        (_value, index) => start + index * step,
+  const arrayRange = (start: any, stop: any, step: any) =>
+    Array.from(
+      { length: (stop - start) / step + 1 },
+      (_value, index) => start + index * step,
     );
 
-    const ids = useMemo(() => {
-        if (
-        Number(userContributeInfo?.from_eternal_id) === 0 &&
-        Number(userContributeInfo?.to_eternal_id) === 0
-        ) {
-        return [];
-        }
+  const ids = useMemo(() => {
+    if (
+      Number(userContributeInfo?.from_eternal_id) === 0 &&
+      Number(userContributeInfo?.to_eternal_id) === 0
+    ) {
+      return [];
+    }
 
-        return arrayRange(
-            userContributeInfo?.from_eternal_id,
-            userContributeInfo?.to_eternal_id,
-            1,
-        );
-    }, [userContributeInfo]);
+    return arrayRange(
+      userContributeInfo?.from_eternal_id,
+      userContributeInfo?.to_eternal_id,
+      1,
+    );
+  }, [userContributeInfo]);
 
-    if (!userContributeInfo) return <></>;
+  if (!userContributeInfo) return <></>;
 
-    return (
-        <Box width="100%">
-            <p className={styles.boxTitle}><b>Your Eternal Seeds.</b></p>
-            <Flex className={styles.content}>
-                {ids.length > 0
-                    ?
-                    <Flex w="100%" direction={{lg: 'row', base: 'column'}} gap={'16px'} justifyContent="space-between">
-                        <Flex w="100%" mt={'4px'} gap={'16px'} flexWrap={'wrap'}>
-                            {ids.map((i) => {
-                                const attr = getCollectEternalSeedAttr(i);
-                                return (
-                                    <Flex key={i} className={styles.brains}>
-                                        <Flex className={cx(styles.brainType)} style={attr?.style}>
-                                            {attr?.label}
-                                        </Flex>
-                                        <Image pl="12px" pr="12px" maxWidth="100px" alt={`${i}`} src={attr?.icon} />
-                                        <Text fontWeight="700" color="#000">#{i}</Text>
-                                    </Flex>
-                                );
-                            })}
-                        </Flex>
-                        <Flex w="100%" h="fit-content" p="24px 16px" borderRadius="8px" bg="#FFFFFF26" direction={{lg: 'row', base: 'column'}} alignItems={{lg: 'center', base: 'flex-start'}} gap="24px">
-                            <Flex w="100%" direction="column" gap="8px">
-                                <Text fontSize="20px" fontWeight="700">You have {ids.length} seeds.</Text>
-                                <Text fontSize="16px">Contribute{' '}
-                                    <span style={{color: '#10C800', fontWeight: 700}}>
-                                    ${formatCurrency(userContributeInfo?.reach_top_balance, 0, 0)}
-                                    </span>{' '}
-                                    or more to break into the Top 100 and collect some.
-                                </Text>
-                            </Flex>
-                            <Flex direction="row" w="100%" alignItems="center" gap="16px">
-                                <Image w="80px" src="/images/stake/brain-empty.png" />
-                                <Button
-                                    height="50px"
-                                    width="100%"
-                                    fontSize="16px"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    onClick={() => {
-                                        router.push('https://nakachain.xyz/launchpad/detail/2');
-                                    }}
-                                >
-                                    Increase contribution
-                                </Button>
-                            </Flex>
-                        </Flex>
+  return (
+    <Box width="100%">
+      <p className={styles.boxTitle}>
+        <b>Your Eternal Seeds.</b>
+      </p>
+      <Flex className={styles.content}>
+        {ids.length > 0 ? (
+          <Flex
+            w="100%"
+            direction={{ lg: 'row', base: 'column' }}
+            gap={'16px'}
+            justifyContent="space-between"
+          >
+            <Flex w="100%" mt={'4px'} gap={'16px'} flexWrap={'wrap'}>
+              {ids.map((i) => {
+                const attr = getCollectEternalSeedAttr(i);
+                return (
+                  <Flex key={i} className={styles.brains}>
+                    <Flex className={cx(styles.brainType)} style={attr?.style}>
+                      {attr?.label}
                     </Flex>
-                    :
-                    <Flex w="100%" direction={{lg: 'row', base: 'column'}} gap={'16px'} alignItems={{lg: 'center', base: 'flex-start'}} justifyContent="space-between">
-                        <Flex direction="column" gap="8px">
-                            <div className={styles.learnmore}>
-                                1350 historical seeds are rewarded to the top 100 backers proportionately based on their contribution.{' '}
-                                {/* <a target="_blank" href="https://twitter.com/punk3700/status/1772991068289519712">
+                    <Image
+                      pl="12px"
+                      pr="12px"
+                      maxWidth="100px"
+                      alt={`${i}`}
+                      src={attr?.icon}
+                    />
+                    <Text fontWeight="700" color="#000">
+                      #{i}
+                    </Text>
+                  </Flex>
+                );
+              })}
+            </Flex>
+            <Flex
+              w="100%"
+              h="fit-content"
+              p="24px 16px"
+              borderRadius="8px"
+              bg="#FFFFFF26"
+              direction={{ lg: 'row', base: 'column' }}
+              alignItems={{ lg: 'center', base: 'flex-start' }}
+              gap="24px"
+              flex="1"
+            >
+              <Flex w="100%" direction="column" gap="8px">
+                <Text fontSize="20px" fontWeight="700">
+                  You have {ids.length} seeds.
+                </Text>
+                {/* <Text fontSize="16px">
+                  Contribute{' '}
+                  <span style={{ color: '#10C800', fontWeight: 700 }}>
+                    $
+                    {formatCurrency(
+                      userContributeInfo?.reach_top_balance,
+                      0,
+                      0,
+                    )}
+                  </span>{' '}
+                  or more to break into the Top 100 and collect some.
+                </Text> */}
+              </Flex>
+              <Flex direction="row" w="100%" alignItems="center" gap="16px">
+                <Image w="80px" src="/images/stake/brain-empty.png" />
+                <Button
+                  height="50px"
+                  width="100%"
+                  fontSize="16px"
+                  justifyContent="center"
+                  alignItems="center"
+                  onClick={() => {
+                    router.push('https://nakachain.xyz/launchpad/detail/2');
+                  }}
+                >
+                  Increase contribution
+                </Button>
+              </Flex>
+            </Flex>
+          </Flex>
+        ) : (
+          <Flex
+            w="100%"
+            direction={{ lg: 'row', base: 'column' }}
+            gap={'16px'}
+            alignItems={{ lg: 'center', base: 'flex-start' }}
+            justifyContent="space-between"
+          >
+            <Flex direction="column" gap="8px">
+              <div className={styles.learnmore}>
+                1350 historical seeds are rewarded to the top 100 backers
+                proportionately based on their contribution.{' '}
+                {/* <a target="_blank" href="https://twitter.com/punk3700/status/1772991068289519712">
                                     {` Learn more`}
                                     <svg
                                     width="18"
@@ -129,29 +170,49 @@ const EternalSeeds = () => {
                                         />
                                     </svg>
                                 </a> */}
-                            </div>
-                            <div className={styles.learnmore}>
-                                Seeds are the placeholders for deploying AIs on the Eternal AI blockchain later. The lower a seed number is, the more historical value it has. Low seed numbers are desirable.
-                            </div>
-                        </Flex>
-                        
-                        <Flex h="fit-content" p="16px" borderRadius="8px" bg="#FFFFFF26" direction={{lg: 'row', base: 'column'}} alignItems="center" gap={{base: '16px', lg: '30px'}}>
-                            <Flex w="100%" direction="column" gap="10px">
-                                <Text fontSize="20px" fontWeight="700">You have 0 seeds.</Text>
-                                <Text fontSize="16px">Contribute{' '}
-                                    <span style={{color: '#10C800', fontWeight: 700}}>
-                                    ${formatCurrency(userContributeInfo?.reach_top_balance, 0, 0)}
-                                    </span>{' '}
-                                    or more to break into the Top 100 and collect some.
-                                </Text>
-                            </Flex>
-                            <Image h="83px" src="/images/stake/brain-group.png" />
-                        </Flex>
-                    </Flex>
-                }
+              </div>
+              <div className={styles.learnmore}>
+                Seeds are the placeholders for deploying AIs on the Eternal AI
+                blockchain later. The lower a seed number is, the more
+                historical value it has. Low seed numbers are desirable.
+              </div>
             </Flex>
-        </Box>
-    );
+
+            <Flex
+              h="fit-content"
+              p="16px"
+              borderRadius="8px"
+              bg="#FFFFFF26"
+              direction={{ lg: 'row', base: 'column' }}
+              alignItems="center"
+              flex="1"
+              flex="1"
+              gap={{ base: '16px', lg: '30px' }}
+            >
+              <Flex w="100%" direction="column" gap="10px">
+                <Text fontSize="20px" fontWeight="700">
+                  You have 0 seeds.
+                </Text>
+                {/* <Text fontSize="16px">
+                  Contribute{' '}
+                  <span style={{ color: '#10C800', fontWeight: 700 }}>
+                    $
+                    {formatCurrency(
+                      userContributeInfo?.reach_top_balance,
+                      0,
+                      0,
+                    )}
+                  </span>{' '}
+                  or more to break into the Top 100 and collect some.
+                </Text> */}
+              </Flex>
+              <Image h="83px" src="/images/stake/brain-group.png" />
+            </Flex>
+          </Flex>
+        )}
+      </Flex>
+    </Box>
+  );
 };
 
 export default EternalSeeds;

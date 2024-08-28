@@ -69,7 +69,8 @@ function useHandleReloadNode() {
   }, [searchParamm]);
 
   useSignalEffect(() => {
-    if (!isFirstLoadTemplateBox || !restoreLocal.value) return;
+    const restoreLocalSignal = restoreLocal.value;
+    if (!isFirstLoadTemplateBox || !restoreLocalSignal) return;
     onSave();
 
     LocalStorage.setItem(
@@ -84,6 +85,8 @@ function useHandleReloadNode() {
       STORAGE_KEYS.USE_DRAG_SIGNALS,
       JSON.stringify(signals),
     );
+    console.log('runnnn USE_SIGNALS_FORM end');
+
   });
 
   // useSignalEffect(() => {
