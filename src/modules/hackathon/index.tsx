@@ -3,7 +3,7 @@
 import ButtonConnected from '@/components/ButtonConnected/v2';
 import Countdown from '@/components/Countdown';
 import FAQs from '@/components/faq';
-import { CDN_URL } from '@/config';
+import { CDN_URL, isProduction } from '@/config';
 import { LINKS } from '@/constants/external-links';
 import useCountdown from '@/hooks/useCountdown';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
@@ -33,7 +33,9 @@ import CompetitionSection from './CompetitionSection';
 
 type Props = {};
 
-const START_TIME = '2024-08-29T20:00:00+07:00';
+const START_TIME = isProduction
+  ? '2024-08-29T20:00:00+07:00'
+  : '2024-08-27T20:00:00+07:00';
 
 const END_TIME = '2024-08-29T22:00:00+07:00';
 
