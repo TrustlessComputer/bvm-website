@@ -10,7 +10,7 @@ import {
 } from '@/services/api/EternalServices/types';
 import s from './Leaderboard.module.scss';
 import { formatAddressOrName, formatCurrency } from '@/utils/format';
-import { PROBLEM_DATASOURCE } from '../../Problems/ProblemData';
+import { PROBLEM_DATASOURCE } from '../Problems/ProblemData';
 
 type Props = {
   userContest: IUserContest;

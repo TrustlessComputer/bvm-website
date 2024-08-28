@@ -44,12 +44,12 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     fameOuts: [25, 32],
   },
   {
-    title: 'Assemble building blocks into a Bitcoin chain',
+    title: 'Assemble building blocks into a Bitcoin L2',
     subTitle: 'STEP 2',
     children: (
       <div>
         <p>
-          Once you've selected the best building blocks for your rollup,
+          Once you've selected the best building blocks for your Bitcoin L2,
           assemble them into your unique rollup with simple drag-and-drop
           functionality.
         </p>
@@ -64,7 +64,7 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     fameOuts: [48, 62],
   },
   {
-    title: 'Deploy your Bitcoin chain with just a click',
+    title: 'Deploy your Bitcoin L2 with just a click',
     subTitle: 'STEP 3',
     children: (
       <div>
@@ -85,7 +85,7 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     fameOuts: [78, 92],
   },
   {
-    title: 'Extend your Bitcoin chain with more dapps',
+    title: 'Extend your Bitcoin L2 with more dapps',
     subTitle: 'STEP 4',
 
     children: (

@@ -28,4 +28,5 @@ export interface IRollupChart1D {
   fee_usd: string;
   tx_count: number;
   address_actived: number;
+  notes: string;
 }

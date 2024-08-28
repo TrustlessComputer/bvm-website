@@ -41,6 +41,10 @@ export const useChainProvider = () => {
     return !!order;
   }, [order]);
 
+  const isCreateChainFlow = useMemo(() => {
+    return !isUpdateFlow;
+  }, [isUpdateFlow]);
+
   const isChainLoading = useMemo(() => {
     return (
       isUpdateFlow &&
@@ -356,6 +360,11 @@ export const useChainProvider = () => {
     [order?.selectedOptions],
   );
 
+  const isGamingAppsInstalled = useMemo(
+    () => !!order?.selectedOptions?.some((opt) => opt.key === 'gaming_apps'),
+    [order?.selectedOptions],
+  );
+
   const isBridgeInstalled = useMemo(
     () => !!order?.selectedOptions?.some((opt) => opt.key === 'bridge_apps'),
     [order?.selectedOptions],
@@ -364,6 +373,7 @@ export const useChainProvider = () => {
   return {
     ...context,
     isUpdateFlow,
+    isCreateChainFlow,
     isChainLoading,
     isChainNeedAction,
     chainData: order,
@@ -372,6 +382,7 @@ export const useChainProvider = () => {
     isBlockChainReady,
     selectedCategoryMapping,
     isAAInstalled,
+    isGamingAppsInstalled,
     isBridgeInstalled,
     isOwnerChain,
     isInsufficientBalance,
