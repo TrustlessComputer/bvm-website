@@ -138,38 +138,38 @@ const AirdropBox = () => {
           </p>
         ),
       },
-      {
-        src: '/images/stake/stake-swamps.png',
-        title: `You missed the GSWP airdrop. Don't miss out on the next one!`,
-        symbol: 'GSWP',
-        claimingId: claimingId,
-        airdrops: swampAirdrops,
-        totalClaimed:
-          swampAirdrops && swampAirdrops.length > 0
-            ? swampAirdrops
-                .filter((air) => air.status === 'done')
-                .reduce((n, { amount }) => n + Number(amount), 0)
-            : undefined,
-        onClickClaim: onClickClaimSwamp,
-        release: undefined,
-        socials: {
-          website: 'https://www.swamps.fi/',
-          twitter: 'https://twitter.com/swamps_src20',
-          telegram: '',
-          discord: '',
-        },
-        isDone: true,
-        subTitle: 'Swamps',
-        airdropStr: '30,000,000 GSWP',
-        desc: (
-          <p>
-            • Swamps, the first Stamps-based Bitcoin Layer 2<br />
-            • Swamps aim to revolutionize the future for SRC-20 trading and much
-            more
-            <br />
-          </p>
-        ),
-      },
+      // {
+      //   src: '/images/stake/stake-swamps.png',
+      //   title: `You missed the GSWP airdrop. Don't miss out on the next one!`,
+      //   symbol: 'GSWP',
+      //   claimingId: claimingId,
+      //   airdrops: swampAirdrops,
+      //   totalClaimed:
+      //     swampAirdrops && swampAirdrops.length > 0
+      //       ? swampAirdrops
+      //           .filter((air) => air.status === 'done')
+      //           .reduce((n, { amount }) => n + Number(amount), 0)
+      //       : undefined,
+      //   onClickClaim: onClickClaimSwamp,
+      //   release: undefined,
+      //   socials: {
+      //     website: 'https://www.swamps.fi/',
+      //     twitter: 'https://twitter.com/swamps_src20',
+      //     telegram: '',
+      //     discord: '',
+      //   },
+      //   isDone: true,
+      //   subTitle: 'Swamps',
+      //   airdropStr: '30,000,000 GSWP',
+      //   desc: (
+      //     <p>
+      //       • Swamps, the first Stamps-based Bitcoin Layer 2<br />
+      //       • Swamps aim to revolutionize the future for SRC-20 trading and much
+      //       more
+      //       <br />
+      //     </p>
+      //   ),
+      // },
       {
         src: '/images/stake/gif-comming.png',
         title:

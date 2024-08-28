@@ -26,7 +26,8 @@ const StakingUser = () => {
       headerProps={{
         color: 'white',
         colorLogo: 'white',
-        bgColor: 'black'
+        bgColor: 'black',
+        theme: 'black',
       }}
     >
       <Loader />
@@ -35,7 +36,7 @@ const StakingUser = () => {
         {stakeUser?.isHaveTeam ? <TeamPoints /> : <StakeRole />}
         <MiningBox />
         <AirdropBox />
-        <CurrentLaunchpad />
+        {/* <CurrentLaunchpad /> */}
         <EternalSeeds />
       </Box>
     </MainLayout>
