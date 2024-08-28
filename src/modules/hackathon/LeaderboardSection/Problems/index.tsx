@@ -10,10 +10,10 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import ProblemTemplate from './Template';
-import ConnectedWallets from '../ConnectedWallets';
 import SvgInset from '@/components/SvgInset';
 import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 import { PROBLEM_DATASOURCE } from './ProblemData';
+import ConnectedWallets from '../../ConnectedWallets';
 
 const Problems = ({
   isProblemPanelMaximized,
@@ -123,11 +123,7 @@ const Problems = ({
             ))}
           </TabPanels>
         </Tabs>
-        {/* <ConnectedWallets /> */}
       </div>
-      {/* <div className={s.footer}>
-        <SubmitProblem code={tabIndex + 1} />
-      </div> */}
     </div>
   );
 };

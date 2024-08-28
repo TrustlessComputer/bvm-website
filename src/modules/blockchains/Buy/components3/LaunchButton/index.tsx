@@ -46,6 +46,7 @@ import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
 import useSubmitYoloGame from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitYoloGame';
+import useSubmitWalletType from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitWalletType';
 import { useComputerNameInputStore } from '../ComputerNameInput/ComputerNameInputStore';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
@@ -127,6 +128,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { onSubmitAirdrop } = useSubmitFormAirdrop();
   const { onSubmitTokenGeneration } = useSubmitFormTokenGeneration();
   const { onSubmitYoloGame } = useSubmitYoloGame();
+  const { onSubmit: onSubmitWalletType } = useSubmitWalletType();
 
   const { chainName } = useOrderFormStore();
   const searchParams = useSearchParams();
@@ -367,6 +369,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       dappKey: DappType.token_generation,
     });
 
+    const walletTypeForms = retrieveFormsByDappKey({
+      dappKey: DappType.walletType,
+    });
+
     console.log('[LaunchButton] - onUpdateHandler', {
       params,
       stakingForms,
@@ -377,6 +383,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       tokensNodePositions,
       yoloGameForms,
       yoloNodePositions,
+      walletTypeForms
     });
 
     // console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
@@ -419,6 +426,14 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           await onSubmitTokenGeneration({
             forms: tokensForms,
             positions: tokensNodePositions,
+          });
+          isConfigDapp = true;
+        }
+
+
+        if (walletTypeForms && walletTypeForms.length > 0) {
+          await onSubmitWalletType({
+            forms: walletTypeForms,
           });
           isConfigDapp = true;
         }

@@ -5,10 +5,19 @@ import CDappApiClient from '@/services/api/dapp/dapp.client';
 import { AppCode, IAppInfo, IDappConfigs, IReqDapp, ITemplate } from '@/services/api/dapp/types';
 import { templateMapper } from '@/services/api/dapp/utils';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
-import { setAppInfos, setChain, setConfigs, setDappConfigs, setLoading } from '@/stores/states/dapp/reducer';
+import {
+  setAppInfos,
+  setChain,
+  setConfigs,
+  setDappConfigs,
+  setLoading,
+  setWalletType,
+} from '@/stores/states/dapp/reducer';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { capitalizeFirstLetter } from '@web3auth/ui';
+import { compareString } from '@utils/string';
+import { dappMockupData } from '@/modules/blockchains/Buy/mockup_3';
 
 class CDappAPI {
   private dappState = useAppSelector(dappSelector);
@@ -45,6 +54,11 @@ class CDappAPI {
     address: string;
   }) => {
     try {
+
+      if (compareString(params.appName, DappType.walletType)) {
+        return JSON.stringify(dappMockupData.find((item) => item?.key === DappType.walletType) || {});
+      }
+
       const app = (await this.http.get(
         `/apps/detail-by-code/${params.appName}?network_id=${params.network_id}&address=${params.address}`,
       )) as any;
@@ -102,7 +116,6 @@ class CDappAPI {
       // if (isLocalhost()) {
       //   _chain.chainId = '91227';
       // }
-
       this.dispatch(setChain({ ..._chain }));
       const tasks = [
           'create_token',
@@ -110,6 +123,7 @@ class CDappAPI {
           DappType.airdrop,
           DappType.yologame,
           DappType.orderbook,
+          DappType.walletType,
         ].map((app) =>
           this.getDappConfig({
             appName: app,
@@ -135,6 +149,7 @@ class CDappAPI {
       this.dispatch(setConfigs(configs));
       this.dispatch(setDappConfigs(dappConfigs));
       this.dispatch(setAppInfos(appInfoList));
+      this.dispatch(setWalletType(dappConfigs?.wallet_type))
     } catch (error) {
       console.log(error);
     } finally {

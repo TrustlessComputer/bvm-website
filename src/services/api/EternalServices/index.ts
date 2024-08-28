@@ -46,9 +46,14 @@ export const registerCodeBattle = async (payload: any) => {
   return res;
 };
 
-export const checkRegistered = async () => {
+export const checkRegistered = async (contestType?: number) => {
   const res: IUserContest = await apiEternalAIClient.get(
     `/contest/user-contest-info`,
+    {
+      params: {
+        contest_type: contestType || 0,
+      },
+    },
   );
   return res;
 };

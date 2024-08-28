@@ -20,7 +20,6 @@ const useOneForm = () => {
 
   const retrieveFormsByDappKey = ({ dappKey }: { dappKey: string }) => {
     const forms: IRetrieveFormsByDappKey[][] = [];
-
     const oneForm = cloneDeep(formDappSignal.value);
     const dappIndexes = cloneDeep(draggedDappIndexesSignal.value);
     const dappIndexNeedToGet = dapps.findIndex((dapp) => dapp.key === dappKey);
