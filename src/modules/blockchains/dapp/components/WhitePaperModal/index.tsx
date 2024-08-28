@@ -6,6 +6,9 @@ import jsPDF from 'jspdf';
 import { useMemo, useRef, useState } from 'react';
 import { marked } from 'marked';
 import { IWhitePaper } from '@/services/api/dapp/whitePapers/interface';
+import CWhitePaperAPI from '@/services/api/dapp/whitePapers';
+import { requestReload } from '@/stores/states/common/reducer';
+import { useDispatch } from 'react-redux';
 
 interface IProps {
   show: boolean;
@@ -20,6 +23,9 @@ const WhitePaperModal = (props: IProps) => {
   const [isDownloadingHtml, setIsDownloadingHtml] = useState(false);
   const [isDownloadingPdf, setIsDownloadingPdf] = useState(false);
 
+  const dispatch = useDispatch();
+  const cWhitePaperAPI = new CWhitePaperAPI();
+
   const isAllDisabled = useMemo(() => {
     return isRegenerating || isDownloadingHtml || isDownloadingPdf;
   }, [isRegenerating, isDownloadingHtml, isDownloadingPdf]);
@@ -32,16 +38,21 @@ const WhitePaperModal = (props: IProps) => {
     return marked(markdownText);
   };
 
-  const regenerateContent = () => {
+  const regenerateContent = async () => {
     try {
       setIsRegenerating(true);
+
+      await cWhitePaperAPI.reCreateWhitePaper(
+        tokenInfo?.token?.contract_address as string,
+      );
+
+      dispatch(requestReload());
     } catch (e) {
       console.log('regenerateContent error', e);
     } finally {
       setIsRegenerating(false);
     }
   }
-
 
   const downloadHtml = async () => {
     try {

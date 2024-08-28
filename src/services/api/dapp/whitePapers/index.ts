@@ -20,6 +20,10 @@ class CWhitePaperAPI {
     this.dispatch(setWhitePapers(data));
     return data;
   };
+
+  reCreateWhitePaper = async (token_address: string): Promise<IWhitePaper> => {
+    return await this.api.post(this.getUrl(`refresh/${token_address}`));
+  };
 }
 
 export default CWhitePaperAPI;
