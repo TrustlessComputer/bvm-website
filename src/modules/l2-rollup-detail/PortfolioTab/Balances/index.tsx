@@ -120,7 +120,7 @@ const Balances = () => {
       },
       {
         id: 'usd',
-        label: 'USD Value',
+        label: 'Value',
         labelConfig,
         config: {
           borderBottom: 'none',
