@@ -186,7 +186,6 @@ const EternalSeeds = () => {
               direction={{ lg: 'row', base: 'column' }}
               alignItems="center"
               flex="1"
-              flex="1"
               gap={{ base: '16px', lg: '30px' }}
             >
               <Flex w="100%" direction="column" gap="10px">
