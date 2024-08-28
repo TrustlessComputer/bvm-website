@@ -13,14 +13,16 @@ import { useDispatch } from 'react-redux';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 import Problems from './Problems';
-import s from './LeaderboardSection.module.scss';
+import s from './CompetitionSection.module.scss';
+import SvgInset from '@/components/SvgInset';
+import Link from 'next/link';
+import SocialToken from '@/modules/Launchpad/components/Social';
 
 type Props = {
   currentUserContest?: IUserContest;
 };
 
-const LeaderboardSection = (props: Props) => {
-  console.log('asjkdhaskdj')
+const CompetitionSection = (props: Props) => {
   const [isProblemPanelMaximized, setIsProblemPanelMaximized] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(true);
   const [isShowActionPrepare, setIsShowActionPrepare] = useState<boolean>(true);
@@ -78,17 +80,44 @@ const LeaderboardSection = (props: Props) => {
           )}
           transitionDelay={'400ms'}
           transition={'all 0.3s ease'}
-          // maxHeight={isProblemPanelMaximized ? '1000px' : 'unset'}
-          // layout
         >
           <div className={s.header}>
-            <p className={s.title}>Practice Session</p>
+            <p className={s.title}>Proof of Code competition 1</p>
             <p className={s.desc}>
-              Gear up for the first official Proof-of-Code programming
-              tournament starting on August 29th!
-              <br /> Sharpen your Solidity coding skills and tackle practice
-              problems to boost your chances of winning.
+              You’ve got 5 problems and 2 hours to solve them! Solve as
+              <br />
+              many as you can with lower gas fees to climb higher on the
+              leaderboard.
+              <br /> <br />
+              Prizes for the top 5 are $300, $100, $50, $25, and $25. One day
+              after the competition,
+              <br /> winners will submit their BTC wallet addresses on the Proof
+              of Code site to receive prizes.
             </p>
+            <Flex position={'absolute'} top={0} right={0} gap="12px">
+              <SvgInset svgUrl="/icons/tele-ic.svg" size={44} />
+              <Flex flexDir={'column'} gap="2px">
+                <Text
+                  fontSize={'12px'}
+                  fontWeight={500}
+                  fontFamily={'SF Pro Display'}
+                  color="rgba(255, 255, 255, 0.70)"
+                >
+                  If you run into any issues
+                </Text>
+                <Link
+                  target="_blank"
+                  href="https://t.me/+oqT2XbJ-ne5jNzA9"
+                  className={s.teleLink}
+                >
+                  Ping us
+                  <SvgInset
+                    svgUrl="/icons/ic_chevron_right.svg"
+                    className={s.chevronArrow}
+                  />
+                </Link>
+              </Flex>
+            </Flex>
           </div>
           <Box
             className={s.warning}
@@ -188,7 +217,7 @@ const LeaderboardSection = (props: Props) => {
                     ? '100%'
                     : isProblemPanelMaximized
                     ? '100%'
-                    : '65%',
+                    : '40%',
                 height: 'auto',
                 transition: {
                   type: 'keyframes',
@@ -201,9 +230,6 @@ const LeaderboardSection = (props: Props) => {
                   setShowLeaderboard(true);
                 }
               }}
-              // exit={{
-              //   width: '65%',
-              // }}
             >
               <h4>Problems</h4>
               <Problems
@@ -211,16 +237,6 @@ const LeaderboardSection = (props: Props) => {
                 setIsProblemPanelMaximized={setIsProblemPanelMaximized}
                 setShowLeaderboard={setShowLeaderboard}
               />
-              {/* <Text
-                m="32px 0 20px 0"
-                fontSize="24px"
-                fontWeight="700"
-                fontFamily="JetBrains Mono"
-                letterSpacing="0.72px"
-              >
-                Submit solutions
-              </Text>
-              <SubmitProblem /> */}
             </Box>
             <AnimatePresence>
               {(showLeaderboard || width <= 768) && (
@@ -245,7 +261,6 @@ const LeaderboardSection = (props: Props) => {
                 >
                   <Flex alignItems={'center'} justifyContent={'space-between'}>
                     <h4>Leaderboard</h4>
-                    {/* <CompetitionTimer /> */}
                   </Flex>
                   <Leaderboard currentUserContest={props.currentUserContest} />
                 </motion.div>
@@ -258,4 +273,4 @@ const LeaderboardSection = (props: Props) => {
   );
 };
 
-export default memo(LeaderboardSection);
+export default memo(CompetitionSection);
