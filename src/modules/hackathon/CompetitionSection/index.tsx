@@ -84,21 +84,33 @@ const CompetitionSection = (props: Props) => {
           <div className={s.header}>
             <p className={s.title}>Proof of Code competition 1</p>
             <p className={s.desc}>
-              You’ve got 5 problems and 2 hours to solve them! Solve as
-              <br />
-              many as you can with lower gas fees to climb higher on the
-              leaderboard.
-              <br /> <br />
-              Prizes for the top 5 are $300, $100, $50, $25, and $25. One day
-              after the competition,
-              <br /> winners will submit their BTC wallet addresses on the Proof
-              of Code site to receive prizes.
+              <Box mb="12px">
+                You’ve got 5 problems and 2 hours to solve them! Solve as
+                <br />
+                many as you can with lower gas fees to climb higher on the
+                leaderboard.
+              </Box>
+              <Box>
+                Prizes for the top 5 are{' '}
+                <Text as="span" color="#fff" fontWeight={500}>
+                  $300, $100, $50, $25, and $25.
+                </Text>{' '}
+                One day after the competition,
+                <br /> winners will submit their BTC wallet addresses on the
+                Proof of Code site to receive prizes.
+              </Box>
             </p>
-            <Flex position={'absolute'} top={0} right={0} gap="12px">
-              <SvgInset svgUrl="/icons/tele-ic.svg" size={44} />
+            <Flex
+              position={'absolute'}
+              top="20px"
+              right={0}
+              gap="12px"
+              alignItems={'center'}
+            >
+              <SvgInset svgUrl="/icons/tele-ic.svg" size={40} />
               <Flex flexDir={'column'} gap="2px">
                 <Text
-                  fontSize={'12px'}
+                  fontSize={'14px'}
                   fontWeight={500}
                   fontFamily={'SF Pro Display'}
                   color="rgba(255, 255, 255, 0.70)"
@@ -114,6 +126,7 @@ const CompetitionSection = (props: Props) => {
                   <SvgInset
                     svgUrl="/icons/ic_chevron_right.svg"
                     className={s.chevronArrow}
+                    size={14}
                   />
                 </Link>
               </Flex>
