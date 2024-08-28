@@ -5,15 +5,18 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { useRef } from 'react';
 import { marked } from 'marked';
+import { IToken } from '@/services/api/dapp/token_generation/interface';
 
 interface IProps {
   show: boolean;
   onClose?: (() => void) | any;
+  tokenInfo?: IToken;
 }
 
 const WhitePaperModal = (props: IProps) => {
-  const { show, onClose, } = props;
+  const { show, onClose, tokenInfo} = props;
   const contentRef = useRef<HTMLDivElement>(null);
+  console.log('tokenInfo', tokenInfo);
 
   const htmlString = `
         <!DOCTYPE html>
