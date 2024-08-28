@@ -20,6 +20,7 @@ export default function Chatbox() {
     setIsComplete,
     status,
     setStatus,
+    setIsChatboxOpen,
   } = useChatBoxState();
 
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(
@@ -64,7 +65,7 @@ export default function Chatbox() {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         if (isClose) {
-          // Handle close action
+          setIsChatboxOpen(false);
         } else if (isListening) {
           stopVoiceInput();
         }
@@ -150,6 +151,7 @@ export default function Chatbox() {
           </div>
         </div>
         <div className={styles.input}>
+          <h3 className={styles.input_heading}>Prompt</h3>
           <div className={styles.inputWrapper}>
             <textarea
               value={inputMessage}

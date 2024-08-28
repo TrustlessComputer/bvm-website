@@ -1,31 +1,49 @@
 import MagicIcon from '@/components/MagicIcon';
 import { gsap } from 'gsap';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useRef } from 'react';
 import Chatbox from '../Chatbox';
+import useChatBoxState from '../Chatbox/chatbox-store';
 import styles from './styles.module.scss';
 
 export default function ButtonStartChat(): ReactElement {
-  const [isChatboxOpen, setIsChatboxOpen] = useState(false);
+  const { isChatboxOpen, setIsChatboxOpen } = useChatBoxState();
+  const chatboxRef = useRef<HTMLDivElement>(null);
 
-  const handleOpenChatbox = () => {
-    setIsChatboxOpen(true);
-    gsap.fromTo(
-      '.chatbox-container',
-      { x: '100%' },
-      { x: '0%', duration: 0.5, ease: 'power2.out' }
-    );
-  };
+  useEffect(() => {
+    if (chatboxRef.current) {
+      if (isChatboxOpen) {
+        gsap.fromTo(
+          chatboxRef.current,
+          { x: '100%' },
+          { x: '0%', duration: 0.5, ease: 'power2.out' },
+        );
+      } else {
+        gsap.to(chatboxRef.current, {
+          x: '100%',
+          duration: 0.5,
+          ease: 'power2.in',
+        });
+      }
+    }
+  }, [isChatboxOpen]);
 
   return (
     <>
-      <button className={styles.button} onClick={handleOpenChatbox}>
-        Ai voice prompt <MagicIcon color='white' />
+      <button className={styles.button} onClick={() => setIsChatboxOpen(true)}>
+        Ai voice prompt <MagicIcon color="white" />
       </button>
-      {isChatboxOpen && (
-        <div className="chatbox-container" style={{ position: 'absolute', top: 0, right: 0 }}>
-          <Chatbox />
-        </div>
-      )}
+      <div
+        ref={chatboxRef}
+        className="chatbox-container"
+        style={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          transform: 'translateX(100%)',
+        }}
+      >
+        <Chatbox />
+      </div>
     </>
   );
 }

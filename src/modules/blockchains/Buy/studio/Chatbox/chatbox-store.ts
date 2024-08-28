@@ -6,12 +6,14 @@ interface ChatBoxState {
   isListening: boolean;
   isGenerating: boolean;
   isComplete: boolean;
+  isChatboxOpen: boolean;
   status: 'Generating...' | 'Esc to cancel' | 'Complete' | 'Esc to close';
   setMessages: (messages: Array<{ text: string; sender: string }>) => void;
   setInputMessage: (inputMessage: string) => void;
   setIsListening: (isListening: boolean) => void;
   setIsGenerating: (isGenerating: boolean) => void;
   setIsComplete: (isComplete: boolean) => void;
+  setIsChatboxOpen: (isChatboxOpen: boolean) => void;
   setStatus: (status: 'Generating...' | 'Esc to cancel' | 'Complete' | 'Esc to close') => void;
 }
 
@@ -21,12 +23,14 @@ const useChatBoxState = create<ChatBoxState>((set) => ({
   isListening: false,
   isGenerating: false,
   isComplete: false,
+  isChatboxOpen: false,
   status: 'Esc to close',
   setMessages: (messages) => set({ messages }),
   setInputMessage: (inputMessage) => set({ inputMessage }),
   setIsListening: (isListening) => set({ isListening }),
   setIsGenerating: (isGenerating) => set({ isGenerating }),
   setIsComplete: (isComplete) => set({ isComplete }),
+  setIsChatboxOpen: (isChatboxOpen) => set({ isChatboxOpen }),
   setStatus: (status) => set({ status }),
 }));
 
