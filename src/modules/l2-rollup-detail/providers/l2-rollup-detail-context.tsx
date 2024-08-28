@@ -206,7 +206,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
             user_address: address,
             type: balanceType.type,
             page: 1,
-            limit: 50,
+            limit: balanceType.type === 'runes' ? 40 : 50,
           })) as any;
           return { [balanceType.type]: res };
         }),
