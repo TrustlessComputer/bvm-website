@@ -84,6 +84,7 @@ $text-max-width: 85ch;
 
     .scroll_wrapper {
         scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
         scroll-padding: 50%;
         overflow-x: auto;
         overflow-y: hidden;
@@ -142,6 +143,8 @@ $text-max-width: 85ch;
         gap: 24px;
 
         width: fit-content;
+        user-select: none;
+        cursor: grab;
 
 
 
