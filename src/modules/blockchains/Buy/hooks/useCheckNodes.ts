@@ -61,6 +61,9 @@ export default function useCheckNodes() {
       const dappIndex = dapps.findIndex(
         (dapp) => dapp.key === 'account_abstraction',
       );
+      const dappIndexInSignal = draggedDappIndexesSignal.value.findIndex(
+        (i) => i === dappIndex,
+      );
 
       if (nodeIndex === -1) {
         const rootNode = 'blockchain';
@@ -125,6 +128,10 @@ export default function useCheckNodes() {
         needReactFlowRenderSignal.value = true;
         newNodes.push(newNode);
         newEdges.push(newEdge);
+        somethingChanged = true;
+      }
+
+      if (dappIndexInSignal === -1) {
         newDraggedDappIndexes.push(dappIndex);
         newDraggedIds2D.push([]);
         somethingChanged = true;
@@ -150,6 +157,9 @@ export default function useCheckNodes() {
     } else {
       const nodeIndex = nodes.findIndex((node) => node.id == 'bridge_apps');
       const dappIndex = dapps.findIndex((dapp) => dapp.key === 'bridge_apps');
+      const dappIndexInSignal = draggedDappIndexesSignal.value.findIndex(
+        (i) => i === dappIndex,
+      );
 
       if (nodeIndex === -1) {
         const rootNode = 'blockchain';
@@ -210,6 +220,10 @@ export default function useCheckNodes() {
         needReactFlowRenderSignal.value = true;
         newNodes.push(newNode);
         newEdges.push(newEdge);
+        somethingChanged = true;
+      }
+
+      if (dappIndexInSignal === -1) {
         newDraggedDappIndexes.push(dappIndex);
         newDraggedIds2D.push([]);
         somethingChanged = true;
@@ -220,6 +234,9 @@ export default function useCheckNodes() {
       newNodes,
       newEdges,
       field,
+      newDraggedDappIndexes,
+      newDraggedIds2D,
+      somethingChanged,
     });
 
     if (somethingChanged) {
