@@ -88,7 +88,7 @@ export default function OptionInputValue({ option }: { option: IModelOption }) {
     }
   };
 
-  // console.log('PHAT --- ', {
+  // console.log(' --- ', {
   //   endpointURL,
   //   isFieldRequired,
   //   isError,
@@ -109,6 +109,43 @@ export default function OptionInputValue({ option }: { option: IModelOption }) {
     }
   };
 
+  const renderInput = () => {
+    if (isUpdateFlow && (!sta || isEmpty(sta))) {
+      return null;
+    }
+
+    return (
+      <Input
+        className={s.input}
+        type={option.addOnInputs?.type || 'text'}
+        placeholder={option.addOnInputs?.attrs?.placeholder}
+        fontSize={'14px'}
+        value={sta}
+        borderColor={isError ? 'red' : 'transparent'}
+        borderWidth={isError ? '2px' : 'none'}
+        disabled={isUpdateFlow}
+        onBlur={(e: any) => {
+          const text = e.target.value;
+          onChangeHandler(text);
+        }}
+        onChange={(e) => {
+          const text = e.target.value;
+          setValue(option.key, text);
+          onChangeHandler(text);
+        }}
+        _hover={{
+          cursor: isUpdateFlow ? 'not-allowed' : 'auto',
+        }}
+        _focus={{
+          borderColor: isError ? '#ff6666ff' : 'transparent',
+        }}
+        _disabled={{
+          color: '#fff',
+        }}
+      />
+    );
+  };
+
   return (
     <div className={classNames(s.isOptionInput)}>
       <Label icon={option.icon} title={option.title} />
@@ -123,34 +160,7 @@ export default function OptionInputValue({ option }: { option: IModelOption }) {
           value={sta}
         /> */}
 
-        <Input
-          className={s.input}
-          type={option.addOnInputs?.type || 'text'}
-          placeholder={option.addOnInputs?.attrs?.placeholder}
-          fontSize={'14px'}
-          value={sta}
-          borderColor={isError ? 'red' : 'transparent'}
-          borderWidth={isError ? '2px' : 'none'}
-          disabled={isUpdateFlow}
-          onBlur={(e: any) => {
-            const text = e.target.value;
-            onChangeHandler(text);
-          }}
-          onChange={(e) => {
-            const text = e.target.value;
-            setValue(option.key, text);
-            onChangeHandler(text);
-          }}
-          _hover={{
-            cursor: isUpdateFlow ? 'not-allowed' : 'auto',
-          }}
-          _focus={{
-            borderColor: isError ? '#ff6666ff' : 'transparent',
-          }}
-          _disabled={{
-            color: '#fff',
-          }}
-        />
+        {renderInput()}
         {isError && errorMessage && (
           <Text
             px={'5px'}

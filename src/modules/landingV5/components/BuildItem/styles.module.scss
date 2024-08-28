@@ -1,0 +1,26 @@
+.buildItem {
+  gap: 48px;
+  // flex-basis: 100%;
+  width: 100%;
+  margin-bottom: 16px;
+
+  @include is-mobile {
+    gap: 20px;
+  }
+
+  &_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // margin-top: 28px;
+  }
+
+  &_line {
+    margin: 0 auto;
+    width: 2px;
+    min-height: calc(100% - 68px);
+    // background: linear-gradient(90deg, rgba(255, 255, 255, 0.00) 0%, #FFF 65%, #FFF 100%);
+    background-color: transparent;
+
+  }
+}

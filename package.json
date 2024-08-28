@@ -74,6 +74,8 @@
     "formik": "^2.4.5",
     "framer-motion": "^10.16.16",
     "gsap": "^3.12.4",
+    "highcharts": "^11.4.6",
+    "highcharts-react-official": "^3.2.1",
     "html-to-image": "^1.11.11",
     "jspdf": "^2.5.1",
     "maath": "^0.10.7",

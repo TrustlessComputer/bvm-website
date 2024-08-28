@@ -30,11 +30,10 @@ export default function HeroVideo() {
           <div className={`containerV3 ${s.heroVideo_content_container}`}>
             <div className={s.content}>
               <div className={s.content_sub}>
-                <p>Bitcoin Rollup as a Service</p>
+                <p>Bitcoin Chain as a Service</p>
               </div>
               <h3 className={s.content_heading}>
-                Launch your own ZK Rollup on Bitcoin with drags and drops for
-                just $99/month.
+                Launch your own Bitcoin chain with drags and drops.
               </h3>
               <div className={s.groupBtn}>
                 <div

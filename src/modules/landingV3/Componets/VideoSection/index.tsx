@@ -7,22 +7,22 @@ const FakeData = [
   {
     icon: '/images/home-list-icon-1.svg',
     title: 'Easily deploy',
-    desc: 'Launch your ZK rollups without writing a single line of code.',
+    desc: 'Launch your Bitcoin chain without writing a single line of code.',
   },
-  {
-    icon: '/images/home-list-icon-2.svg',
-    title: 'Affordable pricing',
-    desc: 'Get started with ZK rollups on Bitcoin from just $99/month.',
-  },
+  // {
+  //   icon: '/images/home-list-icon-2.svg',
+  //   title: 'Affordable pricing',
+  //   desc: 'Get started with ZK rollups on Bitcoin from just $99/month.',
+  // },
   {
     icon: '/images/home-list-icon-3.svg',
     title: 'Scalable solutions',
-    desc: 'Scale your ZK rollup or resize it as your demand shifts.',
+    desc: 'Scale your Bitcoin chain or resize it as your demand shifts.',
   },
   {
     icon: '/images/home-list-icon-4.svg',
     title: 'Bitcoin security',
-    desc: 'Inherit Bitcoin’s robust security with your ZK rollup.',
+    desc: 'Inherit Bitcoin’s robust security with your Bitcoin chain.',
   },
   {
     icon: '/images/home-list-icon-5.svg',
@@ -37,8 +37,8 @@ export default function VideoSection() {
     <div className={s.wrapperVideoSection}>
       <div className="containerV3">
         <p className={s.wrapperVideoSection_heading}>
-          Comprehensive, cost-effective ZK rollup solution. Built for building
-          on Bitcoin.
+          Comprehensive, cost-effective scaling solution. Built for building on
+          Bitcoin.
         </p>
         <div className={s.wrapperItem}>
           {FakeData.map((item) => {

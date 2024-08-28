@@ -79,7 +79,7 @@ export function hexToHSB(hex: string): { h: number; s: number; b: number } {
   return {
     h: Math.round(hue),
     s: Math.round(saturation * 100),
-    b: Math.round(brightness * 100)
+    b: Math.round(brightness * 100),
   };
 }
 
@@ -88,13 +88,17 @@ export function hsbToHex(h: number, s: number, b: number): string {
   b /= 100;
 
   let k = (n: number): number => (n + h / 60) % 6;
-  let f = (n: number): number => b * (1 - s * Math.max(0, Math.min(k(n), 4 - k(n), 1)));
+  let f = (n: number): number =>
+    b * (1 - s * Math.max(0, Math.min(k(n), 4 - k(n), 1)));
 
   let r = Math.round(f(5) * 255);
   let g = Math.round(f(3) * 255);
   let b_ = Math.round(f(1) * 255);
 
-  return `#${((1 << 24) + (r << 16) + (g << 8) + b_).toString(16).slice(1).toUpperCase()}`;
+  return `#${((1 << 24) + (r << 16) + (g << 8) + b_)
+    .toString(16)
+    .slice(1)
+    .toUpperCase()}`;
 }
 
 export const adjustBrightness = (hex: string, percent: number) => {
@@ -511,6 +515,7 @@ export const isChainOptionDisabled = (
 
   return (
     (!!currentOption.supportLayers &&
+      currentOption.supportLayers.length > 0 &&
       !currentOption.supportLayers.includes(field['layers']?.value as any)) ||
     // !!(
     //   currentOption.supportLayers &&

@@ -179,33 +179,41 @@ export default memo(function StudioControls() {
                       })} BVM)`
                     : '';
 
-                if (
-                  (option.key === field[item.key].value &&
-                    field[item.key].dragged) ||
-                  item.type === 'dropdown'
-                )
-                  return null;
+                let isThisOptionDragged =
+                  field[item.key].dragged &&
+                  field[item.key].value === option.key;
+
+                // if (
+                //   (option.key === field[item.key].value &&
+                //     field[item.key].dragged) ||
+                //   item.type === 'dropdown'
+                // )
+                //   return null;
 
                 const isDisabled = isChainOptionDisabled(field, item, option);
 
                 if (item.multiChoice && field[item.key].dragged) {
-                  const currentValues = field[item.key].value as any[];
-
-                  if (currentValues.includes(option.key)) {
-                    return null;
-                  }
+                  isThisOptionDragged = ((field[item.key]?.value as any) || []).includes(option.key)
+                  // const currentValues = field[item.key].value as any[];
+                  //
+                  // if (currentValues.includes(option.key)) {
+                  //   return null;
+                  // }
                 }
+
+                if (option?.hidden) return null;
 
                 return (
                   <Draggable
-                    key={item.key + '-' + option.key}
-                    id={item.key + '-' + option.key}
+                    key={item.key + '-' + option.key + '-left'}
+                    id={item.key + '-' + option.key + '-left'}
                     useMask
                     disabled={isDisabled}
                     isLabel={true}
                     value={{
                       isChain: true,
                       value: option.key,
+                      left: true,
                     }}
                     tooltip={option.tooltip}
                   >
@@ -213,6 +221,7 @@ export default memo(function StudioControls() {
                       background={item.color}
                       zIndex={item.options.length - optIdx}
                       disabled={isDisabled}
+                      checked={isThisOptionDragged}
                     >
                       <Label icon={option.icon} title={option.title + suffix} />
                     </LegoV3>
