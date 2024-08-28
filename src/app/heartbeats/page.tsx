@@ -51,7 +51,7 @@ export default function Page() {
         color: 'black',
         bgColor: '#F3F1E8',
       }}
-      hideFooter={false}
+      hideFooter={true}
       bodyColor={'#f3f1e8'}
     >
       <L2RollupModule />
