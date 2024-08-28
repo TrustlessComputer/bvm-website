@@ -1,7 +1,5 @@
 import React from 'react';
 
-// import ComputerNameInput from '@/modules/blockchains/Buy/components3/ComputerNameInput';
-import ComputerNameInput from '@/modules/blockchains/Buy/components3/ComputerNameInput/index_v2';
 import ChainDraggable from '@/modules/blockchains/Buy/components3/Draggable';
 import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
 import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
@@ -15,58 +13,28 @@ import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import useOverlappingChainLegoStore from '../../stores/useOverlappingChainLegoStore';
 
 import OptionInputValue from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue';
-import NetworkDropdown from '../../components3/NetworkDropdown';
 import styles from './styles.module.scss';
+import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
 
-type Props = {};
-
-const hiddenFields = ['bridge_apps', 'network', 'gaming_apps'];
-
-const ChainRenderer = () => {
-  const { parsedCategories, categories } = useModelCategoriesStore();
+const GamingAppsRenderer = () => {
+  const { parsedCategories } = useModelCategoriesStore();
   const { draggedFields } = useDragStore();
   const { overlappingId } = useOverlappingChainLegoStore();
   const { field } = useOrderFormStoreV3();
 
-  const { order, getBlockChainStatus, isUpdateFlow } = useChainProvider();
-
-  const selectedCategoryMapping = React.useMemo(() => {
-    if (!order?.selectedOptions) return undefined;
-
-    const mapping: Record<string, IModelCategory> = {};
-
-    order.selectedOptions.forEach((category) => {
-      mapping[category.key] = category;
-    });
-
-    return mapping;
-  }, [order?.selectedOptions]);
+  const { order, isUpdateFlow, selectedCategoryMapping } = useChainProvider();
 
   return (
     <DroppableV2
       key={draggedFields.length}
-      id="final"
+      id="final_3"
       style={{
         width: '100% !important',
         height: '100%',
       }}
     >
-      <LegoV3
-        background={'#FF3A3A'}
-        label="Bitcoin Chain Name"
-        labelInLeft
-        zIndex={45}
-      >
-        <ComputerNameInput />
-      </LegoV3>
-      <LegoV3 background={'#FF7A41'} label="Network" labelInLeft zIndex={44}>
-        {/* <ComputerNameInput /> */}
-        <NetworkDropdown />
-      </LegoV3>
-
       {draggedFields.map((key, index) => {
-        // if (key === 'bridge_apps') return null;
-        if (hiddenFields.includes(key)) return null;
+        if (key !== 'gaming_apps') return null;
 
         const item = parsedCategories?.find((i) => i.key === key);
         const selectedCategory = selectedCategoryMapping?.[key];
@@ -106,6 +74,14 @@ const ChainRenderer = () => {
                     labelInRight={!!item.confuseTitle || !!item.confuseIcon}
                     icon={item.confuseIcon}
                     zIndex={item.options.length - opIdx}
+                    // TODO: @Tony: Game Apps status
+                    // status={{
+                    // label: detailBridgesMapperStatus[option.key]?.label,
+                    // backgroundColor:
+                    //   detailBridgesMapperStatus[option.key]?.backgroundColor,
+                    // textColor:
+                    //   detailBridgesMapperStatus[option.key]?.textColor,
+                    // }}
                   >
                     <Label icon={option.icon} title={option.title} />
                   </LegoV3>
@@ -116,7 +92,6 @@ const ChainRenderer = () => {
 
           return (
             <ChainDraggable
-              key={item.key + '-parent' + '-right'}
               id={item.key + '-parent' + '-right'}
               useMask
               value={{
@@ -153,17 +128,16 @@ const ChainRenderer = () => {
           return (
             <ChainDraggable
               right
-              key={item.key + '-' + option.key + '-right'}
               id={item.key + '-' + option.key + '-right'}
               useMask
               tooltip={item.tooltip}
               value={{
                 isChain: true,
-                value: option.key,
                 rightDragging: true,
                 background: item.color,
-                label: option.title,
-                icon: option.icon,
+                label: item.title,
+                icon: '',
+                parent: true,
               }}
             >
               <DroppableV2 id={item.key + '-right'}>
@@ -196,4 +170,4 @@ const ChainRenderer = () => {
   );
 };
 
-export default ChainRenderer;
+export default GamingAppsRenderer;

@@ -20,7 +20,7 @@ const useFormChain = () => {
         optionMapping: {},
       };
 
-    const ignoreKeys = ['bridge_apps', 'wallet'];
+    const ignoreKeys = ['bridge_apps', 'wallet', 'gaming_apps'];
     const dynamicForm: IModelCategory[] = [];
     const optionMapping: Record<string, IModelOption> = {};
     const allOptionKeyDragged: string[] = [];
