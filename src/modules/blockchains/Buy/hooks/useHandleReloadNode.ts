@@ -1,4 +1,6 @@
-import useFlowStore, { AppNode } from '@/modules/blockchains/Buy/stores/useFlowStore';
+import useFlowStore, {
+  AppNode,
+} from '@/modules/blockchains/Buy/stores/useFlowStore';
 import LocalStorage from '@/libs/localStorage';
 import {
   draggedDappIndexesSignal,
@@ -16,10 +18,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 import useFirstLoadTemplateBoxStore from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 
-const version = '0.0.1';
-
 function useHandleReloadNode() {
-  const searchParamm = useSearchParams()
+  const searchParamm = useSearchParams();
   const { nodes, edges, setNodes, setEdges } = useFlowStore();
   const [rfInstance, setRfInstance] = useState<any>(null);
   const [haveOldData, setHaveOldData] = useState(false);
@@ -38,7 +38,7 @@ function useHandleReloadNode() {
 
   const onRestore = useCallback(async () => {
     const template = searchParamm.get('template') || searchParamm.get('dapp');
-    if(!!template) return;
+    if (!!template) return;
 
     const restoreFlow = async () => {
       const flow = LocalStorage.getItem(STORAGE_KEYS.LAST_NODES);
@@ -72,7 +72,7 @@ function useHandleReloadNode() {
     console.log('isFirstLoadTemplateBox', isFirstLoadTemplateBox);
     console.log('restoreLocal.value', restoreLocal.value);
     if (!isFirstLoadTemplateBox || !restoreLocal.value) return;
-    onSave()
+    onSave();
 
     LocalStorage.setItem(
       STORAGE_KEYS.USE_SIGNALS_FORM,
@@ -86,7 +86,6 @@ function useHandleReloadNode() {
       STORAGE_KEYS.USE_DRAG_SIGNALS,
       JSON.stringify(signals),
     );
-
   });
 
   // useSignalEffect(() => {
@@ -114,8 +113,8 @@ function useHandleReloadNode() {
   // });
 
   const onSave = useCallback(() => {
-
     if (!isFirstLoadTemplateBox || !restoreLocal.value) return;
+
     if (rfInstance) {
       const flow = rfInstance.toObject();
       const signals = {
@@ -142,7 +141,6 @@ function useHandleReloadNode() {
   React.useEffect(() => {
     setHaveOldData(!!LocalStorage.getItem(STORAGE_KEYS.LAST_NODES));
   }, [rfInstance]);
-
 
   return {
     haveOldData,
