@@ -1,0 +1,157 @@
+.chatbox {
+  width: 500px;
+  height: 80vh;
+  margin: 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #F6F6F6;
+}
+
+.chatboxInner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.header {
+  font-family: SF Pro Display;
+font-size: 16px;
+font-weight: 600;
+line-height: 20px;
+text-align: left;
+margin-bottom: 8px;
+
+}
+
+.title {
+   font-family: SF Pro Display;
+font-size: 16px;
+font-weight: 600;
+line-height: 20px;
+text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.body{
+  padding: 15px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.chats {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.message {
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  border-radius: 12px;
+  max-width: 80%;
+  background-color: #ffffff;
+}
+
+.user {
+  align-self: flex-end;
+  margin-left: auto;
+  background-color: #EEEEEE;
+}
+
+.bot {
+  align-self: flex-start;
+  background-color: #FFEEE8;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  position: relative;
+}
+
+.inputWrapper {
+  flex: 1;
+  position: relative;
+}
+
+.inputField {
+  width: 100%;
+  height: 150px;
+  padding: 12px;
+  border: 1px solid #DADADA;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #808080;
+  background-color: #ffffff;
+  resize: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.listeningOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  color: #808080;
+}
+
+.buttonWrapper {
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.voiceButton,
+.sendButton {
+  background: none;
+  border: 1px solid #808080;
+  border-radius: 100px;
+  cursor: pointer;
+  padding: 8px 12px;
+  color: #808080;
+  transition: background-color 0.3s, color 0.3s;
+  z-index: 10;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+
+  &:disabled {
+    border-color: #e0e0e0;
+    color: #e0e0e0;
+    cursor: not-allowed;
+  }
+}
+
+.inputOverlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 14px;
+  color: #777777;
+  pointer-events: none;
+  font-weight: 500;
+  
+  strong {
+    color: #FA4E0E;
+    font-weight: initial;
+  }
+}
