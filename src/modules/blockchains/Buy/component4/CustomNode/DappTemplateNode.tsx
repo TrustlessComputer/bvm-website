@@ -495,7 +495,7 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
   }
 
   function handleColorStatusNode(status: string) {
-    console.log('status out', status);
+    // console.log('status out', status);
 
     switch (status) {
       case 'Down temporarily':

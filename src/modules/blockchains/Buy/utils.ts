@@ -437,14 +437,14 @@ export const preDataWhitePaper = (
     );
 
     if (_appIndex > -1) {
-      const fieldSettlementToken = _sortedDapps[
+      const fieldToken = _sortedDapps[
         _appIndex
       ].baseModuleFields?.findIndex((v: BlockModel) =>
-        compareString(v.key, 'settlement_token'),
+        compareString(v.key, 'token'),
       );
 
       // @ts-ignore
-      if (fieldSettlementToken > -1) {
+      if (fieldToken > -1) {
         // // @ts-ignore
         const options: any = tokens.map((t) => ({
           key: t.id,
@@ -458,7 +458,7 @@ export const preDataWhitePaper = (
         }));
 
         // @ts-ignore
-        _sortedDapps[_appIndex].baseModuleFields[fieldSettlementToken].fields =
+        _sortedDapps[_appIndex].baseModuleFields[fieldToken].fields =
           options;
       }
     }

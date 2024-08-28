@@ -12,7 +12,7 @@ const useSubmitWhitePaper = () => {
 
   const onSubmitWhitePaper = async ({ forms, positions }: { forms: IRetrieveFormsByDappKey[][], positions?: Vector2[] }) => {
     let index = 0;
-    console.log('onSubmitWhitePaper', forms)
+
     for (const form of forms) {
       try {
         let finalFormMappings: Record<
@@ -48,8 +48,6 @@ const useSubmitWhitePaper = () => {
           finalFormMappings,
         );
         const formFinal = finalFormMappings.find(item => !!item);
-        console.log('formFinal', formFinal);
-        continue;
 
         // TODO: JACKIE - update position below
         const position: IPosition = {

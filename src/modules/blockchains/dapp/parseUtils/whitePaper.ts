@@ -1,8 +1,9 @@
-import { IYoloGame } from '@/services/api/dapp/yolo/interface';
+import { IWhitePaper } from '@/services/api/dapp/whitePapers/interface';
 
-export const parseWhitePapers = (games: IYoloGame[]): any[] => {
+export const parseWhitePapers = (whitePapers: IWhitePaper[]): any[] => {
   const result: any[] = [];
-  for (const game of games) {
+
+  for (const whitePaper of whitePapers) {
     result.push(
       {
         id: 'white_paper',
@@ -31,7 +32,7 @@ export const parseWhitePapers = (games: IYoloGame[]): any[] => {
         ],
         baseBlock: {
           key: '',
-          title: `${game.settlement_token?.symbol} White Paper`,
+          title: `${whitePaper.token?.symbol} White Paper`,
           icon: 'https://storage.googleapis.com/bvm-network/image/ic-whitepaper.svg',
           placableAmount: -1,
           section: '',
@@ -42,14 +43,14 @@ export const parseWhitePapers = (games: IYoloGame[]): any[] => {
               title: 'Token',
               type: 'dropdown',
               icon: '',
-              value: game.settlement_token.contract_address,
+              value: whitePaper.token.contract_address,
               tooltip: '',
               options: [
                 {
-                  key: game.settlement_token?.symbol as any,
-                  title: game.settlement_token?.symbol as any,
-                  value: game.settlement_token?.contract_address as any,
-                  icon: (game.settlement_token?.image_url || '') as any,
+                  key: whitePaper.token?.symbol as any,
+                  title: whitePaper.token?.symbol as any,
+                  value: whitePaper.token?.contract_address as any,
+                  icon: (whitePaper.token?.image_url || '') as any,
                   tooltip: '',
                   type: '',
                   options: [],
@@ -61,8 +62,8 @@ export const parseWhitePapers = (games: IYoloGame[]): any[] => {
         },
         action: {
           title: 'View',
-          actionMapperID: `${game.id}`,
-          tokenInfo: game.settlement_token,
+          actionMapperID: `${whitePaper.id}`,
+          tokenInfo: whitePaper,
         } as any
       }
     );

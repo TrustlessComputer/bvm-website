@@ -11,7 +11,7 @@ import { formatCurrency } from '@/utils/format';
 import { DappModel } from '@/types/customize-model';
 import { Text } from '@chakra-ui/react';
 import WhitePaperModal from '@/modules/blockchains/dapp/components/WhitePaperModal';
-import { IToken } from '@/services/api/dapp/token_generation/interface';
+import { IWhitePaper } from '@/services/api/dapp/whitePapers/interface';
 
 interface IProps {
   color: string;
@@ -26,7 +26,7 @@ const BottomButton = (props: IProps) => {
   const [isShowTopup, setIsShowTopup] = useState(false);
   const [isShowPreview, setIsShowPreview] = useState(false);
   const [topupInfo, setTopupInfo] = useState<TopUpDappInfor[]>();
-  const [tokenInfo, setTokenInfo] = useState<IToken>();
+  const [tokenInfo, setTokenInfo] = useState<IWhitePaper>();
 
   const onActionClick = (params: { dapp: DappModel }) => {
     console.log(params.dapp?.action);
@@ -92,7 +92,9 @@ const BottomButton = (props: IProps) => {
         break;
       case DappType.white_paper:
         setTokenInfo((params.dapp?.action as any).tokenInfo);
-        setIsShowPreview(true);
+        setTimeout(() => {
+          setIsShowPreview(true);
+        }, 1000)
         break;
       default:
         break;
