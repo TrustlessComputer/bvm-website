@@ -10,20 +10,22 @@ type PropD = {
   target?: string;
   color?: string;
   children: ReactElement;
-  typeGroup?: IGroupType
+  typeGroup?: IGroupType;
 };
 const GroupDownItem = ({
-                         title,
-                         primaryColor,
-                         color,
-                         children,
-                         typeGroup,
-                       }: PropD): ReactElement => {
+  title,
+  primaryColor,
+  color,
+  children,
+  typeGroup,
+}: PropD): ReactElement => {
   const { groupType, show } = useHeaderMobile();
 
   return (
-
-    <div className={`${s.dropMenu} menu-item`} onClick={() => show(typeGroup || null)}>
+    <div
+      className={`${s.dropMenu} menu-item`}
+      onClick={() => show(typeGroup || null)}
+    >
       <span
         style={{
           color: color,
@@ -32,10 +34,10 @@ const GroupDownItem = ({
       >
         {title}
       </span>
-      <div className={`${s.dropMenu_list} ${groupType === typeGroup && s.isOpen}`}>
-        <div className={s.dropMenu_list_inner}>
-          {children}
-        </div>
+      <div
+        className={`${s.dropMenu_list} ${groupType === typeGroup && s.isOpen}`}
+      >
+        <div className={s.dropMenu_list_inner}>{children}</div>
       </div>
     </div>
   );

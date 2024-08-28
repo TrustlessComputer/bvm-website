@@ -5,16 +5,19 @@ import Countdown from '@/components/Countdown';
 import s from './CompetitionTimer.module.scss';
 import dayjs from 'dayjs';
 
-type Props = {};
+type Props = {
+  startTime: string;
+  endTime: string;
+};
 
-const START_TIME = '2024-08-29T10:00:00Z';
+// const START_TIME = '2024-08-29T10:00:00Z';
 
-const END_TIME = '2024-09-05T10:00:00Z';
+// const END_TIME = '2024-09-05T10:00:00Z';
 
 const CompetitionTimer = (props: Props) => {
-  const startTime = useCountdown(START_TIME);
+  const startTime = useCountdown(props.startTime);
 
-  const endTime = useCountdown(END_TIME);
+  const endTime = useCountdown(props.endTime);
   if (!startTime.ended) {
     return (
       <Flex
@@ -27,7 +30,9 @@ const CompetitionTimer = (props: Props) => {
         </Text>
         <Countdown
           className={s.countDown_time}
-          expiredTime={dayjs.utc(START_TIME, 'YYYY-MM-DD HH:mm:ss').toString()}
+          expiredTime={dayjs
+            .utc(props.startTime, 'YYYY-MM-DD HH:mm:ss')
+            .toString()}
           hideIcon={true}
           showDay
           // type="column"
@@ -45,7 +50,9 @@ const CompetitionTimer = (props: Props) => {
         </Text>
         <Countdown
           className={s.countDown_time}
-          expiredTime={dayjs.utc(END_TIME, 'YYYY-MM-DD HH:mm:ss').toString()}
+          expiredTime={dayjs
+            .utc(props.endTime, 'YYYY-MM-DD HH:mm:ss')
+            .toString()}
           hideIcon={true}
           showDay
           // type="column"
@@ -55,7 +62,7 @@ const CompetitionTimer = (props: Props) => {
     );
   }
 
-  return <Text>Ended</Text>;
+  return null;
 };
 
 export default CompetitionTimer;

@@ -7,6 +7,7 @@ import SectionItemApp from './Item/App';
 import SectionItemGeneral from './Item/General';
 import s from './SectionBlock.module.scss';
 import Slider from 'react-slick';
+import { useDragSlide } from '@/hooks/useDragSlide';
 
 export type BlockCardItem = Omit<TDappCardProps, 'idx'> & {
   logo: string;
@@ -118,6 +119,8 @@ const SectionBlock = (props: any) => {
       );
     }
   }, []);
+
+  useDragSlide(scrollWrapperRef);
 
   return (
     <Box>

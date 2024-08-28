@@ -7,6 +7,12 @@ import GroupSolutions from './components/GroupSolutions';
 
 export const NAV_ITEMS: Array<NavItem> = [
   {
+    label: 'BVM Studio',
+    href: '/build-bitcoin',
+    isNewWindow: false,
+    isHide: false,
+  },
+  {
     label: 'Products',
     href: '#',
     isNewWindow: false,
@@ -30,14 +36,9 @@ export const NAV_ITEMS: Array<NavItem> = [
     groupType: 'developers',
     GroupDropDown: GroupDeveloper,
   },
+
   {
-    label: 'Research',
-    href: '/research',
-    isNewWindow: false,
-    isHide: false,
-  },
-  {
-    label: 'Explore',
+    label: 'Ecosystem',
     href: '/explore',
     isNewWindow: false,
     isHide: false,
@@ -49,14 +50,33 @@ export const NAV_ITEMS: Array<NavItem> = [
   //   isHide: false,
   // },
   {
+    label: 'Pricing',
+    href: '/pricing',
+    isNewWindow: false,
+    isHide: false,
+  },
+
+  {
+    label: '$BVM',
+    href: '/bvm',
+    isNewWindow: false,
+    isHide: false,
+  },
+  {
     label: 'Docs',
     href: 'https://docs.bvm.network/bvm',
     isNewWindow: true,
     isHide: false,
   },
   {
-    label: '$BVM',
-    href: '/bvm',
+    label: 'Research',
+    href: '/research',
+    isNewWindow: false,
+    isHide: false,
+  },
+  {
+    label: 'Open Source',
+    href: '/open-source',
     isNewWindow: false,
     isHide: false,
   },
@@ -69,22 +89,28 @@ export const NAV_ITEMS: Array<NavItem> = [
   },
 ];
 export const NAV_ITEMS_LEFT: Array<NavItem> = [
-  // {
-  //   label: 'Products',
-  //   href: '#',
-  //   isNewWindow: false,
-  //   isHide: false,
-  //   groupType: 'production',
-  //   GroupDropDown: GroupProducts,
-  // },
-  // {
-  //   label: 'Solutions',
-  //   href: '#',
-  //   isNewWindow: false,
-  //   isHide: false,
-  //   groupType: 'solutions',
-  //   GroupDropDown: GroupSolutions,
-  // },
+  {
+    label: 'BVM Studio',
+    href: '/build-bitcoin',
+    isNewWindow: false,
+    isHide: false,
+  },
+  {
+    label: 'Products',
+    href: '#',
+    isNewWindow: false,
+    isHide: false,
+    groupType: 'production',
+    GroupDropDown: GroupProducts,
+  },
+  {
+    label: 'Solutions',
+    href: '#',
+    isNewWindow: false,
+    isHide: false,
+    groupType: 'solutions',
+    GroupDropDown: GroupSolutions,
+  },
   // {
   //   label: 'Developers',
   //   href: '/developers',
@@ -124,20 +150,21 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   //   isHide: false,
   // },
   {
-    label: 'BVM Studio',
-    href: '/build-bitcoin',
+    label: 'Pricing',
+    href: '/pricing',
     isNewWindow: false,
     isHide: false,
   },
-  {
-    label: 'Bitcoin App Store',
-    href: '/explore',
-    isNewWindow: false,
-    isHide: false,
-  },
+
   {
     label: 'BVM',
     href: '/bvm',
+    isNewWindow: false,
+    isHide: false,
+  },
+  {
+    label: 'Ecosystem',
+    href: '/explore',
     isNewWindow: false,
     isHide: false,
   },

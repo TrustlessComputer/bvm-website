@@ -1,3 +1,4 @@
+'use client';
 import { CDN_URL, CDN_URL_IMAGES_NBC } from '@/config';
 import { CHAIN_DATA, DAPPS_DATA } from '@/modules/ExploreModule/data';
 import { Research } from '@/modules/Lab/data';
@@ -5,9 +6,9 @@ import { BLOGS } from '@/modules/landingV3/Componets/Section_7/constant';
 
 export const APPS_SECTION = {
   id: 'apps',
-  tag: 'Launch your own Bitcoin chain with Bitcoin Raas Studio. ',
+  tag: 'Launch your own Bitcoin L2 with Bitcoin Raas Studio. ',
   title: '',
-  desc: 'Bitcoin RaaS Studio allows you to launch a Bitcoin chain with a few clicks. Bitcoin chains are Bitcoin L2s that enable smart contracts and dapps to use Bitcoin as the secure base layer. Bitcoin chains extend the capabilities of Bitcoin without changing Bitcoin, unlocking trillions in capital.',
+  desc: 'Bitcoin RaaS Studio allows you to launch a Bitcoin L2 with a few clicks. Bitcoin L2s are Bitcoin L2s that enable smart contracts and dapps to use Bitcoin as the secure base layer. Bitcoin L2s extend the capabilities of Bitcoin without changing Bitcoin, unlocking trillions in capital.',
   item: DAPPS_DATA.map((item, idx) => {
     const tags = item.tags.map((tag) => {
       if (tag.split(' ').length < 2) return tag;
@@ -39,15 +40,15 @@ export const STEP_1_SECTION = {
   tag: '',
   title: (
     <p>
-      Launch your own <span>Bitcoin chain with BVM Studio.</span>
+      Launch your own <span>Bitcoin L2 with BVM Studio.</span>
     </p>
   ),
   desc: (
     <>
       {' '}
       <p>
-        Bitcoin chains extend Bitcoin’s capabilities without changing Bitcoin.
-        BVM offers the broadest range of scaling solutions — including ZK,
+        Bitcoin L2s extend Bitcoin’s capabilities without changing Bitcoin. BVM
+        offers the broadest range of scaling solutions — including ZK,
         Optimistic, and Sovereign rollups. Whether you’re migrating dapps from
         Ethereum to Bitcoin or creating something entirely new, BVM Studio
         simplifies and accelerates the process, making it cost-effective to
@@ -58,7 +59,7 @@ export const STEP_1_SECTION = {
   item: [
     // {
     //   title: 'DAPP',
-    //   description: 'Deploy your dapp on an existing Bitcoin chain.',
+    //   description: 'Deploy your dapp on an existing Bitcoin L2.',
     //   homeImage: '/landing-v5/home-dapp.png',
 
     //   bgColor:
@@ -87,7 +88,7 @@ export const STEP_1_SECTION = {
       homeImage: '/landing-v5/home-zk-4.png',
 
       bgColor:
-        'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
+        'linear-gradient(47deg, #FFC32A 0%, #F5E000 31.53%, #53B900 75.82%, #BDF710 107.83%)',
       link: {
         url: '/studio?template=2',
         target: '_blank',
@@ -167,7 +168,7 @@ export const STEP_2_SECTION = {
   tag: '',
   title: (
     <p>
-      <span>Jumpstart your Bitcoin chain</span> with ready-made apps.
+      <span>Jumpstart your Bitcoin L2</span> with ready-made apps.
     </p>
   ),
   desc: 'Get up and running instantly with pre-installed apps or easily add new ones from BVM Studio. Simply drag, drop, and enhance engagement, TVL, and more—no coding required.',
@@ -583,30 +584,6 @@ export const BOB_SECTION = {
 //   ],
 // };
 
-export const RESEARCH_SECTION = {
-  id: 'research',
-  tag: '',
-  title: (
-    <p>
-      Fastest pace of{' '}
-      <span className="whitespace-nowrap">applied research.</span>
-    </p>
-  ),
-  desc: 'With BVM, you can experiment and innovate rapidly using the latest technologies. We’re constantly accelerating our innovation to create new ways of building on Bitcoin.',
-  item: Research.map((item, idx) => {
-    return {
-      title: item.title,
-      description: item.content,
-      homeImage: item.image,
-      link: {
-        url: item.link,
-        target: '_blank',
-      },
-      date: item.date,
-    };
-  }),
-};
-
 export const OPENSOURCE_SECTION = {
   id: 'opensource',
   tag: '',
@@ -674,6 +651,30 @@ export const OPENSOURCE_SECTION = {
       },
     },
   ],
+};
+
+export const RESEARCH_SECTION = {
+  id: 'research',
+  tag: '',
+  title: (
+    <p>
+      Fastest pace of{' '}
+      <span className="whitespace-nowrap">applied research.</span>
+    </p>
+  ),
+  desc: 'With BVM, you can experiment and innovate rapidly using the latest technologies. We’re constantly accelerating our innovation to create new ways of building on Bitcoin.',
+  item: Research.map((item, idx) => {
+    return {
+      title: item.title,
+      description: item.content,
+      homeImage: item.image,
+      link: {
+        url: item.link,
+        target: '_blank',
+      },
+      date: item.date,
+    };
+  }),
 };
 
 export const NEWS_SECTION = {

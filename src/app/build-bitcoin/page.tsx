@@ -7,7 +7,7 @@ import { Metadata } from 'next';
 const THUMBNAIL = `${CDN_URL}/pages/build-bitcoin/build-bitcoin-metadata.png`;
 
 export const metadata: Metadata = {
-  title: 'Launch your own Bitcoin chain with drags and drops.',
+  title: 'Launch your own Bitcoin L2 with drags and drops.',
   description: 'No coding expertise required — just your big idea.',
 
   openGraph: {
