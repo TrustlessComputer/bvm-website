@@ -1,12 +1,11 @@
 import { Metadata } from 'next';
 
 export const APP_NAME = 'Development infrastructure for Bitcoin.';
-export const APP_DEFAULT_TITLE =
-  'Development infrastructure for Bitcoin.';
+export const APP_DEFAULT_TITLE = 'Development infrastructure for Bitcoin.';
 export const APP_TITLE_TEMPLATE = '%s'; // Don't need extra text for the title
-export const APP_DESCRIPTION = `Deploy Bitcoin chains, build Bitcoin apps, and bring Bitcoin to the people.`;
+export const APP_DESCRIPTION = `Deploy Bitcoin L2s, build Bitcoin apps, and bring Bitcoin to the people.`;
 // const APP_THUMBNAIL = `${CDN_URL_ICONS}/metadata.jpg`;
-export const IMAGE_SHARING = 'https://storage.googleapis.com/bvm-network/image/Metadata%20(3).png';
+export const IMAGE_SHARING = `https://storage.googleapis.com/tc-cdn-prod/pages/bvm/home-metadata.png`;
 
 const metadataConfig: Metadata = {
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_DOMAIN_URL}`),

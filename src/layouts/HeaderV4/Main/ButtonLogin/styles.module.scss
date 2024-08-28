@@ -42,7 +42,7 @@
 }
 
 .text {
-  color: var(--text-color);
+  color: inherit;
   text-align: center;
   font-family: var(--font-JetBrainsMono);
   font-size: 12px;
@@ -68,4 +68,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100px;
+}
+
+.buttonLogin__light {
+  color: black;
+}
+
+.buttonLogin__dark {
+  color: white;
 }

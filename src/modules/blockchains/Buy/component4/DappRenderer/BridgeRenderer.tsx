@@ -14,28 +14,16 @@ import useOverlappingChainLegoStore from '../../stores/useOverlappingChainLegoSt
 
 import OptionInputValue from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue';
 import styles from './styles.module.scss';
-
-type Props = {};
+import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
 
 const BridgeRenderer = () => {
   const { parsedCategories } = useModelCategoriesStore();
   const { draggedFields } = useDragStore();
   const { overlappingId } = useOverlappingChainLegoStore();
   const { field } = useOrderFormStoreV3();
+  const { detailBridgesMapperStatus } = useBridgesModule();
 
-  const { order, getBlockChainStatus, isUpdateFlow } = useChainProvider();
-
-  const selectedCategoryMapping = React.useMemo(() => {
-    if (!order?.selectedOptions) return undefined;
-
-    const mapping: Record<string, IModelCategory> = {};
-
-    order.selectedOptions.forEach((category) => {
-      mapping[category.key] = category;
-    });
-
-    return mapping;
-  }, [order?.selectedOptions]);
+  const { order, isUpdateFlow, selectedCategoryMapping } = useChainProvider();
 
   return (
     <DroppableV2
@@ -74,6 +62,10 @@ const BridgeRenderer = () => {
                 value={{
                   isChain: true,
                   value: option.key,
+                  rightDragging: true,
+                  background: item.color,
+                  label: option.title,
+                  icon: option.icon,
                 }}
               >
                 <DroppableV2 id={item.key + '-right'}>
@@ -84,11 +76,13 @@ const BridgeRenderer = () => {
                     icon={item.confuseIcon}
                     zIndex={item.options.length - opIdx}
                     // TODO: @Tony
-                    // status={{
-                    //   label: 'Drafting',
-                    //   backgroundColor: '#97F095',
-                    //   textColor: '#000',
-                    // }}
+                    status={{
+                      label: detailBridgesMapperStatus[option.key]?.label,
+                      backgroundColor:
+                        detailBridgesMapperStatus[option.key]?.backgroundColor,
+                      textColor:
+                        detailBridgesMapperStatus[option.key]?.textColor,
+                    }}
                   >
                     <Label icon={option.icon} title={option.title} />
                   </LegoV3>
@@ -103,6 +97,11 @@ const BridgeRenderer = () => {
               useMask
               value={{
                 isChain: true,
+                rightDragging: true,
+                background: item.color,
+                label: item.title,
+                icon: '',
+                parent: true,
               }}
             >
               <DroppableV2 id={item.key}>
@@ -135,7 +134,11 @@ const BridgeRenderer = () => {
               tooltip={item.tooltip}
               value={{
                 isChain: true,
-                value: option.key,
+                rightDragging: true,
+                background: item.color,
+                label: item.title,
+                icon: '',
+                parent: true,
               }}
             >
               <DroppableV2 id={item.key + '-right'}>

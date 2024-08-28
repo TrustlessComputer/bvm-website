@@ -96,7 +96,7 @@ class CDappAPI {
 
     try {
       const chain = await this.getChainByOrderID({ orderID: params.orderID });
-      chain.dappURL = chain?.dappURL || this.getDappURL(chain);
+      chain.dappURL = chain?.dappURL || (!!chain?.domain ? `https://${chain?.domain}.appstore.bvm.network` : '') || this.getDappURL(chain);
 
       const _chain = chain;
       // if (isLocalhost()) {
@@ -109,6 +109,7 @@ class CDappAPI {
           DappType.staking,
           DappType.airdrop,
           DappType.yologame,
+          DappType.orderbook,
         ].map((app) =>
           this.getDappConfig({
             appName: app,

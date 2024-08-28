@@ -1,6 +1,6 @@
 import { useAppSelector } from '@/stores/hooks';
 import { getAvailableListTemplateSelector } from '@/stores/states/l2services/selector';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 //StP (pattern)
 let templateIndexDefault = 0;
@@ -11,7 +11,7 @@ export default function useAvailableListTemplate() {
   //Setter
   const setTemplateDefault = (index: number) => {
     //Index Out Of Range
-    if (index < 0 || index >= templateList?.length) {
+    if (index < 0) {
       templateIndexDefault = 0;
     } else {
       templateIndexDefault = index;
@@ -34,14 +34,22 @@ export default function useAvailableListTemplate() {
     [templateList],
   );
 
+  const templateDefault = useMemo(() => {
+    return getTemplateAtIndex(templateIndexDefault) || templateList[0] || [];
+  }, [getTemplateAtIndex, templateIndexDefault, templateList]);
+
   // console.log('[useAvailableListTemplate] --- ', {
   //   templateIndexDefault,
   //   templateList,
+  //   templateDefault,
   // });
 
   return {
     templateList,
     templateIndexDefault,
+    templateDefault,
+
+    //
     setTemplateDefault,
     getTemplateList,
     getTemplateAtIndex,

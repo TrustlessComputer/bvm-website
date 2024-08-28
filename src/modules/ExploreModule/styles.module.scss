@@ -3,15 +3,18 @@
   font-weight: 400;
   font-size: 40px;
   line-height: calc(52 / 40);
-  text-align: center;
+  // text-align: center;
   color: #000;
-  padding-top: 188px;
+  // padding-top: 100px;
+  margin-top: 80px;
 }
 
 .wrapperCardDapps {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 44px;
+  width: fit-content;
+
 
   @include is_min-table {
     grid-template-columns: repeat(2, 1fr);
@@ -28,14 +31,13 @@
   gap: 24px;
 
   @include is-min-table {
-    margin-bottom: 140px !important;
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 .description {
   color: #000;
-  text-align: center;
+  // text-align: center;
   font-family: "SF Pro Display";
   font-size: 20px;
   font-style: normal;
@@ -44,42 +46,67 @@
   opacity: 0.7;
 }
 
+.tabWrapper {
+  display: flex !important;
+  flex-direction: row;
+  gap: 120px;
+  justify-content: space-between;
+
+  @include is-tablet {
+    gap: 60px;
+  }
+
+  @include is-mobile {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  :global {
+    .chakra-tabs__tab-panels {
+      width: fit-content;
+    }
+  }
+}
+
 .tabList {
-  align-items: center;
-  justify-content: center !important;
+  flex-direction: column !important;
+  // align-items: center;
   gap: 10px;
-  margin-bottom: 40px;
-  border-bottom: 3px solid #ffffff26;
+  flex: 1;
+
+  @include is-mobile {
+    flex-direction: row !important;
+  }
 
   >button {
-    width: 160px;
-    padding: 12px;
+    width: fit-content;
+    padding: 12px 0;
+    // border-radius: 100px;
     background: none;
-    border: none;
-    color: #000;
-    opacity: 50%;
-    font-weight: 400;
+    outline: none;
+    border-bottom: none;
 
     font-family: var(--font-JetBrainsMono) !important;
     flex: unset;
     position: relative;
-    text-align: center;
+    // text-align: center;
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    opacity: 0.5;
+    line-height: 130%;
 
     &[aria-selected='true'] {
+      color: #FA4E0E;
       opacity: 1;
       font-weight: 700;
-      font-family: var(--font-JetBrainsMono) !important;
-      color: #fa4e0e !important;
+      border-bottom: 2px solid #FA4E0E;
+      // background: rgba(250, 78, 14, 0.10);
+    }
 
-      &::after {
-        content: '';
-        display: block;
-        height: 2px;
-        width: 100%;
-        background-color: #fa4e0e !important;
-        position: absolute;
-        bottom: 0;
-      }
+    @include is-tablet {
+      width: 100px;
     }
   }
 }

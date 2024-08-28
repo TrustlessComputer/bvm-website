@@ -3,7 +3,7 @@
 import { ReactElement, useMemo } from 'react';
 import HeadingText from './HeadingText';
 import LabContent from './LabContent';
-import { Modules, Portfolio, Research } from './data';
+import { Modules, OpenSource, Portfolio, Research } from './data';
 import s from './style.module.scss';
 
 const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
@@ -40,6 +40,22 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
               reinvent Bitcoin. As technical investors, we invest at the
               earliest stage and take a hands-on approach to help builders build
               and launch.
+            </LabContent>
+          </div>
+        );
+
+      case 3:
+        return (
+          <div>
+            <LabContent
+              imageRect
+              landingData={OpenSource}
+              heading={<>Open source</>}
+              isLowercaseTitle
+            >
+              We believe our open-source projects will help transform Bitcoin
+              into more than just a currency. Leverage our codebase to get
+              started fast. Customize and build as you need.
             </LabContent>
           </div>
         );

@@ -18,6 +18,7 @@ import useDapps from '../../hooks/useDapps';
 import { accountAbstractionAsADapp } from '../../mockup_3';
 import { chainKeyToDappKey, isChainOptionDisabled } from '../../utils';
 
+const ignoreFields = ['bridge_apps', 'gaming_apps'];
 export default memo(function StudioControls() {
   const { parsedCategories } = useModelCategoriesStore();
   const { field } = useOrderFormStoreV3();
@@ -107,13 +108,14 @@ export default memo(function StudioControls() {
     <div id={'wrapper-data'} className={s.left_box_inner_content}>
       <DroppableV2 id="data">
         {(parsedCategories || []).map((item, index) => {
-          if (!item.isChain && item.key !== 'bridge_apps') return null;
+          if (!item.isChain && !ignoreFields.includes(item.key)) return null;
           // console.log('[StudioControls] map', item.key, {
           //   item: item,
           //   field: field,
           //   disabled: isUpdateChainFlow && !item.updatable,
           // });
           if (item.hidden) return null;
+
           const currentOption = item.options.find(
             (opt) =>
               opt.key === field[item.key].value && field[item.key].dragged,
@@ -179,33 +181,46 @@ export default memo(function StudioControls() {
                       })} BVM)`
                     : '';
 
-                if (
-                  (option.key === field[item.key].value &&
-                    field[item.key].dragged) ||
-                  item.type === 'dropdown'
-                )
-                  return null;
+                let isThisOptionDragged =
+                  field[item.key].dragged &&
+                  field[item.key].value === option.key;
+
+                // if (
+                //   (option.key === field[item.key].value &&
+                //     field[item.key].dragged) ||
+                //   item.type === 'dropdown'
+                // )
+                //   return null;
 
                 const isDisabled = isChainOptionDisabled(field, item, option);
 
                 if (item.multiChoice && field[item.key].dragged) {
-                  const currentValues = field[item.key].value as any[];
-
-                  if (currentValues.includes(option.key)) {
-                    return null;
-                  }
+                  isThisOptionDragged = (
+                    (field[item.key]?.value as any) || []
+                  ).includes(option.key);
+                  // const currentValues = field[item.key].value as any[];
+                  //
+                  // if (currentValues.includes(option.key)) {
+                  //   return null;
+                  // }
                 }
+
+                if (option?.hidden) return null;
 
                 return (
                   <Draggable
-                    key={item.key + '-' + option.key}
-                    id={item.key + '-' + option.key}
+                    key={item.key + '-' + option.key + '-left'}
+                    id={item.key + '-' + option.key + '-left'}
                     useMask
                     disabled={isDisabled}
                     isLabel={true}
                     value={{
                       isChain: true,
                       value: option.key,
+                      left: true,
+                      background: item.color,
+                      label: option.title,
+                      icon: option.icon,
                     }}
                     tooltip={option.tooltip}
                   >
@@ -213,6 +228,7 @@ export default memo(function StudioControls() {
                       background={item.color}
                       zIndex={item.options.length - optIdx}
                       disabled={isDisabled}
+                      checked={isThisOptionDragged}
                     >
                       <Label icon={option.icon} title={option.title + suffix} />
                     </LegoV3>

@@ -16,7 +16,10 @@ import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { requestReload } from '@/stores/states/common/reducer';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
-import { getL2ServicesStateSelector, getOrderDetailSelected } from '@/stores/states/l2services/selector';
+import {
+  getL2ServicesStateSelector,
+  getOrderDetailSelected,
+} from '@/stores/states/l2services/selector';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { IModelOption } from '@/types/customize-model';
 import { getErrorMessage } from '@/utils/errorV2';
@@ -43,6 +46,7 @@ import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
 import useSubmitYoloGame from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitYoloGame';
+import { useComputerNameInputStore } from '../ComputerNameInput/ComputerNameInputStore';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -80,6 +84,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { setUpdated } = useUpdateFlowStore();
   const { nodes, edges } = useFlowStore();
   const { dappCount } = useFormDappToFormChain();
+  const { computerName } = useComputerNameInputStore();
 
   const { parsedCategories: data, categories: originalData } =
     useModelCategoriesStore();
@@ -133,7 +138,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
   const titleButton = useMemo(() => {
     if (!loggedIn) {
-      return 'Connect';
+      return 'Launch';
     }
     if (needContactUs) {
       return 'Launch';
@@ -206,13 +211,15 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         optionMapping: {},
       };
 
+    const ignoreFields = ['bridge_apps', 'gaming_apps'];
     const dynamicForm = [];
     const optionMapping: Record<string, IModelOption> = {};
     const allOptionKeyDragged: string[] = [];
     const allRequiredForKey: string[] = [];
 
     for (const _field of originalData) {
-      if (!_field.isChain && _field.key !== 'bridge_apps') continue;
+      // if (!_field.isChain && _field.key !== 'bridge_apps') continue;
+      if (!_field.isChain && !ignoreFields.includes(_field.key)) continue;
 
       _field.options.forEach((opt: IModelOption) => {
         optionMapping[opt.key] = opt;
@@ -387,7 +394,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         if (yoloGameForms && yoloGameForms.length > 0) {
           await onSubmitYoloGame({
             forms: yoloGameForms,
-            positions: yoloNodePositions
+            positions: yoloNodePositions,
           });
           isConfigDapp = true;
         }
@@ -475,8 +482,12 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     //   withdrawPeriod,
     // };
 
+    if (!computerName || !chainId) {
+      return;
+    }
+
     const params = formValuesAdapter({
-      computerName: computerNameField.value || '',
+      computerName: computerName || '',
       chainId: chainId,
       dynamicFormValues: formData || dyanmicFormAllData,
     });

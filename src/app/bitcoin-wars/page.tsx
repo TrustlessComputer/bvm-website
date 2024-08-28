@@ -41,6 +41,7 @@ export default function Page() {
         colorLogo: 'white',
         bgColor: 'black',
         position: 'absolute',
+        theme: 'black',
       }}
       hideFooter={true}
     >

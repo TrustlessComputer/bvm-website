@@ -40,10 +40,18 @@ import useOverlappingChainLegoStore from '../stores/useOverlappingChainLegoStore
 export default function useHandleDragging() {
   const { setOverlappingId } = useOverlappingChainLegoStore();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
-  const { setIdDragging, rightDragging, setRightDragging } = useDragMask();
+  const {
+    setIdDragging,
+    rightDragging,
+    setRightDragging,
+    idDragging,
+    dataDragging,
+    setDataDragging,
+    setDraggingParent,
+  } = useDragMask();
   const { draggedFields, setDraggedFields } = useDragStore();
   const { field, setField } = useOrderFormStoreV3();
-  const { setIsDragging } = useDraggingStore();
+  const { setIsDragging, isDragging } = useDraggingStore();
   const { parsedCategories, categories, categoryMapping } =
     useModelCategoriesStore();
   const {
@@ -56,8 +64,6 @@ export default function useHandleDragging() {
   const { selectedCategoryMapping, isUpdateFlow } = useChainProvider();
   const { templateDapps } = useTemplateFormStore();
   const { deleteValue: deleteValueOptionInputStore } = useOptionInputStore();
-
-  // console.log('useHandleDragging -> field :: ', field);
 
   const getAllOptionKeysOfItem = (item: FieldModel) => {
     const result: string[] = [];
@@ -80,6 +86,14 @@ export default function useHandleDragging() {
   const handleChainDragEnd = (event: any) => {
     setIdDragging('');
     setRightDragging(false);
+    setDataDragging({
+      icon: '',
+      background: '',
+      label: '',
+      value: '',
+    });
+    setIsDragging(false);
+    setDraggingParent(false);
 
     const { over, active } = event;
     console.log('over, active', { over, active });
@@ -93,7 +107,8 @@ export default function useHandleDragging() {
     ).split('-');
     const overIsParentOfActiveDroppable =
       overKey === activeKey && overSuffix1 === 'droppable';
-    const overIsFinalDroppable = overKey === 'final' || overKey === 'final_2';
+    const overIsFinalDroppable =
+      overKey === 'final' || overKey.startsWith('final_');
     const overIsParentDroppable =
       !overIsFinalDroppable &&
       overSuffix1 === 'droppable' &&
@@ -110,6 +125,7 @@ export default function useHandleDragging() {
     // const selectedCategory = selectedCategoryMapping?.[activeKey];
     const category = categoryMapping?.[activeKey];
     const totalTemplateDapps = templateDapps.length;
+    const ignoreKeys = ['bridge_apps', 'gaming_apps'];
 
     if (!rightDragging && !overIsFinalDroppable && overSuffix1 !== 'right') {
       return;
@@ -132,7 +148,7 @@ export default function useHandleDragging() {
       return;
     }
 
-    if (activeIsNotAChainField && activeKey !== 'bridge_apps') {
+    if (activeIsNotAChainField && !ignoreKeys.includes(activeKey)) {
       return;
     }
 
@@ -157,6 +173,7 @@ export default function useHandleDragging() {
           (option) => option.key === field[activeKey].value,
         );
         const msg = `You have already chosen ${currentOption?.title} as your ${currentField?.title}. Please remove it before selecting again.`;
+        // isShakeLego.value = field[activeKey].value as string;
         isShakeLego.value = currentOption?.value as string;
         toast.error(msg, {
           icon: null,
@@ -218,13 +235,24 @@ export default function useHandleDragging() {
       setField(activeKey, [], false);
       setDraggedFields(draggedFields.filter((field) => field !== activeKey));
 
-      console.log('activeKey', {
-        activeKey,
-        draggedDappIndexesSignal: draggedDappIndexesSignal.value,
-      });
-
       if (activeKey === 'bridge_apps') {
         const index = draggedDappIndexesSignal.value.indexOf(1);
+
+        if (index !== -1) {
+          draggedDappIndexesSignal.value = removeItemAtIndex(
+            draggedDappIndexesSignal.value,
+            index,
+          );
+          draggedIds2DSignal.value = removeItemAtIndex(
+            draggedIds2DSignal.value,
+            index,
+          );
+        }
+        setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
+      }
+
+      if (activeKey === 'gaming_apps') {
+        const index = draggedDappIndexesSignal.value.indexOf(2);
 
         if (index !== -1) {
           draggedDappIndexesSignal.value = removeItemAtIndex(
@@ -264,6 +292,15 @@ export default function useHandleDragging() {
         draggedDappIndexesSignal.value = [...draggedDappIndexesSignal.value, 1];
         draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
       }
+
+      if (
+        activeKey === 'bridge_apps' &&
+        !draggedDappIndexesSignal.value.includes(2) &&
+        !activeIsParent
+      ) {
+        draggedDappIndexesSignal.value = [...draggedDappIndexesSignal.value, 2];
+        draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
+      }
     } else {
       const currentValues = (field[activeKey].value || []) as string[];
       const newValue = currentValues.filter(
@@ -299,11 +336,29 @@ export default function useHandleDragging() {
             setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
           }
         }
+
+        if (activeKey === 'gaming_apps') {
+          const index = draggedDappIndexesSignal.value.indexOf(2);
+
+          if (index !== -1) {
+            draggedDappIndexesSignal.value = removeItemAtIndex(
+              draggedDappIndexesSignal.value,
+              index,
+            );
+            draggedIds2DSignal.value = removeItemAtIndex(
+              draggedIds2DSignal.value,
+              index,
+            );
+            setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
+          }
+        }
       }
     }
   };
 
   const handleDappDragEnd = (event: any) => {
+    console.log('[useHandleDragging] handleDappDragEnd', event);
+
     const { over, active } = event;
     subScribeDropEnd.value += 1;
     blockDraggingSignal.value = {
@@ -1254,11 +1309,18 @@ export default function useHandleDragging() {
       const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
         active.id.split('-');
 
-      if (activeSuffix2 === 'right') {
+      if (activeSuffix2 === 'right' || active.data.current.rightDragging) {
         setRightDragging(true);
       }
 
       setIdDragging(active.id);
+      setDataDragging({
+        background: active.data.current.background,
+        label: active.data.current.label,
+        icon: active.data.current.icon,
+        value: active.data.current.value,
+      });
+      setDraggingParent(!!active.data.current.parent);
 
       return;
     }
