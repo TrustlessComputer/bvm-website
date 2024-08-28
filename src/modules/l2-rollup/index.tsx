@@ -999,7 +999,7 @@ const L2Rollup = () => {
 
         <Flex mb={'48px'}>
           <SearchAddress
-            placeholder={'Search bitcoin or L2 Bitcoin address'}
+            placeholder={'Search by Address / Txn Hash'}
             className={s.search}
             autoFocus
           />

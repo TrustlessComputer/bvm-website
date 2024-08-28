@@ -113,7 +113,7 @@ const L2RollupDetail = () => {
           <Flex alignItems={'center'} gap={'4px'} position={'relative'}>
             <SearchAddress
               className={s.search}
-              placeholder={'Search bitcoin or L2 Bitcoin address'}
+              placeholder={'Search by Address / Txn Hash'}
             />
             <WatchListAddresses />
           </Flex>
