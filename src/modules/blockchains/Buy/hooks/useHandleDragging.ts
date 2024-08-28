@@ -40,10 +40,18 @@ import useOverlappingChainLegoStore from '../stores/useOverlappingChainLegoStore
 export default function useHandleDragging() {
   const { setOverlappingId } = useOverlappingChainLegoStore();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
-  const { setIdDragging, rightDragging, setRightDragging } = useDragMask();
+  const {
+    setIdDragging,
+    rightDragging,
+    setRightDragging,
+    idDragging,
+    dataDragging,
+    setDataDragging,
+    setDraggingParent,
+  } = useDragMask();
   const { draggedFields, setDraggedFields } = useDragStore();
   const { field, setField } = useOrderFormStoreV3();
-  const { setIsDragging } = useDraggingStore();
+  const { setIsDragging, isDragging } = useDraggingStore();
   const { parsedCategories, categories, categoryMapping } =
     useModelCategoriesStore();
   const {
@@ -56,7 +64,6 @@ export default function useHandleDragging() {
   const { selectedCategoryMapping, isUpdateFlow } = useChainProvider();
   const { templateDapps } = useTemplateFormStore();
   const { deleteValue: deleteValueOptionInputStore } = useOptionInputStore();
-
 
   const getAllOptionKeysOfItem = (item: FieldModel) => {
     const result: string[] = [];
@@ -79,6 +86,14 @@ export default function useHandleDragging() {
   const handleChainDragEnd = (event: any) => {
     setIdDragging('');
     setRightDragging(false);
+    setDataDragging({
+      icon: '',
+      background: '',
+      label: '',
+      value: '',
+    });
+    setIsDragging(false);
+    setDraggingParent(false);
 
     const { over, active } = event;
     console.log('over, active', { over, active });
@@ -304,6 +319,8 @@ export default function useHandleDragging() {
   };
 
   const handleDappDragEnd = (event: any) => {
+    console.log('[useHandleDragging] handleDappDragEnd', event);
+
     const { over, active } = event;
     subScribeDropEnd.value += 1;
     blockDraggingSignal.value = {
@@ -1254,11 +1271,18 @@ export default function useHandleDragging() {
       const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
         active.id.split('-');
 
-      if (activeSuffix2 === 'right') {
+      if (activeSuffix2 === 'right' || active.data.current.rightDragging) {
         setRightDragging(true);
       }
 
       setIdDragging(active.id);
+      setDataDragging({
+        background: active.data.current.background,
+        label: active.data.current.label,
+        icon: active.data.current.icon,
+        value: active.data.current.value,
+      });
+      setDraggingParent(!!active.data.current.parent);
 
       return;
     }

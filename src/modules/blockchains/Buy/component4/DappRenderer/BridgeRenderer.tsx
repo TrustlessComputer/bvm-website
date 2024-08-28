@@ -74,6 +74,10 @@ const BridgeRenderer = () => {
                 value={{
                   isChain: true,
                   value: option.key,
+                  rightDragging: true,
+                  background: item.color,
+                  label: option.title,
+                  icon: option.icon,
                 }}
               >
                 <DroppableV2 id={item.key + '-right'}>
@@ -105,6 +109,11 @@ const BridgeRenderer = () => {
               useMask
               value={{
                 isChain: true,
+                rightDragging: true,
+                background: item.color,
+                label: item.title,
+                icon: '',
+                parent: true,
               }}
             >
               <DroppableV2 id={item.key}>
@@ -137,7 +146,11 @@ const BridgeRenderer = () => {
               tooltip={item.tooltip}
               value={{
                 isChain: true,
-                value: option.key,
+                rightDragging: true,
+                background: item.color,
+                label: item.title,
+                icon: '',
+                parent: true,
               }}
             >
               <DroppableV2 id={item.key + '-right'}>

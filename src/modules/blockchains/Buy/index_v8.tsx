@@ -27,9 +27,9 @@ const BuyPage = () => {
   useCalcPrice();
   useFixScrollOverDrag();
   useNodeFlowControl();
-  useSetDefaultDapp();
   useGettingDappLego();
   useCheckNodes();
+  useSetDefaultDapp();
   // useCheckEdges();
 
   const { tabActive } = useTabs((state) => state);
