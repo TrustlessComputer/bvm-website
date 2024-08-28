@@ -11,8 +11,12 @@ import ExportPrivateKey, {
   EXPORT_PRIVATE_KEY_MODAL_ID,
 } from './ExportPrivateKey';
 import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
+import { FC } from 'react';
 
-export default function ConnectedWallets() {
+interface IProps {
+  showIcon?: boolean;
+}
+const ConnectedWallets: FC<IProps> = ({ showIcon = false }) => {
   const { login, wallet } = useWeb3Auth();
 
   const { tracking } = useL2ServiceTracking();
@@ -59,22 +63,24 @@ export default function ConnectedWallets() {
     >
       {/* Export private key */}
       <button className={s.export_btn} onClick={exportPrivateKeyHandler}>
-        {/* <span
-          style={{
-            // background: '#fff',
-            borderRadius: '50%',
-            display: 'flex',
-            width: '20px',
-            height: '20px',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <SvgInset
-            size={14}
-            svgUrl="/images/poc/wallets/export-private-key-ic.svg"
-          />
-        </span> */}
+        {showIcon && (
+          <span
+            style={{
+              // background: '#fff',
+              borderRadius: '50%',
+              display: 'flex',
+              width: '20px',
+              height: '20px',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <SvgInset
+              size={14}
+              svgUrl="/images/poc/wallets/export-private-key-ic.svg"
+            />
+          </span>
+        )}
         <span
           style={{
             fontSize: '11px',
@@ -131,4 +137,6 @@ export default function ConnectedWallets() {
       </button> */}
     </div>
   );
-}
+};
+
+export default ConnectedWallets;
