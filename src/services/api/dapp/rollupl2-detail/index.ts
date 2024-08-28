@@ -1,7 +1,9 @@
 import CDappApiClient from './dapp.client';
 import {
   IRollupDetail,
-  IRollupNFT, IRollupNFTDetail,
+  IRollupExplorer,
+  IRollupNFT,
+  IRollupNFTDetail,
   IRollupTokenTransfer,
   IRollupTransaction,
   IWatchList,
@@ -127,6 +129,17 @@ class CRollupL2DetailAPI extends CDappApiClient {
       return rs;
     } catch (error) {
       throw [];
+    }
+  };
+
+  getRollupL2Txs = async (params: {
+    tx_hash: string;
+  }): Promise<IRollupExplorer | undefined> => {
+    try {
+      const rs: any = await this.api.get(`/rollup/transactions`, { params });
+      return rs?.[0];
+    } catch (error) {
+      return undefined;
     }
   };
 }

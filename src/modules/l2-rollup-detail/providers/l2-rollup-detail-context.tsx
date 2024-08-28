@@ -12,7 +12,7 @@ import {
   ITokenChain,
   RollupTokenRate,
 } from '@/services/api/dapp/rollupl2-detail/interface';
-import { isValidBTCTxHash } from '@/utils/form-validate';
+import { isValidBTCTxHash, isValidERC20TxHash } from '@/utils/form-validate';
 import { validateBTCAddress } from '@/utils/format';
 import { validateEVMAddress } from '@/utils/validate';
 import BigNumber from 'bignumber.js';
@@ -24,6 +24,7 @@ export interface IL2RollupDetailContext {
   isValidAddress: boolean;
   isBTCAddress: boolean;
   isBTCTxAddress: boolean;
+  isERC20TxAddress: boolean;
   totalBalanceUsd: number;
   rollupDetails: IRollupDetail[];
   rollupBalances: ITokenChain[];
@@ -39,6 +40,7 @@ const initialValue: IL2RollupDetailContext = {
   isValidAddress: false,
   isBTCAddress: false,
   isBTCTxAddress: false,
+  isERC20TxAddress: false,
   totalBalanceUsd: 0,
   rollupDetails: [],
   rollupBalances: [],
@@ -66,10 +68,14 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
   const isEVMAddress = useMemo(() => validateEVMAddress(address), [address]);
   const isBTCAddress = useMemo(() => validateBTCAddress(address), [address]);
   const isBTCTxAddress = useMemo(() => isValidBTCTxHash(address), [address]);
+  const isERC20TxAddress = useMemo(
+    () => isValidERC20TxHash(address),
+    [address],
+  );
 
   const isValidAddress = useMemo(
-    () => isEVMAddress || isBTCAddress || isBTCTxAddress,
-    [isEVMAddress, isBTCAddress, isBTCTxAddress],
+    () => isEVMAddress || isBTCAddress || isBTCTxAddress || isERC20TxAddress,
+    [isEVMAddress, isBTCAddress, isBTCTxAddress, isERC20TxAddress],
   );
 
   const [rollupTokensRate, setRollupTokensRate] = useState<RollupTokenRate>();
@@ -237,6 +243,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
       totalBitcoinBalanceUsd,
       rollupBitcoinBalances,
       isBTCTxAddress,
+      isERC20TxAddress,
     };
   }, [
     address,
@@ -250,6 +257,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     totalBitcoinBalanceUsd,
     rollupBitcoinBalances,
     isBTCTxAddress,
+    isERC20TxAddress,
   ]);
 
   return (

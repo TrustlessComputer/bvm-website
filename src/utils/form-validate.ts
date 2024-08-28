@@ -20,3 +20,9 @@ export const isValidBTCTxHash = (txHash: string) => {
   const regex = /^[0-9a-fA-F]{64}$/;
   return regex.test(txHash);
 };
+
+export const isValidERC20TxHash = (txHash: string) => {
+  // Check if txHash is a 64-character hexadecimal string
+  const regex = /^0x([A-Fa-f0-9]{64})$/;
+  return regex.test(txHash);
+};
