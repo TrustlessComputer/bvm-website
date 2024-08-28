@@ -85,7 +85,7 @@ const StepsAirdrop = (props: IProps) => {
     setAuthenCode(res);
     code = `\n\n#${res?.public_code}`;
 
-    const content = `BVM is the most comprehensive infrastructure for building on Bitcoin, offering everything from L2 rollups to GPU-accelerated VMs to push Bitcoin further.\n\nLet's transform Bitcoin beyond a currency with @BVMnetwork.\n\nbvm.network${code}`;
+    const content = `BVM is the most comprehensive platform, offering over 30 tools for building on Bitcoin—from ZK rollups and DA layers to L1 metaprotocols and GPU-accelerated VMs.\n\n@BVMnetwork equips you with the tools to push the boundaries of what's possible on Bitcoin.\n\nbvm.network${code}`;
 
     window.open(
       `https://twitter.com/intent/tweet?text=${encodeURIComponent(content)}`,
@@ -94,7 +94,7 @@ const StepsAirdrop = (props: IProps) => {
   };
 
   const handleTweetToClaim = (airdropStep: AirdropStep) => {
-    const content = `I've been a supporter of @newbitcoincity since their early days in 2023.\n\nThese builders are reinventing Bitcoin, and I share their vision.\n\nExcited to claim their first airdrop in 2024 and eager for what's to come.\n\nCheck out their latest project: bvm.network`;
+    const content = `BVM is the most comprehensive platform, offering over 30 tools for building on Bitcoin—from ZK rollups and DA layers to L1 metaprotocols and GPU-accelerated VMs.\n\n@BVMnetwork equips you with the tools to push the boundaries of what's possible on Bitcoin.\n\nbvm.network`;
     switch (airdropStep) {
       case AirdropStep.generativeUsers:
         break;

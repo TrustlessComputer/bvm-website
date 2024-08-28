@@ -107,7 +107,8 @@ export default function useHandleDragging() {
     ).split('-');
     const overIsParentOfActiveDroppable =
       overKey === activeKey && overSuffix1 === 'droppable';
-    const overIsFinalDroppable = overKey === 'final' || overKey === 'final_2';
+    const overIsFinalDroppable =
+      overKey === 'final' || overKey.startsWith('final_');
     const overIsParentDroppable =
       !overIsFinalDroppable &&
       overSuffix1 === 'droppable' &&
@@ -124,6 +125,7 @@ export default function useHandleDragging() {
     // const selectedCategory = selectedCategoryMapping?.[activeKey];
     const category = categoryMapping?.[activeKey];
     const totalTemplateDapps = templateDapps.length;
+    const ignoreKeys = ['bridge_apps', 'gaming_apps'];
 
     if (!rightDragging && !overIsFinalDroppable && overSuffix1 !== 'right') {
       return;
@@ -146,7 +148,7 @@ export default function useHandleDragging() {
       return;
     }
 
-    if (activeIsNotAChainField && activeKey !== 'bridge_apps') {
+    if (activeIsNotAChainField && !ignoreKeys.includes(activeKey)) {
       return;
     }
 
@@ -233,13 +235,24 @@ export default function useHandleDragging() {
       setField(activeKey, [], false);
       setDraggedFields(draggedFields.filter((field) => field !== activeKey));
 
-      console.log('activeKey', {
-        activeKey,
-        draggedDappIndexesSignal: draggedDappIndexesSignal.value,
-      });
-
       if (activeKey === 'bridge_apps') {
         const index = draggedDappIndexesSignal.value.indexOf(1);
+
+        if (index !== -1) {
+          draggedDappIndexesSignal.value = removeItemAtIndex(
+            draggedDappIndexesSignal.value,
+            index,
+          );
+          draggedIds2DSignal.value = removeItemAtIndex(
+            draggedIds2DSignal.value,
+            index,
+          );
+        }
+        setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
+      }
+
+      if (activeKey === 'gaming_apps') {
+        const index = draggedDappIndexesSignal.value.indexOf(2);
 
         if (index !== -1) {
           draggedDappIndexesSignal.value = removeItemAtIndex(
@@ -279,6 +292,15 @@ export default function useHandleDragging() {
         draggedDappIndexesSignal.value = [...draggedDappIndexesSignal.value, 1];
         draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
       }
+
+      if (
+        activeKey === 'bridge_apps' &&
+        !draggedDappIndexesSignal.value.includes(2) &&
+        !activeIsParent
+      ) {
+        draggedDappIndexesSignal.value = [...draggedDappIndexesSignal.value, 2];
+        draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
+      }
     } else {
       const currentValues = (field[activeKey].value || []) as string[];
       const newValue = currentValues.filter(
@@ -301,6 +323,22 @@ export default function useHandleDragging() {
 
         if (activeKey === 'bridge_apps') {
           const index = draggedDappIndexesSignal.value.indexOf(1);
+
+          if (index !== -1) {
+            draggedDappIndexesSignal.value = removeItemAtIndex(
+              draggedDappIndexesSignal.value,
+              index,
+            );
+            draggedIds2DSignal.value = removeItemAtIndex(
+              draggedIds2DSignal.value,
+              index,
+            );
+            setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
+          }
+        }
+
+        if (activeKey === 'gaming_apps') {
+          const index = draggedDappIndexesSignal.value.indexOf(2);
 
           if (index !== -1) {
             draggedDappIndexesSignal.value = removeItemAtIndex(

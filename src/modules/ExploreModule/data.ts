@@ -60,7 +60,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
     title: 'Heartbeats',
     bgColor:
       'linear-gradient(226.66deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
-    description: 'Insights into Bitcoin chains.',
+    description: 'Insights into Bitcoin L2s.',
     tags: ['', 'Analytics'],
     link: {
       url: '/heartbeats',

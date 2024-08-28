@@ -52,7 +52,7 @@ const Pricing = () => {
 
   return (
     <div className={s.wrapper}>
-      <Box maxW={'1800px'}>
+      <Box maxW={'1800px'} mx="auto">
         <div className={s.heading}>
           <h3>Let’s build on Bitcoin.</h3>
           <p>Pricing for crypto teams of all sizes.</p>

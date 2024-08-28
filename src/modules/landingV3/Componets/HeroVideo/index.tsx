@@ -30,10 +30,10 @@ export default function HeroVideo() {
           <div className={`containerV3 ${s.heroVideo_content_container}`}>
             <div className={s.content}>
               <div className={s.content_sub}>
-                <p>Bitcoin Chain as a Service</p>
+                <p>Bitcoin L2 as a Service</p>
               </div>
               <h3 className={s.content_heading}>
-                Launch your own Bitcoin chain with drags and drops.
+                Launch your own Bitcoin L2 with drags and drops.
               </h3>
               <div className={s.groupBtn}>
                 <div

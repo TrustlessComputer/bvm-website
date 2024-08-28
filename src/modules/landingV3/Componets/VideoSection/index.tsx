@@ -7,7 +7,7 @@ const FakeData = [
   {
     icon: '/images/home-list-icon-1.svg',
     title: 'Easily deploy',
-    desc: 'Launch your Bitcoin chain without writing a single line of code.',
+    desc: 'Launch your Bitcoin L2 without writing a single line of code.',
   },
   // {
   //   icon: '/images/home-list-icon-2.svg',
@@ -17,12 +17,12 @@ const FakeData = [
   {
     icon: '/images/home-list-icon-3.svg',
     title: 'Scalable solutions',
-    desc: 'Scale your Bitcoin chain or resize it as your demand shifts.',
+    desc: 'Scale your Bitcoin L2 or resize it as your demand shifts.',
   },
   {
     icon: '/images/home-list-icon-4.svg',
     title: 'Bitcoin security',
-    desc: 'Inherit Bitcoin’s robust security with your Bitcoin chain.',
+    desc: 'Inherit Bitcoin’s robust security with your Bitcoin L2.',
   },
   {
     icon: '/images/home-list-icon-5.svg',

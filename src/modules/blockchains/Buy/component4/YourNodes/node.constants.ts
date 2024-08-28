@@ -7,6 +7,7 @@ export const nodeKey = Object.freeze({
   DAPP_NODE: 'dappNode',
   ACCOUNT_ABSTRACTION_NODE: 'accountAbstractionNode',
   BRIDGE_NODE: 'bridgeNode',
+  GAMING_APPS_NODE: 'gamingAppsNode',
 });
 
 export const nodeOverlayType = Object.freeze({
@@ -20,6 +21,7 @@ export const dappKeyMapNodeKey: Record<
 > = Object.freeze({
   account_abstraction: nodeKey.ACCOUNT_ABSTRACTION_NODE,
   bridge_apps: nodeKey.BRIDGE_NODE,
+  gaming_apps: nodeKey.GAMING_APPS_NODE,
   issue_a_token: nodeKey.DAPP_NODE,
   staking: nodeKey.DAPP_NODE,
   airdrop: nodeKey.DAPP_NODE,

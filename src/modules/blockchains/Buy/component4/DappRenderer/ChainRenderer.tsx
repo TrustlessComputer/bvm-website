@@ -20,7 +20,7 @@ import styles from './styles.module.scss';
 
 type Props = {};
 
-const hiddenFields = ['bridge_apps', 'network'];
+const hiddenFields = ['bridge_apps', 'network', 'gaming_apps'];
 
 const ChainRenderer = () => {
   const { parsedCategories, categories } = useModelCategoriesStore();
@@ -53,7 +53,7 @@ const ChainRenderer = () => {
     >
       <LegoV3
         background={'#FF3A3A'}
-        label="Bitcoin Chain Name"
+        label="Bitcoin L2 Name"
         labelInLeft
         zIndex={45}
       >
