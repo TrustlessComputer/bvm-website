@@ -34,6 +34,7 @@ import s from './styles.module.scss';
 import TokenTransferTab from './TokenTransferTab';
 import TransactionsTab from './TransactionsTab';
 import TransactionsTabBitcoin from './TransactionsTabBitcoin';
+import TokenTransferTabBitcoin from './TokenTransferTabBitcoin';
 import WatchListAddresses from './Watchlist';
 
 const L2RollupDetail = () => {
@@ -185,6 +186,7 @@ const L2RollupDetail = () => {
               >
                 <Tab>Portfolio</Tab>
                 <Tab>Transactions</Tab>
+                <Tab>Token Transfer</Tab>
               </TabList>
               <TabPanels className={s.tabPanel}>
                 <TabPanel minH={'40vh'}>
@@ -192,6 +194,9 @@ const L2RollupDetail = () => {
                 </TabPanel>
                 <TabPanel minH={'40vh'}>
                   <TransactionsTabBitcoin />
+                </TabPanel>
+                <TabPanel minH={'40vh'}>
+                  <TokenTransferTabBitcoin />
                 </TabPanel>
               </TabPanels>
             </>
@@ -230,24 +235,6 @@ const L2RollupDetail = () => {
   return (
     <Box className={s.container}>
       <Flex direction={'column'} w="100%" maxW={'1140px'}>
-        <Flex
-          direction={{ base: 'column', md: 'row' }}
-          alignItems={{ base: 'flex-start', md: 'center' }}
-          justifyContent={'space-between'}
-          gap={{ base: '16px', md: '8px' }}
-        >
-          <Flex
-            className={s.backBtn}
-            direction={{ base: 'row' }}
-            alignItems={'center'}
-            gap={'8px'}
-            onClick={() => router.push(HEART_BEAT)}
-          >
-            <Image w={'24px'} src={'/heartbeat/ic-back.svg'} />
-            <Text>Bitcoin Heartbeat Project</Text>
-          </Flex>
-          <SearchAddress className={s.search} />
-        </Flex>
         {renderContent()}
       </Flex>
     </Box>
