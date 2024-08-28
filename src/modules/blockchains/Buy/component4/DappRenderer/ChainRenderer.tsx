@@ -52,7 +52,7 @@ const ChainRenderer = () => {
     >
       <LegoV3
         background={'#FF3A3A'}
-        label="Bitcoin Chain Name"
+        label="Bitcoin L2 Name"
         labelInLeft
         zIndex={45}
       >
