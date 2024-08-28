@@ -185,9 +185,11 @@ const WhitePaperModal = (props: IProps) => {
       isShow={show}
       onHide={onClose}
       className={s.modalContent}
+      headerClassName={s.headerClassName}
       size="extra"
       icCloseUrl="/icons/ic-close-grey.svg"
-      title={'Preview'}
+      title={'White Paper'}
+      theme={"dark"}
     >
       <Flex
         display={'flex'}
@@ -197,7 +199,7 @@ const WhitePaperModal = (props: IProps) => {
         borderRadius={'10px'}
         p={'20px'}
       >
-        <div ref={contentRef}
+        <div ref={contentRef} className={s.whitePaperContent}
           dangerouslySetInnerHTML={{ __html: htmlString }}
         ></div>
         <Flex gap={"16px"} alignItems={"center"} justifyContent={"center"}>

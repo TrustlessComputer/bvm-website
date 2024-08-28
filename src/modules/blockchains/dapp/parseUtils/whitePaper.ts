@@ -31,7 +31,7 @@ export const parseWhitePapers = (games: IYoloGame[]): any[] => {
         ],
         baseBlock: {
           key: '',
-          title: 'Create a White Paper',
+          title: `${game.settlement_token?.symbol} White Paper`,
           icon: 'https://storage.googleapis.com/bvm-network/image/ic-whitepaper.svg',
           placableAmount: -1,
           section: '',

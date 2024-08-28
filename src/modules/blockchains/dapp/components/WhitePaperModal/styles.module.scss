@@ -5,4 +5,39 @@
   margin: 20px !important;
   max-height: 100dvh;
   overflow-y: auto;
+
+  .whitePaperContent {
+    section {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    h1 {
+      color: white;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+  }
+
+  :global {
+    .chakra-modal__body {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+.headerClassName {
+  button {
+    right: 14px;
+    top: 14px;
+    svg {
+      stroke: white;
+    }
+  }
 }
