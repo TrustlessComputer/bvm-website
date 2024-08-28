@@ -15,6 +15,7 @@ import dayjs from 'dayjs';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
+import { HEART_BEAT } from '@/constants/route-path';
 
 interface IProps {}
 
@@ -22,8 +23,9 @@ const TransactionsTabBitcoin = (props: IProps) => {
   const { address } = useContext(L2RollupDetailContext);
 
   const rollupApi = new CRollupL2DetailBitcoinAPI();
-  const [balanceType, setBalanceType] =
-    useState<BalanceBitcoinType | 'bitcoin'>('bitcoin');
+  const [balanceType, setBalanceType] = useState<
+    BalanceBitcoinType | 'bitcoin'
+  >('bitcoin');
 
   const [list, setList] = useState<IBitcoinTokenTransaction[]>([]);
 
@@ -126,7 +128,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                window.open(`https://mempool.space/tx/${data.tx_id}`);
+                window.open(`${HEART_BEAT}/tx/${data.tx_id}`);
               }}
             >
               <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
