@@ -35,9 +35,10 @@ const useOnlyFetchDapp = () => {
 
     const sortedDapps = _dapps.sort((a, b) => a.order - b.order);
 
-    setDapps(preDataAirdropTask(sortedDapps, tokens, airdropTasks));
-    setDapps(preDataYoloGame(sortedDapps, tokensAll));
-    setDapps(preDataWhitePaper(sortedDapps, tokens));
+    let _sortedDapps = preDataAirdropTask(sortedDapps, tokens, airdropTasks);
+    _sortedDapps = preDataYoloGame(_sortedDapps, tokensAll);
+    _sortedDapps = preDataWhitePaper(_sortedDapps, tokens);
+    setDapps(_sortedDapps);
   };
 
   React.useEffect(() => {
