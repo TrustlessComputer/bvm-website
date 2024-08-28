@@ -10,9 +10,11 @@ import {
   useState,
 } from 'react';
 import { IChainProvider } from './ChainProvider.types';
+import { getChainIDRandom } from '../../Buy/Buy.helpers';
 
 export const ChainContext = createContext<IChainProvider>({
   order: undefined,
+  chainID: undefined,
 });
 
 export const ChainProvider = ({
@@ -25,16 +27,30 @@ export const ChainProvider = ({
   const dispatch = useAppDispatch();
 
   const [order, setOrder] = useState<OrderItem | undefined>(orderData);
+  const [chainID, setChainID] = useState<number | undefined>(undefined);
+
+  const getChainIDRandomHandler = async () => {
+    const chainID = await getChainIDRandom();
+    setChainID(chainID);
+  };
 
   useEffect(() => {
     setOrder(orderData);
+    if (orderData?.chainId) {
+      setChainID(Number(orderData?.chainId));
+    }
   }, [orderData]);
+
+  useEffect(() => {
+    getChainIDRandomHandler();
+  }, []);
 
   const value = useMemo(
     () => ({
       order,
+      chainID,
     }),
-    [order, dispatch],
+    [order, chainID, dispatch],
   );
 
   // console.log('ChainContext -- value -- ', value);

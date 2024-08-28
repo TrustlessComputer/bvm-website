@@ -55,7 +55,7 @@ const LandingV5 = (props: Props) => {
               <Box className={s.introduction_links}>
                 <div className={s.link_item}>
                   <div className={s.link_ic}>
-                    <ChakraImage src="/landing-v5/ic-headphone.svg" />
+                    <ChakraImage src="/landing-v5/ic-avatar-dev.svg" />
                   </div>
                   <Flex gap="4px" flexDir={'column'}>
                     <p>Need development help?</p>
