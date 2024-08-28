@@ -47,7 +47,7 @@ export default function useNodeFlowControl() {
   const { draggedIds2D, setDraggedIds2D } = useDraggedId2DStore();
   const { isAAInstalled, isBridgeInstalled, isGamingAppsInstalled } =
     useChainProvider();
-
+  console.log('[useNodeFlowControl]', dapps);
   const [dragState, setDragState] = React.useState<{
     oneD: [number];
     twoD: [number, number];
@@ -88,6 +88,7 @@ export default function useNodeFlowControl() {
       } as any;
 
       setNodes(newNodes);
+      console.log('[useNodeFlowControl] xxxxxx');
       resetDragState();
     } else if (!dragState.twoD.every((v) => v === -1)) {
       // handleAddBox();
@@ -95,6 +96,8 @@ export default function useNodeFlowControl() {
   };
 
   useSignalEffect(() => {
+    console.log('[useNodeFlowControl]', {nodes});
+
     needReactFlowRenderSignal.value = true;
 
     if (!restoreLocal.value) return;
@@ -131,7 +134,7 @@ export default function useNodeFlowControl() {
             sourceHandles: [],
           },
         };
-
+        console.log('[useNodeFlowControl], zzzzzzzzzzzz');
         setNodes([...nodesData, newNode]);
         setEdges([
           ...edges,
@@ -169,6 +172,8 @@ export default function useNodeFlowControl() {
     }
 
     if (draggedDappIndexesSignal.value.includes(1) && isBridgeInstalled) {
+      console.log('[useNodeFlowControl] case 1');
+
       if (!nodes.some((node) => node.id === 'bridge_apps')) {
         const rootNode = 'blockchain';
         const thisDapp = bridgesAsADapp;
@@ -190,6 +195,7 @@ export default function useNodeFlowControl() {
             sourceHandles: [],
           },
         };
+        console.log('[useNodeFlowControl], qqqqqqqq');
 
         setNodes([...nodesData, newNode]);
         setEdges([
@@ -248,6 +254,7 @@ export default function useNodeFlowControl() {
             sourceHandles: [],
           },
         };
+        console.log('[useNodeFlowControl], wwwwwwwwww');
 
         setNodes([...nodesData, newNode]);
         setEdges([
@@ -416,6 +423,7 @@ export default function useNodeFlowControl() {
         sourceHandles: [],
       },
     };
+    console.log('[useNodeFlowControl], eeeeeeeeeeee');
 
     setNodes([...nodesData, newNode]);
     setEdges([

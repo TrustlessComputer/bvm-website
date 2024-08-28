@@ -294,7 +294,7 @@ export default function useHandleDragging() {
       }
 
       if (
-        activeKey === 'bridge_apps' &&
+        activeKey === 'gaming_apps' &&
         !draggedDappIndexesSignal.value.includes(2) &&
         !activeIsParent
       ) {

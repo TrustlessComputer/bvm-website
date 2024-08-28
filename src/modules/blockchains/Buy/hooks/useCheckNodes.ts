@@ -50,6 +50,7 @@ export default function useCheckNodes() {
       );
 
       if (nodeIndex != -1) {
+        console.log('[useCheckNodes] case 1');
         nodes.splice(nodeIndex, 1);
         setNodes(removeItemAtIndex(nodes, nodeIndex));
       }
@@ -150,6 +151,7 @@ export default function useCheckNodes() {
       );
 
       if (nodeIndex != -1) {
+        console.log('[useCheckNodes] case 2');
         nodes.splice(nodeIndex, 1);
         setNodes(removeItemAtIndex(nodes, nodeIndex));
       }
@@ -242,6 +244,8 @@ export default function useCheckNodes() {
       );
 
       if (nodeIndex != -1) {
+        console.log('[useCheckNodes] case 3');
+
         nodes.splice(nodeIndex, 1);
         setNodes(removeItemAtIndex(nodes, nodeIndex));
       }
@@ -339,6 +343,7 @@ export default function useCheckNodes() {
       needReactFlowRenderSignal.value = true;
       draggedDappIndexesSignal.value = newDraggedDappIndexes;
       draggedIds2DSignal.value = newDraggedIds2D;
+      console.log('[useCheckNodes] case 4');
       setNodes(newNodes);
       setEdges(newEdges);
     }

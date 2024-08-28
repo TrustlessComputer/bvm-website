@@ -113,7 +113,7 @@ function useHandleReloadNode() {
   //   }
   // });
 
-  const onSave = useCallback(() => {
+  const onSave = () => {
     if (!isFirstLoadTemplateBox || !restoreLocal.value) return;
 
     if (rfInstance) {
@@ -138,7 +138,7 @@ function useHandleReloadNode() {
         JSON.stringify({ field, draggedFields }),
       );
     }
-  }, [rfInstance, isFirstLoadTemplateBox]);
+  };
 
   React.useEffect(() => {
     setHaveOldData(!!LocalStorage.getItem(STORAGE_KEYS.LAST_NODES));
