@@ -52,7 +52,8 @@ export default function useFetchingTemplate() {
   const params = useParams();
   const isUpdateFlow = React.useMemo(() => !!params?.id, [params?.id]);
 
-  const { order, isAAInstalled, isBridgeInstalled } = useChainProvider();
+  const { order, isAAInstalled, isBridgeInstalled, isGamingAppsInstalled } =
+    useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
     categories,
@@ -175,7 +176,11 @@ export default function useFetchingTemplate() {
         node: 'chain',
         title: 'Blockchain',
         sourceHandles: isUpdateFlow
-          ? [`${rootNode}-s-account_abstraction`, `${rootNode}-s-bridge_apps`]
+          ? [
+              `${rootNode}-s-account_abstraction`,
+              `${rootNode}-s-bridge_apps`,
+              `${rootNode}-s-gaming_apps`,
+            ]
           : [],
         // sourceHandles: isUpdateFlow
         //   ? [`${rootNode}-s-account_abstraction`]
@@ -475,15 +480,16 @@ export default function useFetchingTemplate() {
     if (isAAInstalled) {
       newDraggedDappIndexes.push(0);
       newDraggedIds2D.push([]);
-      // draggedDappIndexesSignal.value = [0];
-      // draggedIds2DSignal.value = [[]];
     }
 
     if (isBridgeInstalled) {
       newDraggedDappIndexes.push(1);
       newDraggedIds2D.push([]);
-      // draggedDappIndexesSignal.value = [...draggedDappIndexesSignal.value, 1];
-      // draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
+    }
+
+    if (isGamingAppsInstalled) {
+      newDraggedDappIndexes.push(2);
+      newDraggedIds2D.push([]);
     }
 
     draggedDappIndexesSignal.value = newDraggedDappIndexes;

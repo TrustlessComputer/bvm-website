@@ -23,6 +23,7 @@ import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import s from './styles.module.scss';
 import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
+import GamingAppsNode from '../../component4/YourNodes/GamingAppsNode';
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
@@ -38,7 +39,7 @@ const ReactFlowRenderer = React.memo(() => {
   const [count, setCount] = React.useState(0);
   const path = usePathname();
   const { categories } = useModelCategoriesStore();
-  const searchParamm = useSearchParams()
+  const searchParamm = useSearchParams();
 
   const [loaded, setLoaded] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
@@ -95,6 +96,7 @@ const ReactFlowRenderer = React.memo(() => {
           [nodeKey.CHAIN_NODE]: ChainNodeV2,
           [nodeKey.ACCOUNT_ABSTRACTION_NODE]: AANode,
           [nodeKey.BRIDGE_NODE]: BridgeNode,
+          [nodeKey.GAMING_APPS_NODE]: GamingAppsNode,
         }}
         edgeTypes={{
           customEdge: CustomEdge,

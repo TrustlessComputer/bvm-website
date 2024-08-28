@@ -211,13 +211,15 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         optionMapping: {},
       };
 
+    const ignoreFields = ['bridge_apps', 'gaming_apps'];
     const dynamicForm = [];
     const optionMapping: Record<string, IModelOption> = {};
     const allOptionKeyDragged: string[] = [];
     const allRequiredForKey: string[] = [];
 
     for (const _field of originalData) {
-      if (!_field.isChain && _field.key !== 'bridge_apps') continue;
+      // if (!_field.isChain && _field.key !== 'bridge_apps') continue;
+      if (!_field.isChain && !ignoreFields.includes(_field.key)) continue;
 
       _field.options.forEach((opt: IModelOption) => {
         optionMapping[opt.key] = opt;

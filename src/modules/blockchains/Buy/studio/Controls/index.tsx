@@ -18,6 +18,7 @@ import useDapps from '../../hooks/useDapps';
 import { accountAbstractionAsADapp } from '../../mockup_3';
 import { chainKeyToDappKey, isChainOptionDisabled } from '../../utils';
 
+const ignoreFields = ['bridge_apps', 'gaming_apps'];
 export default memo(function StudioControls() {
   const { parsedCategories } = useModelCategoriesStore();
   const { field } = useOrderFormStoreV3();
@@ -107,7 +108,7 @@ export default memo(function StudioControls() {
     <div id={'wrapper-data'} className={s.left_box_inner_content}>
       <DroppableV2 id="data">
         {(parsedCategories || []).map((item, index) => {
-          if (!item.isChain && item.key !== 'bridge_apps') return null;
+          if (!item.isChain && !ignoreFields.includes(item.key)) return null;
           // console.log('[StudioControls] map', item.key, {
           //   item: item,
           //   field: field,
