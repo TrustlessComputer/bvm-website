@@ -43,8 +43,9 @@ const L2RollupDetail = () => {
     isValidAddress,
     isBTCAddress,
     balanceBitcoinInfo,
-    totalBalanceUsd,
-    totalBitcoinBalanceUsd,
+    rollupBitcoinBalances,
+    // totalBalanceUsd,
+    // totalBitcoinBalanceUsd,
   } = useContext(L2RollupDetailContext);
 
   if (!isValidAddress) {
@@ -101,32 +102,7 @@ const L2RollupDetail = () => {
             src={'/heartbeat/ic-wallet.svg'}
           />
           <Flex gap="6px" direction={'column'}>
-            {isBTCAddress ? (
-              <>
-                <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
-                  <Text>Total asset value:</Text>
-                  <Text fontWeight={'700'} fontSize={'20px'}>
-                    {`$${formatCurrency(totalBitcoinBalanceUsd, 2, 2)}`}
-                  </Text>
-                </Flex>
-                <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
-                  <Text>BTC balance:</Text>
-                  <Text fontWeight={'700'} fontSize={'20px'}>
-                    {`${formatCurrency(balanceBitcoinInfo?.balance, 2, 2)} BTC`}
-                  </Text>
-                </Flex>
-              </>
-            ) : (
-              <Text fontWeight={'500'} fontSize={{ base: '28px', md: '32px' }}>
-                {`$${formatCurrency(totalBalanceUsd, 2, 2)}`}
-              </Text>
-            )}
-            <Flex
-              direction={'row'}
-              alignItems={'center'}
-              gap={'8px'}
-              mt={'2px'}
-            >
+            <Flex direction={'row'} alignItems={'center'} gap={'8px'}>
               <Text fontWeight={'400'} fontSize={'16px'}>
                 {isMobile ? shortCryptoAddress(address) : address}
               </Text>
@@ -140,6 +116,37 @@ const L2RollupDetail = () => {
                 }}
               />
             </Flex>
+            {isBTCAddress ? (
+              <>
+                <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
+                  <Text>BTC balance:</Text>
+                  <Text fontWeight={'600'} fontSize={'16px'}>
+                    {`${formatCurrency(
+                      balanceBitcoinInfo?.balance,
+                      2,
+                      2,
+                    )} BTC ${
+                      rollupBitcoinBalances && rollupBitcoinBalances.length > 0
+                        ? `($${formatCurrency(
+                            rollupBitcoinBalances[0].amountUsd,
+                            2,
+                            2,
+                          )})`
+                        : ''
+                    }`}
+                  </Text>
+                </Flex>
+              </>
+            ) : (
+              <>
+                {/* <Text
+                  fontWeight={'500'}
+                  fontSize={{ base: '28px', md: '32px' }}
+                >
+                  {`$${formatCurrency(totalBalanceUsd, 2, 2)}`}
+                </Text> */}
+              </>
+            )}
           </Flex>
         </Flex>
 

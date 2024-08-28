@@ -244,6 +244,7 @@ const PortfolioTabBitcoin = () => {
       <Flex
         direction={{ base: 'column', md: 'row' }}
         justifyContent={'center'}
+        alignItems={'center'}
         gap={{ base: '20px', lg: '60px' }}
         mb="36px"
       >
@@ -265,56 +266,71 @@ const PortfolioTabBitcoin = () => {
             />
           </Box>
         )}
-        <Grid
-          w="100%"
-          gridTemplateColumns={{
-            base: 'repeat(auto-fill, 160px)',
-          }}
-          columnGap={{ base: '16px', lg: '32px' }}
-          rowGap={'16px'}
-          p={{ base: '12px', lg: '24px' }}
-          borderRadius={'12px'}
+        <Flex
+          direction={'column'}
           className={s.shadow}
+          p={{ base: '12px', lg: '24px' }}
+          w="100%"
+          gap={'24px'}
+          borderRadius={'12px'}
         >
-          {rollupBitcoinBalances &&
-            rollupBitcoinBalances.map((detail) => {
-              const totalUsd = detail.amountUsd;
-              return (
-                <Flex direction={'row'} alignItems={'center'} gap={'12px'}>
-                  <Flex direction={'column'}>
-                    <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
-                      <Box
-                        w={'12px'}
-                        h={'12px'}
-                        borderRadius={'50%'}
-                        bg={detail.color}
-                      />
-                      <Text fontWeight={'400'} color={'#808080'}>
-                        {detail.title}
-                      </Text>
-                    </Flex>
-                    <Flex direction={'row'} alignItems={'center'} gap={'8px'}>
-                      <Text fontWeight={'600'} fontSize={'18px'}>
-                        ${formatCurrency(totalUsd, 2, 2)}
-                      </Text>
-                      <Text
-                        color={'#808080'}
-                        fontSize={'14px'}
-                        fontWeight={'400'}
-                      >
-                        {totalUsd && totalBitcoinBalanceUsd
-                          ? ((totalUsd / totalBitcoinBalanceUsd) * 100).toFixed(
-                              0,
-                            )
-                          : 0}
-                        %
-                      </Text>
+          <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
+            <Text fontWeight={'400'} color={'#808080'}>
+              Total asset value:
+            </Text>
+            <Text fontWeight={'600'} fontSize={'18px'}>
+              {`$${formatCurrency(totalBitcoinBalanceUsd, 2, 2)}`}
+            </Text>
+          </Flex>
+          <Grid
+            w="100%"
+            gridTemplateColumns={{
+              base: 'repeat(auto-fill, 160px)',
+            }}
+            columnGap={{ base: '16px', lg: '32px' }}
+            rowGap={'20px'}
+          >
+            {rollupBitcoinBalances &&
+              rollupBitcoinBalances.map((detail) => {
+                const totalUsd = detail.amountUsd;
+                return (
+                  <Flex direction={'row'} alignItems={'center'} gap={'12px'}>
+                    <Flex direction={'column'}>
+                      <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
+                        <Box
+                          w={'12px'}
+                          h={'12px'}
+                          borderRadius={'50%'}
+                          bg={detail.color}
+                        />
+                        <Text fontWeight={'400'} color={'#808080'}>
+                          {detail.title}
+                        </Text>
+                      </Flex>
+                      <Flex direction={'row'} alignItems={'center'} gap={'8px'}>
+                        <Text fontWeight={'600'} fontSize={'18px'}>
+                          ${formatCurrency(totalUsd, 2, 2)}
+                        </Text>
+                        <Text
+                          color={'#808080'}
+                          fontSize={'14px'}
+                          fontWeight={'400'}
+                        >
+                          {totalUsd && totalBitcoinBalanceUsd
+                            ? (
+                                (totalUsd / totalBitcoinBalanceUsd) *
+                                100
+                              ).toFixed(0)
+                            : 0}
+                          %
+                        </Text>
+                      </Flex>
                     </Flex>
                   </Flex>
-                </Flex>
-              );
-            })}
-        </Grid>
+                );
+              })}
+          </Grid>
+        </Flex>
       </Flex>
     );
   };
