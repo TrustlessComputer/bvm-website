@@ -22,6 +22,7 @@ import { Chart, ArcElement, Tooltip } from 'chart.js';
 Chart.register([ArcElement, Tooltip]);
 import { Pie } from 'react-chartjs-2';
 import IframeComponent from './IframeComponent';
+import AvatarDefaultToken from '@/components/AvatarDefaultToken';
 
 const PortfolioTabBitcoin = () => {
   const { address, rollupBitcoinBalances, totalBitcoinBalanceUsd } = useContext(
@@ -138,7 +139,13 @@ const PortfolioTabBitcoin = () => {
               justifyContent={'space-between'}
               minW={'100px'}
             >
-              <Flex position={'relative'}>
+              <Flex
+                position={'relative'}
+                direction={'row'}
+                alignItems={'center'}
+                gap={'6px'}
+              >
+                <AvatarDefaultToken name={data.symbol} />
                 <Text className={s.title}>{data.symbol}</Text>
               </Flex>
             </Flex>

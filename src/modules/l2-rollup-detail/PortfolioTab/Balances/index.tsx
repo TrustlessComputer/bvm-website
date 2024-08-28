@@ -1,3 +1,4 @@
+import AvatarDefaultToken from '@/components/AvatarDefaultToken';
 import ListTable, { ColumnProp } from '@/components/ListTable';
 import { ITokenChain } from '@/services/api/dapp/rollupl2-detail/interface';
 import { formatCurrency } from '@/utils/format';
@@ -40,13 +41,17 @@ const Balances = () => {
                 gap={'12px'}
                 position={'relative'}
               >
-                <Image
-                  w={'30px'}
-                  h={'30px'}
-                  borderRadius={'50%'}
-                  src={data.icon_url || '/heartbeat/ic-token-default.svg'}
-                  bg={'lightgray'}
-                />
+                {data.icon_url ? (
+                  <Image
+                    w={'32px'}
+                    h={'32px'}
+                    borderRadius={'50%'}
+                    src={data.icon_url || '/heartbeat/ic-token-default.svg'}
+                    bg={'lightgray'}
+                  />
+                ) : (
+                  <AvatarDefaultToken name={data.token_name} />
+                )}
                 <Text className={s.title}>{data.token_name}</Text>
                 <Image
                   position={'absolute'}
