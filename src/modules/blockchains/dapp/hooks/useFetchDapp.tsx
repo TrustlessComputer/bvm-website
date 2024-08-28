@@ -74,7 +74,7 @@ const useFetchDapp = () => {
   };
 
   const fetchWhitePaperList = async () => {
-    await whitePaperAPI.getWhitePaperList(dappState?.chain?.chainId || '');
+    await whitePaperAPI.getWhitePaperList();
   };
 
   const getDappTasks = async () => {

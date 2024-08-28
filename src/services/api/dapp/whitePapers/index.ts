@@ -8,15 +8,15 @@ class CWhitePaperAPI {
   private dispatch = useAppDispatch();
 
   private getUrl = (url: string) => {
-    return `/yolo/${url}`;
+    return `/tokens/whitepaper/${url}`;
   };
 
-  createWhitePaper = async (data: IYoloGameParams): Promise<IYoloGame> => {
-    return await this.api.post(this.getUrl('create'), data);
+  createWhitePaper = async (token_address: string, data: any): Promise<IYoloGame> => {
+    return await this.api.post(this.getUrl(`${token_address}`), data);
   };
 
-  getWhitePaperList = async (network_id: string): Promise<IYoloGame[]> => {
-    const data: any = await this.api.get(this.getUrl('pools'), {params: {network_id}});
+  getWhitePaperList = async (): Promise<IYoloGame[]> => {
+    const data: any = await this.api.get(this.getUrl('list'), );
     this.dispatch(setWhitePapers(data));
     return data;
   };
