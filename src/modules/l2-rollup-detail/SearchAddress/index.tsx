@@ -112,7 +112,16 @@ const SearchAddress = (props: ISearchAddressProps) => {
               gap={'6px'}
               cursor={'pointer'}
               pr={'12px'}
-              onClick={() => router.push(`${HEART_BEAT}/${searchAddress}`)}
+              onClick={() => {
+                if (
+                  isValidBTCTxHash(searchAddress) ||
+                  isValidERC20TxHash(searchAddress)
+                ) {
+                  router.push(`${HEART_BEAT}/tx/${searchAddress}`);
+                } else {
+                  router.push(`${HEART_BEAT}/${searchAddress}`);
+                }
+              }}
             >
               <Image w={'14px'} src={'/heartbeat/ic-link.svg'} />
               <Text fontSize={'12px'}>{searchAddress}</Text>
