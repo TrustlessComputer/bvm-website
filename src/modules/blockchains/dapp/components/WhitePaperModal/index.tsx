@@ -3,12 +3,14 @@ import { Button, Flex } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { marked } from 'marked';
 import { IWhitePaper } from '@/services/api/dapp/whitePapers/interface';
 import CWhitePaperAPI from '@/services/api/dapp/whitePapers';
 import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
+import { useAppSelector } from '@/stores/hooks';
+import { commonSelector } from '@/stores/states/common/selector';
 
 interface IProps {
   show: boolean;
@@ -22,17 +24,30 @@ const WhitePaperModal = (props: IProps) => {
   const [isRegenerating, setIsRegenerating] = useState(false);
   const [isDownloadingHtml, setIsDownloadingHtml] = useState(false);
   const [isDownloadingPdf, setIsDownloadingPdf] = useState(false);
+  const [whitePaper, setWhitePaper] = useState<IWhitePaper>();
 
   const dispatch = useDispatch();
   const cWhitePaperAPI = new CWhitePaperAPI();
+  const needReload = useAppSelector(commonSelector).needReload;
 
   const isAllDisabled = useMemo(() => {
     return isRegenerating || isDownloadingHtml || isDownloadingPdf;
   }, [isRegenerating, isDownloadingHtml, isDownloadingPdf]);
 
   const markdownString = useMemo(() => {
-    return tokenInfo?.white_paper || '';
-  }, [tokenInfo]);
+    return whitePaper?.white_paper || tokenInfo?.white_paper || '';
+  }, [tokenInfo, whitePaper]);
+
+  useEffect(() => {
+    if(tokenInfo?.id) {
+      getWhitePaperDetail();
+    }
+  }, [tokenInfo?.id, needReload]);
+
+  const getWhitePaperDetail = async () => {
+    const res = await cWhitePaperAPI.getWhitePaperDetail(tokenInfo?.id?.toString() as string);
+    setWhitePaper(res);
+  }
 
   const convertMarkdownToHtml = (markdownText: string) => {
     return marked(markdownText);

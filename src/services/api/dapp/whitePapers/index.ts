@@ -22,7 +22,12 @@ class CWhitePaperAPI {
   };
 
   reCreateWhitePaper = async (token_address: string): Promise<IWhitePaper> => {
-    return await this.api.post(this.getUrl(`refresh/${token_address}`));
+    return await this.api.post(this.getUrl(`refresh/${token_address}`), {});
+  };
+
+  getWhitePaperDetail = async (id: string): Promise<IWhitePaper> => {
+    const data: any = await this.api.get(this.getUrl(`detail/${id}`));
+    return data;
   };
 }
 
