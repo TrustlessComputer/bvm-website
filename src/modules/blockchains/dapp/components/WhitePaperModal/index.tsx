@@ -4,6 +4,7 @@ import s from './styles.module.scss';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { useRef } from 'react';
+import { marked } from 'marked';
 
 interface IProps {
   show: boolean;
@@ -138,15 +139,23 @@ const WhitePaperModal = (props: IProps) => {
 </body>
 </html>
       `;
+  const markdownString = `
+  **BLOOM White Paper**\n\n**Abstract**\n\nBLOOM is a decentralized, community-driven project that aims to create a sustainable and vibrant ecosystem, fostering growth and innovation. Our token, BLM, is designed to facilitate interactions within the network, promote collaboration, and reward contributors. This white paper outlines the tokenomics, technical specifications, and vision for the BLOOM project.\n\n**Introduction**\n\nIn the spirit of decentralization and community building, BLOOM is designed to empower individuals and organizations to collaborate, create, and thrive. Our project is built on the principles of transparency, fairness, and inclusivity, ensuring that all stakeholders have a voice and an opportunity to contribute.\n\n**Token Information**\n\n* **Token Symbol:** BLM\n* **Token Name:** Bloom\n* **Total Supply:** 100,000,000 BLM\n\n**Contract Address**\n\nThe BLOOM token contract address is:\n\n0x6fd49a3557e8f21b5c1165fa1dc8dbb1fa0c461d\n\n**Tokenomics**\n\nThe BLOOM token allocation is designed to ensure a fair and sustainable distribution of tokens, aligning with the project's goals and objectives. The token allocation is as follows:\n\n* **Foundation:** 25%\n\t+ Cliff: 120 days\n\t+ Purpose: To support the development and growth of the BLOOM ecosystem, including infrastructure, partnerships, and community building.\n* **Airdrop:** 25%\n\t+ Cliff: 180 days\n\t+ Purpose: To reward early supporters and contributors, promoting a sense of community and encouraging participation.\n* **Team:** 23%\n\t+ Cliff: 360 days\n\t+ Purpose: To incentivize the core team and developers, ensuring their continued commitment to the project's success.\n* **Other:** 27%\n\t+ Purpose: To allocate tokens for strategic partnerships, collaborations, and future development initiatives.\n\n**Token Usage**\n\nThe BLM token is designed to facilitate various interactions within the BLOOM ecosystem, including:\n\n* **Community participation:** Token holders can participate in governance, voting on proposals, and contributing to decision-making processes.\n* **Content creation:** Creators can use BLM to promote their work, engage with the community, and monetize their content.\n* **Partnerships:** Tokens can be used to foster partnerships, collaborations, and strategic relationships.\n* **Reward system:** BLM tokens can be used to reward contributors, incentivizing participation and high-quality content.\n\n**Technical Specifications**\n\nThe BLOOM token is built on the [Blockchain Platform] blockchain, utilizing the [Token Standard] token standard. The contract address is publicly available, ensuring transparency and verifiability.\n\n**Security**\n\nThe BLOOM team prioritizes security, implementing best practices to protect the token and ecosystem. Regular security audits and penetration testing ensure the integrity of the network.\n\n**Roadmap**\n\nThe BLOOM roadmap is designed to achieve the project's vision and objectives, with milestones and deliverables outlined as follows:\n\n* **Q1:** Token development and testing\n* **Q2:** Airdrop and community building\n* **Q3:** Partnership and collaboration initiatives\n* **Q4:** Ecosystem expansion and growth\n\n**Conclusion**\n\nBLOOM is a community-driven project, dedicated to creating a vibrant and sustainable ecosystem. Our token, BLM, is designed to facilitate interactions, promote collaboration, and reward contributors. With a focus on transparency, fairness, and inclusivity, we invite you to join us on this exciting journey.\n\n**Appendix**\n\nFor more information on the BLOOM project, please visit our website: [insert website URL]. Join our community to stay updated on the latest developments and participate in shaping the future of BLOOM.\n\n**Disclaimer**\n\nThe information contained in this white paper is for general information purposes only. It does not constitute investment advice or an offer to purchase securities. The BLOOM team is not responsible for any losses or damages incurred as a result of participating in the project.
+  `;
 
-  const downloadHtmlFile = () => {
+  const convertMarkdownToHtml = (markdownText: string) => {
+    return marked(markdownText);
+  };
+
+  const downloadHtml = async () => {
+    const htmlString = await convertMarkdownToHtml(markdownString);
     const blob = new Blob([htmlString], { type: 'text/html' });
 
     const url = URL.createObjectURL(blob);
 
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'download.html';
+    a.download = 'white_paper.html';
     document.body.appendChild(a);
     a.click();
 
@@ -155,7 +164,11 @@ const WhitePaperModal = (props: IProps) => {
     URL.revokeObjectURL(url);
   };
 
-  const generatePDF = () => {
+  const regenerateContent = () => {
+
+  }
+
+  const downloadPdf = () => {
     const input = contentRef.current as HTMLDivElement;
     html2canvas(input).then((canvas) => {
       const imgData = canvas.toDataURL('image/png');
@@ -176,7 +189,7 @@ const WhitePaperModal = (props: IProps) => {
         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
       }
-      pdf.save('download.pdf');
+      pdf.save('white_paper.pdf');
     });
   };
 
@@ -189,23 +202,23 @@ const WhitePaperModal = (props: IProps) => {
       size="extra"
       icCloseUrl="/icons/ic-close-grey.svg"
       title={'White Paper'}
-      theme={"dark"}
+      // theme={"dark"}
     >
       <Flex
         display={'flex'}
         flexDir={'column'}
         w={['100%', '100%']}
         bgColor={'#ECECEC'}
-        borderRadius={'10px'}
+        // borderRadius={'10px'}
         p={'20px'}
       >
         <div ref={contentRef} className={s.whitePaperContent}
-          dangerouslySetInnerHTML={{ __html: htmlString }}
+          dangerouslySetInnerHTML={{ __html: convertMarkdownToHtml(markdownString) }}
         ></div>
-        <Flex gap={"16px"} alignItems={"center"} justifyContent={"center"}>
-          <Button bg={"red"} onClick={generatePDF}>Regenerate</Button>
-          <Button bg={"green"} onClick={downloadHtmlFile}>Download Html</Button>
-          <Button bg={"blue"} onClick={generatePDF}>Download PDF</Button>
+        <Flex mt={"24px"} gap={"24px"} alignItems={"center"} justifyContent={"center"}>
+          <Button bg={"#000"} borderRadius="100px" onClick={regenerateContent}>Regenerate</Button>
+          <Button bg={"#FA4E0E"} borderRadius="100px" onClick={downloadHtml}>Download Html</Button>
+          <Button bg={"#FA4E0E"} borderRadius="100px" onClick={downloadPdf}>Download PDF</Button>
         </Flex>
       </Flex>
     </BaseModal>

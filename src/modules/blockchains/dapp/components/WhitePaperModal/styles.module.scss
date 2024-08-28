@@ -7,20 +7,17 @@
   overflow-y: auto;
 
   .whitePaperContent {
-    section {
-      margin-left: 0;
-      margin-right: 0;
+    background: white;
+    color: black;
+    padding: 20px;
+
+    p {
+      margin-top: 4px;
+      margin-bottom: 4px;
     }
 
-    h1 {
-      color: white;
-      font-size: 24px;
-      font-weight: 700;
-    }
-
-    h2 {
-      font-size: 18px;
-      font-weight: 700;
+    ul {
+      padding-inline-start: 20px;
     }
   }
 
@@ -33,11 +30,5 @@
 }
 
 .headerClassName {
-  button {
-    right: 14px;
-    top: 14px;
-    svg {
-      stroke: white;
-    }
-  }
+
 }
