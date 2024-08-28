@@ -25,6 +25,8 @@ type DefaultButtonProps = {
   shape?: ButtonShape;
   icon?: boolean;
   disabled?: boolean;
+  dappKey?: string;
+  name?: string;
 };
 
 type Props = DefaultButtonProps & ButtonProps;

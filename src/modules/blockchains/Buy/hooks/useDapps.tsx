@@ -202,6 +202,7 @@ const useDapps = () => {
               name={fieldKey}
               key={fieldKey}
               variant={"outline"}
+              icon={false}
             >{field.title}</Button>
           </Lego>
         );
@@ -401,6 +402,7 @@ const useDapps = () => {
               name={fieldKey}
               key={fieldKey}
               variant={"outline"}
+              icon={false}
             >{field.title}</Button>
           </Lego>
         );
