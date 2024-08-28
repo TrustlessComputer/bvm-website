@@ -114,6 +114,7 @@ export default memo(function StudioControls() {
           //   disabled: isUpdateChainFlow && !item.updatable,
           // });
           if (item.hidden) return null;
+
           const currentOption = item.options.find(
             (opt) =>
               opt.key === field[item.key].value && field[item.key].dragged,
@@ -193,7 +194,9 @@ export default memo(function StudioControls() {
                 const isDisabled = isChainOptionDisabled(field, item, option);
 
                 if (item.multiChoice && field[item.key].dragged) {
-                  isThisOptionDragged = ((field[item.key]?.value as any) || []).includes(option.key)
+                  isThisOptionDragged = (
+                    (field[item.key]?.value as any) || []
+                  ).includes(option.key);
                   // const currentValues = field[item.key].value as any[];
                   //
                   // if (currentValues.includes(option.key)) {
@@ -214,6 +217,9 @@ export default memo(function StudioControls() {
                       isChain: true,
                       value: option.key,
                       left: true,
+                      background: item.color,
+                      label: option.title,
+                      icon: option.icon,
                     }}
                     tooltip={option.tooltip}
                   >

@@ -92,6 +92,10 @@ const ChainRenderer = () => {
                 value={{
                   isChain: true,
                   value: option.key,
+                  rightDragging: true,
+                  background: item.color,
+                  label: option.title,
+                  icon: option.icon,
                 }}
               >
                 <DroppableV2 id={item.key + '-right'}>
@@ -116,6 +120,11 @@ const ChainRenderer = () => {
               useMask
               value={{
                 isChain: true,
+                rightDragging: true,
+                background: item.color,
+                label: item.title,
+                icon: '',
+                parent: true,
               }}
             >
               <DroppableV2 id={item.key}>
@@ -150,6 +159,10 @@ const ChainRenderer = () => {
               value={{
                 isChain: true,
                 value: option.key,
+                rightDragging: true,
+                background: item.color,
+                label: option.title,
+                icon: option.icon,
               }}
             >
               <DroppableV2 id={item.key + '-right'}>
