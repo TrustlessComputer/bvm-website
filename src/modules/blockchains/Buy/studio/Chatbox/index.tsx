@@ -1,14 +1,26 @@
 import MagicIcon from '@/components/MagicIcon';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import ButtonApply from './Actions/ButtonApply';
 import ButtonClose from './Actions/ButtonClsoe';
+import ButtonStop from './Actions/ButtonStop';
+import useChatBoxState from './chatbox-store';
 import styles from './styles.module.scss';
 
 export default function Chatbox() {
-  const [messages, setMessages] = useState<
-    Array<{ text: string; sender: string }>
-  >([]);
-  const [inputMessage, setInputMessage] = useState('');
-  const [isListening, setIsListening] = useState(false);
+  const {
+    messages,
+    setMessages,
+    inputMessage,
+    setInputMessage,
+    isListening,
+    setIsListening,
+    isGenerating,
+    setIsGenerating,
+    isComplete,
+    setIsComplete,
+    status,
+    setStatus,
+  } = useChatBoxState();
 
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(
     null,
@@ -34,7 +46,7 @@ export default function Chatbox() {
         ]);
       }, 1000);
     }
-  }, [messages]);
+  }, [messages, setMessages]);
 
   const stopVoiceInput = useCallback(() => {
     if (recognition) {
@@ -42,12 +54,20 @@ export default function Chatbox() {
       setIsListening(false);
       setRecognition(null);
     }
-  }, [recognition]);
+  }, [recognition, setIsListening]);
+
+  const isClose = useMemo(() => {
+    return !isComplete && !isGenerating && !isListening;
+  }, [isComplete, isGenerating, isListening]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        stopVoiceInput();
+        if (isClose) {
+          // Handle close action
+        } else if (isListening) {
+          stopVoiceInput();
+        }
       } else if (event.ctrlKey && event.shiftKey && event.key === 'V') {
         handleVoiceInput();
       }
@@ -58,7 +78,7 @@ export default function Chatbox() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [stopVoiceInput]);
+  }, [stopVoiceInput, isClose]);
 
   const handleVoiceInput = () => {
     setIsListening(true);
@@ -80,30 +100,6 @@ export default function Chatbox() {
       setRecognition(null);
     };
 
-    // newRecognition.onaudioend = async (event: any) => {
-    //   // console.log('onaudioend', event);
-    //   console.log('newRecognition.audioBlob', newRecognition.audioBlob);
-    //   if (newRecognition.audioBlob) {
-    //     try {
-    //       const formData = new FormData();
-    //       formData.append('audio', newRecognition.audioBlob, 'audio.wav');
-
-    //       console.log('formData', newRecognition.audioBlob);
-    //       const response = await fetch('/api/voice-to-text', {
-    //         method: 'POST',
-    //         body: formData,
-    //       });
-    //       if (!response.ok) {
-    //         throw new Error('Failed to send audio to API');
-    //       }
-    //       const data = await response.json();
-    //       setInputMessage(data.transcript);
-    //     } catch (error) {
-    //       console.error('Error sending audio to API:', error);
-    //     }
-    //   }
-    // };
-
     newRecognition.onerror = (event: any) => {
       console.error('Speech recognition error:', event.error);
       setIsListening(false);
@@ -124,28 +120,32 @@ export default function Chatbox() {
               Composer
             </div>
           </div>
-          <div className={styles.chats}>
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`${styles.message} ${styles[message.sender]}`}
-              >
-                {message.text}
+          <div className={styles.body_inner}>
+            <div className={styles.chats}>
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`${styles.message} ${styles[message.sender]}`}
+                >
+                  {message.text}
+                </div>
+              ))}
+            </div>
+            <div className={styles.status}>
+              <div className={styles.statusInner}>{status}</div>
+              <div className={styles.statusButtons}>
+                {isListening && (
+                  <button
+                    onClick={stopVoiceInput}
+                    className={styles.voiceButton}
+                  >
+                    Cancel
+                  </button>
+                )}
+                {isComplete && <ButtonApply />}
+                {isGenerating && <ButtonStop />}
+                {isClose && <ButtonClose />}
               </div>
-            ))}
-          </div>
-          <div className={styles.status}>
-            <div className={styles.statusInner}>Esc to close</div>
-            <div className="actions">
-              {isListening && (
-                <button onClick={stopVoiceInput} className={styles.voiceButton}>
-                  Cancel
-                </button>
-              )}
-              <ButtonClose />
-              <button onClick={stopVoiceInput} className={styles.applyButton}>
-                Apply
-              </button>
             </div>
           </div>
         </div>
