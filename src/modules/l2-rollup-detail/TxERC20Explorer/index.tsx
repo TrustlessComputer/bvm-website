@@ -80,6 +80,11 @@ const TxERC20Explorer = () => {
     [transaction],
   );
 
+  const transactionTransfer = useMemo(
+    () => transaction?.transfers?.[0],
+    [transaction],
+  );
+
   const chainPriceUsd = useMemo(
     () => (coinPrices as any)?.[rollup?.symbol || ''] || '0',
     [coinPrices, rollup],
@@ -170,9 +175,15 @@ const TxERC20Explorer = () => {
             </Text>
           </Text>
         </Flex>
+        {transactionTransfer && (
+          <Flex className={cs(s.rowItem)}>
+            <Text>Action</Text>
+            <Text>Transfer</Text>
+          </Flex>
+        )}
 
         <Flex className={cs(s.rowItem)}>
-          <Text>From address</Text>
+          <Text>From</Text>
           <Box flex={2}>
             <AddressCopy
               address={transaction?.from_address || ''}
@@ -181,7 +192,7 @@ const TxERC20Explorer = () => {
           </Box>
         </Flex>
         <Flex className={cs(s.rowItem)}>
-          <Text>To address</Text>
+          <Text>To</Text>
           <Box flex={2}>
             <AddressCopy
               address={transaction?.to_address || ''}
@@ -189,13 +200,27 @@ const TxERC20Explorer = () => {
             />
           </Box>
         </Flex>
-        <Flex className={cs(s.rowItem)}>
-          <Text>Value</Text>
-          <Text>
-            {formatCurrency(transaction?.value || '0')}{' '}
-            <Text as="span">{rollup?.symbol}</Text>
-          </Text>
-        </Flex>
+        {transactionTransfer && (
+          <>
+            <Flex className={cs(s.rowItem)}>
+              <Text>Amount</Text>
+              <Text>
+                {formatCurrency(transactionTransfer?.amount || '0')}{' '}
+                <Text as="span">{transactionTransfer?.symbol}</Text>
+              </Text>
+            </Flex>
+          </>
+        )}
+        {transaction?.value && (
+          <Flex className={cs(s.rowItem)}>
+            <Text>Value</Text>
+            <Text>
+              {formatCurrency(transaction?.value || '0')}{' '}
+              <Text as="span">{rollup?.symbol}</Text>
+            </Text>
+          </Flex>
+        )}
+
         <Flex className={cs(s.rowItem)}>
           <Text>L2 Gas Price</Text>
           <Text>

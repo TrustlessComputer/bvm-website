@@ -183,4 +183,24 @@ export interface ITransaction {
   revert_reason: string;
   has_error_in_internal_txs: boolean;
   gas_per_pubdata: string;
+  transfers: ITransactionTransfer[];
+}
+
+export interface ITransactionTransfer {
+  transaction_hash: string;
+  log_index: number;
+  from_address: string;
+  to_address: string;
+  amount: string;
+  token_id: number;
+  token_contract_address: string;
+  inserted_at: string;
+  updated_at: string;
+  block_number: number;
+  block_hash: string;
+  amounts: any[];
+  token_ids: any[];
+  symbol: string;
+  decimals: number;
+  icon_url: string;
 }
