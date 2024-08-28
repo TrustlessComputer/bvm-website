@@ -313,7 +313,8 @@ export default function useNodeFlowControl() {
     );
     let nodesData = nodes;
 
-    if (!isHandleExists) {
+    if (!isHandleExists && !(suffix == 'bridge_apps')) {
+      console.log('${rootNode}-s-${suffix}', `${rootNode}-s-${suffix}`);
       getHandleNodeBlockChain?.data?.sourceHandles?.push(
         `${rootNode}-s-${suffix}`,
       );

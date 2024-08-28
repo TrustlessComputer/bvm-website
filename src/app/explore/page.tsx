@@ -2,11 +2,9 @@ import { Metadata } from 'next';
 import MainLayout from '@layouts/MainLayout';
 import ExploreModule from '@/modules/ExploreModule';
 
-
 export const metadata: Metadata = {
   title: 'Explore',
-}
-
+};
 
 export default function Page() {
   return (
@@ -15,11 +13,11 @@ export default function Page() {
         color: 'black',
         colorLogo: 'black',
         bgColor: 'transparent',
-        position: 'absolute',
+        // position: 'absolute',
         // showBanner: true,
       }}
     >
       <ExploreModule />
     </MainLayout>
-  )
+  );
 }

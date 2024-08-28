@@ -1,0 +1,66 @@
+.container {
+  width: 100%;
+  box-shadow: 0px 0px 20px -6px #00000014;
+  border-radius: 12px;
+}
+
+.wrapScroll {
+  overflow-x: auto !important;
+
+  :global {
+    .chakra-table__container {
+      border-radius: 0px;
+      border: 0px solid transparent !important;
+    }
+    .isActiveRow {
+      background-color: rgba(26, 172, 235, 0.2) !important;
+
+      p {
+        color: black !important;
+      }
+    }
+  }
+}
+
+table {
+  &.tableContainer {
+    overflow-x: hidden;
+
+    :global {
+      .chakra-table__container {
+        border-radius: 0px;
+        border: 0px solid transparent !important;
+      }
+      .isActiveRow {
+        background-color: rgba(26, 172, 235, 0.2) !important;
+
+        p {
+          color: black !important;
+        }
+      }
+    }
+
+    tbody {
+      border-top: 1px solid #efefef;
+
+      tr {
+        td {
+          border-bottom: 0px;
+        }
+      }
+    }
+
+    .title {
+      font-style: normal;
+      font-size: 16px;
+      line-height: 160%;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.loading {
+  margin-top: 16px;
+}

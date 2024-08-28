@@ -16,6 +16,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 import useFirstLoadTemplateBoxStore from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 
+const version = '0.0.1';
+
 function useHandleReloadNode() {
   const searchParamm = useSearchParams()
   const { nodes, edges, setNodes, setEdges } = useFlowStore();
@@ -26,6 +28,7 @@ function useHandleReloadNode() {
   const { field, setFields } = useOrderFormStoreV3();
   const { draggedFields, setDraggedFields } = useDragStore();
   const { isFirstLoadTemplateBox } = useFirstLoadTemplateBoxStore();
+
   React.useEffect(() => {
     if (!isFirstLoadTemplateBox || !restoreLocal.value) return;
     if (path === '/studio') {
@@ -66,6 +69,8 @@ function useHandleReloadNode() {
   }, []);
 
   useSignalEffect(() => {
+    console.log('isFirstLoadTemplateBox', isFirstLoadTemplateBox);
+    console.log('restoreLocal.value', restoreLocal.value);
     if (!isFirstLoadTemplateBox || !restoreLocal.value) return;
     onSave()
 

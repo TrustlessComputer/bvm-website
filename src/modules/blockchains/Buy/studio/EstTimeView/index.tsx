@@ -11,7 +11,29 @@ export const EstTimeView = () => {
   if (isUpdateFlow) return null;
 
   const data = getCurrentFieldFromChain('layers');
-  const estTimeStr = data?.options[0] && data?.options[0].deployTime;
+  const networkData = getCurrentFieldFromChain('network');
+
+  if (!networkData) {
+    return null;
+  }
+
+  const isTestnet =
+    networkData.options[0] && networkData?.options[0].key === 'testnet';
+
+  // console.log(' --- ', {
+  //   isTestnet,
+  //   networkData,
+  //   data,
+  //   option: networkData.options[0],
+  //   key: networkData?.options[0].key,
+  // });
+
+  let estTimeStr;
+  if (isTestnet) {
+    estTimeStr = data?.options[0] && data?.options[0].deployTimeTestnet;
+  } else {
+    estTimeStr = data?.options[0] && data?.options[0].deployTime;
+  }
 
   if (!estTimeStr || isEmpty(estTimeStr)) return null;
 
@@ -29,7 +51,7 @@ export const EstTimeView = () => {
         </Text>
       </Flex>
       <Text fontSize={['13px']} fontWeight={500} color={'#777'}>
-        Est completion time
+        Deploy time
       </Text>
     </Flex>
   );

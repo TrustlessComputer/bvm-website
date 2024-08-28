@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import s from './style.module.scss';
-import { IconButton, useDisclosure } from '@chakra-ui/react';
+import { Flex, IconButton, useDisclosure } from '@chakra-ui/react';
 import useWindowSize from '@/hooks/useWindowSize';
 import DrawerMobileMenu from '@/layouts/HeaderV4/components/DrawerMenu';
 import { NAV_ITEMS_LEFT } from '../menuConfig';
@@ -12,6 +12,7 @@ import { ReactElement } from 'react';
 import IconLogo from '../components/IcLogo';
 import Image from 'next/image';
 import ButtonLogin from './ButtonLogin';
+import ContactUs from '../components/ContactUs';
 
 export type TMainHeader = {
   color?: 'black' | 'white';
@@ -37,64 +38,71 @@ TMainHeader): ReactElement => {
       style={{ backgroundColor: backgroundColor }}
     >
       <div className={`${s.inner} containerV3`}>
-        <div
-          className={`${s.logo}  ${colorLogo === 'black' ? s.logo_black : ''}`}
-          onClick={() => router.push('/')}
-        >
-          <IconLogo />
-        </div>
-
-        {isDesktop && (
-          <div className={s.menu}>
-            {NAV_ITEMS_LEFT.map((item) => {
-              const isActive = pathname === item.href;
-              const isActiveDark = isActive && color === 'white';
-              const isActiveLight = isActive && color === 'black';
-              return item.subMenu ? (
-                <DropDown
-                  key={item.label}
-                  title={item.label}
-                  lists={item.subMenu}
-                  Icon={item.icon}
-                  color={'black'}
-                />
-              ) : item.GroupDropDown ? (
-                <GroupDownItem
-                  key={item.label}
-                  title={item.label}
-                  color={'black'}
-                  typeGroup={item.groupType}
-                >
-                  {item.GroupDropDown()}
-                </GroupDownItem>
-              ) : (
-                <Link
-                  key={item.label}
-                  href={item.href ?? '#'}
-                  className={'menu-item'}
-                  target={item.isNewWindow ? '_blank' : '_self'}
-                >
-                  <p
-                    className={`${s.itemLabel} ${isActiveDark && s.activeDark} 
+        <div className={s.left}>
+          <div
+            className={`${s.logo}  ${
+              colorLogo === 'black' ? s.logo_black : ''
+            }`}
+            onClick={() => router.push('/')}
+          >
+            <IconLogo />
+          </div>
+          {isDesktop && (
+            <div className={s.menu}>
+              {NAV_ITEMS_LEFT.map((item) => {
+                const isActive = pathname === item.href;
+                const isActiveDark = isActive && color === 'white';
+                const isActiveLight = isActive && color === 'black';
+                return item.subMenu ? (
+                  <DropDown
+                    key={item.label}
+                    title={item.label}
+                    lists={item.subMenu}
+                    Icon={item.icon}
+                    color={color}
+                  />
+                ) : item.GroupDropDown ? (
+                  <GroupDownItem
+                    key={item.label}
+                    title={item.label}
+                    color={color}
+                    typeGroup={item.groupType}
+                  >
+                    {item.GroupDropDown()}
+                  </GroupDownItem>
+                ) : (
+                  <Link
+                    key={item.label}
+                    href={item.href ?? '#'}
+                    className={'menu-item'}
+                    target={item.isNewWindow ? '_blank' : '_self'}
+                  >
+                    <p
+                      className={`${s.itemLabel} ${
+                        isActiveDark && s.activeDark
+                      } 
                     ${isActiveLight && s.activeLight}
                     `}
-                    style={{ color: color }}
-                  >
-                    {item.label}
-                  </p>
-                </Link>
-              );
-            })}
-          </div>
-        )}
+                      style={{ color: color }}
+                    >
+                      {item.label}
+                    </p>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+        </div>
 
         {isDesktop ? (
-          <div>
+          <Flex alignItems={'center'} gap="32px">
             {/* <Link href={'/bvm'} className={s.getBVM}>
               Get BVM
             </Link> */}
-            <ButtonLogin className={s.getBVM} color="white" title="CONNECT" />
-          </div>
+            <ContactUs color={color} />
+
+            <ButtonLogin className={s.getBVM} color={color} title="CONNECT" />
+          </Flex>
         ) : (
           <>
             <IconButton

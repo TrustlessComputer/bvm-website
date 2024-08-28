@@ -1,3 +1,4 @@
+'use client';
 import { CDN_URL, CDN_URL_IMAGES_NBC } from '@/config';
 import { CHAIN_DATA, DAPPS_DATA } from '@/modules/ExploreModule/data';
 import { Research } from '@/modules/Lab/data';
@@ -78,7 +79,7 @@ export const STEP_1_SECTION = {
         url: '/studio?template=1',
         target: '_blank',
       },
-      popular: true,
+      // popular: true,
       tags: ['$39/day'],
     },
     {
@@ -122,7 +123,7 @@ export const STEP_1_SECTION = {
     {
       title: 'Optimistic Rollup Hybrid',
       description: 'Bitcoin L2 powered by OP Stack.',
-      homeImage: '/landing-v5/home-op-3.png',
+      homeImage: '/landing-v5/home-op-4.png',
 
       bgColor:
         'linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
@@ -583,30 +584,6 @@ export const BOB_SECTION = {
 //   ],
 // };
 
-export const RESEARCH_SECTION = {
-  id: 'research',
-  tag: '',
-  title: (
-    <p>
-      Fastest pace of{' '}
-      <span className="whitespace-nowrap">applied research.</span>
-    </p>
-  ),
-  desc: 'With BVM, you can experiment and innovate rapidly using the latest technologies. We’re constantly accelerating our innovation to create new ways of building on Bitcoin.',
-  item: Research.map((item, idx) => {
-    return {
-      title: item.title,
-      description: item.content,
-      homeImage: item.image,
-      link: {
-        url: item.link,
-        target: '_blank',
-      },
-      date: item.date,
-    };
-  }),
-};
-
 export const OPENSOURCE_SECTION = {
   id: 'opensource',
   tag: '',
@@ -674,6 +651,30 @@ export const OPENSOURCE_SECTION = {
       },
     },
   ],
+};
+
+export const RESEARCH_SECTION = {
+  id: 'research',
+  tag: '',
+  title: (
+    <p>
+      Fastest pace of{' '}
+      <span className="whitespace-nowrap">applied research.</span>
+    </p>
+  ),
+  desc: 'With BVM, you can experiment and innovate rapidly using the latest technologies. We’re constantly accelerating our innovation to create new ways of building on Bitcoin.',
+  item: Research.map((item, idx) => {
+    return {
+      title: item.title,
+      description: item.content,
+      homeImage: item.image,
+      link: {
+        url: item.link,
+        target: '_blank',
+      },
+      date: item.date,
+    };
+  }),
 };
 
 export const NEWS_SECTION = {

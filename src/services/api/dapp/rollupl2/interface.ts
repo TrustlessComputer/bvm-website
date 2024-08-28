@@ -20,4 +20,13 @@ export interface IRollupL2Info {
   level?: string;
   fee_btc?: string;
   chain_id: number;
+  fee_chart_supported: boolean;
+}
+
+export interface IRollupChart1D {
+  timestamp: number;
+  fee_usd: string;
+  tx_count: number;
+  address_actived: number;
+  notes: string;
 }
