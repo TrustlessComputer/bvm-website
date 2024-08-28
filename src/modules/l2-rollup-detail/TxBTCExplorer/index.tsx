@@ -36,7 +36,9 @@ import TokenTransfers from './tokenTransfer';
 
 const TxBTCExplorer = () => {
   const router = useRouter();
-  const { address, isBTCTxAddress } = useContext(L2RollupDetailContext);
+  const { address, isBTCTxAddress, isERC20TxAddress } = useContext(
+    L2RollupDetailContext,
+  );
   const [loading, setLoading] = useState(true);
   const [txBTC, setTxBTC] = useState<ITxBTC>();
   const coinPrices = useSelector(commonSelector).coinPrices;
@@ -72,7 +74,7 @@ const TxBTCExplorer = () => {
     [txBTC],
   );
 
-  if (!isBTCTxAddress) {
+  if (!isBTCTxAddress && !isERC20TxAddress) {
     return (
       <Box className={s.container}>
         <Flex

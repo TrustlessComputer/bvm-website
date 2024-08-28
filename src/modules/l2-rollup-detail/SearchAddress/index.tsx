@@ -13,7 +13,7 @@ import cs from 'classnames';
 import { useRouter } from 'next/navigation';
 import React, { useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
-import { isValidBTCTxHash } from '@/utils/form-validate';
+import { isValidBTCTxHash, isValidERC20TxHash } from '@/utils/form-validate';
 
 type ISearchBarProps = {
   className?: string;
@@ -65,6 +65,7 @@ const SearchAddress = (props: ISearchAddressProps) => {
     () =>
       validateEVMAddress(searchAddress) ||
       validateBTCAddress(searchAddress) ||
+      isValidERC20TxHash(searchAddress) ||
       isValidBTCTxHash(searchAddress),
     [searchAddress],
   );
@@ -84,7 +85,10 @@ const SearchAddress = (props: ISearchAddressProps) => {
         placeholder={props.placeholder || 'Search address '}
         onEnterSearch={() => {
           if (isValidSearchAddress) {
-            if (isValidBTCTxHash(searchAddress)) {
+            if (
+              isValidBTCTxHash(searchAddress) ||
+              isValidERC20TxHash(searchAddress)
+            ) {
               router.push(`${HEART_BEAT}/tx/${searchAddress}`);
             } else {
               router.push(`${HEART_BEAT}/${searchAddress}`);
