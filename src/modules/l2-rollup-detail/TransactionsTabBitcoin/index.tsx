@@ -129,7 +129,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                router.push(`${HEART_BEAT}/${data.tx_id}`);
+                window.open(`${HEART_BEAT}/tx/${data.tx_id}`);
               }}
             >
               <Flex direction={'row'} alignItems={'center'} gap={'4px'}>

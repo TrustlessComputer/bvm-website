@@ -1,67 +1,72 @@
-import { ITxBTCPutDetail } from '@/services/api/dapp/rollupl2-detail-bitcoin/interface';
+import {
+  ITxBTCPutDetail,
+  ITxBTCTokenTransfer,
+} from '@/services/api/dapp/rollupl2-detail-bitcoin/interface';
+import { ITokenTransfer } from '@/services/api/dapp/rollupl2-detail/interface';
+import { shortCryptoAddress } from '@/utils/address';
 import { formatCurrency } from '@/utils/format';
+import { compareString } from '@/utils/string';
 import { Box, Flex, Text } from '@chakra-ui/react';
-import React from 'react';
 import copy from 'copy-to-clipboard';
+import { useMemo } from 'react';
 import toast from 'react-hot-toast';
 import s from './styles.module.scss';
-import { shortCryptoAddress } from '@/utils/address';
+import AddressCopy from './addressCopy';
+import { useRouter } from 'next/navigation';
+import { HEART_BEAT } from '@/constants/route-path';
+
+export const ItemBalanceDetail = ({
+  balance,
+  token,
+}: {
+  balance: string;
+  token: ITxBTCTokenTransfer;
+}) => {
+  return (
+    <Flex className={s.itemBalanceDetail}>
+      <Text>{formatCurrency(balance, 0, 6, 'BTC', true)}</Text>
+      <Text as="span">{token?.symbol}</Text>
+    </Flex>
+  );
+};
 
 const ItemTransfer = ({
   data,
   symbol,
+  address,
+  tokenTransfer,
 }: {
   data: ITxBTCPutDetail;
   symbol: string;
+  address: string;
+  tokenTransfer: ITxBTCTokenTransfer[];
 }) => {
+  const router = useRouter();
+  const token: ITxBTCTokenTransfer = useMemo(
+    () =>
+      tokenTransfer.find(
+        (v) => compareString(address, v.from || v.to) && v.output_index,
+      ) as ITxBTCTokenTransfer,
+    [tokenTransfer, address],
+  );
+
   return (
-    <Flex alignItems={'center'} justifyContent={'space-between'}>
-      <Flex gap={'6px'} alignItems={'center'}>
-        <Text className={s.address}>
-          {shortCryptoAddress(data.output_hash, 34)}
+    <Flex className={s.itemTransfer} flexDirection={'column'} gap={'8px'}>
+      <Flex alignItems={'center'} justifyContent={'space-between'}>
+        <AddressCopy
+          address={address}
+          onClick={() => router.push(`${HEART_BEAT}/${address}`)}
+        />
+        <Text className={s.price}>
+          {formatCurrency(data.amount, 0, 6)} <Text as="span">{symbol}</Text>
         </Text>
-        {data.output_hash && (
-          <Box
-            onClick={() => {
-              copy(data.output_hash);
-              toast.success('Copied successfully!');
-            }}
-            cursor={'pointer'}
-          >
-            <svg
-              stroke="currentColor"
-              fill="currentColor"
-              stroke-width="0"
-              viewBox="0 0 512 512"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                width="336"
-                height="336"
-                x="128"
-                y="128"
-                fill="none"
-                stroke-linejoin="round"
-                stroke-width="32"
-                rx="57"
-                ry="57"
-              ></rect>
-              <path
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="32"
-                d="m383.5 128 .5-24a56.16 56.16 0 0 0-56-56H112a64.19 64.19 0 0 0-64 64v216a56.16 56.16 0 0 0 56 56h24"
-              ></path>
-            </svg>
-          </Box>
-        )}
       </Flex>
-      <Text className={s.price}>
-        {formatCurrency(data.amount, 0, 6)} <Text as="span">{symbol}</Text>
-      </Text>
+      {token && (
+        <ItemBalanceDetail
+          balance={token.amount}
+          token={token as unknown as ITxBTCTokenTransfer}
+        />
+      )}
     </Flex>
   );
 };

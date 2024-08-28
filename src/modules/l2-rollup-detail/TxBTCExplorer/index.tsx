@@ -12,6 +12,11 @@ import {
   Flex,
   Image,
   SimpleGrid,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
   Tag,
   Text,
 } from '@chakra-ui/react';
@@ -19,7 +24,7 @@ import BigNumber from 'bignumber.js';
 import cs from 'classnames';
 import copy from 'copy-to-clipboard';
 import dayjs from 'dayjs';
-import router from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
@@ -27,8 +32,10 @@ import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import SearchAddress from '../SearchAddress';
 import ItemTransfer from './itemTransfer';
 import s from './styles.module.scss';
+import TokenTransfers from './tokenTransfer';
 
 const TxBTCExplorer = () => {
+  const router = useRouter();
   const { address, isBTCTxAddress } = useContext(L2RollupDetailContext);
   const [loading, setLoading] = useState(true);
   const [txBTC, setTxBTC] = useState<ITxBTC>();
@@ -227,58 +234,76 @@ const TxBTCExplorer = () => {
                   </Text>
                 </Flex>
               </SimpleGrid>
-              <Flex w={'100%'}>
-                <Tag background={'#000'} size={'lg'}>
-                  BTC transfers
-                </Tag>
-              </Flex>
-              <Flex w={'100%'} flexDirection={'column'} gap={'24px'}>
-                <Flex
-                  w={'100%'}
-                  gap={'24px'}
-                  borderBottom={'1px solid #f5f5f5'}
-                  pb={'12px'}
-                >
-                  <Flex
-                    w={'100%'}
-                    flex={1}
-                    alignItems={'center'}
-                    justifyContent={'space-between'}
-                  >
-                    <Text>Input</Text>
-                    <Text>({txBTC.input_details.length})</Text>
-                  </Flex>
-                  <Flex
-                    w={'100%'}
-                    flex={1}
-                    alignItems={'center'}
-                    justifyContent={'space-between'}
-                  >
-                    <Text>Output</Text>
-                    <Text>({txBTC.output_details.length})</Text>
-                  </Flex>
-                </Flex>
-                <SimpleGrid columns={2} w={'100%'} gap={'24px'}>
-                  <Flex flexDirection={'column'} gap={'12px'}>
-                    {txBTC.input_details.map((d, i) => (
-                      <ItemTransfer
-                        key={`in_${d.output_hash}_${i}`}
-                        data={d}
-                        symbol={txBTC.transaction_symbol}
-                      />
-                    ))}
-                  </Flex>
-                  <Flex flexDirection={'column'} gap={'12px'}>
-                    {txBTC.output_details.map((d, i) => (
-                      <ItemTransfer
-                        key={`in_${d.output_hash}_${i}`}
-                        data={d}
-                        symbol={txBTC.transaction_symbol}
-                      />
-                    ))}
-                  </Flex>
-                </SimpleGrid>
-              </Flex>
+              <Box w={'100%'}>
+                <Tabs className={s.tabTransfer}>
+                  <TabList>
+                    <Tab>BTC transfers</Tab>
+                    {txBTC.token_transfer.length > 0 && (
+                      <Tab>Token transfers</Tab>
+                    )}
+                  </TabList>
+                  <TabPanels>
+                    <TabPanel>
+                      <Flex w={'100%'} flexDirection={'column'} gap={'24px'}>
+                        <Flex
+                          w={'100%'}
+                          gap={'24px'}
+                          borderBottom={'1px solid #f5f5f5'}
+                          pb={'12px'}
+                        >
+                          <Flex
+                            w={'100%'}
+                            flex={1}
+                            alignItems={'center'}
+                            justifyContent={'space-between'}
+                          >
+                            <Text>Input</Text>
+                            <Text>({txBTC.input_details.length})</Text>
+                          </Flex>
+                          <Flex
+                            w={'100%'}
+                            flex={1}
+                            alignItems={'center'}
+                            justifyContent={'space-between'}
+                          >
+                            <Text>Output</Text>
+                            <Text>({txBTC.output_details.length})</Text>
+                          </Flex>
+                        </Flex>
+                        <SimpleGrid columns={2} w={'100%'} gap={'24px'}>
+                          <Flex flexDirection={'column'}>
+                            {txBTC.input_details.map((d, i) => (
+                              <ItemTransfer
+                                key={`in_${d.input_hash}_${i}`}
+                                data={d}
+                                symbol={txBTC.transaction_symbol}
+                                address={d.input_hash}
+                                tokenTransfer={txBTC.token_transfer}
+                              />
+                            ))}
+                          </Flex>
+                          <Flex flexDirection={'column'}>
+                            {txBTC.output_details.map((d, i) => (
+                              <ItemTransfer
+                                key={`in_${d.output_hash}_${i}`}
+                                data={d}
+                                symbol={txBTC.transaction_symbol}
+                                address={d.output_hash}
+                                tokenTransfer={txBTC.token_transfer}
+                              />
+                            ))}
+                          </Flex>
+                        </SimpleGrid>
+                      </Flex>
+                    </TabPanel>
+                    {txBTC.token_transfer.length > 0 && (
+                      <TabPanel>
+                        <TokenTransfers data={txBTC} />
+                      </TabPanel>
+                    )}
+                  </TabPanels>
+                </Tabs>
+              </Box>
             </Center>
           </>
         )}

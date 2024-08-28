@@ -92,11 +92,31 @@ export interface ITxBTC {
   total_transaction_size: string;
   virtual_size: string;
   weight: string;
-  token_transfer: any[];
+  token_transfer: ITxBTCTokenTransfer[];
 }
 
 export interface ITxBTCPutDetail {
   output_hash: string;
+  input_hash: string;
   is_contract: boolean;
   amount: string;
+}
+
+export interface ITxBTCTokenTransfer {
+  btc_transaction_id: number;
+  tx_id: string;
+  block_hash: string;
+  height: string;
+  transaction_time: number;
+  from: string;
+  to: string;
+  amount: string;
+  action: string;
+  token_inscription_id: string;
+  protocol_type: string;
+  state: string;
+  inscription_id: string;
+  inscription_number: string;
+  symbol: string;
+  output_index: string;
 }

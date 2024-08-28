@@ -162,13 +162,114 @@
 }
 
 .address {
-  color: #432cca;
   font-size: 14px;
+  &.isUrl {
+    color: #432cca !important;
+    cursor: pointer;
+  }
 }
 
 .price {
   font-size: 14px;
   span {
     opacity: 0.7;
+  }
+}
+
+.tabTransfer {
+  margin-top: 20px;
+  :global {
+    .chakra-tabs__tablist {
+      gap: 12px;
+      .chakra-tabs__tab {
+        padding: 0px;
+        background-color: #f5f5f5;
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-size: 14px;
+        border: 0;
+        &[aria-selected='true'] {
+          background-color: #000;
+          color: white;
+        }
+      }
+    }
+    .chakra-tabs__tab-panel {
+      padding: 0;
+      margin-top: 20px;
+    }
+  }
+
+  .itemTransfer {
+    border-bottom: 1px dashed #e2e2e2;
+    padding: 20px 0px;
+    .itemBalanceDetail {
+      justify-content: flex-end;
+      gap: 2px;
+      span,
+      p {
+        font-size: 14px;
+      }
+      span {
+        font-weight: 700;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+        max-width: 100px;
+      }
+    }
+  }
+}
+
+.tokenTransferTabContainer {
+  :global {
+    .chakra-tabs__tablist {
+      background-color: #f5f5f5;
+      width: fit-content;
+      gap: 0px;
+      border-radius: 2px;
+      padding: 2px;
+      .chakra-tabs__tab {
+        padding: 0px;
+        background-color: transparent;
+        border-radius: 2px;
+        padding: 4px 8px;
+        font-size: 12px;
+        border: 0;
+        text-transform: capitalize;
+        &[aria-selected='true'] {
+          background-color: #ffffff;
+          color: #000;
+        }
+      }
+    }
+    .chakra-tabs__tab-panel {
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    .chakra-table__container {
+      border: none;
+      thead {
+        th {
+          &:last-child {
+            div {
+              text-align: right;
+              justify-content: end;
+            }
+          }
+        }
+      }
+      tbody {
+        td {
+          &:last-child {
+            p {
+              text-align: right;
+            }
+          }
+        }
+      }
+    }
   }
 }
