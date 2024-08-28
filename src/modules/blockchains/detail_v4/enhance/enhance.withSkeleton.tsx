@@ -94,7 +94,7 @@ const withSkeleton =
               <Skeleton h={'40px'} w="400px" borderRadius={'12px'} />
             ))}
           </Flex>
-          <Flex
+          {/* <Flex
             w={'200px'}
             h={'100%'}
             flexDir={'column'}
@@ -107,7 +107,7 @@ const withSkeleton =
             {new Array(5).fill(0).map((item) => (
               <Skeleton h={'40px'} w="200px" />
             ))}
-          </Flex>
+          </Flex> */}
         </Flex>
       </Flex>
     );
