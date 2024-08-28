@@ -63,7 +63,7 @@ export default function GroupProducts(): ReactElement {
                     />
                     <div className={s.group_item_icon_text}>
                       <span className={s.group_item_icon_text_title}>
-                        Bitcoin Heartbeat
+                        Bitcoin Heartbeats
                       </span>
                       <Text
                         as="span"

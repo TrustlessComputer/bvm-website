@@ -2,6 +2,7 @@
   position: relative;
   min-height: 100vh;
 
+
   --delay: 0.5s;
   --black-color: #000;
   --grey-color: #cecece;
@@ -11,12 +12,17 @@
   .container {
     padding-top: calc(138px + 60px);
     padding-bottom: rem(105px);
-    max-width: 1440px;
+
+    max-width: 1480px;
     margin-left: auto;
     margin-right: auto;
 
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding-left: 20px;
+    padding-right: 20px;
+
+
+    // padding-left: 0 !important;
+    // padding-right: 0 !important;
 
     .labHeadline {
       display: flex;
@@ -32,9 +38,11 @@
         color: var(--black-color);
         margin-bottom: rem(16px);
         height: rem(50px);
+
         @include is-tablet {
           font-size: 56px;
         }
+
         @include is-pc {
           font-size: 72px;
           margin-top: -.1em;
@@ -85,9 +93,11 @@
       column-gap: 12px;
 
       grid-template-columns: 1fr;
+
       @include min-tablet {
         grid-template-columns: repeat(2, 1fr);
       }
+
       @include min-pc {
         grid-template-columns: repeat(3, 1fr);
       }
