@@ -4,9 +4,11 @@ import { ChainNodeAsDappNode, NodeNotificationProps } from '@/types/node';
 import { NodeProps } from '@xyflow/react';
 import GamingAppsRenderer from '../DappRenderer/GamingAppsRenderer';
 import Node from '../Node/Node';
-import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
+import { useGameModule } from '@/modules/blockchains/detail_v4/hook/useGameModule';
 
 const GamingAppsNode = ({ data }: NodeProps<ChainNodeAsDappNode>) => {
+  const { statusMapper, getGameTypeIconUrl } = useGameModule();
+
   const notification: NodeNotificationProps | undefined = React.useMemo(() => {
     return undefined;
   }, []);
@@ -15,16 +17,16 @@ const GamingAppsNode = ({ data }: NodeProps<ChainNodeAsDappNode>) => {
     <Node
       {...data}
       key={JSON.stringify(data)}
-      // borderColor={statusMapper?.borderColorStr}
+      borderColor={statusMapper?.borderColorStr}
       heading={{
         title: data.title,
         status: {
-          message: 'Drafting Module',
-          // color: statusMapper?.statusColorStr,
-          // icon: getBridgeTypeIconUrl(),
+          message: statusMapper?.statusStr,
+          color: statusMapper?.statusColorStr,
+          icon: getGameTypeIconUrl(),
         },
-        // borderColor: statusMapper?.borderColorStr,
-        // backgroundColor: statusMapper?.bgColorStr,
+        borderColor: statusMapper?.borderColorStr,
+        backgroundColor: statusMapper?.bgColorStr,
       }}
       notification={notification}
       content={{
