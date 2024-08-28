@@ -88,7 +88,7 @@ export const STEP_1_SECTION = {
       homeImage: '/landing-v5/home-zk-4.png',
 
       bgColor:
-        'linear-gradient(227deg, #FFC32A -7.83%, #F5E000 23.69%, #53B900 67.99%, #BDF710 100%)',
+        'linear-gradient(47deg, #FFC32A 0%, #F5E000 31.53%, #53B900 75.82%, #BDF710 107.83%)',
       link: {
         url: '/studio?template=2',
         target: '_blank',

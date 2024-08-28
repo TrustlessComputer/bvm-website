@@ -36,8 +36,8 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   );
 
   const checkParam = useMemo(() => {
-    return !!param.id
-  }, [param.id])
+    return !!param.id;
+  }, [param.id]);
 
   const dappIndex = React.useMemo(
     () => draggedDappIndexes[data.baseIndex],

@@ -6,7 +6,7 @@ import ResearchModule from '@/modules/research';
 import { Metadata } from 'next';
 import React from 'react';
 
-const THUMBNAIL = `${CDN_URL}/metadata/bvm-research.png`;
+const THUMBNAIL = `${CDN_URL}/metadata/opensource.png`;
 
 export const metadata: Metadata = {
   description: 'Make Bitcoin vastly more useful than just a currency.',

@@ -7,7 +7,7 @@ const FakeData = [
   {
     icon: '/images/home-list-icon-1.svg',
     title: 'Easily deploy',
-    desc: 'Launch your ZK rollups without writing a single line of code.',
+    desc: 'Launch your Bitcoin chain without writing a single line of code.',
   },
   // {
   //   icon: '/images/home-list-icon-2.svg',
@@ -17,12 +17,12 @@ const FakeData = [
   {
     icon: '/images/home-list-icon-3.svg',
     title: 'Scalable solutions',
-    desc: 'Scale your ZK rollup or resize it as your demand shifts.',
+    desc: 'Scale your Bitcoin chain or resize it as your demand shifts.',
   },
   {
     icon: '/images/home-list-icon-4.svg',
     title: 'Bitcoin security',
-    desc: 'Inherit Bitcoin’s robust security with your ZK rollup.',
+    desc: 'Inherit Bitcoin’s robust security with your Bitcoin chain.',
   },
   {
     icon: '/images/home-list-icon-5.svg',

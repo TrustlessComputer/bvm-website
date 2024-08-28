@@ -85,7 +85,7 @@ const StepsAirdrop = (props: IProps) => {
     setAuthenCode(res);
     code = `\n\n#${res?.public_code}`;
 
-    const content = `BVM Studio makes blockchain building a breeze with simple drag-and-drop tools. No sweat, just pure innovation. Starting from $99/mo.\n\nLet's upgrade #Bitcoin beyond a currency with @BVMnetwork.\n\nbvm.network${code}`;
+    const content = `BVM is the most comprehensive infrastructure for building on Bitcoin, offering everything from L2 rollups to GPU-accelerated VMs to push Bitcoin further.\n\nLet's transform Bitcoin beyond a currency with @BVMnetwork.\n\nbvm.network${code}`;
 
     window.open(
       `https://twitter.com/intent/tweet?text=${encodeURIComponent(content)}`,

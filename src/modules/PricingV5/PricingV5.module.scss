@@ -1,0 +1,184 @@
+.wrapper {
+    --card-bg: #FFF;
+    --text-color: #000;
+    --btn-color: #fff;
+    --btn-bg: #FA4E0E;
+
+    background: #F3F1E8;
+    min-height: calc(100vh - 96px);
+    display: grid;
+    place-items: center;
+    color: black;
+    padding-bottom: 60px;
+
+
+    .heading {
+        color: var(--text-color);
+        text-align: center;
+        margin-bottom: 60px;
+        padding-top: 60px;
+
+
+
+        h3 {
+            font-family: "JetBrains Mono";
+
+            font-size: 40px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 130%;
+            /* 52px */
+            margin-bottom: 12px;
+
+        }
+
+        p {
+            font-family: "SF Pro Display";
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 140%;
+            /* 28px */
+            opacity: 0.7;
+        }
+    }
+
+    .price_list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        align-items: center;
+        gap: 32px;
+        flex-wrap: wrap;
+
+
+
+        @media screen and (max-width: 1800px) {
+            grid-template-columns: repeat(2, 1fr);
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 32px;
+        }
+
+        @media screen and (max-width: 767.98px) {
+            grid-template-columns: 1fr;
+            padding: 0 16px;
+        }
+
+
+
+    }
+
+    .price_item_wrapper {
+        padding: 32px;
+        border-radius: 12px;
+        background: var(--card-bg);
+        box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
+        flex: 1;
+        align-self: stretch;
+        max-width: 430px;
+        width: 100%;
+
+
+        .price_item_title {
+            color: var(--text-color);
+            text-align: center;
+            font-family: "JetBrains Mono";
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 130%;
+            /* 20.8px */
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .price_item_desc {
+            color: var(--text-color);
+            text-align: center;
+            font-family: "SF Pro Display";
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 140%;
+            /* 33.6px */
+            margin-bottom: 32px;
+        }
+
+        .price {
+            color: var(--text-color);
+
+            .price_usd {
+
+                text-align: center;
+                font-family: "JetBrains Mono";
+                font-size: 40px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 130%;
+                /* 52px */
+            }
+
+            .price_bvm {
+                text-align: center;
+                font-family: "SF Pro Display";
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 300;
+                line-height: 130%;
+                /* 31.2px */
+                opacity: 0.7;
+            }
+
+            .price_note {
+                text-align: center;
+                font-family: "JetBrains Mono";
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 140%;
+                /* 16.8px */
+                margin-bottom: 48px;
+            }
+
+        }
+
+        .cta_btn {
+            border-radius: 100px;
+            background: var(--btn-bg);
+            color: var(--btn-color);
+            display: flex;
+            height: 54px;
+            padding: 16px 0;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: "SF Pro Display";
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            margin-bottom: 40px;
+            /* 111.111% */
+        }
+
+        .price_item_note {
+            color: var(--text-color);
+            text-align: center;
+            font-family: "SF Pro Display";
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 160%;
+            /* 25.6px */
+        }
+
+        &.popular {
+            --card-bg: #3C6BE2;
+            --text-color: #FFFFFF;
+            --btn-color: #000;
+            --btn-bg: #FFF;
+        }
+    }
+}

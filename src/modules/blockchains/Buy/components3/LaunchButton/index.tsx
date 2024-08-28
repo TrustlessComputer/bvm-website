@@ -46,6 +46,7 @@ import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
 import useSubmitYoloGame from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitYoloGame';
+import { useComputerNameInputStore } from '../ComputerNameInput/ComputerNameInputStore';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -83,6 +84,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { setUpdated } = useUpdateFlowStore();
   const { nodes, edges } = useFlowStore();
   const { dappCount } = useFormDappToFormChain();
+  const { computerName } = useComputerNameInputStore();
 
   const { parsedCategories: data, categories: originalData } =
     useModelCategoriesStore();
@@ -478,8 +480,12 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     //   withdrawPeriod,
     // };
 
+    if (!computerName || !chainId) {
+      return;
+    }
+
     const params = formValuesAdapter({
-      computerName: computerNameField.value || '',
+      computerName: computerName || '',
       chainId: chainId,
       dynamicFormValues: formData || dyanmicFormAllData,
     });
