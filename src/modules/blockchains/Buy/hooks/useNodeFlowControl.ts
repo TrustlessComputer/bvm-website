@@ -256,6 +256,7 @@ export default function useNodeFlowControl() {
   }, [dragState]);
 
   const handleAddBox = () => {
+    console.log('run handleAddBox start');
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
 
@@ -394,6 +395,7 @@ export default function useNodeFlowControl() {
     ]);
     needReactFlowRenderSignal.value = true;
     resetDragState();
+    console.log('run handleAddBox end');
   };
 
   return {
