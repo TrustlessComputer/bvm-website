@@ -1,10 +1,11 @@
 import MagicIcon from '@/components/MagicIcon';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ButtonApply from './Actions/ButtonApply';
 import ButtonClose from './Actions/ButtonClsoe';
 import ButtonStop from './Actions/ButtonStop';
-import useChatBoxState from './chatbox-store';
+import useChatBoxState, { ChatBoxStatus } from './chatbox-store';
 import styles from './styles.module.scss';
+import LabelListening from '@/modules/blockchains/Buy/studio/Chatbox/LabelListening';
 
 export default function Chatbox() {
   const {
@@ -23,19 +24,27 @@ export default function Chatbox() {
     setIsChatboxOpen,
   } = useChatBoxState();
 
+  const elChatBox = useRef<HTMLDivElement>(null);
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(
     null,
   );
+
+  const focusChatBox = ()=>{
+    setTimeout(()=>{
+      if( elChatBox.current)
+      elChatBox.current.scrollTo(0, elChatBox.current.scrollHeight)
+    }, 5);
+  }
 
   const handleSendMessage = () => {
     if (inputMessage.trim() !== '') {
       setMessages([...messages, { text: inputMessage, sender: 'user' }]);
       setInputMessage('');
+      focusChatBox();
     }
   };
 
   useEffect(() => {
-    // Simulate response from the chatbot
     if (
       messages.length > 0 &&
       messages[messages.length - 1].sender === 'user'
@@ -45,6 +54,7 @@ export default function Chatbox() {
           ...messages,
           { text: 'Hello! How can I help you?', sender: 'bot' },
         ]);
+        focusChatBox();
       }, 1000);
     }
   }, [messages, setMessages]);
@@ -82,14 +92,16 @@ export default function Chatbox() {
   }, [stopVoiceInput, isClose]);
 
   const handleVoiceInput = () => {
+
     setIsListening(true);
-    setInputMessage(''); // Clear input when starting voice input
+    setInputMessage('');
+    setStatus(ChatBoxStatus.Cancel);
+
     const SpeechRecognition =
       (window as any).SpeechRecognition ||
       (window as any).webkitSpeechRecognition;
     const newRecognition = new SpeechRecognition();
 
-    // Remove the language setting to allow auto-detection
     newRecognition.continuous = false;
     newRecognition.interimResults = false;
 
@@ -122,7 +134,7 @@ export default function Chatbox() {
             </div>
           </div>
           <div className={styles.body_inner}>
-            <div className={styles.chats}>
+            <div className={styles.chats} ref={elChatBox}>
               {messages.map((message, index) => (
                 <div
                   key={index}
@@ -156,24 +168,22 @@ export default function Chatbox() {
             <textarea
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
-              onKeyPress={(e) =>
-                e.key === 'Enter' && !e.shiftKey && handleSendMessage()
-              }
+              onKeyPress={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSendMessage();
+                }
+              }}
               className={styles.inputField}
               disabled={isListening}
             />
-
-            {isListening && (
-              <div className={styles.listeningOverlay}>Listening...</div>
-            )}
-
+            {isListening && <LabelListening />}
             {!isListening && inputMessage === '' && (
               <div className={styles.inputOverlay}>
                 Type your instructions or Press <strong>Control + V</strong> to
                 voice prompt
               </div>
             )}
-
             <div className={styles.buttonWrapper}>
               <button onClick={handleSendMessage} className={styles.sendButton}>
                 Send

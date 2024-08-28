@@ -1,8 +1,7 @@
 .applyButton {
   background-color: #FA4E0E;
   color: #ffffff;
-  border-radius: 16px;
-  padding: 2px 8px;
+  border-radius: 100px;
   border: none;
   cursor: pointer;
   font-family: SF Pro Display;
@@ -10,8 +9,11 @@
   font-weight: 500;
   line-height: 24px;
   text-align: right;
-
+  height: 32px;
   display: flex;
   align-items: center;
   gap: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  justify-content: center;
 }
