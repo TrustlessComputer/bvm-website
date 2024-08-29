@@ -37,6 +37,7 @@ import SearchAddress from '../l2-rollup-detail/SearchAddress';
 import React from 'react';
 import { isMobile } from 'react-device-detect';
 import { DotLottiePlayer } from '@dotlottie/react-player';
+import AnimArrowDown from './AnimArrowDown';
 
 enum SortRollupType {
   name,
@@ -1144,6 +1145,19 @@ const L2Rollup = () => {
           onHide={onClose}
           total={formatCurrency(bitcoinRent.fee_btc, 0, 4)}
         />
+      )}
+      {scrollTop < 32 && (
+        <Flex
+          position={'absolute'}
+          left={'0px'}
+          right={'0px'}
+          bottom={'24px'}
+          h={'72px'}
+          justifyContent={'center'}
+          zIndex={1}
+        >
+          <AnimArrowDown />
+        </Flex>
       )}
     </Box>
   );
