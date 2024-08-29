@@ -21,6 +21,7 @@ type ISearchBarProps = {
   placeholder?: string;
   onEnterSearch?: () => void;
   autoFocus?: boolean;
+  icSearchAtLeft?: boolean;
 };
 
 const SearchBar = (props: ISearchBarProps) => {
@@ -31,6 +32,7 @@ const SearchBar = (props: ISearchBarProps) => {
     placeholder,
     onEnterSearch,
     autoFocus,
+    icSearchAtLeft,
   } = props;
   const onEnter = (e: any) => {
     if (e.code === 'Enter') {
@@ -45,7 +47,9 @@ const SearchBar = (props: ISearchBarProps) => {
       flexDirection={'row'}
       alignItems={'center'}
     >
-      <Image w="18px" ml={'16px'} src={`/icons/ic_search.svg`} />
+      {icSearchAtLeft && (
+        <Image w="18px" ml={'16px'} src={`/icons/ic_search.svg`} />
+      )}
       <Input
         placeholder={placeholder}
         value={txtSearch}
@@ -56,6 +60,9 @@ const SearchBar = (props: ISearchBarProps) => {
         autoFocus={autoFocus}
         bg={'red'}
       />
+      {!icSearchAtLeft && (
+        <Image w="18px" mr={'16px'} src={`/icons/ic_search.svg`} />
+      )}
     </Flex>
   );
 };
@@ -64,6 +71,7 @@ type ISearchAddressProps = {
   placeholder?: string;
   className?: string;
   autoFocus?: boolean;
+  icSearchAtLeft?: boolean;
 };
 
 const SearchAddress = (props: ISearchAddressProps) => {
@@ -94,11 +102,12 @@ const SearchAddress = (props: ISearchAddressProps) => {
         placeholder={props.placeholder || 'Search address '}
         onEnterSearch={() => {
           if (isValidSearchAddress) {
-            router.push(`${HEART_BEAT}/address/${searchAddress}`);
+            router.replace(`${HEART_BEAT}/address/${searchAddress}`);
           }
         }}
         className={props.className}
         autoFocus={props.autoFocus}
+        icSearchAtLeft={props.icSearchAtLeft}
       />
       {searchAddress && (
         <Flex
@@ -116,7 +125,7 @@ const SearchAddress = (props: ISearchAddressProps) => {
               cursor={'pointer'}
               pr={'12px'}
               onClick={() =>
-                router.push(`${HEART_BEAT}/address/${searchAddress}`)
+                router.replace(`${HEART_BEAT}/address/${searchAddress}`)
               }
             >
               <Image w={'14px'} src={'/heartbeat/ic-link.svg'} />
