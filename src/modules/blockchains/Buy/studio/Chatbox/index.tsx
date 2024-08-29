@@ -17,6 +17,7 @@ import {
   modelCategoryToPromptCategory,
   promptCategoryToModelCategory,
 } from './utils/convertApiUtils';
+import { mockupPromptResponses } from './mockup/promtResponse';
 
 export default function Chatbox() {
   const { categories } = useModelCategoriesStore();
