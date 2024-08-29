@@ -174,9 +174,9 @@ export default memo(function StudioControls() {
                 if (item.multiChoice) operator = '';
 
                 suffix =
-                  Math.abs(_price) > 0
+                  Math.abs(_price / 30) > 1
                     ? ` (${operator}${formatCurrencyV2({
-                        amount: Math.abs(_price),
+                        amount: Math.abs(_price / 30),
                         decimals: 0,
                       })} BVM)`
                     : '';
