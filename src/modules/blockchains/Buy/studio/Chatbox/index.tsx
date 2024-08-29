@@ -75,7 +75,7 @@ export default function Chatbox() {
         setChatBoxStatus({
           status: ChatBoxStatus.Complete,
           isGenerating: false,
-          isComplete: true,
+          isComplete: false,
           isListening: false,
         });
         setPrepareCategoryTemplate(template);
@@ -117,7 +117,7 @@ export default function Chatbox() {
           });
         }
       } else if (event.ctrlKey && event.shiftKey && event.key === 'V') {
-        handleVoiceInput();
+        !isGenerating && handleVoiceInput();
       }
     };
 
@@ -229,7 +229,7 @@ export default function Chatbox() {
                 }
               }}
               className={styles.inputField}
-              disabled={isListening}
+              disabled={isListening || isGenerating}
             />
             {isListening && <LabelListening />}
             {!isListening && inputMessage === '' && (
