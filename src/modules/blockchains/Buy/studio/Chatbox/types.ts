@@ -21,9 +21,17 @@ export type SendPromptBodyRequest = {
   current_state: PromptCategory[];
 };
 
-export type SendPromptBodyResponse = {
+export enum CategoryAction {
+  ADD = 'add',
+  REMOVE = 'remove',
+  UPDATE = 'update',
+}
+
+export type SendPromptResponse = {
   message: string;
-  action: string;
+  actions: {
+    action_type: CategoryAction;
+    category: PromptCategory;
+  }[];
   is_clear: boolean;
-  categories: PromptCategory[];
 };

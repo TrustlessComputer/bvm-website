@@ -1,8 +1,8 @@
-import { SendPromptBodyRequest, SendPromptBodyResponse } from '../types';
+import { SendPromptBodyRequest, SendPromptResponse } from '../types';
 
 export const sendPrompt = async (
   body: SendPromptBodyRequest,
-): Promise<SendPromptBodyResponse> => {
+): Promise<SendPromptResponse> => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/assist`, {
       method: 'POST',

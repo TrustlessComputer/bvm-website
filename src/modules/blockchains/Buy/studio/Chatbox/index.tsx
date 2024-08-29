@@ -1,6 +1,6 @@
 import MagicIcon from '@/components/MagicIcon';
 import LabelListening from '@/modules/blockchains/Buy/studio/Chatbox/LabelListening';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { act, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ButtonApply from './Actions/ButtonApply';
 import ButtonClose from './Actions/ButtonClsoe';
 import ButtonStop from './Actions/ButtonStop';
@@ -13,11 +13,14 @@ import {
   modelCategoryToPromptCategory,
   promptCategoryToModelCategory,
 } from './utils/convertApiUtils';
-import { PromptCategory, SendPromptBodyRequest } from './types';
+import { CategoryAction, PromptCategory, SendPromptBodyRequest } from './types';
 import { sendPrompt } from './services/prompt';
 import { IModelCategory } from '@/types/customize-model';
+import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
+import { mockupPromptResponse } from './mockup/promtResponse';
 
 export default function Chatbox() {
+  const { categories } = useModelCategoriesStore();
   const { getDynamicForm, getCurrentFieldFromChain } = useFormChain();
 
   const {
@@ -77,38 +80,59 @@ export default function Chatbox() {
       };
 
       const response = await sendPrompt(prompt_body);
-      const newSegments = response.categories.map((pCategory) =>
-        promptCategoryToModelCategory(
-          pCategory,
-          getCurrentFieldFromChain(pCategory.layer) as IModelCategory,
-        ),
+      // const response = mockupPromptResponse;
+
+      const newTemplate = currentTemplate.filter((category) => {
+        return !response.actions.some((action) => {
+          return (
+            action.action_type === CategoryAction.REMOVE &&
+            action.category.layer === category.key
+          );
+        });
+      });
+
+      newTemplate.push(
+        ...response.actions
+          .filter((action) => action.action_type === CategoryAction.ADD)
+          .map((act) =>
+            promptCategoryToModelCategory(
+              act.category,
+              (categories || []).find(
+                (cate) => cate.key === act.category.layer,
+              ) as IModelCategory,
+            ),
+          ),
       );
 
-      console.log('[handleSendPrompt] response', response);
+      newTemplate.forEach((category, index) => {
+        const indexInResponse = response.actions.findIndex(
+          (action) => action.category.layer === category.key,
+        );
+
+        if (indexInResponse === -1) return;
+
+        const action = response.actions[indexInResponse];
+
+        if (action.action_type === CategoryAction.UPDATE) {
+          newTemplate[index] = promptCategoryToModelCategory(
+            action.category,
+            category,
+          );
+        }
+      });
+
+      console.log('[handleSendPrompt] newTemplate', newTemplate);
 
       setMessages([
         ...messages,
         {
           text: response.message,
-          template: currentTemplate.map((category) => {
-            const newCategory = newSegments.find(
-              (newCategory) => newCategory.key === category.key,
-            );
-
-            return newCategory || category;
-          }),
+          template: newTemplate,
           sender: 'bot',
         },
       ]);
 
-      setPrepareCategoryTemplate(
-        response.categories.map((pCategory) =>
-          promptCategoryToModelCategory(
-            pCategory,
-            getCurrentFieldFromChain(pCategory.layer) as IModelCategory,
-          ),
-        ),
-      );
+      setPrepareCategoryTemplate(newTemplate);
       focusChatBox();
     }
   };
