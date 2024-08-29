@@ -256,7 +256,7 @@ const Leaderboard = (props: Props) => {
       className={s.wrapper}
       id="scrollableDiv"
       style={{
-        height: 660,
+        height: dataSource && dataSource.length > 10 ? 660 : 'auto',
         overflow: 'auto',
       }}
     >

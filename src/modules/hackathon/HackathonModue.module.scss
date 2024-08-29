@@ -94,6 +94,10 @@
     }
 
     .connect_btn {
+      @include is-mobile {
+        width: 100%;
+      }
+
       .tele_link {
         display: flex;
         align-items: center;
@@ -108,6 +112,11 @@
         font-style: normal;
         font-weight: 500;
         line-height: 20px;
+
+        @include is-mobile {
+          width: 100%;
+          justify-content: center;
+        }
         /* 111.111% */
       }
     }
@@ -187,6 +196,20 @@
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+    }
+
+    @include is-mobile {
+      flex-wrap: wrap;
+
+      p:first-child {
+        position: relative;
+        transform: translateY(1px);
+      }
+
+      p:last-child {
+        flex-shrink: 0;
+        flex-basis: 100%;
+      }
     }
   }
 }

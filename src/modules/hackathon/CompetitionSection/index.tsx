@@ -106,6 +106,7 @@ const CompetitionSection = (props: Props) => {
               right={0}
               gap="12px"
               alignItems={'center'}
+              className={s.teleWrapper}
             >
               <SvgInset svgUrl="/icons/tele-ic.svg" size={40} />
               <Flex flexDir={'column'} gap="2px">
@@ -138,7 +139,7 @@ const CompetitionSection = (props: Props) => {
           >
             <Flex
               alignItems={'center'}
-              gap="34px"
+              gap="12px"
               mb="24px"
               position="relative"
             >
