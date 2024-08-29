@@ -94,6 +94,10 @@
     }
 
     .connect_btn {
+      @include is-mobile {
+        width: 100%;
+      }
+
       .tele_link {
         display: flex;
         align-items: center;
@@ -108,6 +112,11 @@
         font-style: normal;
         font-weight: 500;
         line-height: 20px;
+
+        @include is-mobile {
+          width: 100%;
+          justify-content: center;
+        }
         /* 111.111% */
       }
     }
