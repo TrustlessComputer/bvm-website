@@ -17,6 +17,7 @@ import { validateEVMAddress } from '@/utils/validate';
 import BigNumber from 'bignumber.js';
 import { useParams } from 'next/navigation';
 import React, { PropsWithChildren, useEffect, useMemo, useState } from 'react';
+import { IBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
 
 export interface IL2RollupDetailContext {
   address: string;
@@ -30,6 +31,8 @@ export interface IL2RollupDetailContext {
   balanceBitcoinInfo?: IBalanceBitcoinInfo;
   totalBitcoinBalanceUsd?: number;
   rollupBitcoinBalances?: any[];
+  selectedBlock: IBlock | undefined;
+  setSelectedBlock: any;
 }
 
 const initialValue: IL2RollupDetailContext = {
@@ -44,6 +47,8 @@ const initialValue: IL2RollupDetailContext = {
   balanceBitcoinInfo: undefined,
   totalBitcoinBalanceUsd: 0,
   rollupBitcoinBalances: [],
+  selectedBlock: undefined,
+  setSelectedBlock: () => {},
 };
 
 export const L2RollupDetailContext =
@@ -69,6 +74,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
 
   const [rollupTokensRate, setRollupTokensRate] = useState<RollupTokenRate>();
   const [rollupDetails, setRollupDetails] = useState<IRollupDetail[]>([]);
+  const [selectedBlock, setSelectedBlock] = useState<IBlock | undefined>(undefined);
 
   const rollupBalances = useMemo(() => {
     let balances: ITokenChain[] = [];
@@ -231,6 +237,8 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
       balanceBitcoinInfo,
       totalBitcoinBalanceUsd,
       rollupBitcoinBalances,
+      selectedBlock,
+      setSelectedBlock,
     };
   }, [
     address,
@@ -243,6 +251,8 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     balanceBitcoinInfo,
     totalBitcoinBalanceUsd,
     rollupBitcoinBalances,
+    selectedBlock,
+    setSelectedBlock,
   ]);
 
   return (

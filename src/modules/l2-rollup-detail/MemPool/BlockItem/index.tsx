@@ -1,9 +1,10 @@
 import { Box, Flex, Skeleton, Square, Text } from '@chakra-ui/react';
 import cs from 'classnames';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import s from './styles.module.scss';
 import { compareString } from '@/utils/string';
 import { IBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
+import { L2RollupDetailContext } from '@/modules/l2-rollup-detail/providers/l2-rollup-detail-context';
 
 interface IProps {
   item: IBlock | undefined;
@@ -19,6 +20,7 @@ const BlockItem: React.FC<IProps> = ({
                                                  isCurrentMint,
                                                }) => {
   console.log('BlockItem', item);
+  const { setSelectedBlock } = useContext(L2RollupDetailContext);
 
   const status = useMemo(() => {
     if (!item) {
@@ -40,8 +42,12 @@ const BlockItem: React.FC<IProps> = ({
     );
   }
 
+  const onSelectBlock = () => {
+    setSelectedBlock(item);
+  }
+
   return (
-    <Box className={cs(s.container, status)}>
+    <Box className={cs(s.container, status)} onClick={onSelectBlock}>
       {item ? (
         <Square size={"125px"} className={s.content}>
           <Flex direction={"column"} gap={"4px"} alignItems={'center'}>

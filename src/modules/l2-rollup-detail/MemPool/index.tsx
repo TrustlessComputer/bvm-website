@@ -3,13 +3,18 @@
 import { Box, Flex } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { useParams } from 'next/navigation';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import BigNumber from 'bignumber.js';
 import { IBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
 import BlockItem from 'src/modules/l2-rollup-detail/MemPool/BlockItem';
+import {
+  L2RollupDetailContext,
+  L2RollupDetailProvider,
+} from '@/modules/l2-rollup-detail/providers/l2-rollup-detail-context';
+import BlockDetail from '@/modules/l2-rollup-detail/MemPool/BlockDetail';
 
-const MemPoolModule = () => {
+const MemPool = () => {
   const params = useParams();
   const [loading, setLoading] = useState(true);
 
@@ -18,6 +23,8 @@ const MemPoolModule = () => {
   const defaultArr1 = useRef(Array(1).fill(0)).current;
 
   const chain = params?.id;
+
+  const { selectedBlock } = useContext(L2RollupDetailContext);
 
   console.log('params', params);
 
@@ -71,7 +78,7 @@ const MemPoolModule = () => {
   }, []);
 
   return (
-    <Flex className={s.container}>
+    <Flex className={s.container} direction={"column"} alignItems={"center"}>
       <ScrollContainer
         className={s.wrapper}
         hideScrollbars={true}
@@ -102,8 +109,19 @@ const MemPoolModule = () => {
           <Box minW={"16px"} />
         </Flex>
       </ScrollContainer>
+      {
+        selectedBlock && <BlockDetail />
+      }
     </Flex>
   )
 };
+
+const MemPoolModule = () => {
+  return (
+    <L2RollupDetailProvider>
+      <MemPool />
+    </L2RollupDetailProvider>
+  )
+}
 
 export default MemPoolModule;

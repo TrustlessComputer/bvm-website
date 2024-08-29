@@ -10,6 +10,7 @@
   position: relative;
   min-width: var(--block-size);
   min-height: var(--block-size);
+  cursor: pointer;
 
   &.release {
     &::before,
