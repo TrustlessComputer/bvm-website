@@ -1,0 +1,57 @@
+.container {
+  width: 50dvw;
+
+  .title {
+    font-size: 40px;
+    font-weight: 500;
+    color: #FFF;
+  }
+
+  .blockNumber {
+    font-size: 40px;
+    font-weight: 500;
+    color: #1bd8f4;
+  }
+
+  .btnClose {
+    cursor: pointer;
+    svg {
+      stroke: #FFF;
+    }
+  }
+
+  .content {
+    background-color: #24273e;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    box-shadow: .125rem .125rem .25rem #00000013;
+    padding: 20px;
+  }
+
+  .table {
+    font-size: 16px;
+    tbody tr:nth-of-type(odd) {
+      background-color: #181b2d;
+    }
+    td {
+      padding: 12px;
+      border-bottom: none;
+    }
+  }
+
+  .unit {
+    font-size: 12px;
+    color: #ffffff66;
+  }
+
+  .price {
+    font-size: 14px;
+    color: #3bcc49;
+  }
+
+  .link {
+    font-size: 16px;
+    color: #1bd8f4;
+    text-decoration: underline;
+  }
+}

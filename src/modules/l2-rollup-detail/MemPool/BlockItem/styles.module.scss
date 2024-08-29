@@ -1,0 +1,134 @@
+.container {
+  --block-size: 125px;
+  --primary: #002953;
+  --secondary: #2d3348;
+  --mainnet-alt: rgb(160, 71, 255);
+  --pending-alt: rgb(148, 48, 8);
+  width: var(--block-size);
+  height: fit-content;
+  transition: background 2s, right 2s, transform 1s, opacity 1s;
+  position: relative;
+  min-width: var(--block-size);
+  min-height: var(--block-size);
+  cursor: pointer;
+
+  &.release {
+    &::before,
+    &::after {
+      background: repeating-linear-gradient(
+          #2d3348,
+          var(--secondary) 0.1611249999999984%,
+          var(--mainnet-alt) 0.1611249999999984%,
+          var(--primary) 100%
+      );
+    }
+
+    .content {
+      width: var(--block-size);
+      height: var(--block-size);
+      background: repeating-linear-gradient(to bottom, #9339f4, #007bff);
+    }
+  }
+
+  &.pending {
+    &::before,
+    &::after {
+      background: #403834;
+    }
+
+    .content {
+      width: var(--block-size);
+      height: var(--block-size);
+      position: absolute;
+      top: 0;
+
+      background: repeating-linear-gradient(
+          to bottom,
+          rgb(85, 75, 69),
+          rgb(85, 75, 69) 0.2054%,
+          rgb(134, 125, 8) 0.2054%,
+          rgb(134, 125, 8) 17.1705%,
+          rgb(134, 125, 8) 16.8378%,
+          rgb(134, 125, 8) 33.1376%,
+          rgb(134, 125, 8) 33.4703%,
+          rgb(140, 125, 9) 50.1027%,
+          rgb(140, 125, 9) 50.1027%,
+          rgb(140, 125, 9) 67.0678%,
+          rgb(140, 125, 9) 66.7351%,
+          rgb(149, 125, 11) 83.0349%,
+          rgb(149, 125, 11) 83.3676%,
+          rgb(166, 125, 14) 100%
+      );
+
+      @keyframes animationLoopSlick {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.75;
+        }
+        100% {
+          opacity: 0.5;
+        }
+        50% {
+          opacity: 0.75;
+        }
+        0% {
+          opacity: 1;
+        }
+      }
+
+      animation: 1.2s linear infinite alternate animationLoopSlick;
+    }
+  }
+
+  &::before {
+    content: "";
+    width: calc(0.16 * var(--block-size));
+    height: var(--block-size);
+    position: absolute;
+    top: calc(-0.096 * var(--block-size));
+    left: calc(-0.16 * var(--block-size));
+    background: #191c27;
+    //z-index: -1;
+    transform: skewY(50deg);
+    transform-origin: top;
+    transition: transform 1s, left 1s;
+  }
+  &::after {
+    content: "";
+    width: var(--block-size);
+    height: calc(0.192 * var(--block-size));
+    position: absolute;
+    top: calc(-0.192 * var(--block-size));
+    left: calc(-0.16 * var(--block-size));
+    background: #232838;
+    transform: skew(40deg);
+    transform-origin: top;
+    transition: transform 1s, left 1s;
+  }
+  img {
+    width: var(--block-size);
+    min-width: var(--block-size);
+    height: var(--block-size);
+  }
+  .medianFee {
+    color: #FFF;
+    font-size: 12px;
+  }
+  .feeSpan {
+    font-size: 11px;
+    color: yellow;
+  }
+  .totalFee {
+    font-size: 16px;
+    font-weight: 700;
+    color: #FFF;
+  }
+  .transactions {
+    font-size: 10px;
+  }
+  .time {
+    font-size: 13px;
+  }
+}
