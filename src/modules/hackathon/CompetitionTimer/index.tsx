@@ -20,11 +20,7 @@ const CompetitionTimer = (props: Props) => {
   const endTime = useCountdown(props.endTime);
   if (!startTime.ended) {
     return (
-      <Flex
-        alignItems={'center'}
-        gap="5px"
-        flexDir={{ base: 'column', md: 'row' }}
-      >
+      <Flex className={s.countdown_wrapper}>
         <Text whiteSpace={'nowrap'} opacity={0.6}>
           Competition starts in
         </Text>
@@ -44,7 +40,7 @@ const CompetitionTimer = (props: Props) => {
 
   if (!endTime.ended) {
     return (
-      <Flex alignItems={'center'} gap="4px">
+      <Flex className={s.countdown_wrapper}>
         <Text whiteSpace={'nowrap'} opacity={0.6}>
           Competition ends in
         </Text>

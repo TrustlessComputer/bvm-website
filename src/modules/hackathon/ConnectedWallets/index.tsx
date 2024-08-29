@@ -81,16 +81,7 @@ const ConnectedWallets: FC<IProps> = ({ showIcon = false }) => {
             />
           </span>
         )}
-        <span
-          style={{
-            fontSize: '11px',
-            fontWeight: '700',
-            color: '#fff',
-            fontFamily: 'Space Mono',
-          }}
-        >
-          Export private key
-        </span>
+        <span className={s.text}>Export private key</span>
       </button>
 
       {/* Add network */}

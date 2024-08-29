@@ -13,7 +13,7 @@
     justify-content: space-between;
 
     .boxControl {
-    //   opacity: 0.5;
+      //   opacity: 0.5;
 
       &:hover {
         opacity: 0.75;
@@ -24,6 +24,14 @@
 
   .body {
     :global {
+      .chakra-tabs__tablist {
+        overflow: auto;
+
+        button {
+          white-space: nowrap;
+        }
+      }
+
       .chakra-tabs__tab-panel {
         padding: 0;
       }
@@ -44,6 +52,7 @@
         align-items: center;
         gap: 6px;
         border-radius: 6.611px;
+        border: 1px solid transparent;
 
         &[aria-selected='true'] {
           color: #fff;
@@ -63,10 +72,35 @@
       border: 1px solid transparent;
       border-radius: 8px;
       transition: all 0.2s ease-in-out;
+      cursor: pointer;
+
+      p {
+        position: relative;
+
+        font-size: 11px;
+        font-weight: 700;
+        color: #fff;
+        font-family: 'Space Mono';
+        position: relative;
+
+        &:after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          transform: scaleX(0);
+          height: 1px;
+          bottom: -2px;
+          left: 0;
+          background-color: white;
+          transform-origin: center;
+          transition: transform 0.25s ease-out;
+        }
+      }
 
       &:hover {
-        border-color: white;
-        cursor: pointer;
+        p::after {
+          transform: scaleX(1);
+        }
       }
     }
   }
