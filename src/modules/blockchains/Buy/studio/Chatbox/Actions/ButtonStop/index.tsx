@@ -1,8 +1,20 @@
+import useChatBoxState, { ChatBoxStatus } from '../../chatbox-store';
 import styles from './styles.module.scss';
 
 const ButtonStop = () => {
+  const { setChatBoxStatus } = useChatBoxState((state) => state);
   return (
-    <button className={styles.buttonStop}>
+    <button
+      className={styles.buttonStop}
+      onClick={() =>
+        setChatBoxStatus({
+          status: ChatBoxStatus.Close,
+          isGenerating: false,
+          isComplete: false,
+          isListening: false,
+        })
+      }
+    >
       <svg
         width="16"
         height="16"

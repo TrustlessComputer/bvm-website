@@ -1,5 +1,5 @@
 import { IModelCategory } from '@/types/customize-model';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Lego from '../../../component4/Lego';
 import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
 import styles from './styles.module.scss';
@@ -13,6 +13,7 @@ export default function Message({
 }) {
   const { setChatBoxStatus, isGenerating } = useChatBoxState((state) => state);
 
+  const refRender = useRef<NodeJS.Timeout>();
   const [displayedMessage, setDisplayedMessage] = useState<string>('');
   const [displayedTemplate, setDisplayedTemplate] = useState<typeof template>(
     [],
@@ -23,7 +24,7 @@ export default function Message({
     let templateIndex = 0;
     let optionIndex = 0;
 
-    setInterval(() => {
+    refRender.current = setInterval(() => {
       if (messageIndex < message.length - 1) {
         setDisplayedMessage((prev) => prev + message[messageIndex]);
         messageIndex++;
@@ -54,6 +55,7 @@ export default function Message({
           optionIndex = 0;
         }
       } else {
+        refRender.current && clearInterval(refRender.current);
         setChatBoxStatus({
           status: ChatBoxStatus.Complete,
           isGenerating: false,
@@ -67,6 +69,8 @@ export default function Message({
   useEffect(() => {
     if (isGenerating) {
       animateMessage();
+    } else {
+      refRender.current && clearInterval(refRender.current);
     }
   }, [isGenerating]);
 

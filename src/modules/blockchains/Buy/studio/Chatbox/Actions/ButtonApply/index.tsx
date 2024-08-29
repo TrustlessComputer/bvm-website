@@ -1,7 +1,6 @@
 import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
 import useChatBoxState, { ChatBoxStatus } from '../../chatbox-store';
 import styles from './styles.module.scss';
-import { SetChatBoxStatusParams } from '../../types';
 
 const ButtonApply = () => {
   const { setTemplate } = useTemplate();
