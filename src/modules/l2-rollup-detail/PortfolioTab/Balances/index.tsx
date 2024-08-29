@@ -117,7 +117,7 @@ const Balances = () => {
               justifyContent={'space-between'}
             >
               <Text className={s.title}>
-                {formatCurrency(data.value, 2, 2)}
+                {formatCurrency(data.value, 2, 6)}
               </Text>
             </Flex>
           );

@@ -4,6 +4,7 @@ import {
   IBalanceBitcoinInfo,
   IBitcoinTokenTransaction,
   ITxBTC,
+  ISummaryInfo,
 } from './interface';
 
 class CRollupL2DetailBitcoinAPI extends CDappApiClient {
@@ -58,6 +59,20 @@ class CRollupL2DetailBitcoinAPI extends CDappApiClient {
       const rs: any = await this.api.get(`/explorer/transaction/${address}`, {
         params,
       });
+    } catch (error) {
+      return undefined;
+    }
+  };
+
+  getRollupL2BitcoinSummary = async (
+    user_address: string,
+    params: any,
+  ): Promise<ISummaryInfo | undefined> => {
+    try {
+      const rs: any = await this.api.post(
+        `/explorer/summary/${user_address}`,
+        params,
+      );
       return rs?.result;
     } catch (error) {
       return undefined;

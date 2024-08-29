@@ -120,3 +120,11 @@ export interface ITxBTCTokenTransfer {
   symbol: string;
   output_index: string;
 }
+export interface ISummaryInfo {
+  address: string;
+  balance: string;
+  transaction_count: string;
+  first_transaction_time: string;
+  last_transaction_time: string;
+  summary: string;
+}
