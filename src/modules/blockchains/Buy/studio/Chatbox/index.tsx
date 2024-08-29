@@ -272,7 +272,7 @@ export default function Chatbox() {
             )}
             <div className={styles.buttonWrapper}>
               <button onClick={handleSendMessage} className={styles.sendButton}>
-                Send
+                Submit
               </button>
             </div>
           </div>
