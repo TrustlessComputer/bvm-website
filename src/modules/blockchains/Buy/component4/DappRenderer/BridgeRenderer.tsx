@@ -67,6 +67,7 @@ const BridgeRenderer = () => {
                   label: option.title,
                   icon: option.icon,
                 }}
+                disabled={isUpdateFlow}
               >
                 <DroppableV2 id={item.key + '-right'}>
                   <LegoV3
@@ -103,6 +104,7 @@ const BridgeRenderer = () => {
                 icon: '',
                 parent: true,
               }}
+              disabled={isUpdateFlow}
             >
               <DroppableV2 id={item.key}>
                 <ChainLegoParent
@@ -140,6 +142,7 @@ const BridgeRenderer = () => {
                 icon: '',
                 parent: true,
               }}
+              disabled={isUpdateFlow}
             >
               <DroppableV2 id={item.key + '-right'}>
                 <LegoV3

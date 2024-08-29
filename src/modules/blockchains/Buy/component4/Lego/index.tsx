@@ -49,6 +49,7 @@ type Props = {
   disabled?: boolean;
   children?: React.ReactNode;
   preview?: boolean;
+  legoAI?: boolean;
   fields?: FieldModel[];
   infoLego?: {
     title: string;
@@ -63,6 +64,7 @@ const Lego = (props: Props) => {
     background = '#c4513a',
     icon,
     title,
+    legoAI,
     tooltip,
     titleInLeft = false,
     titleInRight = false,
@@ -111,7 +113,7 @@ const Lego = (props: Props) => {
       '--background-color': background,
       '--border-color': adjustBrightness(background, -20),
     }} ref={legoRef}>
-        <div className={cn(styles.lego__piece, styles.lego__piece__top)}>
+        <div className={cn(styles.lego__piece, styles.lego__piece__top, legoAI && styles.lego__piece__top__ai)}>
           <SvgInset svgUrl="/landingV3/svg/stud.svg" size={28} />
         </div>
 

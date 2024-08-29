@@ -14,14 +14,14 @@ import useOverlappingChainLegoStore from '../../stores/useOverlappingChainLegoSt
 
 import OptionInputValue from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue';
 import styles from './styles.module.scss';
-import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
+import { useGameModule } from '@/modules/blockchains/detail_v4/hook/useGameModule';
 
 const GamingAppsRenderer = () => {
   const { parsedCategories } = useModelCategoriesStore();
   const { draggedFields } = useDragStore();
   const { overlappingId } = useOverlappingChainLegoStore();
   const { field } = useOrderFormStoreV3();
-
+  const { detailGameMapperStatus } = useGameModule();
   const { order, isUpdateFlow, selectedCategoryMapping } = useChainProvider();
 
   return (
@@ -75,13 +75,12 @@ const GamingAppsRenderer = () => {
                     icon={item.confuseIcon}
                     zIndex={item.options.length - opIdx}
                     // TODO: @Tony: Game Apps status
-                    // status={{
-                    // label: detailBridgesMapperStatus[option.key]?.label,
-                    // backgroundColor:
-                    //   detailBridgesMapperStatus[option.key]?.backgroundColor,
-                    // textColor:
-                    //   detailBridgesMapperStatus[option.key]?.textColor,
-                    // }}
+                    status={{
+                      label: detailGameMapperStatus[option.key]?.label,
+                      backgroundColor:
+                        detailGameMapperStatus[option.key]?.backgroundColor,
+                      textColor: detailGameMapperStatus[option.key]?.textColor,
+                    }}
                   >
                     <Label icon={option.icon} title={option.title} />
                   </LegoV3>

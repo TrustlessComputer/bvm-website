@@ -106,6 +106,8 @@ const useSetDefaultDapp = () => {
     draggedDappIndexesSignal.value = [dappIndex];
     draggedIds2DSignal.value = [[]];
     setDraggedIds2D([]);
+    console.log('[useSetDefaultDapp] case 1');
+
     setNodes([...nodesData, newNode]);
     setEdges([
       ...edges,

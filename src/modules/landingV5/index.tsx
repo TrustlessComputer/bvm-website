@@ -56,7 +56,7 @@ const LandingV5 = (props: Props) => {
                 <div className={s.link_item}>
                   <div className={s.link_ic}>
                     <ChakraImage
-                      src="/landing-v5/avatar-dev.png"
+                      src="/landing-v5/avatar-dev-1.png"
                       w="48px"
                       h="48px"
                     />

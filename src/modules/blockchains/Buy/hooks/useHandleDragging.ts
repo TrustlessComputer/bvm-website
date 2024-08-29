@@ -294,7 +294,7 @@ export default function useHandleDragging() {
       }
 
       if (
-        activeKey === 'bridge_apps' &&
+        activeKey === 'gaming_apps' &&
         !draggedDappIndexesSignal.value.includes(2) &&
         !activeIsParent
       ) {
@@ -699,7 +699,9 @@ export default function useHandleDragging() {
 
       // Case 0.3.4: The lego just dragged is a type base module
       if (activeIsABaseModule) {
-        const totalPlaced = draggedIds2D.length;
+        const totalPlaced = draggedDappIndexesSignal.value.filter(
+          (index) => index === dappIndex,
+        ).length;
         // prettier-ignore
         const canPlaceMoreBaseModule = baseModuleFieldMapping[dappIndex][activeOriginalKey].placableAmount === -1 ||
           totalPlaced < baseModuleFieldMapping[dappIndex][activeOriginalKey].placableAmount;
@@ -799,7 +801,9 @@ export default function useHandleDragging() {
 
       // Case 1.5: The lego just dragged is a base module
       if (activeIsABaseModule) {
-        const totalPlaced = draggedIds2D.length;
+        const totalPlaced = draggedDappIndexesSignal.value.filter(
+          (index) => index === dappIndex,
+        ).length
         // prettier-ignore
         const canPlaceMoreBaseModule = baseModuleFieldMapping[dappIndex][activeOriginalKey].placableAmount === -1 ||
           totalPlaced < baseModuleFieldMapping[dappIndex][activeOriginalKey].placableAmount;
