@@ -40,10 +40,13 @@ const SearchBar = (props: ISearchBarProps) => {
     }
   };
   return (
-    <InputGroup className={cs(s.inputContainer, className)}>
-      <InputLeftElement pointerEvents="none">
-        <Image mt="4px" h="18px" src={`/icons/ic_search.svg`} />
-      </InputLeftElement>
+    <Flex
+      className={cs(s.inputContainer, className)}
+      display={'flex'}
+      flexDirection={'row'}
+      alignItems={'center'}
+    >
+      <Image w="18px" ml={'16px'} src={`/icons/ic_search.svg`} />
       <Input
         placeholder={placeholder}
         value={txtSearch}
@@ -52,8 +55,9 @@ const SearchBar = (props: ISearchBarProps) => {
         onKeyDownCapture={onEnter}
         lang="en"
         autoFocus={autoFocus}
+        bg={'red'}
       />
-    </InputGroup>
+    </Flex>
   );
 };
 
