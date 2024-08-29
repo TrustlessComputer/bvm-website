@@ -104,7 +104,7 @@ const SearchAddress = (props: ISearchAddressProps) => {
             ) {
               router.push(`${HEART_BEAT}/tx/${searchAddress}`);
             } else {
-              router.push(`${HEART_BEAT}/${searchAddress}`);
+              router.push(`${HEART_BEAT}/address/${searchAddress}`);
             }
           }
         }}
@@ -133,7 +133,7 @@ const SearchAddress = (props: ISearchAddressProps) => {
                 ) {
                   router.push(`${HEART_BEAT}/tx/${searchAddress}`);
                 } else {
-                  router.push(`${HEART_BEAT}/${searchAddress}`);
+                  router.push(`${HEART_BEAT}/address/${searchAddress}`);
                 }
               }}
             >

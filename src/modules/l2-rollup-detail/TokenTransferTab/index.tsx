@@ -13,11 +13,14 @@ import dayjs from 'dayjs';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
+import { HEART_BEAT } from '@/constants/route-path';
+import { useRouter } from 'next/navigation';
 
 interface IProps {}
 
 const TokenTransferTab = (props: IProps) => {
   const { address } = useContext(L2RollupDetailContext);
+  const router = useRouter();
 
   const rollupApi = new CRollupL2DetailAPI();
 
@@ -217,9 +220,7 @@ const TokenTransferTab = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                window.open(
-                  `${data.chain?.explorer}/address/${data.from_address}`,
-                );
+                router.push(`${HEART_BEAT}/address/${data.from_address}`);
               }}
             >
               <Text className={s.title}>
@@ -252,9 +253,7 @@ const TokenTransferTab = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                window.open(
-                  `${data.chain?.explorer}/address/${data.to_address}`,
-                );
+                router.push(`${HEART_BEAT}/address/${data.to_address}`);
               }}
             >
               <Text className={s.title}>
