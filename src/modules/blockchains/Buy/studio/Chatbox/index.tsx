@@ -24,7 +24,7 @@ export default function Chatbox() {
   const { categories } = useModelCategoriesStore();
   const { getDynamicForm } = useFormChain();
 
-  // const [indexMockup, setIndexMockup] = useState(0);
+  const [indexMockup, setIndexMockup] = useState(0);
 
   const {
     messages,
@@ -83,9 +83,9 @@ export default function Chatbox() {
         current_state,
       };
 
-      const response = await sendPrompt(prompt_body);
-      // const response = mockupPromptResponses[indexMockup];
-      // setIndexMockup(indexMockup + 1);
+      // const response = await sendPrompt(prompt_body);
+      const response = mockupPromptResponses[indexMockup];
+      setIndexMockup(indexMockup + 1);
 
       const newTemplate = currentTemplate.filter((category) => {
         const promptCategory = response.actions.find(
