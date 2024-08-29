@@ -8,23 +8,28 @@ import useChatBoxState, { ChatBoxStatus } from './chatbox-store';
 import Message from './Message';
 import { categoryTemplate } from './mockup/categoryTemplate';
 import styles from './styles.module.scss';
+import useFormChain from '../../hooks/useFormChain';
+import {
+  modelCategoryToPromptCategory,
+  promptCategoryToModelCategory,
+} from './utils/convertApiUtils';
+import { PromptCategory, SendPromptBodyRequest } from './types';
+import { sendPrompt } from './services/prompt';
+import { IModelCategory } from '@/types/customize-model';
 
 export default function Chatbox() {
+  const { getDynamicForm, getCurrentFieldFromChain } = useFormChain();
+
   const {
     messages,
     setMessages,
     inputMessage,
     setInputMessage,
     isListening,
-    setIsListening,
     isGenerating,
-    setIsGenerating,
     isComplete,
-    setIsComplete,
     status,
-    setStatus,
     setIsChatboxOpen,
-    prepareCategoryTemplate,
     setPrepareCategoryTemplate,
     setChatBoxStatus,
   } = useChatBoxState();
@@ -50,7 +55,7 @@ export default function Chatbox() {
     }
   };
 
-  useEffect(() => {
+  const handleSendPrompt = async () => {
     if (
       messages.length > 0 &&
       messages[messages.length - 1].sender === 'user'
@@ -61,21 +66,55 @@ export default function Chatbox() {
         isComplete: false,
         isListening: false,
       });
-      setTimeout(() => {
-        const template = categoryTemplate;
 
-        setMessages([
-          ...messages,
-          {
-            text: 'Converted prompt text from voice. Converted prompt text from voice. Converted prompt text from voice. Converted prompt text from voice. \n\nSingle sentence.\n\n',
-            template,
-            sender: 'bot',
-          },
-        ]);
-        setPrepareCategoryTemplate(template);
-        focusChatBox();
-      }, 1000);
+      const currentTemplate = getDynamicForm().dynamicForm;
+      const current_state: PromptCategory[] = currentTemplate.map(
+        modelCategoryToPromptCategory,
+      );
+      const prompt_body: SendPromptBodyRequest = {
+        command: inputMessage,
+        current_state,
+      };
+
+      const response = await sendPrompt(prompt_body);
+      const newSegments = response.categories.map((pCategory) =>
+        promptCategoryToModelCategory(
+          pCategory,
+          getCurrentFieldFromChain(pCategory.layer) as IModelCategory,
+        ),
+      );
+
+      console.log('[handleSendPrompt] response', response);
+
+      setMessages([
+        ...messages,
+        {
+          text: response.message,
+          template: currentTemplate.map((category) => {
+            const newCategory = newSegments.find(
+              (newCategory) => newCategory.key === category.key,
+            );
+
+            return newCategory || category;
+          }),
+          sender: 'bot',
+        },
+      ]);
+
+      setPrepareCategoryTemplate(
+        response.categories.map((pCategory) =>
+          promptCategoryToModelCategory(
+            pCategory,
+            getCurrentFieldFromChain(pCategory.layer) as IModelCategory,
+          ),
+        ),
+      );
+      focusChatBox();
     }
+  };
+
+  useEffect(() => {
+    handleSendPrompt();
   }, [messages]);
 
   const stopVoiceInput = useCallback(() => {
