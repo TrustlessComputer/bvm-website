@@ -73,7 +73,7 @@ export default function Chatbox() {
             sender: 'bot',
           },
         ]);
-        // setPrepareCategoryTemplate(template);
+        setPrepareCategoryTemplate(template);
         focusChatBox();
       }, 1000);
     }
