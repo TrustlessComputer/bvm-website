@@ -28,7 +28,7 @@
     left: 11px;
 
     &__top {
-      top: -1px;
+      top: -1.5px;
       svg path {
         fill: #ffffff !important;
       }
@@ -111,4 +111,15 @@
   // font-size: 14px;
   // font-weight: 500;
   // line-height: calc(28 / 14);
+}
+
+
+.lego__piece__top__ai {
+  top: -1px;
+  svg path {
+    fill: #ffeee8 !important;
+  }
+  &::after {
+    background-color: #ffeee8;
+  }
 }

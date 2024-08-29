@@ -180,6 +180,7 @@ export default function Chatbox() {
                               titleInRight={false}
                               first={false}
                               last={false}
+                              legoAI={true}
                             />
                           ))}
                         </div>
