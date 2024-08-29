@@ -8,6 +8,7 @@ import styles from './styles.module.scss';
 import LabelListening from '@/modules/blockchains/Buy/studio/Chatbox/LabelListening';
 import { categoryTemplate } from './mockup/categoryTemplate';
 import Lego from '../../component4/Lego';
+import { SetChatBoxStatusParams } from './types';
 
 export default function Chatbox() {
   const {
@@ -49,16 +50,29 @@ export default function Chatbox() {
     }
   };
 
+  const setChatBoxStatus = ({
+    status,
+    isGenerating,
+    isComplete,
+    isListening,
+  }: SetChatBoxStatusParams) => {
+    setStatus(status);
+    setIsGenerating(isGenerating);
+    setIsComplete(isComplete);
+    setIsListening(isListening);
+  };
+
   useEffect(() => {
     if (
       messages.length > 0 &&
       messages[messages.length - 1].sender === 'user'
     ) {
-      setStatus(ChatBoxStatus.Generating);
-      setIsComplete(false);
-      setIsGenerating(true);
-      setIsListening(false);
-
+      setChatBoxStatus({
+        status: ChatBoxStatus.Generating,
+        isGenerating: true,
+        isComplete: false,
+        isListening: false,
+      });
       setTimeout(() => {
         const template = categoryTemplate;
 
@@ -70,22 +84,30 @@ export default function Chatbox() {
             sender: 'bot',
           },
         ]);
-        setStatus(ChatBoxStatus.Complete);
-        setIsComplete(true);
-        setIsGenerating(false);
+        setChatBoxStatus({
+          status: ChatBoxStatus.Complete,
+          isGenerating: false,
+          isComplete: true,
+          isListening: false,
+        });
         setPrepareCategoryTemplate(template);
         focusChatBox();
       }, 1000);
     }
-  }, [messages, setMessages, setStatus]);
+  }, [messages]);
 
   const stopVoiceInput = useCallback(() => {
     if (recognition) {
       recognition.stop();
-      setIsListening(false);
+      setChatBoxStatus({
+        status: ChatBoxStatus.Cancel,
+        isGenerating: false,
+        isComplete: false,
+        isListening: false,
+      });
       setRecognition(null);
     }
-  }, [recognition, setIsListening]);
+  }, [recognition]);
 
   const isClose = useMemo(() => {
     return !isComplete && !isGenerating && !isListening;
@@ -99,7 +121,12 @@ export default function Chatbox() {
         } else if (isListening) {
           stopVoiceInput();
         } else if (isGenerating) {
-          setIsGenerating(false);
+          setChatBoxStatus({
+            status: ChatBoxStatus.Cancel,
+            isGenerating: false,
+            isComplete: false,
+            isListening: false,
+          });
         }
       } else if (event.ctrlKey && event.shiftKey && event.key === 'V') {
         handleVoiceInput();
@@ -114,10 +141,13 @@ export default function Chatbox() {
   }, [stopVoiceInput, isClose, isGenerating, isListening]);
 
   const handleVoiceInput = () => {
-    setIsListening(true);
+    setChatBoxStatus({
+      status: ChatBoxStatus.Cancel,
+      isGenerating: false,
+      isComplete: false,
+      isListening: true,
+    });
     setInputMessage('');
-    setStatus(ChatBoxStatus.Cancel);
-
     const SpeechRecognition =
       (window as any).SpeechRecognition ||
       (window as any).webkitSpeechRecognition;
@@ -127,16 +157,24 @@ export default function Chatbox() {
     newRecognition.interimResults = false;
 
     newRecognition.onresult = (event: any) => {
-      console.log('event.results', event.results);
       const transcript = event.results[0][0].transcript;
       setInputMessage(transcript);
-      setIsListening(false);
+      setChatBoxStatus({
+        status: ChatBoxStatus.Cancel,
+        isGenerating: false,
+        isComplete: false,
+        isListening: false,
+      });
       setRecognition(null);
     };
 
     newRecognition.onerror = (event: any) => {
-      console.error('Speech recognition error:', event.error);
-      setIsListening(false);
+      setChatBoxStatus({
+        status: ChatBoxStatus.Cancel,
+        isGenerating: false,
+        isComplete: false,
+        isListening: false,
+      });
       setRecognition(null);
     };
 
@@ -201,7 +239,9 @@ export default function Chatbox() {
                     Cancel
                   </button>
                 )}
-                {isComplete && <ButtonApply />}
+                {isComplete && (
+                  <ButtonApply setChatBoxStatus={setChatBoxStatus} />
+                )}
                 {isGenerating && <ButtonStop />}
                 {isClose && <ButtonClose />}
               </div>

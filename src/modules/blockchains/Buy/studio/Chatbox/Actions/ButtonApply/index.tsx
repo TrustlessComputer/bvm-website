@@ -1,13 +1,23 @@
 import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
 import useChatBoxState, { ChatBoxStatus } from '../../chatbox-store';
 import styles from './styles.module.scss';
+import { SetChatBoxStatusParams } from '../../types';
 
-const ButtonApply = () => {
+type Props = {
+  setChatBoxStatus: (params: SetChatBoxStatusParams) => void;
+};
+
+const ButtonApply = ({ setChatBoxStatus }: Props) => {
   const { setTemplate } = useTemplate();
-  const { setStatus, prepareCategoryTemplate } = useChatBoxState();
+  const { prepareCategoryTemplate } = useChatBoxState();
 
   const handleApply = () => {
-    setStatus(ChatBoxStatus.Generating);
+    setChatBoxStatus({
+      status: ChatBoxStatus.Close,
+      isGenerating: false,
+      isComplete: false,
+      isListening: false,
+    });
     setTemplate(prepareCategoryTemplate);
   };
 
