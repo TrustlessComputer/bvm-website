@@ -956,7 +956,6 @@ const L2Rollup = () => {
         h={'72px'}
         justifyContent={'center'}
         zIndex={1}
-        bg={'#f3f1e8'}
         pt={'8px'}
       >
         <SearchAddress

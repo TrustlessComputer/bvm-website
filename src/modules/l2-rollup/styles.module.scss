@@ -35,6 +35,11 @@
   padding-left: 14px;
   padding-right: 14px;
 
+  background-image: url('/heartbeat/bg-heartbeat.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: top;
+
   .fontType2 {
     font-family: var(--font-SFProDisplay) !important;
   }
