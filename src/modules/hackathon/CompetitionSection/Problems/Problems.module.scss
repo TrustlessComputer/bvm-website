@@ -24,6 +24,14 @@
 
   .body {
     :global {
+      .chakra-tabs__tablist {
+        overflow: auto;
+
+        button {
+          white-space: nowrap;
+        }
+      }
+
       .chakra-tabs__tab-panel {
         padding: 0;
       }
