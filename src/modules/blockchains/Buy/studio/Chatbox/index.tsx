@@ -6,6 +6,8 @@ import ButtonStop from './Actions/ButtonStop';
 import useChatBoxState, { ChatBoxStatus } from './chatbox-store';
 import styles from './styles.module.scss';
 import LabelListening from '@/modules/blockchains/Buy/studio/Chatbox/LabelListening';
+import { categoryTemplate } from './mockup/categoryTemplate';
+import Lego from '../../component4/Lego';
 
 export default function Chatbox() {
   const {
@@ -22,23 +24,26 @@ export default function Chatbox() {
     status,
     setStatus,
     setIsChatboxOpen,
+    prepareCategoryTemplate,
+    setPrepareCategoryTemplate,
   } = useChatBoxState();
 
   const elChatBox = useRef<HTMLDivElement>(null);
-  const [recognition, setRecognition] = useState<SpeechRecognition | null>(
-    null,
-  );
+  const [recognition, setRecognition] = useState<any>(null);
 
-  const focusChatBox = ()=>{
-    setTimeout(()=>{
-      if( elChatBox.current)
-      elChatBox.current.scrollTo(0, elChatBox.current.scrollHeight)
+  const focusChatBox = () => {
+    setTimeout(() => {
+      if (elChatBox.current)
+        elChatBox.current.scrollTo(0, elChatBox.current.scrollHeight);
     }, 5);
-  }
+  };
 
   const handleSendMessage = () => {
     if (inputMessage.trim() !== '') {
-      setMessages([...messages, { text: inputMessage, sender: 'user' }]);
+      setMessages([
+        ...messages,
+        { text: inputMessage, template: [], sender: 'user' },
+      ]);
       setInputMessage('');
       focusChatBox();
     }
@@ -49,15 +54,30 @@ export default function Chatbox() {
       messages.length > 0 &&
       messages[messages.length - 1].sender === 'user'
     ) {
+      setStatus(ChatBoxStatus.Generating);
+      setIsComplete(false);
+      setIsGenerating(true);
+      setIsListening(false);
+
       setTimeout(() => {
+        const template = categoryTemplate;
+
         setMessages([
           ...messages,
-          { text: 'Hello! How can I help you?', sender: 'bot' },
+          {
+            text: 'Converted prompt text from voice. Converted prompt text from voice. Converted prompt text from voice. Converted prompt text from voice.',
+            template,
+            sender: 'bot',
+          },
         ]);
+        setStatus(ChatBoxStatus.Complete);
+        setIsComplete(true);
+        setIsGenerating(false);
+        setPrepareCategoryTemplate(template);
         focusChatBox();
       }, 1000);
     }
-  }, [messages, setMessages]);
+  }, [messages, setMessages, setStatus]);
 
   const stopVoiceInput = useCallback(() => {
     if (recognition) {
@@ -78,6 +98,8 @@ export default function Chatbox() {
           setIsChatboxOpen(false);
         } else if (isListening) {
           stopVoiceInput();
+        } else if (isGenerating) {
+          setIsGenerating(false);
         }
       } else if (event.ctrlKey && event.shiftKey && event.key === 'V') {
         handleVoiceInput();
@@ -89,10 +111,9 @@ export default function Chatbox() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [stopVoiceInput, isClose]);
+  }, [stopVoiceInput, isClose, isGenerating, isListening]);
 
   const handleVoiceInput = () => {
-
     setIsListening(true);
     setInputMessage('');
     setStatus(ChatBoxStatus.Cancel);
@@ -141,6 +162,29 @@ export default function Chatbox() {
                   className={`${styles.message} ${styles[message.sender]}`}
                 >
                   {message.text}
+
+                  <div className={styles.categories}>
+                    {message.template.map((item) => (
+                      <div key={item.id} className={styles.category}>
+                        <h6 className={styles.categoryTitle}>
+                          Generated {item.title}
+                        </h6>
+
+                        <div className={styles.categoryOptions}>
+                          {item.options.map((option) => (
+                            <Lego
+                              {...option}
+                              key={option.key}
+                              titleInLeft
+                              titleInRight={false}
+                              first={false}
+                              last={false}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
@@ -180,8 +224,8 @@ export default function Chatbox() {
             {isListening && <LabelListening />}
             {!isListening && inputMessage === '' && (
               <div className={styles.inputOverlay}>
-                Type your instructions or Press <strong>Control + V</strong> to
-                voice prompt
+                Type your instructions or Press{' '}
+                <strong>Control + Shift + V</strong> to voice prompt
               </div>
             )}
             <div className={styles.buttonWrapper}>

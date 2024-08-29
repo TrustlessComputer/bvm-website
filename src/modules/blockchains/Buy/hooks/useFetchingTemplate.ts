@@ -526,9 +526,13 @@ export default function useFetchingTemplate() {
     if (isUpdateFlow && order) {
       setTemplate(order.selectedOptions || []);
     } else {
-      // initTemplate(0);
-      console.log('LOG -- templateDefault -- ', templateDefault);
-      setTemplate(templateDefault || []);
+      const template = searchParams.get('template') || '';
+
+      if (template) {
+        setTemplate(templateDefault || []);
+      } else {
+        setTemplate([]);
+      }
     }
   }, [categoriesTemplates, isUpdateFlow, templateDefault]);
 }

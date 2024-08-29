@@ -1,8 +1,18 @@
+import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
+import useChatBoxState, { ChatBoxStatus } from '../../chatbox-store';
 import styles from './styles.module.scss';
 
 const ButtonApply = () => {
+  const { setTemplate } = useTemplate();
+  const { setStatus, prepareCategoryTemplate } = useChatBoxState();
+
+  const handleApply = () => {
+    setStatus(ChatBoxStatus.Generating);
+    setTemplate(prepareCategoryTemplate);
+  };
+
   return (
-    <button className={styles.applyButton}>
+    <button className={styles.applyButton} onClick={handleApply}>
       <svg
         width="16"
         height="16"
