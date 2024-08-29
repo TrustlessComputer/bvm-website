@@ -1,5 +1,5 @@
 .chatbox {
-  width: 500px;
+  width: 560px;
   height: var(--height-studio);
   margin: 0 auto;
   border-radius: 8px;
@@ -56,18 +56,22 @@
   display: flex;
   flex-direction: column;
 
+  /* width */
   &::-webkit-scrollbar {
     width: 5px;
   }
 
+  /* Track */
   &::-webkit-scrollbar-track {
     background: #f1f1f1;
   }
 
+  /* Handle */
   &::-webkit-scrollbar-thumb {
     background: #888;
   }
 
+  /* Handle on hover */
   &::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
@@ -122,27 +126,4 @@
 
 .statusButtons {
   position: relative;
-}
-
-.categories {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-
-  .category {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-
-    .categoryTitle {
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 24px;
-    }
-
-    .categoryOptions {
-      display: flex;
-      gap: 8px;
-    }
-  }
 }

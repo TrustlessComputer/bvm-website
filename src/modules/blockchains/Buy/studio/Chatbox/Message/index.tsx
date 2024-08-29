@@ -2,7 +2,7 @@ import { IModelCategory } from '@/types/customize-model';
 import { useCallback, useEffect, useState } from 'react';
 import Lego from '../../../component4/Lego';
 import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 
 export default function Message({
   message,

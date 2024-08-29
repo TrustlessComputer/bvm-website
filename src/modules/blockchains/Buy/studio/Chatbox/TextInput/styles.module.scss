@@ -34,41 +34,59 @@
   box-shadow: none;
 
   font-family: SF Pro Display;
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 18px;
+  font-weight: 500;
   line-height: 24px;
+  text-align: left;
+}
+
+.buttonWrapper {
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+}
+
+.sendButton {
+  background: none;
+  border: 1px solid #808080;
+  border-radius: 100px;
+  cursor: pointer;
+  padding-left: 16px;
+  padding-right: 16px;
+  color: #808080;
+  transition: background-color 0.3s, color 0.3s;
+  z-index: 10;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+
+  &:disabled {
+    border-color: #e0e0e0;
+    color: #e0e0e0;
+    cursor: not-allowed;
+  }
 }
 
 .inputOverlay {
   position: absolute;
-  top: 15px;
-  left: 15px;
-  right: 15px;
-  bottom: 15px;
-  pointer-events: none;
-  color: #999999;
+  top: 16px;
+  left: 16px;
   font-family: SF Pro Display;
   font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-}
+  font-weight: 500;
+  line-height: calc(24 / 16);
+  text-align: left;
+  pointer-events: none;
+  color: #777777;
 
-.buttonWrapper {
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
-}
-
-.sendButton {
-  background-color: #ff6b00;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-family: SF Pro Display;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 17px;
-  text-align: center;
+  strong {
+    color: #fa4e0e;
+    font-weight: initial;
+  }
 }
