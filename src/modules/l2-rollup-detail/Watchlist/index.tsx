@@ -54,7 +54,7 @@ const WatchListAddresses = () => {
         _watchList = _watchList.concat(rs);
       }
 
-      setWatchList(uniqueBy(_watchList, 'address'));
+      setWatchList(uniqueBy(_watchList, 'org_address'));
     } catch (error) {
     } finally {
       setLoading(false);
