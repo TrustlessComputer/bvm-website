@@ -4,7 +4,7 @@ export const sendPrompt = async (
   body: SendPromptBodyRequest,
 ): Promise<SendPromptResponse> => {
   try {
-    const response = await fetch('http://14.225.217.214:9006/assist', {
+    const response = await fetch('https://14.225.217.214:9006/assist', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

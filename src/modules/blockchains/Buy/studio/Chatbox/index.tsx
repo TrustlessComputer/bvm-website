@@ -17,12 +17,14 @@ import { CategoryAction, PromptCategory, SendPromptBodyRequest } from './types';
 import { sendPrompt } from './services/prompt';
 import { IModelCategory } from '@/types/customize-model';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
-import { mockupPromptResponse } from './mockup/promtResponse';
+import { mockupPromptResponses } from './mockup/promtResponse';
 import TextInput from './TextInput';
 
 export default function Chatbox() {
   const { categories } = useModelCategoriesStore();
-  const { getDynamicForm, getCurrentFieldFromChain } = useFormChain();
+  const { getDynamicForm } = useFormChain();
+
+  // const [indexMockup, setIndexMockup] = useState(0);
 
   const {
     messages,
@@ -82,16 +84,23 @@ export default function Chatbox() {
       };
 
       const response = await sendPrompt(prompt_body);
-      // const response = mockupPromptResponse;
+      // const response = mockupPromptResponses[indexMockup];
+      // setIndexMockup(indexMockup + 1);
 
       const newTemplate = currentTemplate.filter((category) => {
-        return !response.actions.some((action) => {
-          return (
-            action.action_type === CategoryAction.REMOVE &&
-            action.category.layer === category.key
-          );
-        });
+        const promptCategory = response.actions.find(
+          (action) => action.category.layer === category.key,
+        );
+
+        console.log('[handleSendPrompt] remove', { category, promptCategory });
+
+        return (
+          !promptCategory ||
+          promptCategory.action_type !== CategoryAction.REMOVE
+        );
       });
+
+      console.log('[handleSendPrompt] newTemplate remove', newTemplate);
 
       newTemplate.push(
         ...response.actions
@@ -106,19 +115,34 @@ export default function Chatbox() {
           ),
       );
 
+      console.log('[handleSendPrompt] newTemplate add', newTemplate);
+
       newTemplate.forEach((category, index) => {
         const indexInResponse = response.actions.findIndex(
           (action) => action.category.layer === category.key,
         );
+        const categoryInModel = (categories || []).find(
+          (cate) => cate.key === category.key,
+        );
 
-        if (indexInResponse === -1) return;
+        if (indexInResponse === -1 || !categoryInModel) return;
+
+        console.log('[handleSendPrompt] pre-update', {
+          indexInResponse,
+          action: response.actions[indexInResponse],
+        });
 
         const action = response.actions[indexInResponse];
 
         if (action.action_type === CategoryAction.UPDATE) {
+          console.log('[handleSendPrompt] update', {
+            action,
+            new: promptCategoryToModelCategory(action.category, category),
+          });
+
           newTemplate[index] = promptCategoryToModelCategory(
             action.category,
-            category,
+            categoryInModel,
           );
         }
       });
