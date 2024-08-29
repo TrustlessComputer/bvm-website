@@ -155,7 +155,9 @@ const HackathonModule = (props: Props) => {
 
   const scrollToLeaderboard = () => {
     leaderboardSectionRef.current
-      ?.querySelector(`div[class*='LeaderboardSection_wrapper']`)
+      ?.querySelector(
+        `div[class*='LeaderboardSection_wrapper'], div[class*='CompetitionSection_wrapper']`,
+      )
       ?.scrollIntoView({ behavior: 'smooth' });
   };
 

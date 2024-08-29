@@ -1,18 +1,18 @@
-import { PROBLEM_GCD_MARKDOWN } from './problem_gcd';
-import { PROBLEM_ARRAY_SORT_MARKDOWN } from './problem_array-sort';
-import { PROBLEM_LIBRARY_MARKDOWN } from './problem_library';
-import { PROBLEM_PLUS_MARKDOWN } from './problem_a-plus-b';
-import { PROBLEM_COURSES_MARKDOWN } from './problem_courses';
-import { PROBLEM_RANGE_ADDITION_MARKDOWN } from './problem_range-addition';
-import { PROBLEM_PROTATION_MARKDOWN } from './problem_rotation';
-import { PROBLEM_TRIANGLES_MARKDOWN } from './problem_triangles';
-import { PROBLEM_JOSEPHUS_MARKDOWN } from './problem_josephus';
-import { PROBLEM_XOR_QUERY_MARKDOWN } from './problem_xor_query';
-import { PROBLEM_HORSE_ROBBER_MARKDOWN } from './problem_horse-robber';
-import { PROBLEM_HAMMING_DISTANCE_MARKDOWN } from './problem_hamming-distance';
-import { PROBLEM_CLOSEST_SUM_MARKDOWN } from './problem_closest-sum';
-import { PROBLEM_SPLIT_ARRAY_MARKDOWN } from './problem_split-array';
-import { PROBLEM_NO_REPEAT_MARKDOWN } from './problem_no-repeat';
+import { PROBLEM_GCD_MARKDOWN } from './2_1_GCD';
+import { PROBLEM_ARRAY_SORT_MARKDOWN } from './3_2_ArraySort';
+import { PROBLEM_LIBRARY_MARKDOWN } from './4_3_Library';
+import { PROBLEM_PLUS_MARKDOWN } from './1_4_APlusB';
+import { PROBLEM_COURSES_MARKDOWN } from './8_8_Courses';
+import { PROBLEM_RANGE_ADDITION_MARKDOWN } from './7_7_RangAddition';
+import { PROBLEM_PROTATION_MARKDOWN } from './6_6_Rotation';
+import { PROBLEM_TRIANGLES_MARKDOWN } from './5_5_Triangles';
+import { PROBLEM_JOSEPHUS_MARKDOWN } from './9_9_Josephus';
+import { PROBLEM_XOR_QUERY_MARKDOWN } from './10_10_XorQuery';
+import { PROBLEM_HORSE_ROBBER_MARKDOWN } from './11_11_HorseRobber';
+import { PROBLEM_HAMMING_DISTANCE_MARKDOWN } from './12_12_HammingDistance';
+import { PROBLEM_CLOSEST_SUM_MARKDOWN } from './13_13_ClosestSum';
+import { PROBLEM_SPLIT_ARRAY_MARKDOWN } from './14_14_SplitArray';
+import { PROBLEM_NO_REPEAT_MARKDOWN } from './15_15_NoRepeat';
 
 export const PROBLEM_DATASOURCE = [
   {
