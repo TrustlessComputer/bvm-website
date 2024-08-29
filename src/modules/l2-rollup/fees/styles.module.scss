@@ -24,6 +24,13 @@
       display: block;
       padding: 5px 0px;
     }
+    .tooltip-note {
+      font-size: 12px;
+      min-width: 100px;
+      display: block;
+      padding: 5px 0px;
+      opacity: 0.8;
+    }
   }
   /* START TOOLTIP STYLES */
   [tooltip] {

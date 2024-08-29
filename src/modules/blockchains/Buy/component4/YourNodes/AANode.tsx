@@ -25,7 +25,6 @@ import { useParams } from 'next/navigation';
 
 const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   const { dapp } = data;
-  const param = useParams();
   const { isAAModuleLoading, aaStatusData, isCanNotEdit, getAATypeIconUrl } =
     useAAModule();
   const { getAAStatus, isUpdateFlow } = useChainProvider();
@@ -34,10 +33,6 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   const [draggedDappIndexes, setDraggedDappIndexes] = React.useState<number[]>(
     [],
   );
-
-  const checkParam = useMemo(() => {
-    return !!param.id
-  }, [param.id])
 
   const dappIndex = React.useMemo(
     () => draggedDappIndexes[data.baseIndex],
@@ -51,8 +46,6 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   if (typeof dappIndex === 'undefined') {
     return null;
   }
-
-  // console.log('AAModule data: -- ', aaStatusData);
 
   return (
     <Node
@@ -93,7 +86,7 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
         children: (
           <>
             <Draggable
-              disabled={checkParam}
+              disabled={isUpdateFlow}
               id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
               value={{
                 dappIndex,

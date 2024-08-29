@@ -55,6 +55,7 @@ const HackathonPage = () => {
         colorLogo: 'white',
         bgColor: 'transparent',
         position: 'absolute',
+        theme: 'black',
       }}
       bodyColor={'#151515'}
       hideFooter={true}

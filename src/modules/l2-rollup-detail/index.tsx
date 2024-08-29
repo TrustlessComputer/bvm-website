@@ -83,7 +83,7 @@ const L2RollupDetail = () => {
             onClick={() => router.push(HEART_BEAT)}
           >
             <Image w={'24px'} src={'/heartbeat/ic-back.svg'} />
-            <Text>Bitcoin Heartbeat Project</Text>
+            <Text>Bitcoin Heartbeats Project</Text>
           </Flex>
           <SearchAddress
             className={s.search}

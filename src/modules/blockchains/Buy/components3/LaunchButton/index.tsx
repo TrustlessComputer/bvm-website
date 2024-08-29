@@ -46,6 +46,8 @@ import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
 import useSubmitYoloGame from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitYoloGame';
+import useSubmitWalletType from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitWalletType';
+import { useComputerNameInputStore } from '../ComputerNameInput/ComputerNameInputStore';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -83,6 +85,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { setUpdated } = useUpdateFlowStore();
   const { nodes, edges } = useFlowStore();
   const { dappCount } = useFormDappToFormChain();
+  const { computerName } = useComputerNameInputStore();
 
   const { parsedCategories: data, categories: originalData } =
     useModelCategoriesStore();
@@ -125,6 +128,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { onSubmitAirdrop } = useSubmitFormAirdrop();
   const { onSubmitTokenGeneration } = useSubmitFormTokenGeneration();
   const { onSubmitYoloGame } = useSubmitYoloGame();
+  const { onSubmit: onSubmitWalletType } = useSubmitWalletType();
 
   const { chainName } = useOrderFormStore();
   const searchParams = useSearchParams();
@@ -209,13 +213,15 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         optionMapping: {},
       };
 
+    const ignoreFields = ['bridge_apps', 'gaming_apps'];
     const dynamicForm = [];
     const optionMapping: Record<string, IModelOption> = {};
     const allOptionKeyDragged: string[] = [];
     const allRequiredForKey: string[] = [];
 
     for (const _field of originalData) {
-      if (!_field.isChain && _field.key !== 'bridge_apps') continue;
+      // if (!_field.isChain && _field.key !== 'bridge_apps') continue;
+      if (!_field.isChain && !ignoreFields.includes(_field.key)) continue;
 
       _field.options.forEach((opt: IModelOption) => {
         optionMapping[opt.key] = opt;
@@ -363,6 +369,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       dappKey: DappType.token_generation,
     });
 
+    const walletTypeForms = retrieveFormsByDappKey({
+      dappKey: DappType.walletType,
+    });
+
     console.log('[LaunchButton] - onUpdateHandler', {
       params,
       stakingForms,
@@ -373,6 +383,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       tokensNodePositions,
       yoloGameForms,
       yoloNodePositions,
+      walletTypeForms
     });
 
     // console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
@@ -415,6 +426,14 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           await onSubmitTokenGeneration({
             forms: tokensForms,
             positions: tokensNodePositions,
+          });
+          isConfigDapp = true;
+        }
+
+
+        if (walletTypeForms && walletTypeForms.length > 0) {
+          await onSubmitWalletType({
+            forms: walletTypeForms,
           });
           isConfigDapp = true;
         }
@@ -478,8 +497,12 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     //   withdrawPeriod,
     // };
 
+    if (!computerName || !chainId) {
+      return;
+    }
+
     const params = formValuesAdapter({
-      computerName: computerNameField.value || '',
+      computerName: computerName || '',
       chainId: chainId,
       dynamicFormValues: formData || dyanmicFormAllData,
     });

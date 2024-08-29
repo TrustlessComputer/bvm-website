@@ -62,7 +62,7 @@ const ButtonLoginTwitter = (props: Props) => {
         <p className={`${loggedIn ? s.text : s.lowercase} text`}>
           {/* {!loggedIn ? 'Connect' : `${accInfor?.addressFormatted || '--'}`}{' '} */}
           {!loggedIn ? (
-            props?.title || 'Sign in'
+            props?.title || 'Connect'
           ) : (
             <Skeleton isLoaded={loggedIn}>
               {accInfor?.twitterUsername ||

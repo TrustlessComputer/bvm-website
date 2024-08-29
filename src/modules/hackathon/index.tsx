@@ -3,7 +3,7 @@
 import ButtonConnected from '@/components/ButtonConnected/v2';
 import Countdown from '@/components/Countdown';
 import FAQs from '@/components/faq';
-import { CDN_URL } from '@/config';
+import { CDN_URL, isProduction } from '@/config';
 import { LINKS } from '@/constants/external-links';
 import useCountdown from '@/hooks/useCountdown';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
@@ -12,13 +12,16 @@ import {
   getContestStats,
   registerCodeBattle,
 } from '@/services/api/EternalServices';
-import { IUserContest } from '@/services/api/EternalServices/types';
+import {
+  IUserContest,
+  UserContestType,
+} from '@/services/api/EternalServices/types';
 import { openModal } from '@/stores/states/modal/reducer';
 import { Box, Image as ChakraImage, Flex, Text } from '@chakra-ui/react';
 import cn from 'classnames';
 import dayjs from 'dayjs';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { FAQ_POC } from './faqs';
 import s from './HackathonModue.module.scss';
@@ -26,8 +29,29 @@ import LeaderboardSection from './LeaderboardSection';
 import RegisterModal, { REGISTER_MODAL } from './Register/Modal';
 import CompetitionTimer from './CompetitionTimer';
 import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
+import CompetitionSection from './CompetitionSection';
 
 type Props = {};
+
+const START_TIME = isProduction
+  ? '2024-08-29T13:00:00Z'
+  : '2024-08-27T13:00:00Z';
+
+const END_TIME = '2024-08-29T16:00:00Z';
+
+const LeaderboardOrCompetition = memo(
+  ({ currentUserContest }: { currentUserContest?: IUserContest }) => {
+    const startTime = useCountdown(START_TIME);
+    const endTime = useCountdown(END_TIME);
+    const isShowCompetition = startTime.ended && !endTime.ended;
+
+    return isShowCompetition ? (
+      <CompetitionSection currentUserContest={currentUserContest} />
+    ) : (
+      <LeaderboardSection currentUserContest={currentUserContest} />
+    );
+  },
+);
 
 const HackathonModule = (props: Props) => {
   const { loggedIn, login, logout, userInfo, wallet } = useWeb3Auth();
@@ -101,7 +125,15 @@ const HackathonModule = (props: Props) => {
 
   const checkUserRegistered = async () => {
     try {
-      const res = await checkRegistered();
+      const now = new Date().getTime();
+      const isShowCompetition =
+        now >= new Date(START_TIME).getTime() &&
+        now < new Date(END_TIME).getTime();
+      const res = await checkRegistered(
+        isShowCompetition
+          ? UserContestType.COMPETITION
+          : UserContestType.NORMAL,
+      );
       if (res) {
         setIsRegistered(res?.register || false);
         setCurrentUserContest(res);
@@ -198,20 +230,6 @@ const HackathonModule = (props: Props) => {
               flexWrap={'wrap'}
               mb="24px"
             >
-              {/* <ButtonConnected title="Let's practice" className={s.reward_btn}> */}
-              {/* <button
-                className={cn(s.reward_btn)}
-                onClick={() => {
-                  loggedIn ? handleClickPractice() : handleOpenRegisterModal();
-                  tracking('POC_CLICK_PRACTICE');
-                }}
-                // onClick={handleClickPractice}
-                // disabled={isRegistered}
-              >
-                Let's practice
-              </button> */}
-              {/* </ButtonConnected> */}
-
               <div className={s.connect_btn}>
                 <a
                   href={LINKS.POC_TELEGRAM_GROUP}
@@ -223,23 +241,8 @@ const HackathonModule = (props: Props) => {
                   Join PoC community
                 </a>
               </div>
-
-              {/* <div className={s.meta_info}>
-                {!!peopleSubmitted && (
-                  <Flex alignItems={'center'} gap="4px" mb="12px">
-                    <b>
-                      {formatCurrencyV2({
-                        amount: peopleSubmitted,
-                        decimals: 0,
-                      })}
-                    </b>
-                    <Text opacity={0.6}>people registered</Text>
-                  </Flex>
-                )}
-                {renderCountdown()}
-              </div> */}
             </Flex>
-            <CompetitionTimer />
+            <CompetitionTimer startTime={START_TIME} endTime={END_TIME} />
           </div>
           {/* </Fade> */}
           <div className={s.right}>
@@ -278,7 +281,7 @@ const HackathonModule = (props: Props) => {
         id={'practice-section'}
         ref={leaderboardSectionRef}
       >
-        <LeaderboardSection currentUserContest={currentUserContest} />
+        <LeaderboardOrCompetition currentUserContest={currentUserContest} />
       </Box>
       <Box
         zIndex={10}
