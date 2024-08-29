@@ -3,7 +3,7 @@ import { create } from 'zustand';
 export enum ChatBoxStatus {
   Generating = 'Generating...',
   Cancel = 'Esc to cancel',
-  Complete = 'Complete',
+  Complete = 'Completed',
   Close = 'Esc to close',
 }
 
