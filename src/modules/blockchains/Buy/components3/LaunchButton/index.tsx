@@ -48,6 +48,7 @@ import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
 import useSubmitYoloGame from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitYoloGame';
 import useSubmitWalletType from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitWalletType';
 import { useComputerNameInputStore } from '../ComputerNameInput/ComputerNameInputStore';
+import BigNumber from 'bignumber.js';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -383,7 +384,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       tokensNodePositions,
       yoloGameForms,
       yoloNodePositions,
-      walletTypeForms
+      walletTypeForms,
     });
 
     // console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
@@ -429,7 +430,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           });
           isConfigDapp = true;
         }
-
 
         if (walletTypeForms && walletTypeForms.length > 0) {
           await onSubmitWalletType({
@@ -695,7 +695,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           onSuccess={async () => {}}
           // balanceNeedTopup={`${tierData?.priceNote || '--'}`}
           balanceNeedTopup={`${formatCurrencyV2({
-            amount: priceBVM,
+            amount: new BigNumber(priceBVM || 0).dividedBy(30).toString(),
             decimals: 0,
           })} BVM `}
         />
