@@ -5,9 +5,23 @@
     font-size: 16px !important;
     line-height: 24px !important;
     font-weight: 400 !important;
+
+    @include is-mobile {
+      display: inline;
+    }
   }
 
   @include is-mobile {
     margin-left: 5px;
+    display: inline;
+    width: auto;
+  }
+}
+
+.countdown_wrapper {
+  align-items: center;
+  gap: 4px;
+  @include is-mobile {
+    justify-content: center;
   }
 }

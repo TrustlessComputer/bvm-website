@@ -12,7 +12,7 @@
     margin-bottom: 16px;
 
     @include is-mobile {
-      font-size: 52px;
+      font-size: 40px;
     }
   }
 
@@ -28,7 +28,8 @@
 
   .teleWrapper {
     @include is-mobile {
-      top: -50px;
+      top: -70px;
+      left: 0;
     }
   }
 
