@@ -188,6 +188,20 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
+    @include is-mobile {
+      flex-wrap: wrap;
+
+      p:first-child {
+        position: relative;
+        transform: translateY(1px);
+      }
+
+      p:last-child {
+        flex-shrink: 0;
+        flex-basis: 100%;
+      }
+    }
   }
 }
 

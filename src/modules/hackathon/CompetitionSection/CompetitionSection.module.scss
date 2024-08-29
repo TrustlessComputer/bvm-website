@@ -10,6 +10,10 @@
     font-weight: 500;
     line-height: normal;
     margin-bottom: 16px;
+
+    @include is-mobile {
+      font-size: 52px;
+    }
   }
 
   .desc {
@@ -20,6 +24,12 @@
     font-weight: 400;
     line-height: 170%;
     /* 34px */
+  }
+
+  .teleWrapper {
+    @include is-mobile {
+      top: -50px;
+    }
   }
 
   .teleLink {
@@ -65,6 +75,10 @@
     font-weight: 400;
     line-height: normal;
     letter-spacing: 0.5px;
+
+    @include is-mobile {
+      text-align: left;
+    }
 
     &:hover {
       cursor: pointer;
