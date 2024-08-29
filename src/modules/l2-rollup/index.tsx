@@ -1151,7 +1151,7 @@ const L2Rollup = () => {
           position={'absolute'}
           left={'0px'}
           right={'0px'}
-          bottom={'3.2vw'}
+          bottom={'2vw'}
           h={'72px'}
           justifyContent={'center'}
           zIndex={1}
