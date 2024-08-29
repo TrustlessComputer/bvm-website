@@ -80,7 +80,7 @@
 .message {
   margin-bottom: 15px;
   padding: 10px 15px;
-  border-radius: 12px;
+  border-radius: 8px;
   max-width: 80%;
   background-color: #ffffff;
   font-family: SF Pro Display;
@@ -88,17 +88,25 @@
   font-weight: 500;
   line-height: 24px;
   text-align: left;
+  white-space: pre-wrap;
 }
 
 .user {
   align-self: flex-end;
   margin-left: auto;
   background-color: #eeeeee;
+  color: #555555;
+  font-size: 16px;
+  line-height: calc(24 / 16);
 }
 
 .bot {
   align-self: flex-start;
   background-color: #ffeee8;
+  font-size: 16px;
+  line-height: calc(24 / 16);
+  color: #000;
+  padding: 10px 15px 20px 15px;
 }
 
 .input {
