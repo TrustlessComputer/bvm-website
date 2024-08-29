@@ -17,6 +17,8 @@ import {
   Text,
 } from '@chakra-ui/react';
 import copy from 'copy-to-clipboard';
+import { useRouter } from 'next/navigation';
+import { useContext, useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import toast from 'react-hot-toast';
 import ButtonFavorite from './FavoriteAddress';
@@ -36,6 +38,8 @@ import TransactionsTabBitcoin from './TransactionsTabBitcoin';
 import WatchListAddresses from './Watchlist';
 
 const L2RollupDetail = () => {
+  const router = useRouter();
+
   const {
     address,
     aiSummary,
