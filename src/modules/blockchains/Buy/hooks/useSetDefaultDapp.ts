@@ -1,7 +1,7 @@
 import { DappNode } from '@/types/node';
 import { MarkerType } from '@xyflow/react';
 import { useSearchParams } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import { FieldKeyPrefix } from '../contants';
 import {
@@ -26,9 +26,10 @@ const useSetDefaultDapp = () => {
 
   const { draggedIds2D, setDraggedIds2D } = useDraggedId2DStore();
 
+  const [loaded, setLoaded] = useState<boolean>(false)
+
   const updateBaseDapp = (dappIndex: number) => {
     const thisDapp = dapps[dappIndex];
-
     if (!thisDapp) {
       return;
     }
@@ -59,6 +60,7 @@ const useSetDefaultDapp = () => {
       (handle) => handle.sourceHandle === `${rootNode}-s-${suffix}`,
     );
     let nodesData = nodes;
+    console.log('nodes frist', nodesData);
 
     if (!isHandleExists) {
       getHandleNodeBlockChain?.data?.sourceHandles?.push(
@@ -104,6 +106,8 @@ const useSetDefaultDapp = () => {
     draggedDappIndexesSignal.value = [dappIndex];
     draggedIds2DSignal.value = [[]];
     setDraggedIds2D([]);
+    console.log('[useSetDefaultDapp] case 1');
+
     setNodes([...nodesData, newNode]);
     setEdges([
       ...edges,
@@ -133,9 +137,40 @@ const useSetDefaultDapp = () => {
       },
     ]);
     needReactFlowRenderSignal.value = true;
+    console.log('[...nodesData, newNode]', [...nodesData, newNode]);
+    console.log('edge', [
+      ...edges,
+      {
+        id: `${Math.random()}`,
+        source: rootNode,
+        sourceHandle: `${rootNode}-s-${suffix}`,
+        target: `${newNodeId}`,
+        targetHandle: `${newNodeId}-t-${rootNode}`,
+        type: 'customEdge',
+        label: '',
+        selectable: false,
+        selected: false,
+        focusable: false,
+        markerEnd: {
+          type: MarkerType.Arrow,
+          width: 25,
+          height: 25,
+          strokeWidth: 1,
+          color: '#AAAAAA',
+        },
+        animated: true,
+        style: {
+          stroke: '#AAAAAA',
+          strokeWidth: 2,
+        },
+      },
+    ]);
   };
 
   React.useEffect(() => {
+    if(nodes.length === 0 ) return;
+    if(loaded) return;
+
     if (!categories || categories.length === 0 || dapps.length <= 2) return;
 
     const dappKey = searchParams.get('dapp');
@@ -144,10 +179,9 @@ const useSetDefaultDapp = () => {
     const dappIndex = dapps.findIndex((dapp) => dapp.key === dappKey);
     if (dappIndex === -1) return;
 
-    setIsDragging(true);
-
+    setLoaded(true);
     updateBaseDapp(dappIndex);
-  }, [categories, dapps]);
+  }, [categories, dapps, loaded, nodes.length]);
 };
 
 export default useSetDefaultDapp;

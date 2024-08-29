@@ -36,12 +36,7 @@ export const NAV_ITEMS: Array<NavItem> = [
     groupType: 'developers',
     GroupDropDown: GroupDeveloper,
   },
-  {
-    label: 'Research',
-    href: '/research',
-    isNewWindow: false,
-    isHide: false,
-  },
+
   {
     label: 'Ecosystem',
     href: '/explore',
@@ -60,6 +55,13 @@ export const NAV_ITEMS: Array<NavItem> = [
     isNewWindow: false,
     isHide: false,
   },
+
+  {
+    label: '$BVM',
+    href: '/bvm',
+    isNewWindow: false,
+    isHide: false,
+  },
   {
     label: 'Docs',
     href: 'https://docs.bvm.network/bvm',
@@ -67,8 +69,8 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: '$BVM',
-    href: '/bvm',
+    label: 'Research',
+    href: '/research',
     isNewWindow: false,
     isHide: false,
   },

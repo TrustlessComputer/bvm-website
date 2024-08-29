@@ -8,6 +8,7 @@ import {
   accountAbstractionAsADapp,
   bridgesAsADapp,
   dappMockupData,
+  gamingAppsAsADapp,
 } from '../mockup_3';
 import useDappsStore from '../stores/useDappStore';
 import { cloneDeep, preDataAirdropTask, preDataYoloGame } from '../utils';
@@ -24,7 +25,11 @@ const useOnlyFetchDapp = () => {
   const { configs, tokens, airdropTasks, tokensAll } = dappState;
 
   const fetchDapps = () => {
-    const _dapps = [accountAbstractionAsADapp, bridgesAsADapp];
+    const _dapps = [
+      accountAbstractionAsADapp,
+      bridgesAsADapp,
+      gamingAppsAsADapp,
+    ];
 
     const otherDapps = isUpdateChain
       ? // ? cloneDeep(dappFromAPIMockupData)

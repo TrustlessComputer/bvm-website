@@ -45,10 +45,18 @@
 }
 
 
-.menuButton{
-  :global{
-    .text{
-      color: black !important;
+.menuButton {
+
+  display: flex;
+  min-width: 100px;
+  height: 36px;
+  padding: 4px;
+  justify-content: center;
+  align-items: center;
+
+  :global {
+    .text {
+      // color: black !important;
     }
   }
 }

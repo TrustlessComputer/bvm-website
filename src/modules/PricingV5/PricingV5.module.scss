@@ -6,17 +6,18 @@
 
     background: #F3F1E8;
     min-height: calc(100vh - 96px);
-    display: grid;
-    place-items: center;
+    // display: grid;
+    // place-items: center;
     color: black;
     padding-bottom: 60px;
+
 
 
     .heading {
         color: var(--text-color);
         text-align: center;
-        margin-bottom: 60px;
-        padding-top: 60px;
+        margin-bottom: 7vh;
+        padding-top: 14vh;
 
 
 
@@ -161,6 +162,10 @@
             line-height: 20px;
             margin-bottom: 40px;
             /* 111.111% */
+
+            &:hover {
+                opacity: 0.75;
+            }
         }
 
         .price_item_note {

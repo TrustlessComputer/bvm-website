@@ -81,7 +81,7 @@ const StudioMain = (): ReactElement => {
                     }`}
                     onClick={() => setTab(TABS.EXPLORE)}
                   >
-                    <p>Bitcoin Chains</p>
+                    <p>Bitcoin L2s</p>
                   </div>
                   {/*<div*/}
                   {/*  className={`${s.top_left_filter} ${*/}

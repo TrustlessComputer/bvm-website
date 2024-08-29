@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
-import s from './LeaderboardSection.module.scss';
-import { Box, Flex, Grid, Image, Text } from '@chakra-ui/react';
+import React, { memo, useState } from 'react';
+import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import cn from 'classnames';
 import Leaderboard from './Leaderboard';
-import Problems from '../Problems';
 import { AnimatePresence, motion } from 'framer-motion';
 import { IUserContest } from '@/services/api/EternalServices/types';
 import { useWindowSize } from 'usehooks-ts';
-import SubmitProblem from '@/modules/hackathon/SubmitProblem';
-import CompetitionTimer from '../CompetitionTimer';
 import ExportPrivateKey, {
   EXPORT_PRIVATE_KEY_MODAL_ID,
 } from '@/modules/hackathon/ConnectedWallets/ExportPrivateKey';
@@ -16,12 +12,15 @@ import { openModal } from '@/stores/states/modal/reducer';
 import { useDispatch } from 'react-redux';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
+import Problems from './Problems';
+import s from './LeaderboardSection.module.scss';
 
 type Props = {
   currentUserContest?: IUserContest;
 };
 
 const LeaderboardSection = (props: Props) => {
+  console.log('asjkdhaskdj')
   const [isProblemPanelMaximized, setIsProblemPanelMaximized] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(true);
   const [isShowActionPrepare, setIsShowActionPrepare] = useState<boolean>(true);
@@ -259,4 +258,4 @@ const LeaderboardSection = (props: Props) => {
   );
 };
 
-export default LeaderboardSection;
+export default memo(LeaderboardSection);

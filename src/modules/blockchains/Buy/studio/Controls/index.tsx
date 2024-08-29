@@ -18,6 +18,7 @@ import useDapps from '../../hooks/useDapps';
 import { accountAbstractionAsADapp } from '../../mockup_3';
 import { chainKeyToDappKey, isChainOptionDisabled } from '../../utils';
 
+const ignoreFields = ['bridge_apps', 'gaming_apps'];
 export default memo(function StudioControls() {
   const { parsedCategories } = useModelCategoriesStore();
   const { field } = useOrderFormStoreV3();
@@ -107,13 +108,14 @@ export default memo(function StudioControls() {
     <div id={'wrapper-data'} className={s.left_box_inner_content}>
       <DroppableV2 id="data">
         {(parsedCategories || []).map((item, index) => {
-          if (!item.isChain && item.key !== 'bridge_apps') return null;
+          if (!item.isChain && !ignoreFields.includes(item.key)) return null;
           // console.log('[StudioControls] map', item.key, {
           //   item: item,
           //   field: field,
           //   disabled: isUpdateChainFlow && !item.updatable,
           // });
           if (item.hidden) return null;
+
           const currentOption = item.options.find(
             (opt) =>
               opt.key === field[item.key].value && field[item.key].dragged,
@@ -172,9 +174,9 @@ export default memo(function StudioControls() {
                 if (item.multiChoice) operator = '';
 
                 suffix =
-                  Math.abs(_price) > 0
+                  Math.abs(_price / 30) > 1
                     ? ` (${operator}${formatCurrencyV2({
-                        amount: Math.abs(_price),
+                        amount: Math.abs(_price / 30),
                         decimals: 0,
                       })} BVM)`
                     : '';
@@ -193,7 +195,9 @@ export default memo(function StudioControls() {
                 const isDisabled = isChainOptionDisabled(field, item, option);
 
                 if (item.multiChoice && field[item.key].dragged) {
-                  isThisOptionDragged = ((field[item.key]?.value as any) || []).includes(option.key)
+                  isThisOptionDragged = (
+                    (field[item.key]?.value as any) || []
+                  ).includes(option.key);
                   // const currentValues = field[item.key].value as any[];
                   //
                   // if (currentValues.includes(option.key)) {
@@ -214,6 +218,9 @@ export default memo(function StudioControls() {
                       isChain: true,
                       value: option.key,
                       left: true,
+                      background: item.color,
+                      label: option.title,
+                      icon: option.icon,
                     }}
                     tooltip={option.tooltip}
                   >

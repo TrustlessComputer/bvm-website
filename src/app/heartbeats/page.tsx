@@ -4,7 +4,7 @@ import L2RollupModule from '@/modules/l2-rollup';
 import { Metadata } from 'next';
 import React from 'react';
 
-const TITLE = 'Bitcoin Heartbeat | Welcome to the future of Bitcoin.';
+const TITLE = 'Bitcoin Heartbeats | Welcome to the future of Bitcoin.';
 const DESCRIPTION =
   'Provide transparent and verifiable insights into Bitcoin rollups.';
 

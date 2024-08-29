@@ -16,22 +16,15 @@ import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
 import { Edge, MarkerType } from '@xyflow/react';
 import { useParams, usePathname, useSearchParams } from 'next/navigation';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
 import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
 import { parseStakingPools } from '../../dapp/parseUtils/staking';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { parseDappModel } from '../../utils';
 import { nodeKey } from '../component4/YourNodes/node.constants';
-import {
-  draggedDappIndexesSignal,
-  draggedIds2DSignal,
-  templateIds2DSignal,
-} from '../signals/useDragSignal';
-import {
-  formDappSignal,
-  formTemplateDappSignal,
-} from '../signals/useFormDappsSignal';
+import { draggedDappIndexesSignal, draggedIds2DSignal, templateIds2DSignal } from '../signals/useDragSignal';
+import { formDappSignal, formTemplateDappSignal } from '../signals/useFormDappsSignal';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import useUpdateFlowStore from '../stores/useUpdateFlowStore';
@@ -41,8 +34,9 @@ import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
 import handleStatusEdges from '@utils/helpers';
-import { categoriesMockupData, defaultTemplateMockupData } from '../mockup_3';
 import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
+import { parseWalletType } from '@/modules/blockchains/dapp/parseUtils/wallet-type';
+import { WalletType } from '@/stores/states/dapp/types';
 
 export default function useFetchingTemplate() {
   const { templateList, templateDefault } = useAvailableListTemplate();
@@ -52,7 +46,8 @@ export default function useFetchingTemplate() {
   const params = useParams();
   const isUpdateFlow = React.useMemo(() => !!params?.id, [params?.id]);
 
-  const { order, isAAInstalled, isBridgeInstalled } = useChainProvider();
+  const { order, isAAInstalled, isBridgeInstalled, isGamingAppsInstalled } =
+    useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
     categories,
@@ -75,7 +70,7 @@ export default function useFetchingTemplate() {
 
   const { counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
-  const { tokens, airdrops, stakingPools, yoloGames } = dappState;
+  const { tokens, airdrops, stakingPools, yoloGames, walletType } = dappState;
 
   const [needSetDataTemplateToBox, setNeedSetDataTemplateToBox] =
     React.useState(false);
@@ -175,7 +170,11 @@ export default function useFetchingTemplate() {
         node: 'chain',
         title: 'Blockchain',
         sourceHandles: isUpdateFlow
-          ? [`${rootNode}-s-account_abstraction`, `${rootNode}-s-bridge_apps`]
+          ? [
+              `${rootNode}-s-account_abstraction`,
+              `${rootNode}-s-bridge_apps`,
+              `${rootNode}-s-gaming_apps`,
+            ]
           : [],
         // sourceHandles: isUpdateFlow
         //   ? [`${rootNode}-s-account_abstraction`]
@@ -370,7 +369,7 @@ export default function useFetchingTemplate() {
     } else {
       setEdges([...edges, ...edgeData]);
     }
-
+    console.log('[useFetchingTemplate] case 1');
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
     setNeedCheckAndAddAA(true);
@@ -412,10 +411,19 @@ export default function useFetchingTemplate() {
       startIndex: startIndex,
     });
 
+    startIndex += yoloGames.length;
+    const parsedWalletData = walletType ? parseWalletType(walletType) : [];
+    const parsedWalletForm = walletType ? parseDappModel({
+      key: DappType.walletType,
+      model: parsedWalletData,
+      startIndex: startIndex,
+    }) : {};
+
     console.log('[useFetchingTemplate] parsedTokensData', {
       tokens,
       airdrops,
       stakingPools,
+      parsedWalletData
     });
 
     setTemplateDapps([
@@ -423,12 +431,14 @@ export default function useFetchingTemplate() {
       ...parsedAirdropsData,
       ...parsedStakingPoolsData,
       ...parsedYoloGameData,
+      ...parsedWalletData,
     ]);
     setTemplateForm({
       ...parsedTokensForm.fieldValue,
       ...parsedAirdropsForm.fieldValue,
       ...parsedStakingPoolsForm.fieldValue,
       ...parsedYoloGameForm.fieldValue,
+      ...((parsedWalletForm as any)?.fieldValue || {}),
     } as any);
 
     setNeedSetDataTemplateToBox(true);
@@ -475,15 +485,16 @@ export default function useFetchingTemplate() {
     if (isAAInstalled) {
       newDraggedDappIndexes.push(0);
       newDraggedIds2D.push([]);
-      // draggedDappIndexesSignal.value = [0];
-      // draggedIds2DSignal.value = [[]];
     }
 
     if (isBridgeInstalled) {
       newDraggedDappIndexes.push(1);
       newDraggedIds2D.push([]);
-      // draggedDappIndexesSignal.value = [...draggedDappIndexesSignal.value, 1];
-      // draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
+    }
+
+    if (isGamingAppsInstalled) {
+      newDraggedDappIndexes.push(2);
+      newDraggedIds2D.push([]);
     }
 
     draggedDappIndexesSignal.value = newDraggedDappIndexes;
