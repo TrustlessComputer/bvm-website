@@ -34,10 +34,10 @@ import CompetitionSection from './CompetitionSection';
 type Props = {};
 
 const START_TIME = isProduction
-  ? '2024-08-29T20:00:00+07:00'
-  : '2024-08-27T20:00:00+07:00';
+  ? '2024-08-29T13:00:00Z'
+  : '2024-08-27T13:00:00Z';
 
-const END_TIME = '2024-08-29T22:00:00+07:00';
+const END_TIME = '2024-08-29T16:00:00Z';
 
 const LeaderboardOrCompetition = memo(
   ({ currentUserContest }: { currentUserContest?: IUserContest }) => {
@@ -155,7 +155,9 @@ const HackathonModule = (props: Props) => {
 
   const scrollToLeaderboard = () => {
     leaderboardSectionRef.current
-      ?.querySelector(`div[class*='LeaderboardSection_wrapper']`)
+      ?.querySelector(
+        `div[class*='LeaderboardSection_wrapper'], div[class*='CompetitionSection_wrapper']`,
+      )
       ?.scrollIntoView({ behavior: 'smooth' });
   };
 
