@@ -1,24 +1,22 @@
 import MagicIcon from '@/components/MagicIcon';
-import LabelListening from '@/modules/blockchains/Buy/studio/Chatbox/LabelListening';
-import { act, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { IModelCategory } from '@/types/customize-model';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import useFormChain from '../../hooks/useFormChain';
+import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import ButtonApply from './Actions/ButtonApply';
+import ButtonCancel from './Actions/ButtonCancle';
 import ButtonClose from './Actions/ButtonClsoe';
 import ButtonStop from './Actions/ButtonStop';
 import useChatBoxState, { ChatBoxStatus } from './chatbox-store';
 import Message from './Message';
-import { categoryTemplate } from './mockup/categoryTemplate';
+import { sendPrompt } from './services/prompt';
 import styles from './styles.module.scss';
-import useFormChain from '../../hooks/useFormChain';
+import TextInput from './TextInput';
+import { CategoryAction, PromptCategory, SendPromptBodyRequest } from './types';
 import {
   modelCategoryToPromptCategory,
   promptCategoryToModelCategory,
 } from './utils/convertApiUtils';
-import { CategoryAction, PromptCategory, SendPromptBodyRequest } from './types';
-import { sendPrompt } from './services/prompt';
-import { IModelCategory } from '@/types/customize-model';
-import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
-import { mockupPromptResponses } from './mockup/promtResponse';
-import TextInput from './TextInput';
 
 export default function Chatbox() {
   const { categories } = useModelCategoriesStore();
@@ -257,15 +255,15 @@ export default function Chatbox() {
     return isChatboxOpen;
   }, [isChatboxOpen]);
 
-  // useEffect(() => {
-  //   if (isOpenVoice) {
-  //     handleVoiceInput();
-  //   }
+  useEffect(() => {
+    if (isOpenVoice) {
+      handleVoiceInput();
+    }
 
-  //   return () => {
-  //     stopVoiceInput();
-  //   };
-  // }, [isOpenVoice]);
+    return () => {
+      stopVoiceInput();
+    };
+  }, [isOpenVoice]);
 
   return (
     <div className={styles.chatbox}>
@@ -300,14 +298,7 @@ export default function Chatbox() {
             <div className={styles.status}>
               <div className={styles.statusInner}>{status}</div>
               <div className={styles.statusButtons}>
-                {isListening && (
-                  <button
-                    onClick={stopVoiceInput}
-                    className={styles.voiceButton}
-                  >
-                    Cancel
-                  </button>
-                )}
+                {isListening && <ButtonCancel onClick={stopVoiceInput} />}
                 {isComplete && <ButtonApply />}
                 {isGenerating && <ButtonStop />}
                 {isClose && <ButtonClose />}
