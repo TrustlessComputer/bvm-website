@@ -27,6 +27,7 @@ export default function Chatbox() {
     setIsChatboxOpen,
     prepareCategoryTemplate,
     setPrepareCategoryTemplate,
+    setChatBoxStatus,
   } = useChatBoxState();
 
   const elChatBox = useRef<HTMLDivElement>(null);
@@ -48,18 +49,6 @@ export default function Chatbox() {
       setInputMessage('');
       focusChatBox();
     }
-  };
-
-  const setChatBoxStatus = ({
-    status,
-    isGenerating,
-    isComplete,
-    isListening,
-  }: SetChatBoxStatusParams) => {
-    setStatus(status);
-    setIsGenerating(isGenerating);
-    setIsComplete(isComplete);
-    setIsListening(isListening);
   };
 
   useEffect(() => {
@@ -239,9 +228,7 @@ export default function Chatbox() {
                     Cancel
                   </button>
                 )}
-                {isComplete && (
-                  <ButtonApply setChatBoxStatus={setChatBoxStatus} />
-                )}
+                {isComplete && <ButtonApply />}
                 {isGenerating && <ButtonStop />}
                 {isClose && <ButtonClose />}
               </div>

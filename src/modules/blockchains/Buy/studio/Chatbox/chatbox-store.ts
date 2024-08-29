@@ -1,5 +1,6 @@
 import { IModelCategory } from '@/types/customize-model';
 import { create } from 'zustand';
+import { SetChatBoxStatusParams } from './types';
 export enum ChatBoxStatus {
   Generating = 'Generating...',
   Cancel = 'Esc to cancel',
@@ -32,6 +33,7 @@ interface ChatBoxState {
   setPrepareCategoryTemplate: (
     prepareCategoryTemplate: IModelCategory[],
   ) => void;
+  setChatBoxStatus: (params: SetChatBoxStatusParams) => void;
 }
 
 const useChatBoxState = create<ChatBoxState>((set) => ({
@@ -52,6 +54,7 @@ const useChatBoxState = create<ChatBoxState>((set) => ({
   setStatus: (status) => set({ status }),
   setPrepareCategoryTemplate: (prepareCategoryTemplate) =>
     set({ prepareCategoryTemplate }),
+  setChatBoxStatus: (params: SetChatBoxStatusParams) => set(params),
 }));
 
 export default useChatBoxState;

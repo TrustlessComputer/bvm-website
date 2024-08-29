@@ -3,13 +3,9 @@ import useChatBoxState, { ChatBoxStatus } from '../../chatbox-store';
 import styles from './styles.module.scss';
 import { SetChatBoxStatusParams } from '../../types';
 
-type Props = {
-  setChatBoxStatus: (params: SetChatBoxStatusParams) => void;
-};
-
-const ButtonApply = ({ setChatBoxStatus }: Props) => {
+const ButtonApply = () => {
   const { setTemplate } = useTemplate();
-  const { prepareCategoryTemplate } = useChatBoxState();
+  const { prepareCategoryTemplate, setChatBoxStatus } = useChatBoxState();
 
   const handleApply = () => {
     setChatBoxStatus({
