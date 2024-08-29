@@ -1,7 +1,7 @@
 import { IModelCategory } from '@/types/customize-model';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Lego from '../../../component4/Lego';
-import useChatBoxState from '../chatbox-store';
+import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
 import styles from '../styles.module.scss';
 
 export default function Message({
@@ -11,52 +11,64 @@ export default function Message({
   message: string;
   template: IModelCategory[];
 }) {
-  const { setIsGenerating, setIsComplete } = useChatBoxState((state) => state);
+  const { setChatBoxStatus, isGenerating } = useChatBoxState((state) => state);
 
   const [displayedMessage, setDisplayedMessage] = useState<string>('');
   const [displayedTemplate, setDisplayedTemplate] = useState<typeof template>(
     [],
   );
 
-  useEffect(() => {
+  const animateMessage = useCallback(() => {
     let messageIndex = 0;
     let templateIndex = 0;
     let optionIndex = 0;
-    setIsGenerating(true);
-    const intervalId = setInterval(() => {
-      if (messageIndex < message.length) {
+
+    setInterval(() => {
+      if (messageIndex < message.length - 1) {
         setDisplayedMessage((prev) => prev + message[messageIndex]);
         messageIndex++;
       } else if (templateIndex < template.length) {
         const currentTemplate = template[templateIndex];
+
         if (optionIndex < currentTemplate.options.length) {
           setDisplayedTemplate((prev) => {
             const updatedTemplate = [...prev];
+
             if (!updatedTemplate[templateIndex]) {
               updatedTemplate[templateIndex] = {
                 ...currentTemplate,
-                options: [],
+                options: [currentTemplate.options[optionIndex]],
               };
+            } else {
+              updatedTemplate[templateIndex].options.push(
+                currentTemplate.options[optionIndex],
+              );
             }
-            updatedTemplate[templateIndex].options.push(
-              currentTemplate.options[optionIndex],
-            );
+
+            optionIndex++;
+
             return updatedTemplate;
           });
-          optionIndex++;
         } else {
           templateIndex++;
           optionIndex = 0;
         }
       } else {
-        clearInterval(intervalId);
-        setIsGenerating(false);
-        setIsComplete(true);
+        setChatBoxStatus({
+          status: ChatBoxStatus.Complete,
+          isGenerating: false,
+          isComplete: true,
+          isListening: false,
+        });
       }
     }, 30);
-
-    return () => clearInterval(intervalId);
   }, [message, template]);
+
+  useEffect(() => {
+    if (isGenerating) {
+      animateMessage();
+    }
+  }, [isGenerating]);
 
   return (
     <div>
@@ -77,6 +89,7 @@ export default function Message({
                   titleInRight={false}
                   first={false}
                   last={false}
+                  legoAI
                 />
               ))}
             </div>

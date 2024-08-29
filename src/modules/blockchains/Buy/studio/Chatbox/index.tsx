@@ -72,12 +72,6 @@ export default function Chatbox() {
             sender: 'bot',
           },
         ]);
-        setChatBoxStatus({
-          status: ChatBoxStatus.Complete,
-          isGenerating: false,
-          isComplete: true,
-          isListening: false,
-        });
         setPrepareCategoryTemplate(template);
         focusChatBox();
       }, 1000);
