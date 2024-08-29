@@ -6,7 +6,7 @@ import useChatBoxState from '../Chatbox/chatbox-store';
 import styles from './styles.module.scss';
 
 export default function ButtonStartChat(): ReactElement {
-  const { isChatboxOpen, setIsChatboxOpen } = useChatBoxState();
+  const { isChatboxOpen, setIsChatboxOpen } = useChatBoxState((state) => state);
   const chatboxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

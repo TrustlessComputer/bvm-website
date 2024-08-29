@@ -23,6 +23,7 @@ export default function Chatbox() {
     setIsComplete,
     status,
     setStatus,
+    isChatboxOpen,
     setIsChatboxOpen,
     prepareCategoryTemplate,
     setPrepareCategoryTemplate,
@@ -62,17 +63,17 @@ export default function Chatbox() {
         isListening: false,
       });
       setTimeout(() => {
-        const template = categoryTemplate;
+        const template = { ...categoryTemplate };
 
         setMessages([
           ...messages,
           {
-            text: 'Converted prompt text from voice. Converted prompt text from voice. Converted prompt text from voice. Converted prompt text from voice. \n\nSingle sentence.\n\n',
+            text: `Converted prompt text from voice. Converted prompt text from voice. Converted prompt text from voice. Converted prompt text from voice. \n\nSingle sentence.\n\n ${Math.random()}`,
             template,
             sender: 'bot',
           },
         ]);
-        setPrepareCategoryTemplate(template);
+        // setPrepareCategoryTemplate(template);
         focusChatBox();
       }, 1000);
     }
@@ -164,6 +165,20 @@ export default function Chatbox() {
     setRecognition(newRecognition);
   };
 
+  const isOpenVoice = useMemo(() => {
+    return isChatboxOpen;
+  }, [isChatboxOpen]);
+
+  // useEffect(() => {
+  //   if (isOpenVoice) {
+  //     handleVoiceInput();
+  //   }
+
+  //   return () => {
+  //     stopVoiceInput();
+  //   };
+  // }, [isOpenVoice]);
+
   return (
     <div className={styles.chatbox}>
       <div className={styles.chatboxInner}>
@@ -178,13 +193,15 @@ export default function Chatbox() {
             <div className={styles.chats} ref={elChatBox}>
               {messages.map((message, index) => (
                 <div
-                  key={index}
+                  key={message.text}
                   className={`${styles.message} ${styles[message.sender]}`}
                 >
                   {message.sender === 'bot' ? (
                     <Message
+                      key={message.text}
                       message={message.text}
                       template={message.template}
+                      onUpdateScroll={focusChatBox}
                     />
                   ) : (
                     message.text
