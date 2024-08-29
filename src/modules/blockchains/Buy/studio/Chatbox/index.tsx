@@ -1,14 +1,13 @@
 import MagicIcon from '@/components/MagicIcon';
+import LabelListening from '@/modules/blockchains/Buy/studio/Chatbox/LabelListening';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ButtonApply from './Actions/ButtonApply';
 import ButtonClose from './Actions/ButtonClsoe';
 import ButtonStop from './Actions/ButtonStop';
 import useChatBoxState, { ChatBoxStatus } from './chatbox-store';
-import styles from './styles.module.scss';
-import LabelListening from '@/modules/blockchains/Buy/studio/Chatbox/LabelListening';
+import Message from './Message';
 import { categoryTemplate } from './mockup/categoryTemplate';
-import Lego from '../../component4/Lego';
-import { SetChatBoxStatusParams } from './types';
+import styles from './styles.module.scss';
 
 export default function Chatbox() {
   const {
@@ -188,32 +187,14 @@ export default function Chatbox() {
                   key={index}
                   className={`${styles.message} ${styles[message.sender]}`}
                 >
-                  {message.text}
-
-                  <div className={styles.categories}>
-                    {message.template.map((item) => (
-                      <div key={item.id} className={styles.category}>
-                        <h6 className={styles.categoryTitle}>
-                          Generated {item.title}:
-                        </h6>
-
-                        <div className={styles.categoryOptions}>
-                          {item.options.map((option) => (
-                            <Lego
-                              {...option}
-                              background={item.color}
-                              key={option.key}
-                              titleInLeft
-                              titleInRight={false}
-                              first={false}
-                              last={false}
-                              legoAI={true}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                  {message.sender === 'bot' ? (
+                    <Message
+                      message={message.text}
+                      template={message.template}
+                    />
+                  ) : (
+                    message.text
+                  )}
                 </div>
               ))}
             </div>
