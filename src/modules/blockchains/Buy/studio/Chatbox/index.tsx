@@ -1,5 +1,4 @@
 import MagicIcon from '@/components/MagicIcon';
-import LabelListening from '@/modules/blockchains/Buy/studio/Chatbox/LabelListening';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ButtonApply from './Actions/ButtonApply';
 import ButtonClose from './Actions/ButtonClsoe';
@@ -8,6 +7,7 @@ import useChatBoxState, { ChatBoxStatus } from './chatbox-store';
 import Message from './Message';
 import { categoryTemplate } from './mockup/categoryTemplate';
 import styles from './styles.module.scss';
+import TextInput from './TextInput';
 
 export default function Chatbox() {
   const {
@@ -216,35 +216,7 @@ export default function Chatbox() {
             </div>
           </div>
         </div>
-        <div className={styles.input}>
-          <h3 className={styles.input_heading}>Prompt</h3>
-          <div className={styles.inputWrapper}>
-            <textarea
-              value={inputMessage}
-              onChange={(e) => setInputMessage(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                  e.preventDefault();
-                  handleSendMessage();
-                }
-              }}
-              className={styles.inputField}
-              disabled={isListening || isGenerating}
-            />
-            {isListening && <LabelListening />}
-            {!isListening && inputMessage === '' && (
-              <div className={styles.inputOverlay}>
-                Type your instructions or Press{' '}
-                <strong>Control + Shift + V</strong> to voice prompt
-              </div>
-            )}
-            <div className={styles.buttonWrapper}>
-              <button onClick={handleSendMessage} className={styles.sendButton}>
-                Submit
-              </button>
-            </div>
-          </div>
-        </div>
+        <TextInput handleSendMessage={handleSendMessage} />
       </div>
     </div>
   );
