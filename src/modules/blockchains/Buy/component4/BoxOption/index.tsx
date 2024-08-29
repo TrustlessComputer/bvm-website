@@ -292,6 +292,11 @@ const BoxOption = ({
                         ?.filter((f) => f.section === section.key)
                         ?.map((item) => {
                           return item.fields.map((field) => {
+                            let checked = false;
+                            if(info?.title === 'Wallet') {
+                              checked = draggedIds2DSignal.value.some(item => item.some(dragged => dragged.value === field.value));
+                            }
+
                             return (
                               <Draggable
                                 id={`left-${FieldKeyPrefix.BASE_MODULE}-${item.key}-${field.value}`}
@@ -307,16 +312,19 @@ const BoxOption = ({
                                     item.background ||
                                     mainColor,
                                 }}
-                                disabled={!field.selectable}
+                                // disabled={!field.selectable}
+                                disabled={disableBaseBlock}
                               >
                                 <Lego
                                   {...field}
                                   background={item.background || mainColor}
-                                  disabled={!field.selectable}
+                                  // disabled={!field.selectable}
+                                  disabled={disableBaseBlock}
                                   first={false}
                                   last={false}
                                   titleInLeft={true}
                                   titleInRight={false}
+                                  checked={checked}
                                   infoLego={{
                                     title: info.title,
                                     type: section?.title,

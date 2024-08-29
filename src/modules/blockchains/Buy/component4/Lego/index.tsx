@@ -49,6 +49,7 @@ type Props = {
   disabled?: boolean;
   children?: React.ReactNode;
   preview?: boolean;
+  checked?: boolean;
   fields?: FieldModel[];
   infoLego?: {
     title: string;
@@ -72,6 +73,7 @@ const Lego = (props: Props) => {
     children,
     preview,
     fields,
+    checked,
     ...rest
   } = props;
   const { isCapture } = useCaptureStore();
@@ -197,6 +199,17 @@ const Lego = (props: Props) => {
                 >
                   {title}
                 </p>
+
+                { (props.infoLego?.title === 'Wallet' && checked) && (
+                  <div className={`${styles.label}`}>
+                    <Image
+                      src={'/icons/check-done-v2.svg'}
+                      alt="icon"
+                      width={20}
+                      height={20}
+                    />
+                  </div>
+                )}
               </div>
             ) : null}
 
