@@ -126,7 +126,7 @@ const WatchListAddresses = () => {
                 {watchList.map((w) => (
                   <Flex
                     onClick={() =>
-                      router.push(`${HEART_BEAT}/${w.org_address}`)
+                      router.push(`${HEART_BEAT}/address/${w.org_address}`)
                     }
                     className={s.item}
                     key={w.address}
