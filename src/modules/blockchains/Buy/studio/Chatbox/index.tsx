@@ -174,6 +174,7 @@ export default function Chatbox() {
                           {item.options.map((option) => (
                             <Lego
                               {...option}
+                              background={item.color}
                               key={option.key}
                               titleInLeft
                               titleInRight={false}
