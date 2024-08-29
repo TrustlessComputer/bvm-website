@@ -1,0 +1,76 @@
+.btnItemContainer {
+  --block-size: 125px;
+  --primary: #002953;
+  --secondary: #2d3348;
+  --mainnet-alt: rgb(160, 71, 255);
+  --pending-alt: rgb(148, 48, 8);
+  width: var(--block-size);
+  height: fit-content;
+  transition: background 2s, right 2s, transform 1s, opacity 1s;
+  position: relative;
+  &.release {
+    &::before,
+    &::after {
+      background: repeating-linear-gradient(
+          #2d3348,
+          var(--secondary) 0.1611249999999984%,
+          var(--mainnet-alt) 0.1611249999999984%,
+          var(--primary) 100%
+      );
+    }
+  }
+  &.pending {
+    &::before,
+    &::after {
+      background: repeating-linear-gradient(
+          #2d3348,
+          var(--secondary) 0.1611249999999984%,
+          var(--pending-alt) 0.1611249999999984%,
+          var(--primary) 100%
+      );
+    }
+  }
+  &::before {
+    content: "";
+    width: calc(0.16 * var(--block-size));
+    height: var(--block-size);
+    position: absolute;
+    top: calc(-0.096 * var(--block-size));
+    left: calc(-0.16 * var(--block-size));
+    background: #191c27;
+    z-index: -1;
+    transform: skewY(50deg);
+    transform-origin: top;
+    transition: transform 1s, left 1s;
+  }
+  &::after {
+    content: "";
+    width: var(--block-size);
+    height: calc(0.192 * var(--block-size));
+    position: absolute;
+    top: calc(-0.192 * var(--block-size));
+    left: calc(-0.16 * var(--block-size));
+    background: #232838;
+    transform: skew(40deg);
+    transform-origin: top;
+    transition: transform 1s, left 1s;
+  }
+  img {
+    width: var(--block-size);
+    min-width: var(--block-size);
+    height: var(--block-size);
+  }
+  .name {
+    text-align: center;
+  }
+  .title {
+    font-size: 11px;
+    opacity: 0.7;
+    line-height: 100%;
+    text-align: center;
+  }
+  .value {
+    font-size: 12px;
+    text-align: center;
+  }
+}

@@ -99,6 +99,7 @@
     "react-final-form": "^6.5.9",
     "react-google-recaptcha-v3": "^1.10.1",
     "react-hot-toast": "^2.4.1",
+    "react-indiana-drag-scroll": "^2.2.0",
     "react-infinite-scroll-component": "^6.1.0",
     "react-jazzicon": "^1.0.4",
     "react-laag": "^2.0.5",
