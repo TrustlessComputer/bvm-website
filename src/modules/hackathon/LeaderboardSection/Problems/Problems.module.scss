@@ -44,6 +44,7 @@
         align-items: center;
         gap: 6px;
         border-radius: 6.611px;
+        border: 1px solid transparent;
 
         &[aria-selected='true'] {
           color: #fff;
@@ -63,6 +64,7 @@
       border: 1px solid transparent;
       border-radius: 8px;
       transition: all 0.2s ease-in-out;
+      cursor: pointer;
 
       p {
         position: relative;
