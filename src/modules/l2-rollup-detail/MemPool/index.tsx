@@ -7,7 +7,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import BigNumber from 'bignumber.js';
 import { IBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
-import BlockItem from '@/modules/l2-rollup-detail/MemPool/block';
+import BlockItem from 'src/modules/l2-rollup-detail/MemPool/BlockItem';
 
 const MemPoolModule = () => {
   const params = useParams();
