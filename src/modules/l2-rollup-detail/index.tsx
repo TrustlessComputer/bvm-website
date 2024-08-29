@@ -80,7 +80,7 @@ const L2RollupDetail = () => {
             direction={{ base: 'row' }}
             alignItems={'center'}
             gap={'8px'}
-            onClick={() => router.push(HEART_BEAT)}
+            onClick={() => window.location.replace(HEART_BEAT)}
           >
             <Image w={'24px'} src={'/heartbeat/ic-back.svg'} />
             <Text>Bitcoin Heartbeats Project</Text>
@@ -88,6 +88,7 @@ const L2RollupDetail = () => {
           <SearchAddress
             className={s.search}
             placeholder={'Search by Address / Txn Hash'}
+            icSearchAtLeft
           />
         </Flex>
 
