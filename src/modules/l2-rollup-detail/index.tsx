@@ -17,10 +17,10 @@ import {
   Text,
 } from '@chakra-ui/react';
 import copy from 'copy-to-clipboard';
-import { useRouter } from 'next/navigation';
 import React, { useContext } from 'react';
 import { isMobile } from 'react-device-detect';
 import toast from 'react-hot-toast';
+import NFTTab from './NFTTab';
 import PortfolioTab from './PortfolioTab';
 import PortfolioTabBitcoin from './PortfolioTabBitcoin';
 import {
@@ -30,22 +30,18 @@ import {
 import SearchAddress from './SearchAddress';
 import s from './styles.module.scss';
 import TokenTransferTab from './TokenTransferTab';
+import TokenTransferTabBitcoin from './TokenTransferTabBitcoin';
 import TransactionsTab from './TransactionsTab';
 import TransactionsTabBitcoin from './TransactionsTabBitcoin';
-import TokenTransferTabBitcoin from './TokenTransferTabBitcoin';
-import NFTTab from './NFTTab';
 
 const L2RollupDetail = () => {
-  const router = useRouter();
-
   const {
     address,
+    aiSummary,
     isValidAddress,
     isBTCAddress,
     balanceBitcoinInfo,
     rollupBitcoinBalances,
-    // totalBalanceUsd,
-    // totalBitcoinBalanceUsd,
   } = useContext(L2RollupDetailContext);
 
   if (!isValidAddress) {
@@ -148,6 +144,7 @@ const L2RollupDetail = () => {
                 </Text> */}
               </>
             )}
+            {aiSummary && <Text fontWeight={'400'}>{aiSummary}</Text>}
           </Flex>
         </Flex>
 
