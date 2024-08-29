@@ -932,6 +932,26 @@ const L2Rollup = () => {
     [data],
   );
 
+  const contentRef = useRef<HTMLDivElement | null>(null);
+
+  const [scrollTop, setScrollTop] = useState(0);
+  // Sticky Menu Area
+  useEffect(() => {
+    if (contentRef.current)
+      contentRef.current.addEventListener('scroll', onScroll);
+    return () => {
+      if (contentRef.current)
+        contentRef.current.removeEventListener('scroll', onScroll);
+    };
+  });
+
+  const onScroll = () => {
+    if (contentRef.current) {
+      const scrollTop = contentRef.current!.scrollTop;
+      setScrollTop(scrollTop);
+    }
+  };
+
   return (
     <Box className={s.container} overflow={'hidden'}>
       <Flex
