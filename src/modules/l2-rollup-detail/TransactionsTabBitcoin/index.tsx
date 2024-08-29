@@ -129,7 +129,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                router.push(`${HEART_BEAT}/${data.tx_id}`);
+                router.push(`${HEART_BEAT}/tx/${data.tx_id}`);
               }}
             >
               <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
@@ -170,7 +170,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                if (from) router.push(`${HEART_BEAT}/${from}`);
+                if (from) router.push(`${HEART_BEAT}/address/${from}`);
               }}
             >
               <Text className={s.title}>
@@ -210,7 +210,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                if (to) router.push(`${HEART_BEAT}/${to}`);
+                if (to) router.push(`${HEART_BEAT}/address/${to}`);
               }}
             >
               <Text className={s.title}>

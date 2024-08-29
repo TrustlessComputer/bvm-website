@@ -94,7 +94,7 @@ const SearchAddress = (props: ISearchAddressProps) => {
         placeholder={props.placeholder || 'Search address '}
         onEnterSearch={() => {
           if (isValidSearchAddress) {
-            router.push(`${HEART_BEAT}/${searchAddress}`);
+            router.push(`${HEART_BEAT}/address/${searchAddress}`);
           }
         }}
         className={props.className}
@@ -115,7 +115,9 @@ const SearchAddress = (props: ISearchAddressProps) => {
               gap={'6px'}
               cursor={'pointer'}
               pr={'12px'}
-              onClick={() => router.push(`${HEART_BEAT}/${searchAddress}`)}
+              onClick={() =>
+                router.push(`${HEART_BEAT}/address/${searchAddress}`)
+              }
             >
               <Image w={'14px'} src={'/heartbeat/ic-link.svg'} />
               <Text fontSize={'12px'}>{searchAddress}</Text>
