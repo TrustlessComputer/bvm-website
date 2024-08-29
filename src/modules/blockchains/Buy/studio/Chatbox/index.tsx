@@ -65,7 +65,7 @@ export default function Chatbox() {
         setMessages([
           ...messages,
           {
-            text: 'Converted prompt text from voice. Converted prompt text from voice. Converted prompt text from voice. Converted prompt text from voice.',
+            text: 'Converted prompt text from voice. Converted prompt text from voice. Converted prompt text from voice. Converted prompt text from voice. \n\nSingle sentence.\n\n',
             template,
             sender: 'bot',
           },
@@ -167,7 +167,7 @@ export default function Chatbox() {
                     {message.template.map((item) => (
                       <div key={item.id} className={styles.category}>
                         <h6 className={styles.categoryTitle}>
-                          Generated {item.title}
+                          Generated {item.title}:
                         </h6>
 
                         <div className={styles.categoryOptions}>
