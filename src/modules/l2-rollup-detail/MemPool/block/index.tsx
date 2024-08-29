@@ -1,6 +1,5 @@
-import { Box, Flex, Image, Skeleton, Text } from '@chakra-ui/react';
+import { Box, Flex, Skeleton, Square, Text } from '@chakra-ui/react';
 import cs from 'classnames';
-import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
 import s from './styles.module.scss';
 import { compareString } from '@/utils/string';
@@ -19,6 +18,8 @@ const BlockItem: React.FC<IProps> = ({
                                                  index,
                                                  isCurrentMint,
                                                }) => {
+  console.log('BlockItem', item);
+
   const status = useMemo(() => {
     if (!item) {
       return;
@@ -33,60 +34,26 @@ const BlockItem: React.FC<IProps> = ({
 
   if (loading) {
     return (
-      <Box className={cs(s.btnItemContainer, status)}>
+      <Box className={cs(s.container, status)}>
         <Skeleton w={"125px"} h={"125px"}></Skeleton>
       </Box>
     );
   }
 
   return (
-    <Box className={cs(s.btnItemContainer, status)}>
+    <Box className={cs(s.container, status)}>
       {item ? (
-        <>
-          <Image src={item.image_url} />
-          <Box pt={"8px"}>
-            <Text className={s.name}>Block #{item.id}</Text>
-            <Text className={s.name} style={{ opacity: 0.7 }} fontSize={"12px"}>
-              Epoch {item.release_batch}
-            </Text>
-            <Flex flexDirection={"column"} justifyContent={"center"} mt={"6px"}>
-              {compareString(item.release_tx_hash, "pending") ? (
-                <>
-                  <Text className={s.title}>Release at:</Text>
-                  <Text className={s.value}>
-                    {dayjs(item?.release_at).format("MM/DD/YYYY HH:mm")}
-                  </Text>
-                </>
-              ) : (
-                <>
-                  <Text className={s.title}>Reward:</Text>
-                  <Text className={s.value}>100K</Text>
-                </>
-              )}
-            </Flex>
-          </Box>
-        </>
-      ) : isCurrentMint ? (
-        <>
-          <Skeleton w={"125px"} h={"125px"}></Skeleton>
-          {/*<Box pt={"8px"}>
-            <Text className={s.name}>Queue Status</Text>
-            <Text className={s.name} style={{ opacity: 0.7 }} fontSize={"12px"}>
-               in queue
-            </Text>
-
-            <Flex flexDirection={"column"} justifyContent={"center"} mt={"6px"}>
-              <Text className={s.title}>Completed at:</Text>
-              <Text className={s.value}>
-                {dayjs(START_FIRST_BLOCK)
-                  .add(30 * (index || 1), "days")
-                  .format("MM/DD/YYYY HH:mm")}
-              </Text>
-            </Flex>
-          </Box>*/}
-        </>
+        <Square size={"125px"} className={s.content}>
+          <Flex direction={"column"} gap={"4px"} alignItems={'center'}>
+            <Text className={s.medianFee}>~2 sat/vB</Text>
+            <Text className={s.feeSpan}>2-3 sat/vB</Text>
+            <Text className={s.totalFee}>0.07 BTC</Text>
+            <Text className={s.transactions}>2,125 transactions</Text>
+            <Text className={s.time}>In ~20 minutes</Text>
+          </Flex>
+        </Square>
       ) : (
-        <Box w={"125px"} h={"125px"}></Box>
+        <Square size={"125px"} />
       )}
     </Box>
   );

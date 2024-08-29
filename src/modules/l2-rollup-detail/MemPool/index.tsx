@@ -9,15 +9,12 @@ import BigNumber from 'bignumber.js';
 import { IBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
 import BlockItem from '@/modules/l2-rollup-detail/MemPool/block';
 
-export const START_FIRST_BLOCK = "2024-04-22 07:50:19";
-export const START_FIRST_BLOCK_NUMBER = 1;
-
 const MemPoolModule = () => {
   const params = useParams();
   const [loading, setLoading] = useState(true);
 
   const [nfts, setNfts] = useState<IBlock[]>([]);
-  const defaultArr = useRef(Array(5).fill(0)).current;
+  const defaultArr = useRef(Array(10).fill(0)).current;
   const defaultArr1 = useRef(Array(1).fill(0)).current;
 
   const chain = params?.id;
@@ -30,12 +27,13 @@ const MemPoolModule = () => {
 
   const getData = async () => {
     try {
+      setNfts(Array(10).fill(0));
+
       if (!chain) {
         setNfts([]);
         return;
       }
       // const rs = await nftApi.getCollectedNFTs("");
-      // setNfts(rs);
     } catch (error) {
     } finally {
       setLoading(false);
@@ -47,25 +45,19 @@ const MemPoolModule = () => {
     let claimedNFTS: any[] = defaultArr;
 
     if (nfts.length > 0) {
-      // pendingNFTs = sortBy(
-      //   filter(nfts, (v: INFT) => compareString(v.release_tx_hash, "pending")),
-      //   "release_batch"
-      // ).reverse();
-      // claimedNFTS = filter(
-      //   nfts,
-      //   (v: INFT) =>
-      //     !compareString(v.release_tx_hash, "pending") && v.active === true
-      // );
-      if (pendingNFTs.length < defaultArr1.length) {
-        pendingNFTs = Array(defaultArr1.length - pendingNFTs.length)
-          .fill(0)
-          .concat(pendingNFTs);
-      }
-      if (claimedNFTS.length < defaultArr.length) {
-        claimedNFTS = claimedNFTS.concat(
-          Array(defaultArr.length - claimedNFTS.length).fill(0)
-        );
-      }
+      pendingNFTs = Array(10).fill({release_tx_hash: 'pending'});
+      claimedNFTS = Array(10).fill({release_tx_hash: 'release'});
+
+      // if (pendingNFTs.length < defaultArr1.length) {
+      //   pendingNFTs = Array(defaultArr1.length - pendingNFTs.length)
+      //     .fill(0)
+      //     .concat(pendingNFTs);
+      // }
+      // if (claimedNFTS.length < defaultArr.length) {
+      //   claimedNFTS = claimedNFTS.concat(
+      //     Array(defaultArr.length - claimedNFTS.length).fill(0)
+      //   );
+      // }
     }
 
     return {
@@ -76,13 +68,6 @@ const MemPoolModule = () => {
 
   const isCenter = useMemo(() => {
     return new BigNumber(10).multipliedBy(177).lte(window.innerWidth);
-  }, []);
-
-  const currentQueue = useMemo(() => {
-    return 5;
-    // return firstEpoch.release_batch
-    //   ? Number(firstEpoch.release_batch) - START_FIRST_BLOCK_NUMBER
-    //   : 4;
   }, []);
 
   return (
@@ -104,19 +89,6 @@ const MemPoolModule = () => {
               loading={loading}
             />
           ))}
-          {!loading &&
-            Array(currentQueue)
-              .fill(0)
-              .map((_v, i) => (
-                <BlockItem
-                  key={`pending-${i}`}
-                  item={undefined}
-                  isCurrentMint={true}
-                  loading={loading}
-                  index={i + 1}
-                />
-              ))
-              .reverse()}
 
           <Box className={s.verticalLine} />
 
