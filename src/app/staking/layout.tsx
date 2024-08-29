@@ -1,13 +1,18 @@
 import React from 'react';
 import { APP_NAME } from '@/config/metadata';
 import { Box, Flex } from '@chakra-ui/react';
+import { CDN_URL } from '@/config';
+
+const THUMBNAIL = `${CDN_URL}/metadata/staking.png`;
 
 export const metadata = {
+  title: 'Development infrastructure for Bitcoin.',
+  description: 'Stake BVM to earn up to 58% APR.',
   openGraph: {
     type: 'website',
     images: [
       {
-        url: `/shard/seo_image.jpg`,
+        url: THUMBNAIL,
         width: 1200,
         height: 630,
         alt: APP_NAME,
@@ -18,7 +23,7 @@ export const metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: `/shard/seo_image.jpg`,
+        url: THUMBNAIL,
         alt: APP_NAME,
       },
     ],
