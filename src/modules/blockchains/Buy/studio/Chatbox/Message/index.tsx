@@ -7,11 +7,14 @@ import styles from './styles.module.scss';
 export default function Message({
   message,
   template,
+  onUpdateScroll,
 }: {
   message: string;
   template: IModelCategory[];
+  onUpdateScroll: () => void;
 }) {
   const { setChatBoxStatus, isGenerating } = useChatBoxState((state) => state);
+  const [isRendered, setIsRendered] = useState(false);
 
   const refRender = useRef<NodeJS.Timeout>();
   const [displayedMessage, setDisplayedMessage] = useState<string>('');
@@ -56,6 +59,7 @@ export default function Message({
         }
       } else {
         refRender.current && clearInterval(refRender.current);
+        setIsRendered(true);
         setChatBoxStatus({
           status: ChatBoxStatus.Complete,
           isGenerating: false,
@@ -63,13 +67,17 @@ export default function Message({
           isListening: false,
         });
       }
+      onUpdateScroll();
     }, 30);
   }, [message, template]);
 
   useEffect(() => {
+    if (isRendered) return;
+
     if (isGenerating) {
       animateMessage();
     } else {
+      setIsRendered(true);
       refRender.current && clearInterval(refRender.current);
     }
   }, [isGenerating]);
