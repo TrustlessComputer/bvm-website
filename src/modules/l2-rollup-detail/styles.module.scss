@@ -134,4 +134,8 @@
   &:focus-within {
     border: 1px solid #fa4e0e;
   }
+
+  input {
+    padding-inline-start: 12px !important;
+  }
 }
