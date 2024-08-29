@@ -183,9 +183,7 @@ const TokenTransferTab = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                window.open(
-                  `${data.chain?.explorer}/tx/${data.transaction_hash}`,
-                );
+                router.push(`${HEART_BEAT}/tx/${data.transaction_hash}`);
               }}
             >
               <Flex direction={'row'} alignItems={'center'} gap={'4px'}>

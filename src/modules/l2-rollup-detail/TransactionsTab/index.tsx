@@ -184,7 +184,7 @@ const TransactionsTab = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                window.open(`${data.chain?.explorer}/tx/${data.hash}`);
+                router.push(`${HEART_BEAT}/tx/${data.hash}`);
               }}
             >
               <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
