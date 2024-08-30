@@ -7,7 +7,6 @@ import useDapps from './useDapps';
 const useFormDappToFormChain = () => {
   const { dapps } = useDapps();
 
-  const [dappCount, setDappCount] = React.useState<Record<string, number>>({});
   const [dappIndexes, setDappIndexes] = React.useState<
     typeof draggedDappIndexesSignal.value
   >([]);
@@ -16,14 +15,13 @@ const useFormDappToFormChain = () => {
     setDappIndexes(draggedDappIndexesSignal.value);
   });
 
-  React.useEffect(() => {
+  console.log('[useFormDappToFormChain]', {
+    dappIndexes,
+  });
+
+  const dappCount = React.useMemo(() => {
     const dappCount: Record<string, number> = {};
 
-    console.log('[useFormDappToFormChain]', {
-      dappIndexes: draggedDappIndexesSignal.value,
-    });
-
-    const dappIndexes = cloneDeep(draggedDappIndexesSignal.value);
     dappIndexes.forEach((dappIndex) => {
       const dapp = dapps[dappIndex];
 
@@ -36,7 +34,11 @@ const useFormDappToFormChain = () => {
       }
     });
 
-    setDappCount(dappCount);
+    console.log('[useFormDappToFormChain] b', {
+      dappCount,
+    });
+
+    return dappCount;
   }, [dappIndexes]);
 
   return {
