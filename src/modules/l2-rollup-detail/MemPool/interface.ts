@@ -9,6 +9,7 @@ export interface IBlock {
   data: FeesMempoolBlocks | IConfirmedBlock;
   timestamp?: number;
   height?: number;
+  id: string;
 }
 
 export interface IConfirmedBlock {

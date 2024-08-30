@@ -25,6 +25,7 @@ const MemPool = () => {
     let minutes = 0;
     pendingNFTs = pendingBlocks?.map(block => {
       return {
+        id: Math.random().toString(),
         medianFee: block.medianFee,
         totalFees: block.totalFees,
         transactions: block.nTx,
@@ -37,6 +38,7 @@ const MemPool = () => {
 
     claimedNFTS = confirmedBlocks?.map(block => {
       return {
+        id: block.id,
         medianFee: block.extras.medianFee,
         totalFees: block.extras.totalFees,
         transactions: block.tx_count,

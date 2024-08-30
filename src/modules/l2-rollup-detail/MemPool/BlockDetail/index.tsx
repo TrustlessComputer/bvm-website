@@ -43,18 +43,24 @@ const BlockDetail = () => {
   }, [selectedBlock?.totalFees, btcPrice]);
 
   const rewardUsd = useMemo(() => {
-    return new BigNumberJS(btcPrice || 0)
-      .multipliedBy((selectedBlock?.data as IConfirmedBlock).extras.reward)
-      .dividedBy(1e8)
-      .toString();
-  }, [(selectedBlock?.data as IConfirmedBlock).extras.reward, btcPrice]);
+    if((selectedBlock?.data as IConfirmedBlock).extras) {
+      return new BigNumberJS(btcPrice || 0)
+        .multipliedBy((selectedBlock?.data as IConfirmedBlock).extras?.reward)
+        .dividedBy(1e8)
+        .toString();
+    }
+
+    return '0';
+  }, [(selectedBlock?.data as IConfirmedBlock).extras, btcPrice]);
 
   const blockHealth = useMemo(() => {
     return 99.98;
   }, [selectedBlock])
 
   useEffect(() => {
-    setPoolImgUrl(`https://mempool.space/resources/mining-pools/${(selectedBlock?.data as IConfirmedBlock).extras.pool.slug}.svg`);
+    if((selectedBlock?.data as IConfirmedBlock).extras) {
+      setPoolImgUrl(`https://mempool.space/resources/mining-pools/${(selectedBlock?.data as IConfirmedBlock).extras.pool.slug}.svg`);
+    }
   }, [selectedBlock]);
 
   const onLoadPoolImgError = () => {
@@ -170,7 +176,7 @@ const BlockDetail = () => {
   }
 
   return (
-    <Flex className={s.container} direction={"column"} gap={"16px"}>
+    <Flex className={s.container} direction={"column"} gap={"16px"} pt={"8px"}>
       <Flex justifyContent={"space-between"} alignItems={"center"}>
         <Flex alignItems={"center"} gap={"8px"}>
           <Text className={s.title}>{isPending ? 'Next Block' : 'Block'}</Text>

@@ -13,6 +13,8 @@
   gap: 32px;
   cursor: grab;
   padding-left: 16px;
+  overflow-y: hidden;
+
   .verticalLine {
     border-left: 2px dashed #fff;
     height: 250px;

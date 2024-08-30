@@ -8,6 +8,7 @@ import { formatCurrency } from '@utils/format';
 import BigNumberJS from 'bignumber.js';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
+import { compareString } from '@utils/string';
 
 dayjs.extend(relativeTime);
 
@@ -24,7 +25,7 @@ const BlockItem: React.FC<IProps> = ({
                                                  index,
                                                  isPending,
                                                }) => {
-  const { setSelectedBlock } = useContext(L2RollupDetailContext);
+  const { setSelectedBlock, selectedBlock } = useContext(L2RollupDetailContext);
   const [poolImgUrl, setPoolImgUrl] = useState('');
 
   const status = useMemo(() => {
@@ -37,6 +38,10 @@ const BlockItem: React.FC<IProps> = ({
       return s.release;
     }
   }, [isPending]);
+
+  const isSelected = useMemo(() => {
+    return compareString(item?.id, selectedBlock?.id);
+  }, [item, selectedBlock])
 
   if (loading) {
     return (
@@ -94,7 +99,9 @@ const BlockItem: React.FC<IProps> = ({
       ) : (
         <Square size={"125px"} />
       )}
-      <Box id={"arrow_up"} className={s.arrowUp}/>
+      {
+        isSelected && <Box id={"arrow_up"} className={s.arrowUp}/>
+      }
     </Box>
   );
 };
