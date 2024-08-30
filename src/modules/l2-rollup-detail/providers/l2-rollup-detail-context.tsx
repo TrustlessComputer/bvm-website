@@ -14,9 +14,8 @@ import { validateEVMAddress } from '@/utils/validate';
 import BigNumber from 'bignumber.js';
 import { useParams } from 'next/navigation';
 import React, { PropsWithChildren, useEffect, useMemo, useRef, useState } from 'react';
-import { IBlock, IConfirmedBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
+import { FeesMempoolBlocks, IBlock, IConfirmedBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
 import CMemPoolAPI from '@/services/api/heartbeats/mempool';
-import { FeesMempoolBlocks } from '@mempool/mempool.js/lib/interfaces/bitcoin/fees';
 import uniqBy from 'lodash/uniqBy';
 import { isValidBTCTxHash, isValidERC20TxHash } from '@/utils/form-validate';
 

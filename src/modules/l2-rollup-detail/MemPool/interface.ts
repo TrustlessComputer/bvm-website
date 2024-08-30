@@ -1,4 +1,11 @@
-import { FeesMempoolBlocks } from '@mempool/mempool.js/lib/interfaces/bitcoin/fees';
+export interface FeesMempoolBlocks {
+  blockSize: number;
+  blockVSize: number;
+  nTx: number;
+  totalFees: number;
+  medianFee: number;
+  feeRange: number[];
+}
 
 export interface IBlock {
   medianFee: number;

@@ -9,7 +9,7 @@ class CMemPoolAPI {
 
   getConfirmedBlocks = async (blockNumber?: number) => {
     const res = (await axios.get(`https://mempool.space/api/v1/blocks/${blockNumber || ''}`)).data;
-    console.log('feesMempoolBlocks', res);
+    console.log('getConfirmedBlocks', res);
     return res;
   };
 }
