@@ -1,75 +1,91 @@
 import { IRetrieveFormsByDappKey } from '@/modules/blockchains/Buy/hooks/useOneForm';
 import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
-import { formDappSignal } from '@/modules/blockchains/dapp/signals/useFormDappsSignal';
 import { FormDappUtil } from '@/modules/blockchains/dapp/utils';
 import CStakingAPI from '@/services/api/dapp/staking';
-import { useAppDispatch } from '@/stores/hooks';
-import { requestReload } from '@/stores/states/common/reducer';
+import { IPosition } from '@/services/api/dapp/staking/interface';
+import { v4 as uuidv4 } from 'uuid';
 
 const useSubmitStaking = () => {
   const cStakeAPI = new CStakingAPI();
-  const dispatch = useAppDispatch()
 
-  const onSubmitStaking = async ({ forms }: { forms: IRetrieveFormsByDappKey[][] }) => {
+  const onSubmitStaking = async ({
+    forms,
+    positions = [],
+  }: {
+    forms: IRetrieveFormsByDappKey[][];
+    positions?: Vector2[];
+  }) => {
     // const stakingForms = retrieveFormsByDappKey({
     //   dappKey: 'staking',
     // });
 
     const params = [];
+    let index = 0;
 
     for (const form of forms) {
-      let finalFormMappings: Record<
-        string,
-        { key: string; value: string }[]
-      >[] = [];
-      const formDapp = Object.assign({}, ...form);
-      const formDappInBase = Object.keys(formDapp).filter(
-        (key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key),
-      );
-      const formDappInModule = Object.keys(formDapp).filter(
-        (key) => !FormDappUtil.isInModule(key),
-      );
-      const formDappInSingle = Object.keys(formDapp).filter(
-        FormDappUtil.isInSingle,
-      );
-
-      finalFormMappings = extractedValue(
-        formDappInBase,
-        formDapp,
-        finalFormMappings,
-      );
-
-      finalFormMappings = extractedValue(
-        formDappInModule,
-        formDapp,
-        finalFormMappings,
-      );
-
-      finalFormMappings = extractedValue(
-        formDappInSingle,
-        formDapp,
-        finalFormMappings,
-      );
-      const formFinal = finalFormMappings.find(item => !!item);
-      const info: any = formFinal?.info.find((item) => !!item);
       try {
-        const data = await cStakeAPI.createNewStakingPool({
+        let finalFormMappings: Record<
+          string,
+          { key: string; value: string }[]
+        >[] = [];
+        const formDapp = Object.assign({}, ...form);
+        const formDappInBase = Object.keys(formDapp).filter(
+          (key) =>
+            !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key),
+        );
+        const formDappInModule = Object.keys(formDapp).filter(
+          (key) => !FormDappUtil.isInModule(key),
+        );
+        const formDappInSingle = Object.keys(formDapp).filter(
+          FormDappUtil.isInSingle,
+        );
+
+        finalFormMappings = extractedValue(
+          formDappInBase,
+          formDapp,
+          finalFormMappings,
+        );
+
+        finalFormMappings = extractedValue(
+          formDappInModule,
+          formDapp,
+          finalFormMappings,
+        );
+
+        finalFormMappings = extractedValue(
+          formDappInSingle,
+          formDapp,
+          finalFormMappings,
+        );
+        const formFinal = finalFormMappings.find((item) => !!item);
+
+        const info: any = formFinal?.info.find((item) => !!item);
+
+        // TODO: JACKIE - update position below
+        const position: IPosition = {
+          position_id: uuidv4(),
+          position_x: positions[index].x ?? 0,
+          position_y: positions[index].y ?? 0,
+        };
+        index++;
+        // console.log(position);
+
+        await cStakeAPI.createNewStakingPool({
           principle_token: formFinal?.staking_token,
           reward_token: formFinal?.reward_token,
           base_ratio: Number(info?.apr?.replaceAll('%', '')) / 100,
           token_price: 1 / Number(info?.rate),
+          ...position, // TODO: JACKIE - update position
         });
       } catch (error) {
         console.log(error);
       }
     }
-
-    dispatch(requestReload());
   };
 
   return {
-    onSubmitStaking
-  }
-}
+    onSubmitStaking,
+  };
+};
 
 export default useSubmitStaking;

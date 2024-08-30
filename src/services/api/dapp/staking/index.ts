@@ -1,10 +1,11 @@
-import CDappApiClient from '@/services/api/dapp/dapp.client';
-import { ISTToken } from './interface';
 import CContract from '@/contract/contract';
-import { formatAmountToClient } from '@/utils/format';
+import CDappApiClient from '@/services/api/dapp/dapp.client';
+import { store } from '@/stores';
 import { useAppDispatch } from '@/stores/hooks';
 import { setStakingPools } from '@/stores/states/dapp/reducer';
-import { store } from '@/stores';
+import { formatAmountToClient } from '@/utils/format';
+import { isLocalhost } from '@utils/helpers';
+import { ISTToken } from './interface';
 
 class CStakingAPI {
   private api = new CDappApiClient().api;
@@ -22,7 +23,11 @@ class CStakingAPI {
     const chain = store.getState().dapp.chain;
 
     const contract = new CContract();
-    const data: any = await this.api.get(this.getUrl('sttokens'));
+    let data: any = await this.api.get(this.getUrl('sttokens'));
+
+    if (isLocalhost()) {
+      data = data.slice(0, 3);
+    }
 
     let pools: ISTToken[] = [];
     if (data && data?.length > 0) {

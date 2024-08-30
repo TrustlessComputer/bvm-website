@@ -17,7 +17,7 @@ const SUBJECT_LIST = [
   `I'd like to build a Rollup on Bitcoin`,
   `I'd like to make a partnership proposal`,
   `I have an issue with the payment process`,
-  `I'd like to submit my project to Heartbeat`,
+  `I'd like to submit my project to Heartbeats`,
   `Others`,
 ];
 
@@ -40,7 +40,9 @@ const ContactUsModal = ({
   params,
 }: any) => {
   const [subject, setSubject] = useState(subjectDefault);
-  const [methodContact, setMethodContact] = useState(0);
+  const [methodContact, setMethodContact] = useState(
+    METHODS_CONTACT_ENUM.Telegram,
+  );
 
   const { tracking } = useL2ServiceTracking();
 
@@ -395,7 +397,7 @@ const ContactUsModal = ({
                 {params?.description
                   ? params.description
                   : params.changeText
-                  ? "You've chosen Optimistic Rollup for your blockchain and it can't be done automatically yet. We will reach out to you shortly to help complete your setup."
+                  ? 'Your setup requires manual assistance. We’ll reach out to you shortly to help complete it.'
                   : 'Help us tailor the demo experience to your needs.'}
               </Text>
             </div>

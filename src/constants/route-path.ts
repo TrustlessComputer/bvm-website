@@ -19,4 +19,4 @@ export const PRICING = `/pricing`;
 export const ROLLUPS = `/rollups`;
 export const BVM_STUDIO = '/rollups/customizev2';
 export const BVM_CODE_BATTLE = '/PoC';
-export const HEART_BEAT = '/heartbeat';
+export const HEART_BEAT = '/heartbeats';

@@ -92,23 +92,27 @@ const Dropdown = ({
   });
 
   React.useEffect(() => {
-    const formDappDropdown = onlyLabel
-      ? formTemplateDappSignal.value
-      : formDappSignal.value;
-    const key = FormDappUtil.getKeyForm(props, props, name);
+    // let formDappDropdown = onlyLabel
+    //   ? formTemplateDappSignal.value
+    //   : formDappSignal.value;
+    // const key = FormDappUtil.getKeyForm(props, props, name);
+    //
+    // if (props.options.length > 0) {
+    //   if (!formDappDropdown[key]) {
+    //     formDappDropdown = {
+    //       ...formDappDropdown,
+    //       [key]: props.options[0].value,
+    //     };
+    //   } else {
+    //     setCurrentValue(
+    //       props.options.find((item) => item.value === formDappDropdown[key]) ||
+    //         props.options[0],
+    //     );
+    //   }
+    // }
 
     if (props.options.length > 0) {
-      if (!formDappDropdown[key]) {
-        formDappDropdown.value = {
-          ...formDappDropdown,
-          [key]: props.options[0].value,
-        };
-      } else {
-        setCurrentValue(
-          props.options.find((item) => item.value === formDappDropdown[key]) ||
-            props.options[0],
-        );
-      }
+      handleOnClickOption(props.options[0]);
     }
   }, []);
 

@@ -1,3 +1,5 @@
+import { WalletType } from '@/stores/states/dapp/types';
+
 export interface IReqDapp {
   orderID: string
 }
@@ -21,6 +23,7 @@ export interface IDappConfigs {
   twitter_redirect_uri?: string;
   web3_auth_client_id?: string;
   template: ITemplate;
+  wallet_type?: WalletType;
 };
 
 export enum TemplateType {
@@ -56,3 +59,5 @@ export interface IAppInfo {
   icon_url: string
   image_url: string
 }
+
+export type AppCode = 'create_token' | 'staking' | 'account_abstraction' | 'btc_bridge' | 'eth_bridge' | 'airdrop' | 'yologame' | 'orderbook';

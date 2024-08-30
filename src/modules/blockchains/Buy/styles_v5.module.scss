@@ -168,7 +168,7 @@
 
 .wrapper_btn_top {
   display: flex;
-
+  align-items: flex-end;
   flex-direction: column;
   gap: 8px;
 }
@@ -415,10 +415,12 @@
   padding-right: 16px;
   display: flex;
   cursor: pointer;
-
+  min-width: 111px;
   p {
     font-size: 14px;
     font-weight: 400;
+    display: block;
+    position: relative;
     text-transform: uppercase;
   }
 
@@ -599,5 +601,27 @@
     font-weight: 700;
     line-height: calc(20 /14);
     color: #555555;
+  }
+}
+
+.modalContent {
+  flex-direction: column !important;
+  background-color: #fff !important;
+  max-width: 562px !important;
+  font-family: var(--font-SFProDisplay);
+
+  border-radius: 20px !important;
+  .inner {
+    //padding-top: 24px;
+    padding-bottom: 56px;
+    background-color: #fff;
+    gap: 0;
+    max-width: 562px;
+    //height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 24px;
   }
 }

@@ -1,4 +1,6 @@
 'use client';
+import { useAppSelector } from '@/stores/hooks';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import { IDAppInstalled, OrderStatus } from '@/stores/states/l2services/types';
 import {
   DAppKeys,
@@ -8,13 +10,15 @@ import {
 import { ResponsiveValue } from '@chakra-ui/react';
 import * as CSS from 'csstype';
 import { useContext, useMemo } from 'react';
+import useCheckAllFilled from '../../Buy/hooks/useCheckAllFilled';
+import {
+  ModuleTypeIcon,
+  getModuleIconUrlByType,
+} from '../helper/moduleIconHelper';
 import { ChainContext } from './ChainProvider';
-import { useAppSelector } from '@/stores/hooks';
-import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 
 export const useChainProvider = () => {
   const context = useContext(ChainContext);
-  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
 
   if (!context) {
     throw new Error(
@@ -22,6 +26,8 @@ export const useChainProvider = () => {
     );
   }
 
+  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+  const { allFilled } = useCheckAllFilled();
   const { order } = context;
 
   const isOwnerChain = useMemo(() => {
@@ -35,6 +41,10 @@ export const useChainProvider = () => {
     return !!order;
   }, [order]);
 
+  const isCreateChainFlow = useMemo(() => {
+    return !isUpdateFlow;
+  }, [isUpdateFlow]);
+
   const isChainLoading = useMemo(() => {
     return (
       isUpdateFlow &&
@@ -42,7 +52,32 @@ export const useChainProvider = () => {
         order?.status === OrderStatus.Updating ||
         order?.status === OrderStatus.WaitingPayment)
     );
+  }, [order, isUpdateFlow]);
+
+  const isChainNeedAction = useMemo(() => {
+    return (
+      isUpdateFlow &&
+      (order?.status === OrderStatus.Ended ||
+        order?.status === OrderStatus.InsufficientBalance ||
+        order?.status === OrderStatus.Rejected ||
+        order?.status === OrderStatus.IsDown)
+    );
   }, [order]);
+
+  const isInsufficientBalance = useMemo(() => {
+    return isUpdateFlow && order?.status === OrderStatus.InsufficientBalance;
+  }, [order]);
+
+  const textCTA = useMemo(() => {
+    if (isUpdateFlow) {
+      if (isInsufficientBalance) {
+        return 'Deposit BVM';
+      }
+      return 'Contact us';
+    }
+
+    return '';
+  }, [isUpdateFlow, isInsufficientBalance]);
 
   const isBlockChainReady = useMemo(() => {
     return order?.status === OrderStatus.Started;
@@ -52,6 +87,7 @@ export const useChainProvider = () => {
     let statusStr = 'Ready';
     let statusColorStr = '#4185EC';
     let borderStatusStr = '#eef5ff';
+    let bgColorStr = '#eef5ff';
 
     if (order) {
       switch (order.status) {
@@ -59,65 +95,88 @@ export const useChainProvider = () => {
         case OrderStatus.Started:
           statusStr = 'Running';
           statusColorStr = '#00AA6C';
-          borderStatusStr = '#EEFFF9';
+          borderStatusStr = '#00AA6C';
+          bgColorStr = '#EEFFF9';
           break;
 
         //
         case OrderStatus.WaitingPayment:
           statusStr = 'Waiting for payment';
-          statusColorStr = '#FFC700';
-          borderStatusStr = '#FFF6D8';
+          statusColorStr = '#E59700';
+          borderStatusStr = '#FFC700';
+          bgColorStr = '#FFF6D8';
           break;
         case OrderStatus.Processing:
           statusStr = 'Setting up';
-          statusColorStr = '#FFC700';
-          borderStatusStr = '#FFF6D8';
+          statusColorStr = '#E59700';
+          borderStatusStr = '#FFC700';
+          bgColorStr = '#FFF6D8';
           break;
         case OrderStatus.Updating:
           statusStr = 'Updating';
-          statusColorStr = '#FFC700';
-          borderStatusStr = '#FFF6D8';
+          statusColorStr = '#E59700';
+          borderStatusStr = '#FFC700';
+          bgColorStr = '#FFF6D8';
+          break;
+
+        //
+
+        case OrderStatus.Resume:
+          statusStr = 'Please wait for service to resume';
+          statusColorStr = '#00AA6C';
+          borderStatusStr = '#00AA6C';
+          break;
+        case OrderStatus.InsufficientBalance:
+          statusStr = `Insufficient Balance`;
+          statusColorStr = '#FA4E0E';
+          borderStatusStr = '#FFF2EE';
+          bgColorStr = '#FFF2EE';
+          break;
+
+        case OrderStatus.Canceled:
+          statusStr = 'Canceled';
+          statusColorStr = '#E59700';
+          borderStatusStr = '#FFC700';
+          bgColorStr = '#FFF6D8';
           break;
 
         //
         case OrderStatus.Rejected:
-          statusStr = 'Failed';
-          statusColorStr = '#FA4E0E';
-          borderStatusStr = '#FFF2EE';
-          break;
-        case OrderStatus.Resume:
-          statusStr = 'Please wait for service to resume';
-          statusColorStr = '#00AA6C';
-          borderStatusStr = '#EEFFF9';
-          break;
-        case OrderStatus.InsufficientBalance:
-          statusStr = `Must top up to your account`;
-          statusColorStr = '#FA4E0E';
-          borderStatusStr = '#FFF2EE';
-          break;
-        case OrderStatus.Ended:
-          statusStr = 'Ended';
-          statusColorStr = '#FA4E0E';
-          borderStatusStr = '#FFF2EE';
-          break;
-        case OrderStatus.Canceled:
-          statusStr = 'Canceled';
-          statusColorStr = '#FFC700';
-          borderStatusStr = '#FFF6D8';
+          statusStr = 'Rejected';
+          statusColorStr = '#333333';
+          borderStatusStr = '#B6B6B6';
+          bgColorStr = '#ECECED';
           break;
 
-        //
+        case OrderStatus.Ended:
+          statusStr = 'Ended';
+          statusColorStr = '#333333';
+          borderStatusStr = '#B6B6B6';
+          bgColorStr = '#ECECED';
+          break;
+
         case OrderStatus.IsDown:
           statusStr = 'Down';
-          statusColorStr = '#ECECED';
+          statusColorStr = '#333333';
           borderStatusStr = '#B6B6B6';
+          bgColorStr = '#ECECED';
           break;
+      }
+    } else {
+      if (allFilled) {
+        statusStr = 'Ready';
+      } else {
+        statusStr = 'Drafting Modules';
+        statusColorStr = '#E59700';
+        borderStatusStr = '#FFC700';
+        bgColorStr = '#FFF6D8';
       }
     }
     return {
       statusStr,
       statusColorStr,
       borderStatusStr,
+      bgColorStr,
     };
   };
 
@@ -144,16 +203,16 @@ export const useChainProvider = () => {
         case 'new':
           statusCode = 'new';
           statusStr = 'Setting up';
-          statusColorStr = '#F9D03F';
-          borderColorStr = '#F9D03F';
+          statusColorStr = '#E59700';
+          borderColorStr = '#FFC700';
           bgColorStr = '#FFF6D8';
 
           break;
         case 'processing':
           statusCode = 'processing';
           statusStr = 'Processing';
-          statusColorStr = '#F9D03F';
-          borderColorStr = '#F9D03F';
+          statusColorStr = '#E59700';
+          borderColorStr = '#FFC700';
           bgColorStr = '#FFF6D8';
           break;
 
@@ -178,6 +237,44 @@ export const useChainProvider = () => {
       fontStyle,
       textDecorationLine,
     };
+  };
+
+  const getChainTypeIcon = (): ModuleTypeIcon => {
+    if (!isUpdateFlow) {
+      // Flow Create Chain (Hard code Icon Ready To Launch, need check required category when drag)
+      if (allFilled) {
+        return 'Ready_To_Launch';
+      } else {
+        return 'Drafting';
+      }
+    } else {
+      if (order) {
+        switch (order.status) {
+          case OrderStatus.Started:
+            return 'Running';
+          case OrderStatus.WaitingPayment:
+          case OrderStatus.Processing:
+            return 'Setting_Up';
+          case OrderStatus.Updating:
+            return 'Updating';
+
+          case OrderStatus.Resume:
+            return 'Resuming';
+          case OrderStatus.InsufficientBalance:
+            return 'Insufficient_Balance';
+          case OrderStatus.Rejected:
+          case OrderStatus.Ended:
+          case OrderStatus.Canceled:
+          case OrderStatus.IsDown:
+            return 'Down';
+        }
+      }
+      return 'Ready_To_Launch';
+    }
+  };
+
+  const getChainTypeIconUrl = () => {
+    return getModuleIconUrlByType(getChainTypeIcon());
   };
 
   const dAppListAvailable = useMemo(() => {
@@ -239,7 +336,7 @@ export const useChainProvider = () => {
     } else {
       let statusCode = 'drafting_modules';
       let statusStr = 'Drafting Modules';
-      let statusColorStr = '#FFC700';
+      let statusColorStr = '#E59700';
       let borderColorStr = '#FFC700';
       let bgColorStr = '#FFF6D8';
       let fontStyle: CSS.Property.FontStyle = 'italic';
@@ -259,26 +356,43 @@ export const useChainProvider = () => {
   };
 
   const isAAInstalled = useMemo(
-    () => order?.selectedOptions?.some((opt) => opt.key === 'wallet'),
+    () => !!order?.selectedOptions?.some((opt) => opt.key === 'wallet'),
+    [order?.selectedOptions],
+  );
+
+  const isGamingAppsInstalled = useMemo(
+    () => !!order?.selectedOptions?.some((opt) => opt.key === 'gaming_apps'),
+    [order?.selectedOptions],
+  );
+
+  const isBridgeInstalled = useMemo(
+    () => !!order?.selectedOptions?.some((opt) => opt.key === 'bridge_apps'),
     [order?.selectedOptions],
   );
 
   return {
     ...context,
     isUpdateFlow,
+    isCreateChainFlow,
     isChainLoading,
+    isChainNeedAction,
     chainData: order,
     order,
     dAppListAvailable,
     isBlockChainReady,
     selectedCategoryMapping,
     isAAInstalled,
+    isGamingAppsInstalled,
+    isBridgeInstalled,
     isOwnerChain,
+    isInsufficientBalance,
+    textCTA,
 
     //
     getBlockChainStatus,
     getDAppStatusByKey,
     getAAStatus,
     getDAppInstalledByKey,
+    getChainTypeIconUrl,
   };
 };

@@ -8,12 +8,14 @@ import enhancePrepareData from './enhance.prepareData';
 import enhanceUpdateHandler from './enhance.updateHandler';
 import enhanceValidateOrderData from './enhance.validateOrderData';
 import enhanceCheckRedirect from './enhance.checkRedirect';
+import enhanceLoopFetchOrder from './enhance.loopFetchOrder';
 
 //
 import withAuth from './enhance.withAuth';
 import withLoading from './enhance.withLoading';
 import withSkeleton from './enhance.withSkeleton';
 import withResetModal from './enhance.withResetModal';
+import clearNodes from './enhance.clearNodes';
 
 const enhance =
   (WrappedComponent: ChainDetailComponent) =>
@@ -42,10 +44,12 @@ export default compose<ChainDetailComponent>(
 
   withAuth, // TO DO
 
+  enhanceLoopFetchOrder,
   // ---------------------------------
   // Top Level UI
   // ---------------------------------
   withResetModal,
+  clearNodes,
 
   // Main Page
   enhance,

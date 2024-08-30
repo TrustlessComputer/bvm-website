@@ -8,7 +8,7 @@
   position: relative;
   // background-color: var(--fillBackground);
   cursor: grabbing;
-  height: 31px;
+  height: 40px;
   display: flex;
   align-items: center;
 
@@ -19,10 +19,10 @@
     inset: 0;
     background: var(--fillBackground);
     width: calc(105% - 39px);
-    transform: translateX(33px);
+    transform: translateX(35px);
     border: 1px solid var(--background);
     border-radius: 4px;
-    height: 29.6px;
+    //height: 29.6px;
   }
 
   &_studHead {
@@ -35,7 +35,7 @@
     z-index: -1;
 
     svg {
-      height: 37px;
+      height: 46px;
 
       path {
         fill: var(--fillBackground);
@@ -56,7 +56,7 @@
 }
 
 .inner {
-  padding: 5px 8px;
+  padding: 9px 8px;
   display: flex;
   width: 100%;
   height: 100%;
@@ -76,9 +76,9 @@
     color: #fff;
     font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
-    line-height: calc(20 / 14);
+    line-height: calc(20 / 16);
     //letter-spacing: -0.18px;
   }
 
@@ -267,4 +267,18 @@
     border: 6px solid transparent;
     border-top-color: #fff;
   }
+}
+
+.status {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 28px;
+  padding: 0 12px;
+  position: absolute;
+  top: 50%;
+  right: -16px;
+  transform: translate(100%, -50%);
+  background: #97f095;
+  color: #000000;
+  border-radius: 99999px;
 }

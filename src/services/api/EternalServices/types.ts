@@ -1,3 +1,7 @@
+export enum UserContestType {
+  NORMAL = 0,
+  COMPETITION = 1,
+}
 export type IContestProblem = {
   id: string;
   created_at: string;
@@ -26,6 +30,7 @@ export type IUserContest = {
   team?: string;
   university?: string;
   contest_problems?: IContestProblem[];
+  name: string;
   user: {
     profile_image: string;
     name: string;
@@ -33,6 +38,7 @@ export type IUserContest = {
     email: string;
   };
   rank: number;
+  contest_type: UserContestType;
 };
 export type IGetListLeaderboardResponse = {
   total_records: number;

@@ -26,12 +26,13 @@ const ContactUs = (props: Props): ReactElement => {
         align={'center'}
         className={s.btn}
         transition={'opacity .4s ease'}
+        color={props.color}
         _hover={{
           cursor: 'pointer',
           opacity: 0.8,
         }}
       >
-        Contact us
+        Contact
       </Flex>
     </>
   );

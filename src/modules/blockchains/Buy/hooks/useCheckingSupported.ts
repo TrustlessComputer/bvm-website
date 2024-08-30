@@ -20,17 +20,30 @@ export default function useCheckingSupported() {
 
   function handleMultiChoice(item: IModelCategory) {
     const currentValues = (field[item.key].value || []) as string[];
+
     if (field[item.key].value === null || !field[item.key].dragged) return;
+
+    // if (item.key === 'tools') {
+    //   console.log('[useCheckingSupported] handleMultiChoice 01', {
+    //     category: item,
+    //     currentValues,
+    //   });
+    // }
 
     const newValues = currentValues.filter((value) => {
       const option = item.options.find((opt) => opt.key === value);
 
       if (!option) return false;
 
-      const isDisabled = isChainOptionDisabled(field, item, option);
-
-      return !isDisabled;
+      return !isChainOptionDisabled(field, item, option);
     });
+
+    // if (item.key === 'tools') {
+    //   console.log('[useCheckingSupported] handleMultiChoice 02', {
+    //     category: item,
+    //     currentValues,
+    //   });
+    // }
 
     if (newValues.length === 0) {
       setField(item.key, null, false);
@@ -43,29 +56,21 @@ export default function useCheckingSupported() {
   function handleSingleChoice(item: IModelCategory) {
     if (item.key === 'network' || item.key === 'layers') return;
 
-    const newDefaultValue = item.options.find(
-      (option) =>
-        (option.supportLayer === field['layers']?.value ||
-          option.supportLayer === 'both' ||
-          !option.supportLayer) &&
-        (option.supportNetwork === field['network']?.value ||
-          option.supportNetwork === 'both' ||
-          !option.supportNetwork) &&
-        option.selectable &&
-        !item.disable,
-    );
+    const newDefaultValue = item.options.filter((option) => {
+      return !isChainOptionDisabled(field, item, option);
+    })[0];
 
     const currentOption = item.options.find(
       (option) => option.key === field[item.key].value,
     );
 
-    if (!newDefaultValue) {
-      // setField(item.key, null, false);
+    if (!currentOption || !isChainOptionDisabled(field, item, currentOption))
+      return;
+
+    if (typeof newDefaultValue === 'undefined') {
+      setField(item.key, null, false);
       return;
     }
-
-    if (!currentOption || isChainOptionDisabled(field, item, currentOption))
-      return;
 
     setField(item.key, newDefaultValue.key, field[item.key].dragged);
   }

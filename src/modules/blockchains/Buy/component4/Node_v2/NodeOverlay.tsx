@@ -1,9 +1,9 @@
 import { NodeOverlayProps } from '@/types/node';
 
 import Loading from '@/components/Loading';
-import Button from '../Button';
+// import Button from '../Button';
 import styles from './styles.module.scss';
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Text, Image, Button } from '@chakra-ui/react';
 
 const NodeOverlay = ({ ...props }: NodeOverlayProps) => {
   return (
@@ -14,11 +14,24 @@ const NodeOverlay = ({ ...props }: NodeOverlayProps) => {
             flexDir={'column'}
             align={'center'}
             justify={'center'}
-            gap={'5px'}
+            gap={'2px'}
           >
-            <Loading />
+            {/* <Loading /> */}
+            {props.iconUrl && (
+              <Image
+                src={props.iconUrl}
+                alt={'loading'}
+                width={70}
+                height={70}
+              />
+            )}
             {props.message && (
-              <Text fontSize={'16px'} color={'#fff'} fontWeight={600}>
+              <Text
+                fontSize={'16px'}
+                color={'#fff'}
+                fontWeight={600}
+                textAlign={'center'}
+              >
                 {props.message}
               </Text>
             )}
@@ -26,7 +39,18 @@ const NodeOverlay = ({ ...props }: NodeOverlayProps) => {
         )}
 
         {props.type === 'action' && (
-          <Button onClick={props.action.onClick}>{props.action.label}</Button>
+          <Button
+            borderRadius={'100px'}
+            onClick={props.action.onClick}
+            bgColor={props.action.bgColor || '#fff'}
+            color={props.action.textColor || '#000'}
+            _hover={{
+              cursor: 'pointer',
+              opacity: 0.7,
+            }}
+          >
+            {props.action.label}
+          </Button>
         )}
       </div>
     </div>

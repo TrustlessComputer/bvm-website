@@ -1,6 +1,9 @@
+// @refresh reset
+
 import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import { parseYoloGames } from '@/modules/blockchains/dapp/parseUtils/yologame';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { IAirdrop } from '@/services/api/dapp/airdrop/interface';
 import { IToken } from '@/services/api/dapp/token_generation/interface';
@@ -12,7 +15,7 @@ import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
 import { Edge, MarkerType } from '@xyflow/react';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
 import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
@@ -25,19 +28,36 @@ import {
   draggedIds2DSignal,
   templateIds2DSignal,
 } from '../signals/useDragSignal';
-import { formTemplateDappSignal } from '../signals/useFormDappsSignal';
+import {
+  formDappSignal,
+  formTemplateDappSignal,
+} from '../signals/useFormDappsSignal';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
+import useUpdateFlowStore from '../stores/useUpdateFlowStore';
+import useAvailableListTemplate from '../studio/useAvailableListTemplate';
+import useModelCategory from '../studio/useModelCategory';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
+import useDapps from './useDapps';
+import handleStatusEdges from '@utils/helpers';
+import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
+import { parseWalletType } from '@/modules/blockchains/dapp/parseUtils/wallet-type';
+import { WalletType } from '@/stores/states/dapp/types';
 
 export default function useFetchingTemplate() {
+  const { templateList, templateDefault } = useAvailableListTemplate();
+  const { modelCategoryList } = useModelCategory();
+  const { dapps } = useDapps();
+  const path = usePathname();
   const params = useParams();
-  const isUpdateChainPage = React.useMemo(() => !!params?.id, [params?.id]);
+  const isUpdateFlow = React.useMemo(() => !!params?.id, [params?.id]);
 
-  const { order, isAAInstalled } = useChainProvider();
+  const { order, isAAInstalled, isBridgeInstalled, isGamingAppsInstalled } =
+    useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
+    categories,
     setParsedCategories,
     setCategories,
     setCategoriesTemplates,
@@ -45,17 +65,23 @@ export default function useFetchingTemplate() {
     setCategoryMapping,
   } = useModelCategoriesStore();
   const { field, setFields } = useOrderFormStoreV3();
-
+  const { setUpdated, updated } = useUpdateFlowStore();
+  const param = useParams();
+  const searchParams = useSearchParams();
+  const refUpdatedBaseDapp = React.useRef(false);
+  const { setIsFirstLoadTemplateBox } = useStoreFirstLoadTemplateBox();
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { initTemplate, setTemplate } = useTemplate();
   const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
 
-  const { needReload } = useAppSelector(commonSelector);
+  const { counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
-  const { tokens, airdrops, stakingPools } = dappState;
+  const { tokens, airdrops, stakingPools, yoloGames, walletType } = dappState;
 
-  const [apiCount, setApiCount] = React.useState(0);
+  const [needSetDataTemplateToBox, setNeedSetDataTemplateToBox] =
+    React.useState(false);
+  const [needCheckAndAddAA, setNeedCheckAndAddAA] = React.useState(false);
 
   const convertData = (data: IModelCategory[]) => {
     const newData = data?.map((item) => {
@@ -79,17 +105,24 @@ export default function useFetchingTemplate() {
     const newFields = cloneDeep(field);
     const categoryMapping: Record<string, IModelCategory> = {};
     const [categories, templates] = await Promise.all([
-      // getModelCategories(l2ServiceUserAddress),
-      getModelCategories('0x4113ed747047863Ea729f30C1164328D9Cc8CfcF'),
+      getModelCategories(l2ServiceUserAddress),
+      // getModelCategories('0x4113ed747047863Ea729f30C1164328D9Cc8CfcF'),
       getTemplates(),
     ]);
+
+    // console.log('LOG: data ', {
+    //   l2ServiceUserAddress,
+    //   categories,
+    //   templates,
+    //   templateList,
+    //   templateDefault,
+    //   modelCategoryList,
+    // });
 
     // Use mockup data
     // const sortedCategories = (categoriesMockup || []).sort(
     // Use API
-    const sortedCategories = (categories || []).sort(
-      (a, b) => a.order - b.order,
-    );
+    const sortedCategories = [...modelCategoryList];
 
     sortedCategories.forEach((_field) => {
       newFields[_field.key] = {
@@ -99,36 +132,78 @@ export default function useFetchingTemplate() {
       categoryMapping[_field.key] = _field;
     });
 
-    if (isAAInstalled) {
-      draggedDappIndexesSignal.value = [0];
-      draggedIds2DSignal.value = [[]];
-    }
+    setCategoryMapping(categoryMapping);
+    setParsedCategories(convertData(sortedCategories));
+    setCategories(sortedCategories);
+    setCategoriesTemplates(templateList);
+    setFields(newFields);
+    setNeedSetDataTemplateToBox(true);
+  };
+
+  const dataTemplateToBox = async () => {
+    setIsFirstLoadTemplateBox(true);
+    formDappSignal.value = {};
+    formTemplateDappSignal.value = {};
+
+    console.log('SET DATA TEMPLATE TO BOX');
+    const newNodes: AppNode[] = [];
+    const rootNode = 'blockchain';
+    // const aaAsDapp = accountAbstractionAsADapp;
+    // if (isAAInstalled) {
+    //   newNodes.unshift({
+    //     id: '0',
+    //     type: nodeKey.ACCOUNT_ABSTRACTION_NODE,
+    //     dragHandle: '.drag-handle-area',
+    //     position: { x: 0, y: 0 },
+    //     data: {
+    //       node: 'dapp',
+    //       title: aaAsDapp.title,
+    //       dapp: aaAsDapp,
+    //       baseIndex: 0,
+    //       categoryOption:
+    //         (categories || []).find((dapp) => dapp.key === 'wallet')
+    //           ?.options[0] || {},
+    //       ids: [],
+    //       targetHandles: [`${0}-t-${rootNode}`],
+    //       sourceHandles: [],
+    //     },
+    //   });
+    // }
 
     const chainNodeInitial: ChainNode = {
-      id: 'blockchain',
+      id: rootNode,
       type: nodeKey.CHAIN_NODE,
       data: {
         node: 'chain',
         title: 'Blockchain',
-        sourceHandles: [],
+        sourceHandles: isUpdateFlow
+          ? [
+              `${rootNode}-s-account_abstraction`,
+              `${rootNode}-s-bridge_apps`,
+              `${rootNode}-s-gaming_apps`,
+            ]
+          : [],
+        // sourceHandles: isUpdateFlow
+        //   ? [`${rootNode}-s-account_abstraction`]
+        //   : [],
         targetHandles: [],
       },
       dragHandle: '.drag-handle-area',
       position: { x: 30, y: 30 },
     };
-    nodes.unshift(chainNodeInitial);
+    newNodes.unshift(chainNodeInitial);
 
-    setCategoryMapping(categoryMapping);
-    setParsedCategories(convertData(sortedCategories));
-    setCategories(sortedCategories);
-    setCategoriesTemplates(templates);
-    setNodes(nodes);
-    setFields(newFields);
-    setApiCount((prev) => prev + 1);
-  };
+    if (!templateForm) {
+      const edgeData: Edge[] = [];
 
-  const dataTemplateToBox = async () => {
-    if (!templateForm) return;
+      setEdges(edgeData);
+      setNodes(newNodes);
+      console.log('newNodes ne', newNodes);
+      setNeedSetDataTemplateToBox(false);
+
+      if (isUpdateFlow) setNeedCheckAndAddAA(true);
+      return;
+    }
 
     let formDapp: Record<string, any> = {};
 
@@ -151,7 +226,6 @@ export default function useFetchingTemplate() {
       const blockKey = FormDappUtil.getBlockKey(fieldKey);
       const isInBase = FormDappUtil.isInBase(fieldKey);
       const isInBlock = FormDappUtil.isInBlock(fieldKey);
-
       (thisDapp?.blockFields || []).forEach((item) => {
         blockFieldMapping[item.key] = item;
       });
@@ -185,34 +259,42 @@ export default function useFetchingTemplate() {
       };
     });
 
-    const rootNode = 'blockchain';
-
     const setDappKeys = new Set(templateDapps.map((dapp) => dapp.key));
     const allDappKeys = Array.from(setDappKeys);
     const xOffsetCount = allDappKeys.reduce((acc, key) => {
       acc[key] = 1;
       return acc;
     }, {} as Record<string, number>);
-    const getHandleNodeBlockChain = nodes.find((item) => item.id === rootNode);
+    const getHandleNodeBlockChain = newNodes.find(
+      (item) => item.id === rootNode,
+    );
 
     let nodesData = nodes;
     let edgeData: Edge[] = [];
 
-    const newNodes: any[] = draggedIds2D.map((ids, index) => {
+    const _newNodes: any[] = draggedIds2D.map((ids, index) => {
       const dappKey = templateDapps[index].key;
-      const xOffset = 30 + 500 * xOffsetCount[dappKey]++;
-      const yOffset = 30 + 500 * allDappKeys.indexOf(dappKey);
+      const statusDapp = templateDapps[index].label?.status || '';
+      const titleStatusDapp = templateDapps[index].label?.title || '';
+
+      const thisNode = [...tokens, ...airdrops, ...stakingPools, ...yoloGames][
+        index
+      ];
+      const defaultPositionX = 30 + 500 * xOffsetCount[dappKey]++;
+      const defaultPositionY = 30 + 500 * allDappKeys.indexOf(dappKey);
+      const xOffset = thisNode?.position_x ?? defaultPositionX;
+      const yOffset = thisNode?.position_y ?? defaultPositionY;
       const idNode = index.toString();
-      const isHandleExists = edges.some(
-        (handle) =>
-          handle.sourceHandle === `${rootNode}-s-${templateDapps[index].title}`,
+      const isHandleExists = getHandleNodeBlockChain?.data?.sourceHandles?.some(
+        (handle) => handle === `${rootNode}-s-${templateDapps[index].title}`,
       );
 
       if (!isHandleExists) {
         getHandleNodeBlockChain?.data?.sourceHandles?.push(
           `${rootNode}-s-${templateDapps[index].title}`,
         );
-        nodesData = nodes.map((item) =>
+
+        nodesData = newNodes.map((item) =>
           item.id === rootNode ? getHandleNodeBlockChain : item,
         ) as AppState['nodes'];
       }
@@ -224,7 +306,11 @@ export default function useFetchingTemplate() {
         target: `${idNode}`,
         targetHandle: `${idNode}-t-${rootNode}`,
         type: 'customEdge',
-        label: '',
+        label: handleStatusEdges(statusDapp, 'running', idNode).icon,
+        animated: handleStatusEdges(statusDapp, 'running', idNode).animate,
+        selectable: false,
+        selected: false,
+        focusable: false,
         markerEnd: {
           type: MarkerType.Arrow,
           width: 25,
@@ -243,89 +329,133 @@ export default function useFetchingTemplate() {
         type: 'dappTemplate',
         dragHandle: '.drag-handle-area',
         data: {
+          node: 'dapp',
           label: templateDapps[index].title,
-          status: 'Running',
+          status: titleStatusDapp,
           isChain: false,
           dapp: templateDapps[index],
           ids,
           baseIndex: index,
           targetHandles: [`${idNode}-t-${rootNode}`],
           sourceHandles: [],
+          itemId: thisNode?.id,
+          positionId: thisNode?.position_id,
         },
         position: { x: xOffset, y: yOffset },
       };
     });
-    // const newNodes: DappNode[] = draggedIds2D.map((ids, index) => {
-    //   return {
-    //     id: Math.random().toString(),
-    //     type: nodeKey.DAPP_NODE,
-    //     dragHandle: '.drag-handle-area',
-    //     data: {
-    //       title: templateDapps[index].title,
-    //       dapp: templateDapps[index],
-    //       ids,
-    //       baseIndex: index,
-    //       sourceHandles: [],
-    //       targetHandles: [],
-    //       node: 'dapp',
-    //       categoryOption: {} as IModelCategory,
-    //     },
-    //     position: { x: 30 * (index + 2), y: 30 * (index + 2) },
-    //   } as DappNode;
-    // });
 
+    // if (updated) {
+    //   const preNodes = (localStorage.getItem(
+    //     LocalStorageKey.UPDATE_FLOW_NODES,
+    //   ) || []) as AppNode[];
+
+    //   _newNodes.forEach((node, index) => {
+    //     if (!preNodes[index]) return;
+
+    //     node.position = preNodes[index].position;
+    //     node.data = {
+    //       ...node.data,
+    //       sourceHandles: preNodes[index].data.sourceHandles,
+    //       targetHandles: preNodes[index].data.targetHandles,
+    //     };
+    //   });
+    // }
     const map: any = {};
-    for (const element of [...nodesData, ...newNodes]) {
+    for (const element of [...newNodes, ...nodesData, ..._newNodes]) {
       map[element.id] = element;
     }
     const newArray = Object.values(map) as AppNode[];
 
-    setEdges(edgeData)
-    // setNodes([...nodes, ...newNodes]);
-    setNodes(newArray);
-
     templateIds2DSignal.value = [...draggedIds2D];
     formTemplateDappSignal.value = { ...formDapp };
+    // console.log('[...edges, ...edgeData]', [...edges, ...edgeData]);
+    // console.log('Nodes', newArray);
+    if (path === '/studio') {
+      setEdges([...edgeData]);
+    } else {
+      setEdges([...edges, ...edgeData]);
+    }
+    console.log('[useFetchingTemplate] case 1');
+    setNodes(newArray);
+    setNeedSetDataTemplateToBox(false);
+    setNeedCheckAndAddAA(true);
   };
 
   const parseDappApiToDappModel = async () => {
+    console.log('PARSE DAPP API TO DAPP MODEL');
+
+    let startIndex = 0;
+
     const parsedTokensData = parseTokensData(tokens);
     const parsedTokensForm = parseDappModel({
       key: DappType.token_generation,
       model: parsedTokensData,
-      startIndex: 0,
+      startIndex: startIndex,
     });
 
+    startIndex += parsedTokensData.length;
     const parsedAirdropsData = await parseAirdropsData(airdrops, tokens);
     const parsedAirdropsForm = parseDappModel({
       key: DappType.airdrop,
       model: parsedAirdropsData,
-      startIndex: parsedTokensData.length,
+      startIndex: startIndex,
     });
 
+    startIndex += parsedAirdropsData.length;
     const parsedStakingPoolsData = parseStakingPools(stakingPools);
     const parsedStakingPoolsForm = parseDappModel({
       key: DappType.staking,
       model: parsedStakingPoolsData,
-      startIndex: parsedTokensData.length + parsedAirdropsData.length,
+      startIndex: startIndex,
+    });
+
+    startIndex += parsedStakingPoolsData.length;
+    const parsedYoloGameData = parseYoloGames(yoloGames);
+    const parsedYoloGameForm = parseDappModel({
+      key: DappType.yologame,
+      model: parsedYoloGameData,
+      startIndex: startIndex,
+    });
+
+    startIndex += yoloGames.length;
+    const parsedWalletData = walletType ? parseWalletType(walletType) : [];
+    const parsedWalletForm = walletType
+      ? parseDappModel({
+          key: DappType.walletType,
+          model: parsedWalletData,
+          startIndex: startIndex,
+        })
+      : {};
+
+    console.log('[useFetchingTemplate] parsedTokensData', {
+      tokens,
+      airdrops,
+      stakingPools,
+      parsedWalletData,
     });
 
     setTemplateDapps([
       ...parsedTokensData,
       ...parsedAirdropsData,
       ...parsedStakingPoolsData,
+      ...parsedYoloGameData,
+      ...parsedWalletData,
     ]);
     setTemplateForm({
       ...parsedTokensForm.fieldValue,
       ...parsedAirdropsForm.fieldValue,
       ...parsedStakingPoolsForm.fieldValue,
+      ...parsedYoloGameForm.fieldValue,
+      ...((parsedWalletForm as any)?.fieldValue || {}),
     } as any);
 
-    setApiCount((prev) => prev + 1);
+    setNeedSetDataTemplateToBox(true);
   };
 
   const parseTokensData = (tokens: IToken[]) => {
     const result: DappModel[] = [];
+
     for (const token of tokens) {
       const t = parseIssuedToken(token);
       result.push(t);
@@ -339,8 +469,9 @@ export default function useFetchingTemplate() {
     _tokens: IToken[],
   ) => {
     const result: DappModel[] = [];
+
     for (const airdrop of _airdrops) {
-      const _token = tokens.find((v) =>
+      const _token = tokens.find((v: IToken) =>
         compareString(v.contract_address, airdrop.token_address),
       );
 
@@ -351,26 +482,77 @@ export default function useFetchingTemplate() {
     return result;
   };
 
+  const checkAndAddAA = () => {
+    console.log(
+      '[useFetchingTemplate] MUST CALL LAST',
+      draggedIds2DSignal.value,
+    );
+
+    const newDraggedIds2D = [];
+    const newDraggedDappIndexes = [];
+
+    if (isAAInstalled) {
+      newDraggedDappIndexes.push(0);
+      newDraggedIds2D.push([]);
+    }
+
+    if (isBridgeInstalled) {
+      newDraggedDappIndexes.push(1);
+      newDraggedIds2D.push([]);
+    }
+
+    if (isGamingAppsInstalled) {
+      newDraggedDappIndexes.push(2);
+      newDraggedIds2D.push([]);
+    }
+
+    draggedDappIndexesSignal.value = newDraggedDappIndexes;
+    draggedIds2DSignal.value = newDraggedIds2D;
+
+    setNeedCheckAndAddAA(false);
+  };
+
   React.useEffect(() => {
     fetchData();
-  }, [order]);
+    // parseDappApiToDappModel();
+  }, []);
 
   React.useEffect(() => {
+    if (!isUpdateFlow) return;
+
+    if (updated) {
+      draggedDappIndexesSignal.value = [];
+      draggedIds2DSignal.value = [];
+      fetchData();
+    }
+
     parseDappApiToDappModel();
-  }, [needReload]);
+    setUpdated(false);
+  }, [counterFetchedDapp]);
 
   React.useEffect(() => {
-    // Chain API and Dapp API
-    if (apiCount < 2) return;
+    if (!needCheckAndAddAA || !isUpdateFlow) return;
+
+    checkAndAddAA();
+  }, [needCheckAndAddAA, isAAInstalled, isUpdateFlow]);
+
+  React.useEffect(() => {
+    if (!needSetDataTemplateToBox) return;
 
     dataTemplateToBox();
-  }, [apiCount]);
+  }, [needSetDataTemplateToBox]);
 
   React.useEffect(() => {
-    if (isUpdateChainPage && order) {
+    if (isUpdateFlow && order) {
       setTemplate(order.selectedOptions || []);
     } else {
-      initTemplate(0);
+      const template = searchParams.get('template');
+
+      if (template) {
+        setTemplate(templateDefault || []);
+      } else {
+        setTemplate([]);
+      }
     }
-  }, [order, categoriesTemplates]);
+  }, [categoriesTemplates, isUpdateFlow, templateDefault]);
 }

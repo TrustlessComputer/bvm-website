@@ -11,6 +11,7 @@ export const draggedIdsSignal = signal<string[]>([]);
 export const draggedDappIndexesSignal = signal<number[]>([]);
 export const draggedIds2DSignal = signal<Field[][]>([]);
 export const templateIds2DSignal = signal<Field[][]>([]);
+export const restoreLocal = signal<boolean>(false);
 export const blockDraggingSignal = signal<{
   id: string;
   title: string;

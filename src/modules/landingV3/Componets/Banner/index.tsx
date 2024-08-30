@@ -13,7 +13,7 @@ export default function Banner() {
           width={24}
           height={24}
         />
-        Bitcoin Heartbeat: Provide transparent and verifiable insights into
+        Bitcoin Heartbeats: Provide transparent and verifiable insights into
         Bitcoin rollups.{' '}
         <strong>
           Let's explore{' '}

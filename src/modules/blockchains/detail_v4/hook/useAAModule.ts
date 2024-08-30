@@ -8,12 +8,20 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 import { useAccountAbstractionStore } from '../../detail_v3/account-abstraction_v2/store/hook';
 import { useChainProvider } from '../provider/ChainProvider.hook';
+import {
+  ModuleTypeIcon,
+  getModuleIconUrlByType,
+} from '../helper/moduleIconHelper';
+import { OrderStatus } from '@/stores/states/l2services/types';
 
 export type AAModuleStatusDetail =
   | 'drafting_modules'
+  | 'need_config'
   | 'new'
   | 'processing'
   | 'done';
+
+export type LineAAStatus = 'draft' | 'running' | 'down';
 
 export const useAAModule = () => {
   const dispatch = useAppDispatch();
@@ -102,7 +110,46 @@ export const useAAModule = () => {
     }
   };
 
+  const getAATypeIcon = (): ModuleTypeIcon => {
+    if (!isUpdateFlow) {
+      // Flow Create Chain
+      return 'Drafting';
+    } else {
+      switch (aaStatusDetail) {
+        case 'need_config':
+        case 'new':
+        case 'processing':
+          return 'Setting_Up';
+
+        case 'done':
+          return 'Running';
+
+        default:
+          break;
+      }
+      return 'Drafting';
+    }
+  };
+
+  const getAATypeIconUrl = () => {
+    return getModuleIconUrlByType(getAATypeIcon());
+  };
+
+  const lineAAStatus: LineAAStatus = useMemo(() => {
+    const typeIcon = getAATypeIcon();
+    switch (typeIcon) {
+      case 'Drafting':
+      case 'Setting_Up':
+        return 'draft';
+      case 'Running':
+        return 'running';
+      default:
+        return 'down';
+    }
+  }, [isUpdateFlow, aaStatusDetail]);
+
   return {
+    lineAAStatus,
     aaStatusData,
     configAAHandler,
     isCanConfigAA,
@@ -111,5 +158,6 @@ export const useAAModule = () => {
     isAAModuleLoading,
     checkTokenContractAddress,
     aaInstalledData,
+    getAATypeIconUrl,
   };
 };

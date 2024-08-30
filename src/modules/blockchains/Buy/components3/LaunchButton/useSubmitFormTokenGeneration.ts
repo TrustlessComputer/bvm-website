@@ -7,9 +7,9 @@ import {
 } from '@/modules/blockchains/CreateToken/utils';
 import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
 import { FormDappUtil } from '@/modules/blockchains/dapp/utils';
+import { IPosition } from '@/services/api/dapp/staking/interface';
 import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 import { useAppSelector } from '@/stores/hooks';
-import { requestReload } from '@/stores/states/common/reducer';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { getError } from '@/utils/error';
 import { showSuccess } from '@components/toast';
@@ -19,6 +19,7 @@ import { ethers } from 'ethers';
 import { isEmpty } from 'lodash';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import { IRetrieveFormsByDappKey } from '../../hooks/useOneForm';
 
 const useSubmitFormTokenGeneration = () => {
@@ -171,11 +172,17 @@ const useSubmitFormTokenGeneration = () => {
 
   const onSubmitForm = async ({
     forms,
+    positions = [],
   }: {
     forms: IRetrieveFormsByDappKey[][];
+    positions?: Vector2[];
   }) => {
+    let index = 0;
+
     try {
       for (const form of forms) {
+        // console.log('formxxxx', form);
+
         let dataMapping: Record<string, { key: string; value: string }[]>[] =
           [];
 
@@ -195,10 +202,14 @@ const useSubmitFormTokenGeneration = () => {
         dataMapping = extractedValue(formDappInBlock, formDapp, dataMapping);
         dataMapping = extractedValue(formDappInSingle, formDapp, dataMapping);
 
-        dataMapping = checkData(dataMapping);
+        // dataMapping = checkData(dataMapping);
+
+        dataMapping = dataMapping.filter((v) => v);
+
+        // console.log('dataMapping', dataMapping);
 
         // setErrorData([]);
-        let errors = validate(dataMapping);
+        // let errors = validate(dataMapping);
 
         // if (errors.length > 0) {
         //   setErrorData(errors);
@@ -219,7 +230,7 @@ const useSubmitFormTokenGeneration = () => {
                 {
                   name: 'Foundation',
                   address: data?.receiver_address,
-                  total_amount: data.token_supply as unknown as string,
+                  total_amount: data?.token_supply as unknown as string,
                 } as unknown as ITokenomics,
               ] as ITokenomics[];
             }
@@ -232,8 +243,6 @@ const useSubmitFormTokenGeneration = () => {
                   data?.receiver_address,
               };
             });
-
-            return (data?.allocation || []) as unknown as ITokenomics[];
           };
 
           // @ts-ignore
@@ -241,7 +250,7 @@ const useSubmitFormTokenGeneration = () => {
 
           const body: IBodyCreateToken = {
             name: data?.token_name as unknown as string,
-            symbol: (data.token_symbol as unknown as string).toUpperCase(),
+            symbol: (data?.token_symbol as unknown as string)?.toUpperCase?.(),
             ...getTokenomics(defaultTokenomics),
           };
 
@@ -259,6 +268,8 @@ const useSubmitFormTokenGeneration = () => {
             cliffUnits,
           } = body;
 
+          // console.log('body', body);
+
           let iface = new ethers.utils.Interface(TOKENABI.abi);
 
           const calldata = iface.encodeDeploy([
@@ -275,20 +286,28 @@ const useSubmitFormTokenGeneration = () => {
             cliffUnits,
           ]);
 
-          console.log('body', body);
-          console.log('calldata', calldata);
+          // console.log('body', body);
+          // console.log('calldata', calldata);
+
+          // TODO: JACKIE - update position below
+          const position: IPosition = {
+            position_id: uuidv4(),
+            position_x: positions[index].x ?? 0,
+            position_y: positions[index].y ?? 0,
+          };
+          index++;
 
           const api = new CTokenGenerationAPI();
           const tokenInfo = await api.generateNewToken({
             data_hex: calldata,
             type: 'token',
             network_id: Number(dappState?.chain?.chainId),
+            ...position, // TODO: JACKIE - update position
           });
 
+          let logoUrl = '';
           if (data?.logo) {
-            const logoUrl = await api.uploadImage(
-              data?.logo_file as unknown as File,
-            );
+            logoUrl = await api.uploadImage(data?.logo_file as unknown as File);
             await api.updateTokenLogo({
               logo_url: logoUrl,
               token_address: tokenInfo?.contract_address,
@@ -298,12 +317,12 @@ const useSubmitFormTokenGeneration = () => {
         }
 
         showSuccess({ message: 'Generate token successfully!' });
-        dispatch(requestReload());
         handleReset();
       }
     } catch (error) {
       const { message } = getError(error);
       toast.error(message);
+      throw error;
     } finally {
     }
   };

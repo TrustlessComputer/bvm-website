@@ -38,6 +38,8 @@ import {
 } from './types';
 import { IModelCategory } from '@/types/customize-model';
 import { isEmpty } from 'lodash';
+import { ORDER_MOCKUP_DATA } from './OrderMockupData';
+import { MODEL_CATEGORY_MOCKUP } from './ModelCategoryMockup';
 
 const isInValidAccessToken = () => {
   const accessToken = LocalStorage.getItem(
@@ -244,7 +246,7 @@ export const orderDetailByID = async (
     if (data && data.orderId) {
       return data as OrderItem;
     }
-    return undefined;
+    // return ORDER_MOCKUP_DATA;
   } catch (error: any) {
     throw error;
   }
@@ -372,6 +374,8 @@ export const getModalCategories = async (
   )) as IModelCategory[];
 
   return data;
+
+  // return MODEL_CATEGORY_MOCKUP;
 };
 
 export const getAvailableListTemplate = async (): Promise<

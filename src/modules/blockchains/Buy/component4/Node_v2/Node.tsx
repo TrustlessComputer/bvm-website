@@ -10,15 +10,14 @@ import styles from './styles.module.scss';
 import { Handle, Position } from '@xyflow/react';
 
 const Node = ({
-                overlay,
-                content,
-                heading,
-                notification,
-                borderColor = '#FFC700',
-                targetHandles,
-                sourceHandles,
-              }: NodeProps) => {
-
+  overlay,
+  content,
+  heading,
+  notification,
+  borderColor = '#FFC700',
+  targetHandles,
+  sourceHandles,
+}: NodeProps) => {
   return (
     <div
       className={styles.node}

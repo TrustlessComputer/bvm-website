@@ -25,8 +25,6 @@ const FeeRateInput = (props: Props) => {
   const { option } = props;
   // const { setChainName } = useOrderFormStore();
   // const { value, errorMessage } = computerNameField;
-
-  const { isCapture } = useCaptureStore();
   const { aaStatusData, aaInstalledData, isCanNotEdit } = useAAModule();
   const { isUpdateFlow } = useChainProvider();
   const { statusCode } = aaStatusData;
@@ -125,6 +123,7 @@ const FeeRateInput = (props: Props) => {
           borderColor={isError ? 'red' : 'transparent'}
           borderWidth={isError ? '2px' : 'none'}
           type="number"
+          fontSize={'14px'}
           placeholder="0 (gasless)"
           value={feeRate}
           disabled={isCanNotEdit}

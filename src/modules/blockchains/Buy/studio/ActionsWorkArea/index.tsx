@@ -3,35 +3,18 @@ import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
 import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
 import Image from 'next/image';
 import React, { ReactElement } from 'react';
-import Button from '../../component4/Button';
 import ErrorModal from '../../components3/ErrorModal';
-import useTemplate from '../../hooks/useTemplate';
-import {
-  draggedDappIndexesSignal,
-  draggedIds2DSignal,
-} from '../../signals/useDragSignal';
-import { formDappSignal } from '../../signals/useFormDappsSignal';
-import { useTemplateFormStore } from '../../stores/useDappStore';
-import useFlowStore from '../../stores/useFlowStore';
+import useStudioHelper from '../useStudioHelper';
 
 export default function ActionsWorkArea(): ReactElement {
   const { isCapture } = useCaptureStore();
+  const { resetEdit } = useStudioHelper();
+
   const [isShowModal, setIsShowModal] = React.useState(false);
-  // const { setDraggedFields } = useDragStore();
-  const { initTemplate } = useTemplate();
-  const { nodes, setNodes } = useFlowStore();
-  const { templateDapps } = useTemplateFormStore();
 
-  const resetEdit = () => {
-    const totalTemplateDapps = templateDapps.length;
+  const resetEditHandler = async () => {
+    await resetEdit();
     setIsShowModal(false);
-    setNodes(nodes.slice(0, totalTemplateDapps + 1));
-
-    draggedDappIndexesSignal.value = [];
-    draggedIds2DSignal.value = [];
-    formDappSignal.value = {};
-
-    initTemplate(0);
   };
 
   return (
@@ -39,10 +22,12 @@ export default function ActionsWorkArea(): ReactElement {
       {!isCapture && (
         <div className={s.resetButton}>
           <Capture />
-          <Button onClick={() => setIsShowModal(true)}>
-            RESET{' '}
-            <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
-          </Button>
+          <div className={`${s.reset2}`} onClick={() => setIsShowModal(true)}>
+            <p>RESET</p>
+            <div>
+              <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
+            </div>
+          </div>
         </div>
       )}
 
@@ -67,7 +52,7 @@ export default function ActionsWorkArea(): ReactElement {
             Cancel
           </button>
           <button
-            onClick={resetEdit}
+            onClick={resetEditHandler}
             className={`${s.actions__button} ${s.actions__button__reset}`}
           >
             Reset

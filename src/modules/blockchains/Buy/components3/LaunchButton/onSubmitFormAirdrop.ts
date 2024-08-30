@@ -11,9 +11,14 @@ import dayjs from 'dayjs';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 // @ts-ignore
+import {
+  FormDappUtil,
+  getAirdropTaskKey,
+} from '@/modules/blockchains/dapp/utils';
+import { IPosition } from '@/services/api/dapp/staking/interface';
 import Papa from 'papaparse';
+import { v4 as uuidv4 } from 'uuid';
 import { IRetrieveFormsByDappKey } from '../../hooks/useOneForm';
-import { FormDappUtil, getAirdropTaskKey } from '@/modules/blockchains/dapp/utils';
 
 const useSubmitFormAirdrop = () => {
   const dappState = useAppSelector(dappSelector);
@@ -30,9 +35,13 @@ const useSubmitFormAirdrop = () => {
 
   const onSubmitAirdrop = async ({
     forms,
+    positions = [],
   }: {
     forms: IRetrieveFormsByDappKey[][];
+    positions?: Vector2[];
   }) => {
+    let index = 0;
+
     try {
       for (const form of forms) {
         let finalFormMappings: Record<string, any[]>[] = [];
@@ -66,6 +75,8 @@ const useSubmitFormAirdrop = () => {
           formDapp,
           finalFormMappings,
         );
+
+        finalFormMappings = finalFormMappings.filter((f) => f);
 
         let errors: any[] = [];
 
@@ -162,6 +173,14 @@ const useSubmitFormAirdrop = () => {
               amount: v.reward_amount,
             }));
 
+          // TODO: JACKIE - update position below
+          const position: IPosition = {
+            position_id: uuidv4(),
+            position_x: positions[index].x ?? 0,
+            position_y: positions[index].y ?? 0,
+          };
+          index++;
+
           const body: IBodySetupTask = {
             title: form.airdrop_title as unknown as string,
             token_address: form.reward_token as unknown as string,
@@ -171,6 +190,7 @@ const useSubmitFormAirdrop = () => {
               ? dayjs(form.start_date as unknown as string).unix()
               : dayjs().unix(),
             end_time: dayjs(form.end_date as unknown as string).unix(),
+            ...position, // TODO: JACKIE - update position
           };
 
           if (tasks.length > 0) {
@@ -207,6 +227,8 @@ const useSubmitFormAirdrop = () => {
       const { message } = getError(error);
       toast.error(message);
       // setLoading(false);
+
+      throw error;
     } finally {
     }
   };

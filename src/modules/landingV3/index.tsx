@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect } from 'react';
 import s from './styles.module.scss';
 import useWhiteBackground from '@/hooks/useWhiteBackground';
@@ -29,27 +31,28 @@ export default function LandingV3() {
     <div className={s.landing}>
       <HeroVideo />
       <VideoSection />
-      <HeadingSection title={'How it works'} showBtn>Whether you're an indie developer or a large-scale
-        project, BVM makes it easy
-        and affordable to create your own ZK rollup — secured by Bitcoin.</HeadingSection>
+      <HeadingSection title={'How it works'} showBtn>
+        Whether you're an indie developer or a large-scale project, BVM makes it
+        easy and affordable to create your own ZK rollup — secured by Bitcoin.
+      </HeadingSection>
 
-      {
-        isMobile ? <>
+      {isMobile ? (
+        <>
           <div className={s.bottom}>
             {HOME_DATA_SECTIONS.map((data) => {
               return <SectionContent {...data} />;
             })}
           </div>
-
-        </> : <div className={s.bottom}>
+        </>
+      ) : (
+        <div className={s.bottom}>
           <ScrollingSection />
         </div>
-      }
+      )}
       <div className={s.caseStudy}>
         <CaseStudy />
       </div>
       <div className={s.teamSection}>
-
         <SectionContent {...TEAM} />
       </div>
 

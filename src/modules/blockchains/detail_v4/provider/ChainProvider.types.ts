@@ -4,6 +4,7 @@ export type IChainProviderActions = {};
 
 export type IChainProviderProps = {
   order: OrderItem | undefined;
+  chainID: number | undefined;
 };
 
 export type IChainProvider = IChainProviderActions & IChainProviderProps;

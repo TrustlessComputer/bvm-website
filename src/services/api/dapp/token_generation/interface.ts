@@ -1,10 +1,12 @@
-export interface IGenerationTokenParams {
+import { IPosition } from '@/services/api/dapp/staking/interface';
+
+export interface IGenerationTokenParams extends IPosition {
   data_hex: string;
   type: string;
   network_id: number;
 }
 
-export interface IToken {
+export interface IToken extends IPosition {
   id?: number;
   network_id?: number;
   name?: string;

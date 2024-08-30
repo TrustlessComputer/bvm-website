@@ -1,6 +1,5 @@
+import { uniqBy } from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
-
-import ImagePlaceholder from '@/components/ImagePlaceholder';
 
 import useL2Service from '@/hooks/useL2Service';
 import useSubmitStaking from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitStaking';
@@ -15,31 +14,41 @@ import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { requestReload } from '@/stores/states/common/reducer';
+import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import {
   getL2ServicesStateSelector,
   getOrderDetailSelected,
 } from '@/stores/states/l2services/selector';
+import { OrderItem } from '@/stores/states/l2services/types';
 import { IModelOption } from '@/types/customize-model';
 import { getErrorMessage } from '@/utils/errorV2';
 import { formatCurrencyV2 } from '@/utils/format';
 import sleep from '@/utils/sleep';
-import { Spinner, Text, useDisclosure } from '@chakra-ui/react';
+import { Image, Spinner, Text, useDisclosure } from '@chakra-ui/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { getChainIDRandom } from '../../Buy.helpers';
+import { useOptionInputStore } from '../../component4/DappRenderer/OptionInputValue/useOptionInputStore';
+import { LocalStorageKey } from '../../contants';
 import useFormDappToFormChain from '../../hooks/useFormDappToFormChain';
 import useOneForm from '../../hooks/useOneForm';
 import PreviewLaunchModal from '../../Preview';
-import { FormOrder } from '../../stores';
 import { useOrderFormStore } from '../../stores/index_v2';
 import useOrderFormStoreV3 from '../../stores/index_v3';
+import useFlowStore from '../../stores/useFlowStore';
+import useUpdateFlowStore from '../../stores/useUpdateFlowStore';
 import { chainKeyToDappKey } from '../../utils';
 import ErrorModal from '../ErrorModal';
 import { formValuesAdapter } from './FormValuesAdapter';
+import { formValuesAdapterOptions } from './formValuesAdapterOptions';
 import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
-import { setOrderSelected } from '@/stores/states/l2services/reducer';
+import useSubmitYoloGame from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitYoloGame';
+import useSubmitWalletType from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitWalletType';
+import { useComputerNameInputStore } from '../ComputerNameInput/ComputerNameInputStore';
+import BigNumber from 'bignumber.js';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -72,8 +81,12 @@ const isExistAA = (dyanmicFormAllData: any[]): boolean => {
 const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [dyanmicFormAllData, setDyanmicFormAllData] = useState<any[]>([]);
-
+  const dispatch = useAppDispatch();
+  const { getValue } = useOptionInputStore();
+  const { setUpdated } = useUpdateFlowStore();
+  const { nodes, edges } = useFlowStore();
   const { dappCount } = useFormDappToFormChain();
+  const { computerName } = useComputerNameInputStore();
 
   const { parsedCategories: data, categories: originalData } =
     useModelCategoriesStore();
@@ -84,7 +97,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { accountInforL2Service, availableListFetching, availableList } =
     useAppSelector(getL2ServicesStateSelector);
   const { getOrderDetailByID } = useL2Service();
-  const dispatch = useAppDispatch();
   const { isCanConfigAA, configAAHandler, checkTokenContractAddress } =
     useAAModule();
 
@@ -94,8 +106,9 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   >([]);
 
   const { showContactUsModal } = useContactUs();
-  const { retrieveFormsByDappKey } = useOneForm();
-  const { isUpdateFlow, isOwnerChain } = useChainProvider();
+  const { retrieveFormsByDappKey, retrieveNodePositionsByDappKey } =
+    useOneForm();
+  const { isUpdateFlow, isOwnerChain, isChainLoading } = useChainProvider();
 
   const router = useRouter();
   const { computerNameField, chainIdRandom } = useBuy();
@@ -115,22 +128,23 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { onSubmitStaking } = useSubmitStaking();
   const { onSubmitAirdrop } = useSubmitFormAirdrop();
   const { onSubmitTokenGeneration } = useSubmitFormTokenGeneration();
+  const { onSubmitYoloGame } = useSubmitYoloGame();
+  const { onSubmit: onSubmitWalletType } = useSubmitWalletType();
 
-  const { chainName, dataAvaibilityChain, gasLimit, network, withdrawPeriod } =
-    useOrderFormStore();
+  const { chainName } = useOrderFormStore();
   const searchParams = useSearchParams();
   const packageParam = searchParams.get('use-case') || PRICING_PACKGE.Hacker;
 
   const isDisabledBtn = useMemo(() => {
-    return isUpdateFlow && !isOwnerChain;
-  }, [isUpdateFlow, isOwnerChain]);
+    return (isUpdateFlow && !isOwnerChain) || isChainLoading;
+  }, [isUpdateFlow, isOwnerChain, isChainLoading]);
 
   const titleButton = useMemo(() => {
     if (!loggedIn) {
-      return 'Connect';
+      return 'Launch';
     }
     if (needContactUs) {
-      return 'Contact Us';
+      return 'Launch';
     }
     if (isUpdate) {
       return 'Update';
@@ -170,7 +184,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   }, [availableListFetching, availableList]);
 
   const allFilled = useMemo(() => {
-    return (
+    return !!(
       !!chainName.trim() &&
       data?.every((item) => {
         return (
@@ -200,13 +214,15 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         optionMapping: {},
       };
 
+    const ignoreFields = ['bridge_apps', 'gaming_apps'];
     const dynamicForm = [];
     const optionMapping: Record<string, IModelOption> = {};
     const allOptionKeyDragged: string[] = [];
     const allRequiredForKey: string[] = [];
 
     for (const _field of originalData) {
-      if (!_field.isChain && _field.key !== 'bridge_apps') continue;
+      // if (!_field.isChain && _field.key !== 'bridge_apps') continue;
+      if (!_field.isChain && !ignoreFields.includes(_field.key)) continue;
 
       _field.options.forEach((opt: IModelOption) => {
         optionMapping[opt.key] = opt;
@@ -272,6 +288,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       }
     }
 
+    dynamicForm.forEach((field) => {
+      field.options = uniqBy(field.options, 'key');
+    });
+
     return {
       dynamicForm,
       allOptionKeyDragged,
@@ -281,9 +301,9 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   };
 
   const onUpdateHandler = async () => {
-    // if (isDisabledBtn) {
-    //   return;
-    // }
+    if (isDisabledBtn) {
+      return;
+    }
 
     if (!allFilled) {
       setShowError(true);
@@ -294,23 +314,24 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       !allFilled ||
       hasError ||
       !originalData ||
-      !orderDetail
+      !orderDetail ||
+      !orderDetail?.chainId
     ) {
       return;
     }
 
     const { dynamicForm } = getDynamicForm();
 
-    if (needContactUs) {
-      // showContactUsModal(dynamicForm as any);
-      showContactUsModal({
-        subjectDefault: 0,
-        disableSelect: true,
-        changeText: true,
-        nodeConfigs: dynamicForm || [],
-      });
-      return;
-    }
+    // if (needContactUs) {
+    //   // showContactUsModal(dynamicForm as any);
+    //   showContactUsModal({
+    //     subjectDefault: 0,
+    //     disableSelect: true,
+    //     changeText: true,
+    //     nodeConfigs: dynamicForm || [],
+    //   });
+    //   return;
+    // }
 
     setSubmitting(true);
 
@@ -321,56 +342,119 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       chainId: orderDetail.chainId,
       dynamicFormValues: dynamicForm,
     });
+
+    const yoloGameForms = retrieveFormsByDappKey({
+      dappKey: DappType.yologame,
+    });
+    const yoloNodePositions = retrieveNodePositionsByDappKey({
+      dappKey: DappType.yologame,
+    });
     const stakingForms = retrieveFormsByDappKey({
+      dappKey: DappType.staking,
+    });
+    const stakingNodePositions = retrieveNodePositionsByDappKey({
       dappKey: DappType.staking,
     });
 
     const airdropForms = retrieveFormsByDappKey({
       dappKey: DappType.airdrop,
     });
+    const airdropNodePositions = retrieveNodePositionsByDappKey({
+      dappKey: DappType.airdrop,
+    });
 
     const tokensForms = retrieveFormsByDappKey({
       dappKey: DappType.token_generation,
     });
+    const tokensNodePositions = retrieveNodePositionsByDappKey({
+      dappKey: DappType.token_generation,
+    });
 
-    console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
-    console.log('LEON LOG: 111', airdropForms);
+    const walletTypeForms = retrieveFormsByDappKey({
+      dappKey: DappType.walletType,
+    });
+
+    console.log('[LaunchButton] - onUpdateHandler', {
+      params,
+      stakingForms,
+      stakingNodePositions,
+      airdropForms,
+      airdropNodePositions,
+      tokensForms,
+      tokensNodePositions,
+      yoloGameForms,
+      yoloNodePositions,
+      walletTypeForms,
+    });
+
+    // console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
+    // console.log('LEON LOG: 111', tokensForms);
+    let isConfigDapp = false;
+
     try {
       // Update and Call API install (behind the scene form BE Phuong)
       const result = await orderUpdateV2(params, orderDetail.orderId);
+      // const result = {};
       if (result) {
         //Config Account Abstraction...
         configAccountAbstraction(dynamicForm);
         let isConfigDapp = false;
+        if (yoloGameForms && yoloGameForms.length > 0) {
+          await onSubmitYoloGame({
+            forms: yoloGameForms,
+            positions: yoloNodePositions,
+          });
+          isConfigDapp = true;
+        }
         //Staking...
         if (stakingForms && stakingForms.length > 0) {
           await onSubmitStaking({
             forms: stakingForms,
+            positions: stakingNodePositions,
           });
           isConfigDapp = true;
-        } else if (airdropForms && airdropForms.length > 0) {
-          await onSubmitAirdrop({ forms: airdropForms });
-          isConfigDapp = true;
-        } else if (tokensForms && tokensForms.length > 0) {
-          await onSubmitTokenGeneration({ forms: tokensForms });
+        }
+
+        if (airdropForms && airdropForms.length > 0) {
+          await onSubmitAirdrop({
+            forms: airdropForms,
+            positions: airdropNodePositions,
+          });
           isConfigDapp = true;
         }
 
-        if (isConfigDapp) {
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
+        if (tokensForms && tokensForms.length > 0) {
+          await onSubmitTokenGeneration({
+            forms: tokensForms,
+            positions: tokensNodePositions,
+          });
+          isConfigDapp = true;
         }
 
-        // TO DO [Leon]
-        // Call API Config DApp if is exist dapp (issues token, staking, ....) daragged into Data View
+        if (walletTypeForms && walletTypeForms.length > 0) {
+          await onSubmitWalletType({
+            forms: walletTypeForms,
+          });
+          isConfigDapp = true;
+        }
 
-        // try {
-        //   // const res =  await ...
-        // } catch (error) {}
+        // Save nodes and edges to store
+        localStorage.setItem(
+          LocalStorageKey.UPDATE_FLOW_NODES,
+          JSON.stringify(nodes),
+        );
+        localStorage.setItem(
+          LocalStorageKey.UPDATE_FLOW_EDGES,
+          JSON.stringify(edges),
+        );
 
         isSuccess = true;
-        dispatch(setOrderSelected(result));
+        dispatch(setOrderSelected(result as OrderItem));
+        await sleep(1);
+
+        // if (isSuccess) {
+        //   toast.success('Update Successful');
+        // }
       }
     } catch (error) {
       console.log('ERROR: ', error);
@@ -383,33 +467,44 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         toast.error(message);
       }
     } finally {
-      getOrderDetailByID(orderDetail.orderId);
+      console.log('[LaunchButton] - update flow', {
+        isSuccess,
+        isConfigDapp,
+      });
 
-      await sleep(1);
-      if (isSuccess) {
-        toast.success('Update Successful');
+      if (isConfigDapp) {
+        console.log('[LaunchButton] refresh dapp data');
+        setTimeout(() => {
+          dispatch(requestReload());
+          setUpdated(true);
+        }, 1000);
       }
+      getOrderDetailByID(orderDetail.orderId);
       setSubmitting(false);
     }
   };
 
-  const onLaunchExecute = async () => {
+  const onLaunchExecute = async (formData?: any[]) => {
     setSubmitting(true);
 
     let isSuccess = false;
 
-    const form: FormOrder = {
-      chainName,
-      network,
-      dataAvaibilityChain,
-      gasLimit,
-      withdrawPeriod,
-    };
+    // const form: FormOrder = {
+    //   chainName,
+    //   network,
+    //   dataAvaibilityChain,
+    //   gasLimit,
+    //   withdrawPeriod,
+    // };
+
+    if (!computerName || !chainId) {
+      return;
+    }
 
     const params = formValuesAdapter({
-      computerName: computerNameField.value || '',
+      computerName: computerName || '',
       chainId: chainId,
-      dynamicFormValues: dyanmicFormAllData,
+      dynamicFormValues: formData || dyanmicFormAllData,
     });
 
     let result;
@@ -446,13 +541,15 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       }
     } finally {
       if (isSuccess) {
-        toast.success('Submit Successful');
+        // toast.success('Submit Successful');
         const orderId = result.orderId;
         getOrderDetailByID(orderId);
 
         await sleep(1);
 
-        router.push(`/chains/${orderId}`);
+        window.location.replace(`/chains/${orderId}`);
+
+        // router.push(`/chains/${orderId}`);
       } else {
         // router.push('/rollups?hasOrderFailed=true');
       }
@@ -467,13 +564,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
   const onLaunchHandler = async () => {
     // =======================================================================================
-    // Dapp forms
-    // =======================================================================================
-    const issueATokenForms = retrieveFormsByDappKey({
-      dappKey: 'token_generation',
-    });
-
-    // =======================================================================================
     // Chain form
     // =======================================================================================
     if (!allFilled) {
@@ -487,7 +577,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     let missingRequiredFor = false;
     const {
       dynamicForm,
-
       allOptionKeyDragged,
       allRequiredForKey,
       optionMapping,
@@ -512,16 +601,16 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       return;
     }
 
-    if (needContactUs) {
-      // showContactUsModal(dynamicForm as any);
-      showContactUsModal({
-        subjectDefault: 0,
-        disableSelect: true,
-        changeText: true,
-        nodeConfigs: dynamicForm || [],
-      });
-      return;
-    }
+    // if (needContactUs) {
+    //   // showContactUsModal(dynamicForm as any);
+    //   showContactUsModal({
+    //     subjectDefault: 0,
+    //     disableSelect: true,
+    //     changeText: true,
+    //     nodeConfigs: dynamicForm || [],
+    //   });
+    //   return;
+    // }
 
     if (!loggedIn) {
       localStorage.setItem('bvm.customize-form', JSON.stringify(dynamicForm));
@@ -529,8 +618,16 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       return login();
     }
 
-    setDyanmicFormAllData(dynamicForm);
-    setShowPreviewModal(true);
+    const dynamicFormNew = formValuesAdapterOptions(dynamicForm);
+
+    console.log('MAPPER --- ', {
+      old: dynamicForm,
+      new: dynamicFormNew,
+    });
+
+    setDyanmicFormAllData(dynamicFormNew);
+    // setShowPreviewModal(true);
+    onLaunchExecute(dynamicFormNew);
   };
 
   return (
@@ -555,59 +652,35 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           {!loggedIn ? (
             <Text className={s.connect}>
               {titleButton}
-              {needContactUs && (
-                <img
-                  src={'/icons/info-circle.svg'}
-                  alt="icon"
-                  width={24}
-                  height={24}
+              <div className={`${s.icon}`}>
+                <Image
+                  src={'/launch.png'}
+                  alt={'launch'}
+                  width={'24px'}
+                  height={'24px'}
                 />
-              )}
-              {!needContactUs && (
-                <div className={`${s.icon}`}>
-                  <ImagePlaceholder
-                    src={'/launch.png'}
-                    alt={'launch'}
-                    width={48}
-                    height={48}
-                  />
-                </div>
-              )}
+              </div>
             </Text>
           ) : (
             <React.Fragment>
               <div className={s.top}>
                 {isSubmiting ? <Spinner color="#fff" /> : <p>{titleButton}</p>}
-
-                {needContactUs && (
-                  <img
-                    src={'/icons/info-circle.svg'}
-                    alt="icon"
-                    width={24}
-                    height={24}
-                  />
-                )}
-
-                {!needContactUs && (
-                  <div className={`${s.icon}`}>
-                    <ImagePlaceholder
-                      src={'/launch.png'}
-                      alt={'launch'}
-                      width={48}
-                      height={48}
-                    />
-                  </div>
-                )}
+                <Image
+                  src={'/launch.png'}
+                  alt={'launch'}
+                  width={'24px'}
+                  height={'24px'}
+                />
               </div>
             </React.Fragment>
           )}
-          {needContactUs && (
+          {/* {needContactUs && (
             <div className={s.tooltip}>
               You've chosen Optimistic Rollup for your blockchain. The price of
               this module can vary. Please contact us to discuss further and get
               it set up.
             </div>
-          )}
+          )} */}
         </div>
       </div>
       {isOpenTopUpModal && (
@@ -622,7 +695,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           onSuccess={async () => {}}
           // balanceNeedTopup={`${tierData?.priceNote || '--'}`}
           balanceNeedTopup={`${formatCurrencyV2({
-            amount: priceBVM,
+            amount: new BigNumber(priceBVM || 0).dividedBy(30).toString(),
             decimals: 0,
           })} BVM `}
         />

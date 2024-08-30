@@ -24,6 +24,12 @@ type LegoV3 = {
   suffix?: string;
   updatable?: boolean;
   allowShuffle?: boolean;
+  checked?: boolean;
+  status?: {
+    label: string;
+    backgroundColor: string;
+    textColor: string;
+  };
 } & React.HTMLAttributes<HTMLDivElement>;
 
 function LegoV3({
@@ -41,7 +47,9 @@ function LegoV3({
   className,
   updatable = false,
   allowShuffle = false,
+  checked = false,
   children,
+  status,
   ...props
 }: LegoV3) {
   const refTooltip = React.useRef<HTMLDivElement>(null);
@@ -175,7 +183,31 @@ function LegoV3({
           <div className={styles.label}>
             <p>{suffix}</p>
           </div>
+
+          {checked && (
+            <div className={`${styles.label} ${styles.label__right}`}>
+              <Image
+                // src={'/hackathon/ic-check.svg'}
+                src={'/icons/check-done-v2.svg'}
+                alt="icon"
+                width={20}
+                height={20}
+              />
+            </div>
+          )}
         </div>
+
+        {status && (
+          <div
+            className={styles.status}
+            style={{
+              backgroundColor: status.backgroundColor,
+              color: status.textColor,
+            }}
+          >
+            {status.label}
+          </div>
+        )}
       </div>
     </React.Fragment>
   );

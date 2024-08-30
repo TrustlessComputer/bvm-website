@@ -1,3 +1,6 @@
+import { IToken } from '../token_generation/interface';
+import { IPosition } from '@/services/api/dapp/staking/interface';
+
 export interface IAirdropTask {
   id: number;
   title: string;
@@ -19,7 +22,7 @@ export interface ITask {
   content: string;
 }
 
-export interface IBodySetupTask {
+export interface IBodySetupTask extends IPosition {
   title: string;
   description?: string;
   start_time: number;
@@ -31,7 +34,7 @@ export interface IBodySetupTask {
   is_bvm_shard: boolean;
 }
 
-export interface IAirdrop {
+export interface IAirdrop extends IPosition {
   id: number;
   network_id: number;
   owner_address: string;
@@ -47,6 +50,7 @@ export interface IAirdrop {
   expired_time: string;
   tasks: IAirdropTask[];
   is_bvm_shard: boolean;
+  token: IToken;
 }
 
 export enum EAirdropStatus {
@@ -54,4 +58,5 @@ export enum EAirdropStatus {
   deposited = 'deposited',
   processing = 'processing',
   ended = 'ended',
+  expired = 'expired',
 }

@@ -1,16 +1,15 @@
 import Draggable from '@/modules/blockchains/Buy/components3/Draggable';
-import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
 import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
 import LegoParent from '@/modules/blockchains/Buy/components3/LegoParent';
-import { DragOverlay } from '@dnd-kit/core';
-import React from 'react';
-import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
+import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
+import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
-import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
+import { DragOverlay } from '@dnd-kit/core';
 
 export default function OverlayControl() {
-  const { idDragging, rightDragging } = useDragMask();
+  const { idDragging, rightDragging, dataDragging, isDraggingParent } =
+    useDragMask();
   const { field } = useOrderFormStoreV3();
 
   const { parsedCategories: data } = useModelCategoriesStore();
@@ -21,7 +20,7 @@ export default function OverlayControl() {
         data?.map((item, index) => {
           if (!idDragging.startsWith(item.key)) return null;
 
-          if (item.multiChoice && rightDragging) {
+          if (item.multiChoice && isDraggingParent) {
             const childrenOptions = item.options.map((option, opIdx) => {
               const optionInValues = (
                 field[item.key].value as string[]
@@ -41,9 +40,10 @@ export default function OverlayControl() {
                 >
                   <LegoV3
                     background={item.color}
-                    label={item.title}
+                    label={option.title}
                     labelInLeft
                     zIndex={item.options.length - opIdx}
+                    icon={option.icon}
                   ></LegoV3>
                 </Draggable>
               );
@@ -72,34 +72,24 @@ export default function OverlayControl() {
             );
           }
 
-          return item.options.map((option, opIdx) => {
-            if (!idDragging.startsWith(item.key + '-' + option.key))
-              return null;
-
-            return (
-              <Draggable
-                key={
-                  item.key + '-' + option.key + (rightDragging ? '-right' : '')
-                }
-                id={
-                  item.key + '-' + option.key + (rightDragging ? '-right' : '')
-                }
-                useMask
-                value={{
-                  isChain: true,
-                  value: option.key,
-                }}
-              >
-                <LegoV3
-                  icon={option.icon}
-                  background={item.color}
-                  label={option.title}
-                  labelInLeft
-                  zIndex={item.options.length - opIdx}
-                />
-              </Draggable>
-            );
-          });
+          return (
+            <Draggable
+              key={idDragging}
+              id={idDragging}
+              useMask
+              value={{
+                ...dataDragging,
+              }}
+            >
+              <LegoV3
+                icon={dataDragging.icon}
+                background={dataDragging.background}
+                label={dataDragging.label}
+                labelInLeft
+                zIndex={999}
+              />
+            </Draggable>
+          );
         })}
     </DragOverlay>
   );

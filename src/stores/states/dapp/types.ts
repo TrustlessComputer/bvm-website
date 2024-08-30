@@ -4,6 +4,13 @@ import { ISTToken } from '@/services/api/dapp/staking/interface';
 import { IAirdrop, IAirdropTask } from '@/services/api/dapp/airdrop/interface';
 import { DappModel } from '@/types/customize-model';
 import { IAppInfo, IDappConfigs } from '@/services/api/dapp/types';
+import { IYoloGame } from '@/services/api/dapp/yolo/interface';
+
+export enum WalletType {
+  naka = "naka",
+  inGame = "inGame",
+  thirdWeb = "thirdWeb",
+}
 
 export interface DappState {
   chain?: OrderItem | undefined;
@@ -15,4 +22,7 @@ export interface DappState {
   airdrops: IAirdrop[];
   dappConfigs: IDappConfigs | undefined;
   appInfos: IAppInfo[];
+  yoloGames: IYoloGame[];
+  tokensAll: IToken[];
+  walletType?: WalletType;
 }

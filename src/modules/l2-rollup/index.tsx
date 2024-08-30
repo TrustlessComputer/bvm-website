@@ -2,28 +2,38 @@
 /* eslint-disable jsx-a11y/alt-text */
 'use client';
 
+import AppLoading from '@/components/AppLoading';
 import ListTable, { ColumnProp } from '@/components/ListTable';
 import { MIN_DECIMAL } from '@/constants/constants';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import CRollupL2API from '@/services/api/dapp/rollupl2';
-import { IRollupL2Info } from '@/services/api/dapp/rollupl2/interface';
+import {
+  IRollupChart1D,
+  IRollupL2Info,
+} from '@/services/api/dapp/rollupl2/interface';
 import { calculateTimeAgo, formatCurrency } from '@/utils/format';
 import { compareString } from '@/utils/string';
 import {
   Box,
   Flex,
-  Text,
-  Tooltip,
+  Grid,
   Image,
   Popover,
-  PopoverContent,
   PopoverBody,
+  PopoverContent,
   PopoverTrigger,
+  SimpleGrid,
+  Text,
+  Tooltip,
+  useDisclosure,
 } from '@chakra-ui/react';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import s from './styles.module.scss';
-import { orderBy } from 'lodash';
 import { DotLottiePlayer } from '@dotlottie/react-player';
+import { orderBy } from 'lodash';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import BitcoinRentModal from './BitcoinRentModal';
+import L2RollupFee from './fees';
+import s from './styles.module.scss';
 
 enum SortRollupType {
   name,
@@ -36,6 +46,10 @@ enum SortRollupType {
   settle,
   tvl,
   lastBlock,
+  verification,
+  fdv,
+  level,
+  fee,
 }
 
 interface ISort {
@@ -45,14 +59,21 @@ interface ISort {
 
 const L2Rollup = () => {
   const { showContactUsModal } = useContactUs();
+  const dispatch = useDispatch();
+  const { isOpen, onClose, onOpen } = useDisclosure();
+
+  const [bitcoinRent, setBitcoinRent] = useState<IRollupL2Info>();
 
   const [data, setData] = useState<IRollupL2Info[]>([]);
+  const [dataChart, setDataChart] = useState<IRollupChart1D[]>([]);
 
   const hasIncrementedPageRef = useRef(false);
+  const loaded = useRef(true);
+
   const rollupL2Api = new CRollupL2API();
 
   const [currentSort, setCurrentSort] = useState<ISort>({
-    type: SortRollupType.tps,
+    type: SortRollupType.level,
     ascending: false,
   });
 
@@ -72,7 +93,37 @@ const L2Rollup = () => {
     return data.find((rollup) => compareString(rollup.name, 'bitcoin'));
   }, [data]);
 
+  const _dataChart: {
+    fees: number[];
+    txs: number[];
+    addresses: number[];
+  } = useMemo(() => {
+    const fees: any[] = [];
+    const txs: any[] = [];
+    const addresses: any[] = [];
+
+    dataChart.forEach((d) => {
+      // fees.push([d.timestamp, parseFloat(d.fee_usd)] as any[]);
+      fees.push({
+        x: d.timestamp,
+        y: parseFloat(d.fee_usd),
+        name: d.notes,
+      });
+      txs.push({
+        x: d.timestamp,
+        y: d.tx_count,
+      });
+      addresses.push({
+        x: d.timestamp,
+        y: Number(d.address_actived),
+      });
+    });
+
+    return { fees, txs, addresses };
+  }, [dataChart]);
+
   useEffect(() => {
+    loaded.current = true;
     fetchData();
     const interval = setInterval(() => {
       fetchData();
@@ -83,8 +134,16 @@ const L2Rollup = () => {
   }, [currentSort]);
 
   const fetchData = async () => {
+    if (!loaded.current) return;
+    loaded.current = false;
     try {
-      const res = await rollupL2Api.getRollupL2Info();
+      const [res, res2] = await Promise.all([
+        rollupL2Api.getRollupL2Info(),
+        rollupL2Api.getFeeAddress1D(),
+      ]);
+
+      setDataChart(res2);
+      if (res.length <= 0) return;
       let data: IRollupL2Info[] = [];
 
       if (currentSort.ascending === undefined) {
@@ -104,6 +163,8 @@ const L2Rollup = () => {
                   return item.name;
                 case SortRollupType.block:
                   return Number(item.block_number || '0');
+                case SortRollupType.fdv:
+                  return Number(item.fdv_usd || '0');
                 case SortRollupType.tps:
                   return Number(item.tps || '0');
                 case SortRollupType.mgas:
@@ -120,6 +181,12 @@ const L2Rollup = () => {
                   return Number(item.tvl_btc || '0');
                 case SortRollupType.lastBlock:
                   return item.block_time;
+                case SortRollupType.verification:
+                  return item.verification;
+                case SortRollupType.level:
+                  return Number(item.level === '-' ? '0' : item.level || '0');
+                case SortRollupType.fee:
+                  return Number(item.fee_btc || '0');
                 default:
                   return Number(item.mgas || '0');
               }
@@ -133,12 +200,17 @@ const L2Rollup = () => {
     } catch (error) {
     } finally {
       hasIncrementedPageRef.current = false;
+      loaded.current = true;
     }
   };
 
   const labelConfig = {};
 
-  const renderLabel = (name: string, sortType: SortRollupType) => {
+  const renderLabel = (
+    name: string,
+    sortType: SortRollupType,
+    tooltip?: any,
+  ) => {
     return (
       <Flex
         gap={'4px'}
@@ -157,7 +229,22 @@ const L2Rollup = () => {
           })
         }
       >
-        {name}
+        {tooltip ? (
+          <Tooltip label={tooltip}>
+            <Flex cursor={'pointer'} direction={'row'} gap={'4px'}>
+              <Text>{name || '-'}</Text>
+              <Image
+                cursor={'pointer'}
+                width="16px"
+                height="16px"
+                alt="tooltip"
+                src={'/icons/ic-tooltip-blue.svg'}
+              />
+            </Flex>
+          </Tooltip>
+        ) : (
+          <>{name}</>
+        )}
         <Image
           width="24px"
           height="24px"
@@ -196,13 +283,13 @@ const L2Rollup = () => {
                   alignItems={'center'}
                   width={'100%'}
                   justifyContent={'space-between'}
-                  paddingLeft={'16px'}
+                  paddingLeft={'8px'}
                   cursor={'pointer'}
-                  _hover={{
-                    textDecoration: 'underline',
-                  }}
+                  textDecoration={'underline'}
+                  textUnderlineOffset={'2px'}
+                  // color={'#fa4e0e !important'}
                 >
-                  <Text className={s.title}>{data.name}</Text>
+                  <p className={s.title}>{data.name}</p>
                 </Flex>
               </PopoverTrigger>
               <PopoverContent
@@ -324,6 +411,188 @@ const L2Rollup = () => {
         },
       },
       {
+        id: 'level',
+        label: renderLabel(
+          'Level',
+          SortRollupType.level,
+          <Flex direction={'column'} py={'8px'} px={'4px'} gap={'8px'}>
+            <Grid gridTemplateColumns={'64px 1fr'}>
+              <Text w={'100px !important'}>Level 1</Text>
+              <Text>Base layer is not Bitcoin.</Text>
+            </Grid>
+            <Grid gridTemplateColumns={'64px 1fr'}>
+              <Text w={'100px !important'}>Level 2</Text>
+              <Text>
+                Base layer is Bitcoin, using external DA, without state
+                verification.
+              </Text>
+            </Grid>
+            <Grid gridTemplateColumns={'64px 1fr'}>
+              <Text w={'120px'}>Level 3</Text>
+              <Text>
+                Base layer is Bitcoin, using Bitcoin for DA, without state
+                verification.
+              </Text>
+            </Grid>
+            <Grid gridTemplateColumns={'64px 1fr'}>
+              <Text w={'120px'}>Level 4</Text>
+              <Text>
+                Base layer is Bitcoin, using Bitcoin for DA, with state
+                verification by a light client.
+              </Text>
+            </Grid>
+            <Grid gridTemplateColumns={'64px 1fr'}>
+              <Text w={'100px !important'}>Level 5</Text>
+              <Text>
+                Base layer is Bitcoin, using Bitcoin for DA, with state
+                verification natively in Bitcoin using BitVM or OP_CAT.
+              </Text>
+            </Grid>
+          </Flex>,
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: IRollupL2Info) {
+          let tooltip = '';
+          let bg = 'transparent';
+          let txColor = '#000';
+          switch (data.level) {
+            case '1':
+              tooltip = 'Base layer is not Bitcoin.';
+              bg = '#E7E7E7';
+              break;
+            case '2':
+              tooltip =
+                'Base layer is Bitcoin, using external DA, without state verification.';
+              bg = '#BAEDBD';
+              txColor = '#006E46';
+              break;
+            case '3':
+              tooltip =
+                'Base layer is Bitcoin, using Bitcoin for DA, without state verification.';
+              bg = '#B1E3FF';
+              txColor = '#4F43E2';
+              break;
+            case '4':
+              tooltip =
+                'Base layer is Bitcoin, using Bitcoin for DA, with state verification by a light client.';
+              bg = '#F8F0AC';
+              txColor = '#CD5600';
+              break;
+            case '5':
+              tooltip =
+                'Base layer is Bitcoin, using Bitcoin for DA, with state verification natively in Bitcoin using BitVM or OP_CAT.';
+              bg = '#FFA751';
+              txColor = '#E04300';
+              break;
+            default:
+              break;
+          }
+          return (
+            <Flex
+              alignItems={'center'}
+              justifyContent={'center'}
+              width={'100%'}
+              px={'2px'}
+              minW={'80px'}
+              borderRadius={'4px'}
+              h={'24px'}
+              bg={bg}
+            >
+              {data.level && data.level !== '-' ? (
+                <Tooltip label={tooltip}>
+                  <Text
+                    cursor={'pointer'}
+                    className={s.title}
+                    fontSize={'14px !important'}
+                    color={`${txColor} !important`}
+                  >
+                    LEVEL {data.level || '-'}
+                  </Text>
+                </Tooltip>
+              ) : (
+                <Text cursor={'pointer'} className={s.title}>
+                  {'-'}
+                </Text>
+              )}
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'fee',
+        label: renderLabel('Bitcoin Rent', SortRollupType.fee),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: IRollupL2Info) {
+          const isUnderReview = Number(data.fee_btc) === 0;
+          return (
+            <Flex
+              alignItems={'center'}
+              width={'100%'}
+              px={'2px'}
+              minW={'112px'}
+              cursor={'pointer !important'}
+              onClick={() => {
+                if (!isUnderReview) {
+                  setBitcoinRent(data);
+                  onOpen();
+                }
+              }}
+              textDecoration={isUnderReview ? 'unset' : 'underline'}
+              textUnderlineOffset={'2px'}
+              // color={isUnderReview ? '#000' : '#fa4e0e !important'}
+            >
+              <p className={s.title}>
+                {isUnderReview
+                  ? '-'
+                  : `${formatCurrency(data.fee_btc, 0, 4)} BTC`}
+              </p>
+            </Flex>
+          );
+        },
+      },
+      // {
+      //   id: 'fdv',
+      //   label: renderLabel('FDV', SortRollupType.fdv),
+      //   labelConfig,
+      //   config: {
+      //     borderBottom: 'none',
+      //     fontSize: '16px',
+      //     fontWeight: 500,
+      //     verticalAlign: 'middle',
+      //     letterSpacing: '-0.5px',
+      //   },
+      //   render(data: IRollupL2Info) {
+      //     return (
+      //       <Flex
+      //         alignItems={'center'}
+      //         width={'100%'}
+      //         justifyContent={'space-between'}
+      //         px={'2px'}
+      //       >
+      //         <Text className={s.title}>
+      //           {data.fdv_usd && data.fdv_usd !== '0'
+      //             ? `$${formatCurrency(data.fdv_usd, MIN_DECIMAL, MIN_DECIMAL)}`
+      //             : '-'}
+      //         </Text>
+      //       </Flex>
+      //     );
+      //   },
+      // },
+      {
         id: 'block',
         label: renderLabel('Block', SortRollupType.block),
         labelConfig,
@@ -345,11 +614,10 @@ const L2Rollup = () => {
               onClick={() => {
                 window.open(data.explorer);
               }}
-              _hover={{
-                textDecoration: 'underline',
-              }}
+              textDecoration={'underline'}
+              textUnderlineOffset={'2px'}
             >
-              <Text className={s.title}>{data.block_number}</Text>
+              <p className={s.title}>{data.block_number}</p>
             </Flex>
           );
         },
@@ -470,6 +738,36 @@ const L2Rollup = () => {
         },
       },
       {
+        id: 'verification',
+        label: renderLabel('Verification', SortRollupType.verification),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: IRollupL2Info) {
+          const haveLink = !!data.verification_url;
+          return (
+            <Flex
+              gap={3}
+              alignItems={'center'}
+              width={'100%'}
+              maxW={'128px'}
+              px={'2px'}
+              onClick={() => haveLink && window.open(data.verification_url)}
+              cursor={haveLink ? 'pointer' : 'unset'}
+              textDecoration={haveLink ? 'underline' : 'unset'}
+              textUnderlineOffset={'2px'}
+            >
+              <Text className={s.title}>{data.verification || '-'}</Text>
+            </Flex>
+          );
+        },
+      },
+      {
         id: 'settlement',
         label: renderLabel('Base Layer', SortRollupType.settle),
         labelConfig,
@@ -482,12 +780,18 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex alignItems={'center'} width={'100%'} px={'4px'}>
+            <Flex
+              alignItems={'center'}
+              width={'100%'}
+              px={'2px'}
+              minW={'104px'}
+            >
               <Text className={s.title}>{data.settlement || '-'}</Text>
             </Flex>
           );
         },
       },
+
       {
         id: 'tvl',
         label: renderLabel('TVL', SortRollupType.tvl),
@@ -546,7 +850,7 @@ const L2Rollup = () => {
         },
         render(data: IRollupL2Info) {
           return (
-            <Flex alignItems={'center'} minW={'110px'} px={'8px'} gap={'12px'}>
+            <Flex alignItems={'center'} minW={'104px'} px={'8px'} gap={'12px'}>
               {data.website && (
                 <Image
                   _hover={{
@@ -624,11 +928,16 @@ const L2Rollup = () => {
     );
   };
 
+  const chainsSupportForChart = useMemo(
+    () => data.filter((d) => d.fee_chart_supported).map((v) => v.name),
+    [data],
+  );
+
   return (
     <Box className={s.container}>
-      <Flex direction={'column'} w="100%" maxW={'1580px'} alignItems={'center'}>
+      <Flex direction={'column'} w="100%" maxW={'1800px'} alignItems={'center'}>
         <Flex alignItems="center" gap="6px" my={'12px'}>
-          <Text fontSize={'20px'}>Project Bitcoin Heartbeat</Text>
+          <Text fontSize={'20px'}>Project Bitcoin Heartbeats</Text>
           <DotLottiePlayer
             autoplay
             loop
@@ -655,7 +964,7 @@ const L2Rollup = () => {
           color={'#494846'}
           mb={'24px'}
         >
-          The BVM team created Project Bitcoin Heartbeat to provide transparent
+          The BVM team created Project Bitcoin Heartbeats to provide transparent
           and verifiable insights into new technologies that are transforming
           Bitcoin beyond mere currency. Follow their progress and support their
           innovations.
@@ -665,7 +974,7 @@ const L2Rollup = () => {
           direction={{ base: 'column', md: 'row' }}
           alignItems={'center'}
           gap={{ base: '0px', md: '8px' }}
-          mb={'48px'}
+          mb={'16px'}
         >
           <Text
             className={s.fontType2}
@@ -697,6 +1006,107 @@ const L2Rollup = () => {
             <Image maxW={'40px'} src={'/heartbeat/ic-submit.svg'} />
           </Flex>
         </Flex>
+
+        {/* <Flex mb={'48px'}>
+          <SearchAddress placeholder={'Search Bitcoin or EVM address'} />
+        </Flex> */}
+
+        <Box w={'100%'} mb={'32px'} mt={'48px'}>
+          <SimpleGrid columns={3} gap={'16px'}>
+            <L2RollupFee
+              data={_dataChart.txs}
+              prefix="Ξ"
+              header={
+                <Flex
+                  alignItems={'center'}
+                  justifyContent={'space-between'}
+                  p={'6px'}
+                  backgroundColor={'#fff'}
+                >
+                  <Text fontSize={'14px'}>Transaction Count</Text>
+                  <Text fontSize={'14px'}>{`Today Ξ${formatCurrency(
+                    (
+                      _dataChart.txs?.[_dataChart.txs.length - 1] as any
+                    )?.y as any,
+                    0,
+                    2,
+                  )}`}</Text>
+                </Flex>
+              }
+            />
+            <L2RollupFee
+              data={_dataChart.addresses}
+              prefix="Ξ"
+              header={
+                <Flex
+                  alignItems={'center'}
+                  justifyContent={'space-between'}
+                  p={'6px'}
+                  backgroundColor={'#fff'}
+                >
+                  <Text fontSize={'14px'}>Bitcoin l2 Active addresses</Text>
+                  <Tooltip label="Active addresses are those that have executed at least one transaction. The count of addresses is specific to Layer 2 on Bitcoin, excluding BTC addresses">
+                    <Flex alignItems={'center'} gap={'2px'}>
+                      <Text fontSize={'14px'} cursor={'pointer'}>
+                        {`Ξ${formatCurrency(
+                          (
+                            _dataChart.addresses?.[
+                              _dataChart.addresses.length - 1
+                            ] as any
+                          )?.y as any,
+                          0,
+                          2,
+                        )}`}
+                      </Text>
+                      <svg
+                        stroke="rgba(0, 0, 0, 0.5)"
+                        fill="none"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        height="10px"
+                        width="10px"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                      </svg>
+                    </Flex>
+                  </Tooltip>
+                </Flex>
+              }
+            />
+            <L2RollupFee
+              data={_dataChart.fees}
+              prefix="$"
+              header={
+                <Flex
+                  alignItems={'center'}
+                  justifyContent={'space-between'}
+                  p={'6px'}
+                  backgroundColor={'#fff'}
+                >
+                  <Text fontSize={'14px'}>Fees Paid by Users</Text>
+                  <Text fontSize={'14px'}>{`Today $${formatCurrency(
+                    (_dataChart.fees?.[_dataChart.fees.length - 1] as any)
+                      ?.y as any,
+                    0,
+                    2,
+                  )}`}</Text>
+                </Flex>
+              }
+            />
+          </SimpleGrid>
+          <Box mt={'6px'}>
+            <Text fontSize={'12px'} opacity={'0.8'}>
+              * This data has been collected from{' '}
+              {chainsSupportForChart.join(', ')} chains.{' '}
+              <b>Rollux, Merlin, Core, and Stacks will be coming soon.</b>
+            </Text>
+          </Box>
+        </Box>
         <Flex
           className={s.totalContainer}
           bg="#FAFAFA"
@@ -741,13 +1151,28 @@ const L2Rollup = () => {
           </Flex>
         </Flex>
         <Box w="100%" bg="#FAFAFA" minH={'450px'} mt={'56px'}>
-          <ListTable
-            data={data}
-            columns={columns}
-            className={s.tableContainer}
-          />
+          {data.length <= 0 ? (
+            <Box mt={'24px'}>
+              <AppLoading />
+            </Box>
+          ) : (
+            <ListTable
+              data={data}
+              columns={columns}
+              className={s.tableContainer}
+            />
+          )}
         </Box>
       </Flex>
+      {isOpen && bitcoinRent && (
+        <BitcoinRentModal
+          title={bitcoinRent.name}
+          chain_id={bitcoinRent.chain_id}
+          isShow={isOpen}
+          onHide={onClose}
+          total={formatCurrency(bitcoinRent.fee_btc, 0, 4)}
+        />
+      )}
     </Box>
   );
 };

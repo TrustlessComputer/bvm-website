@@ -3,6 +3,7 @@
   border-radius: 4px;
   padding: 5px;
   display: flex;
+  min-width: 60px;
   width: max-content;
   flex-wrap: nowrap;
   align-items: center;
@@ -10,10 +11,10 @@
   border: 1px solid var(--border-color);
 
   * {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     color: #ffffff;
-    line-height: calc(28 / 14);
+    line-height: calc(28 / 16);
   }
 
   svg path {
@@ -27,7 +28,7 @@
     left: 11px;
 
     &__top {
-      top: -1px;
+      top: -1.5px;
       svg path {
         fill: #ffffff !important;
       }
@@ -105,7 +106,20 @@
 
 .titleSingle {
   width: max-content;
+  padding-top: .15em;
+  display: block;
   // font-size: 14px;
   // font-weight: 500;
   // line-height: calc(28 / 14);
+}
+
+
+.lego__piece__top__ai {
+  top: -1px;
+  svg path {
+    fill: #ffeee8 !important;
+  }
+  &::after {
+    background-color: #ffeee8;
+  }
 }

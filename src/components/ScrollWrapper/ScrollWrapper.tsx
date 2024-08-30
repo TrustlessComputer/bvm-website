@@ -21,7 +21,8 @@ interface props {
   onScroll?: (e: any) => void;
   className?: string;
   wrapClassName?: string;
-  hideScrollBar?: boolean
+  hideScrollBar?: boolean;
+  dependData?: any;
 }
 
 const ScrollWrapper = forwardRef((props: props, ref) => {
@@ -34,7 +35,7 @@ const ScrollWrapper = forwardRef((props: props, ref) => {
     onScroll,
     className = '',
     wrapClassName = '',
-    hideScrollBar = true
+    hideScrollBar = true,
   } = props;
 
   // fetching data on scroll
@@ -47,7 +48,11 @@ const ScrollWrapper = forwardRef((props: props, ref) => {
           container.scrollTop + container.clientHeight >=
           container.scrollHeight - container.scrollHeight / 4;
 
-        if (isScrolledToBottom && !isFetching && !hasIncrementedPageRef.current) {
+        if (
+          isScrolledToBottom &&
+          !isFetching &&
+          !hasIncrementedPageRef.current
+        ) {
           onFetch();
         }
       }
@@ -82,7 +87,7 @@ const ScrollWrapper = forwardRef((props: props, ref) => {
         feedContainerRef.current!.removeEventListener('scroll', handleScroll);
       }
     };
-  }, [isFetching]);
+  }, [isFetching, props.dependData]);
 
   const handleRefresh = async () => {
     onFetchNewData();
@@ -97,19 +102,12 @@ const ScrollWrapper = forwardRef((props: props, ref) => {
           <Loading className={s.loading} />
         </Flex>
       }
-      className={cs(
-        s.refreshWrapper,
-        className,
-      )}
+      className={cs(s.refreshWrapper, className)}
     >
       <div
-        className={cs(
-          s.wrapperScroll,
-          wrapClassName,
-          {
-            [s.wrapperScroll__hideScrollBar]: hideScrollBar
-          }
-        )}
+        className={cs(s.wrapperScroll, wrapClassName, {
+          [s.wrapperScroll__hideScrollBar]: hideScrollBar,
+        })}
         ref={feedContainerRef}
         onScroll={(e) => onScroll?.(e)}
       >

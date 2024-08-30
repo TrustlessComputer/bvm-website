@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import AddressInput from '@/modules/blockchains/detail_v3/account-abstraction_v2/components/AddressInput';
 import FeeRateInput from '@/modules/blockchains/detail_v3/account-abstraction_v2/components/FeeRateInput';
@@ -21,11 +21,12 @@ import Node from '../Node_v2/Node';
 
 import styles from './styles.module.scss';
 import { useAccountAbstractionStore } from '@/modules/blockchains/detail_v3/account-abstraction_v2/store/hook';
+import { useParams } from 'next/navigation';
 
 const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   const { dapp } = data;
-
-  const { isAAModuleLoading, aaStatusData, isCanNotEdit } = useAAModule();
+  const { isAAModuleLoading, aaStatusData, isCanNotEdit, getAATypeIconUrl } =
+    useAAModule();
   const { getAAStatus, isUpdateFlow } = useChainProvider();
   const { resetAAStore } = useAccountAbstractionStore();
 
@@ -46,8 +47,6 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
     return null;
   }
 
-  // console.log('AAModule data: -- ', aaStatusData);
-
   return (
     <Node
       {...data}
@@ -64,6 +63,7 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
         isAAModuleLoading
           ? {
               type: 'loading',
+              iconUrl: '/coffee.gif',
               message: 'Please wait a minute',
             }
           : undefined
@@ -74,7 +74,8 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
         title: data.title,
         status: {
           message: aaStatusData?.statusStr,
-          color: aaStatusData?.borderColorStr,
+          color: aaStatusData?.statusColorStr,
+          icon: getAATypeIconUrl(),
         },
         borderColor: aaStatusData?.borderColorStr,
         backgroundColor: aaStatusData?.bgColorStr,
@@ -85,6 +86,7 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
         children: (
           <>
             <Draggable
+              disabled={isUpdateFlow}
               id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
               value={{
                 dappIndex,

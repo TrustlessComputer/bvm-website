@@ -1,11 +1,9 @@
+import { Flex } from '@chakra-ui/react';
 import React, { useMemo } from 'react';
-import { Flex, Text } from '@chakra-ui/react';
 
 import DescriptionModal from '@/modules/blockchains/Buy/components/DescriptionModal/DescriptionModal';
-import SvgInset from '@/components/SvgInset';
 
 import s from './styles.module.scss';
-import DroppableV2 from '../DroppableV2';
 
 export type LegoColor = 'brown' | 'violet' | 'green' | 'pink' | 'red';
 export type BoxOptionV2Props = React.PropsWithChildren & {
@@ -52,7 +50,7 @@ const BoxOptionV3 = ({
       <div
         id={id}
         className={`${s.boxItem} ${active && s.activeBox} ${first && s.first} ${
-          disable && s.disable
+          disable && s.disabled
         }`}
       >
         <div className={s.boxItem_heading}>
@@ -100,7 +98,7 @@ const BoxOptionV3 = ({
           </Flex>
         </div>
 
-        <div className={s.options}>{children}</div>
+        <div className={`${s.options} ${(label === 'DeFi' || label === 'Degens') && s.column}`}>{children}</div>
       </div>
 
       {description?.title && (

@@ -2,23 +2,29 @@ import CDappAPI from '@/services/api/dapp';
 import CTokenAirdropAPI from '@/services/api/dapp/airdrop';
 import CStakingAPI from '@/services/api/dapp/staking';
 import { useAppSelector } from '@/stores/hooks';
+import { setCounterFetchedDapp } from '@/stores/states/common/reducer';
 import { commonSelector } from '@/stores/states/common/selector';
 import { setAirdrops, setAirdropTasks } from '@/stores/states/dapp/reducer';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { useParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import CYoloGameAPI from '@/services/api/dapp/yolo';
+import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 
 const useFetchDapp = () => {
   const params = useParams();
   const id = params?.id;
 
   const dispatch = useDispatch();
-  const [loading, setLoading] = React.useState<boolean>(false);
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [loaded, setLoaded] = React.useState<boolean>(false);
 
   const dappAPI = new CDappAPI();
+  const tokenAPI = new CTokenGenerationAPI();
   const stakingAPI = new CStakingAPI();
   const tokenAirdropAPI = new CTokenAirdropAPI();
+  const yoloGameAPI = new CYoloGameAPI();
 
   const dappState = useAppSelector(dappSelector);
   const needReload = useAppSelector(commonSelector).needReload;
@@ -45,31 +51,46 @@ const useFetchDapp = () => {
     }
   };
 
+  const fetchTokenListAll = async () => {
+    await tokenAPI.getListTokenAll(dappState?.chain?.chainId || '');
+  };
+
   const fetchTokenList = async () => {
-    await dappAPI.getListToken(dappState?.chain?.chainId || '');
+    console.time('[TIME] fetchTokenList')
+    await tokenAPI.getListToken(dappState?.chain?.chainId || '');
+    console.timeEnd('[TIME] fetchTokenList')
   };
 
   const fetchStakingPoolsList = async () => {
+    console.time('[TIME] fetchStakingPoolsList')
     await stakingAPI.getStakingPools();
+    console.timeEnd('[TIME] fetchStakingPoolsList')
+  };
+
+  const fetchYoloGameList = async () => {
+    await yoloGameAPI.getYoloGameList(dappState?.chain?.chainId || '');
   };
 
   const getDappTasks = async () => {
+    console.time('[useFetchDapp] getDappTasks time');
     try {
+      await Promise.all([
+        fetchTokenListAll(),
+        fetchTokenList(),
+        fetchStakingPoolsList(),
+        getListTask(),
+        getListAirdrop(),
+        fetchYoloGameList(),
+      ]);
       setLoading(true);
-      await Promise.all(
-        [
-          fetchTokenList(),
-          fetchStakingPoolsList(),
-          getListTask(),
-          getListAirdrop()
-        ]
-      );
+      console.time('[useFetchDapp] getDappTasks time');
+      dispatch(setCounterFetchedDapp());
     } catch (error) {
       console.log('getDappTasks', error);
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   React.useEffect(() => {
     fetchData();
@@ -81,9 +102,16 @@ const useFetchDapp = () => {
     }
   }, [dappState?.chain?.chainId, needReload]);
 
+  useEffect(() => {
+    if (!dappState.loading && !loading) {
+      setLoaded(true);
+    }
+  }, [dappState.loading, loading]);
+
   return {
     loading: dappState.loading || loading,
     configs: dappState.configs,
+    loaded,
   };
 };
 

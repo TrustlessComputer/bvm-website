@@ -8,8 +8,9 @@ import BuyPage from '../Buy/index_v8';
 import s from './styles_v6.module.scss';
 import { ReactFlowProvider } from '@xyflow/react';
 import { ChainProvider } from '../detail_v4/provider/ChainProvider';
+import enhance from '../detail_v4/enhance_create_flow/index';
 
-export default () => {
+const Page = () => {
   return (
     <ChainProvider>
       <ReactFlowProvider>
@@ -30,3 +31,5 @@ export default () => {
     </ChainProvider>
   );
 };
+
+export default enhance(Page);

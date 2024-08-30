@@ -8,6 +8,8 @@ import { CDN_URL } from '@/config';
 const THUMBNAIL = `${CDN_URL}/pages/bvm-studio/bvm-studio-metadata.png`;
 
 export const metadata: Metadata = {
+  title: 'Launch your own Bitcoin L2 with drags and drops.',
+  description: 'No coding expertise required — just your big idea.',
   openGraph: {
     images: [
       {

@@ -18,6 +18,7 @@ const initialState: CommonState = {
   currentLuckyMoney: undefined,
   publicSaleSummary: defaultSummary,
   userContributeInfo: undefined,
+  counterFetchedDapp: 0,
 };
 
 const slice = createSlice({
@@ -57,6 +58,9 @@ const slice = createSlice({
     setUserContributeInfo: (state, action) => {
       state.userContributeInfo = action.payload;
     },
+    setCounterFetchedDapp: (state) => {
+      state.counterFetchedDapp = state.counterFetchedDapp + 1;
+    }
   },
 });
 
@@ -72,6 +76,7 @@ export const {
   setCurrentLuckyMoney,
   setPublicSaleSummary,
   setUserContributeInfo,
+  setCounterFetchedDapp
 } = slice.actions;
 
 export default slice.reducer;

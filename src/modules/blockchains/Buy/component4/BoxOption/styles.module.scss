@@ -9,7 +9,7 @@
   sup {
     font-size: 12px;
     color: #ff0000;
-    margin-top: 16px;
+    //margin-top: 16px;
   }
 
   &__header {
@@ -26,12 +26,17 @@
   }
 
   &__body {
+    //display: flex;
+    //gap: 8px;
     width: 100%;
 
     &__header {
       font-size: 14px;
       font-weight: 600;
       line-height: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     &__item {

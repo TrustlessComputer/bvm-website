@@ -21,7 +21,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  cursor: move;
   &__title {
     font-size: 14px;
     font-weight: 600;
@@ -72,14 +72,13 @@
 }
 
 
+
 .handles {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  //width: 10px;
-  opacity: 0;
+  z-index: 99999;
   height: 100%;
-  width: 0;
   position: absolute;
   :global {
     .react-flow__handle-right {
@@ -90,23 +89,21 @@
 }
 
 .handles.sources {
-  right: 9px;
+  right: 0;
   top: 0;
 }
 
 .handles.target {
-  left: 3px;
+  left: 0;
   top: 0;
 }
 
 .handleDot {
-  //width: 6px;
-  //height: 6px;
-  width: 0;
-  height: 0;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: #fff;
-  //position: absolute;
+  background: #777777;
+  position: absolute;
   //border: 1px solid #555555;
   z-index: 4;
   :global {

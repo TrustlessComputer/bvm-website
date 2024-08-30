@@ -7,54 +7,62 @@ const FakeData = [
   {
     icon: '/images/home-list-icon-1.svg',
     title: 'Easily deploy',
-    desc: 'Launch your ZK rollups without writing a single line of code.'
+    desc: 'Launch your Bitcoin L2 without writing a single line of code.',
   },
-  {
-    icon: '/images/home-list-icon-2.svg',
-    title: 'Affordable pricing',
-    desc: 'Get started with ZK rollups on Bitcoin from just $99/month.'
-  },
+  // {
+  //   icon: '/images/home-list-icon-2.svg',
+  //   title: 'Affordable pricing',
+  //   desc: 'Get started with ZK rollups on Bitcoin from just $99/month.',
+  // },
   {
     icon: '/images/home-list-icon-3.svg',
     title: 'Scalable solutions',
-    desc: 'Scale your ZK rollup or resize it as your demand shifts.'
+    desc: 'Scale your Bitcoin L2 or resize it as your demand shifts.',
   },
   {
     icon: '/images/home-list-icon-4.svg',
     title: 'Bitcoin security',
-    desc: 'Inherit Bitcoin’s robust security with your ZK rollup.'
+    desc: 'Inherit Bitcoin’s robust security with your Bitcoin L2.',
   },
   {
     icon: '/images/home-list-icon-5.svg',
     title: 'Economic opportunity',
-    desc: 'Be the first to tap into the $1 trillion Bitcoin economy.'
-  }
-]
+    desc: 'Be the first to tap into the $1 trillion Bitcoin economy.',
+  },
+];
 
 export default function VideoSection() {
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
   return (
     <div className={s.wrapperVideoSection}>
       <div className="containerV3">
-        <p className={s.wrapperVideoSection_heading}>Comprehensive, cost-effective ZK rollup solution. Built for
-          building on Bitcoin.</p>
+        <p className={s.wrapperVideoSection_heading}>
+          Comprehensive, cost-effective scaling solution. Built for building on
+          Bitcoin.
+        </p>
         <div className={s.wrapperItem}>
-          {
-            FakeData.map(item => {
-              return (
-                <div key={item.title} className={s.item}>
-                  <div className={s.item_icon}>
-                    <Image src={item.icon} alt={'ic_bell'} width={80} height={80} />
-                  </div>
-                  <p className={s.item_heading}>{item.title}</p>
-                  <p className={s.item_decs}>{item.desc}</p>
+          {FakeData.map((item) => {
+            return (
+              <div key={item.title} className={s.item}>
+                <div className={s.item_icon}>
+                  <Image
+                    src={item.icon}
+                    alt={'ic_bell'}
+                    width={80}
+                    height={80}
+                  />
                 </div>
-              )
-            })
-          }
+                <p className={s.item_heading}>{item.title}</p>
+                <p className={s.item_decs}>{item.desc}</p>
+              </div>
+            );
+          })}
         </div>
         <div className={s.wrapperImage}>
-          <div className={s.imageHero} onClick={() => setIsOpenModalVideo(true)}>
+          <div
+            className={s.imageHero}
+            onClick={() => setIsOpenModalVideo(true)}
+          >
             {!isOpenModalVideo && (
               <div className={s.imageHero_bg}>
                 {/*<video src={'https://storage.googleapis.com/bvm-network/image/output_v5.mp4'} loop preload="auto" playsInline muted autoPlay width={16} height={9} />*/}
@@ -63,9 +71,7 @@ export default function VideoSection() {
                   // src={
                   //   'https://storage.googleapis.com/bvm-network/image/Drag%20and%20Drop%20Banner%2003.gif'
                   // }
-                  src={
-                    '/video.jpg'
-                  }
+                  src={'/video.jpg'}
                   width={1566}
                   height={880}
                   alt={'video'}
@@ -96,5 +102,5 @@ export default function VideoSection() {
         </div>
       </div>
     </div>
-  )
+  );
 }

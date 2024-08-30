@@ -6,6 +6,7 @@ export const KEY_TWITTER_USERNAME = 'twitter_username';
 
 export const KEY_VC_TYPE = 'vc_type';
 export const KEY_WALLET_ID = 'wallet_id';
+export const LOCAL_VERSION = '1';
 
 export enum STORAGE_KEYS {
   WEB3_AUTH_TOKEN = 'WEB3_AUTH_TOKEN',
@@ -21,4 +22,9 @@ export enum STORAGE_KEYS {
   API_ACCESS_TOKEN = 'API_ACCESS_TOKEN',
   L2_SERVICE_ACCESS_TOKEN_V2 = 'L2_SERVICE_ACCESS_TOKEN_V2',
   L2_SERVICE_USER_ADDRESS = 'L2_SERVICE_USER_ADDRESS',
+
+  LAST_NODES = `${LOCAL_VERSION}-last_nodes`,
+  USE_DRAG_SIGNALS = `${LOCAL_VERSION}-use_drag_signals`,
+  USE_SIGNALS_FORM = `${LOCAL_VERSION}-use_signals_form`,
+  USE_BLOCKCHAIN_FORM = `${LOCAL_VERSION}-use_blockchain_form`,
 }

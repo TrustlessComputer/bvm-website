@@ -1,14 +1,21 @@
 'use client';
 
-import AppLoading from '@/components/AppLoading';
 import { AppStore, persistor, store } from '@/stores';
-import { Center } from '@chakra-ui/react';
+import useAnimationStore from '@/stores/useAnimationStore';
 import React, { useEffect, useRef } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import useAnimationStore from '@/stores/useAnimationStore';
+
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+import utc from 'dayjs/plugin/utc';
 
 // import useBootstrapApp from '@/hooks/useBootstrapApp';
+
+dayjs.extend(utc);
+dayjs.extend(duration);
+dayjs.extend(localizedFormat);
 
 export default function StoreProvider({
   children,

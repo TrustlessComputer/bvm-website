@@ -1,20 +1,23 @@
-import { OrderItem } from '@/stores/states/l2services/types';
-import { API_BASE_URL, isLocal } from '@/config';
+import { API_BASE_URL } from '@/config';
+import { DappType } from '@/modules/blockchains/dapp/types';
+import CDappApiClient from '@/services/api/dapp/dapp.client';
+
+import { AppCode, IAppInfo, IDappConfigs, IReqDapp, ITemplate } from '@/services/api/dapp/types';
+import { templateMapper } from '@/services/api/dapp/utils';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import {
   setAppInfos,
   setChain,
-  setConfigs, setDappConfigs,
+  setConfigs,
+  setDappConfigs,
   setLoading,
-  setTokens,
+  setWalletType,
 } from '@/stores/states/dapp/reducer';
-import { IAppInfo, IDappConfigs, IReqDapp, ITemplate } from '@/services/api/dapp/types';
 import { dappSelector } from '@/stores/states/dapp/selector';
-import CDappApiClient from '@/services/api/dapp/dapp.client';
-import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
-import { templateMapper } from '@/services/api/dapp/utils';
+import { OrderItem } from '@/stores/states/l2services/types';
 import { capitalizeFirstLetter } from '@web3auth/ui';
-import { DappType } from '@/modules/blockchains/dapp/types';
+import { compareString } from '@utils/string';
+import { dappMockupData } from '@/modules/blockchains/Buy/mockup_3';
 
 class CDappAPI {
   private dappState = useAppSelector(dappSelector);
@@ -51,6 +54,11 @@ class CDappAPI {
     address: string;
   }) => {
     try {
+
+      if (compareString(params.appName, DappType.walletType)) {
+        return JSON.stringify(dappMockupData.find((item) => item?.key === DappType.walletType) || {});
+      }
+
       const app = (await this.http.get(
         `/apps/detail-by-code/${params.appName}?network_id=${params.network_id}&address=${params.address}`,
       )) as any;
@@ -60,28 +68,36 @@ class CDappAPI {
     }
   };
 
-  getDappConfigs = async ({ dappURL }: { dappURL: string }): Promise<IDappConfigs | undefined> => {
+  getDappConfigs = async ({
+    dappURL,
+  }: {
+    dappURL: string;
+  }): Promise<IDappConfigs | undefined> => {
     try {
-      let configs = (await this.http.get(
-        `${dappURL}/api/configs`,
-      )) as any;
+      let configs = (await this.http.get(`${dappURL}/api/configs`)) as any;
       configs = {
         ...configs,
-        app_name: capitalizeFirstLetter(configs?.app_name || configs?.bvm_domain || "")
+        app_name: capitalizeFirstLetter(
+          configs?.app_name || configs?.bvm_domain || '',
+        ),
       };
       configs = {
         ...configs,
         template: templateMapper(configs),
-      }
+      };
       return configs;
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  getAppInfoList = async ({ dappURL }: { dappURL: string }): Promise<IAppInfo[]> => {
+  getAppInfoList = async ({
+    dappURL,
+  }: {
+    dappURL: string;
+  }): Promise<IAppInfo[]> => {
     try {
-      const rs: any = await this.http.get(`${dappURL}/apps/menu`);
+      const rs: any = await this.http.get(`${dappURL}/api/apps/menu`);
       return rs;
     } catch (error) {
       // throw error;
@@ -94,25 +110,27 @@ class CDappAPI {
 
     try {
       const chain = await this.getChainByOrderID({ orderID: params.orderID });
-      chain.dappURL = chain?.dappURL || this.getDappURL(chain);
+      chain.dappURL = chain?.dappURL || (!!chain?.domain ? `https://${chain?.domain}.appstore.bvm.network` : '') || this.getDappURL(chain);
 
       const _chain = chain;
       // if (isLocalhost()) {
       //   _chain.chainId = '91227';
       // }
-
       this.dispatch(setChain({ ..._chain }));
       const tasks = [
-        'create_token',
-        DappType.staking,
-        DappType.airdrop
-      ].map((app) =>
-        this.getDappConfig({
-          appName: app,
-          network_id: chain.chainId,
-          address: chain.tcAddress,
-        }),
-      ) || [] as any[];
+          'create_token',
+          DappType.staking,
+          DappType.airdrop,
+          DappType.yologame,
+          DappType.orderbook,
+          DappType.walletType,
+        ].map((app) =>
+          this.getDappConfig({
+            appName: app,
+            network_id: chain.chainId,
+            address: chain.tcAddress,
+          }),
+        ) || ([] as any[]);
       const configs = (await Promise.all(tasks))
         ?.map((item) => {
           try {
@@ -123,17 +141,15 @@ class CDappAPI {
           }
         })
         .filter((item) => !!item);
-      const [
-        dappConfigs,
-        appInfoList,
-      ] = await Promise.all([
+      const [dappConfigs, appInfoList] = await Promise.all([
         await this.getDappConfigs({ dappURL: chain.dappURL }),
         await this.getAppInfoList({ dappURL: chain.dappURL }),
-      ])
+      ]);
 
       this.dispatch(setConfigs(configs));
       this.dispatch(setDappConfigs(dappConfigs));
       this.dispatch(setAppInfos(appInfoList));
+      this.dispatch(setWalletType(dappConfigs?.wallet_type))
     } catch (error) {
       console.log(error);
     } finally {
@@ -141,33 +157,29 @@ class CDappAPI {
     }
   };
 
-  getListToken = async (network_id: string) => {
-    try {
-      const api = new CTokenGenerationAPI();
-      const tokens = await api.tokenList(network_id);
-      const tasks = tokens?.map((t) =>
-        api.tokenVesting({
-          token_address: t.contract_address as string,
-          network_id: network_id,
-        }),
-      );
-      const vestings = await Promise.all(tasks);
-
-      const ts = tokens?.map((t, i) => ({ ...t, vestings: vestings[i] }));
-      this.dispatch(setTokens(ts));
-      return vestings;
-    } catch (error) {
-      console.log('error', error);
-    } finally {
-    }
-  };
-
   updateTemplate = async (template: ITemplate, network_id: string | number) => {
     await this.http.put(`/user/template/update`, {
       template: JSON.stringify(template),
-      network_id: Number(network_id)
+      network_id: Number(network_id),
     });
-  }
+  };
+
+  updatePosition = async (params: {
+    app_code: AppCode;
+    user_address: string;
+    id: string | number;
+    position_id: string;
+    position_x: number;
+    position_y: number;
+  }) => {
+    console.log('UPDATE POSITION', params);
+
+    try {
+      await this.http.post(`/apps/position/`, [{ ...params, chain_id: Number(this.dappState?.chain?.chainId || '0') }]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 export default CDappAPI;

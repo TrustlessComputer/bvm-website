@@ -1,13 +1,14 @@
-
 .wrapper {
   height: auto;
-  background: white !important;
+  // background: white !important;
+  background: white;
 
   &_banner {
     position: relative;
     width: 100%;
     height: 40px;
     cursor: pointer;
+
     @include is-pc {
       height: 80px;
     }
@@ -53,6 +54,13 @@
   position: relative;
   align-items: center;
 
+  .left {
+    display: flex;
+    align-items: center;
+    // gap: 32px;
+  }
+
+
 }
 
 .logo {
@@ -61,7 +69,8 @@
   align-items: center;
   gap: 12px;
   cursor: pointer;
-  width: 98px;
+  margin-right: 16px;
+  // width: 98px;
 
   &_text {
     font-family: var(--font-jetbrains);
@@ -89,14 +98,25 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 34px;
+
+
+  // gap: 16px;
 
   :global {
     .menu-item {
-      padding: 6px 0;
+
+
       display: flex;
       align-items: center;
       gap: 4px;
+    }
+
+    .menu-item:first-child {
+      color: #fff !important;
+      border-radius: 100px;
+      background: linear-gradient(96deg, #FFC076 7.06%, #F00 92.21%);
+      margin-right: 16px;
+      margin-left: 16px;
     }
   }
 }
@@ -108,6 +128,7 @@
   font-weight: 500;
   line-height: (20 / 14);
   text-align: center;
+  padding: 8px 16px;
 }
 
 .activeDark {
@@ -115,7 +136,7 @@
 }
 
 .activeLight {
-  color: #86919e !important;
+  opacity: 0.7;
 }
 
 .icon {
@@ -134,18 +155,12 @@
 
 
 .getBVM {
-  background: #FA4E0E;
-  border-radius: 24px;
-  padding-left: 24px;
-  padding-right: 24px;
-  font-family: var(--font-JetBrainsMono);
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 16px;
-  text-align: center;
-  text-transform: uppercase;
-  height: 36px;
   display: flex;
-  align-items: center;
+  min-width: 100px;
+  height: 36px;
+  padding: 4px;
   justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 100px;
 }

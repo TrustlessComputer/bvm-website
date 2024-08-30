@@ -28,14 +28,18 @@ type NodeNotificationProps = {
 
 type NodeOnlyViewProps = {
   type: typeof nodeOverlayType.LOADING;
+  iconUrl?: string;
   message?: string;
 };
 
 type NodeViewAndAction = {
   type: typeof nodeOverlayType.ACTION;
+  iconUrl?: string;
   message?: string;
   action: {
     label: string;
+    textColor?: string;
+    bgColor?: string;
     onClick: () => void;
   };
 };
@@ -54,6 +58,8 @@ type NodeProps = {
 
 type BaseNodeData = {
   title: string;
+  itemId?: string;
+  positionId?: string;
   node: 'chain' | 'dapp' | 'template';
   statusMessage?: string;
   sourceHandles: string[];
@@ -70,3 +76,4 @@ type DappNode = Node<
 >;
 
 type ChainNode = Node<{} & BaseNodeData>;
+type ChainNodeAsDappNode = Node<{} & BaseNodeData>;
