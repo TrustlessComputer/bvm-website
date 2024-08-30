@@ -47,6 +47,39 @@ export const mockupPromptResponses: SendPromptResponse[] = [
     is_clear: false,
     actions: [
       {
+        action_type: CategoryAction.ADD,
+        category: {
+          layer: 'block_gas_limit',
+          options: [
+            {
+              key: '1m',
+              title: 'Bitcoin',
+              value: 0,
+            },
+          ],
+        },
+      },
+      {
+        action_type: CategoryAction.ADD,
+        category: {
+          layer: 'withdrawal_time',
+          options: [
+            {
+              key: 'withdrawal_time_3',
+              title: 'Bitcoin',
+              value: 0,
+            },
+          ],
+        },
+      },
+    ],
+  },
+  {
+    message:
+      'I have updated your settlement layer to Bitcoin. Please let me know if you need any further adjustments or have additional requests!',
+    is_clear: false,
+    actions: [
+      {
         action_type: CategoryAction.UPDATE,
         category: {
           layer: 'hardware',
