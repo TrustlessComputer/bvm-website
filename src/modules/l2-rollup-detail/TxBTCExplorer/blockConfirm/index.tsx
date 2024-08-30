@@ -1,23 +1,48 @@
 import { ITxBTC } from '@/services/api/dapp/rollupl2-detail-bitcoin/interface';
 import CMempoolApi from '@/services/api/mempool';
 import { IMempoolBlock } from '@/services/api/mempool/interface';
+import { requestReload } from '@/stores/states/common/reducer';
 import { Box, Flex, Text, Progress } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 const BlockConfirm = ({ txBTC }: { txBTC: ITxBTC }) => {
   const mempoolApi = useRef(new CMempoolApi()).current;
   const [blocks, setBlocks] = useState<IMempoolBlock[]>([]);
+  const refInterval = useRef<any>(null);
+  const intervalDone = useRef<any>(true);
+  const dispatch = useDispatch();
 
   const getData = async () => {
     try {
-      const [rs] = await Promise.all([mempoolApi.getBlocks()]);
+      if (!intervalDone.current) {
+        return;
+      }
+      const [rs, rs1] = await Promise.all([
+        mempoolApi.getBlocks(),
+        mempoolApi.getTransactionStatus(txBTC.tx_id),
+      ]);
+      if (rs1?.confirmed) {
+        clearInterval(refInterval.current);
+        dispatch(requestReload());
+      }
       setBlocks(rs);
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      intervalDone.current = true;
+    }
   };
 
   useEffect(() => {
+    clearInterval(refInterval.current);
     getData();
+
+    refInterval.current = setInterval(() => getData(), 5000);
+
+    return () => {
+      clearInterval(refInterval.current);
+    };
   }, []);
 
   const currentValue = useMemo(() => {
@@ -25,8 +50,6 @@ const BlockConfirm = ({ txBTC }: { txBTC: ITxBTC }) => {
       .multipliedBy(1e8)
       .dividedBy(txBTC.virtual_size)
       .toNumber();
-
-    console.log('currentFee', currentFee);
 
     return (
       (blocks

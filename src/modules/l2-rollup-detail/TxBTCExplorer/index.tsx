@@ -39,6 +39,7 @@ const TxBTCExplorer = () => {
   const [loading, setLoading] = useState(true);
   const [txBTC, setTxBTC] = useState<ITxBTC>();
   const coinPrices = useSelector(commonSelector).coinPrices;
+  const needReload = useSelector(commonSelector).needReload;
 
   const btcPrice = useMemo(() => {
     return coinPrices?.['BTC'] || '0';
@@ -49,7 +50,7 @@ const TxBTCExplorer = () => {
 
   useEffect(() => {
     getTxInformation();
-  }, [address]);
+  }, [address, needReload]);
 
   const getTxInformation = async () => {
     try {
@@ -59,13 +60,13 @@ const TxBTCExplorer = () => {
 
       const [rs, rs1] = await Promise.all([
         rollupBitcoinApi.getTxBTC(address),
-        mempoolApi.getTransactionTime(address),
+        mempoolApi.getTransactionStatus(address),
       ]);
 
       const _rs: any = rs;
 
-      if (rs1?.[0]) {
-        _rs.transaction_time = rs1?.[0] * 1000;
+      if (rs1) {
+        _rs.transaction_time = rs1.block_time * 1000;
       }
 
       setTxBTC(_rs);

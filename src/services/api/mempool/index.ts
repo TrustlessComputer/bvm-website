@@ -1,8 +1,8 @@
 import { Axios, AxiosError, AxiosResponse } from 'axios';
-import { IMempoolBlock } from './interface';
+import { IMempoolBlock, IMempoolTransactionStatus } from './interface';
 
 class CMempoolApi {
-  #api = new Axios({ baseURL: 'https://mempool.space/api/v1' });
+  #api = new Axios({ baseURL: 'https://mempool.space/api' });
 
   constructor() {
     this.#api.interceptors.request.use(
@@ -44,7 +44,9 @@ class CMempoolApi {
 
   getBlocks = async (): Promise<IMempoolBlock[]> => {
     try {
-      const rs: IMempoolBlock[] = await this.#api.get('/fees/mempool-blocks');
+      const rs: IMempoolBlock[] = await this.#api.get(
+        '/v1/fees/mempool-blocks',
+      );
 
       return rs || [];
     } catch (error) {
@@ -54,7 +56,7 @@ class CMempoolApi {
 
   getTransactionTime = async (txHash: string): Promise<number[]> => {
     try {
-      const rs: any = await this.#api.get('/transaction-times', {
+      const rs: any = await this.#api.get('/v1/transaction-times', {
         params: {
           'txId[]': txHash,
         },
@@ -63,6 +65,18 @@ class CMempoolApi {
       return rs || [];
     } catch (error) {
       return [];
+    }
+  };
+
+  getTransactionStatus = async (
+    txHash: string,
+  ): Promise<IMempoolTransactionStatus | undefined> => {
+    try {
+      const rs: any = await this.#api.get(`/tx/${txHash}/status`);
+
+      return rs;
+    } catch (error) {
+      return undefined;
     }
   };
 }
