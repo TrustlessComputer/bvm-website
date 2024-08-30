@@ -12,7 +12,7 @@
   min-height: var(--block-size);
   cursor: pointer;
   margin-top: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 
   &.release {
     &::before,
@@ -158,14 +158,22 @@
   .arrowUp {
     position: absolute;
     right: calc(var(--block-size)* .3);
-    bottom: -48px;
-    //top: calc(var(--block-size)* 1.2);
-    //left: 50%;
-    //transform: translateX(-75%);
+    bottom: -50px;
     width: 0;
     height: 0;
     border-left: calc(var(--block-size)* .2) solid transparent;
     border-right: calc(var(--block-size)* .2) solid transparent;
     border-bottom: calc(var(--block-size)* .2) solid #FFF;
+  }
+
+  .arrowUpPending {
+    position: absolute;
+    right: calc(var(--block-size)* .3);
+    bottom: -50px;
+    width: 0;
+    height: 0;
+    border-left: calc(var(--block-size)* .3) solid transparent;
+    border-right: calc(var(--block-size)* .3) solid transparent;
+    border-bottom: calc(var(--block-size)* .3) solid #FFF;
   }
 }

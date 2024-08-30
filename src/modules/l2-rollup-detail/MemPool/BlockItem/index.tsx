@@ -100,7 +100,7 @@ const BlockItem: React.FC<IProps> = ({
         <Square size={"125px"} />
       )}
       {
-        isSelected && <Box id={"arrow_up"} className={s.arrowUp}/>
+        isSelected && <Box id={"arrow_up"} className={isPending ? s.arrowUpPending : s.arrowUp}/>
       }
     </Box>
   );
