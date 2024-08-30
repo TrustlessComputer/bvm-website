@@ -30,9 +30,9 @@ type Props = {
 
 const LIMIT_PAGE = 50;
 const rowStyle = {
-  gridTemplateColumns: `56px 1fr 90px repeat(${
+  gridTemplateColumns: `56px 1fr 62px repeat(${
     PROBLEM_DATASOURCE.length + 1
-  }, minmax(110px, 1fr))`,
+  }, 95px)`,
 };
 
 const Leaderboard = (props: Props) => {

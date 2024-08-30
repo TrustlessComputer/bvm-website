@@ -140,6 +140,37 @@ const CompetitionSection = (props: Props) => {
           {!!currentUserContest && currentUserContest.rank <= 5 && <Congrats />}
 
           <Flex className={cn(s.wrapper)} as={motion.div}>
+            <Box
+              as={motion.div}
+              className={s.left}
+              initial={false}
+              animate={{
+                width:
+                  width <= 768
+                    ? '100%'
+                    : isProblemPanelMaximized
+                    ? '100%'
+                    : '40%',
+                height: 'auto',
+                transition: {
+                  type: 'keyframes',
+                  delay: isProblemPanelMaximized ? 0.4 : 0,
+                  duration: 0.5,
+                },
+              }}
+              onAnimationComplete={() => {
+                if (!isProblemPanelMaximized) {
+                  setShowLeaderboard(true);
+                }
+              }}
+            >
+              <h4>Problems</h4>
+              <Problems
+                isProblemPanelMaximized={isProblemPanelMaximized}
+                setIsProblemPanelMaximized={setIsProblemPanelMaximized}
+                setShowLeaderboard={setShowLeaderboard}
+              />
+            </Box>
             <AnimatePresence>
               {(showLeaderboard || width <= 768) && (
                 <motion.div
