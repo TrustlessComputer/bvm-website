@@ -61,6 +61,8 @@ interface ISort {
   ascending?: boolean;
 }
 
+const SEARCH_BAR_HEIGHT = 72;
+
 const L2Rollup = () => {
   const { showContactUsModal } = useContactUs();
   const dispatch = useDispatch();
@@ -1051,7 +1053,7 @@ const L2Rollup = () => {
         top={isTopScroll ? '0px' : `${window.innerHeight * 0.2 - scrollTop}px`}
         left={'0px'}
         right={'0px'}
-        h={'72px'}
+        h={`${SEARCH_BAR_HEIGHT}px`}
         justifyContent={'center'}
         zIndex={1}
         pt={'8px'}
@@ -1065,7 +1067,9 @@ const L2Rollup = () => {
         />
       </Flex>
       <Flex
-        h={`calc(100vh - ${isMobile ? 60 : 96 + (isTopScroll ? 72 : 0)}px)`}
+        h={`calc(100vh - ${
+          isMobile ? 60 : 96 + (isTopScroll ? SEARCH_BAR_HEIGHT : 0)
+        }px)`}
         overflow={'scroll !important'}
         className={s.content}
         w={'100%'}
