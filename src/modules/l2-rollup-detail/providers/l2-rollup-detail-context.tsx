@@ -12,7 +12,6 @@ import {
   ITokenChain,
   RollupTokenRate,
 } from '@/services/api/dapp/rollupl2-detail/interface';
-import { isValidBTCTxHash, isValidERC20TxHash } from '@/utils/form-validate';
 import { formatCurrency, validateBTCAddress } from '@/utils/format';
 import { compareString } from '@/utils/string';
 import { validateEVMAddress } from '@/utils/validate';
@@ -26,6 +25,7 @@ import React, {
   useState,
 } from 'react';
 import uniqBy from 'lodash/uniqBy';
+import { isValidBTCTxHash, isValidERC20TxHash } from '@/utils/form-validate';
 import { IBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
 
 export interface IL2RollupDetailContext {

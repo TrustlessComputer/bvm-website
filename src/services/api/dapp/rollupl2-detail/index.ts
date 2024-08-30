@@ -86,6 +86,17 @@ class CRollupL2DetailAPI extends CDappApiClient {
     }
   };
 
+  getRollupL2Txs = async (params: {
+    tx_hash: string;
+  }): Promise<IRollupExplorer | undefined> => {
+    try {
+      const rs: any = await this.api.get(`/rollup/transactions`, { params });
+      return rs?.[0];
+    } catch (error) {
+      return undefined;
+    }
+  };
+
   addToWatchList = async (address: string): Promise<any> => {
     try {
       const rs: any = await this.api.post(`/user/watchlist/add`, { address });
@@ -132,14 +143,12 @@ class CRollupL2DetailAPI extends CDappApiClient {
     }
   };
 
-  getRollupL2Txs = async (params: {
-    tx_hash: string;
-  }): Promise<IRollupExplorer | undefined> => {
+  getTimeAVG = async (): Promise<number> => {
     try {
-      const rs: any = await this.api.get(`/rollup/transactions`, { params });
-      return rs?.[0];
+      const rs: any = await this.api.get(`/rollup/mempool/time-avg`);
+      return rs;
     } catch (error) {
-      return undefined;
+      return 0;
     }
   };
 }

@@ -51,20 +51,6 @@ class CRollupL2DetailBitcoinAPI extends CDappApiClient {
     }
   };
 
-  getTxBTC = async (
-    address: string,
-    params?: any,
-  ): Promise<ITxBTC | undefined> => {
-    try {
-      const rs: any = await this.api.get(`/explorer/transaction/${address}`, {
-        params,
-      });
-      return rs?.result;
-    } catch (error) {
-      return undefined;
-    }
-  };
-
   getRollupL2BitcoinSummary = async (
     user_address: string,
     params: any,
@@ -74,6 +60,20 @@ class CRollupL2DetailBitcoinAPI extends CDappApiClient {
         `/explorer/summary/${user_address}`,
         params,
       );
+      return rs?.result;
+    } catch (error) {
+      return undefined;
+    }
+  };
+
+  getTxBTC = async (
+    address: string,
+    params?: any,
+  ): Promise<ITxBTC | undefined> => {
+    try {
+      const rs: any = await this.api.get(`/explorer/transaction/${address}`, {
+        params,
+      });
       return rs?.result;
     } catch (error) {
       return undefined;

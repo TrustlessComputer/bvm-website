@@ -40,8 +40,8 @@ const TxBTCExplorer = () => {
   const [txBTC, setTxBTC] = useState<ITxBTC>();
   const coinPrices = useSelector(commonSelector).coinPrices;
   const needReload = useSelector(commonSelector).needReload;
-  const TIME_AVG = 619632 / 1000 / 60;
   const [indexBlock, setIndexBlock] = useState(0);
+  const [timeAvg, setTimeAvg] = useState(0);
 
   const btcPrice = useMemo(() => {
     return coinPrices?.['BTC'] || '0';
@@ -55,8 +55,8 @@ const TxBTCExplorer = () => {
   }, [address, needReload]);
 
   const processETA = useMemo(() => {
-    return TIME_AVG * indexBlock;
-  }, [indexBlock]);
+    return (timeAvg / 1000 / 60) * indexBlock;
+  }, [indexBlock, timeAvg]);
 
   const getTxInformation = async () => {
     try {
@@ -153,7 +153,11 @@ const TxBTCExplorer = () => {
           {renderState()}
         </Flex>
         {isProcessing && (
-          <BlockConfirm txBTC={txBTC} setIndexBlock={setIndexBlock} />
+          <BlockConfirm
+            txBTC={txBTC}
+            setIndexBlock={setIndexBlock}
+            setTimeAvg={setTimeAvg}
+          />
         )}
 
         <SimpleGrid

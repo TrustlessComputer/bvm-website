@@ -6,7 +6,7 @@ export const KEY_TWITTER_USERNAME = 'twitter_username';
 
 export const KEY_VC_TYPE = 'vc_type';
 export const KEY_WALLET_ID = 'wallet_id';
-export const LOCAL_VERSION = '1';
+export const LOCAL_VERSION = '2';
 
 export enum STORAGE_KEYS {
   WEB3_AUTH_TOKEN = 'WEB3_AUTH_TOKEN',

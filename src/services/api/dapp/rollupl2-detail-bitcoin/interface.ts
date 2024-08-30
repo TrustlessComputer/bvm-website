@@ -77,6 +77,15 @@ export interface IBitcoinTokenTransaction {
   output_index: string;
 }
 
+export interface ISummaryInfo {
+  address: string;
+  balance: string;
+  transaction_count: string;
+  first_transaction_time: string;
+  last_transaction_time: string;
+  summary: string;
+}
+
 export interface ITxBTC {
   tx_id: string;
   height: string;
@@ -119,12 +128,4 @@ export interface ITxBTCTokenTransfer {
   inscription_number: string;
   symbol: string;
   output_index: string;
-}
-export interface ISummaryInfo {
-  address: string;
-  balance: string;
-  transaction_count: string;
-  first_transaction_time: string;
-  last_transaction_time: string;
-  summary: string;
 }

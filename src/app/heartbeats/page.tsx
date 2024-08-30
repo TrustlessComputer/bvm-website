@@ -49,7 +49,7 @@ export default function Page() {
     <MainLayout
       headerProps={{
         color: 'black',
-        bgColor: '#F3F1E8',
+        bgColor: '#ffffff',
       }}
       hideFooter={true}
       bodyColor={'#f3f1e8'}

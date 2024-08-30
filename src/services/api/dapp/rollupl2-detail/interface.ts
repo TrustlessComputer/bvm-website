@@ -121,11 +121,6 @@ export interface IRollupNFTDetail {
   token_uri_fetched_at: string;
 }
 
-export interface IWatchList {
-  address: string;
-  org_address: string;
-}
-
 export interface IRollupExplorer {
   rollup: IRollup;
   transactions: ITransaction[];
@@ -203,4 +198,9 @@ export interface ITransactionTransfer {
   symbol: string;
   decimals: number;
   icon_url: string;
+}
+
+export interface IWatchList {
+  address: string;
+  org_address: string;
 }
