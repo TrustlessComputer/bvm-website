@@ -945,7 +945,11 @@ const L2Rollup = () => {
     <Box className={s.container} overflow={'hidden'}>
       <Flex
         position={'absolute'}
-        top={scrollTop > 140 ? '0px' : `${140 - scrollTop}px`}
+        top={
+          scrollTop > window.innerHeight * 0.2
+            ? '0px'
+            : `${window.innerHeight * 0.2 - scrollTop}px`
+        }
         left={'0px'}
         right={'0px'}
         h={'72px'}
