@@ -218,8 +218,8 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
                       .toNumber()
                   );
                 }, 0),
+              0,
               2,
-              6,
             )}`,
           })),
       });
@@ -360,16 +360,13 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     try {
       const data = await rollupBitcoinApi.getRollupL2BitcoinSummary(address, {
         type: 'BTC',
-        portfolio: rollupBitcoinBalances.map((portfolio: any) => ({
+        portfolio: rollupBitcoinBalances.map((portfolio) => ({
           asset: portfolio.title,
-          balance:
-            portfolio.title === 'BTC'
-              ? `${portfolio?.btcBalance || 0}`
-              : `${
-                  portfolio.amountUsd
-                    ? formatCurrency(portfolio.amountUsd, 2, 2)
-                    : '0'
-                }`,
+          balance: `${
+            portfolio.amountUsd
+              ? formatCurrency(portfolio.amountUsd, 2, 2)
+              : '0'
+          }`,
           percent: `${
             portfolio.amountUsd && totalBitcoinBalanceUsd
               ? ((portfolio.amountUsd / totalBitcoinBalanceUsd) * 100).toFixed(
