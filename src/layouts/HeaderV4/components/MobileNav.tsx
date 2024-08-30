@@ -4,12 +4,12 @@ import { Link, StackDivider, VStack } from '@chakra-ui/react';
 import { NAV_ITEMS, NAV_ITEMS_MOBILE } from '../menuConfig';
 import MobileDropdown from '@/layouts/Header/components/MobileDropdown';
 // import Community from './Community';
-import ButtonLoginTwitter from './ButtonLoginTwitter';
 import GroupDownItem from '@layouts/HeaderV3/components/GroupDownItem';
 
 import s from './styles.module.scss';
 import Contact from '@/modules/UseBitcoin/contact';
 import ContactUs from './ContactUs';
+import ButtonLoginTwitter from '../Main/ButtonLogin';
 
 type Props = {
   primaryColor?: 'black' | 'white';
@@ -24,7 +24,11 @@ export const MobileNav = (props: Props) => {
       px={'24px'}
       py={'32px'}
     >
-      <ButtonLoginTwitter className={s.menuButton} color={props.primaryColor} />
+      <ButtonLoginTwitter
+        className={s.menuButton}
+        color={props.primaryColor}
+        title="Connect"
+      />
 
       {NAV_ITEMS.map((item) => (
         <>

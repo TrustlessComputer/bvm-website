@@ -109,9 +109,20 @@ const L2Rollup = () => {
     const addresses: any[] = [];
 
     dataChart.forEach((d) => {
-      fees.push([d.timestamp, parseFloat(d.fee_usd)] as any[]);
-      txs.push([d.timestamp, d.tx_count]);
-      addresses.push([Number(d.timestamp), Number(d.address_actived)]);
+      // fees.push([d.timestamp, parseFloat(d.fee_usd)] as any[]);
+      fees.push({
+        x: d.timestamp,
+        y: parseFloat(d.fee_usd),
+        name: d.notes,
+      });
+      txs.push({
+        x: d.timestamp,
+        y: d.tx_count,
+      });
+      addresses.push({
+        x: d.timestamp,
+        y: Number(d.address_actived),
+      });
     });
 
     return { fees, txs, addresses };
@@ -1068,7 +1079,15 @@ const L2Rollup = () => {
           mt={isShowIntro ? 'calc(100dvh - 696px)' : 'calc(100dvh - 412px)'}
         >
           {isShowIntro && renderIntro()}
-          <Box display={'flex'} flexDirection={'column'} w={'100%'} my={'32px'}>
+          <Box
+            w={'100%'}
+            mb={'32px'}
+            mt={'48px'}
+            display={'flex'}
+            flexDirection={'column'}
+            w={'100%'}
+            my={'32px'}
+          >
             <Image
               alignSelf={'flex-end'}
               cursor={'pointer'}
@@ -1092,9 +1111,8 @@ const L2Rollup = () => {
                   >
                     <Text fontSize={'14px'}>Transaction Count</Text>
                     <Text fontSize={'14px'}>{`Today Ξ${formatCurrency(
-                      (
-                        _dataChart.txs?.[_dataChart.txs.length - 1] as any
-                      )?.[1] as any,
+                      (_dataChart.txs?.[_dataChart.txs.length - 1] as any)
+                        ?.y as any,
                       0,
                       2,
                     )}`}</Text>
@@ -1120,7 +1138,7 @@ const L2Rollup = () => {
                               _dataChart.addresses?.[
                                 _dataChart.addresses.length - 1
                               ] as any
-                            )?.[1] as any,
+                            )?.y as any,
                             0,
                             2,
                           )}`}
@@ -1157,9 +1175,8 @@ const L2Rollup = () => {
                   >
                     <Text fontSize={'14px'}>Fees Paid by Users</Text>
                     <Text fontSize={'14px'}>{`Today $${formatCurrency(
-                      (
-                        _dataChart.fees?.[_dataChart.fees.length - 1] as any
-                      )?.[1] as any,
+                      (_dataChart.fees?.[_dataChart.fees.length - 1] as any)
+                        ?.y as any,
                       0,
                       2,
                     )}`}</Text>
@@ -1175,6 +1192,7 @@ const L2Rollup = () => {
               </Text>
             </Box>
           </Box>
+
           <Flex
             className={s.totalContainer}
             bg="#FAFAFA"

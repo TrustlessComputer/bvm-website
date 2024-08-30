@@ -49,7 +49,7 @@ TMainHeader): ReactElement => {
           </div>
           {isDesktop && (
             <div className={s.menu}>
-              {NAV_ITEMS_LEFT.map((item) => {
+              {NAV_ITEMS_LEFT.map((item, index) => {
                 const isActive = pathname === item.href;
                 const isActiveDark = isActive && color === 'white';
                 const isActiveLight = isActive && color === 'black';
@@ -83,7 +83,7 @@ TMainHeader): ReactElement => {
                       } 
                     ${isActiveLight && s.activeLight}
                     `}
-                      style={{ color: color }}
+                      style={{ color: index === 0 ? 'white' : color }}
                     >
                       {item.label}
                     </p>

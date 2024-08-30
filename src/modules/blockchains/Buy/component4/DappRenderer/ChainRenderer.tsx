@@ -1,6 +1,7 @@
 import React from 'react';
 
-import ComputerNameInput from '@/modules/blockchains/Buy/components3/ComputerNameInput';
+// import ComputerNameInput from '@/modules/blockchains/Buy/components3/ComputerNameInput';
+import ComputerNameInput from '@/modules/blockchains/Buy/components3/ComputerNameInput/index_v2';
 import ChainDraggable from '@/modules/blockchains/Buy/components3/Draggable';
 import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
 import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
@@ -19,7 +20,7 @@ import styles from './styles.module.scss';
 
 type Props = {};
 
-const hiddenFields = ['bridge_apps', 'network'];
+const hiddenFields = ['bridge_apps', 'network', 'gaming_apps'];
 
 const ChainRenderer = () => {
   const { parsedCategories, categories } = useModelCategoriesStore();
@@ -52,7 +53,7 @@ const ChainRenderer = () => {
     >
       <LegoV3
         background={'#FF3A3A'}
-        label="Bitcoin Chain Name"
+        label="Bitcoin L2 Name"
         labelInLeft
         zIndex={45}
       >
@@ -92,6 +93,10 @@ const ChainRenderer = () => {
                 value={{
                   isChain: true,
                   value: option.key,
+                  rightDragging: true,
+                  background: item.color,
+                  label: option.title,
+                  icon: option.icon,
                 }}
               >
                 <DroppableV2 id={item.key + '-right'}>
@@ -116,6 +121,11 @@ const ChainRenderer = () => {
               useMask
               value={{
                 isChain: true,
+                rightDragging: true,
+                background: item.color,
+                label: item.title,
+                icon: '',
+                parent: true,
               }}
             >
               <DroppableV2 id={item.key}>
@@ -150,6 +160,10 @@ const ChainRenderer = () => {
               value={{
                 isChain: true,
                 value: option.key,
+                rightDragging: true,
+                background: item.color,
+                label: option.title,
+                icon: option.icon,
               }}
             >
               <DroppableV2 id={item.key + '-right'}>
