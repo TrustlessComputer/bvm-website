@@ -1,6 +1,7 @@
 import CDappApiClient from './dapp.client';
 import {
   IRollupDetail,
+  IRollupNFT, IRollupNFTDetail,
   IRollupTokenTransfer,
   IRollupTransaction,
   RollupTokenRate,
@@ -53,6 +54,28 @@ class CRollupL2DetailAPI extends CDappApiClient {
     try {
       const rs: any = await this.api.get(
         `/rollup/token-transfer?user_address=${params.user_address}&page=${params.page}&limit=${params.limit}`,
+      );
+      return rs;
+    } catch (error) {
+      return [];
+    }
+  };
+
+  getRollupL2NFTs = async (params: any): Promise<IRollupNFT[]> => {
+    try {
+      const rs: any = await this.api.get(
+        `/rollup/nft-balances?user_address=${params.user_address}&page=${params.page}&limit=${params.limit}`,
+      );
+      return rs;
+    } catch (error) {
+      return [];
+    }
+  };
+
+  getRollupL2NFTsList = async (params: any): Promise<IRollupNFTDetail[]> => {
+    try {
+      const rs: any = await this.api.get(
+        `/rollup/nft/list?rollup_id=${params.rollup_id}&user_address=${params.user_address}&token_address=${params.token_address}&page=${params.page}&limit=${params.limit}`,
       );
       return rs;
     } catch (error) {

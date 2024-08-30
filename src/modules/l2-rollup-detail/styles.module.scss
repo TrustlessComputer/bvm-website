@@ -31,7 +31,7 @@
   margin-right: auto;
   color: #000;
 
-  font-family: var(--font-JetBrainsMono) !important;
+  font-family: var(--font-SFProDisplay) !important;
   //max-width: 1920px !important;
   padding-left: 14px;
   padding-right: 14px;
@@ -103,7 +103,7 @@
 
       &[aria-selected='true'] {
         opacity: 1;
-        font-weight: 600;
+        font-weight: 500;
         color: #fa4e0e !important;
 
         &::after {
@@ -125,5 +125,17 @@
       border-color: transparent !important;
     }
     border-color: transparent !important;
+  }
+}
+
+.search {
+  width: 280px !important;
+  border: 1px solid #cecece;
+  &:focus-within {
+    border: 1px solid #fa4e0e;
+  }
+
+  input {
+    padding-inline-start: 12px !important;
   }
 }

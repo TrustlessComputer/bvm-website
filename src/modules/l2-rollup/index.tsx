@@ -27,13 +27,17 @@ import {
   Tooltip,
   useDisclosure,
 } from '@chakra-ui/react';
-import { DotLottiePlayer } from '@dotlottie/react-player';
-import { orderBy } from 'lodash';
+import orderBy from 'lodash/orderBy';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import BitcoinRentModal from './BitcoinRentModal';
 import L2RollupFee from './fees';
 import s from './styles.module.scss';
+import SearchAddress from '../l2-rollup-detail/SearchAddress';
+import React from 'react';
+import { isMobile } from 'react-device-detect';
+import { DotLottiePlayer } from '@dotlottie/react-player';
+import AnimArrowDown from './AnimArrowDown';
 
 enum SortRollupType {
   name,
@@ -61,6 +65,8 @@ const L2Rollup = () => {
   const { showContactUsModal } = useContactUs();
   const dispatch = useDispatch();
   const { isOpen, onClose, onOpen } = useDisclosure();
+
+  const [isShowIntro, setIsShowIntro] = useState(false);
 
   const [bitcoinRent, setBitcoinRent] = useState<IRollupL2Info>();
 
@@ -933,9 +939,29 @@ const L2Rollup = () => {
     [data],
   );
 
-  return (
-    <Box className={s.container}>
-      <Flex direction={'column'} w="100%" maxW={'1800px'} alignItems={'center'}>
+  const contentRef = useRef<HTMLDivElement | null>(null);
+
+  const [scrollTop, setScrollTop] = useState(0);
+  // Sticky Menu Area
+  useEffect(() => {
+    if (contentRef.current)
+      contentRef.current.addEventListener('scroll', onScroll);
+    return () => {
+      if (contentRef.current)
+        contentRef.current.removeEventListener('scroll', onScroll);
+    };
+  });
+
+  const onScroll = () => {
+    if (contentRef.current) {
+      const scrollTop = contentRef.current!.scrollTop;
+      setScrollTop(scrollTop);
+    }
+  };
+
+  const renderIntro = () => {
+    return (
+      <Flex direction={'column'} alignItems={'center'}>
         <Flex alignItems="center" gap="6px" my={'12px'}>
           <Text fontSize={'20px'}>Project Bitcoin Heartbeats</Text>
           <DotLottiePlayer
@@ -1006,163 +1032,224 @@ const L2Rollup = () => {
             <Image maxW={'40px'} src={'/heartbeat/ic-submit.svg'} />
           </Flex>
         </Flex>
+      </Flex>
+    );
+  };
 
-        {/* <Flex mb={'48px'}>
-          <SearchAddress placeholder={'Search Bitcoin or EVM address'} />
-        </Flex> */}
-
-        <Box w={'100%'} mb={'32px'} mt={'48px'}>
-          <SimpleGrid columns={3} gap={'16px'}>
-            <L2RollupFee
-              data={_dataChart.txs}
-              prefix="Ξ"
-              header={
-                <Flex
-                  alignItems={'center'}
-                  justifyContent={'space-between'}
-                  p={'6px'}
-                  backgroundColor={'#fff'}
-                >
-                  <Text fontSize={'14px'}>Transaction Count</Text>
-                  <Text fontSize={'14px'}>{`Today Ξ${formatCurrency(
-                    (
-                      _dataChart.txs?.[_dataChart.txs.length - 1] as any
-                    )?.y as any,
-                    0,
-                    2,
-                  )}`}</Text>
-                </Flex>
-              }
-            />
-            <L2RollupFee
-              data={_dataChart.addresses}
-              prefix="Ξ"
-              header={
-                <Flex
-                  alignItems={'center'}
-                  justifyContent={'space-between'}
-                  p={'6px'}
-                  backgroundColor={'#fff'}
-                >
-                  <Text fontSize={'14px'}>Bitcoin l2 Active addresses</Text>
-                  <Tooltip label="Active addresses are those that have executed at least one transaction. The count of addresses is specific to Layer 2 on Bitcoin, excluding BTC addresses">
-                    <Flex alignItems={'center'} gap={'2px'}>
-                      <Text fontSize={'14px'} cursor={'pointer'}>
-                        {`Ξ${formatCurrency(
-                          (
-                            _dataChart.addresses?.[
-                              _dataChart.addresses.length - 1
-                            ] as any
-                          )?.y as any,
-                          0,
-                          2,
-                        )}`}
-                      </Text>
-                      <svg
-                        stroke="rgba(0, 0, 0, 0.5)"
-                        fill="none"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        height="10px"
-                        width="10px"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="16" x2="12" y2="12"></line>
-                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                      </svg>
-                    </Flex>
-                  </Tooltip>
-                </Flex>
-              }
-            />
-            <L2RollupFee
-              data={_dataChart.fees}
-              prefix="$"
-              header={
-                <Flex
-                  alignItems={'center'}
-                  justifyContent={'space-between'}
-                  p={'6px'}
-                  backgroundColor={'#fff'}
-                >
-                  <Text fontSize={'14px'}>Fees Paid by Users</Text>
-                  <Text fontSize={'14px'}>{`Today $${formatCurrency(
-                    (_dataChart.fees?.[_dataChart.fees.length - 1] as any)
-                      ?.y as any,
-                    0,
-                    2,
-                  )}`}</Text>
-                </Flex>
-              }
-            />
-          </SimpleGrid>
-          <Box mt={'6px'}>
-            <Text fontSize={'12px'} opacity={'0.8'}>
-              * This data has been collected from{' '}
-              {chainsSupportForChart.join(', ')} chains.{' '}
-              <b>Rollux, Merlin, Core, and Stacks will be coming soon.</b>
-            </Text>
-          </Box>
-        </Box>
+  return (
+    <Box className={s.container} overflow={'hidden'}>
+      <Flex
+        position={'absolute'}
+        top={
+          scrollTop > window.innerHeight * 0.2 ||
+          (isShowIntro && window.innerHeight < 1200)
+            ? '0px'
+            : `${window.innerHeight * 0.2 - scrollTop}px`
+        }
+        left={'0px'}
+        right={'0px'}
+        h={'72px'}
+        justifyContent={'center'}
+        zIndex={1}
+        pt={'8px'}
+      >
+        <SearchAddress
+          placeholder={
+            'Search by Bitcoin or Bitcoin L2 wallet address / Txn Hash'
+          }
+          className={s.search}
+          autoFocus
+        />
+      </Flex>
+      <Flex
+        h={`calc(100vh - ${isMobile ? 60 : 96}px)`}
+        overflow={'scroll !important'}
+        className={s.content}
+        w={'100%'}
+        direction={'column'}
+        alignItems={'center'}
+        ref={contentRef}
+      >
         <Flex
-          className={s.totalContainer}
-          bg="#FAFAFA"
-          w="100%"
           direction={'column'}
-          gap={'8px'}
+          w="100%"
+          maxW={'1800px'}
+          alignItems={'center'}
+          mb={'60px'}
+          mt={isShowIntro ? 'calc(100dvh - 696px)' : 'calc(100dvh - 412px)'}
         >
-          <Text fontSize={'24px'} fontWeight={'600'} textAlign={'center'}>
-            Total
-          </Text>
-          <Flex w="100%" direction={'row'} justifyContent={'space-evenly'}>
-            {renderItemTotal(
-              'TPS',
-              formatCurrency(total.tps, MIN_DECIMAL, MIN_DECIMAL),
-              'The total transactions per second',
-              bitcoinRollup
-                ? `(${formatCurrency(
-                    Math.abs(total.tps / bitcoinRollup.tps),
-                    MIN_DECIMAL,
-                    MIN_DECIMAL,
-                  )}x)`
-                : '-',
-            )}
-            {renderItemTotal(
-              'Mgas/s',
-              formatCurrency(total.mgas, MIN_DECIMAL, MIN_DECIMAL),
-              'The total megagas (Million Gas) per second',
-              '',
-            )}
-            {renderItemTotal(
-              'KB/s',
-              formatCurrency(total.kbs, MIN_DECIMAL, MIN_DECIMAL),
-              'Total KB per second',
-              bitcoinRollup
-                ? `(${formatCurrency(
-                    Math.abs(total.kbs / bitcoinRollup.kbs),
-                    MIN_DECIMAL,
-                    MIN_DECIMAL,
-                  )}x)`
-                : '-',
-            )}
-          </Flex>
-        </Flex>
-        <Box w="100%" bg="#FAFAFA" minH={'450px'} mt={'56px'}>
-          {data.length <= 0 ? (
-            <Box mt={'24px'}>
-              <AppLoading />
-            </Box>
-          ) : (
-            <ListTable
-              data={data}
-              columns={columns}
-              className={s.tableContainer}
+          {isShowIntro && renderIntro()}
+          <Box
+            w={'100%'}
+            mb={'32px'}
+            mt={'48px'}
+            display={'flex'}
+            flexDirection={'column'}
+            w={'100%'}
+            my={'32px'}
+          >
+            <Image
+              alignSelf={'flex-end'}
+              cursor={'pointer'}
+              width="24px"
+              height="24px"
+              alt=""
+              src={'/heartbeat/ic-tooltip-homepage.svg'}
+              mb={'12px'}
+              onClick={() => setIsShowIntro(!isShowIntro)}
             />
-          )}
-        </Box>
+            <SimpleGrid columns={3} gap={'16px'}>
+              <L2RollupFee
+                data={_dataChart.txs}
+                prefix="Ξ"
+                header={
+                  <Flex
+                    alignItems={'center'}
+                    justifyContent={'space-between'}
+                    p={'6px'}
+                    backgroundColor={'#fff'}
+                  >
+                    <Text fontSize={'14px'}>Transaction Count</Text>
+                    <Text fontSize={'14px'}>{`Today Ξ${formatCurrency(
+                      (_dataChart.txs?.[_dataChart.txs.length - 1] as any)
+                        ?.y as any,
+                      0,
+                      2,
+                    )}`}</Text>
+                  </Flex>
+                }
+              />
+              <L2RollupFee
+                data={_dataChart.addresses}
+                prefix="Ξ"
+                header={
+                  <Flex
+                    alignItems={'center'}
+                    justifyContent={'space-between'}
+                    p={'6px'}
+                    backgroundColor={'#fff'}
+                  >
+                    <Text fontSize={'14px'}>Bitcoin l2 Active addresses</Text>
+                    <Tooltip label="Active addresses are those that have executed at least one transaction. The count of addresses is specific to Layer 2 on Bitcoin, excluding BTC addresses">
+                      <Flex alignItems={'center'} gap={'2px'}>
+                        <Text fontSize={'14px'} cursor={'pointer'}>
+                          {`Ξ${formatCurrency(
+                            (
+                              _dataChart.addresses?.[
+                                _dataChart.addresses.length - 1
+                              ] as any
+                            )?.y as any,
+                            0,
+                            2,
+                          )}`}
+                        </Text>
+                        <svg
+                          stroke="rgba(0, 0, 0, 0.5)"
+                          fill="none"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          height="10px"
+                          width="10px"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <line x1="12" y1="16" x2="12" y2="12"></line>
+                          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                      </Flex>
+                    </Tooltip>
+                  </Flex>
+                }
+              />
+              <L2RollupFee
+                data={_dataChart.fees}
+                prefix="$"
+                header={
+                  <Flex
+                    alignItems={'center'}
+                    justifyContent={'space-between'}
+                    p={'6px'}
+                    backgroundColor={'#fff'}
+                  >
+                    <Text fontSize={'14px'}>Fees Paid by Users</Text>
+                    <Text fontSize={'14px'}>{`Today $${formatCurrency(
+                      (_dataChart.fees?.[_dataChart.fees.length - 1] as any)
+                        ?.y as any,
+                      0,
+                      2,
+                    )}`}</Text>
+                  </Flex>
+                }
+              />
+            </SimpleGrid>
+            <Box mt={'6px'}>
+              <Text fontSize={'12px'} opacity={'0.8'}>
+                * This data has been collected from{' '}
+                {chainsSupportForChart.join(', ')} chains.{' '}
+                <b>Rollux, Merlin, Core, and Stacks will be coming soon.</b>
+              </Text>
+            </Box>
+          </Box>
+
+          <Flex
+            className={s.totalContainer}
+            bg="#FAFAFA"
+            w="100%"
+            direction={'column'}
+            gap={'8px'}
+          >
+            <Text fontSize={'24px'} fontWeight={'600'} textAlign={'center'}>
+              Total
+            </Text>
+            <Flex w="100%" direction={'row'} justifyContent={'space-evenly'}>
+              {renderItemTotal(
+                'TPS',
+                formatCurrency(total.tps, MIN_DECIMAL, MIN_DECIMAL),
+                'The total transactions per second',
+                bitcoinRollup
+                  ? `(${formatCurrency(
+                      Math.abs(total.tps / bitcoinRollup.tps),
+                      MIN_DECIMAL,
+                      MIN_DECIMAL,
+                    )}x)`
+                  : '-',
+              )}
+              {renderItemTotal(
+                'Mgas/s',
+                formatCurrency(total.mgas, MIN_DECIMAL, MIN_DECIMAL),
+                'The total megagas (Million Gas) per second',
+                '',
+              )}
+              {renderItemTotal(
+                'KB/s',
+                formatCurrency(total.kbs, MIN_DECIMAL, MIN_DECIMAL),
+                'Total KB per second',
+                bitcoinRollup
+                  ? `(${formatCurrency(
+                      Math.abs(total.kbs / bitcoinRollup.kbs),
+                      MIN_DECIMAL,
+                      MIN_DECIMAL,
+                    )}x)`
+                  : '-',
+              )}
+            </Flex>
+          </Flex>
+          <Box w="100%" bg="#FAFAFA" minH={'450px'} mt={'56px'}>
+            {data.length <= 0 ? (
+              <Box mt={'24px'}>
+                <AppLoading />
+              </Box>
+            ) : (
+              <ListTable
+                data={data}
+                columns={columns}
+                className={s.tableContainer}
+              />
+            )}
+          </Box>
+        </Flex>
       </Flex>
       {isOpen && bitcoinRent && (
         <BitcoinRentModal
@@ -1172,6 +1259,19 @@ const L2Rollup = () => {
           onHide={onClose}
           total={formatCurrency(bitcoinRent.fee_btc, 0, 4)}
         />
+      )}
+      {scrollTop < 32 && (
+        <Flex
+          position={'absolute'}
+          left={'0px'}
+          right={'0px'}
+          bottom={'2vw'}
+          h={'72px'}
+          justifyContent={'center'}
+          zIndex={1}
+        >
+          <AnimArrowDown />
+        </Flex>
       )}
     </Box>
   );

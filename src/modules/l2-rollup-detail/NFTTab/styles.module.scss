@@ -1,7 +1,15 @@
 .container {
   width: 100%;
-  box-shadow: 0px 0px 20px -6px #00000014;
-  border-radius: 12px;
+
+  .chains {
+    box-shadow: 0px 0px 20px -6px #00000014;
+  }
+
+  .content {
+    box-shadow: 0px 0px 20px -6px #00000014;
+    border-radius: 12px;
+    height: 52vh;
+  }
 }
 
 .wrapScroll {
@@ -53,6 +61,7 @@ table {
     .title {
       font-style: normal;
       font-size: 16px;
+      line-height: 160%;
 
       overflow: hidden;
       text-overflow: ellipsis;

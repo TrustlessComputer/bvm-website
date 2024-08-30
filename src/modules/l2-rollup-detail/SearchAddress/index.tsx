@@ -20,11 +20,20 @@ type ISearchBarProps = {
   setTxtSearch: (data: string) => void;
   placeholder?: string;
   onEnterSearch?: () => void;
+  autoFocus?: boolean;
+  icSearchAtLeft?: boolean;
 };
 
 const SearchBar = (props: ISearchBarProps) => {
-  const { className, txtSearch, setTxtSearch, placeholder, onEnterSearch } =
-    props;
+  const {
+    className,
+    txtSearch,
+    setTxtSearch,
+    placeholder,
+    onEnterSearch,
+    autoFocus,
+    icSearchAtLeft,
+  } = props;
   const onEnter = (e: any) => {
     if (e.code === 'Enter') {
       e.target.blur();
@@ -32,10 +41,15 @@ const SearchBar = (props: ISearchBarProps) => {
     }
   };
   return (
-    <InputGroup className={cs(s.inputContainer, className)}>
-      <InputLeftElement pointerEvents="none">
-        <Image mt="4px" h="18px" src={`/icons/ic_search.svg`} />
-      </InputLeftElement>
+    <Flex
+      className={cs(s.inputContainer, className)}
+      display={'flex'}
+      flexDirection={'row'}
+      alignItems={'center'}
+    >
+      {icSearchAtLeft && (
+        <Image w="18px" ml={'16px'} src={`/icons/ic_search.svg`} />
+      )}
       <Input
         placeholder={placeholder}
         value={txtSearch}
@@ -43,13 +57,21 @@ const SearchBar = (props: ISearchBarProps) => {
         enterKeyHint="search"
         onKeyDownCapture={onEnter}
         lang="en"
+        autoFocus={autoFocus}
+        bg={'red'}
       />
-    </InputGroup>
+      {!icSearchAtLeft && (
+        <Image w="18px" mr={'16px'} src={`/icons/ic_search.svg`} />
+      )}
+    </Flex>
   );
 };
 
 type ISearchAddressProps = {
   placeholder?: string;
+  className?: string;
+  autoFocus?: boolean;
+  icSearchAtLeft?: boolean;
 };
 
 const SearchAddress = (props: ISearchAddressProps) => {
@@ -80,9 +102,12 @@ const SearchAddress = (props: ISearchAddressProps) => {
         placeholder={props.placeholder || 'Search address '}
         onEnterSearch={() => {
           if (isValidSearchAddress) {
-            router.push(`${HEART_BEAT}/${searchAddress}`);
+            router.replace(`${HEART_BEAT}/address/${searchAddress}`);
           }
         }}
+        className={props.className}
+        autoFocus={props.autoFocus}
+        icSearchAtLeft={props.icSearchAtLeft}
       />
       {searchAddress && (
         <Flex
@@ -99,7 +124,9 @@ const SearchAddress = (props: ISearchAddressProps) => {
               gap={'6px'}
               cursor={'pointer'}
               pr={'12px'}
-              onClick={() => router.push(`${HEART_BEAT}/${searchAddress}`)}
+              onClick={() =>
+                router.replace(`${HEART_BEAT}/address/${searchAddress}`)
+              }
             >
               <Image w={'14px'} src={'/heartbeat/ic-link.svg'} />
               <Text fontSize={'12px'}>{searchAddress}</Text>

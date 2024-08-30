@@ -11,6 +11,7 @@ export interface ITokenChain {
   value_fetched_at: Date;
   block_number: number;
   is_native: boolean;
+  icon_url?: string;
   chain?: IRollupChain;
 }
 
@@ -94,4 +95,28 @@ export interface ITokenTransfer {
 export interface IRollupTokenTransfer {
   rollup: IRollupChain;
   transfers: ITokenTransfer[];
+}
+
+export interface INFT {
+  token_contract_address: string;
+  value: string;
+  token_name: string;
+  token_type: string;
+  value_fetched_at: Date;
+  block_number: number;
+  is_native: boolean;
+  chain?: IRollupChain;
+}
+
+export interface IRollupNFT {
+  rollup: IRollupChain;
+  balances: INFT[];
+}
+
+export interface IRollupNFTDetail {
+  token_address: string;
+  token_id: string;
+  owner_address: string;
+  token_uri: string;
+  token_uri_fetched_at: string;
 }

@@ -1,64 +1,44 @@
 import AppLoading from '@/components/AppLoading';
 import ListTable, { ColumnProp } from '@/components/ListTable';
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
-import CRollupL2DetailAPI from '@/services/api/dapp/rollupl2-detail';
-import {
-  IRollupTokenTransfer,
-  ITokenTransfer,
-} from '@/services/api/dapp/rollupl2-detail/interface';
+import CRollupL2DetailBitcoinAPI from '@/services/api/dapp/rollupl2-detail-bitcoin';
+import { IBitcoinTokenTransaction } from '@/services/api/dapp/rollupl2-detail-bitcoin/interface';
 import { shortCryptoAddress } from '@/utils/address';
 import { formatCurrency } from '@/utils/format';
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
 import { HEART_BEAT } from '@/constants/route-path';
-import { useRouter } from 'next/navigation';
 
 interface IProps {}
 
-const TokenTransferTab = (props: IProps) => {
+const TransactionsTabBitcoin = (props: IProps) => {
   const { address } = useContext(L2RollupDetailContext);
   const router = useRouter();
 
-  const rollupApi = new CRollupL2DetailAPI();
+  const rollupApi = new CRollupL2DetailBitcoinAPI();
 
-  const [rollupTransactions, setRollupTransactions] = useState<
-    IRollupTokenTransfer[]
-  >([]);
-
-  const list = useMemo(() => {
-    let transactions: ITokenTransfer[] = [];
-    rollupTransactions.forEach((data) => {
-      transactions = [
-        ...transactions,
-        ...data.transfers.map((transfer) => ({
-          ...transfer,
-          chain: data.rollup,
-        })),
-      ];
-    });
-    return transactions;
-  }, [rollupTransactions]);
+  const [list, setList] = useState<IBitcoinTokenTransaction[]>([]);
 
   const [isFetching, setIsFetching] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
+  const refInitial = useRef(false);
+  const endOfPaging = useRef(false);
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
     page: 1,
     limit: 20,
   });
-  const endOfPaging = useRef(false);
 
   useEffect(() => {
     refParams.current = {
       ...refParams.current,
     };
   }, []);
-
-  const refInitial = useRef(false);
 
   useEffect(() => {
     fetchData(true);
@@ -70,26 +50,28 @@ const TokenTransferTab = (props: IProps) => {
         setIsFetching(true);
         endOfPaging.current = false;
 
+        setList([]);
         refParams.current = {
           ...refParams.current,
           page: 1,
         };
-        const res = (await rollupApi.getRollupL2TokenTransfers({
+        const res = (await rollupApi.getRollupL2BitcoinTokenTransactions({
           user_address: address,
+          type: 'bitcoin',
           ...refParams.current,
         })) as any;
 
-        setRollupTransactions(res);
+        setList(res);
       } else {
         if (endOfPaging.current) return;
         setIsFetching(true);
-        const res = (await rollupApi.getRollupL2TokenTransfers({
+        const res = (await rollupApi.getRollupL2BitcoinTokenTransactions({
           user_address: address,
+          type: 'bitcoin',
           ...refParams.current,
         })) as any;
-
         if (res && res?.length > 0) {
-          setRollupTransactions([...rollupTransactions, ...res]);
+          setList([...list, ...res]);
         } else {
           endOfPaging.current = true;
         }
@@ -127,43 +109,6 @@ const TokenTransferTab = (props: IProps) => {
   const columns: ColumnProp[] = useMemo(() => {
     return [
       {
-        id: 'chain',
-        label: 'Chain',
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '14px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-          paddingLeft: '16px !important',
-        },
-        render(data: ITokenTransfer) {
-          return (
-            <Flex
-              direction={'column'}
-              cursor="pointer"
-              _hover={{
-                textDecoration: 'underline',
-              }}
-              onClick={() => {
-                window.open(`${data.chain?.explorer}`);
-              }}
-            >
-              <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
-                <Image
-                  w={'18px'}
-                  h={'18px'}
-                  borderRadius={'50%'}
-                  src={data.chain?.icon}
-                />
-                <Text className={s.title}>{data.chain?.name}</Text>
-              </Flex>
-            </Flex>
-          );
-        },
-      },
-      {
         id: 'tx',
         label: 'Transaction',
         labelConfig,
@@ -173,8 +118,9 @@ const TokenTransferTab = (props: IProps) => {
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
+          paddingLeft: '16px !important',
         },
-        render(data: ITokenTransfer) {
+        render(data: IBitcoinTokenTransaction) {
           return (
             <Flex
               direction={'column'}
@@ -183,12 +129,12 @@ const TokenTransferTab = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                router.push(`${HEART_BEAT}/tx/${data.transaction_hash}`);
+                router.push(`${HEART_BEAT}/tx/${data.tx_id}`);
               }}
             >
               <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
                 <Text className={s.title}>
-                  {shortCryptoAddress(data.transaction_hash)}
+                  {shortCryptoAddress(data.tx_id)}
                 </Text>
               </Flex>
             </Flex>
@@ -206,7 +152,13 @@ const TokenTransferTab = (props: IProps) => {
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
         },
-        render(data: ITokenTransfer) {
+        render(data: IBitcoinTokenTransaction) {
+          let from = '';
+          if (
+            data.from.toLowerCase().split(',').includes(address.toLowerCase())
+          ) {
+            from = address;
+          }
           return (
             <Flex
               gap={6}
@@ -218,11 +170,11 @@ const TokenTransferTab = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                router.push(`${HEART_BEAT}/address/${data.from_address}`);
+                if (from) router.push(`${HEART_BEAT}/address/${from}`);
               }}
             >
               <Text className={s.title}>
-                {shortCryptoAddress(data.from_address, 10)}
+                {from ? shortCryptoAddress(from, 10) : '-'}
               </Text>
             </Flex>
           );
@@ -239,7 +191,14 @@ const TokenTransferTab = (props: IProps) => {
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
         },
-        render(data: ITokenTransfer) {
+        render(data: IBitcoinTokenTransaction) {
+          let to = '';
+          if (
+            data.to.toLowerCase().split(',').includes(address.toLowerCase()) &&
+            Number(data?.amount) > 0
+          ) {
+            to = address;
+          }
           return (
             <Flex
               gap={6}
@@ -251,11 +210,11 @@ const TokenTransferTab = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                router.push(`${HEART_BEAT}/address/${data.to_address}`);
+                if (to) router.push(`${HEART_BEAT}/address/${to}`);
               }}
             >
               <Text className={s.title}>
-                {shortCryptoAddress(data.to_address, 10)}
+                {to ? shortCryptoAddress(to, 10) : '-'}
               </Text>
             </Flex>
           );
@@ -272,21 +231,30 @@ const TokenTransferTab = (props: IProps) => {
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
         },
-        render(data: ITokenTransfer) {
+        render(data: IBitcoinTokenTransaction) {
           return (
             <Flex gap={3} alignItems={'center'} width={'100%'}>
               <Flex gap={2} alignItems={'center'}>
-                <Text className={s.title}>
+                <Text
+                  className={s.title}
+                  color={
+                    Number(data?.amount) === 0
+                      ? '#000'
+                      : Number(data?.amount) < 0
+                      ? 'red !important'
+                      : 'green !important'
+                  }
+                >
+                  {Number(data?.amount) > 0 ? '+' : ''}
                   {formatCurrency(data?.amount, 0, 6)}{' '}
-                  {data?.symbol.length > 12
-                    ? data?.symbol.substr(0, 12) + '...'
-                    : data?.symbol}
+                  {data.transaction_symbol || data.symbol}
                 </Text>
               </Flex>
             </Flex>
           );
         },
       },
+
       {
         id: 'time',
         label: 'Time',
@@ -298,12 +266,55 @@ const TokenTransferTab = (props: IProps) => {
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
         },
-        render(data: ITokenTransfer) {
+        render(data: IBitcoinTokenTransaction) {
           return (
             <Flex direction={'column'}>
               <Flex alignItems={'center'} width={'100%'}>
                 <Text className={s.title}>
-                  {dayjs(data.updated_at).format('MM/DD/YYYY HH:mm')}
+                  {dayjs
+                    .unix(Number(data.transaction_time) / 1000)
+                    .format('MM/DD/YYYY HH:mm')}
+                </Text>
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'state',
+        label: 'Status',
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: IBitcoinTokenTransaction) {
+          let color = '#000';
+          let status = '';
+          switch (data.state) {
+            case 'pending':
+              status = 'Pending';
+              color = 'orange';
+              break;
+            case 'success':
+              status = 'Completed';
+              color = 'green';
+              break;
+            case 'fail':
+              status = 'Failed';
+              color = 'red';
+              break;
+            default:
+              break;
+          }
+          return (
+            <Flex gap={3} alignItems={'center'} width={'100%'}>
+              <Flex gap={2} alignItems={'center'}>
+                <Text className={s.title} color={`${color} !important`}>
+                  {status || '-'}
                 </Text>
               </Flex>
             </Flex>
@@ -311,37 +322,39 @@ const TokenTransferTab = (props: IProps) => {
         },
       },
     ];
-  }, []);
+  }, [address]);
 
   return (
-    <Box className={s.container} h="60vh">
-      <ScrollWrapper
-        onFetch={() => {
-          refParams.current = {
-            ...refParams.current,
-            page: refParams.current.page + 1,
-          };
-          hasIncrementedPageRef.current = true;
-          fetchData();
-        }}
-        isFetching={refreshing}
-        hasIncrementedPageRef={hasIncrementedPageRef}
-        onFetchNewData={onRefresh}
-        wrapClassName={s.wrapScroll}
-        dependData={list}
-      >
-        <ListTable
-          data={list}
-          columns={columns}
-          className={s.tableContainer}
-          showEmpty={!isFetching}
-          emptyLabel="No transactions found."
-          emptyIcon={<Image src={'/icons/icon-empty.svg'} />}
-        />
-        {isFetching && <AppLoading className={s.loading} />}
-      </ScrollWrapper>
-    </Box>
+    <Flex direction={'column'}>
+      <Box className={`${s.container} ${s.shadow}`} h="60vh">
+        <ScrollWrapper
+          onFetch={() => {
+            refParams.current = {
+              ...refParams.current,
+              page: refParams.current.page + 1,
+            };
+            hasIncrementedPageRef.current = true;
+            fetchData();
+          }}
+          isFetching={refreshing}
+          hasIncrementedPageRef={hasIncrementedPageRef}
+          onFetchNewData={onRefresh}
+          wrapClassName={s.wrapScroll}
+          dependData={list}
+        >
+          <ListTable
+            data={list}
+            columns={columns}
+            className={s.tableContainer}
+            showEmpty={!isFetching}
+            emptyLabel="No transactions found."
+            emptyIcon={<Image src={'/icons/icon-empty.svg'} />}
+          />
+          {isFetching && <AppLoading className={s.loading} />}
+        </ScrollWrapper>
+      </Box>
+    </Flex>
   );
 };
 
-export default TokenTransferTab;
+export default TransactionsTabBitcoin;

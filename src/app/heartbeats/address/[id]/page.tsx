@@ -1,14 +1,11 @@
-import { CDN_URL } from '@/config';
 import MainLayout from '@/layouts/MainLayout';
-import L2RollupModule from '@/modules/l2-rollup';
+import L2RollupAddressModule from '@/modules/l2-rollup-detail';
 import { Metadata } from 'next';
 import React from 'react';
 
-const TITLE = 'Bitcoin Heartbeats | Welcome to the future of Bitcoin.';
+const TITLE = 'Bitcoin Heartbeat | Welcome to the future of Bitcoin.';
 const DESCRIPTION =
   'Provide transparent and verifiable insights into Bitcoin rollups.';
-
-const THUMBNAIL = `${CDN_URL}/pages/bvm-studio/bvm-heartbeat-metadata.png`;
 
 export const metadata: Metadata = {
   applicationName: TITLE,
@@ -26,7 +23,7 @@ export const metadata: Metadata = {
     },
     images: [
       {
-        url: THUMBNAIL,
+        url: '/heartbeat/metadata.png',
         width: 1200,
         height: 630,
         alt: TITLE,
@@ -40,7 +37,7 @@ export const metadata: Metadata = {
       template: '',
     },
     description: DESCRIPTION,
-    images: THUMBNAIL,
+    images: '/heartbeat/metadata.png',
   },
 };
 
@@ -51,10 +48,10 @@ export default function Page() {
         color: 'black',
         bgColor: '#F3F1E8',
       }}
-      hideFooter={true}
-      bodyColor={'#f3f1e8'}
+      hideFooter={false}
+      bodyColor={'#fff'}
     >
-      <L2RollupModule />
+      <L2RollupAddressModule />
     </MainLayout>
   );
 }
