@@ -54,7 +54,11 @@ const TxExplorerModuleHandle = () => {
             <Text>Bitcoin Heartbeat Project</Text>
           </Flex>
           <Flex alignItems={'center'} gap={'4px'} position={'relative'}>
-            <SearchAddress className={s.search} />
+            <SearchAddress
+              className={s.search}
+              placeholder={'Search by Address / Txn Hash'}
+              icSearchAtLeft
+            />
             <WatchListAddresses />
           </Flex>
         </Flex>
