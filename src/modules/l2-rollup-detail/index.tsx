@@ -3,8 +3,6 @@
 'use client';
 
 import { HEART_BEAT } from '@/constants/route-path';
-import { shortCryptoAddress } from '@/utils/address';
-import { formatCurrency } from '@/utils/format';
 import {
   Box,
   Flex,
@@ -15,12 +13,9 @@ import {
   TabPanels,
   Tabs,
   Text,
-  Skeleton,
 } from '@chakra-ui/react';
-import copy from 'copy-to-clipboard';
-import React, { useContext } from 'react';
-import { isMobile } from 'react-device-detect';
-import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import { useContext } from 'react';
 import NFTTab from './NFTTab';
 import PortfolioTab from './PortfolioTab';
 import PortfolioTabBitcoin from './PortfolioTabBitcoin';
@@ -34,7 +29,6 @@ import TokenTransferTab from './TokenTransferTab';
 import TokenTransferTabBitcoin from './TokenTransferTabBitcoin';
 import TransactionsTab from './TransactionsTab';
 import TransactionsTabBitcoin from './TransactionsTabBitcoin';
-import { formatAiSummary } from './utils';
 
 const L2RollupDetail = () => {
   const {
@@ -46,6 +40,7 @@ const L2RollupDetail = () => {
     balanceBitcoinInfo,
     rollupBitcoinBalances,
   } = useContext(L2RollupDetailContext);
+  const router = useRouter();
 
   if (!isValidAddress) {
     return (
@@ -79,90 +74,13 @@ const L2RollupDetail = () => {
             direction={{ base: 'row' }}
             alignItems={'center'}
             gap={'8px'}
-            onClick={() => window.location.replace(HEART_BEAT)}
+            onClick={() => router.push(HEART_BEAT)}
           >
             <Image w={'24px'} src={'/heartbeat/ic-back.svg'} />
-            <Text>Bitcoin Heartbeats Project</Text>
+            <Text>Bitcoin Heartbeat Project</Text>
           </Flex>
-          <SearchAddress
-            className={s.search}
-            placeholder={'Search by Address / Txn Hash'}
-            icSearchAtLeft
-          />
+          <SearchAddress className={s.search} />
         </Flex>
-
-        <Flex
-          mt={{ base: '28px', md: '36px' }}
-          gap={{ base: '16px', md: '20px' }}
-          direction={'row'}
-          alignItems={'flex-start'}
-          // alignItems={'center'}
-        >
-          <Image
-            w={{ base: '80px', md: '140px' }}
-            src={'/heartbeat/ic-wallet.svg'}
-          />
-          <Flex gap="6px" direction={'column'}>
-            <Flex direction={'row'} alignItems={'center'} gap={'8px'}>
-              <Text fontWeight={'400'} fontSize={'16px'}>
-                {isMobile ? shortCryptoAddress(address) : address}
-              </Text>
-              <Image
-                className={s.iconCopy}
-                w={{ base: '16px' }}
-                src={'/heartbeat/ic-copy.svg'}
-                onClick={() => {
-                  copy(address);
-                  toast.success('Copied');
-                }}
-              />
-            </Flex>
-            {isBTCAddress ? (
-              <>
-                <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
-                  <Text>BTC balance:</Text>
-                  <Text fontWeight={'600'} fontSize={'16px'}>
-                    {`${formatCurrency(
-                      balanceBitcoinInfo?.balance,
-                      2,
-                      6,
-                    )} BTC ${
-                      rollupBitcoinBalances && rollupBitcoinBalances.length > 0
-                        ? `($${formatCurrency(
-                            rollupBitcoinBalances[0].amountUsd,
-                            2,
-                            2,
-                          )})`
-                        : ''
-                    }`}
-                  </Text>
-                </Flex>
-              </>
-            ) : (
-              <>
-                {/* <Text
-                  fontWeight={'500'}
-                  fontSize={{ base: '28px', md: '32px' }}
-                >
-                  {`$${formatCurrency(totalBalanceUsd, 2, 2)}`}
-                </Text> */}
-              </>
-            )}
-            {isLoadingAI ? (
-              <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
-                <Text>Analyzing...</Text>
-                <Skeleton w={'140px'} h={'20px'} speed={1.2} />
-              </Flex>
-            ) : (
-              <>
-                {aiSummary && (
-                  <Text fontWeight={'400'}>{formatAiSummary(aiSummary)}</Text>
-                )}
-              </>
-            )}
-          </Flex>
-        </Flex>
-
         <Tabs
           className={s.tabContainer}
           mt={{ base: '24px', md: '32px' }}

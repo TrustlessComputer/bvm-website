@@ -20,6 +20,9 @@ const TransactionsTabBitcoin = (props: IProps) => {
   const router = useRouter();
 
   const rollupApi = new CRollupL2DetailBitcoinAPI();
+  const [balanceType, setBalanceType] = useState<
+    BalanceBitcoinType | 'bitcoin'
+  >('bitcoin');
 
   const [list, setList] = useState<IBitcoinTokenTransaction[]>([]);
 
@@ -129,7 +132,7 @@ const TransactionsTabBitcoin = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                router.push(`${HEART_BEAT}/tx/${data.tx_id}`);
+                window.open(`${HEART_BEAT}/tx/${data.tx_id}`);
               }}
             >
               <Flex direction={'row'} alignItems={'center'} gap={'4px'}>

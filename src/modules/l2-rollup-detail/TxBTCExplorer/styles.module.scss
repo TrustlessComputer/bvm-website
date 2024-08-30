@@ -1,0 +1,277 @@
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  padding-bottom: 40px;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  // height: calc(100dvh - 114px);
+  background-color: #ffffff;
+  margin-left: auto;
+  margin-right: auto;
+  color: #000;
+
+  font-family: var(--font-JetBrainsMono) !important;
+  //max-width: 1920px !important;
+  padding-left: 14px;
+  padding-right: 14px;
+
+  overflow: hidden;
+  width: 100%;
+
+  @include w-max(768px) {
+    max-width: calc(100vw - 32px);
+  }
+
+  .backBtn {
+    font-family: var(--font-dmsans) !important;
+
+    cursor: pointer;
+    color: #fa4e0e;
+    font-weight: 400;
+    font-size: 18px;
+    :hover {
+      opacity: 0.8;
+    }
+  }
+
+  .iconCopy {
+    cursor: pointer;
+    :hover {
+      opacity: 0.8;
+    }
+  }
+
+  .fontType2 {
+    font-family: var(--font-SFProDisplay) !important;
+  }
+
+  .fontType3 {
+    font-family: var(--font-dmsans) !important;
+    font-weight: 500 !important;
+    font-size: 18px;
+  }
+
+  :global {
+    .chakra-table__container {
+      border-radius: 0px;
+      border: 1px solid #6c6f93;
+    }
+  }
+
+  .tabContainer {
+    width: 100% !important;
+    padding: 0px !important;
+  }
+
+  .tabList {
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    border-bottom: 2px solid #efefef;
+
+    > button {
+      background: none;
+      border: none;
+      color: #000;
+      opacity: 50%;
+      font-weight: 400;
+
+      flex: unset;
+      position: relative;
+      text-align: center;
+
+      &[aria-selected='true'] {
+        opacity: 1;
+        font-weight: 600;
+        color: #fa4e0e !important;
+
+        &::after {
+          content: '';
+          display: block;
+          height: 2px;
+          width: 120px;
+          background-color: #fa4e0e !important;
+          position: absolute;
+          bottom: 0;
+        }
+      }
+    }
+  }
+
+  .tabPanel {
+    > [role='tabpanel'] {
+      padding: 0;
+      border-color: transparent !important;
+    }
+    border-color: transparent !important;
+  }
+}
+
+.topHeader {
+  .title {
+    font-size: 30px;
+    line-height: 30px;
+  }
+  .txHash {
+    font-size: 14px;
+    color: #187cff;
+    line-height: 14px;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .tagConfirm {
+    color: #fff;
+    background-color: #1a9436;
+    padding: 8px 12px;
+    &.tagUnConfirm {
+      background-color: #d40000;
+    }
+  }
+}
+
+.information {
+  background: #f5f5f5;
+  padding: 16px;
+  border-radius: 4px;
+  .rowItem {
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 4px;
+    > p {
+      font-size: 14px;
+      &:first-child {
+        flex: 1;
+      }
+      &:last-child {
+        flex: 2;
+      }
+      span {
+        opacity: 0.8;
+        font-size: 10px;
+      }
+    }
+    &.rowItemBold {
+      background: #ffff;
+    }
+  }
+}
+
+.address {
+  font-size: 14px;
+  &.isUrl {
+    color: #432cca !important;
+    cursor: pointer;
+  }
+}
+
+.price {
+  font-size: 14px;
+  span {
+    opacity: 0.7;
+  }
+}
+
+.tabTransfer {
+  margin-top: 20px;
+  :global {
+    .chakra-tabs__tablist {
+      gap: 12px;
+      .chakra-tabs__tab {
+        padding: 0px;
+        background-color: #f5f5f5;
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-size: 14px;
+        border: 0;
+        &[aria-selected='true'] {
+          background-color: #000;
+          color: white;
+        }
+      }
+    }
+    .chakra-tabs__tab-panel {
+      padding: 0;
+      margin-top: 20px;
+    }
+  }
+
+  .itemTransfer {
+    border-bottom: 1px dashed #e2e2e2;
+    padding: 20px 0px;
+    .itemBalanceDetail {
+      justify-content: flex-end;
+      gap: 2px;
+      span,
+      p {
+        font-size: 14px;
+      }
+      span {
+        font-weight: 700;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+        max-width: 100px;
+      }
+    }
+  }
+}
+
+.tokenTransferTabContainer {
+  :global {
+    .chakra-tabs__tablist {
+      background-color: #f5f5f5;
+      width: fit-content;
+      gap: 0px;
+      border-radius: 2px;
+      padding: 2px;
+      .chakra-tabs__tab {
+        padding: 0px;
+        background-color: transparent;
+        border-radius: 2px;
+        padding: 4px 8px;
+        font-size: 12px;
+        border: 0;
+        text-transform: capitalize;
+        &[aria-selected='true'] {
+          background-color: #ffffff;
+          color: #000;
+        }
+      }
+    }
+    .chakra-tabs__tab-panel {
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    .chakra-table__container {
+      border: none;
+      thead {
+        th {
+          &:last-child {
+            div {
+              text-align: right;
+              justify-content: end;
+            }
+          }
+        }
+      }
+      tbody {
+        td {
+          &:last-child {
+            p {
+              text-align: right;
+            }
+          }
+        }
+      }
+    }
+  }
+}

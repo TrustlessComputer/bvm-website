@@ -25,6 +25,7 @@ import React, {
   useState,
 } from 'react';
 import uniqBy from 'lodash/uniqBy';
+import { isValidBTCTxHash, isValidERC20TxHash } from '@/utils/form-validate';
 
 export interface IL2RollupDetailContext {
   address: string;
@@ -32,6 +33,8 @@ export interface IL2RollupDetailContext {
   isLoadingAI: boolean;
   isValidAddress: boolean;
   isBTCAddress: boolean;
+  isBTCTxAddress: boolean;
+  isERC20TxAddress: boolean;
   totalBalanceUsd: number;
   rollupDetails: IRollupDetail[];
   rollupBalances: ITokenChain[];
@@ -49,6 +52,8 @@ const initialValue: IL2RollupDetailContext = {
   isLoadingAI: false,
   isValidAddress: false,
   isBTCAddress: false,
+  isBTCTxAddress: false,
+  isERC20TxAddress: false,
   totalBalanceUsd: 0,
   rollupDetails: [],
   rollupBalances: [],
@@ -75,10 +80,15 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
 
   const isEVMAddress = useMemo(() => validateEVMAddress(address), [address]);
   const isBTCAddress = useMemo(() => validateBTCAddress(address), [address]);
+  const isBTCTxAddress = useMemo(() => isValidBTCTxHash(address), [address]);
+  const isERC20TxAddress = useMemo(
+    () => isValidERC20TxHash(address),
+    [address],
+  );
 
   const isValidAddress = useMemo(
-    () => isEVMAddress || isBTCAddress,
-    [isEVMAddress, isBTCAddress],
+    () => isEVMAddress || isBTCAddress || isBTCTxAddress || isERC20TxAddress,
+    [isEVMAddress, isBTCAddress, isBTCTxAddress, isERC20TxAddress],
   );
 
   const [rollupTokensRate, setRollupTokensRate] = useState<RollupTokenRate>();
@@ -390,6 +400,8 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
       balanceBitcoinInfo,
       totalBitcoinBalanceUsd,
       rollupBitcoinBalances,
+      isBTCTxAddress,
+      isERC20TxAddress,
     };
   }, [
     address,
@@ -405,6 +417,8 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     balanceBitcoinInfo,
     totalBitcoinBalanceUsd,
     rollupBitcoinBalances,
+    isBTCTxAddress,
+    isERC20TxAddress,
   ]);
 
   return (
