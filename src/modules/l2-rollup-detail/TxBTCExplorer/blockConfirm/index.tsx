@@ -7,7 +7,13 @@ import BigNumber from 'bignumber.js';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-const BlockConfirm = ({ txBTC }: { txBTC: ITxBTC }) => {
+const BlockConfirm = ({
+  txBTC,
+  setIndexBlock,
+}: {
+  txBTC: ITxBTC;
+  setIndexBlock: any;
+}) => {
   const mempoolApi = useRef(new CMempoolApi()).current;
   const [blocks, setBlocks] = useState<IMempoolBlock[]>([]);
   const refInterval = useRef<any>(null);
@@ -62,10 +68,16 @@ const BlockConfirm = ({ txBTC }: { txBTC: ITxBTC }) => {
     );
   }, [blocks, txBTC]);
 
+  useEffect(() => {
+    setIndexBlock(
+      currentValue <= 0 ? 0 : Math.abs(currentValue - blocks.length) + 1,
+    );
+  }, [currentValue, blocks]);
+
   return (
     <Box width={'100%'}>
       <Flex mb={'10px'} alignItems={'center'} justifyContent={'space-between'}>
-        <Text>Transaction process</Text>
+        <Text>Transaction processing</Text>
 
         <Text>
           {currentValue} / {blocks.length}
