@@ -4,6 +4,7 @@ import Loading from '@/components/Loading';
 import TextNumberTooSmallDecimal from '@/components/TextNumberTooSmallDecimal';
 import CRollupL2DetailBitcoinAPI from '@/services/api/dapp/rollupl2-detail-bitcoin';
 import { ITxBTC } from '@/services/api/dapp/rollupl2-detail-bitcoin/interface';
+import CMempoolApi from '@/services/api/mempool';
 import { commonSelector } from '@/stores/states/common/selector';
 import { formatCurrency } from '@/utils/format';
 import { labelAmountOrNumberAdds } from '@/utils/string';
@@ -28,11 +29,10 @@ import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { L2RollupExplorerContext } from '../providers/l2-rollup-explorer-context';
+import BlockConfirm from './blockConfirm';
 import ItemTransfer from './itemTransfer';
 import s from './styles.module.scss';
 import TokenTransfers from './tokenTransfer';
-import CMempoolApi from '@/services/api/mempool';
-import BlockConfirm from './blockConfirm';
 
 const TxBTCExplorer = () => {
   const { address, isBTCTxAddress } = useContext(L2RollupExplorerContext);
@@ -40,6 +40,8 @@ const TxBTCExplorer = () => {
   const [txBTC, setTxBTC] = useState<ITxBTC>();
   const coinPrices = useSelector(commonSelector).coinPrices;
   const needReload = useSelector(commonSelector).needReload;
+  const TIME_AVG = 619632 / 1000 / 60;
+  const [indexBlock, setIndexBlock] = useState(0);
 
   const btcPrice = useMemo(() => {
     return coinPrices?.['BTC'] || '0';
@@ -51,6 +53,10 @@ const TxBTCExplorer = () => {
   useEffect(() => {
     getTxInformation();
   }, [address, needReload]);
+
+  const processETA = useMemo(() => {
+    return TIME_AVG * indexBlock;
+  }, [indexBlock]);
 
   const getTxInformation = async () => {
     try {
@@ -65,12 +71,13 @@ const TxBTCExplorer = () => {
 
       const _rs: any = rs;
 
-      if (rs1?.[0]) {
+      if (rs1?.[0] && _rs?.transaction_time) {
         _rs.transaction_time = rs1?.[0] * 1000;
       }
 
       setTxBTC(_rs);
     } catch (error) {
+      console.log('error', error);
     } finally {
       setLoading(false);
     }
@@ -82,8 +89,13 @@ const TxBTCExplorer = () => {
     [txBTC],
   );
 
+  const isProcessing = useMemo(
+    () => txBTC?.state === 'pending',
+    [txBTC?.state],
+  );
+
   const renderState = () => {
-    if (txBTC?.state === 'pending') {
+    if (isProcessing) {
       return (
         <Tag className={cs(s.tagConfirm, s.tagUnConfirm)}>Unconfirmed</Tag>
       );
@@ -140,7 +152,9 @@ const TxBTCExplorer = () => {
           </Flex>
           {renderState()}
         </Flex>
-        {txBTC.state === 'pending' && <BlockConfirm txBTC={txBTC} />}
+        {isProcessing && (
+          <BlockConfirm txBTC={txBTC} setIndexBlock={setIndexBlock} />
+        )}
 
         <SimpleGrid
           width={'100%'}
@@ -149,10 +163,16 @@ const TxBTCExplorer = () => {
           className={s.information}
         >
           <Flex className={cs(s.rowItem, s.rowItemBold)}>
-            <Text>Timestamp</Text>
+            <Text>{isProcessing ? 'First seen' : 'Timestamp'}</Text>
             <Text>
-              {dayjs.unix(timestamp).format('YYYY-MM-DD HH:mm:ss')}
-              <Text as={'span'}> ({dayjs.unix(timestamp).toNow()})</Text>
+              {isProcessing ? (
+                dayjs.unix(timestamp).toNow()
+              ) : (
+                <>
+                  {dayjs.unix(timestamp).format('YYYY-MM-DD HH:mm:ss')}
+                  <Text as={'span'}> ({dayjs.unix(timestamp).toNow()})</Text>
+                </>
+              )}
             </Text>
           </Flex>
           <Flex className={cs(s.rowItem, s.rowItemBold)}>
@@ -169,8 +189,21 @@ const TxBTCExplorer = () => {
             </Text>
           </Flex>
           <Flex className={cs(s.rowItem)}>
-            <Text>Tnx index</Text>
-            <Text>{txBTC.index}</Text>
+            {isProcessing ? (
+              <>
+                <Text>ETA</Text>
+                {processETA > 0 ? (
+                  <Text>In ~ {formatCurrency(processETA, 0, 0)} mins</Text>
+                ) : (
+                  <Text>Not any time soon</Text>
+                )}
+              </>
+            ) : (
+              <>
+                <Text>Tnx index</Text>
+                <Text>{txBTC.index}</Text>
+              </>
+            )}
           </Flex>
           <Flex className={cs(s.rowItem)}>
             <Text>Fee rate</Text>
@@ -186,8 +219,14 @@ const TxBTCExplorer = () => {
             </Text>
           </Flex>
           <Flex className={cs(s.rowItem, s.rowItemBold)}>
-            <Text>Height</Text>
-            <Text>{txBTC.height}</Text>
+            {isProcessing ? (
+              <></>
+            ) : (
+              <>
+                <Text>Height</Text>
+                <Text>{txBTC.height}</Text>
+              </>
+            )}
           </Flex>
           <Flex className={cs(s.rowItem, s.rowItemBold)}>
             <Text>Input | Output</Text>
