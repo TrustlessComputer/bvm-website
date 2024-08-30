@@ -1085,7 +1085,6 @@ const L2Rollup = () => {
             mt={'48px'}
             display={'flex'}
             flexDirection={'column'}
-            w={'100%'}
             my={'32px'}
           >
             <Image
