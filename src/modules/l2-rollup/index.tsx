@@ -66,6 +66,8 @@ const L2Rollup = () => {
   const dispatch = useDispatch();
   const { isOpen, onClose, onOpen } = useDisclosure();
 
+  const [isShowIntro, setIsShowIntro] = useState(false);
+
   const [bitcoinRent, setBitcoinRent] = useState<IRollupL2Info>();
 
   const [data, setData] = useState<IRollupL2Info[]>([]);
@@ -946,12 +948,90 @@ const L2Rollup = () => {
     }
   };
 
+  const renderIntro = () => {
+    return (
+      <Flex direction={'column'} alignItems={'center'}>
+        <Flex alignItems="center" gap="6px" my={'12px'}>
+          <Text fontSize={'20px'}>Project Bitcoin Heartbeats</Text>
+          <DotLottiePlayer
+            autoplay
+            loop
+            className={s.lottie}
+            speed={1.8}
+            src="/heartbeat/heart.lottie"
+          />
+        </Flex>
+        <Text
+          fontSize={{ base: '32px', md: '40px' }}
+          lineHeight={{ base: '44px', md: '52px' }}
+          textAlign={'center'}
+          mb={'28px'}
+          mt={'12px'}
+        >
+          Welcome to the future of Bitcoin.
+        </Text>
+        <Text
+          className={s.fontType2}
+          textAlign={'center'}
+          maxW={'1024px'}
+          fontSize={'20px'}
+          fontWeight={'400'}
+          color={'#494846'}
+          mb={'24px'}
+        >
+          The BVM team created Project Bitcoin Heartbeats to provide transparent
+          and verifiable insights into new technologies that are transforming
+          Bitcoin beyond mere currency. Follow their progress and support their
+          innovations.
+        </Text>
+
+        <Flex
+          direction={{ base: 'column', md: 'row' }}
+          alignItems={'center'}
+          gap={{ base: '0px', md: '8px' }}
+          mb={'16px'}
+        >
+          <Text
+            className={s.fontType2}
+            fontSize={'20px'}
+            fontWeight={'400'}
+            color={'#494846'}
+          >
+            Are you a builder?️
+          </Text>
+          <Flex
+            className={s.fontType2}
+            fontSize={'20px'}
+            fontWeight={'500'}
+            color={'#FA4E0E'}
+            cursor={'pointer'}
+            onClick={() =>
+              showContactUsModal({
+                title: 'Contact Us',
+                description: `Have questions or need assistance? We're here to help! Please fill out the form below, and we will get back to you shortly.`,
+              })
+            }
+            _hover={{
+              opacity: 0.8,
+            }}
+            direction={'row'}
+            alignItems={'center'}
+          >
+            <Text>Submit your project</Text>
+            <Image maxW={'40px'} src={'/heartbeat/ic-submit.svg'} />
+          </Flex>
+        </Flex>
+      </Flex>
+    );
+  };
+
   return (
     <Box className={s.container} overflow={'hidden'}>
       <Flex
         position={'absolute'}
         top={
-          scrollTop > window.innerHeight * 0.2
+          scrollTop > window.innerHeight * 0.2 ||
+          (isShowIntro && window.innerHeight < 1200)
             ? '0px'
             : `${window.innerHeight * 0.2 - scrollTop}px`
         }
@@ -963,7 +1043,9 @@ const L2Rollup = () => {
         pt={'8px'}
       >
         <SearchAddress
-          placeholder={'Search by Address / Txn Hash'}
+          placeholder={
+            'Search by Bitcoin or Bitcoin L2 wallet address / Txn Hash'
+          }
           className={s.search}
           autoFocus
         />
@@ -983,9 +1065,20 @@ const L2Rollup = () => {
           maxW={'1800px'}
           alignItems={'center'}
           mb={'60px'}
-          mt={'calc(100dvh - 384px)'}
+          mt={isShowIntro ? 'calc(100dvh - 696px)' : 'calc(100dvh - 412px)'}
         >
-          <Box w={'100%'} my={'32px'}>
+          {isShowIntro && renderIntro()}
+          <Box display={'flex'} flexDirection={'column'} w={'100%'} my={'32px'}>
+            <Image
+              alignSelf={'flex-end'}
+              cursor={'pointer'}
+              width="24px"
+              height="24px"
+              alt=""
+              src={'/heartbeat/ic-tooltip-homepage.svg'}
+              mb={'12px'}
+              onClick={() => setIsShowIntro(!isShowIntro)}
+            />
             <SimpleGrid columns={3} gap={'16px'}>
               <L2RollupFee
                 data={_dataChart.txs}

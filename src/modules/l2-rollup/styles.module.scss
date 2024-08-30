@@ -40,6 +40,10 @@
   background-size: contain;
   background-position: top;
 
+  @include w-min(2100px) {
+    background-position: top 100px center;
+  }
+
   .fontType2 {
     font-family: var(--font-SFProDisplay) !important;
   }
