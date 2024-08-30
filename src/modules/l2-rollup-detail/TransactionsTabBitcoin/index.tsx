@@ -1,17 +1,17 @@
 import AppLoading from '@/components/AppLoading';
 import ListTable, { ColumnProp } from '@/components/ListTable';
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
+import { HEART_BEAT } from '@/constants/route-path';
 import CRollupL2DetailBitcoinAPI from '@/services/api/dapp/rollupl2-detail-bitcoin';
 import { IBitcoinTokenTransaction } from '@/services/api/dapp/rollupl2-detail-bitcoin/interface';
 import { shortCryptoAddress } from '@/utils/address';
 import { formatCurrency } from '@/utils/format';
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import dayjs from 'dayjs';
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
-import { HEART_BEAT } from '@/constants/route-path';
 
 interface IProps {}
 
@@ -20,9 +20,6 @@ const TransactionsTabBitcoin = (props: IProps) => {
   const router = useRouter();
 
   const rollupApi = new CRollupL2DetailBitcoinAPI();
-  const [balanceType, setBalanceType] = useState<
-    BalanceBitcoinType | 'bitcoin'
-  >('bitcoin');
 
   const [list, setList] = useState<IBitcoinTokenTransaction[]>([]);
 
