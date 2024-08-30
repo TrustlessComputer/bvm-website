@@ -1,0 +1,125 @@
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  padding-bottom: 40px;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  // height: calc(100dvh - 114px);
+  background-color: #ffffff;
+  margin-left: auto;
+  margin-right: auto;
+  color: #000;
+
+  font-family: var(--font-JetBrainsMono) !important;
+  //max-width: 1920px !important;
+  padding-left: 14px;
+  padding-right: 14px;
+
+  overflow: hidden;
+  width: 100%;
+
+  @include w-max(768px) {
+    max-width: calc(100vw - 32px);
+  }
+
+  .backBtn {
+    font-family: var(--font-dmsans) !important;
+
+    cursor: pointer;
+    color: #fa4e0e;
+    font-weight: 400;
+    font-size: 18px;
+    :hover {
+      opacity: 0.8;
+    }
+  }
+
+  .iconCopy {
+    cursor: pointer;
+    :hover {
+      opacity: 0.8;
+    }
+  }
+
+  .fontType2 {
+    font-family: var(--font-SFProDisplay) !important;
+  }
+
+  .fontType3 {
+    font-family: var(--font-dmsans) !important;
+    font-weight: 500 !important;
+    font-size: 18px;
+  }
+
+  :global {
+    .chakra-table__container {
+      border-radius: 0px;
+      border: 1px solid #6c6f93;
+    }
+  }
+
+  .tabContainer {
+    width: 100% !important;
+    padding: 0px !important;
+  }
+
+  .tabList {
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    border-bottom: 2px solid #efefef;
+
+    > button {
+      background: none;
+      border: none;
+      color: #000;
+      opacity: 50%;
+      font-weight: 400;
+
+      flex: unset;
+      position: relative;
+      text-align: center;
+
+      &[aria-selected='true'] {
+        opacity: 1;
+        font-weight: 600;
+        color: #fa4e0e !important;
+
+        &::after {
+          content: '';
+          display: block;
+          height: 2px;
+          width: 120px;
+          background-color: #fa4e0e !important;
+          position: absolute;
+          bottom: 0;
+        }
+      }
+    }
+  }
+
+  .tabPanel {
+    > [role='tabpanel'] {
+      padding: 0;
+      border-color: transparent !important;
+    }
+    border-color: transparent !important;
+  }
+}
+
+.search {
+  width: 280px !important;
+  border: 1px solid #cecece;
+  &:focus-within {
+    border: 1px solid #fa4e0e;
+  }
+
+  input {
+    padding-inline-start: 12px !important;
+  }
+}

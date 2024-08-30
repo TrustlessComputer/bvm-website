@@ -1,9 +1,12 @@
 import CDappApiClient from './dapp.client';
 import {
   IRollupDetail,
-  IRollupNFT, IRollupNFTDetail,
+  IRollupExplorer,
+  IRollupNFT,
+  IRollupNFTDetail,
   IRollupTokenTransfer,
   IRollupTransaction,
+  IWatchList,
   RollupTokenRate,
 } from './interface';
 
@@ -80,6 +83,72 @@ class CRollupL2DetailAPI extends CDappApiClient {
       return rs;
     } catch (error) {
       return [];
+    }
+  };
+
+  getRollupL2Txs = async (params: {
+    tx_hash: string;
+  }): Promise<IRollupExplorer | undefined> => {
+    try {
+      const rs: any = await this.api.get(`/rollup/transactions`, { params });
+      return rs?.[0];
+    } catch (error) {
+      return undefined;
+    }
+  };
+
+  addToWatchList = async (address: string): Promise<any> => {
+    try {
+      const rs: any = await this.api.post(`/user/watchlist/add`, { address });
+      return rs;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  removeToWatchList = async (address: string): Promise<any> => {
+    try {
+      const rs: any = await this.api.post(`/user/watchlist/remove`, {
+        address,
+      });
+      return rs;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  getWatchLists = async (
+    address: string | unknown = '',
+  ): Promise<IWatchList[]> => {
+    try {
+      const rs: any = await this.api.get(`/user/watchlist/list`, {
+        params: { address },
+      });
+      return rs;
+    } catch (error) {
+      throw [];
+    }
+  };
+
+  getWatchListValidate = async (
+    address: string | unknown = '',
+  ): Promise<IWatchList[]> => {
+    try {
+      const rs: any = await this.api.get(`/user/watchlist/validate`, {
+        params: { address },
+      });
+      return rs;
+    } catch (error) {
+      throw [];
+    }
+  };
+
+  getTimeAVG = async (): Promise<number> => {
+    try {
+      const rs: any = await this.api.get(`/rollup/mempool/time-avg`);
+      return rs;
+    } catch (error) {
+      return 0;
     }
   };
 }

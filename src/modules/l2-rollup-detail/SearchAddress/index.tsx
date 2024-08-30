@@ -13,6 +13,7 @@ import cs from 'classnames';
 import { useRouter } from 'next/navigation';
 import React, { useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
+import { isValidBTCTxHash, isValidERC20TxHash } from '@/utils/form-validate';
 
 type ISearchBarProps = {
   className?: string;
@@ -83,7 +84,10 @@ const SearchAddress = (props: ISearchAddressProps) => {
 
   const isValidSearchAddress = useMemo(
     () =>
-      validateEVMAddress(searchAddress) || validateBTCAddress(searchAddress),
+      validateEVMAddress(searchAddress) ||
+      validateBTCAddress(searchAddress) ||
+      isValidERC20TxHash(searchAddress) ||
+      isValidBTCTxHash(searchAddress),
     [searchAddress],
   );
 
@@ -102,7 +106,14 @@ const SearchAddress = (props: ISearchAddressProps) => {
         placeholder={props.placeholder || 'Search address '}
         onEnterSearch={() => {
           if (isValidSearchAddress) {
-            router.replace(`${HEART_BEAT}/address/${searchAddress}`);
+            if (
+              isValidBTCTxHash(searchAddress) ||
+              isValidERC20TxHash(searchAddress)
+            ) {
+              router.push(`${HEART_BEAT}/tx/${searchAddress}`);
+            } else {
+              router.push(`${HEART_BEAT}/address/${searchAddress}`);
+            }
           }
         }}
         className={props.className}
@@ -124,9 +135,16 @@ const SearchAddress = (props: ISearchAddressProps) => {
               gap={'6px'}
               cursor={'pointer'}
               pr={'12px'}
-              onClick={() =>
-                router.replace(`${HEART_BEAT}/address/${searchAddress}`)
-              }
+              onClick={() => {
+                if (
+                  isValidBTCTxHash(searchAddress) ||
+                  isValidERC20TxHash(searchAddress)
+                ) {
+                  router.push(`${HEART_BEAT}/tx/${searchAddress}`);
+                } else {
+                  router.push(`${HEART_BEAT}/address/${searchAddress}`);
+                }
+              }}
             >
               <Image w={'14px'} src={'/heartbeat/ic-link.svg'} />
               <Text fontSize={'12px'}>{searchAddress}</Text>

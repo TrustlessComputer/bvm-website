@@ -35,6 +35,15 @@
   padding-left: 14px;
   padding-right: 14px;
 
+  background-image: url('/heartbeat/heartbeat-bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  // @include w-min(2100px) {
+  //   background-position: top 100px center;
+  // }
+
   .fontType2 {
     font-family: var(--font-SFProDisplay) !important;
   }
@@ -211,16 +220,33 @@ table {
   width: 620px !important;
   height: 52px !important;
   box-shadow: 0px 0px 24px -6px #0000000a;
+  border: 1px solid #ececec;
 
   input {
     font-family: var(--font-SFProDisplay) !important;
     font-size: 16px !important;
   }
   &:focus-within {
-    box-shadow: 0px 0px 16px -4px rgb(248, 83, 24, 20);
+    // box-shadow: 0px 0px 16px -4px rgb(248, 83, 24, 20);
+  }
+
+  @include w-min(2100px) {
+    width: 860px !important;
+    height: 58px !important;
   }
 
   @include w-max(768px) {
     width: 90vw !important;
+  }
+}
+.power {
+  padding-top: 20px;
+
+  // screen 27' 2k
+  @include w-min(2100px) {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    padding-top: 0px;
   }
 }

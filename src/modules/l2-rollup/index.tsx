@@ -7,7 +7,10 @@ import ListTable, { ColumnProp } from '@/components/ListTable';
 import { MIN_DECIMAL } from '@/constants/constants';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import CRollupL2API from '@/services/api/dapp/rollupl2';
-import { IRollupChart1D, IRollupL2Info } from '@/services/api/dapp/rollupl2/interface';
+import {
+  IRollupChart1D,
+  IRollupL2Info,
+} from '@/services/api/dapp/rollupl2/interface';
 import { calculateTimeAgo, formatCurrency } from '@/utils/format';
 import { compareString } from '@/utils/string';
 import {
@@ -24,15 +27,18 @@ import {
   Tooltip,
   useDisclosure,
 } from '@chakra-ui/react';
-import { orderBy } from 'lodash';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import orderBy from 'lodash/orderBy';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import BitcoinRentModal from './BitcoinRentModal';
 import L2RollupFee from './fees';
 import s from './styles.module.scss';
 import SearchAddress from '../l2-rollup-detail/SearchAddress';
+import React from 'react';
 import { isMobile } from 'react-device-detect';
+import { DotLottiePlayer } from '@dotlottie/react-player';
 import AnimArrowDown from './AnimArrowDown';
+import PowerBox from '@/modules/l2-rollup/PowerBox';
 
 enum SortRollupType {
   name,
@@ -56,10 +62,15 @@ interface ISort {
   ascending?: boolean;
 }
 
+const SEARCH_BAR_HEIGHT = 72;
+
 const L2Rollup = () => {
   const { showContactUsModal } = useContactUs();
   const dispatch = useDispatch();
   const { isOpen, onClose, onOpen } = useDisclosure();
+
+  const [isShowIntro, setIsShowIntro] = useState(false);
+  const [hoverTooltip, setHoverTooltip] = useState(false);
 
   const [bitcoinRent, setBitcoinRent] = useState<IRollupL2Info>();
 
@@ -952,27 +963,114 @@ const L2Rollup = () => {
     }
   };
 
+  const renderIntro = () => {
+    return (
+      <Flex direction={'column'} alignItems={'center'}>
+        <Flex alignItems="center" gap="6px" my={'12px'}>
+          <Text color={'#fff'} fontSize={'20px'}>
+            Project Bitcoin Heartbeats
+          </Text>
+          <DotLottiePlayer
+            autoplay
+            loop
+            className={s.lottie}
+            speed={1.8}
+            src="/heartbeat/heart.lottie"
+          />
+        </Flex>
+        <Text
+          fontSize={{ base: '32px', md: '40px' }}
+          lineHeight={{ base: '44px', md: '52px' }}
+          textAlign={'center'}
+          mb={'28px'}
+          mt={'12px'}
+          color={'#fff'}
+        >
+          Welcome to the future of Bitcoin.
+        </Text>
+        <Text
+          className={s.fontType2}
+          textAlign={'center'}
+          maxW={'1024px'}
+          fontSize={'20px'}
+          fontWeight={'400'}
+          color={'#fff'}
+          mb={'24px'}
+        >
+          The BVM team created Project Bitcoin Heartbeats to provide transparent
+          and verifiable insights into new technologies that are transforming
+          Bitcoin beyond mere currency. Follow their progress and support their
+          innovations.
+        </Text>
+
+        <Flex
+          direction={{ base: 'column', md: 'row' }}
+          alignItems={'center'}
+          gap={{ base: '0px', md: '8px' }}
+          mb={'16px'}
+        >
+          <Text
+            className={s.fontType2}
+            fontSize={'20px'}
+            fontWeight={'400'}
+            color={'#fff'}
+          >
+            Are you a builder?️
+          </Text>
+          <Flex
+            className={s.fontType2}
+            fontSize={'20px'}
+            fontWeight={'500'}
+            color={'#FA4E0E'}
+            cursor={'pointer'}
+            onClick={() =>
+              showContactUsModal({
+                title: 'Contact Us',
+                description: `Have questions or need assistance? We're here to help! Please fill out the form below, and we will get back to you shortly.`,
+              })
+            }
+            _hover={{
+              opacity: 0.8,
+            }}
+            direction={'row'}
+            alignItems={'center'}
+          >
+            <Text>Submit your project</Text>
+            <Image maxW={'40px'} src={'/heartbeat/ic-submit.svg'} />
+          </Flex>
+        </Flex>
+      </Flex>
+    );
+  };
+
+  const isTopScroll =
+    scrollTop > window.innerHeight * 0.2 ||
+    (isShowIntro && window.innerHeight < 1200);
+
   return (
     <Box className={s.container} overflow={'hidden'}>
       <Flex
-        position={'absolute'}
-        top={scrollTop > 140 ? '0px' : `${140 - scrollTop}px`}
+        position={isTopScroll ? 'relative' : 'absolute'}
+        top={isTopScroll ? '0px' : `${window.innerHeight * 0.2 - scrollTop}px`}
         left={'0px'}
         right={'0px'}
-        h={'72px'}
+        h={`${SEARCH_BAR_HEIGHT}px`}
         justifyContent={'center'}
         zIndex={1}
-        bg={'#f3f1e8'}
         pt={'8px'}
       >
         <SearchAddress
-          placeholder={'Search by Address / Txn Hash'}
+          placeholder={
+            'Search by Bitcoin or Bitcoin L2 wallet address / Txn Hash'
+          }
           className={s.search}
           autoFocus
         />
       </Flex>
       <Flex
-        h={`calc(100vh - ${isMobile ? 60 : 96}px)`}
+        h={`calc(100vh - ${
+          isMobile ? 60 : 96 + (isTopScroll ? SEARCH_BAR_HEIGHT : 0)
+        }px)`}
         overflow={'scroll !important'}
         className={s.content}
         w={'100%'}
@@ -986,9 +1084,43 @@ const L2Rollup = () => {
           maxW={'1800px'}
           alignItems={'center'}
           mb={'60px'}
-          mt={'calc(100dvh - 384px)'}
+          mt={isShowIntro ? 'calc(100dvh - 696px)' : 'calc(100dvh - 412px)'}
         >
-          <Box w={'100%'} my={'32px'}>
+          {isShowIntro && renderIntro()}
+          <Box
+            w={'100%'}
+            mb={'32px'}
+            mt={'48px'}
+            display={'flex'}
+            flexDirection={'column'}
+            my={'32px'}
+          >
+            <Flex
+              alignSelf={'flex-end'}
+              borderRadius={hoverTooltip ? '100px' : '50%'}
+              w={'fit-content'}
+              alignItems={'center'}
+              p={'4px'}
+              bg={'#fff'}
+              mb={'12px'}
+              gap={'8px'}
+              onMouseEnter={() => setHoverTooltip(true)}
+              onMouseLeave={() => setHoverTooltip(false)}
+            >
+              {hoverTooltip && (
+                <Text pl={'8px'} fontSize={'14px'}>
+                  About project Bitcoin Heartbeats
+                </Text>
+              )}
+              <Image
+                cursor={'pointer'}
+                width="24px"
+                height="24px"
+                alt=""
+                src={'/heartbeat/ic-tooltip-homepage.svg'}
+                onClick={() => setIsShowIntro(!isShowIntro)}
+              />
+            </Flex>
             <SimpleGrid columns={3} gap={'16px'}>
               <L2RollupFee
                 data={_dataChart.txs}
@@ -1002,9 +1134,8 @@ const L2Rollup = () => {
                   >
                     <Text fontSize={'14px'}>Transaction Count</Text>
                     <Text fontSize={'14px'}>{`Today Ξ${formatCurrency(
-                      (
-                        _dataChart.txs?.[_dataChart.txs.length - 1] as any
-                      )?.[1] as any,
+                      (_dataChart.txs?.[_dataChart.txs.length - 1] as any)
+                        ?.y as any,
                       0,
                       2,
                     )}`}</Text>
@@ -1030,7 +1161,7 @@ const L2Rollup = () => {
                               _dataChart.addresses?.[
                                 _dataChart.addresses.length - 1
                               ] as any
-                            )?.[1] as any,
+                            )?.y as any,
                             0,
                             2,
                           )}`}
@@ -1067,9 +1198,8 @@ const L2Rollup = () => {
                   >
                     <Text fontSize={'14px'}>Fees Paid by Users</Text>
                     <Text fontSize={'14px'}>{`Today $${formatCurrency(
-                      (
-                        _dataChart.fees?.[_dataChart.fees.length - 1] as any
-                      )?.[1] as any,
+                      (_dataChart.fees?.[_dataChart.fees.length - 1] as any)
+                        ?.y as any,
                       0,
                       2,
                     )}`}</Text>
@@ -1078,13 +1208,14 @@ const L2Rollup = () => {
               />
             </SimpleGrid>
             <Box mt={'6px'}>
-              <Text fontSize={'12px'} opacity={'0.8'}>
+              <Text fontSize={'12px'} color={'#fff'} opacity={'0.8'}>
                 * This data has been collected from{' '}
                 {chainsSupportForChart.join(', ')} chains.{' '}
                 <b>Rollux, Merlin, Core, and Stacks will be coming soon.</b>
               </Text>
             </Box>
           </Box>
+
           <Flex
             className={s.totalContainer}
             bg="#FAFAFA"
@@ -1140,6 +1271,9 @@ const L2Rollup = () => {
                 className={s.tableContainer}
               />
             )}
+          </Box>
+          <Box display="flex" flexDirection="column" alignItems="end" w="100%" className={s.power}>
+            <PowerBox />
           </Box>
         </Flex>
       </Flex>
