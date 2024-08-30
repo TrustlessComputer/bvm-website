@@ -129,8 +129,10 @@
   .tagConfirm {
     color: #fff;
     background-color: #1a9436;
-    border-color: #1a9436;
     padding: 8px 12px;
+    &.tagUnConfirm {
+      background-color: #d40000;
+    }
   }
 }
 

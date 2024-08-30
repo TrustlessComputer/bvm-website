@@ -1,3 +1,5 @@
+'use client';
+
 import Loading from '@/components/Loading';
 import TextNumberTooSmallDecimal from '@/components/TextNumberTooSmallDecimal';
 import CRollupL2DetailBitcoinAPI from '@/services/api/dapp/rollupl2-detail-bitcoin';
@@ -29,6 +31,8 @@ import { L2RollupExplorerContext } from '../providers/l2-rollup-explorer-context
 import ItemTransfer from './itemTransfer';
 import s from './styles.module.scss';
 import TokenTransfers from './tokenTransfer';
+import CMempoolApi from '@/services/api/mempool';
+import BlockConfirm from './blockConfirm';
 
 const TxBTCExplorer = () => {
   const { address, isBTCTxAddress } = useContext(L2RollupExplorerContext);
@@ -41,6 +45,7 @@ const TxBTCExplorer = () => {
   }, [coinPrices]);
 
   const rollupBitcoinApi = useRef(new CRollupL2DetailBitcoinAPI()).current;
+  const mempoolApi = useRef(new CMempoolApi()).current;
 
   useEffect(() => {
     getTxInformation();
@@ -52,9 +57,18 @@ const TxBTCExplorer = () => {
         return;
       }
 
-      const rs = await rollupBitcoinApi.getTxBTC(address);
+      const [rs, rs1] = await Promise.all([
+        rollupBitcoinApi.getTxBTC(address),
+        mempoolApi.getTransactionTime(address),
+      ]);
 
-      setTxBTC(rs);
+      const _rs: any = rs;
+
+      if (rs1?.[0]) {
+        _rs.transaction_time = rs1?.[0] * 1000;
+      }
+
+      setTxBTC(_rs);
     } catch (error) {
     } finally {
       setLoading(false);
@@ -66,6 +80,20 @@ const TxBTCExplorer = () => {
       new BigNumber(txBTC?.transaction_time || '0').dividedBy(1000).toNumber(),
     [txBTC],
   );
+
+  const renderState = () => {
+    if (txBTC?.state === 'pending') {
+      return (
+        <Tag className={cs(s.tagConfirm, s.tagUnConfirm)}>Unconfirmed</Tag>
+      );
+    }
+    return (
+      <Tag className={s.tagConfirm}>
+        {formatCurrency(txBTC?.confirm, 0, 2)} confirmation
+        {labelAmountOrNumberAdds(txBTC?.confirm || 0)}
+      </Tag>
+    );
+  };
 
   return loading ? (
     <Center mt={{ base: '28px', md: '36px' }}>
@@ -109,11 +137,10 @@ const TxBTCExplorer = () => {
               {address}
             </Text>
           </Flex>
-          <Tag className={s.tagConfirm}>
-            {formatCurrency(txBTC?.confirm, 0, 2)} confirmation
-            {labelAmountOrNumberAdds(txBTC?.confirm || 0)}
-          </Tag>
+          {renderState()}
         </Flex>
+        {txBTC.state === 'pending' && <BlockConfirm txBTC={txBTC} />}
+
         <SimpleGrid
           width={'100%'}
           columns={2}
