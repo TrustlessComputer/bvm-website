@@ -19,7 +19,7 @@ import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/Reac
 import useFirstLoadTemplateBoxStore from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 
 function useHandleReloadNode() {
-  const searchParamm = useSearchParams();
+  const searchParam = useSearchParams();
   const { nodes, edges, setNodes, setEdges } = useFlowStore();
   const [rfInstance, setRfInstance] = useState<any>(null);
   const [haveOldData, setHaveOldData] = useState(false);
@@ -37,8 +37,11 @@ function useHandleReloadNode() {
   }, [nodes.length, field, isFirstLoadTemplateBox]);
 
   const onRestore = useCallback(async () => {
-    const template = searchParamm.get('template') || searchParamm.get('dapp');
+    if (path !== '/studio') return;
+
+    const template = searchParam.get('template') || searchParam.get('dapp');
     if (!!template) return;
+
     console.log('runnnn dapp');
     const restoreFlow = async () => {
       const flow = LocalStorage.getItem(STORAGE_KEYS.LAST_NODES);
@@ -66,7 +69,7 @@ function useHandleReloadNode() {
     };
 
     await restoreFlow();
-  }, [searchParamm]);
+  }, [searchParam, path]);
 
   useSignalEffect(() => {
     const restoreLocalSignal = restoreLocal.value;
@@ -86,7 +89,6 @@ function useHandleReloadNode() {
       JSON.stringify(signals),
     );
     console.log('runnnn USE_SIGNALS_FORM end');
-
   });
 
   // useSignalEffect(() => {

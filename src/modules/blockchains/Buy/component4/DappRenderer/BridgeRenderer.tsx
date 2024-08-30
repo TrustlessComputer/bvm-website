@@ -67,7 +67,12 @@ const BridgeRenderer = () => {
                   label: option.title,
                   icon: option.icon,
                 }}
-                disabled={isUpdateFlow}
+                disabled={
+                  isUpdateFlow &&
+                  !!selectedCategoryMapping?.[item.key]?.options.find(
+                    (opt) => opt.key === option.key,
+                  )
+                }
               >
                 <DroppableV2 id={item.key + '-right'}>
                   <LegoV3
