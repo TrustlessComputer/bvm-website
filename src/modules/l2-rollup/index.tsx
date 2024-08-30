@@ -67,6 +67,7 @@ const L2Rollup = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const [isShowIntro, setIsShowIntro] = useState(false);
+  const [hoverTooltip, setHoverTooltip] = useState(false);
 
   const [bitcoinRent, setBitcoinRent] = useState<IRollupL2Info>();
 
@@ -1064,7 +1065,7 @@ const L2Rollup = () => {
         />
       </Flex>
       <Flex
-        h={`calc(100vh - ${isMobile ? 60 : 96}px)`}
+        h={`calc(100vh - ${isMobile ? 60 : 96 + (isTopScroll ? 72 : 0)}px)`}
         overflow={'scroll !important'}
         className={s.content}
         w={'100%'}
@@ -1091,12 +1092,21 @@ const L2Rollup = () => {
           >
             <Flex
               alignSelf={'flex-end'}
-              borderRadius={'50%'}
+              borderRadius={hoverTooltip ? '100px' : '50%'}
               w={'fit-content'}
+              alignItems={'center'}
               p={'4px'}
               bg={'#fff'}
               mb={'12px'}
+              gap={'8px'}
+              onMouseEnter={() => setHoverTooltip(true)}
+              onMouseLeave={() => setHoverTooltip(false)}
             >
+              {hoverTooltip && (
+                <Text pl={'8px'} fontSize={'14px'}>
+                  About project Bitcoin Heartbeats
+                </Text>
+              )}
               <Image
                 cursor={'pointer'}
                 width="24px"
