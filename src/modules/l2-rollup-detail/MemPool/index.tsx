@@ -22,7 +22,7 @@ const MemPool = () => {
 
   const chain = params?.id;
 
-  const { selectedBlock, projectedBlocks } = useContext(L2RollupDetailContext);
+  const { selectedBlock, pendingBlocks } = useContext(L2RollupDetailContext);
 
   console.log('params', params);
 
@@ -30,7 +30,7 @@ const MemPool = () => {
     let pendingNFTs: any[] = defaultArr;
     let claimedNFTS: any[] = defaultArr;
 
-    pendingNFTs = projectedBlocks?.map(block => {
+    pendingNFTs = pendingBlocks?.map(block => {
       return {
         feeSpan: block?.feeRange?.reduce((result, value) => result + value, 0) / block.feeRange.length,
         medianFee: block.medianFee,
@@ -47,7 +47,7 @@ const MemPool = () => {
       pendingNFTs,
       claimedNFTS,
     };
-  }, [projectedBlocks]);
+  }, [pendingBlocks]);
 
   // console.log('listNFTs', listNFTs);
 

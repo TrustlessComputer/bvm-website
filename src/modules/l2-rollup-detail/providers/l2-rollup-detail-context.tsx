@@ -35,7 +35,7 @@ export interface IL2RollupDetailContext {
   rollupBitcoinBalances?: any[];
   selectedBlock: IBlock | undefined;
   setSelectedBlock: any;
-  projectedBlocks: FeesMempoolBlocks[];
+  pendingBlocks: FeesMempoolBlocks[];
 }
 
 const initialValue: IL2RollupDetailContext = {
@@ -52,7 +52,7 @@ const initialValue: IL2RollupDetailContext = {
   rollupBitcoinBalances: [],
   selectedBlock: undefined,
   setSelectedBlock: () => {},
-  projectedBlocks: [],
+  pendingBlocks: [],
 };
 
 export const L2RollupDetailContext =
@@ -80,7 +80,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
   const [rollupTokensRate, setRollupTokensRate] = useState<RollupTokenRate>();
   const [rollupDetails, setRollupDetails] = useState<IRollupDetail[]>([]);
   const [selectedBlock, setSelectedBlock] = useState<IBlock | undefined>(undefined);
-  const [projectedBlocks, setProjectedBlocks] = useState<FeesMempoolBlocks[]>([]);
+  const [pendingBlocks, setPendingBlocks] = useState<FeesMempoolBlocks[]>([]);
 
   const rollupBalances = useMemo(() => {
     let balances: ITokenChain[] = [];
@@ -119,9 +119,9 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
   useEffect(() => {
     fetchTokensRate();
 
-    fetchProjectedBlocks();
+    fetchPendingBlocks();
     const interval = setInterval(() => {
-      fetchProjectedBlocks();
+      fetchPendingBlocks();
     }, 60000);
     return () => {
       clearInterval(interval);
@@ -132,10 +132,10 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     fetchRollupBalances();
   }, [address]);
 
-  const fetchProjectedBlocks = async () => {
+  const fetchPendingBlocks = async () => {
     try {
-      const res = await memPoolApi.getProjectedBlocks();
-      setProjectedBlocks(res);
+      const res = await memPoolApi.getPendingBlocks();
+      setPendingBlocks(res);
     } catch (e) {}
   }
 
@@ -260,7 +260,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
       rollupBitcoinBalances,
       selectedBlock,
       setSelectedBlock,
-      projectedBlocks,
+      pendingBlocks,
     };
   }, [
     address,
@@ -275,7 +275,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     rollupBitcoinBalances,
     selectedBlock,
     setSelectedBlock,
-    projectedBlocks,
+    pendingBlocks,
   ]);
 
   return (
