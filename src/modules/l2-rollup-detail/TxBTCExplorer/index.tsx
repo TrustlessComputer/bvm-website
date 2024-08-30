@@ -71,7 +71,7 @@ const TxBTCExplorer = () => {
 
       const _rs: any = rs;
 
-      if (rs1?.[0] && _rs?.transaction_time) {
+      if (rs1?.[0]) {
         _rs.transaction_time = rs1?.[0] * 1000;
       }
 
