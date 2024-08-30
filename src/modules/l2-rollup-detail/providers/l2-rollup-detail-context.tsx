@@ -297,15 +297,17 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     try {
       const data = await Promise.all(
         BalanceTypes.map(async (balanceType) => {
+          const limit =
+            balanceType.type === 'runes'
+              ? 40
+              : balanceType.type === 'ordinals_nft'
+              ? 20
+              : 50;
           const res = (await rollupBitcoinApi.getRollupL2BitcoinBalances({
             user_address: address,
             type: balanceType.type,
             page: 1,
-            limit:
-              balanceType.type === 'runes' ||
-              balanceType.type === 'ordinals_nft'
-                ? 40
-                : 50,
+            limit,
           })) as any;
           return { [balanceType.type]: res };
         }),
