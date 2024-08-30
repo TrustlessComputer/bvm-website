@@ -13,7 +13,7 @@ import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
 import { STORAGE_KEYS } from '@constants/storage-key';
 import { useSignalEffect } from '@preact/signals-react';
 import { useReactFlow } from '@xyflow/react';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useParams, usePathname, useSearchParams } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react';
 import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 import useFirstLoadTemplateBoxStore from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
@@ -29,15 +29,19 @@ function useHandleReloadNode() {
   const { draggedFields, setDraggedFields } = useDragStore();
   const { isFirstLoadTemplateBox } = useFirstLoadTemplateBoxStore();
 
+  const params = useParams();
+  const isUpdateFlow = React.useMemo(() => !!params.id, [params.id]);
+
   React.useEffect(() => {
     if (!isFirstLoadTemplateBox || !restoreLocal.value) return;
-    if (path === '/studio') {
+
+    if (!isUpdateFlow) {
       onSave();
     }
-  }, [nodes.length, field, isFirstLoadTemplateBox]);
+  }, [nodes.length, field, isFirstLoadTemplateBox, isUpdateFlow]);
 
   const onRestore = useCallback(async () => {
-    if (path !== '/studio') return;
+    if (isUpdateFlow) return;
 
     const template = searchParam.get('template') || searchParam.get('dapp');
     if (!!template) return;
@@ -116,6 +120,7 @@ function useHandleReloadNode() {
   // });
 
   const onSave = () => {
+    if (isUpdateFlow) return;
     if (!isFirstLoadTemplateBox || !restoreLocal.value) return;
 
     if (rfInstance) {
