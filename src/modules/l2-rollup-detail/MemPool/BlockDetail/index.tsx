@@ -10,6 +10,8 @@ import BigNumberJS from 'bignumber.js';
 import { useSelector } from 'react-redux';
 import { commonSelector } from '@/stores/states/common/selector';
 import { IConfirmedBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
+import dayjs from 'dayjs';
+import { shortCryptoAddress } from '@utils/address';
 
 const BlockDetail = () => {
   const { selectedBlock, setSelectedBlock } = useContext(L2RollupDetailContext);
@@ -82,30 +84,34 @@ const BlockDetail = () => {
           <Tr>
             <Td>Hash</Td>
             <Td>
-              <Flex gap={"4px"} cursor={"pointer"}>
-                <span className={s.link} onClick={handleOpenBlock}>000000...f86d421</span>
-                <SvgInset
-                  size={20}
-                  svgUrl="/icons/ic-copy.svg"
+              <Flex gap={"8px"} cursor={"pointer"} alignItems={"center"}>
+                <span className={s.link} onClick={handleOpenBlock}>{shortCryptoAddress((selectedBlock?.data as IConfirmedBlock).id)}</span>
+                <Box
                   onClick={() => {
                     toast.success('Copied!');
-                    copy('0000000000000000000231f977a9d1325f256d8a4c4552c06d5125295237764d');
+                    copy((selectedBlock?.data as IConfirmedBlock).id);
                   }}
-                />
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" viewBox="0 0 1000 1000" className="ng-star-inserted"><path fill="#FFFFFF" d="M128 768h256v64H128v-64z m320-384H128v64h320v-64z m128 192V448L384 640l192 192V704h320V576H576z m-288-64H128v64h160v-64zM128 704h160v-64H128v64z m576 64h64v128c-1 18-7 33-19 45s-27 18-45 19H64c-35 0-64-29-64-64V192c0-35 29-64 64-64h192C256 57 313 0 384 0s128 57 128 128h192c35 0 64 29 64 64v320h-64V320H64v576h640V768zM128 256h512c0-35-29-64-64-64h-64c-35 0-64-29-64-64s-29-64-64-64-64 29-64 64-29 64-64 64h-64c-35 0-64 29-64 64z"></path></svg>
+                </Box>
               </Flex>
             </Td>
           </Tr>
           <Tr>
             <Td>Timestamp</Td>
-            <Td>2024-08-29 15:42:43 <span className={s.unit}>(2 minutes ago)</span></Td>
+            <Td>{dayjs.unix(selectedBlock?.timestamp as number).format('YYYY-MM-DD HH:mm:ss')} <span className={s.unit}>({dayjs.unix(selectedBlock?.timestamp as number).fromNow()})</span></Td>
           </Tr>
           <Tr>
             <Td>Size</Td>
-            <Td>1.53 <span className={s.unit}>MB</span></Td>
+            <Td>{new BigNumberJS((selectedBlock?.data as IConfirmedBlock).size).dividedBy(1e6).toFixed(2)} <span className={s.unit}>MB</span></Td>
           </Tr>
           <Tr>
             <Td>Weight</Td>
-            <Td>3.99 <span className={s.unit}>MWU</span></Td>
+            <Td>{new BigNumberJS((selectedBlock?.data as IConfirmedBlock).weight).dividedBy(1e6).toFixed(2)} <span className={s.unit}>MWU</span></Td>
+          </Tr>
+          <Tr>
+            <Td>Health</Td>
+            <Td><Text className={s.health}>100%</Text></Td>
           </Tr>
         </Tbody>
       </Table>
