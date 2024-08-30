@@ -1,8 +1,8 @@
-import { Box, Flex, Skeleton, Square, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, Skeleton, Square, Text } from '@chakra-ui/react';
 import cs from 'classnames';
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import s from './styles.module.scss';
-import { IBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
+import { IBlock, IConfirmedBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
 import { L2RollupDetailContext } from '@/modules/l2-rollup-detail/providers/l2-rollup-detail-context';
 import { formatCurrency } from '@utils/format';
 import BigNumberJS from 'bignumber.js';
@@ -25,6 +25,7 @@ const BlockItem: React.FC<IProps> = ({
                                                  isPending,
                                                }) => {
   const { setSelectedBlock } = useContext(L2RollupDetailContext);
+  const [poolImgUrl, setPoolImgUrl] = useState('');
 
   const status = useMemo(() => {
     if (!item) {
@@ -49,6 +50,16 @@ const BlockItem: React.FC<IProps> = ({
     setSelectedBlock(item);
   }
 
+  useEffect(() => {
+    if(item && (item?.data as IConfirmedBlock).extras) {
+      setPoolImgUrl(`https://mempool.space/resources/mining-pools/${(item?.data as IConfirmedBlock).extras.pool.slug}.svg`);
+    }
+  }, [item]);
+
+  const onLoadPoolImgError = () => {
+    setPoolImgUrl(`https://mempool.space/resources/mining-pools/default.svg`);
+  }
+
   return (
     <Box className={cs(s.container, status)} onClick={onSelectBlock}>
       {item ? (
@@ -63,10 +74,27 @@ const BlockItem: React.FC<IProps> = ({
               <Text className={s.time}>{dayjs.unix(item?.timestamp as number).fromNow()}</Text>
             </Flex>
           </Square>
+          {item.height && (
+            <Flex
+              className={s.minedPool}
+              w="100%"
+              gap={"4px"}
+              alignItems={"center"}
+              justifyContent={"center"}
+            >
+              <Image
+                src={poolImgUrl}
+                onError={onLoadPoolImgError}
+                className={s.poolImg}
+              />
+              {(item?.data as IConfirmedBlock).extras.pool.name}
+            </Flex>
+          )}
         </>
       ) : (
         <Square size={"125px"} />
       )}
+      <Box id={"arrow_up"} className={s.arrowUp}/>
     </Box>
   );
 };

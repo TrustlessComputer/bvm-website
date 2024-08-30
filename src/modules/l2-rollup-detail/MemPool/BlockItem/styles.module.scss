@@ -12,6 +12,7 @@
   min-height: var(--block-size);
   cursor: pointer;
   margin-top: 12px;
+  margin-bottom: 12px;
 
   &.release {
     &::before,
@@ -108,11 +109,7 @@
     transform-origin: top;
     transition: transform 1s, left 1s;
   }
-  img {
-    width: var(--block-size);
-    min-width: var(--block-size);
-    height: var(--block-size);
-  }
+
   .medianFee {
     color: #FFF;
     font-size: 12px;
@@ -143,5 +140,32 @@
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  .minedPool {
+    font-size: 12px;
+    font-weight: 700;
+
+    position: absolute;
+    bottom: -20px;
+
+    .poolImg {
+      width: 15px;
+      height: 15px;
+    }
+  }
+
+  .arrowUp {
+    position: absolute;
+    right: calc(var(--block-size)* .3);
+    bottom: -48px;
+    //top: calc(var(--block-size)* 1.2);
+    //left: 50%;
+    //transform: translateX(-75%);
+    width: 0;
+    height: 0;
+    border-left: calc(var(--block-size)* .2) solid transparent;
+    border-right: calc(var(--block-size)* .2) solid transparent;
+    border-bottom: calc(var(--block-size)* .2) solid #FFF;
   }
 }
