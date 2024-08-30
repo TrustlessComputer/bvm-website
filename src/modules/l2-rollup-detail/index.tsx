@@ -147,7 +147,7 @@ const L2RollupDetail = () => {
                   pl={'16px'}
                   fontSize={'14px'}
                   fontWeight={'500'}
-                  color={'#808080'}
+                  color={'#fa4e0e'}
                 >
                   Wallet Analysis
                 </Text>
