@@ -38,6 +38,7 @@ import React from 'react';
 import { isMobile } from 'react-device-detect';
 import { DotLottiePlayer } from '@dotlottie/react-player';
 import AnimArrowDown from './AnimArrowDown';
+import PowerBox from '@/modules/l2-rollup/PowerBox';
 
 enum SortRollupType {
   name,
@@ -1256,6 +1257,9 @@ const L2Rollup = () => {
                 className={s.tableContainer}
               />
             )}
+          </Box>
+          <Box display="flex" flexDirection="column" alignItems="end" w="100%" className={s.power}>
+            <PowerBox />
           </Box>
         </Flex>
       </Flex>
