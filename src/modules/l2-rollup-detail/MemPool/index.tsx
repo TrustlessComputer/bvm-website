@@ -13,41 +13,54 @@ import {
   L2RollupDetailProvider,
 } from '@/modules/l2-rollup-detail/providers/l2-rollup-detail-context';
 import BlockDetail from '@/modules/l2-rollup-detail/MemPool/BlockDetail';
+import dayjs from 'dayjs';
 
 const MemPool = () => {
-  const params = useParams();
-
   const defaultArr = useRef(Array(10).fill(0)).current;
   const defaultArr1 = useRef(Array(1).fill(0)).current;
 
-  const chain = params?.id;
+  const { selectedBlock, pendingBlocks, confirmedBlocks } = useContext(L2RollupDetailContext);
 
-  const { selectedBlock, pendingBlocks } = useContext(L2RollupDetailContext);
-
-  console.log('params', params);
+  console.log('selectedBlock', selectedBlock);
+  console.log('pendingBlocks', pendingBlocks);
+  console.log('confirmedBlocks', confirmedBlocks);
 
   const listNFTs = useMemo(() => {
     let pendingNFTs: any[] = defaultArr;
     let claimedNFTS: any[] = defaultArr;
 
+    const now = dayjs();
+    let minutes = 0;
     pendingNFTs = pendingBlocks?.map(block => {
       return {
-        feeSpan: block?.feeRange?.reduce((result, value) => result + value, 0) / block.feeRange.length,
         medianFee: block.medianFee,
         totalFees: block.totalFees,
         transactions: block.nTx,
         blockSize: block.blockSize,
         feeRange: block.feeRange,
+        timestamp: now.add(minutes+= 10, 'minutes').unix(),
         data: block,
       } as IBlock;
     }).reverse();
-    claimedNFTS = Array(10).fill({release_tx_hash: 'release'});
+
+    claimedNFTS = confirmedBlocks?.map(block => {
+      return {
+        medianFee: block.extras.medianFee,
+        totalFees: block.extras.totalFees,
+        transactions: block.tx_count,
+        blockSize: block.size,
+        feeRange: block.extras.feeRange,
+        timestamp: block.timestamp,
+        height: block.height,
+        data: block,
+      } as IBlock;
+    }).reverse();
 
     return {
       pendingNFTs,
       claimedNFTS,
     };
-  }, [pendingBlocks]);
+  }, [pendingBlocks, confirmedBlocks]);
 
   // console.log('listNFTs', listNFTs);
 
@@ -82,7 +95,8 @@ const MemPool = () => {
             <BlockItem
               key={`release-${i}`}
               item={_v}
-              loading={loading}
+              loading={false}
+              isPending={false}
             />
           ))}
           <Box minW={"16px"} />

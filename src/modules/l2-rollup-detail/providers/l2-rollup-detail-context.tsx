@@ -17,7 +17,7 @@ import { validateEVMAddress } from '@/utils/validate';
 import BigNumber from 'bignumber.js';
 import { useParams } from 'next/navigation';
 import React, { PropsWithChildren, useEffect, useMemo, useState } from 'react';
-import { IBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
+import { IBlock, IConfirmedBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
 import CMemPoolAPI from '@/services/api/heartbeats/mempool';
 import { FeesMempoolBlocks } from '@mempool/mempool.js/lib/interfaces/bitcoin/fees';
 
@@ -36,6 +36,7 @@ export interface IL2RollupDetailContext {
   selectedBlock: IBlock | undefined;
   setSelectedBlock: any;
   pendingBlocks: FeesMempoolBlocks[];
+  confirmedBlocks: IConfirmedBlock[];
 }
 
 const initialValue: IL2RollupDetailContext = {
@@ -53,6 +54,7 @@ const initialValue: IL2RollupDetailContext = {
   selectedBlock: undefined,
   setSelectedBlock: () => {},
   pendingBlocks: [],
+  confirmedBlocks: [],
 };
 
 export const L2RollupDetailContext =
@@ -81,6 +83,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
   const [rollupDetails, setRollupDetails] = useState<IRollupDetail[]>([]);
   const [selectedBlock, setSelectedBlock] = useState<IBlock | undefined>(undefined);
   const [pendingBlocks, setPendingBlocks] = useState<FeesMempoolBlocks[]>([]);
+  const [confirmedBlocks, setConfirmedBlocks] = useState<IConfirmedBlock[]>([]);
 
   const rollupBalances = useMemo(() => {
     let balances: ITokenChain[] = [];
@@ -120,8 +123,10 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     fetchTokensRate();
 
     fetchPendingBlocks();
+    fetchConfirmedBlocks();
     const interval = setInterval(() => {
       fetchPendingBlocks();
+      fetchConfirmedBlocks();
     }, 60000);
     return () => {
       clearInterval(interval);
@@ -136,6 +141,13 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     try {
       const res = await memPoolApi.getPendingBlocks();
       setPendingBlocks(res);
+    } catch (e) {}
+  }
+
+  const fetchConfirmedBlocks = async () => {
+    try {
+      const res = await memPoolApi.getConfirmedBlocks();
+      setConfirmedBlocks(res);
     } catch (e) {}
   }
 
@@ -261,6 +273,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
       selectedBlock,
       setSelectedBlock,
       pendingBlocks,
+      confirmedBlocks,
     };
   }, [
     address,
@@ -276,6 +289,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     selectedBlock,
     setSelectedBlock,
     pendingBlocks,
+    confirmedBlocks,
   ]);
 
   return (

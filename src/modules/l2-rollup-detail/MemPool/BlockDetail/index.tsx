@@ -20,7 +20,7 @@ const BlockDetail = () => {
   }
 
   const isPending = useMemo(() => {
-    return !selectedBlock?.txHash;
+    return !selectedBlock?.height;
   }, [selectedBlock]);
 
   const medianFeeUsd = useMemo(() => {

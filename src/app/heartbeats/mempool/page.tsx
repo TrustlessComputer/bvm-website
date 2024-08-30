@@ -1,4 +1,4 @@
-import MainLayout from '@/layouts/MainLayout';
+import MainLayout from '@layouts/MainLayout';
 import { Metadata } from 'next';
 import React from 'react';
 import MemPoolModule from '@/modules/l2-rollup-detail/MemPool';
