@@ -19,8 +19,6 @@ const TxExplorerModuleHandle = () => {
     L2RollupExplorerContext,
   );
 
-  console.log('isBTCTxAddress', isBTCTxAddress);
-
   const renderContent = () => {
     if (isBTCTxAddress) {
       return <TxBTCExplorer />;
