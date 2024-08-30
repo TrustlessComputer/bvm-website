@@ -66,7 +66,7 @@ const TabTokenTransfer = ({ rows = [] }: { rows: ITxBTCTokenTransfer[] }) => {
           return (
             <AddressCopy
               address={data.from}
-              onClick={() => router.push(`${HEART_BEAT}/${data.from}`)}
+              onClick={() => router.push(`${HEART_BEAT}/address/${data.from}`)}
             />
           );
         },
@@ -86,7 +86,7 @@ const TabTokenTransfer = ({ rows = [] }: { rows: ITxBTCTokenTransfer[] }) => {
           return (
             <AddressCopy
               address={data.to}
-              onClick={() => router.push(`${HEART_BEAT}/${data.to}`)}
+              onClick={() => router.push(`${HEART_BEAT}/address/${data.to}`)}
             />
           );
         },

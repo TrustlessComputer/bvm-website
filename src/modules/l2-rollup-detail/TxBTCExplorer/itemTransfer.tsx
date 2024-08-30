@@ -55,7 +55,7 @@ const ItemTransfer = ({
       <Flex alignItems={'center'} justifyContent={'space-between'}>
         <AddressCopy
           address={address}
-          onClick={() => router.push(`${HEART_BEAT}/${address}`)}
+          onClick={() => router.push(`${HEART_BEAT}/address/${address}`)}
         />
         <Text className={s.price}>
           {formatCurrency(data.amount, 0, 6)} <Text as="span">{symbol}</Text>
