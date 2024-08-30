@@ -30,9 +30,9 @@ type Props = {
 
 const LIMIT_PAGE = 50;
 const rowStyle = {
-  gridTemplateColumns: `56px 1fr 62px repeat(${
+  gridTemplateColumns: `56px 1fr 90px repeat(${
     PROBLEM_DATASOURCE.length + 1
-  }, 95px)`,
+  }, minmax(110px, 1fr))`,
 };
 
 const Leaderboard = (props: Props) => {
@@ -147,7 +147,7 @@ const Leaderboard = (props: Props) => {
           {data.total_point}
         </div>
         <div className={s.place_center}>
-          {formatCurrency(data.total_gas_used)}
+          {formatCurrency(data.total_gas_used, 0, 0)}
         </div>
         {PROBLEM_DATASOURCE.map((item) => (
           <div className={s.place_center} key={`cell-${item.id}`}>
@@ -171,7 +171,7 @@ const Leaderboard = (props: Props) => {
       if (isPassed) {
         return (
           <>
-            {formatCurrency(contestProblem.gas_used)}
+            {formatCurrency(contestProblem.gas_used, 0, 0)}
             <Image src="/hackathon/ic-check.svg" />
           </>
         );
