@@ -9,6 +9,7 @@ import { formatCurrency } from '@utils/format';
 import BigNumberJS from 'bignumber.js';
 import { useSelector } from 'react-redux';
 import { commonSelector } from '@/stores/states/common/selector';
+import { IConfirmedBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
 
 const BlockDetail = () => {
   const { selectedBlock, setSelectedBlock } = useContext(L2RollupDetailContext);
@@ -40,10 +41,10 @@ const BlockDetail = () => {
 
   const rewardUsd = useMemo(() => {
     return new BigNumberJS(btcPrice || 0)
-      .multipliedBy(selectedBlock?.data.extras.reward)
+      .multipliedBy((selectedBlock?.data as IConfirmedBlock).extras.reward)
       .dividedBy(1e8)
       .toString();
-  }, [selectedBlock?.data.extras.reward, btcPrice]);
+  }, [(selectedBlock?.data as IConfirmedBlock).extras.reward, btcPrice]);
 
   const renderPendingInfo = () => {
     return (
@@ -129,11 +130,11 @@ const BlockDetail = () => {
           </Tr>
           <Tr>
             <Td>Subsidy + fees</Td>
-            <Td>{formatCurrency(new BigNumberJS(selectedBlock?.data.extras.reward as number).dividedBy(1e8).toFixed(3), 0, 3, 'BTC', true)} <span className={s.unit}>BTC</span> <span className={s.price}>${formatCurrency(rewardUsd, 0, 0, 'BTC', true)}</span></Td>
+            <Td>{formatCurrency(new BigNumberJS((selectedBlock?.data as IConfirmedBlock).extras.reward as number).dividedBy(1e8).toFixed(3), 0, 3, 'BTC', true)} <span className={s.unit}>BTC</span> <span className={s.price}>${formatCurrency(rewardUsd, 0, 0, 'BTC', true)}</span></Td>
           </Tr>
           <Tr>
             <Td>Miner</Td>
-            <Td>{selectedBlock?.data.extras.pool.name}</Td>
+            <Td>{(selectedBlock?.data as IConfirmedBlock).extras.pool.name}</Td>
           </Tr>
         </Tbody>
       </Table>
