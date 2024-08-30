@@ -2,8 +2,7 @@
 
 import { Box, Flex } from '@chakra-ui/react';
 import s from './styles.module.scss';
-import { useParams } from 'next/navigation';
-import { useContext, useMemo, useRef } from 'react';
+import { useContext, useMemo } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import BigNumber from 'bignumber.js';
 import { IBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
@@ -16,18 +15,11 @@ import BlockDetail from '@/modules/l2-rollup-detail/MemPool/BlockDetail';
 import dayjs from 'dayjs';
 
 const MemPool = () => {
-  const defaultArr = useRef(Array(10).fill(0)).current;
-  const defaultArr1 = useRef(Array(1).fill(0)).current;
-
   const { selectedBlock, pendingBlocks, confirmedBlocks } = useContext(L2RollupDetailContext);
 
-  console.log('selectedBlock', selectedBlock);
-  console.log('pendingBlocks', pendingBlocks);
-  console.log('confirmedBlocks', confirmedBlocks);
-
   const listNFTs = useMemo(() => {
-    let pendingNFTs: any[] = defaultArr;
-    let claimedNFTS: any[] = defaultArr;
+    let pendingNFTs: any[] = [];
+    let claimedNFTS: any[] = [];
 
     const now = dayjs();
     let minutes = 0;
