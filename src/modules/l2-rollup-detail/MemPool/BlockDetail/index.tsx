@@ -12,6 +12,7 @@ import { commonSelector } from '@/stores/states/common/selector';
 import { IConfirmedBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
 import dayjs from 'dayjs';
 import { shortCryptoAddress } from '@utils/address';
+import { compareString } from '@utils/string';
 
 const BlockDetail = () => {
   const { selectedBlock, setSelectedBlock } = useContext(L2RollupDetailContext);
@@ -55,7 +56,21 @@ const BlockDetail = () => {
 
   const blockHealth = useMemo(() => {
     return 99.98;
-  }, [selectedBlock])
+  }, [selectedBlock]);
+
+  const blockTitle = useMemo(() => {
+    if(isPending) {
+      if (compareString(selectedBlock?.id, '0')) {
+        return 'Next Block';
+      } else if (compareString(selectedBlock?.id, '7')) {
+        return `Stack of 125 mempool blocks`;
+      } else {
+        return `Mempool block ${Number(selectedBlock?.id as string) + 1}`;
+      }
+    } else {
+      return 'Block';
+    }
+  }, [selectedBlock, isPending]);
 
   useEffect(() => {
     if((selectedBlock?.data as IConfirmedBlock).extras) {
@@ -179,7 +194,7 @@ const BlockDetail = () => {
     <Flex className={s.container} direction={"column"} gap={"16px"} pt={"8px"}>
       <Flex justifyContent={"space-between"} alignItems={"center"}>
         <Flex alignItems={"center"} gap={"8px"}>
-          <Text className={s.title}>{isPending ? 'Next Block' : 'Block'}</Text>
+          <Text className={s.title}>{blockTitle}</Text>
           {!isPending && <Text className={s.blockNumber}>{selectedBlock?.height}</Text>}
         </Flex>
         <Box onClick={onSelectBlock} className={s.btnClose}>

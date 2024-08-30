@@ -76,7 +76,13 @@ const BlockItem: React.FC<IProps> = ({
               <Text className={s.feeSpan}>{formatCurrency(item?.feeRange[0], 0, 0)} - {formatCurrency(item?.feeRange[item.feeRange.length - 1], 0, 0)} sat/vB</Text>
               <Text className={s.totalFee}>{formatCurrency(new BigNumberJS(item?.totalFees).dividedBy(1e8).toFixed(3), 0, 3, 'BTC', true)} BTC</Text>
               <Text className={s.transactions}>{formatCurrency(item?.transactions, 0, 0)} transactions</Text>
-              <Text className={s.time}>{dayjs.unix(item?.timestamp as number).fromNow()}</Text>
+              {
+                isPending && index === 0 ? (
+                  <Text className={s.time}>(125 blocks)</Text>
+                ) : (
+                  <Text className={s.time}>{dayjs.unix(item?.timestamp as number).fromNow()}</Text>
+                )
+              }
             </Flex>
           </Square>
           {item.height && (

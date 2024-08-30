@@ -2,7 +2,7 @@
 
 import { Box, Flex } from '@chakra-ui/react';
 import s from './styles.module.scss';
-import { useContext, useMemo } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import BigNumber from 'bignumber.js';
 import { IBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
@@ -15,7 +15,7 @@ import BlockDetail from '@/modules/l2-rollup-detail/MemPool/BlockDetail';
 import dayjs from 'dayjs';
 
 const MemPool = () => {
-  const { selectedBlock, pendingBlocks, confirmedBlocks } = useContext(L2RollupDetailContext);
+  const { selectedBlock, setSelectedBlock, pendingBlocks, confirmedBlocks } = useContext(L2RollupDetailContext);
 
   const listNFTs = useMemo(() => {
     let pendingNFTs: any[] = [];
@@ -23,9 +23,9 @@ const MemPool = () => {
 
     const now = dayjs();
     let minutes = 0;
-    pendingNFTs = pendingBlocks?.map(block => {
+    pendingNFTs = pendingBlocks?.map((block, i) => {
       return {
-        id: Math.random().toString(),
+        id: i.toString(),
         medianFee: block.medianFee,
         totalFees: block.totalFees,
         transactions: block.nTx,
@@ -56,7 +56,11 @@ const MemPool = () => {
     };
   }, [pendingBlocks, confirmedBlocks]);
 
-  // console.log('listNFTs', listNFTs);
+  useEffect(() => {
+    if(listNFTs?.pendingNFTs?.length > 0 && !selectedBlock) {
+      setSelectedBlock(listNFTs.pendingNFTs[listNFTs.pendingNFTs.length - 1]);
+    }
+  }, [listNFTs.pendingNFTs, selectedBlock]);
 
   const isCenter = useMemo(() => {
     return new BigNumber(10).multipliedBy(177).lte(window.innerWidth);
@@ -80,6 +84,7 @@ const MemPool = () => {
               item={_v}
               loading={false}
               isPending={true}
+              index={i}
             />
           ))}
 
@@ -91,6 +96,7 @@ const MemPool = () => {
               item={_v}
               loading={false}
               isPending={false}
+              index={i}
             />
           ))}
           <Box minW={"16px"} />

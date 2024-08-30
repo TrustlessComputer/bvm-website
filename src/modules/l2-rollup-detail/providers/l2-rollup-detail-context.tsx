@@ -134,23 +134,6 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
   }, []);
 
   useEffect(() => {
-    if(!selectedBlock && confirmedBlocks.length > 0) {
-      const block = confirmedBlocks[0];
-      setSelectedBlock({
-        id: block.id,
-        medianFee: block.extras.medianFee,
-        totalFees: block.extras.totalFees,
-        transactions: block.tx_count,
-        blockSize: block.size,
-        feeRange: block.extras.feeRange,
-        timestamp: block.timestamp,
-        height: block.height,
-        data: block,
-      } as IBlock);
-    }
-  }, [confirmedBlocks, selectedBlock]);
-
-  useEffect(() => {
     fetchRollupBalances();
   }, [address]);
 
