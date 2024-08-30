@@ -1,3 +1,4 @@
+import CRollupL2DetailAPI from '@/services/api/dapp/rollupl2-detail';
 import { ITxBTC } from '@/services/api/dapp/rollupl2-detail-bitcoin/interface';
 import CMempoolApi from '@/services/api/mempool';
 import { IMempoolBlock } from '@/services/api/mempool/interface';
@@ -10,11 +11,14 @@ import { useDispatch } from 'react-redux';
 const BlockConfirm = ({
   txBTC,
   setIndexBlock,
+  setTimeAvg,
 }: {
   txBTC: ITxBTC;
   setIndexBlock: any;
+  setTimeAvg: any;
 }) => {
   const mempoolApi = useRef(new CMempoolApi()).current;
+  const rollupDetailApi = useRef(new CRollupL2DetailAPI()).current;
   const [blocks, setBlocks] = useState<IMempoolBlock[]>([]);
   const refInterval = useRef<any>(null);
   const intervalDone = useRef<any>(true);
@@ -25,14 +29,16 @@ const BlockConfirm = ({
       if (!intervalDone.current) {
         return;
       }
-      const [rs, rs1] = await Promise.all([
+      const [rs, rs1, rs2] = await Promise.all([
         mempoolApi.getBlocks(),
         mempoolApi.getTransactionStatus(txBTC.tx_id),
+        rollupDetailApi.getTimeAVG(),
       ]);
       if (rs1?.confirmed) {
         clearInterval(refInterval.current);
         dispatch(requestReload());
       }
+      setTimeAvg(rs2);
       setBlocks(rs);
     } catch (error) {
     } finally {

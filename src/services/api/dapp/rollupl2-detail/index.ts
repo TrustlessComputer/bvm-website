@@ -142,6 +142,15 @@ class CRollupL2DetailAPI extends CDappApiClient {
       throw [];
     }
   };
+
+  getTimeAVG = async (): Promise<number> => {
+    try {
+      const rs: any = await this.api.get(`/rollup/mempool/time-avg`);
+      return rs;
+    } catch (error) {
+      return 0;
+    }
+  };
 }
 
 export default CRollupL2DetailAPI;
