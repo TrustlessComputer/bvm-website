@@ -60,13 +60,13 @@ const TxBTCExplorer = () => {
 
       const [rs, rs1] = await Promise.all([
         rollupBitcoinApi.getTxBTC(address),
-        mempoolApi.getTransactionStatus(address),
+        mempoolApi.getTransactionTime(address),
       ]);
 
       const _rs: any = rs;
 
-      if (rs1) {
-        _rs.transaction_time = rs1.block_time * 1000;
+      if (rs1?.[0]) {
+        _rs.transaction_time = rs1?.[0] * 1000;
       }
 
       setTxBTC(_rs);
