@@ -75,7 +75,7 @@ const useGettingDappLego = () => {
         fieldKey,
         category,
       });
-      if (!category || (category.isChain && !ignoreKeys.includes(category.key)))
+      if (!category || ignoreKeys.includes(category.key) || category.isChain)
         continue;
 
       console.log('[useGettingDappLego] 333', newField[fieldKey].value);
