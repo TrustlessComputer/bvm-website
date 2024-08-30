@@ -1,7 +1,7 @@
-import { Box, Flex, SimpleGrid, Table, Tbody, Td, Text, Tr } from '@chakra-ui/react';
+import { Box, Flex, Image, SimpleGrid, Table, Tbody, Td, Text, Tr } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import SvgInset from '@components/SvgInset';
-import { useContext, useMemo } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { L2RollupDetailContext } from '@/modules/l2-rollup-detail/providers/l2-rollup-detail-context';
 import copy from 'copy-to-clipboard';
 import { toast } from 'react-hot-toast';
@@ -17,6 +17,7 @@ const BlockDetail = () => {
   const { selectedBlock, setSelectedBlock } = useContext(L2RollupDetailContext);
   const coinPrices = useSelector(commonSelector).coinPrices;
   const btcPrice = useMemo(() => coinPrices?.['BTC'] || '0', [coinPrices]);
+  const [poolImgUrl, setPoolImgUrl] = useState('');
 
   const onSelectBlock = () => {
     setSelectedBlock(undefined);
@@ -47,6 +48,18 @@ const BlockDetail = () => {
       .dividedBy(1e8)
       .toString();
   }, [(selectedBlock?.data as IConfirmedBlock).extras.reward, btcPrice]);
+
+  const blockHealth = useMemo(() => {
+    return 99.98;
+  }, [selectedBlock])
+
+  useEffect(() => {
+    setPoolImgUrl(`https://mempool.space/resources/mining-pools/${(selectedBlock?.data as IConfirmedBlock).extras.pool.slug}.svg`);
+  }, [selectedBlock]);
+
+  const onLoadPoolImgError = () => {
+    setPoolImgUrl(`https://mempool.space/resources/mining-pools/default.svg`);
+  }
 
   const renderPendingInfo = () => {
     return (
@@ -111,7 +124,7 @@ const BlockDetail = () => {
           </Tr>
           <Tr>
             <Td>Health</Td>
-            <Td><Text className={s.health}>100%</Text></Td>
+            <Td><Text className={s.health}>{formatCurrency(blockHealth, 0, 2)}%</Text></Td>
           </Tr>
         </Tbody>
       </Table>
@@ -140,7 +153,16 @@ const BlockDetail = () => {
           </Tr>
           <Tr>
             <Td>Miner</Td>
-            <Td>{(selectedBlock?.data as IConfirmedBlock).extras.pool.name}</Td>
+            <Td>
+              <Flex gap={"4px"}>
+                <Image
+                  src={poolImgUrl}
+                  onError={onLoadPoolImgError}
+                  className={s.poolImg}
+                />
+                {(selectedBlock?.data as IConfirmedBlock).extras.pool.name}
+              </Flex>
+            </Td>
           </Tr>
         </Tbody>
       </Table>
