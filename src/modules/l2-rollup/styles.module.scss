@@ -239,3 +239,14 @@ table {
     width: 90vw !important;
   }
 }
+.power {
+  padding-top: 20px;
+
+  // screen 27' 2k
+  @include w-min(2100px) {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    padding-top: 0px;
+  }
+}
