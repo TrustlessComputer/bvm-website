@@ -96,7 +96,7 @@ const LeaderboardSection = (props: Props) => {
           >
             <Flex
               alignItems={'center'}
-              gap="34px"
+              gap="12px"
               mb="24px"
               position="relative"
             >
