@@ -197,7 +197,7 @@ const PortfolioTabBitcoin = () => {
               justifyContent={'space-between'}
             >
               <Text className={s.title}>
-                {formatCurrency(data.holding_amount, 2, 2)}
+                {formatCurrency(data.holding_amount, 0, 6)}
               </Text>
             </Flex>
           );

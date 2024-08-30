@@ -15,6 +15,7 @@ import {
   TabPanels,
   Tabs,
   Text,
+  Skeleton,
 } from '@chakra-ui/react';
 import copy from 'copy-to-clipboard';
 import React, { useContext } from 'react';
@@ -33,11 +34,13 @@ import TokenTransferTab from './TokenTransferTab';
 import TokenTransferTabBitcoin from './TokenTransferTabBitcoin';
 import TransactionsTab from './TransactionsTab';
 import TransactionsTabBitcoin from './TransactionsTabBitcoin';
+import { formatAiSummary } from './utils';
 
 const L2RollupDetail = () => {
   const {
     address,
     aiSummary,
+    isLoadingAI,
     isValidAddress,
     isBTCAddress,
     balanceBitcoinInfo,
@@ -92,7 +95,8 @@ const L2RollupDetail = () => {
           mt={{ base: '28px', md: '36px' }}
           gap={{ base: '16px', md: '20px' }}
           direction={'row'}
-          alignItems={'center'}
+          alignItems={'flex-start'}
+          // alignItems={'center'}
         >
           <Image
             w={{ base: '80px', md: '140px' }}
@@ -121,7 +125,7 @@ const L2RollupDetail = () => {
                     {`${formatCurrency(
                       balanceBitcoinInfo?.balance,
                       2,
-                      2,
+                      6,
                     )} BTC ${
                       rollupBitcoinBalances && rollupBitcoinBalances.length > 0
                         ? `($${formatCurrency(
@@ -144,7 +148,18 @@ const L2RollupDetail = () => {
                 </Text> */}
               </>
             )}
-            {aiSummary && <Text fontWeight={'400'}>{aiSummary}</Text>}
+            {isLoadingAI ? (
+              <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
+                <Text>Analyzing...</Text>
+                <Skeleton w={'140px'} h={'20px'} speed={1.2} />
+              </Flex>
+            ) : (
+              <>
+                {aiSummary && (
+                  <Text fontWeight={'400'}>{formatAiSummary(aiSummary)}</Text>
+                )}
+              </>
+            )}
           </Flex>
         </Flex>
 
