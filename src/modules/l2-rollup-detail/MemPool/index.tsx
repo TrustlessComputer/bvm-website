@@ -54,7 +54,7 @@ const MemPool = () => {
         height: block.height,
         data: block,
       } as IBlock;
-    }).reverse();
+    });
 
     return {
       pendingNFTs,

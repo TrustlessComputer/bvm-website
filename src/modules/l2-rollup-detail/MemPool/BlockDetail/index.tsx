@@ -38,6 +38,13 @@ const BlockDetail = () => {
       .toString();
   }, [selectedBlock?.totalFees, btcPrice]);
 
+  const rewardUsd = useMemo(() => {
+    return new BigNumberJS(btcPrice || 0)
+      .multipliedBy(selectedBlock?.data.extras.reward)
+      .dividedBy(1e8)
+      .toString();
+  }, [selectedBlock?.data.extras.reward, btcPrice]);
+
   const renderPendingInfo = () => {
     return (
       <Table className={s.table}>
@@ -110,19 +117,23 @@ const BlockDetail = () => {
         <Tbody>
           <Tr>
             <Td>Fee span</Td>
-            <Td>2 - 469 <span className={s.unit}>sat/vB</span></Td>
+            <Td><span>{formatCurrency(selectedBlock?.feeRange[0], 0, 0)} - {formatCurrency(selectedBlock?.feeRange[selectedBlock?.feeRange.length - 1], 0, 0)}</span> <span className={s.unit}>sat/vB</span></Td>
           </Tr>
           <Tr>
             <Td>Median fee</Td>
-            <Td>~3 <span className={s.unit}>sat/vB$0.25</span></Td>
+            <Td>~{formatCurrency(selectedBlock?.medianFee, 0, 0)} <span className={s.unit}>sat/vB</span> <span className={s.price}>${formatCurrency(medianFeeUsd, 0, 2)}</span></Td>
           </Tr>
           <Tr>
             <Td>Total fees</Td>
-            <Td>0.074 <span className={s.unit}>BTC</span> <span className={s.price}>$4,411</span></Td>
+            <Td>{formatCurrency(new BigNumberJS(selectedBlock?.totalFees as number).dividedBy(1e8).toFixed(3), 0, 2, 'BTC', true)} <span className={s.unit}>BTC</span> <span className={s.price}>${formatCurrency(totalFeeUsd, 0, 0, 'BTC', true)}</span></Td>
           </Tr>
           <Tr>
             <Td>Subsidy + fees</Td>
-            <Td>3.151 <span className={s.unit}>BTC</span> <span className={s.price}>$187,767</span></Td>
+            <Td>{formatCurrency(new BigNumberJS(selectedBlock?.data.extras.reward as number).dividedBy(1e8).toFixed(3), 0, 3, 'BTC', true)} <span className={s.unit}>BTC</span> <span className={s.price}>${formatCurrency(rewardUsd, 0, 0, 'BTC', true)}</span></Td>
+          </Tr>
+          <Tr>
+            <Td>Miner</Td>
+            <Td>{selectedBlock?.data.extras.pool.name}</Td>
           </Tr>
         </Tbody>
       </Table>
@@ -134,7 +145,7 @@ const BlockDetail = () => {
       <Flex justifyContent={"space-between"} alignItems={"center"}>
         <Flex alignItems={"center"} gap={"8px"}>
           <Text className={s.title}>{isPending ? 'Next Block' : 'Block'}</Text>
-          {!isPending && <Text className={s.blockNumber}>123456</Text>}
+          {!isPending && <Text className={s.blockNumber}>{selectedBlock?.height}</Text>}
         </Flex>
         <Box onClick={onSelectBlock} className={s.btnClose}>
           <SvgInset size={36} svgUrl={`/icons/icon-close.svg`} />
