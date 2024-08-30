@@ -12,6 +12,7 @@ import SearchAddress from '../SearchAddress';
 import s from './styles.module.scss';
 import TxBTCExplorer from '../TxBTCExplorer';
 import TxERC20Explorer from '../TxERC20Explorer';
+import WatchListAddresses from '../Watchlist';
 
 const TxExplorerModuleHandle = () => {
   const router = useRouter();
@@ -52,7 +53,10 @@ const TxExplorerModuleHandle = () => {
             <Image w={'24px'} src={'/heartbeat/ic-back.svg'} />
             <Text>Bitcoin Heartbeat Project</Text>
           </Flex>
-          <SearchAddress className={s.search} />
+          <Flex alignItems={'center'} gap={'4px'} position={'relative'}>
+            <SearchAddress className={s.search} />
+            <WatchListAddresses />
+          </Flex>
         </Flex>
         {renderContent()}
       </Flex>

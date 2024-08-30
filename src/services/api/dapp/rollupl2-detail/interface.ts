@@ -199,3 +199,8 @@ export interface ITransactionTransfer {
   decimals: number;
   icon_url: string;
 }
+
+export interface IWatchList {
+  address: string;
+  org_address: string;
+}

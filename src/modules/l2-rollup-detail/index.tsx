@@ -9,18 +9,20 @@ import {
   Box,
   Flex,
   Image,
+  Skeleton,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
   Text,
-  Skeleton,
 } from '@chakra-ui/react';
+import copy from 'copy-to-clipboard';
 import { useRouter } from 'next/navigation';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { isMobile } from 'react-device-detect';
 import toast from 'react-hot-toast';
+import ButtonFavorite from './FavoriteAddress';
 import NFTTab from './NFTTab';
 import PortfolioTab from './PortfolioTab';
 import PortfolioTabBitcoin from './PortfolioTabBitcoin';
@@ -35,7 +37,7 @@ import TokenTransferTabBitcoin from './TokenTransferTabBitcoin';
 import TransactionsTab from './TransactionsTab';
 import TransactionsTabBitcoin from './TransactionsTabBitcoin';
 import { formatAiSummary } from './utils';
-import copy from 'copy-to-clipboard';
+import WatchListAddresses from './Watchlist';
 
 const L2RollupDetail = () => {
   const {
@@ -86,11 +88,10 @@ const L2RollupDetail = () => {
             <Image w={'24px'} src={'/heartbeat/ic-back.svg'} />
             <Text>Bitcoin Heartbeat Project</Text>
           </Flex>
-          <SearchAddress
-            className={s.search}
-            placeholder={'Search by Address / Txn Hash'}
-            icSearchAtLeft
-          />
+          <Flex alignItems={'center'} gap={'4px'} position={'relative'}>
+            <SearchAddress className={s.search} />
+            <WatchListAddresses />
+          </Flex>
         </Flex>
 
         <Flex
@@ -118,6 +119,7 @@ const L2RollupDetail = () => {
                   toast.success('Copied');
                 }}
               />
+              <ButtonFavorite address={address} />
             </Flex>
             {isBTCAddress ? (
               <>
