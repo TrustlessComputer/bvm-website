@@ -3,7 +3,7 @@
 import { Box, Flex } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { useParams } from 'next/navigation';
-import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useContext, useMemo, useRef } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import BigNumber from 'bignumber.js';
 import { IBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
@@ -16,62 +16,40 @@ import BlockDetail from '@/modules/l2-rollup-detail/MemPool/BlockDetail';
 
 const MemPool = () => {
   const params = useParams();
-  const [loading, setLoading] = useState(true);
 
-  const [nfts, setNfts] = useState<IBlock[]>([]);
   const defaultArr = useRef(Array(10).fill(0)).current;
   const defaultArr1 = useRef(Array(1).fill(0)).current;
 
   const chain = params?.id;
 
-  const { selectedBlock } = useContext(L2RollupDetailContext);
+  const { selectedBlock, projectedBlocks } = useContext(L2RollupDetailContext);
 
   console.log('params', params);
 
-  useEffect(() => {
-    getData();
-  }, [chain]);
-
-  const getData = async () => {
-    try {
-      setNfts(Array(10).fill(0));
-
-      if (!chain) {
-        setNfts([]);
-        return;
-      }
-      // const rs = await nftApi.getCollectedNFTs("");
-    } catch (error) {
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const listNFTs = useMemo(() => {
-    let pendingNFTs: any[] = loading ? defaultArr : defaultArr1;
+    let pendingNFTs: any[] = defaultArr;
     let claimedNFTS: any[] = defaultArr;
 
-    if (nfts.length > 0) {
-      pendingNFTs = Array(10).fill({release_tx_hash: 'pending'});
-      claimedNFTS = Array(10).fill({release_tx_hash: 'release'});
-
-      // if (pendingNFTs.length < defaultArr1.length) {
-      //   pendingNFTs = Array(defaultArr1.length - pendingNFTs.length)
-      //     .fill(0)
-      //     .concat(pendingNFTs);
-      // }
-      // if (claimedNFTS.length < defaultArr.length) {
-      //   claimedNFTS = claimedNFTS.concat(
-      //     Array(defaultArr.length - claimedNFTS.length).fill(0)
-      //   );
-      // }
-    }
+    pendingNFTs = projectedBlocks?.map(block => {
+      return {
+        feeSpan: block?.feeRange?.reduce((result, value) => result + value, 0) / block.feeRange.length,
+        medianFee: block.medianFee,
+        totalFees: block.totalFees,
+        transactions: block.nTx,
+        blockSize: block.blockSize,
+        feeRange: block.feeRange,
+        data: block,
+      } as IBlock;
+    }).reverse();
+    claimedNFTS = Array(10).fill({release_tx_hash: 'release'});
 
     return {
       pendingNFTs,
       claimedNFTS,
     };
-  }, [nfts, loading]);
+  }, [projectedBlocks]);
+
+  // console.log('listNFTs', listNFTs);
 
   const isCenter = useMemo(() => {
     return new BigNumber(10).multipliedBy(177).lte(window.innerWidth);
@@ -93,7 +71,8 @@ const MemPool = () => {
             <BlockItem
               key={`pending-${i}`}
               item={_v}
-              loading={loading}
+              loading={false}
+              isPending={true}
             />
           ))}
 

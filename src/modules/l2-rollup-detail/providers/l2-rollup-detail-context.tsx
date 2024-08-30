@@ -18,6 +18,8 @@ import BigNumber from 'bignumber.js';
 import { useParams } from 'next/navigation';
 import React, { PropsWithChildren, useEffect, useMemo, useState } from 'react';
 import { IBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
+import CMemPoolAPI from '@/services/api/heartbeats/mempool';
+import { FeesMempoolBlocks } from '@mempool/mempool.js/lib/interfaces/bitcoin/fees';
 
 export interface IL2RollupDetailContext {
   address: string;
@@ -33,6 +35,7 @@ export interface IL2RollupDetailContext {
   rollupBitcoinBalances?: any[];
   selectedBlock: IBlock | undefined;
   setSelectedBlock: any;
+  projectedBlocks: FeesMempoolBlocks[];
 }
 
 const initialValue: IL2RollupDetailContext = {
@@ -49,6 +52,7 @@ const initialValue: IL2RollupDetailContext = {
   rollupBitcoinBalances: [],
   selectedBlock: undefined,
   setSelectedBlock: () => {},
+  projectedBlocks: [],
 };
 
 export const L2RollupDetailContext =
@@ -63,6 +67,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
 
   const rollupApi = new CRollupL2DetailAPI();
   const rollupBitcoinApi = new CRollupL2DetailBitcoinAPI();
+  const memPoolApi = new CMemPoolAPI();
 
   const isEVMAddress = useMemo(() => validateEVMAddress(address), [address]);
   const isBTCAddress = useMemo(() => validateBTCAddress(address), [address]);
@@ -75,6 +80,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
   const [rollupTokensRate, setRollupTokensRate] = useState<RollupTokenRate>();
   const [rollupDetails, setRollupDetails] = useState<IRollupDetail[]>([]);
   const [selectedBlock, setSelectedBlock] = useState<IBlock | undefined>(undefined);
+  const [projectedBlocks, setProjectedBlocks] = useState<FeesMempoolBlocks[]>([]);
 
   const rollupBalances = useMemo(() => {
     let balances: ITokenChain[] = [];
@@ -112,11 +118,26 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
 
   useEffect(() => {
     fetchTokensRate();
+
+    fetchProjectedBlocks();
+    const interval = setInterval(() => {
+      fetchProjectedBlocks();
+    }, 60000);
+    return () => {
+      clearInterval(interval);
+    }
   }, []);
 
   useEffect(() => {
     fetchRollupBalances();
   }, [address]);
+
+  const fetchProjectedBlocks = async () => {
+    try {
+      const res = await memPoolApi.getProjectedBlocks();
+      setProjectedBlocks(res);
+    } catch (e) {}
+  }
 
   const fetchTokensRate = async () => {
     try {
@@ -239,6 +260,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
       rollupBitcoinBalances,
       selectedBlock,
       setSelectedBlock,
+      projectedBlocks,
     };
   }, [
     address,
@@ -253,6 +275,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     rollupBitcoinBalances,
     selectedBlock,
     setSelectedBlock,
+    projectedBlocks,
   ]);
 
   return (

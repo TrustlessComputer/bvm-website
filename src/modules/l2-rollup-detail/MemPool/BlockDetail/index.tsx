@@ -3,40 +3,60 @@ import s from './styles.module.scss';
 import SvgInset from '@components/SvgInset';
 import { useContext, useMemo } from 'react';
 import { L2RollupDetailContext } from '@/modules/l2-rollup-detail/providers/l2-rollup-detail-context';
-import { compareString } from '@utils/string';
 import copy from 'copy-to-clipboard';
 import { toast } from 'react-hot-toast';
+import { formatCurrency } from '@utils/format';
+import BigNumberJS from 'bignumber.js';
+import { useSelector } from 'react-redux';
+import { commonSelector } from '@/stores/states/common/selector';
 
 const BlockDetail = () => {
   const { selectedBlock, setSelectedBlock } = useContext(L2RollupDetailContext);
+  const coinPrices = useSelector(commonSelector).coinPrices;
+  const btcPrice = useMemo(() => coinPrices?.['BTC'] || '0', [coinPrices]);
 
   const onSelectBlock = () => {
     setSelectedBlock(undefined);
   }
 
   const isPending = useMemo(() => {
-    return compareString(selectedBlock?.release_tx_hash, 'pending');
+    return !selectedBlock?.txHash;
   }, [selectedBlock]);
+
+  const medianFeeUsd = useMemo(() => {
+    return new BigNumberJS(btcPrice || 0)
+      .multipliedBy(selectedBlock?.medianFee || 0)
+      .multipliedBy(140)
+      .dividedBy(1e8)
+      .toFixed(2);
+  }, [selectedBlock?.medianFee, btcPrice]);
+
+  const totalFeeUsd = useMemo(() => {
+    return new BigNumberJS(btcPrice || 0)
+      .multipliedBy(selectedBlock?.totalFees || 0)
+      .dividedBy(1e8)
+      .toString();
+  }, [selectedBlock?.totalFees, btcPrice]);
 
   const renderPendingInfo = () => {
     return (
       <Table className={s.table}>
         <Tbody>
           <Tr>
-            <Td>Fee span</Td>
-            <Td>2 - 469 <span className={s.unit}>sat/vB</span></Td>
+            <Td>Median fee</Td>
+            <Td>~{formatCurrency(selectedBlock?.medianFee, 0, 0)} <span className={s.unit}>sat/vB</span> <span className={s.price}>${formatCurrency(medianFeeUsd, 0, 2)}</span></Td>
           </Tr>
           <Tr>
-            <Td>Median fee</Td>
-            <Td>~3 <span className={s.unit}>sat/vB$0.25</span></Td>
+            <Td>Fee span</Td>
+            <Td><span className={s.feeSpan}>{formatCurrency(selectedBlock?.feeRange[0], 0, 0)} - {formatCurrency(selectedBlock?.feeRange[selectedBlock?.feeRange.length - 1], 0, 0)}</span> <span className={s.unit}>sat/vB</span></Td>
           </Tr>
           <Tr>
             <Td>Total fees</Td>
-            <Td>0.074 <span className={s.unit}>BTC</span> <span className={s.price}>$4,411</span></Td>
+            <Td>{formatCurrency(new BigNumberJS(selectedBlock?.totalFees as number).dividedBy(1e8).toFixed(3), 0, 2, 'BTC', true)} <span className={s.unit}>BTC</span> <span className={s.price}>${formatCurrency(totalFeeUsd, 0, 0)}</span></Td>
           </Tr>
           <Tr>
             <Td>Transactions</Td>
-            <Td>5388</Td>
+            <Td>{formatCurrency(selectedBlock?.transactions, 0, 0)}</Td>
           </Tr>
         </Tbody>
       </Table>
