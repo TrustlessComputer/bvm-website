@@ -67,6 +67,7 @@ const L2Rollup = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const [isShowIntro, setIsShowIntro] = useState(false);
+  const [hoverTooltip, setHoverTooltip] = useState(false);
 
   const [bitcoinRent, setBitcoinRent] = useState<IRollupL2Info>();
 
@@ -963,7 +964,9 @@ const L2Rollup = () => {
     return (
       <Flex direction={'column'} alignItems={'center'}>
         <Flex alignItems="center" gap="6px" my={'12px'}>
-          <Text fontSize={'20px'}>Project Bitcoin Heartbeats</Text>
+          <Text color={'#fff'} fontSize={'20px'}>
+            Project Bitcoin Heartbeats
+          </Text>
           <DotLottiePlayer
             autoplay
             loop
@@ -978,6 +981,7 @@ const L2Rollup = () => {
           textAlign={'center'}
           mb={'28px'}
           mt={'12px'}
+          color={'#fff'}
         >
           Welcome to the future of Bitcoin.
         </Text>
@@ -987,7 +991,7 @@ const L2Rollup = () => {
           maxW={'1024px'}
           fontSize={'20px'}
           fontWeight={'400'}
-          color={'#494846'}
+          color={'#fff'}
           mb={'24px'}
         >
           The BVM team created Project Bitcoin Heartbeats to provide transparent
@@ -1006,7 +1010,7 @@ const L2Rollup = () => {
             className={s.fontType2}
             fontSize={'20px'}
             fontWeight={'400'}
-            color={'#494846'}
+            color={'#fff'}
           >
             Are you a builder?️
           </Text>
@@ -1036,16 +1040,15 @@ const L2Rollup = () => {
     );
   };
 
+  const isTopScroll =
+    scrollTop > window.innerHeight * 0.2 ||
+    (isShowIntro && window.innerHeight < 1200);
+
   return (
     <Box className={s.container} overflow={'hidden'}>
       <Flex
-        position={'absolute'}
-        top={
-          scrollTop > window.innerHeight * 0.2 ||
-          (isShowIntro && window.innerHeight < 1200)
-            ? '0px'
-            : `${window.innerHeight * 0.2 - scrollTop}px`
-        }
+        position={isTopScroll ? 'relative' : 'absolute'}
+        top={isTopScroll ? '0px' : `${window.innerHeight * 0.2 - scrollTop}px`}
         left={'0px'}
         right={'0px'}
         h={'72px'}
@@ -1062,7 +1065,7 @@ const L2Rollup = () => {
         />
       </Flex>
       <Flex
-        h={`calc(100vh - ${isMobile ? 60 : 96}px)`}
+        h={`calc(100vh - ${isMobile ? 60 : 96 + (isTopScroll ? 72 : 0)}px)`}
         overflow={'scroll !important'}
         className={s.content}
         w={'100%'}
@@ -1087,16 +1090,32 @@ const L2Rollup = () => {
             flexDirection={'column'}
             my={'32px'}
           >
-            <Image
+            <Flex
               alignSelf={'flex-end'}
-              cursor={'pointer'}
-              width="24px"
-              height="24px"
-              alt=""
-              src={'/heartbeat/ic-tooltip-homepage.svg'}
+              borderRadius={hoverTooltip ? '100px' : '50%'}
+              w={'fit-content'}
+              alignItems={'center'}
+              p={'4px'}
+              bg={'#fff'}
               mb={'12px'}
-              onClick={() => setIsShowIntro(!isShowIntro)}
-            />
+              gap={'8px'}
+              onMouseEnter={() => setHoverTooltip(true)}
+              onMouseLeave={() => setHoverTooltip(false)}
+            >
+              {hoverTooltip && (
+                <Text pl={'8px'} fontSize={'14px'}>
+                  About project Bitcoin Heartbeats
+                </Text>
+              )}
+              <Image
+                cursor={'pointer'}
+                width="24px"
+                height="24px"
+                alt=""
+                src={'/heartbeat/ic-tooltip-homepage.svg'}
+                onClick={() => setIsShowIntro(!isShowIntro)}
+              />
+            </Flex>
             <SimpleGrid columns={3} gap={'16px'}>
               <L2RollupFee
                 data={_dataChart.txs}
@@ -1184,7 +1203,7 @@ const L2Rollup = () => {
               />
             </SimpleGrid>
             <Box mt={'6px'}>
-              <Text fontSize={'12px'} opacity={'0.8'}>
+              <Text fontSize={'12px'} color={'#fff'} opacity={'0.8'}>
                 * This data has been collected from{' '}
                 {chainsSupportForChart.join(', ')} chains.{' '}
                 <b>Rollux, Merlin, Core, and Stacks will be coming soon.</b>
