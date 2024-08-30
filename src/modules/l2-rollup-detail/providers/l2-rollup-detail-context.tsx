@@ -301,11 +301,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
             user_address: address,
             type: balanceType.type,
             page: 1,
-            limit:
-              balanceType.type === 'runes' ||
-              balanceType.type === 'ordinals_nft'
-                ? 40
-                : 50,
+            limit: 20,
           })) as any;
           return { [balanceType.type]: res };
         }),
