@@ -59,6 +59,7 @@ class CRollupL2DetailBitcoinAPI extends CDappApiClient {
       const rs: any = await this.api.get(`/explorer/transaction/${address}`, {
         params,
       });
+      return rs?.result;
     } catch (error) {
       return undefined;
     }
