@@ -41,11 +41,27 @@ const END_TIME = '2024-08-29T16:00:00Z';
 
 const LeaderboardOrCompetition = memo(
   ({ currentUserContest }: { currentUserContest?: IUserContest }) => {
+    const [comUserContest, setComUserContest] = useState<IUserContest>();
+
+    useEffect(() => {
+      checkRegistered(UserContestType.COMPETITION).then((res) => {
+        if (res) {
+          setComUserContest(res);
+        }
+      });
+    }, []);
     // const startTime = useCountdown(START_TIME);
     // const endTime = useCountdown(END_TIME);
     // const isShowCompetition = startTime.ended && !endTime.ended;
 
-    return <CompetitionSection currentUserContest={currentUserContest} />;
+    return (
+      <>
+        <LeaderboardSection currentUserContest={currentUserContest} />
+        <CompetitionSection currentUserContest={comUserContest}/>
+      </>
+    );
+
+    return <LeaderboardSection currentUserContest={currentUserContest} />;
     // return isShowCompetition ? (
     //   <CompetitionSection currentUserContest={currentUserContest} />
     // ) : (
@@ -126,15 +142,11 @@ const HackathonModule = (props: Props) => {
 
   const checkUserRegistered = async () => {
     try {
-      const now = new Date().getTime();
-      const isShowCompetition = true;
+      // const now = new Date().getTime();
+      // const isShowCompetition = true;
       // now >= new Date(START_TIME).getTime() &&
       // now < new Date(END_TIME).getTime();
-      const res = await checkRegistered(
-        isShowCompetition
-          ? UserContestType.COMPETITION
-          : UserContestType.NORMAL,
-      );
+      const res = await checkRegistered();
       if (res) {
         setIsRegistered(res?.register || false);
         setCurrentUserContest(res);
@@ -283,6 +295,7 @@ const HackathonModule = (props: Props) => {
         pos={'relative'}
         id={'practice-section'}
         ref={leaderboardSectionRef}
+        bg="black"
       >
         <LeaderboardOrCompetition currentUserContest={currentUserContest} />
       </Box>

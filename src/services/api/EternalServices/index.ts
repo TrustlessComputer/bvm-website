@@ -62,3 +62,14 @@ export const getContestStats = async () => {
   const res: IContestStats = await apiEternalAIClient.get(`/contest/statistic`);
   return res;
 };
+
+export const addBTCAddress = async (address: string) => {
+  try {
+    await apiEternalAIClient.post(`/contest/add-btc-address`, {
+      address,
+    });
+    return true;
+  } catch {
+    return false;
+  }
+};

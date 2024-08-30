@@ -1,0 +1,46 @@
+.Congrats {
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 128, 8, 0.2);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 128, 8, 0.1) 0%,
+    rgba(255, 200, 55, 0.1) 100%
+  );
+  margin-bottom: 48px;
+
+  .Title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.72px;
+    font-family: 'JetBrains Mono';
+    margin-bottom: 12px;
+  }
+
+  .Desc {
+    font-size: 16px;
+    letter-spacing: 0.8px;
+    font-family: 'SF Pro Display';
+    margin-bottom: 16px;
+  }
+
+  .InputWrapper {
+    display: flex;
+    border-radius: 8px;
+    background: rgba(161, 161, 161, 0.2);
+    box-shadow: 0px 0px 24px -6px rgba(0, 0, 0, 0.12);
+    padding: 12px;
+    gap: 8px;
+
+    input {
+      background-color: transparent;
+      border: 0;
+      padding: 0;
+
+      &:focus-visible {
+        box-shadow: none;
+      }
+    }
+  }
+}
