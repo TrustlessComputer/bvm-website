@@ -26,6 +26,7 @@ import AddressCopy from '../TxBTCExplorer/addressCopy';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { commonSelector } from '@/stores/states/common/selector';
+import { HEART_BEAT } from '@/constants/route-path';
 
 const TxERC20Explorer = () => {
   const router = useRouter();
@@ -187,7 +188,11 @@ const TxERC20Explorer = () => {
           <Box flex={2}>
             <AddressCopy
               address={transaction?.from_address || ''}
-              onClick={() => router.push(transaction?.from_address || '')}
+              onClick={() =>
+                router.push(
+                  `${HEART_BEAT}/address/${transaction?.from_address || ''}`,
+                )
+              }
             />
           </Box>
         </Flex>
@@ -196,7 +201,11 @@ const TxERC20Explorer = () => {
           <Box flex={2}>
             <AddressCopy
               address={transaction?.to_address || ''}
-              onClick={() => router.push(transaction?.to_address || '')}
+              onClick={() =>
+                router.push(
+                  `${HEART_BEAT}/address/${transaction?.to_address || ''}`,
+                )
+              }
             />
           </Box>
         </Flex>

@@ -70,7 +70,7 @@ const BlockConfirm = ({
 
   useEffect(() => {
     setIndexBlock(
-      currentValue <= 0 ? 0 : Math.abs(currentValue - blocks.length) + 1,
+      currentValue <= 0 ? 0 : Math.abs(blocks.length - currentValue),
     );
   }, [currentValue, blocks]);
 
