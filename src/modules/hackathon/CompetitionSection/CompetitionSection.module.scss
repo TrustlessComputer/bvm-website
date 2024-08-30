@@ -106,7 +106,6 @@
 
 .container {
   padding: 100px 0;
-  margin-top: 80px;
 
   &.maximized {
     :global(.problem-panel) {
@@ -167,7 +166,7 @@
 
   .right {
     // flex: 0.5;
-    width: 60%;
+    width: 100%;
   }
 
 }
