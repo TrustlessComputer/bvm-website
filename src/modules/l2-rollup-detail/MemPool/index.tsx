@@ -2,8 +2,7 @@
 
 import { Box, Flex } from '@chakra-ui/react';
 import s from './styles.module.scss';
-import { useParams } from 'next/navigation';
-import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import BigNumber from 'bignumber.js';
 import { IBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
@@ -13,65 +12,55 @@ import {
   L2RollupDetailProvider,
 } from '@/modules/l2-rollup-detail/providers/l2-rollup-detail-context';
 import BlockDetail from '@/modules/l2-rollup-detail/MemPool/BlockDetail';
+import dayjs from 'dayjs';
 
 const MemPool = () => {
-  const params = useParams();
-  const [loading, setLoading] = useState(true);
-
-  const [nfts, setNfts] = useState<IBlock[]>([]);
-  const defaultArr = useRef(Array(10).fill(0)).current;
-  const defaultArr1 = useRef(Array(1).fill(0)).current;
-
-  const chain = params?.id;
-
-  const { selectedBlock } = useContext(L2RollupDetailContext);
-
-  console.log('params', params);
-
-  useEffect(() => {
-    getData();
-  }, [chain]);
-
-  const getData = async () => {
-    try {
-      setNfts(Array(10).fill(0));
-
-      if (!chain) {
-        setNfts([]);
-        return;
-      }
-      // const rs = await nftApi.getCollectedNFTs("");
-    } catch (error) {
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { selectedBlock, setSelectedBlock, pendingBlocks, confirmedBlocks } = useContext(L2RollupDetailContext);
 
   const listNFTs = useMemo(() => {
-    let pendingNFTs: any[] = loading ? defaultArr : defaultArr1;
-    let claimedNFTS: any[] = defaultArr;
+    let pendingNFTs: any[] = [];
+    let claimedNFTS: any[] = [];
 
-    if (nfts.length > 0) {
-      pendingNFTs = Array(10).fill({release_tx_hash: 'pending'});
-      claimedNFTS = Array(10).fill({release_tx_hash: 'release'});
+    const now = dayjs();
+    let minutes = 0;
+    pendingNFTs = pendingBlocks?.map((block, i) => {
+      return {
+        id: i.toString(),
+        medianFee: block.medianFee,
+        totalFees: block.totalFees,
+        transactions: block.nTx,
+        blockSize: block.blockSize,
+        feeRange: block.feeRange,
+        timestamp: now.add(minutes+= 10, 'minutes').unix(),
+        data: block,
+      } as IBlock;
+    }).reverse();
 
-      // if (pendingNFTs.length < defaultArr1.length) {
-      //   pendingNFTs = Array(defaultArr1.length - pendingNFTs.length)
-      //     .fill(0)
-      //     .concat(pendingNFTs);
-      // }
-      // if (claimedNFTS.length < defaultArr.length) {
-      //   claimedNFTS = claimedNFTS.concat(
-      //     Array(defaultArr.length - claimedNFTS.length).fill(0)
-      //   );
-      // }
-    }
+    claimedNFTS = confirmedBlocks?.map(block => {
+      return {
+        id: block.id,
+        medianFee: block.extras.medianFee,
+        totalFees: block.extras.totalFees,
+        transactions: block.tx_count,
+        blockSize: block.size,
+        feeRange: block.extras.feeRange,
+        timestamp: block.timestamp,
+        height: block.height,
+        data: block,
+      } as IBlock;
+    });
 
     return {
       pendingNFTs,
       claimedNFTS,
     };
-  }, [nfts, loading]);
+  }, [pendingBlocks, confirmedBlocks]);
+
+  useEffect(() => {
+    if(listNFTs?.pendingNFTs?.length > 0 && !selectedBlock) {
+      setSelectedBlock(listNFTs.pendingNFTs[listNFTs.pendingNFTs.length - 1]);
+    }
+  }, [listNFTs.pendingNFTs, selectedBlock]);
 
   const isCenter = useMemo(() => {
     return new BigNumber(10).multipliedBy(177).lte(window.innerWidth);
@@ -93,7 +82,9 @@ const MemPool = () => {
             <BlockItem
               key={`pending-${i}`}
               item={_v}
-              loading={loading}
+              loading={false}
+              isPending={true}
+              index={i}
             />
           ))}
 
@@ -103,7 +94,9 @@ const MemPool = () => {
             <BlockItem
               key={`release-${i}`}
               item={_v}
-              loading={loading}
+              loading={false}
+              isPending={false}
+              index={i}
             />
           ))}
           <Box minW={"16px"} />

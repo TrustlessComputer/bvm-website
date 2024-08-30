@@ -27,15 +27,17 @@ import {
   Tooltip,
   useDisclosure,
 } from '@chakra-ui/react';
-import { orderBy } from 'lodash';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import orderBy from 'lodash/orderBy';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { DotLottiePlayer } from '@dotlottie/react-player';
 import BitcoinRentModal from './BitcoinRentModal';
 import L2RollupFee from './fees';
 import s from './styles.module.scss';
 import SearchAddress from '../l2-rollup-detail/SearchAddress';
+import React from 'react';
 import { isMobile } from 'react-device-detect';
+import { DotLottiePlayer } from '@dotlottie/react-player';
 import AnimArrowDown from './AnimArrowDown';
 import PowerBox from '@/modules/l2-rollup/PowerBox';
 
