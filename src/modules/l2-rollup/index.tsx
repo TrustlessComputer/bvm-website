@@ -1121,7 +1121,7 @@ const L2Rollup = () => {
                 onClick={() => setIsShowIntro(!isShowIntro)}
               />
             </Flex>
-            <SimpleGrid columns={3} gap={'16px'}>
+            <SimpleGrid columns={[1, 3]} gap={['8px', '16px']}>
               <L2RollupFee
                 data={_dataChart.txs}
                 prefix="Ξ"
@@ -1272,7 +1272,13 @@ const L2Rollup = () => {
               />
             )}
           </Box>
-          <Box display="flex" flexDirection="column" alignItems="end" w="100%" className={s.power}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="end"
+            w="100%"
+            className={s.power}
+          >
             <PowerBox />
           </Box>
         </Flex>
