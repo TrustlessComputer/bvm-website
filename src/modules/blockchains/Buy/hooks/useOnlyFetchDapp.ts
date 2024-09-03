@@ -36,7 +36,15 @@ const useOnlyFetchDapp = () => {
         cloneDeep(configs)
       : cloneDeep(dappMockupData); // defi_apps
 
+    console.log('[useOnlyFetchDapp] fetchDapps', otherDapps);
+
     _dapps.push(...otherDapps);
+
+    dappMockupData.forEach((dappMockup) => {
+      if (!_dapps.find((dapp) => dapp.key === dappMockup.key)) {
+        _dapps.push(dappMockup);
+      }
+    });
 
     const sortedDapps = _dapps.sort((a, b) => a.order - b.order);
 
