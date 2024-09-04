@@ -3,7 +3,6 @@ import useFlowStore, {
   AppState,
 } from '@/modules/blockchains/Buy/stores/useFlowStore';
 import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
-import { IModelOption } from '@/types/customize-model';
 import { DappNode } from '@/types/node';
 import handleStatusEdges from '@utils/helpers';
 import { MarkerType } from '@xyflow/react';

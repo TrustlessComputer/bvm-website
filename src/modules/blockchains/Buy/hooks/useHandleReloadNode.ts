@@ -72,7 +72,7 @@ function useHandleReloadNode() {
       }
     };
 
-    await restoreFlow();
+    // await restoreFlow();
   }, [searchParam, path]);
 
   useSignalEffect(() => {
