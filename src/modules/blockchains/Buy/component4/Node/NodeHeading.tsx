@@ -12,6 +12,7 @@ const NodeHeading = ({
   backgroundColor = '#FFF6D8',
   borderColor,
   textColor = '#555555',
+  headingStyles,
 }: NodeHeadingProps) => {
   const haveAction = React.useMemo(() => !!status?.onClick, [status]);
 
@@ -22,6 +23,7 @@ const NodeHeading = ({
         backgroundColor,
         borderColor,
         color: textColor,
+        ...headingStyles,
       }}
     >
       <div className={styles.nodeHeading__title}>{title}</div>

@@ -113,3 +113,13 @@
     }
   }
 }
+
+.isFocused {
+  //border-color:  #0c0d13 !important;
+  transition: 2s;
+  box-shadow: 1px 0px 28px 3px rgba(86, 86, 86, 0.7);
+}
+
+@keyframes blurShadow {
+  50% {box-shadow: 0 0 5px 5px #0c0d13 !important;}
+}
