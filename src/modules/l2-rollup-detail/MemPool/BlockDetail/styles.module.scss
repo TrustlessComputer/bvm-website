@@ -72,4 +72,17 @@
     width: 15px;
     height: 15px;
   }
+
+  .sizeProgress {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    transition: width .6s ease;
+    background: repeating-linear-gradient(to right, #2d3348, #2d3348 0%, #105fb0 0%, #9339f4 100%);
+    border-radius: 4px;
+  }
 }

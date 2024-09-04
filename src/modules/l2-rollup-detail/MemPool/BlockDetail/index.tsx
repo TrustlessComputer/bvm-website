@@ -102,6 +102,10 @@ const BlockDetail = () => {
             <Td>Transactions</Td>
             <Td>{formatCurrency(selectedBlock?.transactions, 0, 0)}</Td>
           </Tr>
+          <Tr>
+            <Td>Size</Td>
+            <Td><Box className={s.sizeProgress}>{new BigNumberJS(selectedBlock?.blockSize as number).dividedBy(1e6).toFixed(2)} MB</Box></Td>
+          </Tr>
         </Tbody>
       </Table>
     )
