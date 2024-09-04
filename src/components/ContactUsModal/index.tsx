@@ -377,7 +377,6 @@ const ContactUsModal = ({
           fontSize={'18px'}
           value={methodInput}
           onChange={(e: any) => {
-            console.log('LOG -- AAA ', e.target.value);
             setMethodInput(e.target.value);
             // valideYourTelegramAcc(e.target.value);
           }}
