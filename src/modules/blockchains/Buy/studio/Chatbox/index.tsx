@@ -9,7 +9,7 @@ import ButtonClose from './Actions/ButtonClsoe';
 import ButtonStop from './Actions/ButtonStop';
 import useChatBoxState, { ChatBoxStatus } from './chatbox-store';
 import Message from './Message';
-import { sendPrompt } from './services/prompt';
+import { mockupPromptResponses } from './mockup/promtResponse';
 import styles from './styles.module.scss';
 import TextInput from './TextInput';
 import { CategoryAction, PromptCategory, SendPromptBodyRequest } from './types';
@@ -81,8 +81,8 @@ export default function Chatbox() {
         current_state,
       };
 
-      const response = await sendPrompt(prompt_body);
-      // const response = mockupPromptResponses[indexMockup];
+      // const response = await sendPrompt(prompt_body);
+      const response = mockupPromptResponses[indexMockup];
       setIndexMockup(indexMockup + 1);
 
       const newTemplate = currentTemplate.filter((category) => {

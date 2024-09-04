@@ -22,14 +22,17 @@ export default function Message({
     [],
   );
 
+  const refTextRender = useRef<string>('');
+
   const animateMessage = useCallback(() => {
     let messageIndex = 0;
     let templateIndex = 0;
     let optionIndex = 0;
 
     refRender.current = setInterval(() => {
-      if (messageIndex < message.length - 1) {
-        setDisplayedMessage((prev) => prev + message[messageIndex]);
+      if (messageIndex < message.length) {
+        refTextRender.current += message[messageIndex];
+        setDisplayedMessage(refTextRender.current);
         messageIndex++;
       } else if (templateIndex < template.length) {
         const currentTemplate = template[templateIndex];
