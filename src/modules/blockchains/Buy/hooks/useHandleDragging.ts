@@ -304,9 +304,9 @@ export default function useHandleDragging() {
     // Multi choice case
     if (
       ((over && (overIsFinalDroppable || overIsParentOfActiveDroppable)) ||
-        !over) &&
-      (!overIsFinalDroppable && overSuffix1 === 'right')
+        (!overIsFinalDroppable && overSuffix1 === 'right')) || !over
     ) {
+      console.log('runnnnnnnn 8');
       const currentValues = (field[activeKey].value || []) as string[];
       const isCurrentEmpty = currentValues.length === 0;
       const newValue = [...currentValues, active.data.current.value];
@@ -334,6 +334,8 @@ export default function useHandleDragging() {
         draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
       }
     } else {
+      console.log('runnnnnnnn 9');
+
       const currentValues = (field[activeKey].value || []) as string[];
       const newValue = currentValues.filter(
         (value) => value !== active.data.current.value,
