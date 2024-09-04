@@ -54,10 +54,6 @@ const BlockDetail = () => {
     return '0';
   }, [(selectedBlock?.data as IConfirmedBlock).extras, btcPrice]);
 
-  const blockHealth = useMemo(() => {
-    return 99.98;
-  }, [selectedBlock]);
-
   const blockTitle = useMemo(() => {
     if(isPending) {
       if (compareString(selectedBlock?.id, '0')) {
@@ -149,7 +145,7 @@ const BlockDetail = () => {
           </Tr>
           <Tr>
             <Td>Health</Td>
-            <Td><Text className={s.health}>{formatCurrency(blockHealth, 0, 2)}%</Text></Td>
+            <Td><Text className={s.health}>{(selectedBlock?.data as IConfirmedBlock).extras.matchRate}%</Text></Td>
           </Tr>
         </Tbody>
       </Table>
