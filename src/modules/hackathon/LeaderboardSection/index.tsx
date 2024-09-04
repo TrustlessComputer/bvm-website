@@ -20,7 +20,6 @@ type Props = {
 };
 
 const LeaderboardSection = (props: Props) => {
-  console.log('asjkdhaskdj')
   const [isProblemPanelMaximized, setIsProblemPanelMaximized] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(true);
   const [isShowActionPrepare, setIsShowActionPrepare] = useState<boolean>(true);
@@ -90,13 +89,14 @@ const LeaderboardSection = (props: Props) => {
               problems to boost your chances of winning.
             </p>
           </div>
+
           <Box
             className={s.warning}
             display={isShowActionPrepare === false ? 'none' : 'block'}
           >
             <Flex
               alignItems={'center'}
-              gap="34px"
+              gap="12px"
               mb="24px"
               position="relative"
             >
@@ -177,6 +177,7 @@ const LeaderboardSection = (props: Props) => {
               </Flex>
             </Flex>
           </Box>
+
           <Flex className={cn(s.wrapper)} as={motion.div}>
             <Box
               as={motion.div}

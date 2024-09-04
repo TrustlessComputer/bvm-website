@@ -11,14 +11,17 @@ import { shortCryptoAddress } from '@/utils/address';
 import { formatCurrency } from '@/utils/format';
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import dayjs from 'dayjs';
+import { useRouter } from 'next/navigation';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
+import { HEART_BEAT } from '@/constants/route-path';
 
 interface IProps {}
 
 const TransactionsTab = (props: IProps) => {
   const { address } = useContext(L2RollupDetailContext);
+  const router = useRouter();
 
   const rollupApi = new CRollupL2DetailAPI();
 
@@ -56,6 +59,7 @@ const TransactionsTab = (props: IProps) => {
   }, []);
 
   const refInitial = useRef(false);
+  const endOfPaging = useRef(false);
 
   useEffect(() => {
     fetchData(true);
@@ -64,6 +68,9 @@ const TransactionsTab = (props: IProps) => {
   const fetchData = async (isNew?: boolean) => {
     try {
       if (isNew) {
+        endOfPaging.current = false;
+        setIsFetching(true);
+
         refParams.current = {
           ...refParams.current,
           page: 1,
@@ -75,12 +82,18 @@ const TransactionsTab = (props: IProps) => {
 
         setRollupTransactions(res);
       } else {
+        if (endOfPaging.current) return;
+        setIsFetching(true);
         const res = (await rollupApi.getRollupL2Transactions({
           user_address: address,
           ...refParams.current,
         })) as any;
 
-        setRollupTransactions([...rollupTransactions, ...res]);
+        if (res && res?.length > 0) {
+          setRollupTransactions([...rollupTransactions, ...res]);
+        } else {
+          endOfPaging.current = true;
+        }
       }
     } catch (error) {
     } finally {
@@ -115,8 +128,8 @@ const TransactionsTab = (props: IProps) => {
   const columns: ColumnProp[] = useMemo(() => {
     return [
       {
-        id: 'tx',
-        label: 'Tx',
+        id: 'chain',
+        label: 'Chain',
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -135,7 +148,7 @@ const TransactionsTab = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                window.open(`${data.chain?.explorer}/tx/${data.hash}`);
+                window.open(`${data.chain?.explorer}`);
               }}
             >
               <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
@@ -145,6 +158,36 @@ const TransactionsTab = (props: IProps) => {
                   borderRadius={'50%'}
                   src={data.chain?.icon}
                 />
+                <Text className={s.title}>{data.chain?.name}</Text>
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'tx',
+        label: 'Transaction',
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ITransaction) {
+          return (
+            <Flex
+              direction={'column'}
+              cursor="pointer"
+              _hover={{
+                textDecoration: 'underline',
+              }}
+              onClick={() => {
+                router.push(`${HEART_BEAT}/tx/${data.hash}`);
+              }}
+            >
+              <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
                 <Text className={s.title}>{shortCryptoAddress(data.hash)}</Text>
               </Flex>
             </Flex>
@@ -174,9 +217,7 @@ const TransactionsTab = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                window.open(
-                  `${data.chain?.explorer}/address/${data.from_address}`,
-                );
+                router.push(`${HEART_BEAT}/address/${data.from_address}`);
               }}
             >
               <Text className={s.title}>
@@ -209,9 +250,7 @@ const TransactionsTab = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                window.open(
-                  `${data.chain?.explorer}/address/${data.to_address}`,
-                );
+                router.push(`${HEART_BEAT}/address/${data.to_address}`);
               }}
             >
               <Text className={s.title}>

@@ -11,6 +11,7 @@ export interface ITokenChain {
   value_fetched_at: Date;
   block_number: number;
   is_native: boolean;
+  icon_url?: string;
   chain?: IRollupChain;
 }
 
@@ -94,4 +95,112 @@ export interface ITokenTransfer {
 export interface IRollupTokenTransfer {
   rollup: IRollupChain;
   transfers: ITokenTransfer[];
+}
+
+export interface INFT {
+  token_contract_address: string;
+  value: string;
+  token_name: string;
+  token_type: string;
+  value_fetched_at: Date;
+  block_number: number;
+  is_native: boolean;
+  chain?: IRollupChain;
+}
+
+export interface IRollupNFT {
+  rollup: IRollupChain;
+  balances: INFT[];
+}
+
+export interface IRollupNFTDetail {
+  token_address: string;
+  token_id: string;
+  owner_address: string;
+  token_uri: string;
+  token_uri_fetched_at: string;
+}
+
+export interface IRollupExplorer {
+  rollup: IRollup;
+  transactions: ITransaction[];
+}
+
+export interface IRollup {
+  cached_time: Date;
+  id: number;
+  name: string;
+  block_number: number;
+  block_time: Date;
+  tps: number;
+  mgas: number;
+  kbs: number;
+  stack: string;
+  da: string;
+  settlement: string;
+  website: string;
+  explorer: string;
+  provider: string;
+  tvl_btc: string;
+  bitlayer_url: string;
+  verification: string;
+  verification_url: string;
+  level: string;
+  fdv_usd: string;
+  icon: string;
+  chain_id: number;
+  fee_btc: string;
+  symbol: string;
+  fee_chart_supported: boolean;
+}
+
+export interface ITransaction {
+  cumulative_gas_used: string;
+  error: string;
+  gas: string;
+  gas_price: string;
+  gas_used: string;
+  hash: string;
+  index: number;
+  input: string;
+  nonce: number;
+  r: string;
+  s: string;
+  status: number;
+  v: string;
+  value: string;
+  inserted_at: string;
+  updated_at: string;
+  block_hash: string;
+  block_number: number;
+  from_address: string;
+  to_address: string;
+  revert_reason: string;
+  has_error_in_internal_txs: boolean;
+  gas_per_pubdata: string;
+  transfers: ITransactionTransfer[];
+}
+
+export interface ITransactionTransfer {
+  transaction_hash: string;
+  log_index: number;
+  from_address: string;
+  to_address: string;
+  amount: string;
+  token_id: number;
+  token_contract_address: string;
+  inserted_at: string;
+  updated_at: string;
+  block_number: number;
+  block_hash: string;
+  amounts: any[];
+  token_ids: any[];
+  symbol: string;
+  decimals: number;
+  icon_url: string;
+}
+
+export interface IWatchList {
+  address: string;
+  org_address: string;
 }

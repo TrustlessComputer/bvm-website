@@ -1,8 +1,5 @@
 .container {
   width: 100%;
-  box-shadow: 0px 0px 20px -6px #00000014;
-  border-radius: 12px;
-  margin-top: 24px;
 }
 
 .wrapScroll {
@@ -20,6 +17,18 @@
         color: black !important;
       }
     }
+  }
+}
+
+.shadow {
+  box-shadow: 0px 0px 20px -6px #00000014;
+  border-radius: 12px;
+}
+
+.iframe {
+  background: lightgray;
+  * img {
+    width: 196px !important;
   }
 }
 
@@ -54,7 +63,6 @@ table {
     .title {
       font-style: normal;
       font-size: 17px;
-      line-height: 170%;
 
       overflow: hidden;
       text-overflow: ellipsis;

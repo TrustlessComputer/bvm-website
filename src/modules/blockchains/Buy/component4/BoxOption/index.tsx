@@ -15,6 +15,8 @@ import {
 import DescriptionModal from '../../components/DescriptionModal/DescriptionModal';
 
 import styles from './styles.module.scss';
+import useOneForm from '../../hooks/useOneForm';
+import { formDappSignal } from '../../signals/useFormDappsSignal';
 
 type Props = {
   info: IModelOption & {
@@ -36,7 +38,13 @@ const BoxOption = ({
   className = '',
   children,
 }: Props) => {
+  const { retrieveFormsByDappKey, retrieveNodePositionsByDappKey } =
+    useOneForm();
   const descriptionRef = React.useRef<HTMLDivElement>(null);
+
+  const [allThisDappForm, setAllThisDappForm] = React.useState<
+    Record<string, any>[]
+  >([]);
 
   const [isShowModal, setIsShowModal] = React.useState(false);
   const [disableBaseBlock, setDisableBaseBlock] = React.useState(false);
@@ -56,6 +64,11 @@ const BoxOption = ({
           .length || thisDapp.baseBlock.placableAmount === -1;
     // const canPlaceMoreBase = draggedIds2D.length === 0;
 
+    console.log('[retrieveFormsByDappKey]', {
+      dappKey: thisDapp.key,
+      forms: retrieveFormsByDappKey({ dappKey: thisDapp.key }),
+    });
+    setAllThisDappForm(retrieveFormsByDappKey({ dappKey: thisDapp.key }));
     setDisableBaseBlock(!canPlaceMoreBase);
   });
 
@@ -163,6 +176,9 @@ const BoxOption = ({
                         titleInLeft={true}
                         titleInRight={false}
                         disabled={disableBaseBlock}
+                        checked={draggedDappIndexesSignal.value.some(
+                          (dIndex) => dIndex === dappIndex,
+                        )}
                       />
                     </Draggable>
                   </div>
@@ -174,6 +190,17 @@ const BoxOption = ({
                       {thisDapp.blockFields
                         ?.filter((f) => f.section === section.key)
                         ?.map(({ key: blockKey, ...block }) => {
+                          let checked = false;
+
+                          for (const key in formDappSignal.value) {
+                            if (
+                              key.includes(`${FieldKeyPrefix.BLOCK}`) &&
+                              key.includes(blockKey)
+                            ) {
+                              checked = true;
+                            }
+                          }
+
                           return (
                             <React.Fragment
                               key={section.key + blockKey + block.title}
@@ -195,11 +222,24 @@ const BoxOption = ({
                                   last={false}
                                   titleInLeft={true}
                                   titleInRight={false}
+                                  checked={checked}
                                 />
                               </Draggable>
 
                               {block.childrenFields?.map(
                                 ({ key: childKey, ...child }) => {
+                                  let checked = false;
+
+                                  for (const key in formDappSignal.value) {
+                                    if (
+                                      key.includes(`${FieldKeyPrefix.BLOCK}`) &&
+                                      key.includes(blockKey) &&
+                                      key.includes(childKey)
+                                    ) {
+                                      checked = true;
+                                    }
+                                  }
+
                                   return (
                                     <Draggable
                                       id={`left-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${blockKey}-${childKey}`}
@@ -228,6 +268,7 @@ const BoxOption = ({
                                         titleInRight={false}
                                         preview={true}
                                         fields={[{ key: childKey, ...child }]}
+                                        checked={checked}
                                       />
                                     </Draggable>
                                   );
@@ -246,6 +287,20 @@ const BoxOption = ({
                       {thisDapp.moduleFields
                         ?.filter((f) => f.section === section.key)
                         ?.map((item) => {
+                          let checked = false;
+
+                          if (allThisDappForm.length > 0) {
+                            for (const key in formDappSignal.value) {
+                              if (
+                                key.includes(
+                                  `${FieldKeyPrefix.MODULE}-${item.key}`,
+                                )
+                              ) {
+                                checked = true;
+                              }
+                            }
+                          }
+
                           return item.fields.map((field) => {
                             return (
                               <Draggable
@@ -276,6 +331,7 @@ const BoxOption = ({
                                     title: info.title,
                                     type: section?.title,
                                   }}
+                                  checked={checked}
                                 />
                               </Draggable>
                             );
@@ -291,7 +347,28 @@ const BoxOption = ({
                       {thisDapp.baseModuleFields
                         ?.filter((f) => f.section === section.key)
                         ?.map((item) => {
+                          let checked = false;
+
                           return item.fields.map((field) => {
+                            if (allThisDappForm.length > 0) {
+                              for (const key in formDappSignal.value) {
+                                if (
+                                  key.includes(
+                                    `${FieldKeyPrefix.BASE_MODULE}-${item.key}`,
+                                  ) &&
+                                  formDappSignal.value[key] === field.value
+                                ) {
+                                  checked = true;
+                                  console.log(
+                                    '[checked]',
+                                    key,
+                                    field.value,
+                                    formDappSignal.value[key],
+                                  );
+                                }
+                              }
+                            }
+
                             return (
                               <Draggable
                                 id={`left-${FieldKeyPrefix.BASE_MODULE}-${item.key}-${field.value}`}
@@ -307,16 +384,17 @@ const BoxOption = ({
                                     item.background ||
                                     mainColor,
                                 }}
-                                disabled={!field.selectable}
+                                disabled={disableBaseBlock}
                               >
                                 <Lego
                                   {...field}
                                   background={item.background || mainColor}
-                                  disabled={!field.selectable}
+                                  disabled={disableBaseBlock}
                                   first={false}
                                   last={false}
                                   titleInLeft={true}
                                   titleInRight={false}
+                                  checked={checked}
                                   infoLego={{
                                     title: info.title,
                                     type: section?.title,
@@ -336,6 +414,20 @@ const BoxOption = ({
                       {thisDapp.singleFields
                         ?.filter((f) => f.section === section.key)
                         ?.map(({ key: itemKey, ...item }) => {
+                          let checked = false;
+
+                          if (allThisDappForm.length > 0) {
+                            for (const key in formDappSignal.value) {
+                              if (
+                                key.includes(
+                                  `${FieldKeyPrefix.SINGLE}-${itemKey}`,
+                                )
+                              ) {
+                                checked = true;
+                              }
+                            }
+                          }
+
                           return item.fields.map((field) => {
                             return (
                               <Draggable
@@ -359,6 +451,7 @@ const BoxOption = ({
                                   last={false}
                                   titleInLeft={true}
                                   titleInRight={false}
+                                  checked={checked}
                                 />
                               </Draggable>
                             );
@@ -372,6 +465,7 @@ const BoxOption = ({
           })}
         </div>
       </div>
+
       {info.description?.title && (
         <DescriptionModal
           ref={descriptionRef}

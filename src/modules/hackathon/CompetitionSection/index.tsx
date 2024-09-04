@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import cn from 'classnames';
 import Leaderboard from './Leaderboard';
@@ -17,12 +17,15 @@ import s from './CompetitionSection.module.scss';
 import SvgInset from '@/components/SvgInset';
 import Link from 'next/link';
 import SocialToken from '@/modules/Launchpad/components/Social';
+import Congrats from './Congrats';
+import { useAuthenticatedAddress } from '@/Providers/AuthenticatedProvider/hooks';
 
 type Props = {
   currentUserContest?: IUserContest;
 };
 
 const CompetitionSection = (props: Props) => {
+  const { currentUserContest } = props;
   const [isProblemPanelMaximized, setIsProblemPanelMaximized] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(true);
   const [isShowActionPrepare, setIsShowActionPrepare] = useState<boolean>(true);
@@ -133,93 +136,9 @@ const CompetitionSection = (props: Props) => {
               </Flex>
             </Flex>
           </div>
-          <Box
-            className={s.warning}
-            display={isShowActionPrepare === false ? 'none' : 'block'}
-          >
-            <Flex
-              alignItems={'center'}
-              gap="12px"
-              mb="24px"
-              position="relative"
-            >
-              <Image src={'/hackathon/ic-trophy.svg'} />
-              <Text className={s.warning_heading}>
-                Before you start competing
-              </Text>
 
-              <Box
-                className={s.warning_closeBtn}
-                onClick={() => {
-                  setIsShowActionPrepare(false);
-                  tracking('POC_CLICK_CLOSE_PREPARE');
-                }}
-              >
-                <Image src={'/hackathon/ic-close.svg'} />
-              </Box>
-            </Flex>
-            <Flex gap="32px" flexDirection={{ md: 'row', base: 'column' }}>
-              <Flex
-                gap="8px"
-                alignItems="center"
-                className={s.warning_prepare}
-                onClick={
-                  loggedIn ? handleClickPractice : handleOpenRegisterModal
-                }
-              >
-                <span>1.</span> Create an account
-                <Image src="/hackathon/ic-add.svg" alt="add" />
-              </Flex>
-              <Flex gap="8px" className={s.warning_prepare} alignItems="center">
-                <a
-                  href="https://github.com/TrustlessComputer/poc-practice"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <span>2.</span> Set up your development environment
-                  <Image src="/hackathon/ic-arrow-up.svg" alt="add" />
-                </a>
-              </Flex>
-              <Flex
-                gap="8px"
-                className={s.warning_prepare}
-                alignItems="center"
-                whiteSpace={'nowrap'}
-                onClick={exportPrivateKeyHandler}
-              >
-                <span>3.</span> Back up your private key
-                <Image src="/hackathon/ic-restore.svg" alt="add" />
-              </Flex>
-              <Flex
-                gap="8px"
-                alignItems="center"
-                className={s.warning_prepare}
-                onClick={() => {
-                  const prepareElm = document.getElementById('faq-sol-prepare');
-                  prepareElm?.scrollIntoView({ behavior: 'smooth' });
-                  setTimeout(() => {
-                    if (
-                      prepareElm?.querySelector('.chakra-collapse')
-                        ?.clientHeight === 0
-                    ) {
-                      prepareElm?.querySelector('button')?.click();
-                    }
-                  }, 1000);
-                }}
-              >
-                <span>4.</span> New to Solidity? Learn it easily with these
-                resources
-                <Image
-                  src="/hackathon/img-sol.png"
-                  alt="solidity"
-                  backgroundColor={'#fff'}
-                  borderRadius={'50%'}
-                  width="24px"
-                  height="24px"
-                />
-              </Flex>
-            </Flex>
-          </Box>
+          {!!currentUserContest && currentUserContest.rank <= 5 && <Congrats />}
+
           <Flex className={cn(s.wrapper)} as={motion.div}>
             <Box
               as={motion.div}
