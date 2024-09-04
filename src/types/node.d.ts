@@ -1,7 +1,7 @@
 import { nodeOverlayType } from '@/modules/blockchains/Buy/component4/YourNodes/node.constants';
 import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { Node } from '@xyflow/react';
-import { DappModel } from './customize-model';
+import { DappModel, IModelOption } from './customize-model';
 
 type NodeHeadingProps = {
   title: string;
@@ -47,6 +47,7 @@ type NodeViewAndAction = {
 type NodeOverlayProps = NodeOnlyViewProps | NodeViewAndAction;
 
 type NodeProps = {
+  dapp?: DappModel;
   heading: NodeHeadingProps;
   content: NodeContentProps;
   notification?: NodeNotificationProps;

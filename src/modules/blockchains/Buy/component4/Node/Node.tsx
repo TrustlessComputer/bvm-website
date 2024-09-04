@@ -1,5 +1,5 @@
 import { Handle, Position } from '@xyflow/react';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { NodeProps } from '@/types/node';
 import NodeNotification from '../YourNodes/NodeNotification';
@@ -7,18 +7,21 @@ import NodeContent from './NodeContent';
 import NodeHeading from './NodeHeading';
 import NodeOverlay from './NodeOverlay';
 import styles from './styles.module.scss';
+import { idNodeSignal } from '@/modules/blockchains/Buy/hooks/useFocusNode';
+import { useSignalEffect } from '@preact/signals-react';
 
 const Node = ({
-  overlay,
-  content,
-  heading,
-  notification,
-  borderColor = '#FFC700',
-  targetHandles,
-  sourceHandles,
-}: NodeProps) => {
+                dapp,
+                overlay,
+                content,
+                heading,
+                notification,
+                borderColor = '#FFC700',
+                targetHandles,
+                sourceHandles,
+              }: NodeProps) => {
   const nodeRef = React.useRef<HTMLDivElement>(null);
-
+  const [focus, setFocus] = useState(false);
   React.useEffect(() => {
     if (!nodeRef.current) return;
 
@@ -35,9 +38,13 @@ const Node = ({
     };
   }, []);
 
+  useSignalEffect(() => {
+    setFocus(idNodeSignal.value === dapp?.id);
+  });
+
   return (
     <div
-      className={styles.node}
+      className={`${styles.node} ${focus && styles.isFocused}`}
       style={{
         borderColor,
       }}
