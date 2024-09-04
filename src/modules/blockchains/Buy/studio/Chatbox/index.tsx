@@ -17,7 +17,6 @@ import {
   modelCategoryToPromptCategory,
   promptCategoryToModelCategory,
 } from './utils/convertApiUtils';
-import { mockupPromptResponses } from './mockup/promtResponse';
 
 export default function Chatbox() {
   const { categories } = useModelCategoriesStore();
@@ -82,8 +81,8 @@ export default function Chatbox() {
         current_state,
       };
 
-      // const response = await sendPrompt(prompt_body);
-      const response = mockupPromptResponses[indexMockup];
+      const response = await sendPrompt(prompt_body);
+      // const response = mockupPromptResponses[indexMockup];
       setIndexMockup(indexMockup + 1);
 
       const newTemplate = currentTemplate.filter((category) => {
