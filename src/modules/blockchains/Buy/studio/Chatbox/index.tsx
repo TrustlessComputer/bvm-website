@@ -1,7 +1,7 @@
 import MagicIcon from '@/components/MagicIcon';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ButtonApply from './Actions/ButtonApply';
-import ButtonCancel from './Actions/ButtonCancle';
+import ButtonCancel from './Actions/ButtonCancel';
 import ButtonClose from './Actions/ButtonClsoe';
 import ButtonStop from './Actions/ButtonStop';
 import useChatBoxState, { ChatBoxStatus } from './chatbox-store';
