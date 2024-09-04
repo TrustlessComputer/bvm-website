@@ -4,11 +4,10 @@
 }
 
 .wrapper {
-  // display: flex;
-  // justify-content: center;
-}
+  width: 100%;
+  display: flex;
+   //justify-content: center;
 
-.nftContainer {
   padding: 32px;
   gap: 32px;
   cursor: grab;

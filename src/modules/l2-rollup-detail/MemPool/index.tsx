@@ -4,7 +4,6 @@ import { Box, Flex } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { useContext, useEffect, useMemo } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
-import BigNumber from 'bignumber.js';
 import { IBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
 import BlockItem from 'src/modules/l2-rollup-detail/MemPool/BlockItem';
 import {
@@ -62,45 +61,48 @@ const MemPool = () => {
     }
   }, [listNFTs.pendingNFTs, selectedBlock]);
 
-  const isCenter = useMemo(() => {
-    return new BigNumber(10).multipliedBy(177).lte(window.innerWidth);
-  }, []);
+  useEffect(() => {
+    const item = document.getElementById('item-to-center');
 
-  return (
+    if(item) {
+      item.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center'
+      });
+    }
+  }, [listNFTs?.pendingNFTs, listNFTs?.claimedNFTS]);
+
+  return listNFTs?.pendingNFTs?.length > 0 && listNFTs?.claimedNFTS?.length > 0 && (
     <Flex className={s.container} direction={"column"} alignItems={"center"}>
       <ScrollContainer
         className={s.wrapper}
         hideScrollbars={true}
         horizontal={true}
+        vertical={false}
       >
-        <Flex
-          className={s.nftContainer}
-          justifyContent={isCenter ? "center" : "flex-start"}
-        >
-          <Box minW={"16px"} />
-          {listNFTs.pendingNFTs.map((_v, i) => (
-            <BlockItem
-              key={`pending-${i}`}
-              item={_v}
-              loading={false}
-              isPending={true}
-              index={i}
-            />
-          ))}
+        <Box minW={"16px"} />
+        {listNFTs.pendingNFTs.map((_v, i) => (
+          <BlockItem
+            key={`pending-${i}`}
+            item={_v}
+            loading={false}
+            isPending={true}
+            index={i}
+          />
+        ))}
 
-          <Box className={s.verticalLine} />
+        <Box className={s.verticalLine} id={"item-to-center"} />
 
-          {listNFTs.claimedNFTS.map((_v, i) => (
-            <BlockItem
-              key={`release-${i}`}
-              item={_v}
-              loading={false}
-              isPending={false}
-              index={i}
-            />
-          ))}
-          <Box minW={"16px"} />
-        </Flex>
+        {listNFTs.claimedNFTS.map((_v, i) => (
+          <BlockItem
+            key={`release-${i}`}
+            item={_v}
+            loading={false}
+            isPending={false}
+            index={i}
+          />
+        ))}
+        <Box minW={"16px"} />
       </ScrollContainer>
       {
         selectedBlock && <BlockDetail />
