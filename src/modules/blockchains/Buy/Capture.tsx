@@ -223,9 +223,9 @@ https://bvm.network/studio/${url}`;
 
   return (
     <div className={s.wrapper_btn_top}>
-      <div className={`${s.reset2}`} onClick={() => handleFocusNode('gaming_apps')}>
-        <p>Focus node</p>
-      </div>
+      {/*<div className={`${s.reset2}`} onClick={() => handleFocusNode('gaming_apps')}>*/}
+      {/*  <p>Focus node</p>*/}
+      {/*</div>*/}
       <div className={`${s.reset2} ${isCapturing && s.isCapturing}`} onClick={downloadImage}>
         <p>{isExportImage.value ? `EXPORTING...${seconds}` : 'EXPORT'}</p>
         <div>
