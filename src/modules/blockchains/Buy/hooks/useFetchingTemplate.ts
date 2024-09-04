@@ -23,8 +23,15 @@ import { parseStakingPools } from '../../dapp/parseUtils/staking';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { parseDappModel } from '../../utils';
 import { nodeKey } from '../component4/YourNodes/node.constants';
-import { draggedDappIndexesSignal, draggedIds2DSignal, templateIds2DSignal } from '../signals/useDragSignal';
-import { formDappSignal, formTemplateDappSignal } from '../signals/useFormDappsSignal';
+import {
+  draggedDappIndexesSignal,
+  draggedIds2DSignal,
+  templateIds2DSignal,
+} from '../signals/useDragSignal';
+import {
+  formDappSignal,
+  formTemplateDappSignal,
+} from '../signals/useFormDappsSignal';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import useUpdateFlowStore from '../stores/useUpdateFlowStore';
@@ -413,17 +420,19 @@ export default function useFetchingTemplate() {
 
     startIndex += yoloGames.length;
     const parsedWalletData = walletType ? parseWalletType(walletType) : [];
-    const parsedWalletForm = walletType ? parseDappModel({
-      key: DappType.walletType,
-      model: parsedWalletData,
-      startIndex: startIndex,
-    }) : {};
+    const parsedWalletForm = walletType
+      ? parseDappModel({
+          key: DappType.walletType,
+          model: parsedWalletData,
+          startIndex: startIndex,
+        })
+      : {};
 
     console.log('[useFetchingTemplate] parsedTokensData', {
       tokens,
       airdrops,
       stakingPools,
-      parsedWalletData
+      parsedWalletData,
     });
 
     setTemplateDapps([
@@ -537,9 +546,13 @@ export default function useFetchingTemplate() {
     if (isUpdateFlow && order) {
       setTemplate(order.selectedOptions || []);
     } else {
-      // initTemplate(0);
-      console.log('LOG -- templateDefault -- ', templateDefault);
-      setTemplate(templateDefault || []);
+      const template = searchParams.get('template');
+
+      if (template) {
+        setTemplate(templateDefault || []);
+      } else {
+        setTemplate([]);
+      }
     }
   }, [categoriesTemplates, isUpdateFlow, templateDefault]);
 }

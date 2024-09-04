@@ -22,6 +22,7 @@ import {
 import useDappsStore from '../stores/useDappStore';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import { cloneDeep } from '../utils';
+import { IModelOption } from '@/types/customize-model';
 import useFormChain from './useFormChain';
 
 export default function useCheckNodes() {
@@ -182,7 +183,7 @@ export default function useCheckNodes() {
             title: thisDapp.title,
             dapp: thisDapp,
             baseIndex: 0,
-            categoryOption: {},
+            categoryOption: {} as IModelOption,
             ids: [],
             targetHandles: [`bridge_apps-t-${rootNode}`],
             sourceHandles: [],
@@ -276,7 +277,7 @@ export default function useCheckNodes() {
             title: thisDapp.title,
             dapp: thisDapp,
             baseIndex: 0,
-            categoryOption: {},
+            categoryOption: {} as IModelOption,
             ids: [],
             targetHandles: [`gaming_apps-t-${rootNode}`],
             sourceHandles: [],
