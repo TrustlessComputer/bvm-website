@@ -224,6 +224,7 @@ export default function Chatbox() {
 
     newRecognition.continuous = false;
     newRecognition.interimResults = false;
+    newRecognition.lang = 'en-US'; // Set language to English
 
     newRecognition.onresult = (event: any) => {
       const transcript = event.results[0][0].transcript;
