@@ -26,6 +26,9 @@ const BlockchainSection = (props: Props) => {
     chainId,
     serviceType,
     blockTime,
+    chainName,
+    domain,
+    isMainnet,
   } = item;
 
   const formatWithdrawalPeriod = useMemo(() => {
@@ -101,6 +104,14 @@ const BlockchainSection = (props: Props) => {
           title="Withdrawal period"
           content={`${formatWithdrawalPeriod || '--'}`}
         />
+        {!isMainnet && (
+          <ColumnInfor
+            title="Faucet"
+            content={`https://faucet.${domain}.l2aas.com`}
+            isPendingPayment={false}
+            isLink={true}
+          />
+        )}
       </SimpleGrid>
     </Flex>
   );
