@@ -1,7 +1,7 @@
 import { Flex, Text, Input, Textarea } from '@chakra-ui/react';
 import BaseModal from '../BaseModal';
 import s from './styles2.module.scss';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { isEmpty } from 'lodash';
 
 import { submitContact } from '@/services/api/l2services';
@@ -12,6 +12,7 @@ import { Select } from '@chakra-ui/react';
 import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 import { DATA_BRAND } from '@/modules/landingV3/data-sections';
 import Image from 'next/image';
+import { throttle } from 'lodash';
 
 const SUBJECT_LIST = [
   `I'd like to build a Rollup on Bitcoin`,
@@ -106,8 +107,17 @@ const ContactUsModal = ({
     }
   };
 
-  const submitHandler = async () => {
+  const submitHandler = async (
+    methodInputStr: any,
+    methodContact: METHODS_CONTACT_ENUM,
+  ) => {
+    // console.log('submitHandler Params ', {
+    //   methodInputStr,
+    //   methodContact,
+    // });
+
     tracking('SUBMIT_CONTACT_US');
+
     try {
       let valid = true;
       // if (!valideYourXAcc(yourXAcc)) {
@@ -120,12 +130,12 @@ const ContactUsModal = ({
       //   valid = false;
       // }
 
-      if (!validateMethodContact(methodInput)) {
+      if (!validateMethodContact(methodInputStr)) {
         valid = false;
       }
 
-      // console.log('valid ', valid);
-      // console.log('methodContact ', methodContact);
+      // console.log('LOG valid ', valid);
+      // console.log('LOG methodContact ', methodContact);
 
       if (valid) {
         let submitParams: SubmitFormParams = {
@@ -144,21 +154,21 @@ const ContactUsModal = ({
         if (methodContact === METHODS_CONTACT_ENUM.Email) {
           submitParams = {
             ...submitParams,
-            email: methodInput,
+            email: methodInputStr,
           };
         }
 
         if (methodContact === METHODS_CONTACT_ENUM.Telegram) {
           submitParams = {
             ...submitParams,
-            telegram: methodInput,
+            telegram: methodInputStr,
           };
         }
 
         if (methodContact === METHODS_CONTACT_ENUM.Twitter) {
           submitParams = {
             ...submitParams,
-            twName: methodInput,
+            twName: methodInputStr,
           };
         }
 
@@ -175,6 +185,14 @@ const ContactUsModal = ({
       toast.error(message);
     }
   };
+
+  const submitHanlderDebouce = useCallback(
+    throttle(submitHandler, 500, {
+      trailing: true,
+      leading: false,
+    }),
+    [],
+  );
 
   const renderXfield = () => {
     return (
@@ -359,6 +377,7 @@ const ContactUsModal = ({
           fontSize={'18px'}
           value={methodInput}
           onChange={(e: any) => {
+            console.log('LOG -- AAA ', e.target.value);
             setMethodInput(e.target.value);
             // valideYourTelegramAcc(e.target.value);
           }}
@@ -636,7 +655,10 @@ const ContactUsModal = ({
             {/*  }}*/}
             {/*>*/}
             {/*</Flex>*/}
-            <div className={s.submitBtn} onClick={submitHandler}>
+            <div
+              className={s.submitBtn}
+              onClick={() => submitHanlderDebouce(methodInput, methodContact)}
+            >
               <p>Submit</p>
             </div>
           </Flex>
