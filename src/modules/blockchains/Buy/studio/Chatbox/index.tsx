@@ -22,6 +22,7 @@ export default function Chatbox() {
     status,
     isChatboxOpen,
     setIsChatboxOpen,
+    isIdle,
     setChatBoxStatus,
   } = useChatBoxState();
 
@@ -157,6 +158,10 @@ export default function Chatbox() {
               <MagicIcon color="black" />
               Composer
             </div>
+
+            <div className={styles.close}>
+              <ButtonClose />
+            </div>
           </div>
           <div className={styles.body_inner}>
             <div className={styles.chats} ref={elChatBox}>
@@ -179,12 +184,12 @@ export default function Chatbox() {
               ))}
             </div>
             <div className={styles.status}>
-              <div className={styles.statusInner}>{status}</div>
+              <div className={styles.statusInner}>{isIdle ? '' : status}</div>
               <div className={styles.statusButtons}>
                 {isListening && <ButtonCancel onClick={stopVoiceInput} />}
-                {isComplete && <ButtonApply />}
+                {/* {isComplete && <ButtonApply />} */}
                 {isGenerating && <ButtonStop />}
-                {isClose && <ButtonClose />}
+                {/* {isClose && <ButtonClose />} */}
               </div>
             </div>
           </div>

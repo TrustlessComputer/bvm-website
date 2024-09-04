@@ -17,12 +17,11 @@ import {
 } from '../mockup_3';
 import {
   draggedDappIndexesSignal,
-  draggedIds2DSignal
+  draggedIds2DSignal,
 } from '../signals/useDragSignal';
 import useDappsStore from '../stores/useDappStore';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import { cloneDeep } from '../utils';
-import { IModelOption } from '@/types/customize-model';
 import useFormChain from './useFormChain';
 
 export default function useCheckNodes() {

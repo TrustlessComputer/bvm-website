@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 import useChatBoxState from '../chatbox-store';
 import LabelListening from '../LabelListening';
 import styles from './styles.module.scss';
+import Inputs from '../PromptInputs';
 
 export default function TextInput({
   handleSendMessage,
@@ -10,9 +11,12 @@ export default function TextInput({
 }): ReactElement {
   const { inputMessage, isListening, isGenerating, setInputMessage } =
     useChatBoxState((state) => state);
+
   return (
     <div className={styles.input}>
-      <h3 className={styles.input_heading}>Prompt</h3>
+      <h3 className={styles.input_heading}>
+        <Inputs />
+      </h3>
       <div className={styles.inputWrapper}>
         <textarea
           value={inputMessage}
