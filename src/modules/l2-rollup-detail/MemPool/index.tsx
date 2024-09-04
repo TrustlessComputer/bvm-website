@@ -16,6 +16,7 @@ import dayjs from 'dayjs';
 const MemPool = () => {
   const { selectedBlock, setSelectedBlock, pendingBlocks, confirmedBlocks, fetchConfirmedBlocks } = useContext(L2RollupDetailContext);
   const scrollRef = useRef(null);
+  const [loadMore, setLoadMore] = useState(false);
 
   const listNFTs = useMemo(() => {
     let pendingNFTs: any[] = [];
@@ -84,7 +85,12 @@ const MemPool = () => {
       const element = scrollRef.current as unknown as HTMLElement;
 
       if((element.scrollWidth - element.scrollLeft - element.clientWidth <= 600)) {
-        fetchConfirmedBlocks(true);
+        if(!loadMore) {
+          setLoadMore(true);
+          fetchConfirmedBlocks(true);
+        }
+      } else {
+        setLoadMore(false);
       }
     }
 
@@ -99,7 +105,7 @@ const MemPool = () => {
         element.removeEventListener('scroll', handleScroll);
       }
     }
-  }, [fetchConfirmedBlocks]);
+  }, [loadMore, fetchConfirmedBlocks]);
 
   return (
     <Flex className={s.container} direction={"column"} alignItems={"center"}>

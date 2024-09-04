@@ -254,7 +254,6 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
       }
 
       setIsLoadingConfirmedBlocks(true);
-      // console.log('isLoadingConfirmedBlock aaaa', isLoadingConfirmedBlock);
       let blockNumber = '';
       if(loadMore) {
         const lastBlock: IConfirmedBlock = confirmedBlocks[confirmedBlocks.length - 1];
@@ -270,10 +269,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     } finally {
       setIsLoadingConfirmedBlocks(false);
     }
-  }, [confirmedBlocks]);
-
-  // console.log('isLoadingConfirmedBlock bbbb', isLoadingConfirmedBlock);
-
+  }, [confirmedBlocks, isLoadingConfirmedBlock]);
 
   const fetchTokensRate = async () => {
     try {
