@@ -10,12 +10,14 @@ import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import utc from 'dayjs/plugin/utc';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 // import useBootstrapApp from '@/hooks/useBootstrapApp';
 
 dayjs.extend(utc);
 dayjs.extend(duration);
 dayjs.extend(localizedFormat);
+dayjs.extend(relativeTime);
 
 export default function StoreProvider({
   children,

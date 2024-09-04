@@ -13,6 +13,11 @@ import { PROBLEM_HAMMING_DISTANCE_MARKDOWN } from './12_12_HammingDistance';
 import { PROBLEM_CLOSEST_SUM_MARKDOWN } from './13_13_ClosestSum';
 import { PROBLEM_SPLIT_ARRAY_MARKDOWN } from './14_14_SplitArray';
 import { PROBLEM_NO_REPEAT_MARKDOWN } from './15_15_NoRepeat';
+import { PROBLEM_A_TIMES_B_PLUS_C } from './16_21_ATimesBPlusC';
+import { PROBLEM_REPEAT_MODULO_MARKDOWN } from './17_22_RepeatModulo';
+import { PROBLEM_PRODUCT_K_INTEGER_MARKDOWN } from './18_23_ProductKInteger';
+import { PROBLEM_GRID_POWER_MARKDOWN } from './19_24_GridPower';
+import { PROBLEM_TEAM_SPLITTING_MARKDOWN } from './20_26_TeamSplitting';
 
 export const PROBLEM_DATASOURCE = [
   {
@@ -74,6 +79,26 @@ export const PROBLEM_DATASOURCE = [
   {
     id: '15',
     content: PROBLEM_NO_REPEAT_MARKDOWN,
+  },
+  {
+    id: '16',
+    content: PROBLEM_A_TIMES_B_PLUS_C,
+  },
+  {
+    id: '17',
+    content: PROBLEM_REPEAT_MODULO_MARKDOWN,
+  },
+  {
+    id: '18',
+    content: PROBLEM_PRODUCT_K_INTEGER_MARKDOWN,
+  },
+  {
+    id: '19',
+    content: PROBLEM_GRID_POWER_MARKDOWN,
+  },
+  {
+    id: '20',
+    content: PROBLEM_TEAM_SPLITTING_MARKDOWN,
   },
 ];
 

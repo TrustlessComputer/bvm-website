@@ -13,13 +13,13 @@ import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
 import { STORAGE_KEYS } from '@constants/storage-key';
 import { useSignalEffect } from '@preact/signals-react';
 import { useReactFlow } from '@xyflow/react';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useParams, usePathname, useSearchParams } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react';
 import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 import useFirstLoadTemplateBoxStore from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 
 function useHandleReloadNode() {
-  const searchParamm = useSearchParams();
+  const searchParam = useSearchParams();
   const { nodes, edges, setNodes, setEdges } = useFlowStore();
   const [rfInstance, setRfInstance] = useState<any>(null);
   const [haveOldData, setHaveOldData] = useState(false);
@@ -29,16 +29,23 @@ function useHandleReloadNode() {
   const { draggedFields, setDraggedFields } = useDragStore();
   const { isFirstLoadTemplateBox } = useFirstLoadTemplateBoxStore();
 
+  const params = useParams();
+  const isUpdateFlow = React.useMemo(() => !!params.id, [params.id]);
+
   React.useEffect(() => {
     if (!isFirstLoadTemplateBox || !restoreLocal.value) return;
-    if (path === '/studio') {
+
+    if (!isUpdateFlow) {
       onSave();
     }
-  }, [nodes.length, field, isFirstLoadTemplateBox]);
+  }, [nodes.length, field, isFirstLoadTemplateBox, isUpdateFlow]);
 
   const onRestore = useCallback(async () => {
-    const template = searchParamm.get('template') || searchParamm.get('dapp');
+    if (isUpdateFlow) return;
+
+    const template = searchParam.get('template') || searchParam.get('dapp');
     if (!!template) return;
+
     console.log('runnnn dapp');
     const restoreFlow = async () => {
       const flow = LocalStorage.getItem(STORAGE_KEYS.LAST_NODES);
@@ -66,7 +73,7 @@ function useHandleReloadNode() {
     };
 
     await restoreFlow();
-  }, [searchParamm]);
+  }, [searchParam, path]);
 
   useSignalEffect(() => {
     const restoreLocalSignal = restoreLocal.value;
@@ -86,7 +93,6 @@ function useHandleReloadNode() {
       JSON.stringify(signals),
     );
     console.log('runnnn USE_SIGNALS_FORM end');
-
   });
 
   // useSignalEffect(() => {
@@ -114,6 +120,7 @@ function useHandleReloadNode() {
   // });
 
   const onSave = () => {
+    if (isUpdateFlow) return;
     if (!isFirstLoadTemplateBox || !restoreLocal.value) return;
 
     if (rfInstance) {

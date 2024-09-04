@@ -1,30 +1,16 @@
 import MagicIcon from '@/components/MagicIcon';
-import { IModelCategory } from '@/types/customize-model';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import useFormChain from '../../hooks/useFormChain';
-import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import ButtonApply from './Actions/ButtonApply';
 import ButtonCancel from './Actions/ButtonCancle';
 import ButtonClose from './Actions/ButtonClsoe';
 import ButtonStop from './Actions/ButtonStop';
 import useChatBoxState, { ChatBoxStatus } from './chatbox-store';
+import useChatBoxService from './hooks/useChatBoxService';
 import Message from './Message';
-import { sendPrompt } from './services/prompt';
 import styles from './styles.module.scss';
 import TextInput from './TextInput';
-import { CategoryAction, PromptCategory, SendPromptBodyRequest } from './types';
-import {
-  modelCategoryToPromptCategory,
-  promptCategoryToModelCategory,
-} from './utils/convertApiUtils';
-import { mockupPromptResponses } from './mockup/promtResponse';
 
 export default function Chatbox() {
-  const { categories } = useModelCategoriesStore();
-  const { getDynamicForm } = useFormChain();
-
-  const [indexMockup, setIndexMockup] = useState(0);
-
   const {
     messages,
     setMessages,
@@ -36,7 +22,6 @@ export default function Chatbox() {
     status,
     isChatboxOpen,
     setIsChatboxOpen,
-    setPrepareCategoryTemplate,
     setChatBoxStatus,
   } = useChatBoxState();
 
@@ -60,111 +45,6 @@ export default function Chatbox() {
       focusChatBox();
     }
   };
-
-  const handleSendPrompt = async () => {
-    if (
-      messages.length > 0 &&
-      messages[messages.length - 1].sender === 'user'
-    ) {
-      setChatBoxStatus({
-        status: ChatBoxStatus.Generating,
-        isGenerating: true,
-        isComplete: false,
-        isListening: false,
-      });
-
-      const currentTemplate = getDynamicForm().dynamicForm;
-      const current_state: PromptCategory[] = currentTemplate.map(
-        modelCategoryToPromptCategory,
-      );
-      const prompt_body: SendPromptBodyRequest = {
-        command: inputMessage,
-        current_state,
-      };
-
-      // const response = await sendPrompt(prompt_body);
-      const response = mockupPromptResponses[indexMockup];
-      setIndexMockup(indexMockup + 1);
-
-      const newTemplate = currentTemplate.filter((category) => {
-        const promptCategory = response.actions.find(
-          (action) => action.category.layer === category.key,
-        );
-
-        console.log('[handleSendPrompt] remove', { category, promptCategory });
-
-        return (
-          !promptCategory ||
-          promptCategory.action_type !== CategoryAction.REMOVE
-        );
-      });
-
-      console.log('[handleSendPrompt] newTemplate remove', newTemplate);
-
-      newTemplate.push(
-        ...response.actions
-          .filter((action) => action.action_type === CategoryAction.ADD)
-          .map((act) =>
-            promptCategoryToModelCategory(
-              act.category,
-              (categories || []).find(
-                (cate) => cate.key === act.category.layer,
-              ) as IModelCategory,
-            ),
-          ),
-      );
-
-      console.log('[handleSendPrompt] newTemplate add', newTemplate);
-
-      newTemplate.forEach((category, index) => {
-        const indexInResponse = response.actions.findIndex(
-          (action) => action.category.layer === category.key,
-        );
-        const categoryInModel = (categories || []).find(
-          (cate) => cate.key === category.key,
-        );
-
-        if (indexInResponse === -1 || !categoryInModel) return;
-
-        console.log('[handleSendPrompt] pre-update', {
-          indexInResponse,
-          action: response.actions[indexInResponse],
-        });
-
-        const action = response.actions[indexInResponse];
-
-        if (action.action_type === CategoryAction.UPDATE) {
-          console.log('[handleSendPrompt] update', {
-            action,
-            new: promptCategoryToModelCategory(action.category, category),
-          });
-
-          newTemplate[index] = promptCategoryToModelCategory(
-            action.category,
-            categoryInModel,
-          );
-        }
-      });
-
-      console.log('[handleSendPrompt] newTemplate', newTemplate);
-
-      setMessages([
-        ...messages,
-        {
-          text: response.message,
-          template: newTemplate,
-          sender: 'bot',
-        },
-      ]);
-
-      setPrepareCategoryTemplate(newTemplate);
-      focusChatBox();
-    }
-  };
-
-  useEffect(() => {
-    handleSendPrompt();
-  }, [messages]);
 
   const stopVoiceInput = useCallback(() => {
     if (recognition) {
@@ -225,6 +105,7 @@ export default function Chatbox() {
 
     newRecognition.continuous = false;
     newRecognition.interimResults = false;
+    newRecognition.lang = 'en-US'; // Set language to English
 
     newRecognition.onresult = (event: any) => {
       const transcript = event.results[0][0].transcript;
@@ -256,6 +137,7 @@ export default function Chatbox() {
     return isChatboxOpen;
   }, [isChatboxOpen]);
 
+  useChatBoxService({ focusChatBox });
   useEffect(() => {
     if (isOpenVoice) {
       handleVoiceInput();

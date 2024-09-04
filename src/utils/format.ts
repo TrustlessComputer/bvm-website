@@ -63,7 +63,7 @@ export const formatCurrency = (
         };
       } else if (Number(value) < 0.01) {
         config = {
-          maximumFractionDigits: 7,
+          maximumFractionDigits: 8,
           minimumFractionDigits: 0,
         };
       } else {

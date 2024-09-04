@@ -16,7 +16,6 @@ const useOneForm = () => {
   const { dapps } = useDapps();
   const { nodes } = useFlowStore();
   const { templateDapps } = useTemplateFormStore();
-  const { isAAInstalled, order } = useChainProvider();
 
   const retrieveFormsByDappKey = ({ dappKey }: { dappKey: string }) => {
     const forms: IRetrieveFormsByDappKey[][] = [];

@@ -1,0 +1,44 @@
+.container {
+  //   width: 180px;
+  border: 1px solid #ccc;
+  border-radius: 100px;
+  overflow: hidden;
+  height: 44px;
+  background-color: #f5f5f5;
+  .header {
+    cursor: pointer;
+    height: 100%;
+    padding: 0 6px;
+    p {
+      font-size: 12px;
+    }
+  }
+}
+
+.popoverContent {
+  border-color: #ccc !important;
+  overflow: hidden;
+  max-width: fit-content;
+
+  :global {
+    .chakra-popover__body {
+      background: #fff !important;
+      padding: 0px;
+    }
+  }
+  .item {
+    cursor: pointer;
+    p {
+      font-size: 14px;
+    }
+    &:hover {
+      p {
+        color: #fa4e0e;
+      }
+    }
+  }
+  .scroll {
+    scrollbar-color: #ccc #f5f5f5;
+    scrollbar-width: thin;
+  }
+}

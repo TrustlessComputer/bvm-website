@@ -49,9 +49,9 @@ export default function Page() {
     <MainLayout
       headerProps={{
         color: 'black',
-        bgColor: '#F3F1E8',
+        bgColor: '#ffffff',
       }}
-      hideFooter={false}
+      hideFooter={true}
       bodyColor={'#f3f1e8'}
     >
       <L2RollupModule />
