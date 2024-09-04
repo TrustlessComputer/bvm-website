@@ -9,7 +9,7 @@ import ButtonClose from './Actions/ButtonClsoe';
 import ButtonStop from './Actions/ButtonStop';
 import useChatBoxState, { ChatBoxStatus } from './chatbox-store';
 import Message from './Message';
-import { sendPrompt } from './services/prompt';
+import { mockupPromptResponses } from './mockup/promtResponse';
 import styles from './styles.module.scss';
 import TextInput from './TextInput';
 import { CategoryAction, PromptCategory, SendPromptBodyRequest } from './types';
@@ -18,6 +18,7 @@ import {
   promptCategoryToModelCategory,
 } from './utils/convertApiUtils';
 import uniqBy from 'lodash/uniqBy';
+import { sendPrompt } from './services/prompt';
 
 export default function Chatbox() {
   const { categories } = useModelCategoriesStore();
@@ -218,6 +219,7 @@ export default function Chatbox() {
 
     newRecognition.continuous = false;
     newRecognition.interimResults = false;
+    newRecognition.lang = 'en-US'; // Set language to English
 
     newRecognition.onresult = (event: any) => {
       const transcript = event.results[0][0].transcript;
