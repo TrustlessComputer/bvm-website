@@ -17,12 +17,11 @@ import {
   modelCategoryToPromptCategory,
   promptCategoryToModelCategory,
 } from './utils/convertApiUtils';
+import uniqBy from 'lodash/uniqBy';
 
 export default function Chatbox() {
   const { categories } = useModelCategoriesStore();
   const { getDynamicForm } = useFormChain();
-
-  const [indexMockup, setIndexMockup] = useState(0);
 
   const {
     messages,
@@ -55,12 +54,13 @@ export default function Chatbox() {
         ...messages,
         { text: inputMessage, template: [], sender: 'user' },
       ]);
+      handleSendPrompt(inputMessage);
       setInputMessage('');
       focusChatBox();
     }
   };
 
-  const handleSendPrompt = async () => {
+  const handleSendPrompt = async (message: string) => {
     if (
       messages.length > 0 &&
       messages[messages.length - 1].sender === 'user'
@@ -77,17 +77,16 @@ export default function Chatbox() {
         modelCategoryToPromptCategory,
       );
       const prompt_body: SendPromptBodyRequest = {
-        command: inputMessage,
+        command: message,
         current_state,
       };
+      const response = (await sendPrompt(prompt_body)).data;
 
-      const response = await sendPrompt(prompt_body);
-      // const response = mockupPromptResponses[indexMockup];
-      setIndexMockup(indexMockup + 1);
+      console.log('[handleSendPrompt] response', response);
 
       const newTemplate = currentTemplate.filter((category) => {
         const promptCategory = response.actions.find(
-          (action) => action.category.layer === category.key,
+          (action) => action.category.key === category.key,
         );
 
         console.log('[handleSendPrompt] remove', { category, promptCategory });
@@ -98,7 +97,11 @@ export default function Chatbox() {
         );
       });
 
-      console.log('[handleSendPrompt] newTemplate remove', newTemplate);
+      // if (
+      //   response.actions.filter(
+      //     (action) => action.action_type !== CategoryAction.UNKNOWN,
+      //   ).length === 0) {
+      // }
 
       newTemplate.push(
         ...response.actions
@@ -107,17 +110,15 @@ export default function Chatbox() {
             promptCategoryToModelCategory(
               act.category,
               (categories || []).find(
-                (cate) => cate.key === act.category.layer,
+                (cate) => cate.key === act.category.key,
               ) as IModelCategory,
             ),
           ),
       );
 
-      console.log('[handleSendPrompt] newTemplate add', newTemplate);
-
       newTemplate.forEach((category, index) => {
         const indexInResponse = response.actions.findIndex(
-          (action) => action.category.layer === category.key,
+          (action) => action.category.key === category.key,
         );
         const categoryInModel = (categories || []).find(
           (cate) => cate.key === category.key,
@@ -145,8 +146,6 @@ export default function Chatbox() {
         }
       });
 
-      console.log('[handleSendPrompt] newTemplate', newTemplate);
-
       setMessages([
         ...messages,
         {
@@ -155,15 +154,10 @@ export default function Chatbox() {
           sender: 'bot',
         },
       ]);
-
-      setPrepareCategoryTemplate(newTemplate);
+      setPrepareCategoryTemplate(uniqBy(newTemplate, 'key'));
       focusChatBox();
     }
   };
-
-  useEffect(() => {
-    handleSendPrompt();
-  }, [messages]);
 
   const stopVoiceInput = useCallback(() => {
     if (recognition) {

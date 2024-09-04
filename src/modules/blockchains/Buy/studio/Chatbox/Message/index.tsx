@@ -13,7 +13,8 @@ export default function Message({
   template: IModelCategory[];
   onUpdateScroll: () => void;
 }) {
-  const { setChatBoxStatus, isGenerating } = useChatBoxState((state) => state);
+  const { setChatBoxStatus, isGenerating, prepareCategoryTemplate } =
+    useChatBoxState((state) => state);
   const [isRendered, setIsRendered] = useState(false);
 
   const refRender = useRef<NodeJS.Timeout>();
@@ -61,9 +62,12 @@ export default function Message({
         refRender.current && clearInterval(refRender.current);
         setIsRendered(true);
         setChatBoxStatus({
-          status: ChatBoxStatus.Complete,
+          status:
+            prepareCategoryTemplate.length > 0
+              ? ChatBoxStatus.Complete
+              : ChatBoxStatus.Cancel,
           isGenerating: false,
-          isComplete: true,
+          isComplete: prepareCategoryTemplate.length > 0,
           isListening: false,
         });
       }

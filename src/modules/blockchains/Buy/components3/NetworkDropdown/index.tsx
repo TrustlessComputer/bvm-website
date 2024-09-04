@@ -78,6 +78,12 @@ const NetworkDropdown = ({}: Props) => {
     [currentValue?.icon],
   );
 
+  React.useEffect(() => {
+    if (field['network']?.value === null) {
+      setField('network', options[0].key, true);
+    }
+  }, [field['network']?.value]);
+
   return (
     <div
       className={cn(styles.dropdown, {
