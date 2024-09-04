@@ -3,7 +3,7 @@ import useFlowStore, {
   AppState,
 } from '@/modules/blockchains/Buy/stores/useFlowStore';
 import { DappNode } from '@/types/node';
-import { MarkerType } from '@xyflow/react';
+import { MarkerType, useStoreApi } from '@xyflow/react';
 import { useEffect } from 'react';
 import { removeItemAtIndex } from '../../dapp/utils';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
@@ -23,6 +23,7 @@ import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridge
 import handleStatusEdges from '@utils/helpers';
 import useDappsStore from '../stores/useDappStore';
 import { cloneDeep } from '../utils';
+import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
 
 export default function useCheckNodes() {
   const { field } = useOrderFormStoreV3();
@@ -30,6 +31,10 @@ export default function useCheckNodes() {
   const { getCurrentFieldFromChain } = useFormChain();
   const { lineBridgeStatus } = useBridgesModule();
   const { dapps } = useDappsStore();
+  const store = useStoreApi();
+  const {
+    transform: [transformX, transformY, zoomLevel],
+  } = store.getState();
 
   const check = () => {
     const newNodes = [...nodes];
@@ -37,6 +42,14 @@ export default function useCheckNodes() {
     const newDraggedDappIndexes = cloneDeep(draggedDappIndexesSignal.value);
     const newDraggedIds2D = cloneDeep(draggedIds2DSignal.value);
     let somethingChanged = false;
+    const transformedX =
+      (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
+    const transformedY =
+      (mouseDroppedPositionSignal.value.y - transformY) / zoomLevel;
+    const positionTo = {
+      x: transformedX,
+      y: transformedY,
+    };
 
     if (!getCurrentFieldFromChain('wallet')) {
       const nodeIndex = nodes.findIndex(
@@ -176,7 +189,7 @@ export default function useCheckNodes() {
           id: newNodeId,
           type: dappKeyToNodeKey(thisDapp.key),
           dragHandle: '.drag-handle-area',
-          position: { x: 0, y: 0 },
+          position: positionTo,
           data: {
             node: 'dapp',
             title: thisDapp.title,
@@ -270,7 +283,7 @@ export default function useCheckNodes() {
           id: newNodeId,
           type: dappKeyToNodeKey(thisDapp.key),
           dragHandle: '.drag-handle-area',
-          position: { x: 0, y: 0 },
+          position: positionTo,
           data: {
             node: 'dapp',
             title: thisDapp.title,

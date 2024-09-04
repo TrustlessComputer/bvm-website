@@ -126,11 +126,41 @@ export default function useHandleDragging() {
     const category = categoryMapping?.[activeKey];
     const totalTemplateDapps = templateDapps.length;
     const ignoreKeys = ['bridge_apps', 'gaming_apps'];
-
+    console.log('runnnnnnnn 1');
     if (!rightDragging && !overIsFinalDroppable && overSuffix1 !== 'right') {
+      if(isMultiChoice) {
+        const currentValues = (field[activeKey].value || []) as string[];
+        const isCurrentEmpty = currentValues.length === 0;
+        const newValue = [...currentValues, active.data.current.value];
+
+        if (currentValues.includes(active.data.current.value)) return;
+
+        setField(activeKey, newValue, true);
+        isCurrentEmpty && setDraggedFields([...draggedFields, activeKey]);
+
+        if (
+          activeKey === 'bridge_apps' &&
+          !draggedDappIndexesSignal.value.includes(1) &&
+          !activeIsParent
+        ) {
+          draggedDappIndexesSignal.value = [...draggedDappIndexesSignal.value, 1];
+          draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
+        }
+
+        if (
+          activeKey === 'gaming_apps' &&
+          !draggedDappIndexesSignal.value.includes(2) &&
+          !activeIsParent
+        ) {
+          draggedDappIndexesSignal.value = [...draggedDappIndexesSignal.value, 2];
+          draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
+        }
+
+        return;
+      }
       return;
     }
-
+    console.log('runnnnnnnn 2');
     if (rightDragging && !overIsFinalDroppable && overSuffix1 === 'right') {
       // swap activeKey, overKey in draggedFields
       const _draggedFields = cloneDeep(draggedFields);
@@ -147,17 +177,17 @@ export default function useHandleDragging() {
 
       return;
     }
-
+    console.log('runnnnnnnn 3');
     if (activeIsNotAChainField && !ignoreKeys.includes(activeKey)) {
       return;
     }
-
+    console.log('runnnnnnnn 4');
     if (!category?.updatable && isUpdateFlow) {
       // TODO: Notify if needed
 
       return;
     }
-
+    console.log('runnnnnnnn 5');
     if (!isMultiChoice) {
       // Error case
       if (
@@ -220,6 +250,7 @@ export default function useHandleDragging() {
 
       return;
     }
+    console.log('runnnnnnnn 6');
 
     // Active is parent and drag to the left side
     if (
@@ -269,10 +300,11 @@ export default function useHandleDragging() {
 
       return;
     }
-
+    console.log('runnnnnnnn 7');
     // Multi choice case
     if (
-      (over && (overIsFinalDroppable || overIsParentOfActiveDroppable)) ||
+      ((over && (overIsFinalDroppable || overIsParentOfActiveDroppable)) ||
+        !over) &&
       (!overIsFinalDroppable && overSuffix1 === 'right')
     ) {
       const currentValues = (field[activeKey].value || []) as string[];
