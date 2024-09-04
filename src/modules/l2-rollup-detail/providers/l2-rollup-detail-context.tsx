@@ -95,7 +95,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
   const [rollupDetails, setRollupDetails] = useState<IRollupDetail[]>([]);
 
   const [aiSummary, setAiSummary] = useState('');
-  const [isLoadingAI, setIsLoadingAI] = useState(false);
+  const [isLoadingAI, setIsLoadingAI] = useState(true);
 
   const rollupBalances = useMemo(() => {
     let balances: ITokenChain[] = [];

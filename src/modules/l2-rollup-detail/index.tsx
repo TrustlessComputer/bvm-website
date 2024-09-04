@@ -36,8 +36,9 @@ import TokenTransferTab from './TokenTransferTab';
 import TokenTransferTabBitcoin from './TokenTransferTabBitcoin';
 import TransactionsTab from './TransactionsTab';
 import TransactionsTabBitcoin from './TransactionsTabBitcoin';
-import { formatAiSummary } from './utils';
+import Markdown from 'react-markdown';
 import WatchListAddresses from './Watchlist';
+import { formatAiSummary } from './utils';
 
 const L2RollupDetail = () => {
   const {
@@ -100,13 +101,13 @@ const L2RollupDetail = () => {
 
         <Flex
           mt={{ base: '28px', md: '36px' }}
-          gap={{ base: '16px', md: '20px' }}
+          gap={{ base: '0px', md: '20px' }}
           direction={'row'}
           alignItems={'flex-start'}
           // alignItems={'center'}
         >
           <Image
-            w={{ base: '80px', md: '140px' }}
+            w={{ base: '0px', md: '140px' }}
             src={'/heartbeat/ic-wallet.svg'}
           />
           <Flex gap="6px" direction={'column'}>
@@ -157,7 +158,16 @@ const L2RollupDetail = () => {
                   fontWeight={'500'}
                   color={'#808080'}
                 >
-                  Analyzed by <Text as="a" _hover={{ textDecoration: "underline" }} color="black" href="https://eternalai.org/" target="_blank">Eternal AI</Text>
+                  Analyzed by{' '}
+                  <Text
+                    as="a"
+                    _hover={{ textDecoration: 'underline' }}
+                    color="black"
+                    href="https://eternalai.org/"
+                    target="_blank"
+                  >
+                    Eternal AI
+                  </Text>
                 </Text>
               </Flex>
               <Box h={'1px'} w={'100%'} bg={'#f58257'} my={'8px'} />
@@ -170,9 +180,7 @@ const L2RollupDetail = () => {
                 ) : (
                   <>
                     {aiSummary && (
-                      <Text fontWeight={'400'}>
-                        {formatAiSummary(aiSummary)}
-                      </Text>
+                      <Markdown>{formatAiSummary(aiSummary)}</Markdown>
                     )}
                   </>
                 )}
