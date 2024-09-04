@@ -4,20 +4,22 @@ import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCa
 import { IModelCategory } from '@/types/customize-model';
 import { useSearchParams } from 'next/navigation';
 import { cloneDeep } from '../utils';
-import {
-  useOptionInputStore
-} from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
+import { useOptionInputStore } from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
 
 export default function useTemplate() {
   const searchParams = useSearchParams();
   const { setDraggedFields } = useDragStore();
   const { parsedCategories, categoriesTemplates } = useModelCategoriesStore();
   const { field, setField, setFields } = useOrderFormStoreV3();
-  const {setValue} = useOptionInputStore();
+  const { setValue } = useOptionInputStore();
 
   // console.log('useTemplate -> field', field);
 
   const setTemplate = (template: IModelCategory[]) => {
+    if (template.length === 0) {
+      return;
+    }
+
     const newFields = cloneDeep(field);
 
     template.forEach((_field) => {
@@ -44,11 +46,11 @@ export default function useTemplate() {
         newFields[_field.key].value = _field.options[0].key;
         newFields[_field.key].dragged = true;
       }
-      _field.options.forEach(option=>{
-        if(option.addOnInputs){
+      _field.options.forEach((option) => {
+        if (option.addOnInputs) {
           setValue(option.key, option.addOnInputs.attrs?.value);
         }
-      })
+      });
 
       _draggedFields.push(_field.key);
     });

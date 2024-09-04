@@ -23,6 +23,7 @@ import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridge
 import handleStatusEdges from '@utils/helpers';
 import useDappsStore from '../stores/useDappStore';
 import { cloneDeep } from '../utils';
+import { IModelOption } from '@/types/customize-model';
 import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
 
 export default function useCheckNodes() {
@@ -98,7 +99,7 @@ export default function useCheckNodes() {
             title: thisDapp.title,
             dapp: thisDapp,
             baseIndex: 0,
-            categoryOption: {},
+            categoryOption: {} as IModelOption,
             ids: [],
             targetHandles: [`account_abstraction-t-${rootNode}`],
             sourceHandles: [],
@@ -195,7 +196,7 @@ export default function useCheckNodes() {
             title: thisDapp.title,
             dapp: thisDapp,
             baseIndex: 0,
-            categoryOption: {},
+            categoryOption: {} as IModelOption,
             ids: [],
             targetHandles: [`bridge_apps-t-${rootNode}`],
             sourceHandles: [],
@@ -289,7 +290,7 @@ export default function useCheckNodes() {
             title: thisDapp.title,
             dapp: thisDapp,
             baseIndex: 0,
-            categoryOption: {},
+            categoryOption: {} as IModelOption,
             ids: [],
             targetHandles: [`gaming_apps-t-${rootNode}`],
             sourceHandles: [],

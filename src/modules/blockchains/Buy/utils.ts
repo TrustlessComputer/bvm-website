@@ -459,36 +459,15 @@ export const isChainOptionDisabled = (
   item: IModelCategory,
   currentOption: IModelOption,
 ) => {
-  // if (currentOption.key === 'zk') {
-  //   console.log('isChainOptionDisabled', {
-  //     currentOption,
-  //     item,
-  //     field,
-  //     supportLayers: currentOption.supportLayers,
-  //     layers: field['layers']?.value,
-  //     con1:
-  //       !!currentOption.supportLayers &&
-  //       !currentOption.supportLayers.includes(field['layers']?.value as any),
-  //   });
-  // }
-
   return (
     (!!currentOption.supportLayers &&
       currentOption.supportLayers.length > 0 &&
       !currentOption.supportLayers.includes(field['layers']?.value as any)) ||
-    // !!(
-    //   currentOption.supportLayers &&
-    //   currentOption.supportLayers !== 'both' &&
-    //   currentOption.supportLayer !== field['layers']?.value
-    // ) ||
     !!(
       currentOption.supportNetwork &&
       currentOption.supportNetwork !== 'both' &&
       currentOption.supportNetwork !== field['network']?.value
     ) ||
-    // field[item.key].dragged ||
-    // (!item.disable && currentOption.selectable && field[item.key].dragged) ||
-    // (item.required && !field[item.key].dragged) ||
     item.disable ||
     !currentOption.selectable
   );

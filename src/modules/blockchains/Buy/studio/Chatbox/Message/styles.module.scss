@@ -1,0 +1,23 @@
+.categories {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .category {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .categoryTitle {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+    }
+
+    .categoryOptions {
+      display: flex;
+      gap: 8px;
+    }
+  }
+}
