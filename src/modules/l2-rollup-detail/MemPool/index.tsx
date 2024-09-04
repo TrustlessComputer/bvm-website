@@ -2,7 +2,7 @@
 
 import { Box, Flex } from '@chakra-ui/react';
 import s from './styles.module.scss';
-import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import { IBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
 import BlockItem from 'src/modules/l2-rollup-detail/MemPool/BlockItem';
@@ -12,6 +12,7 @@ import {
 } from '@/modules/l2-rollup-detail/providers/l2-rollup-detail-context';
 import BlockDetail from '@/modules/l2-rollup-detail/MemPool/BlockDetail';
 import dayjs from 'dayjs';
+import Loading from '@components/Loading';
 
 const MemPool = () => {
   const { selectedBlock, setSelectedBlock, pendingBlocks, confirmedBlocks, fetchConfirmedBlocks } = useContext(L2RollupDetailContext);
@@ -84,7 +85,7 @@ const MemPool = () => {
     const handleScroll = () => {
       const element = scrollRef.current as unknown as HTMLElement;
 
-      if((element.scrollWidth - element.scrollLeft - element.clientWidth <= 600)) {
+      if((element.scrollWidth - element.scrollLeft - element.clientWidth <= 800)) {
         if(!loadMore) {
           setLoadMore(true);
           fetchConfirmedBlocks(true);
@@ -141,6 +142,13 @@ const MemPool = () => {
           />
         ))}
         <Box minW={"16px"} />
+        {
+          loadMore && (
+            <Flex justifyContent={"center"} alignItems={"center"}>
+              <Loading />
+            </Flex>
+          )
+        }
       </ScrollContainer>
       {
         selectedBlock && <BlockDetail />
