@@ -13,7 +13,7 @@ import { compareString } from '@/utils/string';
 import { validateEVMAddress } from '@/utils/validate';
 import BigNumber from 'bignumber.js';
 import { useParams } from 'next/navigation';
-import React, { PropsWithChildren, useEffect, useMemo, useRef, useState } from 'react';
+import React, { PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FeesMempoolBlocks, IBlock, IConfirmedBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
 import CMemPoolAPI from '@/services/api/heartbeats/mempool';
 import uniqBy from 'lodash/uniqBy';
@@ -40,6 +40,7 @@ export interface IL2RollupDetailContext {
   setSelectedBlock: any;
   pendingBlocks: FeesMempoolBlocks[];
   confirmedBlocks: IConfirmedBlock[];
+  fetchConfirmedBlocks: any;
 }
 
 const initialValue: IL2RollupDetailContext = {
@@ -63,6 +64,7 @@ const initialValue: IL2RollupDetailContext = {
   setSelectedBlock: () => {},
   pendingBlocks: [],
   confirmedBlocks: [],
+  fetchConfirmedBlocks: () => {},
 };
 
 export const L2RollupDetailContext =
@@ -100,6 +102,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
 
   const [aiSummary, setAiSummary] = useState('');
   const [isLoadingAI, setIsLoadingAI] = useState(false);
+  const [isLoadingConfirmedBlock, setIsLoadingConfirmedBlocks] = useState(false);
 
   const rollupBalances = useMemo(() => {
     let balances: ITokenChain[] = [];
@@ -178,7 +181,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     fetchConfirmedBlocks();
     const interval = setInterval(() => {
       fetchPendingBlocks();
-      fetchConfirmedBlocks();
+      // fetchConfirmedBlocks();
     }, 60000);
     return () => {
       clearInterval(interval);
@@ -244,12 +247,33 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     } catch (e) {}
   }
 
-  const fetchConfirmedBlocks = async () => {
+  const fetchConfirmedBlocks = useCallback(async (loadMore?: boolean) => {
     try {
-      const res = await memPoolApi.getConfirmedBlocks();
+      if(isLoadingConfirmedBlock) {
+        return;
+      }
+
+      setIsLoadingConfirmedBlocks(true);
+      // console.log('isLoadingConfirmedBlock aaaa', isLoadingConfirmedBlock);
+      let blockNumber = '';
+      if(loadMore) {
+        const lastBlock: IConfirmedBlock = confirmedBlocks[confirmedBlocks.length - 1];
+        blockNumber = lastBlock.height.toString();
+      }
+      let res = await memPoolApi.getConfirmedBlocks(blockNumber);
+      res = loadMore ? [...confirmedBlocks, ...res] : res;
+      res = uniqBy(res, (block: IConfirmedBlock) => block.height);
+
       setConfirmedBlocks(res);
-    } catch (e) {}
-  }
+    } catch (e) {
+      console.log('fetchConfirmedBlocks eeee', e);
+    } finally {
+      setIsLoadingConfirmedBlocks(false);
+    }
+  }, [confirmedBlocks]);
+
+  // console.log('isLoadingConfirmedBlock bbbb', isLoadingConfirmedBlock);
+
 
   const fetchTokensRate = async () => {
     try {
@@ -434,6 +458,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
       setSelectedBlock,
       pendingBlocks,
       confirmedBlocks,
+      fetchConfirmedBlocks,
     };
   }, [
     address,
@@ -455,6 +480,7 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     setSelectedBlock,
     pendingBlocks,
     confirmedBlocks,
+    fetchConfirmedBlocks
   ]);
 
   return (

@@ -2,7 +2,7 @@
 
 import { Box, Flex } from '@chakra-ui/react';
 import s from './styles.module.scss';
-import { useContext, useEffect, useMemo } from 'react';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import { IBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
 import BlockItem from 'src/modules/l2-rollup-detail/MemPool/BlockItem';
@@ -14,7 +14,8 @@ import BlockDetail from '@/modules/l2-rollup-detail/MemPool/BlockDetail';
 import dayjs from 'dayjs';
 
 const MemPool = () => {
-  const { selectedBlock, setSelectedBlock, pendingBlocks, confirmedBlocks } = useContext(L2RollupDetailContext);
+  const { selectedBlock, setSelectedBlock, pendingBlocks, confirmedBlocks, fetchConfirmedBlocks } = useContext(L2RollupDetailContext);
+  const scrollRef = useRef(null);
 
   const listNFTs = useMemo(() => {
     let pendingNFTs: any[] = [];
@@ -62,23 +63,52 @@ const MemPool = () => {
   }, [listNFTs.pendingNFTs, selectedBlock]);
 
   useEffect(() => {
-    const item = document.getElementById('item-to-center');
+    const timeoutRef = setTimeout(() => {
+      const item = document.getElementById('item-to-center');
 
-    if(item) {
-      item.scrollIntoView({
-        behavior: 'smooth',
-        inline: 'center'
-      });
+      if(item) {
+        item.scrollIntoView({
+          behavior: 'smooth',
+          inline: 'center'
+        });
+      }
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutRef);
     }
-  }, [listNFTs?.pendingNFTs, listNFTs?.claimedNFTS]);
+  }, []);
 
-  return listNFTs?.pendingNFTs?.length > 0 && listNFTs?.claimedNFTS?.length > 0 && (
+  useEffect(() => {
+    const handleScroll = () => {
+      const element = scrollRef.current as unknown as HTMLElement;
+
+      if((element.scrollWidth - element.scrollLeft - element.clientWidth <= 600)) {
+        fetchConfirmedBlocks(true);
+      }
+    }
+
+    const element = scrollRef.current as unknown as HTMLElement;
+    if(element) {
+      element.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      const element = scrollRef.current as unknown as HTMLElement;
+      if(element) {
+        element.removeEventListener('scroll', handleScroll);
+      }
+    }
+  }, [fetchConfirmedBlocks]);
+
+  return (
     <Flex className={s.container} direction={"column"} alignItems={"center"}>
       <ScrollContainer
         className={s.wrapper}
         hideScrollbars={true}
         horizontal={true}
         vertical={false}
+        innerRef={scrollRef}
       >
         <Box minW={"16px"} />
         {listNFTs.pendingNFTs.map((_v, i) => (
@@ -91,7 +121,9 @@ const MemPool = () => {
           />
         ))}
 
-        <Box className={s.verticalLine} id={"item-to-center"} />
+        {listNFTs?.claimedNFTS?.length > 0 && (
+          <Box className={s.verticalLine} id={"item-to-center"} />
+        )}
 
         {listNFTs.claimedNFTS.map((_v, i) => (
           <BlockItem
