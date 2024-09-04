@@ -108,7 +108,7 @@ const BlockDetail = () => {
   }
 
   const handleOpenBlock = () => {
-    window.open('https://mempool.space/block/00000000000000000000a65947afccfcf96289245677f5e980445d7bb3da81e7', '_blank');
+    window.open(`https://mempool.space/block/${(selectedBlock?.data as IConfirmedBlock).id}`, '_blank');
   }
 
   const renderBaseReleaseInfo = () => {
