@@ -54,10 +54,6 @@ const BlockDetail = () => {
     return '0';
   }, [(selectedBlock?.data as IConfirmedBlock).extras, btcPrice]);
 
-  const blockHealth = useMemo(() => {
-    return 99.98;
-  }, [selectedBlock]);
-
   const blockTitle = useMemo(() => {
     if(isPending) {
       if (compareString(selectedBlock?.id, '0')) {
@@ -102,6 +98,10 @@ const BlockDetail = () => {
             <Td>Transactions</Td>
             <Td>{formatCurrency(selectedBlock?.transactions, 0, 0)}</Td>
           </Tr>
+          <Tr>
+            <Td>Size</Td>
+            <Td><Box className={s.sizeProgress}>{new BigNumberJS(selectedBlock?.blockSize as number).dividedBy(1e6).toFixed(2)} MB</Box></Td>
+          </Tr>
         </Tbody>
       </Table>
     )
@@ -145,7 +145,7 @@ const BlockDetail = () => {
           </Tr>
           <Tr>
             <Td>Health</Td>
-            <Td><Text className={s.health}>{formatCurrency(blockHealth, 0, 2)}%</Text></Td>
+            <Td><Text className={s.health}>{(selectedBlock?.data as IConfirmedBlock).extras.matchRate}%</Text></Td>
           </Tr>
         </Tbody>
       </Table>
