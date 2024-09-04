@@ -46,7 +46,7 @@ const useOnlyFetchDapp = () => {
 
   React.useEffect(() => {
     fetchDapps();
-  }, [counterFetchedDapp, pathname]);
+  }, [counterFetchedDapp, pathname, JSON.stringify(configs || {})]);
 };
 
 export default useOnlyFetchDapp;
