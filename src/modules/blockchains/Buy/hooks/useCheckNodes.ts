@@ -2,7 +2,10 @@ import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useFlowStore, {
   AppState,
 } from '@/modules/blockchains/Buy/stores/useFlowStore';
+import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
+import { IModelOption } from '@/types/customize-model';
 import { DappNode } from '@/types/node';
+import handleStatusEdges from '@utils/helpers';
 import { MarkerType } from '@xyflow/react';
 import { useEffect } from 'react';
 import { removeItemAtIndex } from '../../dapp/utils';
@@ -14,16 +17,13 @@ import {
 } from '../mockup_3';
 import {
   draggedDappIndexesSignal,
-  draggedIds2DSignal,
-  restoreLocal,
+  draggedIds2DSignal
 } from '../signals/useDragSignal';
-import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
-import useFormChain from './useFormChain';
-import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
-import handleStatusEdges from '@utils/helpers';
 import useDappsStore from '../stores/useDappStore';
+import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import { cloneDeep } from '../utils';
 import { IModelOption } from '@/types/customize-model';
+import useFormChain from './useFormChain';
 
 export default function useCheckNodes() {
   const { field } = useOrderFormStoreV3();
