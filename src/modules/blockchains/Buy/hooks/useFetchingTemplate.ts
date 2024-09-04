@@ -549,7 +549,9 @@ export default function useFetchingTemplate() {
     } else {
       const template = searchParams.get('template');
 
-      if (template) {
+      console.log('template', template, templateDefault);
+
+      if (template || !ENABLE_CHATBOX) {
         setTemplate(templateDefault || []);
       } else if (ENABLE_CHATBOX) {
         setTemplate([]);
