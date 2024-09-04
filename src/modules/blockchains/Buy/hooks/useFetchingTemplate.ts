@@ -44,6 +44,7 @@ import handleStatusEdges from '@utils/helpers';
 import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 import { parseWalletType } from '@/modules/blockchains/dapp/parseUtils/wallet-type';
 import { WalletType } from '@/stores/states/dapp/types';
+import { ENABLE_CHATBOX } from '../constants';
 
 export default function useFetchingTemplate() {
   const { templateList, templateDefault } = useAvailableListTemplate();
@@ -550,7 +551,7 @@ export default function useFetchingTemplate() {
 
       if (template) {
         setTemplate(templateDefault || []);
-      } else {
+      } else if (ENABLE_CHATBOX) {
         setTemplate([]);
       }
     }

@@ -4,6 +4,7 @@ import { ReactElement, useEffect, useRef } from 'react';
 import Chatbox from '../Chatbox';
 import useChatBoxState from '../Chatbox/chatbox-store';
 import styles from './styles.module.scss';
+import { ENABLE_CHATBOX } from '../../constants';
 
 export default function ButtonStartChat(): ReactElement {
   const { isChatboxOpen, setIsChatboxOpen } = useChatBoxState((state) => state);
@@ -26,6 +27,8 @@ export default function ButtonStartChat(): ReactElement {
       }
     }
   }, [isChatboxOpen]);
+
+  if (!ENABLE_CHATBOX) return <></>;
 
   return (
     <>
