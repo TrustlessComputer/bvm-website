@@ -183,9 +183,8 @@ const TransactionsTab = (props: IProps) => {
               _hover={{
                 textDecoration: 'underline',
               }}
-              onClick={() => {
-                router.push(`${HEART_BEAT}/tx/${data.hash}`);
-              }}
+              as={'a'}
+              href={`${HEART_BEAT}/tx/${data.hash}`}
             >
               <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
                 <Text className={s.title}>{shortCryptoAddress(data.hash)}</Text>

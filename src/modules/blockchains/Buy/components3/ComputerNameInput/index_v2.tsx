@@ -19,6 +19,7 @@ const ComputerNameInput = () => {
     useChainProvider();
   const {
     computerName,
+    isComputerNameFocused,
     setComputerName,
     setComputerNameFocused,
     setComputerNameErrMsg,
@@ -56,15 +57,19 @@ const ComputerNameInput = () => {
   };
 
   useEffect(() => {
-    let computerName;
+    let computerNameStr;
     if (isCreateChainFlow) {
-      computerName = `${PREFIX} ${chainID}`;
+      if (isComputerNameFocused) {
+        computerNameStr = `${computerName}`;
+      } else {
+        computerNameStr = `${PREFIX} ${chainID}`;
+      }
     } else {
-      computerName = order?.chainName || '';
+      computerNameStr = order?.chainName || '';
     }
-    setChainName(computerName);
-    setComputerName(computerName);
-  }, [isCreateChainFlow, order, chainID]);
+    setChainName(computerNameStr);
+    setComputerName(computerNameStr);
+  }, [isCreateChainFlow, order, chainID, isComputerNameFocused, computerName]);
 
   return (
     <div className={`${isCapture ? s.setLine : ''} ${s.wrapper_input}`}>
@@ -77,6 +82,7 @@ const ComputerNameInput = () => {
         onChange={(e: any) => {
           const text = e.target.value;
           onChangeHandler(text);
+          setComputerNameFocused(true);
         }}
         onBlur={(e: any) => {
           const text = e.target.value;

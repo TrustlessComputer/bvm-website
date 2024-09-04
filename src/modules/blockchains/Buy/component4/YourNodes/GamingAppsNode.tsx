@@ -32,6 +32,7 @@ const GamingAppsNode = ({ data }: NodeProps<ChainNodeAsDappNode>) => {
       content={{
         children: <GamingAppsRenderer />,
       }}
+      mainContentStyles={{ padding: 0 }}
     />
   );
 };

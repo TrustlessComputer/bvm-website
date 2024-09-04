@@ -10,6 +10,7 @@ import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import Loading from '@components/Loading';
 import BaseModal from '@components/BaseModal';
 import { signal, useSignalEffect } from '@preact/signals-react';
+import useFocusNode from '@/modules/blockchains/Buy/hooks/useFocusNode';
 
 
 const isExportImage = signal(false);
@@ -17,6 +18,7 @@ const isSharing = signal(false);
 
 const Capture = () => {
   // const { setIsCapture } = useCaptureStore();
+  const { handleFocusNode } = useFocusNode()
   const timerRef = useRef<any>();
   const [isCapturing, setIsCapturing] = useState<boolean>(false);
   const [seconds, setSeconds] = useState(10);
@@ -221,6 +223,9 @@ https://bvm.network/studio/${url}`;
 
   return (
     <div className={s.wrapper_btn_top}>
+      <div className={`${s.reset2}`} onClick={() => handleFocusNode('gaming_apps')}>
+        <p>Focus node</p>
+      </div>
       <div className={`${s.reset2} ${isCapturing && s.isCapturing}`} onClick={downloadImage}>
         <p>{isExportImage.value ? `EXPORTING...${seconds}` : 'EXPORT'}</p>
         <div>
