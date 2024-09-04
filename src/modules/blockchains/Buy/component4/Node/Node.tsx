@@ -11,15 +11,16 @@ import { idNodeSignal } from '@/modules/blockchains/Buy/hooks/useFocusNode';
 import { useSignalEffect } from '@preact/signals-react';
 
 const Node = ({
-                dapp,
-                overlay,
-                content,
-                heading,
-                notification,
-                borderColor = '#FFC700',
-                targetHandles,
-                sourceHandles,
-              }: NodeProps) => {
+  dapp,
+  overlay,
+  content,
+  heading,
+  notification,
+  borderColor = '#FFC700',
+  targetHandles,
+  sourceHandles,
+  mainContentStyles,
+}: NodeProps) => {
   const nodeRef = React.useRef<HTMLDivElement>(null);
   const [focus, setFocus] = useState(false);
   React.useEffect(() => {
@@ -67,7 +68,9 @@ const Node = ({
 
         {notification && <NodeNotification {...notification} />}
 
-        <div className={styles.node__mainContent}>{content.children}</div>
+        <div className={styles.node__mainContent} style={mainContentStyles}>
+          {content.children}
+        </div>
       </NodeContent>
 
       <div className={`${styles.handles} ${styles.sources}`}>

@@ -32,6 +32,7 @@ const BridgeRenderer = () => {
       style={{
         width: '100% !important',
         height: '100%',
+        padding: '20px 25px',
       }}
     >
       {draggedFields.map((key, index) => {

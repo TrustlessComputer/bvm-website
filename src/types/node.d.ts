@@ -14,10 +14,12 @@ type NodeHeadingProps = {
   textColor?: string;
   borderColor?: string;
   backgroundColor?: string;
+  headingStyles?: React.CSSProperties;
 };
 
 type NodeContentProps = {
   children?: React.ReactNode;
+  contentStyles?: React.CSSProperties;
 };
 
 type NodeNotificationProps = {
@@ -52,6 +54,7 @@ type NodeProps = {
   content: NodeContentProps;
   notification?: NodeNotificationProps;
   overlay?: NodeOverlayProps;
+  mainContentStyles?: React.CSSProperties;
   borderColor?: string;
   sourceHandles: string[];
   targetHandles: string[];
