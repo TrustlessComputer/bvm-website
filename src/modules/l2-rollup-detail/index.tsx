@@ -143,7 +143,12 @@ const L2RollupDetail = () => {
               </Flex>
             )}
             <Flex className={s.boxAi} mt={'4px'} direction={'column'}>
-              <Flex w="100%" justifyContent="space-between">
+              <Flex
+                w="100%"
+                justifyContent="space-between"
+                bg={'#FF7E211A'}
+                py={'12px'}
+              >
                 <Text
                   pl={'16px'}
                   fontSize={'14px'}
@@ -170,7 +175,7 @@ const L2RollupDetail = () => {
                   </Text>
                 </Text>
               </Flex>
-              <Box h={'1px'} w={'100%'} bg={'#f58257'} my={'8px'} />
+              <Box h={'1px'} w={'100%'} bg={'#f58257'} mb={'8px'} />
               <Flex direction={'column'} px={'16px'}>
                 {isLoadingAI ? (
                   <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
