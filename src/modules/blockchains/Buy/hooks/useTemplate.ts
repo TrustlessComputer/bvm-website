@@ -43,7 +43,7 @@ export default function useTemplate() {
         );
         newFields[_field.key].dragged = true;
       } else {
-        newFields[_field.key].value = _field.options[0].key;
+        newFields[_field.key].value = _field.options[0]?.key || null;
         newFields[_field.key].dragged = true;
       }
       _field.options.forEach((option) => {
