@@ -123,6 +123,9 @@ export default function useCheckNodes() {
           target: `account_abstraction`,
           targetHandle: `account_abstraction-t-${rootNode}`,
           type: 'customEdge',
+          selectable: false,
+          selected: false,
+          focusable: false,
           label: handleStatusEdges('', lineBridgeStatus, 'account_abstraction')
             .icon,
           animated: handleStatusEdges(
@@ -223,6 +226,9 @@ export default function useCheckNodes() {
           label: handleStatusEdges('', lineBridgeStatus, 'bridge_apps').icon,
           animated: handleStatusEdges('', lineBridgeStatus, 'bridge_apps')
             .animate,
+          selectable: false,
+          selected: false,
+          focusable: false,
           markerEnd: {
             type: MarkerType.Arrow,
             width: 25,
@@ -317,6 +323,9 @@ export default function useCheckNodes() {
           label: handleStatusEdges('', lineBridgeStatus, 'gaming_apps').icon,
           animated: handleStatusEdges('', lineBridgeStatus, 'gaming_apps')
             .animate,
+          selectable: false,
+          selected: false,
+          focusable: false,
           markerEnd: {
             type: MarkerType.Arrow,
             width: 25,
