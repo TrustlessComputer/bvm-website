@@ -57,6 +57,12 @@ const LegoParent = ({
         );
         return;
       }
+      case DappType.staking: {
+        window.open(
+          `${dappState?.chain?.dappURL || ''}/apps/staking`,
+        );
+        return;
+      }
       case DappType.yologame: {
         if (!label?.actionID) return;
         window.open(
