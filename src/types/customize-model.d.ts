@@ -141,7 +141,7 @@ interface FieldModel {
   icon: string;
   title: string;
   value: string | number;
-  type: 'input' | 'dropdown' | 'extends' | 'group' | 'datetime' | 'list' | '';
+  type: 'input' | 'dropdown' | 'extends' | 'group' | 'datetime' | 'list' | 'label' | '';
   tooltip: string;
   options: FieldModel[];
   placeholder?: string;

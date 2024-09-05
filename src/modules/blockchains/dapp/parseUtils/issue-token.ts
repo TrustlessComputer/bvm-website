@@ -61,6 +61,15 @@ export const parseIssuedToken = (token: IToken) => {
       tooltip: '',
       options: [],
     },
+    {
+      key: 'contract_address',
+      title: 'Contact Address',
+      type: 'label',
+      icon: '',
+      value: token?.contract_address || '',
+      tooltip: '',
+      options: [],
+    }
   ];
 
   result.baseBlock = baseBlock;
