@@ -30,3 +30,20 @@ export interface IRollupChart1D {
   address_actived: number;
   notes: string;
 }
+
+export interface IRollupActiveAddressChart1D {
+  rollup_datas: IRollupL2Info[];
+  charts: IActiveAddressChart[];
+}
+
+export interface IActiveAddressChart {
+  timestamp: number;
+  address_actived_day: number;
+  chain_charts: IChainChart[];
+}
+
+export interface IChainChart {
+  rollup_data_id: number;
+  timestamp: number;
+  address_actived_day: number;
+}
