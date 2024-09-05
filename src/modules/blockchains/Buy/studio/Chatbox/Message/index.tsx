@@ -1,9 +1,9 @@
 import { IModelCategory } from '@/types/customize-model';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Lego from '../../../component4/Lego';
+import useTemplate from '../../../hooks/useTemplate';
 import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
 import styles from './styles.module.scss';
-import useTemplate from '../../../hooks/useTemplate';
 
 export default function Message({
   message,
@@ -69,9 +69,7 @@ export default function Message({
         setIsRendered(true);
         setChatBoxStatus({
           status:
-            prepareCategoryTemplate.length > 0
-              ? ChatBoxStatus.Complete
-              : ChatBoxStatus.Cancel,
+            prepareCategoryTemplate.length > 0 ? ChatBoxStatus.Complete : '',
           isGenerating: false,
           isComplete: prepareCategoryTemplate.length > 0,
           isListening: false,

@@ -1,8 +1,9 @@
 import { ReactElement } from 'react';
+import ButtonSubmit from '../Actions/ButtonSubmit';
+import ButtonVoice from '../Actions/ButtonVoice';
 import useChatBoxState from '../chatbox-store';
 import LabelListening from '../LabelListening';
 import styles from './styles.module.scss';
-import Inputs from '../PromptInputs';
 
 export default function TextInput({
   handleSendMessage,
@@ -14,9 +15,7 @@ export default function TextInput({
 
   return (
     <div className={styles.input}>
-      <h3 className={styles.input_heading}>
-        <Inputs />
-      </h3>
+      <h3 className={styles.input_heading}>Prompt</h3>
       <div className={styles.inputWrapper}>
         <textarea
           value={inputMessage}
@@ -30,17 +29,14 @@ export default function TextInput({
           className={styles.inputField}
           disabled={isListening || isGenerating}
         />
-        {isListening && <LabelListening />}
+
         {!isListening && inputMessage === '' && (
-          <div className={styles.inputOverlay}>
-            Type your instructions or Press <strong>Control + Shift + V</strong>{' '}
-            to voice prompt
-          </div>
+          <div className={styles.inputOverlay}>Type your prompt</div>
         )}
+        {isListening && <LabelListening />}
         <div className={styles.buttonWrapper}>
-          <button onClick={handleSendMessage} className={styles.sendButton}>
-            Submit
-          </button>
+          <ButtonVoice />
+          <ButtonSubmit handleSendMessage={handleSendMessage} />
         </div>
       </div>
     </div>

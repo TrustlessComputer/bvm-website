@@ -1,10 +1,8 @@
 import MagicIcon from '@/components/MagicIcon';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import ButtonApply from './Actions/ButtonApply';
-import ButtonCancel from './Actions/ButtonCancel';
+import { useRef } from 'react';
 import ButtonClose from './Actions/ButtonClsoe';
 import ButtonStop from './Actions/ButtonStop';
-import useChatBoxState, { ChatBoxStatus } from './chatbox-store';
+import useChatBoxState from './chatbox-store';
 import useChatBoxService from './hooks/useChatBoxService';
 import Message from './Message';
 import styles from './styles.module.scss';
@@ -27,7 +25,6 @@ export default function Chatbox() {
   } = useChatBoxState();
 
   const elChatBox = useRef<HTMLDivElement>(null);
-  const [recognition, setRecognition] = useState<any>(null);
 
   const focusChatBox = () => {
     setTimeout(() => {
@@ -47,107 +44,7 @@ export default function Chatbox() {
     }
   };
 
-  const stopVoiceInput = useCallback(() => {
-    if (recognition) {
-      recognition.stop();
-      setChatBoxStatus({
-        status: ChatBoxStatus.Cancel,
-        isGenerating: false,
-        isComplete: false,
-        isListening: false,
-      });
-      setRecognition(null);
-    }
-  }, [recognition]);
-
-  const isClose = useMemo(() => {
-    return !isComplete && !isGenerating && !isListening;
-  }, [isComplete, isGenerating, isListening]);
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        if (isClose) {
-          setIsChatboxOpen(false);
-        } else if (isListening) {
-          stopVoiceInput();
-        } else if (isGenerating) {
-          setChatBoxStatus({
-            status: ChatBoxStatus.Cancel,
-            isGenerating: false,
-            isComplete: false,
-            isListening: false,
-          });
-        }
-      } else if (event.ctrlKey && event.shiftKey && event.key === 'V') {
-        !isGenerating && handleVoiceInput();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [stopVoiceInput, isClose, isGenerating, isListening]);
-
-  const handleVoiceInput = () => {
-    setChatBoxStatus({
-      status: ChatBoxStatus.Cancel,
-      isGenerating: false,
-      isComplete: false,
-      isListening: true,
-    });
-    setInputMessage('');
-    const SpeechRecognition =
-      (window as any).SpeechRecognition ||
-      (window as any).webkitSpeechRecognition;
-    const newRecognition = new SpeechRecognition();
-
-    newRecognition.continuous = false;
-    newRecognition.interimResults = false;
-    newRecognition.lang = 'en-US'; // Set language to English
-
-    newRecognition.onresult = (event: any) => {
-      const transcript = event.results[0][0].transcript;
-      setInputMessage(transcript);
-      setChatBoxStatus({
-        status: ChatBoxStatus.Cancel,
-        isGenerating: false,
-        isComplete: false,
-        isListening: false,
-      });
-      setRecognition(null);
-    };
-
-    newRecognition.onerror = (event: any) => {
-      setChatBoxStatus({
-        status: ChatBoxStatus.Cancel,
-        isGenerating: false,
-        isComplete: false,
-        isListening: false,
-      });
-      setRecognition(null);
-    };
-
-    newRecognition.start();
-    setRecognition(newRecognition);
-  };
-
-  const isOpenVoice = useMemo(() => {
-    return isChatboxOpen;
-  }, [isChatboxOpen]);
-
   useChatBoxService({ focusChatBox });
-  useEffect(() => {
-    if (isOpenVoice) {
-      handleVoiceInput();
-    }
-
-    return () => {
-      stopVoiceInput();
-    };
-  }, [isOpenVoice]);
 
   return (
     <div className={styles.chatbox}>
@@ -186,10 +83,7 @@ export default function Chatbox() {
             <div className={styles.status}>
               <div className={styles.statusInner}>{isIdle ? '' : status}</div>
               <div className={styles.statusButtons}>
-                {isListening && <ButtonCancel onClick={stopVoiceInput} />}
-                {/* {isComplete && <ButtonApply />} */}
                 {isGenerating && <ButtonStop />}
-                {/* {isClose && <ButtonClose />} */}
               </div>
             </div>
           </div>
