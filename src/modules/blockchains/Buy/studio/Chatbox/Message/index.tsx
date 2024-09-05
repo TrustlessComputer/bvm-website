@@ -69,7 +69,9 @@ export default function Message({
         setIsRendered(true);
         setChatBoxStatus({
           status:
-            prepareCategoryTemplate.length > 0 ? ChatBoxStatus.Complete : '',
+            prepareCategoryTemplate.length > 0
+              ? ChatBoxStatus.Complete
+              : ChatBoxStatus.Close,
           isGenerating: false,
           isComplete: prepareCategoryTemplate.length > 0,
           isListening: false,

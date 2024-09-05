@@ -28,7 +28,7 @@ export default function ButtonClose() {
           </clipPath>
         </defs>
       </svg>
-      Close
+      Hide
     </button>
   );
 }

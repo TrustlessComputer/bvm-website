@@ -1,5 +1,5 @@
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
-import useChatBoxState from '../../chatbox-store';
+import useChatBoxState, { ChatBoxStatus } from '../../chatbox-store';
 import styles from './styles.module.scss';
 
 export default function ButtonVoice(): ReactElement {
@@ -26,7 +26,7 @@ export default function ButtonVoice(): ReactElement {
 
   const handleVoiceInput = () => {
     setChatBoxStatus({
-      status: '',
+      status: ChatBoxStatus.Close,
       isGenerating: false,
       isComplete: false,
       isListening: true,
@@ -44,7 +44,7 @@ export default function ButtonVoice(): ReactElement {
       const transcript = event.results[0][0].transcript;
       setInputMessage(`${inputMessage} ${transcript}`);
       setChatBoxStatus({
-        status: '',
+        status: ChatBoxStatus.Close,
         isGenerating: false,
         isComplete: false,
         isListening: false,
@@ -54,7 +54,7 @@ export default function ButtonVoice(): ReactElement {
 
     newRecognition.onerror = (event: any) => {
       setChatBoxStatus({
-        status: '',
+        status: ChatBoxStatus.Close,
         isGenerating: false,
         isComplete: false,
         isListening: false,
@@ -70,7 +70,7 @@ export default function ButtonVoice(): ReactElement {
     if (recognition) {
       recognition.stop();
       setChatBoxStatus({
-        status: '',
+        status: ChatBoxStatus.Close,
         isGenerating: false,
         isComplete: false,
         isListening: false,
@@ -88,7 +88,7 @@ export default function ButtonVoice(): ReactElement {
           stopVoiceInput();
         } else if (isGenerating) {
           setChatBoxStatus({
-            status: '',
+            status: ChatBoxStatus.Close,
             isGenerating: false,
             isComplete: false,
             isListening: false,
