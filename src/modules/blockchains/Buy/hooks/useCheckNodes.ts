@@ -1,11 +1,13 @@
+import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useFlowStore, {
   AppState,
 } from '@/modules/blockchains/Buy/stores/useFlowStore';
 import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
+import { IModelOption } from '@/types/customize-model';
 import { DappNode } from '@/types/node';
-import { MarkerType, useStoreApi } from '@xyflow/react';
 import handleStatusEdges from '@utils/helpers';
+import { MarkerType, useStoreApi } from '@xyflow/react';
 import { useEffect } from 'react';
 import { removeItemAtIndex } from '../../dapp/utils';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
@@ -16,13 +18,11 @@ import {
 } from '../mockup_3';
 import {
   draggedDappIndexesSignal,
-  draggedIds2DSignal
+  draggedIds2DSignal,
 } from '../signals/useDragSignal';
 import useDappsStore from '../stores/useDappStore';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import { cloneDeep } from '../utils';
-import { IModelOption } from '@/types/customize-model';
-import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
 import useFormChain from './useFormChain';
 
 export default function useCheckNodes() {

@@ -1,0 +1,23 @@
+.inputs {
+  display: flex;
+  padding: 2px;
+  gap: 8px;
+}
+
+.input {
+  padding: 2px 8px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #555555;
+  border-radius: 2px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  &__active {
+    color: #000000;
+    background-color: #ffe5db;
+  }
+}
