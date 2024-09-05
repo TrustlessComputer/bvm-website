@@ -2,7 +2,13 @@ import { API_BASE_URL } from '@/config';
 import { DappType } from '@/modules/blockchains/dapp/types';
 import CDappApiClient from '@/services/api/dapp/dapp.client';
 
-import { AppCode, IAppInfo, IDappConfigs, IReqDapp, ITemplate } from '@/services/api/dapp/types';
+import {
+  AppCode,
+  IAppInfo,
+  IDappConfigs,
+  IReqDapp,
+  ITemplate,
+} from '@/services/api/dapp/types';
 import { templateMapper } from '@/services/api/dapp/utils';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import {
@@ -54,9 +60,11 @@ class CDappAPI {
     address: string;
   }) => {
     try {
-
       if (compareString(params.appName, DappType.walletType)) {
-        return JSON.stringify(dappMockupData.find((item) => item?.key === DappType.walletType) || {});
+        return JSON.stringify(
+          dappMockupData.find((item) => item?.key === DappType.walletType) ||
+            {},
+        );
       }
 
       const app = (await this.http.get(
@@ -110,14 +118,20 @@ class CDappAPI {
 
     try {
       const chain = await this.getChainByOrderID({ orderID: params.orderID });
-      chain.dappURL = chain?.dappURL || (!!chain?.domain ? `https://${chain?.domain}.appstore.bvm.network` : '') || this.getDappURL(chain);
+      chain.dappURL =
+        chain?.dappURL ||
+        (!!chain?.domain
+          ? `https://${chain?.domain}.appstore.bvm.network`
+          : '') ||
+        this.getDappURL(chain);
 
       const _chain = chain;
       // if (isLocalhost()) {
       //   _chain.chainId = '91227';
       // }
       this.dispatch(setChain({ ..._chain }));
-      const tasks = [
+      const tasks =
+        [
           'create_token',
           DappType.staking,
           DappType.airdrop,
@@ -149,7 +163,7 @@ class CDappAPI {
       this.dispatch(setConfigs(configs));
       this.dispatch(setDappConfigs(dappConfigs));
       this.dispatch(setAppInfos(appInfoList));
-      this.dispatch(setWalletType(dappConfigs?.wallet_type))
+      this.dispatch(setWalletType(dappConfigs?.wallet_type));
     } catch (error) {
       console.log(error);
     } finally {
@@ -172,10 +186,12 @@ class CDappAPI {
     position_x: number;
     position_y: number;
   }) => {
-    console.log('UPDATE POSITION', params);
+    // console.log('UPDATE POSITION', params);
 
     try {
-      await this.http.post(`/apps/position/`, [{ ...params, chain_id: Number(this.dappState?.chain?.chainId || '0') }]);
+      await this.http.post(`/apps/position/`, [
+        { ...params, chain_id: Number(this.dappState?.chain?.chainId || '0') },
+      ]);
     } catch (error) {
       console.log(error);
     }

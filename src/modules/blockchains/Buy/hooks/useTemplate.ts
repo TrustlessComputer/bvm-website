@@ -60,6 +60,8 @@ export default function useTemplate() {
       newFields[field.key].dragged = false;
     });
 
+    console.log('[useTemplate] setTemplate', { newFields, _draggedFields });
+
     setDraggedFields(_draggedFields);
     setFields(newFields);
   };

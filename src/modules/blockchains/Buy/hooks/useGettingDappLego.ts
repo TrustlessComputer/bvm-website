@@ -98,6 +98,7 @@ const useGettingDappLego = () => {
       }
     }
 
+    console.log('[useGettingDappLego] 555', { newField, newDraggedFields });
     setFields(newField);
     setDraggedFields(newDraggedFields);
   };

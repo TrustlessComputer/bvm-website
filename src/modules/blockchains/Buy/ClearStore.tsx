@@ -3,10 +3,15 @@ import React from 'react';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
+  templateIds2DSignal,
 } from './signals/useDragSignal';
-import { formDappSignal } from './signals/useFormDappsSignal';
+import {
+  formDappSignal,
+  formTemplateDappSignal,
+} from './signals/useFormDappsSignal';
 import useDappsStore from './stores/useDappStore';
 import useFlowStore from './stores/useFlowStore';
+import useDragStore from './stores/useDragStore';
 
 const ClearStore = () => {
   const pathname = usePathname();
@@ -14,19 +19,25 @@ const ClearStore = () => {
 
   const { setNodes, setEdges } = useFlowStore();
   const { setDapps } = useDappsStore();
+  const { setDraggedFields } = useDragStore();
 
   const clear = () => {
+    console.log('[ClearStore] clear');
+
     setNodes([]);
     setEdges([]);
     setDapps([]);
+    setDraggedFields([]);
 
-    draggedDappIndexesSignal.value = [];
-    draggedIds2DSignal.value = [];
+    templateIds2DSignal.value = [];
+    formTemplateDappSignal.value = {};
     formDappSignal.value = {};
+    draggedIds2DSignal.value = [];
+    draggedDappIndexesSignal.value = [];
   };
 
   React.useEffect(() => {
-    return () => clear();
+    clear();
   }, [pathname]);
 
   return null;

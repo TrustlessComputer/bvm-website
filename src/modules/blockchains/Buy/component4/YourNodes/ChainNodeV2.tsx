@@ -12,6 +12,8 @@ import TopupModal from '@/modules/blockchains/components/TopupModal';
 import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+import useDragStore from '../../stores/useDragStore';
+import useOrderFormStoreV3 from '../../stores/index_v3';
 
 const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
@@ -30,6 +32,8 @@ const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
     borderStatusStr: headingBackground,
     bgColorStr,
   } = getBlockChainStatus();
+  const { field } = useOrderFormStoreV3();
+  const { draggedFields } = useDragStore();
 
   const {
     isOpen: isOpenTopUpModal,
@@ -50,6 +54,8 @@ const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
       });
     }
   };
+
+  console.log('[ChainNodeV2] draggedFields', { draggedFields, field });
 
   return (
     <>
@@ -84,7 +90,7 @@ const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
           backgroundColor: bgColorStr,
         }}
         content={{
-          children: <ChainRenderer />,
+          children: <ChainRenderer key={JSON.stringify(draggedFields)} />,
         }}
         borderColor={borderColor}
       />

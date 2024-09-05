@@ -28,19 +28,10 @@ const ChainRenderer = () => {
   const { overlappingId } = useOverlappingChainLegoStore();
   const { field } = useOrderFormStoreV3();
 
-  const { order, getBlockChainStatus, isUpdateFlow } = useChainProvider();
+  const { order, getBlockChainStatus, isUpdateFlow, selectedCategoryMapping } =
+    useChainProvider();
 
-  const selectedCategoryMapping = React.useMemo(() => {
-    if (!order?.selectedOptions) return undefined;
-
-    const mapping: Record<string, IModelCategory> = {};
-
-    order.selectedOptions.forEach((category) => {
-      mapping[category.key] = category;
-    });
-
-    return mapping;
-  }, [order?.selectedOptions]);
+  console.log('[ChainRenderer]', { draggedFields });
 
   return (
     <DroppableV2
@@ -60,7 +51,6 @@ const ChainRenderer = () => {
         <ComputerNameInput />
       </LegoV3>
       <LegoV3 background={'#FF7A41'} label="Network" labelInLeft zIndex={44}>
-        {/* <ComputerNameInput /> */}
         <NetworkDropdown />
       </LegoV3>
 
@@ -144,6 +134,12 @@ const ChainRenderer = () => {
 
         return item.options.map((option, opIdx) => {
           if (option.key !== field[item.key].value) return null;
+
+          console.log('[ChainRenderer] draggedFields.map 3', {
+            option: option.key,
+            field: field[item.key].value,
+            item: item.key,
+          });
 
           const isUpdatable =
             option.key !== 'account_abstraction' && // Must be hard coded

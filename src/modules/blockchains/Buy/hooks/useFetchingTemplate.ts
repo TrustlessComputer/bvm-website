@@ -15,7 +15,12 @@ import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
 import { Edge, MarkerType } from '@xyflow/react';
-import { useParams, usePathname, useSearchParams } from 'next/navigation';
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation';
 import React from 'react';
 import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
 import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
@@ -32,7 +37,7 @@ import {
   formDappSignal,
   formTemplateDappSignal,
 } from '../signals/useFormDappsSignal';
-import { useTemplateFormStore } from '../stores/useDappStore';
+import useDappsStore, { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import useUpdateFlowStore from '../stores/useUpdateFlowStore';
 import useAvailableListTemplate from '../studio/useAvailableListTemplate';
@@ -45,12 +50,13 @@ import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFi
 import { parseWalletType } from '@/modules/blockchains/dapp/parseUtils/wallet-type';
 import { WalletType } from '@/stores/states/dapp/types';
 import { ENABLE_CHATBOX } from '../constants';
+import useDragStore from '../stores/useDragStore';
 
 export default function useFetchingTemplate() {
   const { templateList, templateDefault } = useAvailableListTemplate();
   const { modelCategoryList } = useModelCategory();
-  const { dapps } = useDapps();
-  const path = usePathname();
+  const pathname = usePathname();
+  const router = useRouter();
   const params = useParams();
   const isUpdateFlow = React.useMemo(() => !!params?.id, [params?.id]);
 
@@ -58,23 +64,20 @@ export default function useFetchingTemplate() {
     useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
-    categories,
     setParsedCategories,
     setCategories,
     setCategoriesTemplates,
-    categoriesTemplates,
     setCategoryMapping,
   } = useModelCategoriesStore();
   const { field, setFields } = useOrderFormStoreV3();
   const { setUpdated, updated } = useUpdateFlowStore();
-  const param = useParams();
   const searchParams = useSearchParams();
-  const refUpdatedBaseDapp = React.useRef(false);
   const { setIsFirstLoadTemplateBox } = useStoreFirstLoadTemplateBox();
-  const { l2ServiceUserAddress } = useWeb3Auth();
-  const { initTemplate, setTemplate } = useTemplate();
+  const { setTemplate } = useTemplate();
   const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
+  const { setDraggedFields } = useDragStore();
+  const { setDapps } = useDappsStore();
 
   const { counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
@@ -83,6 +86,21 @@ export default function useFetchingTemplate() {
   const [needSetDataTemplateToBox, setNeedSetDataTemplateToBox] =
     React.useState(false);
   const [needCheckAndAddAA, setNeedCheckAndAddAA] = React.useState(false);
+  const [needSetPreTemplate, setNeedSetPreTemplate] = React.useState(false);
+  const [cleared, setCleared] = React.useState(false);
+
+  console.log('[useFetchingTemplate] cleared', {
+    templateDapps,
+    templateForm,
+    field,
+    nodes,
+    edges,
+    templateIds2DSignal: templateIds2DSignal.value,
+    formTemplateDappSignal: formTemplateDappSignal.value,
+    formDappSignal: formDappSignal.value,
+    draggedDappIndexesSignal: draggedDappIndexesSignal.value,
+    draggedIds2DSignal: draggedIds2DSignal.value,
+  });
 
   const convertData = (data: IModelCategory[]) => {
     const newData = data?.map((item) => {
@@ -105,24 +123,6 @@ export default function useFetchingTemplate() {
   const fetchData = async () => {
     const newFields = cloneDeep(field);
     const categoryMapping: Record<string, IModelCategory> = {};
-    const [categories, templates] = await Promise.all([
-      getModelCategories(l2ServiceUserAddress),
-      // getModelCategories('0x4113ed747047863Ea729f30C1164328D9Cc8CfcF'),
-      getTemplates(),
-    ]);
-
-    // console.log('LOG: data ', {
-    //   l2ServiceUserAddress,
-    //   categories,
-    //   templates,
-    //   templateList,
-    //   templateDefault,
-    //   modelCategoryList,
-    // });
-
-    // Use mockup data
-    // const sortedCategories = (categoriesMockup || []).sort(
-    // Use API
     const sortedCategories = [...modelCategoryList];
 
     sortedCategories.forEach((_field) => {
@@ -139,6 +139,44 @@ export default function useFetchingTemplate() {
     setCategoriesTemplates(templateList);
     setFields(newFields);
     setNeedSetDataTemplateToBox(true);
+    setNeedSetPreTemplate(true);
+  };
+
+  const clear = () => {
+    console.log('[useFetchingTemplate] clear');
+
+    setNodes([]);
+    setEdges([]);
+    setDapps([]);
+    setDraggedFields([]);
+    setFields({});
+    setTemplateDapps([]);
+    setTemplateForm(null);
+
+    templateIds2DSignal.value = [];
+    formTemplateDappSignal.value = {};
+    formDappSignal.value = {};
+    draggedIds2DSignal.value = [];
+    draggedDappIndexesSignal.value = [];
+
+    setNeedSetDataTemplateToBox(false);
+    setCleared(true);
+  };
+
+  const setPreTemplate = () => {
+    if (isUpdateFlow && order) {
+      setTemplate(order.selectedOptions || []);
+    } else {
+      const template = searchParams.get('template');
+
+      if (template || !ENABLE_CHATBOX) {
+        setTemplate(templateDefault || []);
+      } else if (ENABLE_CHATBOX) {
+        setTemplate([]);
+      }
+    }
+
+    setNeedSetPreTemplate(false);
   };
 
   const dataTemplateToBox = async () => {
@@ -372,7 +410,7 @@ export default function useFetchingTemplate() {
     formTemplateDappSignal.value = { ...formDapp };
     // console.log('[...edges, ...edgeData]', [...edges, ...edgeData]);
     // console.log('Nodes', newArray);
-    if (path === '/studio') {
+    if (pathname === '/studio') {
       setEdges([...edgeData]);
     } else {
       setEdges([...edges, ...edgeData]);
@@ -513,14 +551,7 @@ export default function useFetchingTemplate() {
     setNeedCheckAndAddAA(false);
   };
 
-  React.useEffect(() => {
-    fetchData();
-    // parseDappApiToDappModel();
-  }, []);
-
-  React.useEffect(() => {
-    if (!isUpdateFlow) return;
-
+  const refreshAfterGetDapps = () => {
     if (updated) {
       draggedDappIndexesSignal.value = [];
       draggedIds2DSignal.value = [];
@@ -529,33 +560,44 @@ export default function useFetchingTemplate() {
 
     parseDappApiToDappModel();
     setUpdated(false);
-  }, [counterFetchedDapp]);
+  };
 
   React.useEffect(() => {
-    if (!needCheckAndAddAA || !isUpdateFlow) return;
+    clear();
+  }, [pathname]);
+
+  React.useEffect(() => {
+    if (!cleared) return;
+
+    fetchData();
+  }, [cleared]);
+
+  React.useEffect(() => {
+    if (!isUpdateFlow && !cleared) return;
+
+    refreshAfterGetDapps();
+  }, [counterFetchedDapp, cleared]);
+
+  React.useEffect(() => {
+    if (!needCheckAndAddAA || !isUpdateFlow || !cleared) return;
 
     checkAndAddAA();
-  }, [needCheckAndAddAA, isAAInstalled, isUpdateFlow]);
+  }, [needCheckAndAddAA, isAAInstalled, isUpdateFlow, cleared]);
 
   React.useEffect(() => {
-    if (!needSetDataTemplateToBox) return;
+    console.log('[useFetchingTemplate] needSetDataTemplateToBox', {
+      needSetDataTemplateToBox,
+      reseted: cleared,
+    });
+
+    if (!needSetDataTemplateToBox || !cleared) return;
 
     dataTemplateToBox();
-  }, [needSetDataTemplateToBox]);
+  }, [needSetDataTemplateToBox, cleared]);
 
   React.useEffect(() => {
-    if (isUpdateFlow && order) {
-      setTemplate(order.selectedOptions || []);
-    } else {
-      const template = searchParams.get('template');
+    if (!needSetPreTemplate || !cleared) return;
 
-      console.log('template', template, templateDefault);
-
-      if (template || !ENABLE_CHATBOX) {
-        setTemplate(templateDefault || []);
-      } else if (ENABLE_CHATBOX) {
-        setTemplate([]);
-      }
-    }
-  }, [categoriesTemplates, isUpdateFlow, templateDefault]);
+    setPreTemplate();
+  }, [needSetPreTemplate, cleared]);
 }
