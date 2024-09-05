@@ -352,6 +352,9 @@ const useDapps = () => {
       } else if (
         field.type === 'label_value' &&
         field.value !== '' &&
+        field.value !== null &&
+        field.value !== undefined &&
+        field.value !== 'undefined' &&
         field.options.length === 0
       ) {
         return (
