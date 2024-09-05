@@ -7,11 +7,10 @@ import {
 import * as CSS from 'csstype';
 import { ResponsiveValue } from '@chakra-ui/react';
 
-export type GmaeModuleStatus = 'draft' | 'setting_up' | 'running' | 'down';
+export type GameModuleStatus = 'draft' | 'setting_up' | 'running' | 'down';
 
 export const useGameModule = () => {
-  const { order, isUpdateFlow, isBridgeInstalled, isGamingAppsInstalled } =
-    useChainProvider();
+  const { order, isUpdateFlow, isGamingAppsInstalled } = useChainProvider();
 
   const gameDAppsIntalledList = useMemo(() => {
     return order?.dApps?.filter((item) => item.appCode?.includes('game')) || [];
@@ -48,8 +47,8 @@ export const useGameModule = () => {
     return detailGameMapper;
   }, [gameDAppsIntalledList]);
 
-  const bridgeModuleStatus: GmaeModuleStatus = useMemo(() => {
-    if (!isUpdateFlow || !isBridgeInstalled) {
+  const moduleStatus: GameModuleStatus = useMemo(() => {
+    if (!isUpdateFlow || !isGamingAppsInstalled) {
       return 'draft';
     } else {
       if (gameDAppsIntalledList.length < 1) {
@@ -84,9 +83,10 @@ export const useGameModule = () => {
         return 'draft';
       }
     }
-  }, [isUpdateFlow, isBridgeInstalled, gameDAppsIntalledList]);
+  }, [isUpdateFlow, isGamingAppsInstalled, gameDAppsIntalledList]);
 
-  const lineBridgeStatus = bridgeModuleStatus;
+  const lineBridgeStatus = moduleStatus;
+  const lineStatus = moduleStatus;
 
   const statusMapper = useMemo(() => {
     let statusCode = 'draft';
@@ -101,7 +101,7 @@ export const useGameModule = () => {
     fontStyle = 'normal';
     textDecorationLine = 'none';
 
-    switch (bridgeModuleStatus) {
+    switch (moduleStatus) {
       case 'draft':
         //Get above value
         break;
@@ -139,10 +139,10 @@ export const useGameModule = () => {
       fontStyle,
       textDecorationLine,
     };
-  }, [bridgeModuleStatus]);
+  }, [moduleStatus]);
 
   const getGameTypeIcon = (): ModuleTypeIcon => {
-    switch (bridgeModuleStatus) {
+    switch (moduleStatus) {
       case 'draft':
         return 'Drafting';
       case 'setting_up':
@@ -160,9 +160,10 @@ export const useGameModule = () => {
 
   return {
     lineBridgeStatus,
+    lineStatus,
     gameDAppsIntalledList,
     statusMapper,
-    bridgeModuleStatus,
+    moduleStatus,
 
     getGameTypeIconUrl,
     detailGameMapperStatus,
