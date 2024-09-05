@@ -114,6 +114,9 @@ const ReactFlowRenderer = React.memo(() => {
         edges={edges}
         fitViewOptions={{ padding: 1 }}
         className={s.reactFlow}
+        onNodeDrag={(event: React.MouseEvent, node: Node, nodes: Node[])=> {
+          console.log('[ReactFlowRenderer] onNodeDrag', { event, node, nodes });
+        }}
         onNodeDragStop={() => {
           if (!isFirstLoadTemplateBox) return;
           if (path === '/studio') {
