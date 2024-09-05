@@ -5,7 +5,7 @@ export enum ChatBoxStatus {
   Generating = 'Generating...',
   Cancel = 'Esc to cancel',
   Complete = 'Completed',
-  Close = 'Esc to close',
+  Close = '',
 }
 
 interface ChatBoxState {
@@ -14,6 +14,7 @@ interface ChatBoxState {
   isListening: boolean;
   isGenerating: boolean;
   isComplete: boolean;
+  isIdle: boolean;
   isChatboxOpen: boolean;
   status: ChatBoxStatus;
   prepareCategoryTemplate: IModelCategory[];
@@ -39,6 +40,7 @@ interface ChatBoxState {
 const useChatBoxState = create<ChatBoxState>((set) => ({
   messages: [],
   inputMessage: '',
+  isIdle: true,
   isListening: false,
   isGenerating: false,
   isComplete: false,
@@ -47,14 +49,19 @@ const useChatBoxState = create<ChatBoxState>((set) => ({
   prepareCategoryTemplate: [],
   setMessages: (messages) => set({ messages }),
   setInputMessage: (inputMessage) => set({ inputMessage }),
-  setIsListening: (isListening) => set({ isListening }),
-  setIsGenerating: (isGenerating) => set({ isGenerating }),
-  setIsComplete: (isComplete) => set({ isComplete }),
-  setIsChatboxOpen: (isChatboxOpen) => set({ isChatboxOpen }),
+  setIsListening: (isListening) => set({ isListening, isIdle: false }),
+  setIsGenerating: (isGenerating) => set({ isGenerating, isIdle: false }),
+  setIsComplete: (isComplete) => set({ isComplete, isIdle: false }),
+  setIsChatboxOpen: (isChatboxOpen) => set({ isChatboxOpen, isIdle: false }),
   setStatus: (status) => set({ status }),
   setPrepareCategoryTemplate: (prepareCategoryTemplate) =>
-    set({ prepareCategoryTemplate }),
-  setChatBoxStatus: (params: SetChatBoxStatusParams) => set(params),
+    set({ prepareCategoryTemplate, isIdle: false }),
+  setChatBoxStatus: (params: SetChatBoxStatusParams) => {
+    set(params);
+    set({
+      isIdle: !params.isGenerating && !params.isComplete && !params.isListening,
+    });
+  },
 }));
 
 export default useChatBoxState;

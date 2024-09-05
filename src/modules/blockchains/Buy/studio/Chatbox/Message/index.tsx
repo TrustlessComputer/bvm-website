@@ -1,6 +1,7 @@
 import { IModelCategory } from '@/types/customize-model';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Lego from '../../../component4/Lego';
+import useTemplate from '../../../hooks/useTemplate';
 import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
 import styles from './styles.module.scss';
 
@@ -15,6 +16,8 @@ export default function Message({
 }) {
   const { setChatBoxStatus, isGenerating, prepareCategoryTemplate } =
     useChatBoxState((state) => state);
+  const { setTemplate } = useTemplate();
+
   const [isRendered, setIsRendered] = useState(false);
 
   const refRender = useRef<NodeJS.Timeout>();
@@ -68,7 +71,7 @@ export default function Message({
           status:
             prepareCategoryTemplate.length > 0
               ? ChatBoxStatus.Complete
-              : ChatBoxStatus.Cancel,
+              : ChatBoxStatus.Close,
           isGenerating: false,
           isComplete: prepareCategoryTemplate.length > 0,
           isListening: false,
@@ -90,7 +93,7 @@ export default function Message({
   }, [isGenerating]);
 
   return (
-    <div>
+    <div className={styles.message}>
       <div>{displayedMessage}</div>
 
       <div className={styles.categories}>
@@ -115,6 +118,12 @@ export default function Message({
           </div>
         ))}
       </div>
+
+      {isRendered && (
+        <div className={styles.applyBtn} onClick={() => setTemplate(template)}>
+          Apply
+        </div>
+      )}
     </div>
   );
 }
