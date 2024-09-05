@@ -1,10 +1,10 @@
+import { DappType } from '@/modules/blockchains/dapp/types';
 import {
   IToken,
   ITokenVesting,
 } from '@/services/api/dapp/token_generation/interface';
-import { DappType } from '@/modules/blockchains/dapp/types';
-import { formatCurrency } from '@utils/format';
 import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
+import { formatCurrency } from '@utils/format';
 
 export const parseIssuedToken = (token: IToken) => {
   const result = {} as DappModel;
@@ -64,7 +64,7 @@ export const parseIssuedToken = (token: IToken) => {
     {
       key: 'contract_address',
       title: 'Contact Address',
-      type: 'label',
+      type: 'label_value',
       icon: '',
       value: token?.contract_address || '',
       tooltip: '',

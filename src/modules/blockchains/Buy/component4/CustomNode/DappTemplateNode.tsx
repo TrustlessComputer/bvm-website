@@ -7,6 +7,7 @@ import AA from '@/modules/blockchains/Buy/dapp/AA';
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { adjustBrightness, DragUtil } from '@/modules/blockchains/Buy/utils';
+import BottomButton from '@/modules/blockchains/dapp/components/BottomButton';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
 import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
@@ -15,7 +16,6 @@ import React, { memo, ReactElement } from 'react';
 import Label from '../../components3/Label';
 import { useCaptureStore } from '../../stores/index_v3';
 import s from './styles.module.scss';
-import BottomButton from '@/modules/blockchains/dapp/components/BottomButton';
 
 export enum StatusBox {
   DRAFTING = 'Drafting',
@@ -506,7 +506,7 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
       case 'Drafting modules':
       case 'Deposit now':
         return StatusBox.DRAFTING;
-      case  'Ready to launch':
+      case 'Ready to launch':
         return StatusBox.READY;
       case 'Missing fields':
         return StatusBox.MISSING;
@@ -516,7 +516,11 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
   }
 
   return (
-    <div className={`${s.wrapperBox} ${cn(s[`borderColor_${handleColorStatusNode(data.status)}`])}`}>
+    <div
+      className={`${s.wrapperBox} ${cn(
+        s[`borderColor_${handleColorStatusNode(data.status)}`],
+      )}`}
+    >
       <div className={`${s.handles} ${s.target}`}>
         {data.targetHandles?.map((handle) => (
           <Handle
@@ -543,14 +547,16 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
         {
           <div className={s.tag}>
             <p
-              className={`${s.titleTag} ${cn(s[`titleTag_${handleColorStatusNode(data.status)}`])} ${
-                isCapture ? s.label_margin : ''
-              }`}
+              className={`${s.titleTag} ${cn(
+                s[`titleTag_${handleColorStatusNode(data.status)}`],
+              )} ${isCapture ? s.label_margin : ''}`}
             >
               {renderTitleStatus(data.status)}
             </p>
             <div
-              className={`${s.tag_dot}  ${cn(s[`tag_${handleColorStatusNode(data.status)}`])}`}
+              className={`${s.tag_dot}  ${cn(
+                s[`tag_${handleColorStatusNode(data.status)}`],
+              )}`}
             ></div>
           </div>
         }
