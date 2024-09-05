@@ -1,23 +1,32 @@
 'use client';
-import React, { PropsWithChildren, useCallback, useEffect, useState } from 'react';
+import React, { PropsWithChildren, useCallback, useEffect, useMemo, useState } from 'react';
 import { FeesMempoolBlocks, IBlock, IConfirmedBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
 import CMemPoolAPI from '@/services/api/heartbeats/mempool';
 import uniqBy from 'lodash/uniqBy';
+import { mapConfirmedBlockToBlock, mapPendingBlockToBlock } from '@/modules/l2-rollup-detail/MemPool/utils';
+import dayjs from 'dayjs';
+import { compareString } from '@utils/string';
 
 export interface IMemPoolContext {
-  selectedBlock: IBlock | undefined;
-  setSelectedBlock: any;
-  pendingBlocks: FeesMempoolBlocks[];
-  confirmedBlocks: IConfirmedBlock[];
+  selectedBlock?: IBlock;
+  pendingBlocks: IBlock[];
+  confirmedBlocks: IBlock[];
   fetchConfirmedBlocks: any;
+  idSelectedPendingBlock: string;
+  setIdSelectedPendingBlock: any;
+  idSelectedConfirmedBlock: string;
+  setIdSelectedConfirmedBlock: any;
 }
 
 const initialValue: IMemPoolContext = {
   selectedBlock: undefined,
-  setSelectedBlock: () => {},
   pendingBlocks: [],
   confirmedBlocks: [],
   fetchConfirmedBlocks: () => {},
+  idSelectedPendingBlock: '',
+  setIdSelectedPendingBlock: () => {},
+  idSelectedConfirmedBlock: '',
+  setIdSelectedConfirmedBlock: () => {},
 };
 
 export const MemPoolContext =
@@ -28,28 +37,41 @@ export const MemPoolProvider: React.FC<PropsWithChildren> = ({
 }: PropsWithChildren): React.ReactElement => {
   const memPoolApi = new CMemPoolAPI();
 
-  const [selectedBlock, setSelectedBlock] = useState<IBlock | undefined>(undefined);
-  const [pendingBlocks, setPendingBlocks] = useState<FeesMempoolBlocks[]>([]);
-  const [confirmedBlocks, setConfirmedBlocks] = useState<IConfirmedBlock[]>([]);
+  const [pendingBlocks, setPendingBlocks] = useState<IBlock[]>([]);
+  const [confirmedBlocks, setConfirmedBlocks] = useState<IBlock[]>([]);
 
   const [isLoadingConfirmedBlock, setIsLoadingConfirmedBlocks] = useState(false);
+  const [memPoolData, setMemPoolData] = useState(null);
+  const [idSelectedPendingBlock, setIdSelectedPendingBlock] = useState('');
+  const [idSelectedConfirmedBlock, setIdSelectedConfirmedBlock] = useState('');
+
+  const selectedBlock = useMemo(() => {
+    if(idSelectedPendingBlock !== '') {
+      return pendingBlocks.find(block => compareString(block.id, idSelectedPendingBlock));
+    }
+
+    if(idSelectedConfirmedBlock !== '') {
+      return confirmedBlocks.find(block => compareString(block.id, idSelectedConfirmedBlock));
+    }
+
+    return undefined;
+  }, [idSelectedPendingBlock, idSelectedConfirmedBlock, pendingBlocks]);
 
   useEffect(() => {
     fetchPendingBlocks();
     fetchConfirmedBlocks();
-    const interval = setInterval(() => {
-      fetchPendingBlocks();
-      // fetchConfirmedBlocks();
-    }, 60000);
-    return () => {
-      clearInterval(interval);
-    }
   }, []);
 
   const fetchPendingBlocks = async () => {
     try {
-      const res = await memPoolApi.getPendingBlocks();
-      setPendingBlocks(res);
+      const res = (await memPoolApi.getPendingBlocks()) as FeesMempoolBlocks[];
+      const data = res.map((block:FeesMempoolBlocks, i) => {
+        const now = dayjs();
+        const timestamp = now.add( (i + 1) * 10, 'minutes').unix();
+        return mapPendingBlockToBlock(block, i.toString(), timestamp);
+      }).reverse();
+
+      setPendingBlocks(data);
     } catch (e) {}
   }
 
@@ -62,14 +84,19 @@ export const MemPoolProvider: React.FC<PropsWithChildren> = ({
       setIsLoadingConfirmedBlocks(true);
       let blockNumber = '';
       if(loadMore) {
-        const lastBlock: IConfirmedBlock = confirmedBlocks[confirmedBlocks.length - 1];
-        blockNumber = lastBlock.height.toString();
+        const lastBlock: IBlock = confirmedBlocks[confirmedBlocks.length - 1];
+        blockNumber = (lastBlock.height as number).toString();
       }
-      let res = await memPoolApi.getConfirmedBlocks(blockNumber);
-      res = loadMore ? [...confirmedBlocks, ...res] : res;
-      res = uniqBy(res, (block: IConfirmedBlock) => block.height);
 
-      setConfirmedBlocks(res);
+      const res = (await memPoolApi.getConfirmedBlocks(blockNumber)) as IConfirmedBlock[];
+      let data = res?.map(block => {
+        return mapConfirmedBlockToBlock(block);
+      })
+
+      data = loadMore ? [...confirmedBlocks, ...data] : data;
+      data = uniqBy(data, (block: IBlock) => block.height);
+
+      setConfirmedBlocks(data);
     } catch (e) {
       console.log('fetchConfirmedBlocks eeee', e);
     } finally {
@@ -77,20 +104,85 @@ export const MemPoolProvider: React.FC<PropsWithChildren> = ({
     }
   }, [confirmedBlocks, isLoadingConfirmedBlock]);
 
+  useEffect(() => {
+    let ws: WebSocket;
+
+    const connectWebSocket = () => {
+      ws = new WebSocket('wss://mempool.space/api/v1/ws');
+
+      ws.onopen = () => {
+        console.log('WebSocket connection opened');
+        ws.send(
+          JSON.stringify({
+            action: 'init',
+            data: 'blocks',
+          })
+        );
+      };
+
+      ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        setMemPoolData(data);
+        console.log('Received data:', data);
+      };
+
+      ws.onerror = (error) => {
+        console.error('WebSocket error:', error);
+      };
+
+      ws.onclose = () => {
+        console.log('WebSocket closed. Reconnecting...');
+        setTimeout(connectWebSocket, 5000); // Try to reconnect after 5 seconds
+      };
+    };
+
+    connectWebSocket();
+
+    return () => {
+      if (ws) ws.close();
+    };
+  }, []);
+
+  useEffect(() => {
+    if(memPoolData) {
+      if(memPoolData['mempool-blocks']) {
+        const res = memPoolData['mempool-blocks'] as FeesMempoolBlocks[];
+        console.log('bbbb', res);
+        const data = res.map((block:FeesMempoolBlocks, i) => {
+          const now = dayjs();
+          const timestamp = now.add( (i + 1) * 10, 'minutes').unix();
+          return mapPendingBlockToBlock(block, i.toString(), timestamp);
+        }).reverse();
+        setPendingBlocks(data);
+      }
+
+      if(memPoolData['blocks']) {
+        // console.log('data[\'blocks\']', data['blocks']);
+        // setPendingBlocks(data['mempool-blocks']);
+      }
+    }
+  }, [memPoolData]);
+
   const contextValues = React.useMemo((): IMemPoolContext => {
     return {
       selectedBlock,
-      setSelectedBlock,
       pendingBlocks,
       confirmedBlocks,
       fetchConfirmedBlocks,
+      idSelectedPendingBlock,
+      setIdSelectedPendingBlock,
+      idSelectedConfirmedBlock,
+      setIdSelectedConfirmedBlock
     };
   }, [
     selectedBlock,
-    setSelectedBlock,
     pendingBlocks,
     confirmedBlocks,
-    fetchConfirmedBlocks
+    fetchConfirmedBlocks,
+    idSelectedPendingBlock,
+    setIdSelectedPendingBlock,
+    idSelectedConfirmedBlock,
+    setIdSelectedConfirmedBlock
   ]);
 
   return (

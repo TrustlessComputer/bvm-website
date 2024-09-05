@@ -17,6 +17,7 @@ interface IProps {
   loading: boolean;
   isPending?: boolean;
   index?: number;
+  onSelect: any;
 }
 
 const BlockItem: React.FC<IProps> = ({
@@ -24,8 +25,9 @@ const BlockItem: React.FC<IProps> = ({
                                                  loading,
                                                  index,
                                                  isPending,
+                                                  onSelect
                                                }) => {
-  const { setSelectedBlock, selectedBlock } = useContext(MemPoolContext);
+  const { selectedBlock } = useContext(MemPoolContext);
   const [poolImgUrl, setPoolImgUrl] = useState('');
 
   const status = useMemo(() => {
@@ -41,7 +43,7 @@ const BlockItem: React.FC<IProps> = ({
 
   const isSelected = useMemo(() => {
     return compareString(item?.id, selectedBlock?.id);
-  }, [item, selectedBlock])
+  }, [item, selectedBlock]);
 
   if (loading) {
     return (
@@ -51,12 +53,8 @@ const BlockItem: React.FC<IProps> = ({
     );
   }
 
-  const onSelectBlock = () => {
-    setSelectedBlock(item);
-  }
-
   useEffect(() => {
-    if(item && (item?.data as IConfirmedBlock).extras) {
+    if(item && (item?.data as IConfirmedBlock)?.extras) {
       setPoolImgUrl(`https://mempool.space/resources/mining-pools/${(item?.data as IConfirmedBlock).extras.pool.slug}.svg`);
     }
   }, [item]);
@@ -66,7 +64,7 @@ const BlockItem: React.FC<IProps> = ({
   }
 
   return (
-    <Box className={cs(s.container, status)} onClick={onSelectBlock}>
+    <Box className={cs(s.container, status)} onClick={() => onSelect(item)}>
       {item ? (
         <>
           {item.height && <Text className={s.blockHeight}>{item.height}</Text>}

@@ -15,13 +15,14 @@ import { compareString } from '@utils/string';
 import { MemPoolContext } from '@/modules/l2-rollup-detail/MemPool/provider/mempool-context';
 
 const BlockDetail = () => {
-  const { selectedBlock, setSelectedBlock } = useContext(MemPoolContext);
+  const { selectedBlock, setIdSelectedPendingBlock, setIdSelectedConfirmedBlock } = useContext(MemPoolContext);
   const coinPrices = useSelector(commonSelector).coinPrices;
   const btcPrice = useMemo(() => coinPrices?.['BTC'] || '0', [coinPrices]);
   const [poolImgUrl, setPoolImgUrl] = useState('');
 
   const onSelectBlock = () => {
-    setSelectedBlock(undefined);
+    setIdSelectedPendingBlock('');
+    setIdSelectedConfirmedBlock('');
   }
 
   const isPending = useMemo(() => {
