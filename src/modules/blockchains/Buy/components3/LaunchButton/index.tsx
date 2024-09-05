@@ -388,7 +388,12 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     });
 
     // console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
-    // console.log('LEON LOG: 111', tokensForms);
+    console.log('LEON LOG: 111', {
+      stakingForms,
+      yoloGameForms,
+      airdropForms,
+      tokensForms
+    });
     let isConfigDapp = false;
 
     try {
