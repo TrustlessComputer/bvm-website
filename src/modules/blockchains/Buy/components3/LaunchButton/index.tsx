@@ -403,7 +403,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       if (result) {
         //Config Account Abstraction...
         configAccountAbstraction(dynamicForm);
-        let isConfigDapp = false;
         if (yoloGameForms && yoloGameForms.length > 0) {
           await onSubmitYoloGame({
             forms: yoloGameForms,
@@ -480,8 +479,9 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       if (isConfigDapp) {
         console.log('[LaunchButton] refresh dapp data');
         setTimeout(() => {
-          dispatch(requestReload());
-          setUpdated(true);
+          // dispatch(requestReload());
+          // setUpdated(true);
+          window.location.reload();
         }, 1000);
       }
       getOrderDetailByID(orderDetail.orderId);
