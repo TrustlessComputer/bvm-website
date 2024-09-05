@@ -3,12 +3,12 @@ import cs from 'classnames';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import s from './styles.module.scss';
 import { IBlock, IConfirmedBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
-import { L2RollupDetailContext } from '@/modules/l2-rollup-detail/providers/l2-rollup-detail-context';
 import { formatCurrency } from '@utils/format';
 import BigNumberJS from 'bignumber.js';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
 import { compareString } from '@utils/string';
+import { MemPoolContext } from '@/modules/l2-rollup-detail/MemPool/provider/mempool-context';
 
 dayjs.extend(relativeTime);
 
@@ -25,7 +25,7 @@ const BlockItem: React.FC<IProps> = ({
                                                  index,
                                                  isPending,
                                                }) => {
-  const { setSelectedBlock, selectedBlock } = useContext(L2RollupDetailContext);
+  const { setSelectedBlock, selectedBlock } = useContext(MemPoolContext);
   const [poolImgUrl, setPoolImgUrl] = useState('');
 
   const status = useMemo(() => {

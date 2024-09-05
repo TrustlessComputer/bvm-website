@@ -6,16 +6,13 @@ import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import { IBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
 import BlockItem from 'src/modules/l2-rollup-detail/MemPool/BlockItem';
-import {
-  L2RollupDetailContext,
-  L2RollupDetailProvider,
-} from '@/modules/l2-rollup-detail/providers/l2-rollup-detail-context';
 import BlockDetail from '@/modules/l2-rollup-detail/MemPool/BlockDetail';
 import dayjs from 'dayjs';
 import Loading from '@components/Loading';
+import { MemPoolContext, MemPoolProvider } from '@/modules/l2-rollup-detail/MemPool/provider/mempool-context';
 
 const MemPool = () => {
-  const { selectedBlock, setSelectedBlock, pendingBlocks, confirmedBlocks, fetchConfirmedBlocks } = useContext(L2RollupDetailContext);
+  const { selectedBlock, setSelectedBlock, pendingBlocks, confirmedBlocks, fetchConfirmedBlocks } = useContext(MemPoolContext);
   const scrollRef = useRef(null);
   const [loadMore, setLoadMore] = useState(false);
 
@@ -159,9 +156,9 @@ const MemPool = () => {
 
 const MemPoolModule = () => {
   return (
-    <L2RollupDetailProvider>
+    <MemPoolProvider>
       <MemPool />
-    </L2RollupDetailProvider>
+    </MemPoolProvider>
   )
 }
 
