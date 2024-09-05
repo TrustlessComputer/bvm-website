@@ -48,7 +48,7 @@ function useDynamicEdges() {
           .icon,
         animated: handleStatusEdges('', lineAAStatus, node.id)
           .animate,
-        markerEnd: {
+        markerStart: {
           type: MarkerType.Arrow,
           width: 25,
           height: 25,
