@@ -18,12 +18,13 @@ import {
   draggedIds2DSignal,
   restoreLocal,
 } from '../../signals/useDragSignal';
-import useFlowStore from '../../stores/useFlowStore';
+import useFlowStore, { AppNode } from '../../stores/useFlowStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import s from './styles.module.scss';
 import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
 import GamingAppsNode from '../../component4/YourNodes/GamingAppsNode';
+import useDynamicEdges from '@/modules/blockchains/Buy/hooks/useDynamicEdges';
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
@@ -39,6 +40,7 @@ const ReactFlowRenderer = React.memo(() => {
   const [count, setCount] = React.useState(0);
   const path = usePathname();
   const { categories } = useModelCategoriesStore();
+  const { handleGetPositionNode } = useDynamicEdges()
   const searchParamm = useSearchParams();
 
   const [loaded, setLoaded] = React.useState(false);
@@ -114,10 +116,11 @@ const ReactFlowRenderer = React.memo(() => {
         edges={edges}
         fitViewOptions={{ padding: 1 }}
         className={s.reactFlow}
-        onNodeDrag={(event: React.MouseEvent, node: Node, nodes: Node[])=> {
-          console.log('[ReactFlowRenderer] onNodeDrag', { event, node, nodes });
-        }}
-        onNodeDragStop={() => {
+        // onNodeDrag={(event: React.MouseEvent, node: AppNode)=> {
+        //   console.log('[ReactFlowRenderer] onNodeDrag', { event, node, nodes });
+        // }}
+        onNodeDragStop={(event: React.MouseEvent, node: AppNode) => {
+          handleGetPositionNode(node);
           if (!isFirstLoadTemplateBox) return;
           if (path === '/studio') {
             onSave();
