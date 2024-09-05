@@ -13,9 +13,7 @@ import { compareString } from '@/utils/string';
 import { validateEVMAddress } from '@/utils/validate';
 import BigNumber from 'bignumber.js';
 import { useParams } from 'next/navigation';
-import React, { PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { FeesMempoolBlocks, IBlock, IConfirmedBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
-import CMemPoolAPI from '@/services/api/heartbeats/mempool';
+import React, { PropsWithChildren, useEffect, useMemo, useRef, useState } from 'react';
 import uniqBy from 'lodash/uniqBy';
 import { isValidBTCTxHash, isValidERC20TxHash } from '@/utils/form-validate';
 
@@ -36,11 +34,6 @@ export interface IL2RollupDetailContext {
   balanceBitcoinInfo?: IBalanceBitcoinInfo;
   totalBitcoinBalanceUsd?: number;
   rollupBitcoinBalances?: any[];
-  selectedBlock: IBlock | undefined;
-  setSelectedBlock: any;
-  pendingBlocks: FeesMempoolBlocks[];
-  confirmedBlocks: IConfirmedBlock[];
-  fetchConfirmedBlocks: any;
 }
 
 const initialValue: IL2RollupDetailContext = {
@@ -60,11 +53,6 @@ const initialValue: IL2RollupDetailContext = {
   balanceBitcoinInfo: undefined,
   totalBitcoinBalanceUsd: 0,
   rollupBitcoinBalances: [],
-  selectedBlock: undefined,
-  setSelectedBlock: () => {},
-  pendingBlocks: [],
-  confirmedBlocks: [],
-  fetchConfirmedBlocks: () => {},
 };
 
 export const L2RollupDetailContext =
@@ -79,7 +67,6 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
 
   const rollupApi = new CRollupL2DetailAPI();
   const rollupBitcoinApi = new CRollupL2DetailBitcoinAPI();
-  const memPoolApi = new CMemPoolAPI();
 
   const isEVMAddress = useMemo(() => validateEVMAddress(address), [address]);
   const isBTCAddress = useMemo(() => validateBTCAddress(address), [address]);
@@ -96,9 +83,6 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
 
   const [rollupTokensRate, setRollupTokensRate] = useState<RollupTokenRate>();
   const [rollupDetails, setRollupDetails] = useState<IRollupDetail[]>([]);
-  const [selectedBlock, setSelectedBlock] = useState<IBlock | undefined>(undefined);
-  const [pendingBlocks, setPendingBlocks] = useState<FeesMempoolBlocks[]>([]);
-  const [confirmedBlocks, setConfirmedBlocks] = useState<IConfirmedBlock[]>([]);
 
   const [aiSummary, setAiSummary] = useState('');
   const [isLoadingAI, setIsLoadingAI] = useState(false);
@@ -176,16 +160,6 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
 
   useEffect(() => {
     fetchTokensRate();
-
-    fetchPendingBlocks();
-    fetchConfirmedBlocks();
-    const interval = setInterval(() => {
-      fetchPendingBlocks();
-      // fetchConfirmedBlocks();
-    }, 60000);
-    return () => {
-      clearInterval(interval);
-    }
   }, []);
 
   useEffect(() => {
@@ -239,37 +213,6 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
       setIsLoadingAI(false);
     }
   };
-
-  const fetchPendingBlocks = async () => {
-    try {
-      const res = await memPoolApi.getPendingBlocks();
-      setPendingBlocks(res);
-    } catch (e) {}
-  }
-
-  const fetchConfirmedBlocks = useCallback(async (loadMore?: boolean) => {
-    try {
-      if(isLoadingConfirmedBlock) {
-        return;
-      }
-
-      setIsLoadingConfirmedBlocks(true);
-      let blockNumber = '';
-      if(loadMore) {
-        const lastBlock: IConfirmedBlock = confirmedBlocks[confirmedBlocks.length - 1];
-        blockNumber = lastBlock.height.toString();
-      }
-      let res = await memPoolApi.getConfirmedBlocks(blockNumber);
-      res = loadMore ? [...confirmedBlocks, ...res] : res;
-      res = uniqBy(res, (block: IConfirmedBlock) => block.height);
-
-      setConfirmedBlocks(res);
-    } catch (e) {
-      console.log('fetchConfirmedBlocks eeee', e);
-    } finally {
-      setIsLoadingConfirmedBlocks(false);
-    }
-  }, [confirmedBlocks, isLoadingConfirmedBlock]);
 
   const fetchTokensRate = async () => {
     try {
@@ -450,11 +393,6 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
       rollupBitcoinBalances,
       isBTCTxAddress,
       isERC20TxAddress,
-      selectedBlock,
-      setSelectedBlock,
-      pendingBlocks,
-      confirmedBlocks,
-      fetchConfirmedBlocks,
     };
   }, [
     address,
@@ -472,11 +410,6 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
     rollupBitcoinBalances,
     isBTCTxAddress,
     isERC20TxAddress,
-    selectedBlock,
-    setSelectedBlock,
-    pendingBlocks,
-    confirmedBlocks,
-    fetchConfirmedBlocks
   ]);
 
   return (
