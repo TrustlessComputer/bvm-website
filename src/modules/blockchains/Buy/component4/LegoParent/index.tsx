@@ -167,7 +167,7 @@ const LegoParent = ({
               {label.title}
             </div>
 
-            {label.status === 'deployed' && (
+            {(label.status === 'deployed' || (dapp?.key === DappType.yologame && label?.actionID)) && (
               <span onClick={() => handleLabelClick()} className={styles.view}>
                 View
               </span>
