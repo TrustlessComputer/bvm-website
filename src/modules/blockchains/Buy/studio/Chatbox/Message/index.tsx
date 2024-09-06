@@ -6,12 +6,14 @@ import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
 import styles from './styles.module.scss';
 
 export default function Message({
-  message,
+  beforeJSON,
   template,
+  afterJSON,
   onUpdateScroll,
 }: {
-  message: string;
+  beforeJSON: string;
   template: IModelCategory[];
+  afterJSON: string;
   onUpdateScroll: () => void;
 }) {
   const { setChatBoxStatus, isGenerating, prepareCategoryTemplate } =
@@ -21,23 +23,26 @@ export default function Message({
   const [isRendered, setIsRendered] = useState(false);
 
   const refRender = useRef<NodeJS.Timeout>();
-  const [displayedMessage, setDisplayedMessage] = useState<string>('');
+  const [displayedBeforeJSON, setDisplayedBeforeJSON] = useState<string>('');
+  const [displayedAfterJSON, setDisplayedAfterJSON] = useState<string>('');
   const [displayedTemplate, setDisplayedTemplate] = useState<typeof template>(
     [],
   );
 
-  const refTextRender = useRef<string>('');
+  const refBeforeJSONRender = useRef<string>('');
+  const refAfterJSONRender = useRef<string>('');
 
   const animateMessage = useCallback(() => {
-    let messageIndex = 0;
+    let beforeJSONIndex = 0;
+    let afterJSONIndex = 0;
     let templateIndex = 0;
     let optionIndex = 0;
 
     refRender.current = setInterval(() => {
-      if (messageIndex < message.length) {
-        refTextRender.current += message[messageIndex];
-        setDisplayedMessage(refTextRender.current);
-        messageIndex++;
+      if (beforeJSONIndex < beforeJSON.length) {
+        refBeforeJSONRender.current += beforeJSON[beforeJSONIndex];
+        setDisplayedBeforeJSON(refBeforeJSONRender.current);
+        beforeJSONIndex++;
       } else if (templateIndex < template.length) {
         const currentTemplate = template[templateIndex];
 
@@ -64,6 +69,10 @@ export default function Message({
           templateIndex++;
           optionIndex = 0;
         }
+      } else if (afterJSONIndex < afterJSON.length) {
+        refAfterJSONRender.current += afterJSON[afterJSONIndex];
+        setDisplayedAfterJSON(refAfterJSONRender.current);
+        afterJSONIndex++;
       } else {
         refRender.current && clearInterval(refRender.current);
         setIsRendered(true);
@@ -79,7 +88,7 @@ export default function Message({
       }
       onUpdateScroll();
     }, 30);
-  }, [message, template]);
+  }, [beforeJSON, template, afterJSON]);
 
   useEffect(() => {
     if (isRendered) return;
@@ -94,7 +103,7 @@ export default function Message({
 
   return (
     <div className={styles.message}>
-      <div>{displayedMessage}</div>
+      <div>{displayedBeforeJSON}</div>
 
       <div className={styles.categories}>
         {displayedTemplate.map((item) => (
@@ -118,6 +127,8 @@ export default function Message({
           </div>
         ))}
       </div>
+
+      <div>{displayedAfterJSON}</div>
 
       {isRendered && (
         <div className={styles.applyBtn} onClick={() => setTemplate(template)}>
