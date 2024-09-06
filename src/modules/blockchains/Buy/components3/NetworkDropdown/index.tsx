@@ -73,6 +73,12 @@ const NetworkDropdown = ({}: Props) => {
     setIsOpenDropdown(false);
   };
 
+  const handleOpenDropdown = () => {
+    if (isUpdateFlow) return;
+
+    setIsOpenDropdown(!isOpenDropdown);
+  };
+
   const _icon = React.useMemo(
     () => getIcon(currentValue?.icon),
     [currentValue?.icon],
@@ -100,7 +106,7 @@ const NetworkDropdown = ({}: Props) => {
       <div className={styles.dropdown__inner}>
         <div
           className={styles.dropdown__inner__content}
-          onClick={() => setIsOpenDropdown(!isOpenDropdown)}
+          onClick={() => handleOpenDropdown()}
         >
           {_icon && <Image src={_icon} width={16} height={16} alt="icon" />}
 
