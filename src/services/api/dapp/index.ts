@@ -55,7 +55,10 @@ class CDappAPI {
   }) => {
     try {
 
-      const mockupApp = dappMockupData.find((item) => item?.key === params.appName);
+      // token_generation
+      const mockupApp = dappMockupData.find((item) => (
+        item?.key === params.appName || (params.appName === 'create_token' && item?.key === DappType.token_generation)
+      ));
       if (mockupApp) {
         return JSON.stringify(mockupApp);
       }
