@@ -16,7 +16,7 @@ import {
 } from '../mockup_3';
 import {
   draggedDappIndexesSignal,
-  draggedIds2DSignal
+  draggedIds2DSignal,
 } from '../signals/useDragSignal';
 import useDappsStore from '../stores/useDappStore';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';

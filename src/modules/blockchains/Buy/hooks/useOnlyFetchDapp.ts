@@ -38,6 +38,8 @@ const useOnlyFetchDapp = () => {
 
     _dapps.push(...otherDapps);
 
+    console.log('[useOnlyFetchDapp] dapps', _dapps);
+
     const sortedDapps = _dapps.sort((a, b) => a.order - b.order);
 
     setDapps(preDataAirdropTask(sortedDapps, tokens, airdropTasks));

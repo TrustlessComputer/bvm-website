@@ -493,17 +493,22 @@ export default function useFetchingTemplate() {
     const newDraggedDappIndexes = [];
 
     if (isAAInstalled) {
-      newDraggedDappIndexes.push(0);
+      const dappIndex = dapps.findIndex(
+        (dapp) => dapp.key === 'account_abstraction',
+      );
+      newDraggedDappIndexes.push(dappIndex);
       newDraggedIds2D.push([]);
     }
 
     if (isBridgeInstalled) {
-      newDraggedDappIndexes.push(1);
+      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'bridge_apps');
+      newDraggedDappIndexes.push(dappIndex);
       newDraggedIds2D.push([]);
     }
 
     if (isGamingAppsInstalled) {
-      newDraggedDappIndexes.push(2);
+      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'gaming_apps');
+      newDraggedDappIndexes.push(dappIndex);
       newDraggedIds2D.push([]);
     }
 
