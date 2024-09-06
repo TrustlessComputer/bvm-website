@@ -25,3 +25,13 @@ export const promptCategoryToModelCategory = (
     ),
   };
 };
+
+export function parseAPIData(textResponse: string) {
+  const codeBlockRegex = /```(?:json)?([\s\S]*?)```/g;
+  const res = textResponse.match(codeBlockRegex);
+  console.log('res', res);
+  if (res && res.length > 0) {
+    console.log('dataAI', res[0]);
+  }
+
+}

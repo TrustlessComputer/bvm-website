@@ -7,6 +7,8 @@ import useChatBoxService from './hooks/useChatBoxService';
 import Message from './Message';
 import styles from './styles.module.scss';
 import TextInput from './TextInput';
+import { parseAPIData } from '@/modules/blockchains/Buy/studio/Chatbox/utils/convertApiUtils';
+import { mockupPromptResponsesV2 } from '@/modules/blockchains/Buy/studio/Chatbox/mockup/promtResponse';
 
 export default function Chatbox() {
   const {
@@ -34,6 +36,8 @@ export default function Chatbox() {
   };
 
   const handleSendMessage = () => {
+    const test = parseAPIData(mockupPromptResponsesV2[0]);
+    console.log('[handleSendMessage] test', test);
     if (inputMessage.trim() !== '') {
       setMessages([
         ...messages,
