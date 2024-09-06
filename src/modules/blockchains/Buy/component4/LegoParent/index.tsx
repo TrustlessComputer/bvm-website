@@ -58,9 +58,7 @@ const LegoParent = ({
         return;
       }
       case DappType.staking: {
-        window.open(
-          `${dappState?.chain?.dappURL || ''}/apps/staking`,
-        );
+        window.open(`${dappState?.chain?.dappURL || ''}/apps/staking`);
         return;
       }
       case DappType.yologame: {
@@ -167,11 +165,9 @@ const LegoParent = ({
               {label.title}
             </div>
 
-            {label.status === 'deployed' && (
-              <span onClick={() => handleLabelClick()} className={styles.view}>
-                View
-              </span>
-            )}
+            <span onClick={() => handleLabelClick()} className={styles.view}>
+              View
+            </span>
           </>
         )}
       </div>
