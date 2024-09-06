@@ -27,26 +27,42 @@ const useOnlyFetchDapp = () => {
   const { configs, tokens, airdropTasks, tokensAll } = dappState;
 
   const configsMapping = React.useMemo(() => {
+    const _tokens = orderBy(tokensAll?.filter(token => token?.symbol && token.contract_address), token => token?.is_native, 'desc').map(token => ({
+      key: token.contract_address || '',
+      title: token?.symbol || '',
+      value: token.contract_address || '', // contract_address
+      icon: token.image_url, // image_url
+      tooltip: '',
+      type: '',
+      options: [],
+      selectable: true,
+    }));
     return configs?.map(config => {
       switch (config.key) {
         case DappType.staking: {
-          const _tokens = orderBy(tokensAll?.filter(token => token?.symbol && token.contract_address), token => token?.is_native, 'desc').map(token => ({
-            key: token.contract_address || '',
-            title: token?.symbol || '',
-            value: token.contract_address || '', // contract_address
-            icon: token.image_url, // image_url
-            tooltip: '',
-            type: '',
-            options: [],
-            selectable: true,
-          }));
-
           return {
             ...config,
             baseBlock: {
               ...config.baseBlock,
               fields: config.baseBlock.fields.map(field => {
                 if (field.key === 'staking_token' || field.key === 'reward_token') {
+                  return {
+                    ...field,
+                    options: _tokens
+                  }
+                }
+                return field;
+              })
+            }
+          }
+        }
+        case DappType.airdrop: {
+          return {
+            ...config,
+            baseBlock: {
+              ...config.baseBlock,
+              fields: config.baseBlock.fields.map(field => {
+                if (field.key === 'reward_token') {
                   return {
                     ...field,
                     options: _tokens
