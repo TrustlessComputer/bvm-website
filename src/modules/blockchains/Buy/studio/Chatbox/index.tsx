@@ -7,6 +7,7 @@ import useChatBoxService from './hooks/useChatBoxService';
 import Message from './Message';
 import styles from './styles.module.scss';
 import TextInput from './TextInput';
+import { useParseMessage } from './hooks/usePasrMessage';
 
 export default function Chatbox() {
   const {
@@ -64,7 +65,8 @@ export default function Chatbox() {
                   {message.sender === 'bot' ? (
                     <Message
                       key={message.text}
-                      message={message.text}
+                      beforeJSON={useParseMessage(message.text)[0]}
+                      afterJSON={useParseMessage(message.text)[2]}
                       template={message.template}
                       onUpdateScroll={focusChatBox}
                     />
