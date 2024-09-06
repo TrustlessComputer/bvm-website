@@ -20,7 +20,7 @@ import styles from './styles.module.scss';
 
 type Props = {};
 
-const hiddenFields = ['bridge_apps', 'network', 'gaming_apps'];
+const hiddenFields = ['network', 'gaming_apps'];
 
 const ChainRenderer = () => {
   const { parsedCategories } = useModelCategoriesStore();
@@ -83,7 +83,7 @@ const ChainRenderer = () => {
               <ChainDraggable
                 right
                 key={item.key + '-' + option.key}
-                id={item.key + '-' + option.key}
+                id={item.key + '-' + option.key + '-right' + '-chain'}
                 useMask
                 tooltip={item.tooltip}
                 value={{
@@ -113,7 +113,7 @@ const ChainRenderer = () => {
           return (
             <ChainDraggable
               key={item.key + '-parent' + '-right'}
-              id={item.key + '-parent' + '-right'}
+              id={item.key + '-parent' + '-right' + '-chain'}
               useMask
               value={{
                 isChain: true,
