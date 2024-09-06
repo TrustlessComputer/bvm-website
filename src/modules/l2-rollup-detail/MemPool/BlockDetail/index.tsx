@@ -2,7 +2,6 @@ import { Box, Flex, Image, SimpleGrid, Table, Tbody, Td, Text, Tr } from '@chakr
 import s from './styles.module.scss';
 import SvgInset from '@components/SvgInset';
 import { useContext, useEffect, useMemo, useState } from 'react';
-import { L2RollupDetailContext } from '@/modules/l2-rollup-detail/providers/l2-rollup-detail-context';
 import copy from 'copy-to-clipboard';
 import { toast } from 'react-hot-toast';
 import { formatCurrency } from '@utils/format';
@@ -13,15 +12,17 @@ import { IConfirmedBlock } from '@/modules/l2-rollup-detail/MemPool/interface';
 import dayjs from 'dayjs';
 import { shortCryptoAddress } from '@utils/address';
 import { compareString } from '@utils/string';
+import { MemPoolContext } from '@/modules/l2-rollup-detail/MemPool/provider/mempool-context';
 
 const BlockDetail = () => {
-  const { selectedBlock, setSelectedBlock } = useContext(L2RollupDetailContext);
+  const { selectedBlock, setIdSelectedPendingBlock, setIdSelectedConfirmedBlock } = useContext(MemPoolContext);
   const coinPrices = useSelector(commonSelector).coinPrices;
   const btcPrice = useMemo(() => coinPrices?.['BTC'] || '0', [coinPrices]);
   const [poolImgUrl, setPoolImgUrl] = useState('');
 
   const onSelectBlock = () => {
-    setSelectedBlock(undefined);
+    setIdSelectedPendingBlock('');
+    setIdSelectedConfirmedBlock('');
   }
 
   const isPending = useMemo(() => {
@@ -44,7 +45,7 @@ const BlockDetail = () => {
   }, [selectedBlock?.totalFees, btcPrice]);
 
   const rewardUsd = useMemo(() => {
-    if((selectedBlock?.data as IConfirmedBlock).extras) {
+    if((selectedBlock?.data as IConfirmedBlock)?.extras) {
       return new BigNumberJS(btcPrice || 0)
         .multipliedBy((selectedBlock?.data as IConfirmedBlock).extras?.reward)
         .dividedBy(1e8)
@@ -52,7 +53,7 @@ const BlockDetail = () => {
     }
 
     return '0';
-  }, [(selectedBlock?.data as IConfirmedBlock).extras, btcPrice]);
+  }, [(selectedBlock?.data as IConfirmedBlock)?.extras, btcPrice]);
 
   const blockTitle = useMemo(() => {
     if(isPending) {
@@ -69,7 +70,7 @@ const BlockDetail = () => {
   }, [selectedBlock, isPending]);
 
   useEffect(() => {
-    if((selectedBlock?.data as IConfirmedBlock).extras) {
+    if((selectedBlock?.data as IConfirmedBlock)?.extras) {
       setPoolImgUrl(`https://mempool.space/resources/mining-pools/${(selectedBlock?.data as IConfirmedBlock).extras.pool.slug}.svg`);
     }
   }, [selectedBlock]);
