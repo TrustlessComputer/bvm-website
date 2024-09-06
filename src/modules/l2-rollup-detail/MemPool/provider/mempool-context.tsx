@@ -110,12 +110,29 @@ export const MemPoolProvider: React.FC<PropsWithChildren> = ({
 
   useEffect(() => {
     let ws: WebSocket;
+    let heartbeatInterval: any;
+    let reconnectInterval = 1000;  // Start with 1 second
+    const maxReconnectInterval = 10000;  // Maximum delay for reconnection (10 seconds)
+
+    function startHeartbeat() {
+      heartbeatInterval = setInterval(() => {
+        if (ws.readyState === WebSocket.OPEN) {
+          ws.send(JSON.stringify({ type: 'ping' }));  // Sending a ping to the server
+        }
+      }, 5000);  // Send ping every 5 seconds
+    }
+
+    function stopHeartbeat() {
+      clearInterval(heartbeatInterval);
+    }
 
     const connectWebSocket = () => {
       ws = new WebSocket('wss://mempool.space/api/v1/ws');
 
       ws.onopen = () => {
         console.log('WebSocket connection opened');
+        reconnectInterval = 1000;  // Reset reconnect interval
+        startHeartbeat();  // Start sending pings
         ws.send(
           JSON.stringify({
             action: 'init',
@@ -132,11 +149,16 @@ export const MemPoolProvider: React.FC<PropsWithChildren> = ({
 
       ws.onerror = (error) => {
         console.error('WebSocket error:', error);
+        ws.close();  // Close connection on error
       };
 
       ws.onclose = () => {
         console.log('WebSocket closed. Reconnecting...');
-        setTimeout(connectWebSocket, 5000); // Try to reconnect after 5 seconds
+        stopHeartbeat();  // Stop sending pings
+        setTimeout(() => {
+          reconnectInterval = Math.min(maxReconnectInterval, reconnectInterval * 2);
+          connectWebSocket();
+        }, reconnectInterval);
       };
     };
 
