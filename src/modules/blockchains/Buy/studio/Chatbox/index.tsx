@@ -31,12 +31,10 @@ export default function Chatbox() {
   };
 
   const handleSendMessage = () => {
-
-
     if (inputMessage.trim() !== '') {
       setMessages([
         ...messages,
-        { text: inputMessage, template: [], sender: 'user' },
+        { text: inputMessage, texts: [], template: [], sender: 'user' },
       ]);
       setInputMessage('');
       focusChatBox();

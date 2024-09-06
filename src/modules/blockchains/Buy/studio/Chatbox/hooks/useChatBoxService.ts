@@ -56,9 +56,9 @@ export default function useChatBoxService({
       };
       const response = (await sendPrompt(prompt_body)).data;
       const pureResponse = mockupPromptResponsesV2[0];
+      const parsedResponse = parseAIResponse(pureResponse);
       const blockLegoResponse = JSON.parse(
-        parseAIResponse(pureResponse).find((msg) => msg.type === 'json')
-          ?.content || '{}',
+        parsedResponse.find((msg) => msg.type === 'json')?.content || '{}',
       );
       const newTemplate = blockLegoResponseToModelCategory(
         categories!,
@@ -127,6 +127,7 @@ export default function useChatBoxService({
         ...messages,
         {
           text: pureResponse,
+          texts: parsedResponse,
           template: newTemplate,
           sender: 'bot',
         },
