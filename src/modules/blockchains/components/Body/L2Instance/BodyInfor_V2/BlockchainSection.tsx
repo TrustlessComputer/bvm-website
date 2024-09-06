@@ -59,11 +59,11 @@ const BlockchainSection = (props: Props) => {
       </Text>
 
       <SimpleGrid
-        columns={[3]}
+        columns={[2]}
         spacing={['5px', '10px', '20px']}
         width={'100%'}
       >
-        <ColumnInfor
+        {/* <ColumnInfor
           title="Data availability"
           content={`${mapper.dataAvailabilityLayer || ''}`}
         />
@@ -80,30 +80,30 @@ const BlockchainSection = (props: Props) => {
               Number(blockTime) === 1 ? '1 second' : `${blockTime} seconds`
             }`}
           />
-        )}
+        )} */}
         <ColumnInfor title="Chain ID" content={`${chainId || '--'}`} />
-      </SimpleGrid>
-      <SimpleGrid
-        columns={[1, 2, 3]}
-        spacing={['5px', '10px', '20px']}
-        width={'100%'}
-      >
         <ColumnInfor
           title="RPC"
           content={`${rpc || 'Pending payment'}`}
           isPendingPayment={!rpc}
           isLink={!!rpc}
         />
+      </SimpleGrid>
+      <SimpleGrid
+        columns={[1, 2]}
+        spacing={['5px', '10px', '20px']}
+        width={'100%'}
+      >
         <ColumnInfor
           title="Block explorer"
           content={`${explorer || 'Pending payment'}`}
           isPendingPayment={!explorer}
           isLink={!!explorer}
         />
-        <ColumnInfor
+        {/* <ColumnInfor
           title="Withdrawal period"
           content={`${formatWithdrawalPeriod || '--'}`}
-        />
+        /> */}
         {!isMainnet && (
           <ColumnInfor
             title="Faucet"
