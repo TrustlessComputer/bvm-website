@@ -94,17 +94,17 @@ const useOnlyFetchDapp = () => {
 
     _dapps.push(...otherDapps);
 
-    console.log('[useOnlyFetchDapp] dapps', _dapps);
-
-    const sortedDapps = _dapps.sort((a, b) => a.order - b.order);
-
-    setDapps(preDataAirdropTask(sortedDapps, tokens, airdropTasks));
-    setDapps(preDataYoloGame(sortedDapps, tokensAll));
+    let sortedDapps = _dapps.sort((a, b) => a.order - b.order);
+    sortedDapps = preDataAirdropTask(sortedDapps, tokens, airdropTasks);
+    sortedDapps = preDataYoloGame(sortedDapps, tokensAll);
+    setDapps(sortedDapps);
+    console.log('[useOnlyFetchDapp] dapps', sortedDapps);
+    // setDapps(preDataYoloGame(sortedDapps, tokensAll));
   };
 
   React.useEffect(() => {
     fetchDapps();
-  }, [counterFetchedDapp, pathname, JSON.stringify(configsMapping || {})]);
+  }, [counterFetchedDapp, pathname, JSON.stringify(configsMapping || {}), JSON.stringify(airdropTasks || {})]);
 };
 
 export default useOnlyFetchDapp;

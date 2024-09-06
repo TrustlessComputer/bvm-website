@@ -1035,6 +1035,13 @@ export const dappMockupData: DappModel[] = [
         tooltip: '',
         required: true,
       },
+      {
+        key: 'tasks',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        title: 'Tasks',
+        tooltip: '',
+        required: true,
+      },
     ],
     baseBlock: {
       preview: false,
