@@ -7,8 +7,6 @@ import useChatBoxService from './hooks/useChatBoxService';
 import Message from './Message';
 import styles from './styles.module.scss';
 import TextInput from './TextInput';
-import { parseAIResponse } from './utils/convertApiUtils';
-import { mockupPromptResponsesV2 } from './mockup/promtResponse';
 
 export default function Chatbox() {
   const {
@@ -31,8 +29,6 @@ export default function Chatbox() {
   };
 
   const handleSendMessage = () => {
-
-
     if (inputMessage.trim() !== '') {
       setMessages([
         ...messages,
@@ -44,7 +40,6 @@ export default function Chatbox() {
   };
 
   useChatBoxService({ focusChatBox });
-
   return (
     <div className={styles.chatbox}>
       <div className={styles.chatboxInner}>
