@@ -24,6 +24,7 @@ import Node from '../Node_v2/Node';
 import styles from './styles.module.scss';
 import { useAccountAbstractionStore } from '@/modules/blockchains/detail_v3/account-abstraction_v2/store/hook';
 import { useParams } from 'next/navigation';
+import { useDAServicesHelper } from '@/modules/blockchains/detail_v4/hook/useDAServicesHelper';
 
 const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   const { dapp } = data;
@@ -37,6 +38,7 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   } = useAAModule();
   const { getAAStatus, isUpdateFlow } = useChainProvider();
   const { resetAAStore } = useAccountAbstractionStore();
+  const { isEmptyIssueTokenList } = useDAServicesHelper();
 
   const [draggedDappIndexes, setDraggedDappIndexes] = React.useState<number[]>(
     [],
@@ -64,6 +66,12 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
               label: 'IMPORTANT',
               message:
                 'This module needs to be configured and completed later after the chain is deployed and the payment is confirmed',
+            }
+          : isEmptyIssueTokenList
+          ? {
+              label: 'IMPORTANT',
+              message:
+                'Data is not available at the moment. Please Create Issue Token first',
             }
           : undefined
       }

@@ -9,6 +9,7 @@ import enhanceUpdateHandler from './enhance.updateHandler';
 import enhanceValidateOrderData from './enhance.validateOrderData';
 import enhanceCheckRedirect from './enhance.checkRedirect';
 import enhanceLoopFetchOrder from './enhance.loopFetchOrder';
+import enhanceLoopFetchIssueTokenList from './enhance.loopFetchIssueTokenList';
 
 //
 import withAuth from './enhance.withAuth';
@@ -45,6 +46,8 @@ export default compose<ChainDetailComponent>(
   withAuth, // TO DO
 
   enhanceLoopFetchOrder,
+  enhanceLoopFetchIssueTokenList,
+
   // ---------------------------------
   // Top Level UI
   // ---------------------------------

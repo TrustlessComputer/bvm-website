@@ -17,7 +17,16 @@ const Node = ({
   borderColor = '#FFC700',
   targetHandles,
   sourceHandles,
+  customNotification,
 }: NodeProps) => {
+  const renderDefaultNotfication = () => {
+    return notification && <NodeNotification {...notification} />;
+  };
+
+  const renderCustomNotfication = () => {
+    return customNotification;
+  };
+
   return (
     <div
       className={styles.node}
@@ -40,8 +49,9 @@ const Node = ({
       <NodeHeading {...heading} borderColor={borderColor} />
       <NodeContent>
         {overlay && <NodeOverlay {...overlay} />}
-
-        {notification && <NodeNotification {...notification} />}
+        {customNotification
+          ? renderCustomNotfication()
+          : renderDefaultNotfication()}
 
         <div className={styles.node__mainContent}>{content.children}</div>
       </NodeContent>
