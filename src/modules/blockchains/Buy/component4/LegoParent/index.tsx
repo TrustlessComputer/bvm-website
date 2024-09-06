@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import Image from 'next/image';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import SvgInset from '@/components/SvgInset';
 
@@ -55,6 +55,7 @@ const LegoParent = ({
         window.open(
           `${dappState?.chain?.dappURL || ''}/apps/token/${label.actionID}`,
         );
+
         return;
       }
       case DappType.staking: {
@@ -72,6 +73,25 @@ const LegoParent = ({
       }
     }
   };
+
+  const isView = useMemo(() => {
+    switch (dapp?.key) {
+      case DappType.token_generation: {
+        if (!label?.actionID) return false;
+        return true;
+      }
+      case DappType.staking: {
+        return true;
+      }
+      case DappType.yologame: {
+        if (!label?.actionID) return false;
+        return true;
+      }
+
+      default:
+        return false;
+    }
+  }, [label, dapp, DappType]);
 
   React.useEffect(() => {
     let parentDOM = legoRef.current?.parentElement;
@@ -165,9 +185,11 @@ const LegoParent = ({
               {label.title}
             </div>
 
-            <span onClick={() => handleLabelClick()} className={styles.view}>
-              View
-            </span>
+            {isView && (
+              <span onClick={() => handleLabelClick()} className={styles.view}>
+                View
+              </span>
+            )}
           </>
         )}
       </div>
