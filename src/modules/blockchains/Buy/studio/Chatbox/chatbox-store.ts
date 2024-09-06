@@ -8,8 +8,18 @@ export enum ChatBoxStatus {
   Close = '',
 }
 
+interface Message {
+  text: string;
+  texts: {
+    content: string;
+    type: 'text' | 'json';
+  }[];
+  sender: 'user' | 'bot';
+  template: IModelCategory[];
+}
+
 interface ChatBoxState {
-  messages: Array<{ text: string; sender: string; template: IModelCategory[] }>;
+  messages: Message[];
   inputMessage: string;
   isListening: boolean;
   isGenerating: boolean;
@@ -18,13 +28,7 @@ interface ChatBoxState {
   isChatboxOpen: boolean;
   status: ChatBoxStatus;
   prepareCategoryTemplate: IModelCategory[];
-  setMessages: (
-    messages: Array<{
-      text: string;
-      sender: string;
-      template: IModelCategory[];
-    }>,
-  ) => void;
+  setMessages: (messages: Message[]) => void;
   setInputMessage: (inputMessage: string) => void;
   setIsListening: (isListening: boolean) => void;
   setIsGenerating: (isGenerating: boolean) => void;

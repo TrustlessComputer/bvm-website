@@ -7,6 +7,7 @@ import useChatBoxService from './hooks/useChatBoxService';
 import Message from './Message';
 import styles from './styles.module.scss';
 import TextInput from './TextInput';
+import { useParseMessage } from './hooks/usePasrMessage';
 
 export default function Chatbox() {
   const {
@@ -14,14 +15,9 @@ export default function Chatbox() {
     setMessages,
     inputMessage,
     setInputMessage,
-    isListening,
     isGenerating,
-    isComplete,
     status,
-    isChatboxOpen,
-    setIsChatboxOpen,
     isIdle,
-    setChatBoxStatus,
   } = useChatBoxState();
 
   const elChatBox = useRef<HTMLDivElement>(null);
@@ -37,7 +33,7 @@ export default function Chatbox() {
     if (inputMessage.trim() !== '') {
       setMessages([
         ...messages,
-        { text: inputMessage, template: [], sender: 'user' },
+        { text: inputMessage, texts: [], template: [], sender: 'user' },
       ]);
       setInputMessage('');
       focusChatBox();
@@ -45,7 +41,6 @@ export default function Chatbox() {
   };
 
   useChatBoxService({ focusChatBox });
-
   return (
     <div className={styles.chatbox}>
       <div className={styles.chatboxInner}>
@@ -70,7 +65,8 @@ export default function Chatbox() {
                   {message.sender === 'bot' ? (
                     <Message
                       key={message.text}
-                      message={message.text}
+                      beforeJSON={useParseMessage(message.text)[0]}
+                      afterJSON={useParseMessage(message.text)[2]}
                       template={message.template}
                       onUpdateScroll={focusChatBox}
                     />

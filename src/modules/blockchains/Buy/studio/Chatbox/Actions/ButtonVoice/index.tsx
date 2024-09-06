@@ -112,13 +112,15 @@ export default function ButtonVoice(): ReactElement {
     } else {
       stopVoiceInput();
     }
+
+    return () => {
+      stopVoiceInput();
+    };
   }, [isListening]);
 
   useEffect(() => {
     if (isOpenVoice) {
       handleVoiceInput();
-    } else {
-      stopVoiceInput();
     }
 
     return () => {
