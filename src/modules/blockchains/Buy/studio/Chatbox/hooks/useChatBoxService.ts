@@ -7,6 +7,7 @@ import useChatBoxState, { ChatBoxStatus } from "../chatbox-store";
 import { sendPrompt } from "../services/prompt";
 import { CategoryAction, PromptCategory, SendPromptBodyRequest } from "../types";
 import { modelCategoryToPromptCategory, promptCategoryToModelCategory } from "../utils/convertApiUtils";
+import { useChatBoxLocal } from "./useChatBoxLocal";
 
 export default function useChatBoxService({
     focusChatBox
@@ -15,7 +16,8 @@ export default function useChatBoxService({
 }) {
  const { categories } = useModelCategoriesStore();
   const { getDynamicForm } = useFormChain();
-    const {setChatBoxStatus, setMessages, setPrepareCategoryTemplate, messages} = useChatBoxState();
+    const { setChatBoxStatus, setMessages, setPrepareCategoryTemplate, messages } = useChatBoxState();
+    const { getChatBoxLocalId } = useChatBoxLocal();
 
     const handleSendPrompt = async (message: string) => {
     if (
