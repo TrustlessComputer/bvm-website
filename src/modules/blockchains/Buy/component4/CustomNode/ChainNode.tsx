@@ -46,21 +46,14 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { field } = useOrderFormStoreV3();
   const { isCapture } = useCaptureStore();
 
-  const { order, chainData, getBlockChainStatus, isUpdateFlow } =
-    useChainProvider();
+  const {
+    order,
+    chainData,
+    getBlockChainStatus,
+    isUpdateFlow,
+    selectedCategoryMapping,
+  } = useChainProvider();
   const { statusStr, statusColorStr, borderStatusStr } = getBlockChainStatus();
-
-  const selectedCategoryMapping = React.useMemo(() => {
-    if (!order?.selectedOptions) return undefined;
-
-    const mapping: Record<string, IModelCategory> = {};
-
-    order.selectedOptions.forEach((category) => {
-      mapping[category.key] = category;
-    });
-
-    return mapping;
-  }, [order?.selectedOptions]);
 
   return (
     <div className={`${s.wrapperBox}`} style={{ borderColor: statusColorStr }}>
