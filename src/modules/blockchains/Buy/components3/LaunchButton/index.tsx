@@ -479,9 +479,9 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       if (isConfigDapp) {
         console.log('[LaunchButton] refresh dapp data');
         setTimeout(() => {
-          // dispatch(requestReload());
-          // setUpdated(true);
-          window.location.reload();
+          dispatch(requestReload());
+          setUpdated(true);
+          // window.location.reload();
         }, 1000);
       }
       getOrderDetailByID(orderDetail.orderId);
