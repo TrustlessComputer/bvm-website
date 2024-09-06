@@ -915,151 +915,106 @@ export const dappMockupData: DappModel[] = [
     },
     sections: [
       {
-        key: 'staking_token',
-        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-        title: 'Staking Token',
+        key: 'information',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
+        title: '',
         tooltip: '',
-        required: true,
-      },
-      {
-        key: 'reward_token',
-        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-        title: 'Reward Token',
-        tooltip: '',
-        required: true,
-      },
-      {
-        key: 'info',
-        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-        title: 'Reward Rate',
-        tooltip: '',
-        required: true,
-      },
+        required: false,
+      }
     ],
-    baseModuleFields: [
-      {
-        key: 'staking_token',
-        title: 'Staking Token',
-        icon: '',
-        placableAmount: -1,
-        section: 'staking_token',
-        preview: false,
-        background: '#A041FF',
-        fields: [
-          {
-            key: 'bvm',
-            title: 'BVM', // symbol
-            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
-            icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
-            tooltip: '',
-            type: '',
-            options: [],
-            selectable: true,
-          },
-          // {
-          //   key: 'eth',
-          //   title: 'ETH (Upgrade plan 99$)', // symbol
-          //   value: '0x1234', // contract_address
-          //   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
-          //   tooltip: '',
-          //   type: '',
-          //   options: [],
-          //   selectable: false,
-          // },
-        ],
-      },
-    ],
-    moduleFields: [
-      {
-        key: 'reward_token',
-        title: 'Reward Token',
-        icon: '',
-        preview: false,
-        placableAmount: 1,
-        section: 'reward_token',
-        background: '#15C888',
-        fields: [
-          {
-            key: 'bvm',
-            title: 'BVM', // symbol
-            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
-            icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
-            tooltip: '',
-            type: '',
-            options: [],
-            selectable: true,
-          },
-          // {
-          //   key: 'eth',
-          //   title: 'ETH (Upgrade plan 99$)', // symbol
-          //   value: '0x1234', // contract_address
-          //   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
-          //   tooltip: '',
-          //   type: '',
-          //   options: [],
-          //   selectable: false,
-          // },
-        ],
-      },
-    ],
-    blockFields: [
-      {
-        key: 'info',
-        title: 'Reward rate',
-        icon: '',
-        placableAmount: 1,
-        section: 'info',
-        preview: false,
-        background: '#C44127',
-        fields: [
-          {
-            key: 'rate',
-            title: 'Rate',
-            inputType: 'number',
-            type: 'input',
-            icon: '',
-            value: '',
-            tooltip: 'Exchange rate between staking token and reward token.',
-            placeholder: 'eg. 1',
-            options: [],
-            background: '#C44127',
-          },
-          {
-            key: 'apr',
-            title: 'APR',
-            type: 'input',
-            inputType: 'number',
-            icon: '',
-            value: '',
-            tooltip: '',
-            placeholder: 'eg. 20%',
-            options: [],
-            background: '#C44127',
-          },
-          {
-            key: 'amount',
-            title: 'Reward amount',
-            previewTitle: 'Reward',
-            inputType: 'number',
-            type: 'input',
-            icon: '',
-            value: '',
-            tooltip: '',
-            placeholder: 'eg. 100,000',
-            options: [],
-            background: '#C44127',
-          },
-        ],
-      },
-    ],
+    baseModuleFields: [],
+    moduleFields: [],
+    blockFields: [],
     baseBlock: {
       key: '',
       title: 'Create a Staking Pool',
       icon: '',
       placableAmount: -1,
-      section: '',
+      section: 'information',
       preview: false,
-      fields: [],
+      fields: [
+        {
+          key: 'staking_token',
+          title: 'Staking Token',
+          type: 'dropdown',
+          icon: '',
+          value: '',
+          tooltip: 'Exchange rate between staking token and reward token.',
+          placeholder: 'eg. 1',
+          options: [
+            {
+              key: 'bvm',
+              title: 'BVM', // symbol
+              value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
+              icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
+              tooltip: '',
+              type: '',
+              options: [],
+              selectable: true,
+            },
+          ],
+          background: '#C001E6',
+        },
+        {
+          key: 'reward_token',
+          title: 'Reward Token',
+          type: 'dropdown',
+          icon: '',
+          value: '',
+          tooltip: 'Exchange rate between staking token and reward token.',
+          placeholder: 'eg. 1',
+          options: [
+            {
+              key: 'bvm',
+              title: 'BVM', // symbol
+              value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
+              icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
+              tooltip: '',
+              type: '',
+              options: [],
+              selectable: true,
+            },
+          ],
+          background: '#865AFF',
+        },
+        {
+          key: 'rate',
+          title: 'Rate',
+          inputType: 'number',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip: 'Exchange rate between staking token and reward token.',
+          placeholder: 'eg. 1',
+          options: [],
+          background: '#C44127',
+        },
+        {
+          key: 'apr',
+          title: 'APR',
+          type: 'input',
+          inputType: 'number',
+          icon: '',
+          value: '',
+          tooltip: '',
+          placeholder: 'eg. 20%',
+          options: [],
+          background: '#C44127',
+        },
+        {
+          key: 'amount',
+          title: 'Reward amount',
+          previewTitle: 'Reward',
+          inputType: 'number',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip: '',
+          placeholder: 'eg. 100,000',
+          options: [],
+          background: '#C44127',
+        },
+      ],
     },
   },
   {
