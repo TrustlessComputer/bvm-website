@@ -1,23 +1,20 @@
-import { IModelCategory } from '@/types/customize-model';
 import { uniqBy } from 'lodash';
 import { useEffect } from 'react';
 import useFormChain from '../../../hooks/useFormChain';
 import useModelCategoriesStore from '../../../stores/useModelCategoriesStore';
 import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
+import { mockupPromptResponsesV2 } from '../mockup/promtResponse';
 import { sendPrompt } from '../services/prompt';
 import {
-  CategoryAction,
   PromptCategory,
-  SendPromptBodyRequest,
+  SendPromptBodyRequest
 } from '../types';
 import {
   blockLegoResponseToModelCategory,
   modelCategoryToPromptCategory,
-  parseAIResponse,
-  promptCategoryToModelCategory,
+  parseAIResponse
 } from '../utils/convertApiUtils';
-import { useVoiceChatSession } from './useChatBoxLocal';
-import { mockupPromptResponsesV2 } from '../mockup/promtResponse';
+import { useVoiceChatSession } from './useVoiceChatSession';
 
 export default function useChatBoxService({
   focusChatBox,
@@ -136,6 +133,7 @@ export default function useChatBoxService({
       focusChatBox();
     }
   };
+
 
   useEffect(() => {
     if (messages.length > 0) {
