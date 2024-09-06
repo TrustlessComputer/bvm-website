@@ -36,9 +36,9 @@ import TokenTransferTab from './TokenTransferTab';
 import TokenTransferTabBitcoin from './TokenTransferTabBitcoin';
 import TransactionsTab from './TransactionsTab';
 import TransactionsTabBitcoin from './TransactionsTabBitcoin';
-import Markdown from 'react-markdown';
 import WatchListAddresses from './Watchlist';
 import { formatAiSummary } from './utils';
+import MarkdownComponent from './MarkdownComponent';
 
 const L2RollupDetail = () => {
   const {
@@ -87,7 +87,7 @@ const L2RollupDetail = () => {
             onClick={() => router.push(HEART_BEAT)}
           >
             <Image w={'24px'} src={'/heartbeat/ic-back.svg'} />
-            <Text>Bitcoin Heartbeat Project</Text>
+            <Text>Bitcoin Heartbeats Project</Text>
           </Flex>
           <Flex alignItems={'center'} gap={'4px'} position={'relative'}>
             <SearchAddress
@@ -110,7 +110,7 @@ const L2RollupDetail = () => {
             w={{ base: '0px', md: '140px' }}
             src={'/heartbeat/ic-wallet.svg'}
           />
-          <Flex gap="6px" direction={'column'}>
+          <Flex gap="6px" direction={'column'} w={'100%'}>
             <Flex direction={'row'} alignItems={'center'} gap={'8px'}>
               <Text fontWeight={'400'} fontSize={'16px'}>
                 {isMobile ? shortCryptoAddress(address) : address}
@@ -180,12 +180,12 @@ const L2RollupDetail = () => {
                 {isLoadingAI ? (
                   <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
                     <Text>Analyzing...</Text>
-                    <Skeleton w={'140px'} h={'20px'} speed={1.2} />
+                    <Skeleton w={'120px'} h={'20px'} speed={1.2} />
                   </Flex>
                 ) : (
                   <>
                     {aiSummary && (
-                      <Markdown>{formatAiSummary(aiSummary)}</Markdown>
+                      <MarkdownComponent text={formatAiSummary(aiSummary)} />
                     )}
                   </>
                 )}

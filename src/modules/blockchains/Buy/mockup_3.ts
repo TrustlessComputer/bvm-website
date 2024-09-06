@@ -60,6 +60,17 @@ export const accountAbstractionAsADapp: DappModel = {
         options: [],
         placeholder: '21,000',
       },
+      {
+        background: '#009aa5',
+        key: 'input_apps_paymaster_address',
+        title: 'Paymaster contract address',
+        type: 'input',
+        icon: '',
+        value: '',
+        tooltip: '',
+        options: [],
+        placeholder: '21,000',
+      },
     ],
   },
 };
