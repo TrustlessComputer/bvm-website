@@ -71,7 +71,7 @@ export const MemPoolProvider: React.FC<PropsWithChildren> = ({
       const res = (await memPoolApi.getPendingBlocks()) as FeesMempoolBlocks[];
       const data = res.map((block:FeesMempoolBlocks, i) => {
         const now = dayjs();
-        const timestamp = now.add( (i + 1) * 10, 'minutes').unix();
+        const timestamp = now.add( (i + 1) * 10 - (i > 2 ? 2 : 1), 'minutes').unix();
         return mapPendingBlockToBlock(block, i.toString(), timestamp);
       }).reverse();
 
@@ -175,7 +175,7 @@ export const MemPoolProvider: React.FC<PropsWithChildren> = ({
         const res = memPoolData['mempool-blocks'] as FeesMempoolBlocks[];
         const data = res.map((block:FeesMempoolBlocks, i) => {
           const now = dayjs();
-          const timestamp = now.add( (i + 1) * 10, 'minutes').unix();
+          const timestamp = now.add( (i + 1) * 10 - (i > 2 ? 2 : 1), 'minutes').unix();
           return mapPendingBlockToBlock(block, i.toString(), timestamp);
         }).reverse();
         setPendingBlocks(data);
