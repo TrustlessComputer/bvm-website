@@ -6,6 +6,7 @@ import uniqBy from 'lodash/uniqBy';
 import { mapConfirmedBlockToBlock, mapPendingBlockToBlock } from '@/modules/l2-rollup-detail/MemPool/utils';
 import dayjs from 'dayjs';
 import { compareString } from '@utils/string';
+import differenceBy from 'lodash/differenceBy';
 
 export interface IMemPoolContext {
   selectedBlock?: IBlock;
@@ -16,6 +17,7 @@ export interface IMemPoolContext {
   setIdSelectedPendingBlock: any;
   idSelectedConfirmedBlock: string;
   setIdSelectedConfirmedBlock: any;
+  newConfirmedBlocks: IBlock[];
 }
 
 const initialValue: IMemPoolContext = {
@@ -27,6 +29,7 @@ const initialValue: IMemPoolContext = {
   setIdSelectedPendingBlock: () => {},
   idSelectedConfirmedBlock: '',
   setIdSelectedConfirmedBlock: () => {},
+  newConfirmedBlocks: [],
 };
 
 export const MemPoolContext =
@@ -39,6 +42,7 @@ export const MemPoolProvider: React.FC<PropsWithChildren> = ({
 
   const [pendingBlocks, setPendingBlocks] = useState<IBlock[]>([]);
   const [confirmedBlocks, setConfirmedBlocks] = useState<IBlock[]>([]);
+  const [newConfirmedBlocks, setNewConfirmedBlocks] = useState<IBlock[]>([]);
 
   const [isLoadingConfirmedBlock, setIsLoadingConfirmedBlocks] = useState(false);
   const [memPoolData, setMemPoolData] = useState(null);
@@ -147,7 +151,6 @@ export const MemPoolProvider: React.FC<PropsWithChildren> = ({
     if(memPoolData) {
       if(memPoolData['mempool-blocks']) {
         const res = memPoolData['mempool-blocks'] as FeesMempoolBlocks[];
-        console.log('bbbb', res);
         const data = res.map((block:FeesMempoolBlocks, i) => {
           const now = dayjs();
           const timestamp = now.add( (i + 1) * 10, 'minutes').unix();
@@ -157,8 +160,15 @@ export const MemPoolProvider: React.FC<PropsWithChildren> = ({
       }
 
       if(memPoolData['blocks']) {
-        // console.log('data[\'blocks\']', data['blocks']);
-        // setPendingBlocks(data['mempool-blocks']);
+        const res = memPoolData['blocks'] as IConfirmedBlock[];
+        const data = res?.map(block => {
+          return mapConfirmedBlockToBlock(block);
+        })
+
+        let newBlocks = differenceBy(data, confirmedBlocks, 'id');
+        newBlocks = differenceBy(newBlocks, newConfirmedBlocks, 'id');
+
+        setNewConfirmedBlocks([...newBlocks, ...newConfirmedBlocks]);
       }
     }
   }, [memPoolData]);
@@ -172,7 +182,8 @@ export const MemPoolProvider: React.FC<PropsWithChildren> = ({
       idSelectedPendingBlock,
       setIdSelectedPendingBlock,
       idSelectedConfirmedBlock,
-      setIdSelectedConfirmedBlock
+      setIdSelectedConfirmedBlock,
+      newConfirmedBlocks
     };
   }, [
     selectedBlock,
@@ -182,7 +193,8 @@ export const MemPoolProvider: React.FC<PropsWithChildren> = ({
     idSelectedPendingBlock,
     setIdSelectedPendingBlock,
     idSelectedConfirmedBlock,
-    setIdSelectedConfirmedBlock
+    setIdSelectedConfirmedBlock,
+    newConfirmedBlocks
   ]);
 
   return (

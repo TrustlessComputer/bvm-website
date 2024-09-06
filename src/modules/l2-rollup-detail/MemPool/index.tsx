@@ -11,7 +11,7 @@ import Loading from '@components/Loading';
 import { MemPoolContext, MemPoolProvider } from '@/modules/l2-rollup-detail/MemPool/provider/mempool-context';
 
 const MemPool = () => {
-  const { selectedBlock, pendingBlocks, confirmedBlocks, fetchConfirmedBlocks, setIdSelectedPendingBlock, setIdSelectedConfirmedBlock } = useContext(MemPoolContext);
+  const { selectedBlock, pendingBlocks, confirmedBlocks, fetchConfirmedBlocks, setIdSelectedPendingBlock, setIdSelectedConfirmedBlock, newConfirmedBlocks } = useContext(MemPoolContext);
   const scrollRef = useRef(null);
   const [loadMore, setLoadMore] = useState(false);
 
@@ -93,6 +93,17 @@ const MemPool = () => {
         {confirmedBlocks?.length > 0 && (
           <Box className={s.verticalLine} id={"item-to-center"} />
         )}
+
+        {newConfirmedBlocks.map((_v, i) => (
+          <BlockItem
+            key={`new-confirmed-${i}`}
+            item={_v}
+            loading={false}
+            isPending={false}
+            index={i}
+            onSelect={handleSelectConfirmedBlock}
+          />
+        ))}
 
         {confirmedBlocks.map((_v, i) => (
           <BlockItem
