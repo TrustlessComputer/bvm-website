@@ -5,14 +5,11 @@ import useModelCategoriesStore from '../../../stores/useModelCategoriesStore';
 import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
 import { mockupPromptResponsesV2 } from '../mockup/promtResponse';
 import { sendPrompt } from '../services/prompt';
-import {
-  PromptCategory,
-  SendPromptBodyRequest
-} from '../types';
+import { PromptCategory, SendPromptBodyRequest } from '../types';
 import {
   blockLegoResponseToModelCategory,
   modelCategoryToPromptCategory,
-  parseAIResponse
+  parseAIResponse,
 } from '../utils/convertApiUtils';
 import { useVoiceChatSession } from './useVoiceChatSession';
 
@@ -52,7 +49,7 @@ export default function useChatBoxService({
         current_state,
       };
       const response = (await sendPrompt(prompt_body)).data;
-      const pureResponse = mockupPromptResponsesV2[0];
+      let pureResponse = mockupPromptResponsesV2[0];
       const parsedResponse = parseAIResponse(pureResponse);
       const blockLegoResponse = JSON.parse(
         parsedResponse.find((msg) => msg.type === 'json')?.content || '{}',
@@ -61,6 +58,8 @@ export default function useChatBoxService({
         categories!,
         blockLegoResponse,
       );
+
+      pureResponse = pureResponse.replace('```json', '').replace('```', '');
 
       console.log('[handleSendPrompt] response', response);
 
@@ -133,7 +132,6 @@ export default function useChatBoxService({
       focusChatBox();
     }
   };
-
 
   useEffect(() => {
     if (messages.length > 0) {
