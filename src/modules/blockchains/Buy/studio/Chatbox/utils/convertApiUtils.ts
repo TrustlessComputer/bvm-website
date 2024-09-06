@@ -25,3 +25,36 @@ export const promptCategoryToModelCategory = (
     ),
   };
 };
+
+export const blockLegoResponseToModelCategory = (
+  categories: IModelCategory[],
+  blockLego: Record<string, string[]>,
+) => {
+  return [];
+};
+
+export const parseAIResponse = (response: string) => {
+  const message: {
+    content: string;
+    type: 'text' | 'json';
+  }[] = [];
+  const paragraphs = response.split('\n');
+  const codeBlockRegex = /```(?:json)?([\s\S]*?)```/g;
+
+  paragraphs.forEach((paragraph) => {
+    const jsonString = paragraph.match(codeBlockRegex);
+    if (jsonString && jsonString.length > 0) {
+      message.push({
+        content: jsonString[0].replace('```json', '').replace('```', ''),
+        type: 'json',
+      });
+    } else {
+      message.push({
+        content: paragraph,
+        type: 'text',
+      });
+    }
+  });
+
+  return message;
+};

@@ -7,6 +7,8 @@ import useChatBoxService from './hooks/useChatBoxService';
 import Message from './Message';
 import styles from './styles.module.scss';
 import TextInput from './TextInput';
+import { parseAIResponse } from './utils/convertApiUtils';
+import { mockupPromptResponsesV2 } from './mockup/promtResponse';
 
 export default function Chatbox() {
   const {
@@ -14,14 +16,9 @@ export default function Chatbox() {
     setMessages,
     inputMessage,
     setInputMessage,
-    isListening,
     isGenerating,
-    isComplete,
     status,
-    isChatboxOpen,
-    setIsChatboxOpen,
     isIdle,
-    setChatBoxStatus,
   } = useChatBoxState();
 
   const elChatBox = useRef<HTMLDivElement>(null);
@@ -34,6 +31,8 @@ export default function Chatbox() {
   };
 
   const handleSendMessage = () => {
+
+
     if (inputMessage.trim() !== '') {
       setMessages([
         ...messages,
