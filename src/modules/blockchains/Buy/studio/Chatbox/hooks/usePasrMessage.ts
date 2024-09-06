@@ -21,7 +21,7 @@ export function useParseMessage(message: string) {
     return [beforeJSON, jsonPart, afterJSON];
   }
 
-  return null; // Return null if no JSON object is found
+  return [message, '', '']; // Return null if no JSON object is found
 
 
 }
