@@ -97,6 +97,15 @@ export default function useNodeFlowControl() {
   };
 
   useSignalEffect(() => {
+    const bridgeAppsIndex = dapps.findIndex(
+      (dapp) => dapp.key === 'bridge_apps',
+    );
+    const gamingAppsIndex = dapps.findIndex(
+      (dapp) => dapp.key === 'gaming_apps',
+    );
+    const accountAbstractionIndex = dapps.findIndex(
+      (dapp) => dapp.key === 'account_abstraction',
+    );
     console.log('[useNodeFlowControl]', { nodes });
 
     needReactFlowRenderSignal.value = true;
@@ -105,7 +114,10 @@ export default function useNodeFlowControl() {
 
     needReactFlowRenderSignal.value = true;
 
-    if (draggedDappIndexesSignal.value.includes(0) && isAAInstalled) {
+    if (
+      draggedDappIndexesSignal.value.includes(accountAbstractionIndex) &&
+      isAAInstalled
+    ) {
       if (!nodes.some((node) => node.id === 'account_abstraction')) {
         const rootNode = 'blockchain';
         const thisDapp = accountAbstractionAsADapp;
@@ -172,7 +184,10 @@ export default function useNodeFlowControl() {
       }
     }
 
-    if (draggedDappIndexesSignal.value.includes(1) && isBridgeInstalled) {
+    if (
+      draggedDappIndexesSignal.value.includes(bridgeAppsIndex) &&
+      isBridgeInstalled
+    ) {
       console.log('[useNodeFlowControl] case 1');
 
       if (!nodes.some((node) => node.id === 'bridge_apps')) {
@@ -233,10 +248,13 @@ export default function useNodeFlowControl() {
       }
     }
 
-    if (draggedDappIndexesSignal.value.includes(2) && isGamingAppsInstalled) {
+    if (
+      draggedDappIndexesSignal.value.includes(gamingAppsIndex) &&
+      isGamingAppsInstalled
+    ) {
       if (!nodes.some((node) => node.id === 'gaming_apps')) {
         const rootNode = 'blockchain';
-        const thisDapp = bridgesAsADapp;
+        const thisDapp = gamingAppsAsADapp;
         let nodesData = nodes;
         const newNodeId = 'gaming_apps';
         const newNode: DappNode = {

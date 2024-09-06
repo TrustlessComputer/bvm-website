@@ -24,9 +24,9 @@ const ChainInforView = (): ReactElement => {
 
   const menuEditItemOnClick = (menuItem: MenuEditItemType) => {
     switch (menuItem.value) {
-      case MenuEditItemEnum.ABC:
+      case MenuEditItemEnum.UpdateYourChainInfor:
         {
-          //TO DO ABC
+          //TO DO
         }
         break;
       case MenuEditItemEnum.ConfigYourDAppsDomain:
