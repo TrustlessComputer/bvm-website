@@ -1,7 +1,7 @@
 import { nodeOverlayType } from '@/modules/blockchains/Buy/component4/YourNodes/node.constants';
 import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { Node } from '@xyflow/react';
-import { DappModel } from './customize-model';
+import { DappModel, IModelOption } from './customize-model';
 
 type NodeHeadingProps = {
   title: string;
@@ -14,10 +14,12 @@ type NodeHeadingProps = {
   textColor?: string;
   borderColor?: string;
   backgroundColor?: string;
+  headingStyles?: React.CSSProperties;
 };
 
 type NodeContentProps = {
   children?: React.ReactNode;
+  contentStyles?: React.CSSProperties;
 };
 
 type NodeNotificationProps = {
@@ -47,10 +49,12 @@ type NodeViewAndAction = {
 type NodeOverlayProps = NodeOnlyViewProps | NodeViewAndAction;
 
 type NodeProps = {
+  dapp?: DappModel;
   heading: NodeHeadingProps;
   content: NodeContentProps;
   notification?: NodeNotificationProps;
   overlay?: NodeOverlayProps;
+  mainContentStyles?: React.CSSProperties;
   borderColor?: string;
   sourceHandles: string[];
   targetHandles: string[];

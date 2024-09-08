@@ -13,7 +13,8 @@ export default function Message({
   template: IModelCategory[];
   onUpdateScroll: () => void;
 }) {
-  const { setChatBoxStatus, isGenerating } = useChatBoxState((state) => state);
+  const { setChatBoxStatus, isGenerating, prepareCategoryTemplate } =
+    useChatBoxState((state) => state);
   const [isRendered, setIsRendered] = useState(false);
 
   const refRender = useRef<NodeJS.Timeout>();
@@ -22,14 +23,17 @@ export default function Message({
     [],
   );
 
+  const refTextRender = useRef<string>('');
+
   const animateMessage = useCallback(() => {
     let messageIndex = 0;
     let templateIndex = 0;
     let optionIndex = 0;
 
     refRender.current = setInterval(() => {
-      if (messageIndex < message.length - 1) {
-        setDisplayedMessage((prev) => prev + message[messageIndex]);
+      if (messageIndex < message.length) {
+        refTextRender.current += message[messageIndex];
+        setDisplayedMessage(refTextRender.current);
         messageIndex++;
       } else if (templateIndex < template.length) {
         const currentTemplate = template[templateIndex];
@@ -61,9 +65,12 @@ export default function Message({
         refRender.current && clearInterval(refRender.current);
         setIsRendered(true);
         setChatBoxStatus({
-          status: ChatBoxStatus.Complete,
+          status:
+            prepareCategoryTemplate.length > 0
+              ? ChatBoxStatus.Complete
+              : ChatBoxStatus.Cancel,
           isGenerating: false,
-          isComplete: true,
+          isComplete: prepareCategoryTemplate.length > 0,
           isListening: false,
         });
       }

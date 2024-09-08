@@ -3,6 +3,11 @@ import useChatBoxState from '../chatbox-store';
 import LabelListening from '../LabelListening';
 import styles from './styles.module.scss';
 
+export default function TextInput({
+  handleSendMessage,
+}: {
+  handleSendMessage: any;
+}): ReactElement {
 export default function TextInput({ handleSendMessage }: any): ReactElement {
   const { inputMessage, isListening, isGenerating, setInputMessage } =
     useChatBoxState((state) => state);

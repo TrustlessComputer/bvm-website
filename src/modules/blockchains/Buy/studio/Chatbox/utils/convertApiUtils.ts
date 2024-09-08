@@ -5,7 +5,7 @@ export const modelCategoryToPromptCategory = (
   modelCategory: IModelCategory,
 ): PromptCategory => {
   return {
-    layer: modelCategory.key,
+    key: modelCategory.key,
     options: modelCategory.options.map((option) => ({
       key: option.key,
       title: option.title,

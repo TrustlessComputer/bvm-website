@@ -32,6 +32,7 @@ const BridgeNode = ({ data }: NodeProps<ChainNodeAsDappNode>) => {
       content={{
         children: <BridgeRenderer />,
       }}
+      mainContentStyles={{ padding: 0 }}
     />
   );
 };

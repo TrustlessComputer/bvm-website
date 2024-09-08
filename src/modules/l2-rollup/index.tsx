@@ -35,6 +35,7 @@ import SearchAddress from '../l2-rollup-detail/SearchAddress';
 import { isMobile } from 'react-device-detect';
 import AnimArrowDown from './AnimArrowDown';
 import PowerBox from '@/modules/l2-rollup/PowerBox';
+import AddressesEngagement from './AddressesEngagement';
 
 enum SortRollupType {
   name,
@@ -1106,7 +1107,7 @@ const L2Rollup = () => {
                 onClick={() => setIsShowIntro(!isShowIntro)}
               />
             </Flex>
-            <SimpleGrid columns={3} gap={'16px'}>
+            <SimpleGrid columns={[1, 3]} gap={['8px', '16px']}>
               <L2RollupFee
                 data={_dataChart.txs}
                 prefix="Ξ"
@@ -1200,6 +1201,16 @@ const L2Rollup = () => {
               </Text>
             </Box>
           </Box>
+          <Box
+            w={'100%'}
+            mb={'32px'}
+            mt={'48px'}
+            display={'flex'}
+            flexDirection={'column'}
+            my={'32px'}
+          >
+            <AddressesEngagement />
+          </Box>
 
           <Flex
             className={s.totalContainer}
@@ -1257,7 +1268,13 @@ const L2Rollup = () => {
               />
             )}
           </Box>
-          <Box display="flex" flexDirection="column" alignItems="end" w="100%" className={s.power}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="end"
+            w="100%"
+            className={s.power}
+          >
             <PowerBox />
           </Box>
         </Flex>

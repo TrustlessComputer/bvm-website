@@ -25,7 +25,7 @@ export default function ButtonCancel({ onClick }: { onClick: () => void }) {
           </clipPath>
         </defs>
       </svg>
-      Cancle
+      Cancel
     </button>
   );
 }

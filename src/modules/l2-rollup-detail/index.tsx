@@ -86,13 +86,13 @@ const L2RollupDetail = () => {
 
         <Flex
           mt={{ base: '28px', md: '36px' }}
-          gap={{ base: '16px', md: '20px' }}
+          gap={{ base: '0px', md: '20px' }}
           direction={'row'}
           alignItems={'flex-start'}
           // alignItems={'center'}
         >
           <Image
-            w={{ base: '80px', md: '140px' }}
+            w={{ base: '0px', md: '140px' }}
             src={'/heartbeat/ic-wallet.svg'}
           />
           <Flex gap="6px" direction={'column'}>
@@ -128,12 +128,17 @@ const L2RollupDetail = () => {
               </Flex>
             )}
             <Flex className={s.boxAi} mt={'4px'} direction={'column'}>
-              <Flex w="100%" justifyContent="space-between">
+              <Flex
+                w="100%"
+                justifyContent="space-between"
+                bg={'#FF7E211A'}
+                py={'12px'}
+              >
                 <Text
                   pl={'16px'}
                   fontSize={'14px'}
                   fontWeight={'500'}
-                  color={'#808080'}
+                  color={'#fa4e0e'}
                 >
                   Wallet Analysis
                 </Text>
@@ -143,10 +148,19 @@ const L2RollupDetail = () => {
                   fontWeight={'500'}
                   color={'#808080'}
                 >
-                  Analyzed by <Text as="a" _hover={{ textDecoration: "underline" }} color="black" href="https://eternalai.org/" target="_blank">Eternal AI</Text>
+                  Analyzed by{' '}
+                  <Text
+                    as="a"
+                    _hover={{ textDecoration: 'underline' }}
+                    color="black"
+                    href="https://eternalai.org/"
+                    target="_blank"
+                  >
+                    Eternal AI
+                  </Text>
                 </Text>
               </Flex>
-              <Box h={'1px'} w={'100%'} bg={'#f58257'} my={'8px'} />
+              <Box h={'1px'} w={'100%'} bg={'#f58257'} mb={'8px'} />
               <Flex direction={'column'} px={'16px'}>
                 {isLoadingAI ? (
                   <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
@@ -156,9 +170,7 @@ const L2RollupDetail = () => {
                 ) : (
                   <>
                     {aiSummary && (
-                      <Text fontWeight={'400'}>
-                        {formatAiSummary(aiSummary)}
-                      </Text>
+                      <Markdown>{formatAiSummary(aiSummary)}</Markdown>
                     )}
                   </>
                 )}

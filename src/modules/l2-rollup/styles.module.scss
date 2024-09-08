@@ -205,7 +205,9 @@ table {
   width: 100%;
 
   @include w-max(768px) {
-    max-width: calc(100vw - 32px);
+    padding-left: 14px;
+    padding-right: 14px;
+    max-width: calc(100vw);
   }
 
   .title {

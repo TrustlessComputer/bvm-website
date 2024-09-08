@@ -8,7 +8,7 @@ export type SetChatBoxStatusParams = {
 };
 
 export type PromptCategory = {
-  layer: string;
+  key: string;
   options: {
     key: string;
     title: string;
@@ -22,16 +22,20 @@ export type SendPromptBodyRequest = {
 };
 
 export enum CategoryAction {
+  UNKNOWN = 'unknown',
   ADD = 'add',
   REMOVE = 'remove',
   UPDATE = 'update',
 }
 
 export type SendPromptResponse = {
-  message: string;
-  actions: {
-    action_type: CategoryAction;
-    category: PromptCategory;
-  }[];
-  is_clear: boolean;
+  status: number;
+  data: {
+    message: string;
+    actions: {
+      action_type: CategoryAction;
+      category: PromptCategory;
+    }[];
+    is_clear: boolean;
+  };
 };

@@ -1,16 +1,15 @@
-import React from 'react';
 import cn from 'classnames';
+import React from 'react';
 
 import SvgInset from '@/components/SvgInset';
 
 import { adjustBrightness } from '../../utils';
 
-import styles from './styles.module.scss';
-import { Box, Flex, Image, Tooltip } from '@chakra-ui/react';
-import { FieldModel } from '@/types/customize-model';
-import { legoDragging } from '@/modules/blockchains/dapp/ui-helper/LegoDragging';
-import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
 import { iconToolNames } from '@/modules/blockchains/Buy/Buy.data';
+import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
+import { FieldModel } from '@/types/customize-model';
+import { Flex, Image, Tooltip } from '@chakra-ui/react';
+import styles from './styles.module.scss';
 
 type Position =
   | {
@@ -119,7 +118,13 @@ const Lego = (props: Props) => {
       }}
       ref={legoRef}
     >
-      <div className={cn(styles.lego__piece, styles.lego__piece__top)}>
+      <div
+        className={cn(
+          styles.lego__piece,
+          styles.lego__piece__top,
+          legoAI && styles.lego__piece__top__ai,
+        )}
+      >
         <SvgInset svgUrl="/landingV3/svg/stud.svg" size={28} />
       </div>
 

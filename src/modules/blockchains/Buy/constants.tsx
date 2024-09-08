@@ -9,3 +9,5 @@ export const TABS_MAP = {
   [TABS.EXPLORE]: 'Explore',
   [TABS.TEMPLATE]: 'Template',
 };
+
+export const ENABLE_CHATBOX = false;
