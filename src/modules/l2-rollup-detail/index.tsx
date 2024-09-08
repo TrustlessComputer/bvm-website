@@ -24,6 +24,7 @@ import TransactionsTab from './TransactionsTab';
 import TransactionsTabBitcoin from './TransactionsTabBitcoin';
 import WatchListAddresses from './Watchlist';
 import { formatAiSummary } from './utils';
+import Markdown from 'react-markdown';
 
 const L2RollupDetail = () => {
   const {
