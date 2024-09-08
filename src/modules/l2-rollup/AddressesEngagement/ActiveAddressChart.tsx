@@ -45,14 +45,6 @@ const ActiveAddressChart = ({ data = [] }: { data: any }) => {
       chart: {
         type: 'column',
       },
-      // chart: {
-      //   height: '176px',
-      //   spacingBottom: 0,
-      //   spacingLeft: 0,
-      //   spacingRight: 0,
-      //   //   marginRight: 0,
-      //   //   marginLeft: 0,
-      // },
       plotOptions: {
         column: {
           pointPadding: 0,
