@@ -25,18 +25,6 @@ const Node = ({
         borderColor,
       }}
     >
-      {/*<div className={`${styles.handles} ${styles.target}`}>*/}
-      {/*  {targetHandles?.map((handle) => (*/}
-      {/*    <Handle*/}
-      {/*      key={handle}*/}
-      {/*      id={handle}*/}
-      {/*      type="target"*/}
-      {/*      position={Position.Left}*/}
-      {/*      className={styles.handleDot}*/}
-      {/*    />*/}
-      {/*  ))}*/}
-      {/*</div>*/}
-
       <NodeHeading {...heading} borderColor={borderColor} />
       <NodeContent>
         {overlay && <NodeOverlay {...overlay} />}
@@ -47,7 +35,6 @@ const Node = ({
       </NodeContent>
 
 
-      {/*<div className={`${styles.handles} ${styles.sources}`}>*/}
       {sourceHandles?.map((handle, index) => (
         <Handle
           key={handle}
@@ -57,9 +44,6 @@ const Node = ({
           className={styles.handleDot}
         />
       ))}
-      {/*</div>*/}
-      {/*<div className={`${styles.handles} ${styles.top}`}>*/}
-      {/*<div >*/}
       {sourceHandles?.map((handle, index) => (
         <Handle
           key={handle}
@@ -69,8 +53,6 @@ const Node = ({
           className={styles.handleDot}
         />
       ))}
-      {/*</div>*/}
-      {/*<div className={`${styles.handles} ${styles.target}`}>*/}
       {sourceHandles?.map((handle, index) => (
         <Handle
           key={handle}
@@ -80,9 +62,6 @@ const Node = ({
           className={styles.handleDot}
         />
       ))}
-      {/*</div>*/}
-      {/*<div className={`${styles.handles} ${styles.bottom}`}>*/}
-      {/*<div>*/}
       {sourceHandles?.map((handle, index) => (
         <Handle
           key={handle}
@@ -92,7 +71,6 @@ const Node = ({
           className={styles.handleDot}
         />
       ))}
-      {/*</div>*/}
     </div>
   );
 };

@@ -27,14 +27,12 @@ function CustomEdge({
                                      label,
                                      sourceHandleId,
                                    }: EdgeProps) {
-  console.log('sourceHandleId', sourceHandleId);
   const sourceNode = useInternalNode(source);
   const targetNode = useInternalNode(target);
   const { sx, sy, tx, ty, sourcePos, targetPos } = getEdgeParams(
     sourceNode,
     targetNode,
   );
-  console.log('sourceNode', sourceNode);
 
   const [edgePath, labelX, labelY] = getSmoothStepPath({
     sourceX: sx,
@@ -48,14 +46,6 @@ function CustomEdge({
   return (
     <React.Fragment key={id}>
       <BaseEdge id={id} path={edgePath} markerEnd={markerEnd} className={s.edge_line} />
-      {/*<path*/}
-      {/*  id={id}*/}
-      {/*  className={s.edge_line}*/}
-      {/*  d={edgePath}*/}
-      {/*  strokeWidth={5}*/}
-      {/*  markerEnd={markerEnd}*/}
-      {/*  style={style}*/}
-      {/*/>*/}
       {
         label && (
           <EdgeLabelRenderer>
