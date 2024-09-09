@@ -142,8 +142,10 @@ export default function useNodeFlowControl() {
             baseIndex: draggedIds2D.length - 1,
             categoryOption: categoryOption as IModelOption,
             ids: draggedIds2D[draggedIds2D.length - 1],
-            targetHandles: [`account_abstraction-t-${rootNode}`],
-            sourceHandles: [],
+            // targetHandles: [`account_abstraction-t-${rootNode}`],
+            targetHandles: [],
+            sourceHandles: [`account_abstraction-t-${rootNode}`],
+            // sourceHandles: [],
           },
         };
         setNodes([...nodesData, newNode]);
@@ -203,8 +205,10 @@ export default function useNodeFlowControl() {
             baseIndex: 0,
             categoryOption: {} as IModelOption,
             ids: [],
-            targetHandles: [`bridge_apps-t-${rootNode}`],
-            sourceHandles: [],
+            // targetHandles: [`bridge_apps-t-${rootNode}`],
+            targetHandles: [],
+            sourceHandles: [`bridge_apps-t-${rootNode}`],
+            // sourceHandles: [],
           },
         };
 
@@ -264,8 +268,10 @@ export default function useNodeFlowControl() {
             baseIndex: 0,
             categoryOption: {} as IModelOption,
             ids: [],
-            targetHandles: [`gaming_apps-t-${rootNode}`],
-            sourceHandles: [],
+            // targetHandles: [`gaming_apps-t-${rootNode}`],
+            targetHandles: [],
+            sourceHandles: [`gaming_apps-t-${rootNode}`],
+            // sourceHandles: [],
           },
         };
 
@@ -432,8 +438,10 @@ export default function useNodeFlowControl() {
         baseIndex: draggedIds2D.length - 1,
         categoryOption: categoryOption as IModelOption,
         ids: draggedIds2D[draggedIds2D.length - 1],
-        targetHandles: [`${newNodeId}-t-${rootNode}`],
-        sourceHandles: [],
+        // targetHandles: [`${newNodeId}-t-${rootNode}`],
+        targetHandles: [],
+        sourceHandles: [`${newNodeId}-t-${rootNode}`],
+        // sourceHandles: [],
       },
     };
 

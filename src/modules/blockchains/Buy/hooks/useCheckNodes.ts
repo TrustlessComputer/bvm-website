@@ -100,8 +100,10 @@ export default function useCheckNodes() {
             baseIndex: 0,
             categoryOption: {} as IModelOption,
             ids: [],
-            targetHandles: [`account_abstraction-t-${rootNode}`],
-            sourceHandles: [],
+            // targetHandles: [`account_abstraction-t-${rootNode}`],
+            targetHandles: [],
+            sourceHandles: [`account_abstraction-t-${rootNode}`],
+            // sourceHandles: [],
           },
         };
 
@@ -123,6 +125,9 @@ export default function useCheckNodes() {
           target: `account_abstraction`,
           targetHandle: `account_abstraction-t-${rootNode}`,
           type: 'customEdge',
+          selectable: false,
+          selected: false,
+          focusable: false,
           label: handleStatusEdges('', lineAAStatus, 'account_abstraction')
             .icon,
           animated: handleStatusEdges('', lineAAStatus, 'account_abstraction')
@@ -193,8 +198,10 @@ export default function useCheckNodes() {
             baseIndex: 0,
             categoryOption: {} as IModelOption,
             ids: [],
-            targetHandles: [`bridge_apps-t-${rootNode}`],
-            sourceHandles: [],
+            // targetHandles: [`bridge_apps-t-${rootNode}`],
+            targetHandles: [],
+            sourceHandles: [`bridge_apps-t-${rootNode}`],
+            // sourceHandles: [],
           },
         };
 
@@ -219,6 +226,9 @@ export default function useCheckNodes() {
           label: handleStatusEdges('', lineBridgeStatus, 'bridge_apps').icon,
           animated: handleStatusEdges('', lineBridgeStatus, 'bridge_apps')
             .animate,
+          selectable: false,
+          selected: false,
+          focusable: false,
           markerEnd: {
             type: MarkerType.Arrow,
             width: 25,
@@ -287,8 +297,10 @@ export default function useCheckNodes() {
             baseIndex: 0,
             categoryOption: {} as IModelOption,
             ids: [],
-            targetHandles: [`gaming_apps-t-${rootNode}`],
-            sourceHandles: [],
+            // targetHandles: [`gaming_apps-t-${rootNode}`],
+            targetHandles: [],
+            sourceHandles: [`gaming_apps-t-${rootNode}`],
+            // sourceHandles: [],
           },
         };
 
@@ -313,6 +325,9 @@ export default function useCheckNodes() {
           label: handleStatusEdges('', lineBridgeStatus, 'gaming_apps').icon,
           animated: handleStatusEdges('', lineBridgeStatus, 'gaming_apps')
             .animate,
+          selectable: false,
+          selected: false,
+          focusable: false,
           markerEnd: {
             type: MarkerType.Arrow,
             width: 25,
