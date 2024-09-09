@@ -25,6 +25,7 @@ import { IRetrieveFormsByDappKey } from '../../hooks/useOneForm';
 const useSubmitFormTokenGeneration = () => {
   const dappState = useAppSelector(dappSelector);
   const dispatch = useDispatch();
+  const api = new CTokenGenerationAPI();
 
   const handleReset = () => {
     // formDappInputSignal.value = {};
@@ -181,7 +182,6 @@ const useSubmitFormTokenGeneration = () => {
 
     try {
       for (const form of forms) {
-        // console.log('formxxxx', form);
 
         let dataMapping: Record<string, { key: string; value: string }[]>[] =
           [];
@@ -297,7 +297,10 @@ const useSubmitFormTokenGeneration = () => {
           };
           index++;
 
-          const api = new CTokenGenerationAPI();
+          console.log('LEON TEST: 444');
+
+          console.log('LEON TEST: 555');
+
           const tokenInfo = await api.generateNewToken({
             data_hex: calldata,
             type: 'token',

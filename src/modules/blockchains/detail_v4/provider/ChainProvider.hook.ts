@@ -19,8 +19,6 @@ import { ChainContext } from './ChainProvider';
 
 export const useChainProvider = () => {
   const context = useContext(ChainContext);
-  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
-  const { allFilled } = useCheckAllFilled();
 
   if (!context) {
     throw new Error(
@@ -28,6 +26,8 @@ export const useChainProvider = () => {
     );
   }
 
+  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+  const { allFilled } = useCheckAllFilled();
   const { order } = context;
 
   const isOwnerChain = useMemo(() => {
@@ -331,7 +331,7 @@ export const useChainProvider = () => {
     if (result) {
       return {
         ...result,
-        statusStr: result.statusCode === 'done' ? 'Running' : result.statusStr,
+        statusStr: result.statusCode === 'done' ? 'Deployed' : result.statusStr,
       };
     } else {
       let statusCode = 'drafting_modules';

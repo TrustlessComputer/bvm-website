@@ -46,9 +46,14 @@ export const registerCodeBattle = async (payload: any) => {
   return res;
 };
 
-export const checkRegistered = async () => {
+export const checkRegistered = async (contestType?: number) => {
   const res: IUserContest = await apiEternalAIClient.get(
     `/contest/user-contest-info`,
+    {
+      params: {
+        contest_type: contestType || 0,
+      },
+    },
   );
   return res;
 };
@@ -56,4 +61,15 @@ export const checkRegistered = async () => {
 export const getContestStats = async () => {
   const res: IContestStats = await apiEternalAIClient.get(`/contest/statistic`);
   return res;
+};
+
+export const addBTCAddress = async (address: string) => {
+  try {
+    await apiEternalAIClient.post(`/contest/add-btc-address`, {
+      address,
+    });
+    return true;
+  } catch {
+    return false;
+  }
 };

@@ -1,0 +1,107 @@
+.wrapper {
+  margin-top: 20px;
+  border-radius: 8px;
+  border: 1px solid #232323;
+  background: rgba(34, 34, 34, 0.7);
+
+  .header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 14px 12px;
+
+    display: flex;
+    justify-content: space-between;
+
+    .boxControl {
+      //   opacity: 0.5;
+
+      &:hover {
+        opacity: 0.75;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .body {
+    :global {
+      .chakra-tabs__tablist {
+        overflow: auto;
+
+        button {
+          white-space: nowrap;
+        }
+      }
+
+      .chakra-tabs__tab-panel {
+        padding: 0;
+      }
+
+      .chakra-tabs__tab-panels {
+        padding-right: 0;
+      }
+
+      .chakra-tabs__tab {
+        color: #bdc3d1;
+        font-family: 'Space Mono';
+        font-size: 11.569px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        padding: 6.611px 13.222px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 6.611px;
+        border: 1px solid transparent;
+
+        &[aria-selected='true'] {
+          color: #fff;
+          border: 1px solid rgba(68, 68, 85, 0.6);
+          background: rgba(255, 255, 255, 0.05);
+        }
+      }
+    }
+
+    .github {
+      color: #fff;
+      font-family: 'Space Mono';
+      font-size: 11.569px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+
+      p {
+        position: relative;
+
+        font-size: 11px;
+        font-weight: 700;
+        color: #fff;
+        font-family: 'Space Mono';
+        position: relative;
+
+        &:after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          transform: scaleX(0);
+          height: 1px;
+          bottom: -2px;
+          left: 0;
+          background-color: white;
+          transform-origin: center;
+          transition: transform 0.25s ease-out;
+        }
+      }
+
+      &:hover {
+        p::after {
+          transform: scaleX(1);
+        }
+      }
+    }
+  }
+}

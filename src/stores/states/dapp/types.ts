@@ -6,6 +6,12 @@ import { DappModel } from '@/types/customize-model';
 import { IAppInfo, IDappConfigs } from '@/services/api/dapp/types';
 import { IYoloGame } from '@/services/api/dapp/yolo/interface';
 
+export enum WalletType {
+  naka = "naka",
+  inGame = "inGame",
+  thirdWeb = "thirdWeb",
+}
+
 export interface DappState {
   chain?: OrderItem | undefined;
   loading?: boolean;
@@ -18,5 +24,6 @@ export interface DappState {
   appInfos: IAppInfo[];
   yoloGames: IYoloGame[];
   tokensAll: IToken[];
+  walletType?: WalletType;
   whitePapers: IYoloGame[];
 }

@@ -24,6 +24,7 @@ import {
 import uniqBy from 'lodash/uniqBy';
 import { IDApp } from '@/services/api/DAServices/types';
 import { IModelOption } from '@/types/customize-model';
+import { compareString } from '@/utils/string';
 
 export const initialState: L2ServicesState = {
   isMyOrderListFetched: false,
@@ -79,11 +80,16 @@ export const initialState: L2ServicesState = {
   isAvailableListTemplateFetching: false,
   isAvailableListTemplateFetched: false,
   availableListTemplate: undefined,
+  dAppParam: '0',
 
   //
   isModelCategoriesFetching: false,
   isModelCategoriesFetched: false,
   modelCategories: undefined,
+
+  //
+  openWatchList: false,
+  watchLists: [],
 };
 
 const slice = createSlice({
@@ -92,6 +98,9 @@ const slice = createSlice({
   reducers: {
     setViewMode(state, action: PayloadAction<ViewMode>) {
       state.viewMode = action.payload;
+    },
+    setDAppParam(state, action: PayloadAction<string>) {
+      state.dAppParam = action.payload;
     },
     setL2ServiceAuth(state, action: PayloadAction<boolean>) {
       state.isL2ServiceLogged = action.payload;
@@ -136,6 +145,27 @@ const slice = createSlice({
     },
     setDAppConfigSelected(state, action: PayloadAction<IModelOption>) {
       state.dAppConfigSelected = action.payload;
+    },
+    setOpenWatchList(state, action: PayloadAction<boolean>) {
+      state.openWatchList = action.payload;
+    },
+    updateWatchLists(state, action: PayloadAction<string>) {
+      const currentWatchList = state.watchLists;
+
+      const findIndex = currentWatchList.findIndex((v) =>
+        compareString(v.address, action.payload),
+      );
+
+      if (findIndex > -1) {
+        currentWatchList.splice(findIndex, 1);
+      } else {
+        currentWatchList.push({
+          address: action.payload,
+          org_address: action.payload,
+        });
+      }
+
+      state.watchLists = currentWatchList;
     },
   },
 
@@ -296,6 +326,7 @@ const slice = createSlice({
 });
 
 export const {
+  setDAppParam,
   setOrderSelected,
   resetOrders,
   setViewMode,
@@ -308,5 +339,7 @@ export const {
   setMonitorViewPage,
   setDAppSelected,
   setDAppConfigSelected,
+  setOpenWatchList,
+  updateWatchLists,
 } = slice.actions;
 export default slice.reducer;

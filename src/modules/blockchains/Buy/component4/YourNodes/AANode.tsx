@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 
 import AddressInput from '@/modules/blockchains/detail_v3/account-abstraction_v2/components/AddressInput';
 import FeeRateInput from '@/modules/blockchains/detail_v3/account-abstraction_v2/components/FeeRateInput';
+import AddressPaymasterInput from '@/modules/blockchains/detail_v3/account-abstraction_v2/components/AddressPaymasterInput';
+
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 import { DappNode as DappNodeProps } from '@/types/node';
 import { useSignalEffect } from '@preact/signals-react';
@@ -25,19 +27,20 @@ import { useParams } from 'next/navigation';
 
 const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   const { dapp } = data;
-  const param = useParams();
-  const { isAAModuleLoading, aaStatusData, isCanNotEdit, getAATypeIconUrl } =
-    useAAModule();
+
+  const {
+    isAAModuleLoading,
+    aaStatusData,
+    isCanNotEdit,
+    isDone,
+    getAATypeIconUrl,
+  } = useAAModule();
   const { getAAStatus, isUpdateFlow } = useChainProvider();
   const { resetAAStore } = useAccountAbstractionStore();
 
   const [draggedDappIndexes, setDraggedDappIndexes] = React.useState<number[]>(
     [],
   );
-
-  const checkParam = useMemo(() => {
-    return !!param.id;
-  }, [param.id]);
 
   const dappIndex = React.useMemo(
     () => draggedDappIndexes[data.baseIndex],
@@ -51,8 +54,6 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
   if (typeof dappIndex === 'undefined') {
     return null;
   }
-
-  // console.log('AAModule data: -- ', aaStatusData);
 
   return (
     <Node
@@ -93,7 +94,7 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
         children: (
           <>
             <Draggable
-              disabled={checkParam}
+              disabled={isUpdateFlow}
               id={`right-${FieldKeyPrefix.BASE}-${data.baseIndex}`}
               value={{
                 dappIndex,
@@ -132,6 +133,19 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
                   >
                     <FeeRateInput option={dapp.baseBlock.fields[1]} />
                   </Lego>
+
+                  {isDone && (
+                    <Lego
+                      first={false}
+                      last={false}
+                      titleInLeft
+                      titleInRight={false}
+                      background={adjustBrightness(dapp.color, -10)}
+                      {...dapp.baseBlock.fields[2]}
+                    >
+                      <AddressPaymasterInput />
+                    </Lego>
+                  )}
                 </LegoParent>
               </Droppable>
             </Draggable>

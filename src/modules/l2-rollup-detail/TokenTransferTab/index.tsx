@@ -13,11 +13,14 @@ import dayjs from 'dayjs';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
+import { HEART_BEAT } from '@/constants/route-path';
+import { useRouter } from 'next/navigation';
 
 interface IProps {}
 
 const TokenTransferTab = (props: IProps) => {
   const { address } = useContext(L2RollupDetailContext);
+  const router = useRouter();
 
   const rollupApi = new CRollupL2DetailAPI();
 
@@ -47,6 +50,7 @@ const TokenTransferTab = (props: IProps) => {
     page: 1,
     limit: 20,
   });
+  const endOfPaging = useRef(false);
 
   useEffect(() => {
     refParams.current = {
@@ -63,6 +67,9 @@ const TokenTransferTab = (props: IProps) => {
   const fetchData = async (isNew?: boolean) => {
     try {
       if (isNew) {
+        setIsFetching(true);
+        endOfPaging.current = false;
+
         refParams.current = {
           ...refParams.current,
           page: 1,
@@ -74,12 +81,18 @@ const TokenTransferTab = (props: IProps) => {
 
         setRollupTransactions(res);
       } else {
+        if (endOfPaging.current) return;
+        setIsFetching(true);
         const res = (await rollupApi.getRollupL2TokenTransfers({
           user_address: address,
           ...refParams.current,
         })) as any;
 
-        setRollupTransactions([...rollupTransactions, ...res]);
+        if (res && res?.length > 0) {
+          setRollupTransactions([...rollupTransactions, ...res]);
+        } else {
+          endOfPaging.current = true;
+        }
       }
     } catch (error) {
     } finally {
@@ -114,8 +127,8 @@ const TokenTransferTab = (props: IProps) => {
   const columns: ColumnProp[] = useMemo(() => {
     return [
       {
-        id: 'tx',
-        label: 'Tx',
+        id: 'chain',
+        label: 'Chain',
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -134,9 +147,7 @@ const TokenTransferTab = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                window.open(
-                  `${data.chain?.explorer}/tx/${data.transaction_hash}`,
-                );
+                window.open(`${data.chain?.explorer}`);
               }}
             >
               <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
@@ -146,6 +157,35 @@ const TokenTransferTab = (props: IProps) => {
                   borderRadius={'50%'}
                   src={data.chain?.icon}
                 />
+                <Text className={s.title}>{data.chain?.name}</Text>
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'tx',
+        label: 'Transaction',
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ITokenTransfer) {
+          return (
+            <Flex
+              direction={'column'}
+              cursor="pointer"
+              _hover={{
+                textDecoration: 'underline',
+              }}
+              as={'a'}
+              href={`${HEART_BEAT}/tx/${data.transaction_hash}`}
+            >
+              <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
                 <Text className={s.title}>
                   {shortCryptoAddress(data.transaction_hash)}
                 </Text>
@@ -177,9 +217,7 @@ const TokenTransferTab = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                window.open(
-                  `${data.chain?.explorer}/address/${data.from_address}`,
-                );
+                router.push(`${HEART_BEAT}/address/${data.from_address}`);
               }}
             >
               <Text className={s.title}>
@@ -212,9 +250,7 @@ const TokenTransferTab = (props: IProps) => {
                 textDecoration: 'underline',
               }}
               onClick={() => {
-                window.open(
-                  `${data.chain?.explorer}/address/${data.to_address}`,
-                );
+                router.push(`${HEART_BEAT}/address/${data.to_address}`);
               }}
             >
               <Text className={s.title}>
@@ -240,7 +276,10 @@ const TokenTransferTab = (props: IProps) => {
             <Flex gap={3} alignItems={'center'} width={'100%'}>
               <Flex gap={2} alignItems={'center'}>
                 <Text className={s.title}>
-                  {formatCurrency(data?.amount, 0, 6)} {data?.symbol}
+                  {formatCurrency(data?.amount, 0, 6)}{' '}
+                  {data?.symbol.length > 12
+                    ? data?.symbol.substr(0, 12) + '...'
+                    : data?.symbol}
                 </Text>
               </Flex>
             </Flex>

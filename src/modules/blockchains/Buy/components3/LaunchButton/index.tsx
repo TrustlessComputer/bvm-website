@@ -46,7 +46,9 @@ import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
 import useSubmitYoloGame from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitYoloGame';
+import useSubmitWalletType from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitWalletType';
 import { useComputerNameInputStore } from '../ComputerNameInput/ComputerNameInputStore';
+import BigNumber from 'bignumber.js';
 import useSubmitWhitePaper from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitWhitePaper';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
@@ -128,6 +130,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { onSubmitAirdrop } = useSubmitFormAirdrop();
   const { onSubmitTokenGeneration } = useSubmitFormTokenGeneration();
   const { onSubmitYoloGame } = useSubmitYoloGame();
+  const { onSubmit: onSubmitWalletType } = useSubmitWalletType();
   const { onSubmitWhitePaper } = useSubmitWhitePaper();
 
   const { chainName } = useOrderFormStore();
@@ -376,6 +379,10 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       dappKey: DappType.token_generation,
     });
 
+    const walletTypeForms = retrieveFormsByDappKey({
+      dappKey: DappType.walletType,
+    });
+
     console.log('[LaunchButton] - onUpdateHandler', {
       params,
       stakingForms,
@@ -386,12 +393,18 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       tokensNodePositions,
       yoloGameForms,
       yoloNodePositions,
+      walletTypeForms,
       whitePaperForms,
       whitePaperPositions
     });
 
     // console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
-    // console.log('LEON LOG: 111', tokensForms);
+    console.log('LEON LOG: 111', {
+      stakingForms,
+      yoloGameForms,
+      airdropForms,
+      tokensForms
+    });
     let isConfigDapp = false;
 
     try {
@@ -401,7 +414,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       if (result) {
         //Config Account Abstraction...
         configAccountAbstraction(dynamicForm);
-        let isConfigDapp = false;
         if (whitePaperForms && whitePaperForms.length > 0) {
           await onSubmitWhitePaper({
             forms: whitePaperForms,
@@ -437,6 +449,13 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           await onSubmitTokenGeneration({
             forms: tokensForms,
             positions: tokensNodePositions,
+          });
+          isConfigDapp = true;
+        }
+
+        if (walletTypeForms && walletTypeForms.length > 0) {
+          await onSubmitWalletType({
+            forms: walletTypeForms,
           });
           isConfigDapp = true;
         }
@@ -480,6 +499,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         setTimeout(() => {
           dispatch(requestReload());
           setUpdated(true);
+          // window.location.reload();
         }, 1000);
       }
       getOrderDetailByID(orderDetail.orderId);
@@ -698,7 +718,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           onSuccess={async () => {}}
           // balanceNeedTopup={`${tierData?.priceNote || '--'}`}
           balanceNeedTopup={`${formatCurrencyV2({
-            amount: priceBVM,
+            amount: new BigNumber(priceBVM || 0).dividedBy(30).toString(),
             decimals: 0,
           })} BVM `}
         />

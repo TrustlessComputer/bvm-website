@@ -1,3 +1,4 @@
+import AvatarDefaultToken from '@/components/AvatarDefaultToken';
 import ListTable, { ColumnProp } from '@/components/ListTable';
 import { ITokenChain } from '@/services/api/dapp/rollupl2-detail/interface';
 import { formatCurrency } from '@/utils/format';
@@ -34,16 +35,33 @@ const Balances = () => {
         render(data: ITokenChain) {
           return (
             <Flex alignItems={'center'} justifyContent={'space-between'}>
-              <Flex position={'relative'}>
+              <Flex
+                direction={'row'}
+                alignItems={'center'}
+                gap={'12px'}
+                position={'relative'}
+              >
+                {data.icon_url ? (
+                  <Image
+                    w={'32px'}
+                    h={'32px'}
+                    borderRadius={'50%'}
+                    src={data.icon_url || '/heartbeat/ic-token-default.svg'}
+                    bg={'lightgray'}
+                  />
+                ) : (
+                  <AvatarDefaultToken name={data.token_name} />
+                )}
                 <Text className={s.title}>{data.token_name}</Text>
                 <Image
                   position={'absolute'}
-                  right={'-20px'}
-                  top={0}
+                  left={'22px'}
+                  top={'-6px'}
                   w={'16px'}
                   h={'16px'}
                   borderRadius={'50%'}
                   src={data.chain?.icon}
+                  bg={'#fff'}
                 />
               </Flex>
             </Flex>
@@ -99,7 +117,7 @@ const Balances = () => {
               justifyContent={'space-between'}
             >
               <Text className={s.title}>
-                {formatCurrency(data.value, 2, 2)}
+                {formatCurrency(data.value, 2, 6)}
               </Text>
             </Flex>
           );
@@ -107,7 +125,7 @@ const Balances = () => {
       },
       {
         id: 'usd',
-        label: 'USD Value',
+        label: 'Value',
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -137,12 +155,13 @@ const Balances = () => {
 
   return (
     <Box className={s.container}>
-      <Box w={'100%'} className={s.wrapScroll}>
+      <Box w={'100%'} className={s.wrapScroll} minH={'30vh'}>
         <ListTable
           data={rollupBalances}
           columns={columns}
           className={s.tableContainer}
           showEmpty
+          emptyLabel={'No token found.'}
           emptyIcon={<Image src={'/icons/icon-empty.svg'} />}
         />
       </Box>

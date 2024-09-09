@@ -16,6 +16,7 @@ import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import { dappKeyToChainKey } from '../utils';
 import useDapps from './useDapps';
+import { IModelOption } from '@/types/customize-model';
 
 const useSetDefaultDapp = () => {
   const searchParams = useSearchParams();
@@ -26,7 +27,7 @@ const useSetDefaultDapp = () => {
 
   const { draggedIds2D, setDraggedIds2D } = useDraggedId2DStore();
 
-  const [loaded, setLoaded] = useState<boolean>(false)
+  const [loaded, setLoaded] = useState<boolean>(false);
 
   const updateBaseDapp = (dappIndex: number) => {
     const thisDapp = dapps[dappIndex];
@@ -96,7 +97,7 @@ const useSetDefaultDapp = () => {
         title: thisDapp.title,
         dapp: thisDapp,
         baseIndex: 0,
-        categoryOption,
+        categoryOption: categoryOption as IModelOption,
         ids,
         targetHandles: [`${newNodeId}-t-${rootNode}`],
         sourceHandles: [],
@@ -106,6 +107,8 @@ const useSetDefaultDapp = () => {
     draggedDappIndexesSignal.value = [dappIndex];
     draggedIds2DSignal.value = [[]];
     setDraggedIds2D([]);
+    console.log('[useSetDefaultDapp] case 1');
+
     setNodes([...nodesData, newNode]);
     setEdges([
       ...edges,
@@ -166,8 +169,8 @@ const useSetDefaultDapp = () => {
   };
 
   React.useEffect(() => {
-    if(nodes.length === 0 ) return;
-    if(loaded) return;
+    if (nodes.length === 0) return;
+    if (loaded) return;
 
     if (!categories || categories.length === 0 || dapps.length <= 2) return;
 

@@ -35,6 +35,10 @@ import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
 import handleStatusEdges from '@utils/helpers';
 import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
+import { parseWalletType } from '@/modules/blockchains/dapp/parseUtils/wallet-type';
+import { WalletType } from '@/stores/states/dapp/types';
+import { ENABLE_CHATBOX } from '../constants';
+import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import { parseWhitePapers } from '@/modules/blockchains/dapp/parseUtils/whitePaper';
 
 export default function useFetchingTemplate() {
@@ -69,11 +73,13 @@ export default function useFetchingTemplate() {
 
   const { counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
-  const { tokens, airdrops, stakingPools, yoloGames, whitePapers } = dappState;
+  const { tokens, airdrops, stakingPools, yoloGames, walletType, whitePapers } = dappState;
 
   const [needSetDataTemplateToBox, setNeedSetDataTemplateToBox] =
     React.useState(false);
   const [needCheckAndAddAA, setNeedCheckAndAddAA] = React.useState(false);
+  const [needSetPreTemplate, setNeedSetPreTemplate] = React.useState(false);
+  const [reseted, setReseted] = React.useState(false);
 
   const convertData = (data: IModelCategory[]) => {
     const newData = data?.map((item) => {
@@ -130,6 +136,7 @@ export default function useFetchingTemplate() {
     setCategoriesTemplates(templateList);
     setFields(newFields);
     setNeedSetDataTemplateToBox(true);
+    setNeedSetPreTemplate(true);
   };
 
   const dataTemplateToBox = async () => {
@@ -368,7 +375,7 @@ export default function useFetchingTemplate() {
     } else {
       setEdges([...edges, ...edgeData]);
     }
-
+    console.log('[useFetchingTemplate] case 1');
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
     setNeedCheckAndAddAA(true);
@@ -410,6 +417,16 @@ export default function useFetchingTemplate() {
       startIndex: startIndex,
     });
 
+    startIndex += yoloGames.length;
+    const parsedWalletData = walletType ? parseWalletType(walletType) : [];
+    const parsedWalletForm = walletType
+      ? parseDappModel({
+          key: DappType.walletType,
+          model: parsedWalletData,
+          startIndex: startIndex,
+        })
+      : {};
+
     startIndex += parsedYoloGameData.length;
     const parsedWhitePaperData = parseWhitePapers(whitePapers);
     const parsedWhitePaperForm = parseDappModel({
@@ -422,6 +439,7 @@ export default function useFetchingTemplate() {
       tokens,
       airdrops,
       stakingPools,
+      parsedWalletData,
       yoloGames,
       whitePapers,
     });
@@ -431,6 +449,7 @@ export default function useFetchingTemplate() {
       ...parsedAirdropsData,
       ...parsedStakingPoolsData,
       ...parsedYoloGameData,
+      ...parsedWalletData,
       ...parsedWhitePaperData,
     ]);
     setTemplateForm({
@@ -438,6 +457,7 @@ export default function useFetchingTemplate() {
       ...parsedAirdropsForm.fieldValue,
       ...parsedStakingPoolsForm.fieldValue,
       ...parsedYoloGameForm.fieldValue,
+      ...((parsedWalletForm as any)?.fieldValue || {}),
       ...parsedWhitePaperForm.fieldValue,
     } as any);
 
@@ -483,17 +503,22 @@ export default function useFetchingTemplate() {
     const newDraggedDappIndexes = [];
 
     if (isAAInstalled) {
-      newDraggedDappIndexes.push(0);
+      const dappIndex = dapps.findIndex(
+        (dapp) => dapp.key === 'account_abstraction',
+      );
+      newDraggedDappIndexes.push(dappIndex);
       newDraggedIds2D.push([]);
     }
 
     if (isBridgeInstalled) {
-      newDraggedDappIndexes.push(1);
+      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'bridge_apps');
+      newDraggedDappIndexes.push(dappIndex);
       newDraggedIds2D.push([]);
     }
 
     if (isGamingAppsInstalled) {
-      newDraggedDappIndexes.push(2);
+      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'gaming_apps');
+      newDraggedDappIndexes.push(dappIndex);
       newDraggedIds2D.push([]);
     }
 
@@ -503,10 +528,56 @@ export default function useFetchingTemplate() {
     setNeedCheckAndAddAA(false);
   };
 
+  const setPreTemplate = () => {
+    if (isUpdateFlow && order) {
+      setTemplate(order.selectedOptions || []);
+    } else {
+      const template = searchParams.get('template');
+
+      console.log('template', template, templateDefault);
+
+      if (template || !ENABLE_CHATBOX) {
+        setTemplate(templateDefault || []);
+      } else if (ENABLE_CHATBOX) {
+        setTemplate([]);
+      }
+    }
+
+    setNeedSetPreTemplate(false);
+  };
+
   React.useEffect(() => {
+    setNodes([]);
+    setEdges([]);
+    setCategories([]);
+    setParsedCategories([]);
+    setCategoriesTemplates([]);
+    setFields({});
+    setCategoryMapping({});
+    setTemplateDapps([]);
+    setTemplateForm(null);
+
+    setNeedSetDataTemplateToBox(false);
+    setNeedSetPreTemplate(false);
+    setNeedCheckAndAddAA(false);
+
+    draggedIds2DSignal.value = [];
+    draggedDappIndexesSignal.value = [];
+    templateIds2DSignal.value = [];
+    formTemplateDappSignal.value = {};
+    formDappSignal.value = {};
+
+    needReactFlowRenderSignal.value = true;
+
+    setReseted(true);
+  }, []);
+
+  React.useEffect(() => {
+    if (!reseted) return;
+
     fetchData();
     // parseDappApiToDappModel();
-  }, []);
+  }, [reseted]);
 
   React.useEffect(() => {
     if (!isUpdateFlow) return;
@@ -534,12 +605,8 @@ export default function useFetchingTemplate() {
   }, [needSetDataTemplateToBox]);
 
   React.useEffect(() => {
-    if (isUpdateFlow && order) {
-      setTemplate(order.selectedOptions || []);
-    } else {
-      // initTemplate(0);
-      console.log('LOG -- templateDefault -- ', templateDefault);
-      setTemplate(templateDefault || []);
-    }
-  }, [categoriesTemplates, isUpdateFlow, templateDefault]);
+    if (!needSetPreTemplate) return;
+
+    setPreTemplate();
+  }, [needSetPreTemplate]);
 }

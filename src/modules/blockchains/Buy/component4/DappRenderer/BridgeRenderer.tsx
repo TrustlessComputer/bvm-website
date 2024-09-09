@@ -32,6 +32,7 @@ const BridgeRenderer = () => {
       style={{
         width: '100% !important',
         height: '100%',
+        padding: '20px 25px',
       }}
     >
       {draggedFields.map((key, index) => {
@@ -67,6 +68,12 @@ const BridgeRenderer = () => {
                   label: option.title,
                   icon: option.icon,
                 }}
+                disabled={
+                  isUpdateFlow &&
+                  !!selectedCategoryMapping?.[item.key]?.options.find(
+                    (opt) => opt.key === option.key,
+                  )
+                }
               >
                 <DroppableV2 id={item.key + '-right'}>
                   <LegoV3
@@ -103,6 +110,7 @@ const BridgeRenderer = () => {
                 icon: '',
                 parent: true,
               }}
+              disabled={isUpdateFlow}
             >
               <DroppableV2 id={item.key}>
                 <ChainLegoParent
@@ -140,6 +148,7 @@ const BridgeRenderer = () => {
                 icon: '',
                 parent: true,
               }}
+              disabled={isUpdateFlow}
             >
               <DroppableV2 id={item.key + '-right'}>
                 <LegoV3

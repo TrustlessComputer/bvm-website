@@ -149,7 +149,7 @@ const ExtendsInput = ({
     if (typeof formDappToggle[key] !== 'undefined') {
       setToggle(formDappToggle[key]);
     } else {
-      formDappToggle = {
+      formDappSignal.value = {
         ...formDappToggle,
         [key]: Boolean(value),
       };

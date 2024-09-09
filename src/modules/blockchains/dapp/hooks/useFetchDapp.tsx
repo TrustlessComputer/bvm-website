@@ -101,7 +101,7 @@ const useFetchDapp = () => {
 
   React.useEffect(() => {
     fetchData();
-  }, []);
+  }, [needReload]);
 
   useEffect(() => {
     if (dappState?.chain?.chainId) {

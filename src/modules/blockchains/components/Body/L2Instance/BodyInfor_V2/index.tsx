@@ -30,9 +30,9 @@ const BodyInfor = (props: Props) => {
       {/* {item.serviceType === RollupEnum.Rollup_ZK && (
         <PackageSection item={item} />
       )} */}
-      {item.serviceType === RollupEnum.Rollup_ZK && (
+      {/* {item.serviceType === RollupEnum.Rollup_ZK && (
         <HardwareSection item={item} />
-      )}
+      )} */}
       <BlockchainSection item={item} />
     </Flex>
   );

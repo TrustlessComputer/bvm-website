@@ -1,10 +1,7 @@
-import createAxiosInstance from '@/services/http-client';
-import { PERP_API_URL } from '@/config';
 import { CoinPrices } from '@/stores/states/common/types';
+import CDappApiClient from './api/dapp/dapp.client';
 
-const apiClient = createAxiosInstance({
-  baseURL: `${PERP_API_URL}/api`,
-});
+const apiClient = new CDappApiClient().api;
 
 const getCoinPrices = async (): Promise<CoinPrices | undefined> => {
   try {
@@ -24,7 +21,4 @@ const getConfigs = async (): Promise<CoinPrices | undefined> => {
   }
 };
 
-export {
-  getCoinPrices,
-  getConfigs
-}
+export { getCoinPrices, getConfigs };

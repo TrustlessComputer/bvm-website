@@ -29,5 +29,7 @@ export enum DappType {
   token_generation = 'token_generation',
   airdrop = 'airdrop',
   yologame = 'yologame',
+  orderbook = 'orderbook',
+  walletType = 'wallet_type',
   white_paper = 'white_paper',
 }

@@ -28,7 +28,7 @@
     left: 11px;
 
     &__top {
-      top: -1px;
+      top: -1.5px;
       svg path {
         fill: #ffffff !important;
       }
@@ -106,9 +106,29 @@
 
 .titleSingle {
   width: max-content;
-  padding-top: .15em;
+  padding-top: 0.15em;
   display: block;
   // font-size: 14px;
   // font-weight: 500;
   // line-height: calc(28 / 14);
+}
+
+.label {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.lego__piece__top__ai {
+  top: -1px;
+  svg path {
+    fill: #ffeee8 !important;
+  }
+  &::after {
+    background-color: #ffeee8;
+  }
 }

@@ -12,8 +12,7 @@ import {
 import MenuEditItem from './MenuEditItem';
 
 export enum MenuEditItemEnum {
-  // UpdateYourChainInfor = 0,
-  ABC = 0,
+  UpdateYourChainInfor = 0,
   ConfigYourDAppsDomain,
 }
 
@@ -24,11 +23,11 @@ export type MenuEditItemType = {
 };
 
 const MenuEditItemList: MenuEditItemType[] = [
-  // {
-  //   key: 'A',
-  //   value: MenuEditItemEnum.ABC,
-  //   title: 'ABC Title',
-  // },
+  {
+    key: 'A',
+    value: MenuEditItemEnum.UpdateYourChainInfor,
+    title: 'Update your chain',
+  },
   {
     key: 'B',
     value: MenuEditItemEnum.ConfigYourDAppsDomain,

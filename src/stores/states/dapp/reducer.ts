@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { DappState } from './types';
+import { DappState, WalletType } from './types';
 
 const initialState: DappState = {
   chain: undefined,
@@ -13,6 +13,7 @@ const initialState: DappState = {
   appInfos: [],
   yoloGames: [],
   tokensAll: [],
+  walletType: undefined,
   whitePapers: [],
 };
 
@@ -53,6 +54,9 @@ const slice = createSlice({
     setTokensAll: (state, actions) => {
       state.tokensAll = actions.payload;
     },
+    setWalletType: (state, actions) => {
+      state.walletType = actions.payload;
+    },
     setWhitePapers: (state, actions) => {
       state.whitePapers = actions.payload;
     },
@@ -71,6 +75,7 @@ export const {
   setAppInfos,
   setYoloGames,
   setTokensAll,
+  setWalletType,
   setWhitePapers,
 } = slice.actions;
 

@@ -1,3 +1,5 @@
+import { WalletType } from '@/stores/states/dapp/types';
+
 export interface IReqDapp {
   orderID: string
 }
@@ -21,6 +23,7 @@ export interface IDappConfigs {
   twitter_redirect_uri?: string;
   web3_auth_client_id?: string;
   template: ITemplate;
+  wallet_type?: WalletType;
 };
 
 export enum TemplateType {
