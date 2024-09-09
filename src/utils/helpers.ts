@@ -289,7 +289,7 @@ function handleStatusEdgeByBox(status: any) {
   }
 }
 
-export default function handleStatusEdges(statusDapp: any, status: aa, idNode: string) {
+export default function handleStatusEdges(statusDapp: any, status: aa | string, idNode: string) {
   if (idNode === 'account_abstraction' || idNode === 'bridge_apps' || idNode === 'gaming_apps') {
     console.log('status here', status);
     return handleStatusEdgeByBox(status);
