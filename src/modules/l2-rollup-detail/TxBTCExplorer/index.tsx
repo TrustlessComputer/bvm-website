@@ -37,9 +37,9 @@ import { shortCryptoAddress } from '@/utils/address';
 import { isMobile } from 'react-device-detect';
 
 const TxBTCExplorer = () => {
-  const { address, isBTCTxAddress, isFBTxAddress } = useContext(
-    L2RollupExplorerContext,
-  );
+  const { address, isBTCTxAddress } = useContext(L2RollupExplorerContext);
+  const [isFBTxAddress, setIsFBTxAddress] = useState(false);
+
   const [loading, setLoading] = useState(true);
   const [txBTC, setTxBTC] = useState<ITxBTC>();
   const coinPrices = useSelector(commonSelector).coinPrices;
@@ -68,12 +68,16 @@ const TxBTCExplorer = () => {
         return;
       }
 
-      const [rs, rs1] = await Promise.all([
-        rollupBitcoinApi.getTxBTC(address),
-        mempoolApi.getTransactionTime(address, isFBTxAddress),
-      ]);
-
+      const rs = await rollupBitcoinApi.getTxBTC(address);
       if (!rs?.tx_id) return;
+
+      let isFBChain = false;
+      if (rs?.chain === 'fractal') {
+        isFBChain = true;
+        setIsFBTxAddress(true);
+      }
+
+      const rs1 = await mempoolApi.getTransactionTime(address, isFBChain);
       const _rs: any = rs;
 
       if (rs1?.[0]) {
