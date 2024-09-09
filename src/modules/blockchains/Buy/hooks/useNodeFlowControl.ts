@@ -17,7 +17,11 @@ import useFlowStore, { AppState } from '../stores/useFlowStore';
 import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
 import useDraggingStore from '@/modules/blockchains/Buy/stores/useDraggingStore';
 import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
+import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
+import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
+import { IModelOption } from '@/types/customize-model';
 import { DappNode } from '@/types/node';
+import handleStatusEdges from '@utils/helpers';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import {
@@ -28,10 +32,6 @@ import {
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useDraggedId2DStore from '../stores/useDraggedId2DStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
-import handleStatusEdges from '@utils/helpers';
-import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
-import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
-import { IModelOption } from '@/types/customize-model';
 
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
