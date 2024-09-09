@@ -22,7 +22,7 @@ const AACustomNotification = () => {
       borderRadius={'12px'}
     >
       <Text fontSize={'15px'} fontWeight={600}>
-        Payment contract address:
+        Paymaster contract address:
       </Text>
       <Flex
         bgColor={'#fff'}
