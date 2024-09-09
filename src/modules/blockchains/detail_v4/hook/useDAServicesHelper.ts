@@ -1,14 +1,16 @@
-import { useAppDispatch } from '@/stores/hooks';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { fetchIssueTokenListByChainID } from '@/stores/states/daServices/actions';
 import { useMemo, useRef } from 'react';
 import { useChainProvider } from '../provider/ChainProvider.hook';
 import { isEmpty } from 'lodash';
+import { getIsssueTokenListSelector } from '@/stores/states/daServices/selector';
 
 const TIMER_INTERVAL = 10000; //10s
 
 export const useDAServicesHelper = () => {
   const dispatch = useAppDispatch();
-  const { order, isUpdateFlow, tokenIssueList } = useChainProvider();
+  const { order, isUpdateFlow } = useChainProvider();
+  const tokenIssueList = useAppSelector(getIsssueTokenListSelector);
 
   //
   const timerRef = useRef<any>();
@@ -21,6 +23,7 @@ export const useDAServicesHelper = () => {
   const loopFetchTokenIssueList = (chainID: number | string) => {
     clearLoopFetchTokenIssueList();
     if (!timerRef.current) {
+      dispatch(fetchIssueTokenListByChainID(chainID));
       timerRef.current = setInterval(() => {
         dispatch(fetchIssueTokenListByChainID(chainID));
       }, TIMER_INTERVAL);
@@ -29,8 +32,7 @@ export const useDAServicesHelper = () => {
 
   //
   const isEmptyIssueTokenList = useMemo(() => {
-    // return !tokenIssueList || isEmpty(tokenIssueList);
-    return true;
+    return !tokenIssueList || isEmpty(tokenIssueList);
   }, [tokenIssueList]);
 
   // RESULT
@@ -42,7 +44,7 @@ export const useDAServicesHelper = () => {
     clearLoopFetchTokenIssueList,
   };
 
-  // console.log('[useDAServicesHelper] -- ALl Data ', result);
+  console.log('[useDAServicesHelper] -- ALl Data ', result);
 
   return result;
 };

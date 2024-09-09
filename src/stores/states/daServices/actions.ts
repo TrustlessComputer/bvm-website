@@ -9,12 +9,16 @@ const fetchIssueTokenListByChainID = createAsyncThunk(
     let tokenIssueList: IToken[] = [];
     try {
       tokenIssueList = await DAServiceAPI.get(
-        `/tokens/list?network_id${networkID}`,
+        `/tokens/list?network_id=${networkID}`,
       );
     } catch (error) {
-      console.log('[getListIssueTokenByNetworkID] ERROR: ', error);
+      // console.log('[getListIssueTokenByNetworkID] ERROR: ', error);
       tokenIssueList = [];
     } finally {
+      // console.log(
+      //   '[fetchIssueTokenListByChainID] FINALLY - tokenIssueList : ',
+      //   tokenIssueList,
+      // );
       return tokenIssueList;
     }
   },
