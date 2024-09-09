@@ -1,12 +1,9 @@
-import React from 'react';
-
 // import ComputerNameInput from '@/modules/blockchains/Buy/components3/ComputerNameInput';
 import ComputerNameInput from '@/modules/blockchains/Buy/components3/ComputerNameInput/index_v2';
 import ChainDraggable from '@/modules/blockchains/Buy/components3/Draggable';
 import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
 import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
-import { IModelCategory } from '@/types/customize-model';
 import Label from '../../components3/Label';
 import ChainLegoParent from '../../components3/LegoParent';
 import useOrderFormStoreV3 from '../../stores/index_v3';
@@ -20,7 +17,7 @@ import styles from './styles.module.scss';
 
 type Props = {};
 
-const hiddenFields = ['network', 'gaming_apps'];
+const hiddenFields = ['network'];
 
 const ChainRenderer = () => {
   const { parsedCategories } = useModelCategoriesStore();
@@ -29,14 +26,14 @@ const ChainRenderer = () => {
   const { field } = useOrderFormStoreV3();
   const { isUpdateFlow, selectedCategoryMapping } = useChainProvider();
 
-  console.log('[ChainRenderer]', {
-    parsedCategories,
-    draggedFields,
-    overlappingId,
-    field,
-    isUpdateFlow,
-    selectedCategoryMapping,
-  });
+  // console.log('[ChainRenderer]', {
+  //   parsedCategories,
+  //   draggedFields,
+  //   overlappingId,
+  //   field,
+  //   isUpdateFlow,
+  //   selectedCategoryMapping,
+  // });
 
   return (
     <DroppableV2
