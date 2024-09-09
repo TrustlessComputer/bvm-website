@@ -5,6 +5,7 @@ import { IAirdrop, IAirdropTask } from '@/services/api/dapp/airdrop/interface';
 import { DappModel } from '@/types/customize-model';
 import { IAppInfo, IDappConfigs } from '@/services/api/dapp/types';
 import { IYoloGame } from '@/services/api/dapp/yolo/interface';
+import { IWhitePaper } from '@/services/api/dapp/whitePapers/interface';
 
 export enum WalletType {
   naka = "naka",
@@ -25,5 +26,5 @@ export interface DappState {
   yoloGames: IYoloGame[];
   tokensAll: IToken[];
   walletType?: WalletType;
-  whitePapers: IYoloGame[];
+  whitePapers: IWhitePaper[];
 }
