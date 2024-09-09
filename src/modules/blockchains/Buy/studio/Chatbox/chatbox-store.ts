@@ -8,15 +8,20 @@ export enum ChatBoxStatus {
   Close = '',
 }
 
-interface Message {
-  text: string;
-  texts: {
-    content: string;
-    type: 'text' | 'json';
-  }[];
-  sender: 'user' | 'bot';
+type BotMessage = {
+  beforeJSON: string;
+  jsonPart: string;
+  afterJSON: string;
+  sender: 'bot';
   template: IModelCategory[];
-}
+};
+
+type UserMessage = {
+  text: string;
+  sender: 'user';
+};
+
+type Message = BotMessage | UserMessage;
 
 interface ChatBoxState {
   messages: Message[];

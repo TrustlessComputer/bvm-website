@@ -31,10 +31,7 @@ export default function Chatbox() {
 
   const handleSendMessage = () => {
     if (inputMessage.trim() !== '') {
-      setMessages([
-        ...messages,
-        { text: inputMessage, texts: [], template: [], sender: 'user' },
-      ]);
+      setMessages([...messages, { text: inputMessage, sender: 'user' }]);
       setInputMessage('');
       focusChatBox();
     }
@@ -59,14 +56,13 @@ export default function Chatbox() {
             <div className={styles.chats} ref={elChatBox}>
               {messages.map((message, index) => (
                 <div
-                  key={message.text}
+                  key={index}
                   className={`${styles.message} ${styles[message.sender]}`}
                 >
                   {message.sender === 'bot' ? (
                     <Message
-                      key={message.text}
-                      beforeJSON={useParseMessage(message.text)[0]}
-                      afterJSON={useParseMessage(message.text)[2]}
+                      beforeJSON={useParseMessage(message.beforeJSON)[0]}
+                      afterJSON={useParseMessage(message.afterJSON)[2]}
                       template={message.template}
                       onUpdateScroll={focusChatBox}
                     />

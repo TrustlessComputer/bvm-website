@@ -29,6 +29,12 @@ export default function Message({
     [],
   );
 
+  console.log('[Message] template', {
+    displayedBeforeJSON,
+    displayedAfterJSON,
+    displayedTemplate,
+  });
+
   const refBeforeJSONRender = useRef<string>('');
   const refAfterJSONRender = useRef<string>('');
 
@@ -103,7 +109,7 @@ export default function Message({
 
   return (
     <div className={styles.message}>
-      <div>{displayedBeforeJSON}</div>
+      {displayedBeforeJSON}
 
       <div className={styles.categories}>
         {displayedTemplate.map((item) => (
@@ -128,13 +134,13 @@ export default function Message({
         ))}
       </div>
 
-      <div>{displayedAfterJSON}</div>
+      {displayedAfterJSON}
 
-      {isRendered && (
+      {isRendered && template.length > 0 ? (
         <div className={styles.applyBtn} onClick={() => setTemplate(template)}>
           Apply
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
