@@ -1,6 +1,10 @@
 'use client';
 
-import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
+import {
+  IDAppInstalled,
+  OrderItem,
+  OrderStatus,
+} from '@/stores/states/l2services/types';
 import addChain from '@/utils/addChain';
 import {
   Flex,
@@ -142,9 +146,14 @@ const BottomView = (props: Props) => {
     return dApps?.filter((item) => item.status === 'done') || [];
   }, [dApps]);
 
-  if (!isStatusDone) return null;
+  const isShowDApplist = useMemo(() => {
+    if (!dappList || dappList.length < 1) {
+      return false;
+    }
+    return true;
+  }, [dappList]);
 
-  if (!dappList || dappList.length < 1) return null;
+  if (!isStatusDone) return null;
 
   return (
     <>
@@ -168,17 +177,18 @@ const BottomView = (props: Props) => {
             // router.push('/app-store');
           }}
         /> */}
-          {/* {dappList.map((item, index) => {
-            return (
-              <DappInstalledItem
-                key={`${index}-${item.appName || item.appID}`}
-                item={item}
-                onClick={() => {
-                  window.open(`${item.appURL}`, '_blank');
-                }}
-              />
-            );
-          })} */}
+          {isShowDApplist &&
+            dappList.map((item: IDAppInstalled, index: any) => {
+              return (
+                <DappInstalledItem
+                  key={`${index}-${item.appName || item.appID}`}
+                  item={item}
+                  onClick={() => {
+                    window.open(`${item.appURL}`, '_blank');
+                  }}
+                />
+              );
+            })}
         </SimpleGrid>
       </Flex>
     </>

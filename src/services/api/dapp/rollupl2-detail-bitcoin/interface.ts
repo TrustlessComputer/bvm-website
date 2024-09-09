@@ -21,6 +21,11 @@ export const BalanceTypes: {
     color: '#7660F5',
   },
   {
+    type: 'ordinals_nft',
+    title: 'Ordinals',
+    color: '#45C4FF',
+  },
+  {
     type: 'src20',
     title: 'SRC-20',
     color: '#34E178',
@@ -29,11 +34,6 @@ export const BalanceTypes: {
     type: 'arc20',
     title: 'ARC-20',
     color: '#F8DB71',
-  },
-  {
-    type: 'ordinals_nft',
-    title: 'Ordinals NFT',
-    color: '#45C4FF',
   },
 ];
 

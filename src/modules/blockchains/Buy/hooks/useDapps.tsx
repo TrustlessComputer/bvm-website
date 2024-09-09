@@ -5,6 +5,7 @@ import DateTimeInput from '../component4/DateTimeInput';
 import Dropdown from '../component4/Dropdown';
 import ExtendsInput from '../component4/ExtendsInput';
 import Input from '../component4/Input';
+import LabelCopy from '../component4/LabelCopy';
 import Lego from '../component4/Lego';
 import useDappsStore from '../stores/useDappStore';
 import { FieldOption } from '../types';
@@ -346,6 +347,27 @@ const useDapps = () => {
               disabled
               onlyLabel
             />
+          </Lego>
+        );
+      } else if (
+        field.type === 'label_value' &&
+        field.value !== '' &&
+        field.value !== null &&
+        field.value !== undefined &&
+        field.value !== 'undefined' &&
+        field.options.length === 0
+      ) {
+        return (
+          <Lego
+            {...field}
+            key={fieldKey}
+            first={false}
+            last={false}
+            titleInLeft={true}
+            titleInRight={false}
+            zIndex={_zIndex}
+          >
+            <LabelCopy value={field.value as string} />
           </Lego>
         );
       }

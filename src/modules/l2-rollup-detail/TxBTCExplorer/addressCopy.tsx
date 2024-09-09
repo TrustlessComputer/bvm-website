@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import copy from 'copy-to-clipboard';
 import s from './styles.module.scss';
 import cs from 'classnames';
+import { isMobile } from 'react-device-detect';
 
 const AddressCopy = ({
   address,
@@ -23,7 +24,7 @@ const AddressCopy = ({
         className={cs(s.address, onClick && s.isUrl)}
         title={address}
       >
-        {shortCryptoAddress(address, 34)}
+        {shortCryptoAddress(address, isMobile ? 8 : 34)}
       </Text>
       <Box
         onClick={() => {

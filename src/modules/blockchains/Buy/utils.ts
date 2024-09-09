@@ -278,19 +278,19 @@ export const preDataAirdropTask = (
 
       if (fieldRewardToken > -1) {
         // // @ts-ignore
-        const options: any = tokens.map((t) => ({
-          key: t.id,
-          title: t.name,
-          value: t.contract_address,
-          icon: t.image_url,
-          tooltip: '',
-          type: '',
-          options: [],
-        }));
+        // const options: any = tokens.map((t) => ({
+        //   key: t.id,
+        //   title: t.name,
+        //   value: t.contract_address,
+        //   icon: t.image_url,
+        //   tooltip: '',
+        //   type: '',
+        //   options: [],
+        // }));
 
         // @ts-ignore
-        _sortedDapps[_airdropIndex].baseBlock.fields[fieldRewardToken].options =
-          options;
+        // _sortedDapps[_airdropIndex].baseBlock.fields[fieldRewardToken].options =
+        //   options;
 
         if (airdropTasks.length > 0) {
           const singleFields: BlockModel[] = cloneDeep(
@@ -459,36 +459,15 @@ export const isChainOptionDisabled = (
   item: IModelCategory,
   currentOption: IModelOption,
 ) => {
-  // if (currentOption.key === 'zk') {
-  //   console.log('isChainOptionDisabled', {
-  //     currentOption,
-  //     item,
-  //     field,
-  //     supportLayers: currentOption.supportLayers,
-  //     layers: field['layers']?.value,
-  //     con1:
-  //       !!currentOption.supportLayers &&
-  //       !currentOption.supportLayers.includes(field['layers']?.value as any),
-  //   });
-  // }
-
   return (
     (!!currentOption.supportLayers &&
       currentOption.supportLayers.length > 0 &&
       !currentOption.supportLayers.includes(field['layers']?.value as any)) ||
-    // !!(
-    //   currentOption.supportLayers &&
-    //   currentOption.supportLayers !== 'both' &&
-    //   currentOption.supportLayer !== field['layers']?.value
-    // ) ||
     !!(
       currentOption.supportNetwork &&
       currentOption.supportNetwork !== 'both' &&
       currentOption.supportNetwork !== field['network']?.value
     ) ||
-    // field[item.key].dragged ||
-    // (!item.disable && currentOption.selectable && field[item.key].dragged) ||
-    // (item.required && !field[item.key].dragged) ||
     item.disable ||
     !currentOption.selectable
   );

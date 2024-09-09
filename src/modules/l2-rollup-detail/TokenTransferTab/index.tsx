@@ -182,9 +182,8 @@ const TokenTransferTab = (props: IProps) => {
               _hover={{
                 textDecoration: 'underline',
               }}
-              onClick={() => {
-                router.push(`${HEART_BEAT}/tx/${data.transaction_hash}`);
-              }}
+              as={'a'}
+              href={`${HEART_BEAT}/tx/${data.transaction_hash}`}
             >
               <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
                 <Text className={s.title}>

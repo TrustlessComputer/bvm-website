@@ -80,6 +80,10 @@ export const useAAModule = () => {
     return aaStatusDetail === 'done';
   }, [aaStatusDetail]);
 
+  const isDone = useMemo(() => {
+    return aaStatusDetail === 'done';
+  }, [aaStatusDetail]);
+
   const configAAHandler = async () => {
     try {
       if (!order) {
@@ -154,6 +158,7 @@ export const useAAModule = () => {
     configAAHandler,
     isCanConfigAA,
     isCanNotEdit,
+    isDone,
     aaStatusDetail,
     isAAModuleLoading,
     checkTokenContractAddress,

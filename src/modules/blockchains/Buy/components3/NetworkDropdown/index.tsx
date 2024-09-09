@@ -73,10 +73,22 @@ const NetworkDropdown = ({}: Props) => {
     setIsOpenDropdown(false);
   };
 
+  const handleOpenDropdown = () => {
+    if (isUpdateFlow) return;
+
+    setIsOpenDropdown(!isOpenDropdown);
+  };
+
   const _icon = React.useMemo(
     () => getIcon(currentValue?.icon),
     [currentValue?.icon],
   );
+
+  React.useEffect(() => {
+    if (field['network']?.value === null) {
+      setField('network', options[0].key, true);
+    }
+  }, [field['network']?.value]);
 
   return (
     <div
@@ -94,7 +106,7 @@ const NetworkDropdown = ({}: Props) => {
       <div className={styles.dropdown__inner}>
         <div
           className={styles.dropdown__inner__content}
-          onClick={() => setIsOpenDropdown(!isOpenDropdown)}
+          onClick={() => handleOpenDropdown()}
         >
           {_icon && <Image src={_icon} width={16} height={16} alt="icon" />}
 

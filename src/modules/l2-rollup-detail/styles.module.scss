@@ -138,10 +138,15 @@
   input {
     padding-inline-start: 12px !important;
   }
+
+  @include w-max(768px) {
+    width: 208px !important;
+  }
 }
 
 .boxAi {
-  border: 1px solid #efefef;
-  padding: 12px 0px 16px 0px;
+  border: 1px solid #f58257;
+  padding: 0px 0px 16px 0px;
   border-radius: 12px;
+  width: 100%;
 }

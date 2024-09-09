@@ -33,6 +33,8 @@ import BlockConfirm from './blockConfirm';
 import ItemTransfer from './itemTransfer';
 import s from './styles.module.scss';
 import TokenTransfers from './tokenTransfer';
+import { shortCryptoAddress } from '@/utils/address';
+import { isMobile } from 'react-device-detect';
 
 const TxBTCExplorer = () => {
   const { address, isBTCTxAddress } = useContext(L2RollupExplorerContext);
@@ -136,8 +138,13 @@ const TxBTCExplorer = () => {
           w={'100%'}
           alignItems={'center'}
           justifyContent={'space-between'}
+          gap={'4px'}
         >
-          <Flex alignItems={'flex-end'} gap={'4px'}>
+          <Flex
+            alignItems={['flex-start', 'flex-end']}
+            gap={'4px'}
+            flexDirection={['column', 'row']}
+          >
             <Text className={s.title}>Transaction</Text>
             <Text
               onClick={() => {
@@ -147,7 +154,7 @@ const TxBTCExplorer = () => {
               as={'a'}
               className={s.txHash}
             >
-              {address}
+              {shortCryptoAddress(address, isMobile ? 8 : 1000)}
             </Text>
           </Flex>
           {renderState()}
@@ -162,7 +169,7 @@ const TxBTCExplorer = () => {
 
         <SimpleGrid
           width={'100%'}
-          columns={2}
+          columns={[1, 2]}
           gap={{ base: '16px', md: '20px' }}
           className={s.information}
         >

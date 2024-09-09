@@ -11,14 +11,17 @@ const useFormChain = () => {
   const { field } = useOrderFormStoreV3();
   const { dappCount } = useFormDappToFormChain();
 
+  console.log('[useFormChain] field', field);
+
   const getDynamicForm = () => {
-    if (!categories)
+    if (!categories) {
       return {
         dynamicForm: [],
         allOptionKeyDragged: [],
         allRequiredForKey: [],
         optionMapping: {},
       };
+    }
 
     const ignoreKeys = ['bridge_apps', 'wallet', 'gaming_apps'];
     const dynamicForm: IModelCategory[] = [];
@@ -96,6 +99,8 @@ const useFormChain = () => {
     dynamicForm.forEach((field) => {
       field.options = uniqBy(field.options, 'key');
     });
+
+    console.log('[useFormChain] getDynamicForm', dynamicForm);
 
     return {
       dynamicForm,

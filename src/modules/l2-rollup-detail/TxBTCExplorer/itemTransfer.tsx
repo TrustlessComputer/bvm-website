@@ -52,7 +52,11 @@ const ItemTransfer = ({
 
   return (
     <Flex className={s.itemTransfer} flexDirection={'column'} gap={'8px'}>
-      <Flex alignItems={'center'} justifyContent={'space-between'}>
+      <Flex
+        flexDirection={['column', 'row']}
+        alignItems={['flex-start', 'center']}
+        justifyContent={'space-between'}
+      >
         <AddressCopy
           address={address}
           onClick={() => router.push(`${HEART_BEAT}/address/${address}`)}

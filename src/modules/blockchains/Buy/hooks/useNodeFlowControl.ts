@@ -31,6 +31,7 @@ import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 import handleStatusEdges from '@utils/helpers';
 import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
 import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
+import { IModelOption } from '@/types/customize-model';
 
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
@@ -96,7 +97,16 @@ export default function useNodeFlowControl() {
   };
 
   useSignalEffect(() => {
-    console.log('[useNodeFlowControl]', {nodes});
+    const bridgeAppsIndex = dapps.findIndex(
+      (dapp) => dapp.key === 'bridge_apps',
+    );
+    const gamingAppsIndex = dapps.findIndex(
+      (dapp) => dapp.key === 'gaming_apps',
+    );
+    const accountAbstractionIndex = dapps.findIndex(
+      (dapp) => dapp.key === 'account_abstraction',
+    );
+    console.log('[useNodeFlowControl]', { nodes });
 
     needReactFlowRenderSignal.value = true;
 
@@ -104,7 +114,10 @@ export default function useNodeFlowControl() {
 
     needReactFlowRenderSignal.value = true;
 
-    if (draggedDappIndexesSignal.value.includes(0) && isAAInstalled) {
+    if (
+      draggedDappIndexesSignal.value.includes(accountAbstractionIndex) &&
+      isAAInstalled
+    ) {
       if (!nodes.some((node) => node.id === 'account_abstraction')) {
         const rootNode = 'blockchain';
         const thisDapp = accountAbstractionAsADapp;
@@ -128,7 +141,7 @@ export default function useNodeFlowControl() {
             title: thisDapp.title,
             dapp: thisDapp,
             baseIndex: draggedIds2D.length - 1,
-            categoryOption,
+            categoryOption: categoryOption as IModelOption,
             ids: draggedIds2D[draggedIds2D.length - 1],
             targetHandles: [`account_abstraction-t-${rootNode}`],
             sourceHandles: [],
@@ -171,7 +184,10 @@ export default function useNodeFlowControl() {
       }
     }
 
-    if (draggedDappIndexesSignal.value.includes(1) && isBridgeInstalled) {
+    if (
+      draggedDappIndexesSignal.value.includes(bridgeAppsIndex) &&
+      isBridgeInstalled
+    ) {
       console.log('[useNodeFlowControl] case 1');
 
       if (!nodes.some((node) => node.id === 'bridge_apps')) {
@@ -189,7 +205,7 @@ export default function useNodeFlowControl() {
             title: thisDapp.title,
             dapp: thisDapp,
             baseIndex: 0,
-            categoryOption: {},
+            categoryOption: {} as IModelOption,
             ids: [],
             targetHandles: [`bridge_apps-t-${rootNode}`],
             sourceHandles: [],
@@ -232,10 +248,13 @@ export default function useNodeFlowControl() {
       }
     }
 
-    if (draggedDappIndexesSignal.value.includes(2) && isGamingAppsInstalled) {
+    if (
+      draggedDappIndexesSignal.value.includes(gamingAppsIndex) &&
+      isGamingAppsInstalled
+    ) {
       if (!nodes.some((node) => node.id === 'gaming_apps')) {
         const rootNode = 'blockchain';
-        const thisDapp = bridgesAsADapp;
+        const thisDapp = gamingAppsAsADapp;
         let nodesData = nodes;
         const newNodeId = 'gaming_apps';
         const newNode: DappNode = {
@@ -248,7 +267,7 @@ export default function useNodeFlowControl() {
             title: thisDapp.title,
             dapp: thisDapp,
             baseIndex: 0,
-            categoryOption: {},
+            categoryOption: {} as IModelOption,
             ids: [],
             targetHandles: [`gaming_apps-t-${rootNode}`],
             sourceHandles: [],
@@ -417,7 +436,7 @@ export default function useNodeFlowControl() {
         title: thisDapp.title,
         dapp: thisDapp,
         baseIndex: draggedIds2D.length - 1,
-        categoryOption,
+        categoryOption: categoryOption as IModelOption,
         ids: draggedIds2D[draggedIds2D.length - 1],
         targetHandles: [`${newNodeId}-t-${rootNode}`],
         sourceHandles: [],
