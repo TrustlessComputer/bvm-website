@@ -54,6 +54,7 @@ type NodeProps = {
   heading: NodeHeadingProps;
   content: NodeContentProps;
   notification?: NodeNotificationProps;
+  customNotification?: React.ReactNode;
   overlay?: NodeOverlayProps;
   mainContentStyles?: React.CSSProperties;
   borderColor?: string;
