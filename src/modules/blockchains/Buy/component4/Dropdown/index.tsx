@@ -16,11 +16,13 @@ import { adjustBrightness, FormDappUtil } from '../../utils';
 import { FieldModel } from '@/types/customize-model';
 import { compareString } from '@/utils/string';
 import {
+  draggedDappIndexesSignal,
   draggedIds2DSignal,
   templateIds2DSignal,
 } from '../../signals/useDragSignal';
 import styles from './styles.module.scss';
 import { iconToolNames } from '@/modules/blockchains/Buy/Buy.data';
+import useDraggingStore from '../../stores/useDraggingStore';
 
 type Props = {
   onlyLabel?: boolean;
@@ -40,12 +42,13 @@ const Dropdown = ({
   onlyLabel = false,
   ...props
 }: Props) => {
-  const { setCurrentIndexDapp } = useDappsStore();
+  const { dapps } = useDappsStore();
   const ref = React.useRef<HTMLDivElement | null>(null);
   const [isOpenDropdown, setIsOpenDropdown] = React.useState<boolean>(false);
   const [currentValue, setCurrentValue] = React.useState<FieldModel | null>(
     props.options[0],
   );
+  const { setIsDragging } = useDraggingStore();
 
   useOnClickOutside(ref, () => setIsOpenDropdown(false));
 
@@ -68,13 +71,19 @@ const Dropdown = ({
   };
 
   const handleOnClickCreateToken = () => {
-    formDappSignal.value = {};
-    draggedIds2DSignal.value = [];
+    const tokenDappIndex = dapps.findIndex(
+      (item) => item.key === 'token_generation',
+    );
 
-    formTemplateDappSignal.value = {};
-    templateIds2DSignal.value = [];
+    setIsDragging(true);
 
-    setCurrentIndexDapp(0);
+    setTimeout(() => {
+      draggedDappIndexesSignal.value = [
+        ...draggedDappIndexesSignal.value,
+        tokenDappIndex,
+      ];
+      draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
+    }, 300);
   };
 
   useSignalEffect(() => {
@@ -160,8 +169,10 @@ const Dropdown = ({
   const _icon =
     iconToolNames.find(
       (item) =>
-        currentValue.icon?.replace('https://storage.googleapis.com/bvm-network', '') ===
-        item,
+        currentValue.icon?.replace(
+          'https://storage.googleapis.com/bvm-network',
+          '',
+        ) === item,
     ) ||
     currentValue.icon ||
     null;
@@ -184,9 +195,7 @@ const Dropdown = ({
           className={styles.dropdown__inner__content}
           onClick={() => setIsOpenDropdown(!isOpenDropdown)}
         >
-          {_icon && (
-            <Image src={_icon} width={16} height={16} alt="icon" />
-          )}
+          {_icon && <Image src={_icon} width={16} height={16} alt="icon" />}
 
           <p className={styles.dropdown__inner__content__text}>
             {currentValue.title}
@@ -212,8 +221,10 @@ const Dropdown = ({
           const _icon2 =
             iconToolNames.find(
               (iconName) =>
-                item.icon?.replace('https://storage.googleapis.com/bvm-network', '') ===
-                iconName,
+                item.icon?.replace(
+                  'https://storage.googleapis.com/bvm-network',
+                  '',
+                ) === iconName,
             ) ||
             item.icon ||
             null;
@@ -222,7 +233,7 @@ const Dropdown = ({
               key={item.key}
               className={cn(styles.dropdown__list__item, {
                 [styles.dropdown__list__item__active]:
-                currentValue.key === item.key,
+                  currentValue.key === item.key,
               })}
               onClick={() => handleOnClickOption(item)}
             >
@@ -232,7 +243,7 @@ const Dropdown = ({
 
               <p className={styles.dropdown__list__item__text}>{item.title}</p>
             </li>
-          )
+          );
         })}
       </ul>
     </div>

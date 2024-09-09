@@ -278,19 +278,19 @@ export const preDataAirdropTask = (
 
       if (fieldRewardToken > -1) {
         // // @ts-ignore
-        const options: any = tokens.map((t) => ({
-          key: t.id,
-          title: t.name,
-          value: t.contract_address,
-          icon: t.image_url,
-          tooltip: '',
-          type: '',
-          options: [],
-        }));
+        // const options: any = tokens.map((t) => ({
+        //   key: t.id,
+        //   title: t.name,
+        //   value: t.contract_address,
+        //   icon: t.image_url,
+        //   tooltip: '',
+        //   type: '',
+        //   options: [],
+        // }));
 
         // @ts-ignore
-        _sortedDapps[_airdropIndex].baseBlock.fields[fieldRewardToken].options =
-          options;
+        // _sortedDapps[_airdropIndex].baseBlock.fields[fieldRewardToken].options =
+        //   options;
 
         if (airdropTasks.length > 0) {
           const singleFields: BlockModel[] = cloneDeep(

@@ -39,6 +39,7 @@ import { isMobile } from 'react-device-detect';
 import { DotLottiePlayer } from '@dotlottie/react-player';
 import AnimArrowDown from './AnimArrowDown';
 import PowerBox from '@/modules/l2-rollup/PowerBox';
+import AddressesEngagement from './AddressesEngagement';
 
 enum SortRollupType {
   name,
@@ -1214,6 +1215,16 @@ const L2Rollup = () => {
                 <b>Rollux, Merlin, Core, and Stacks will be coming soon.</b>
               </Text>
             </Box>
+          </Box>
+          <Box
+            w={'100%'}
+            mb={'32px'}
+            mt={'48px'}
+            display={'flex'}
+            flexDirection={'column'}
+            my={'32px'}
+          >
+            <AddressesEngagement />
           </Box>
 
           <Flex

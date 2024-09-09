@@ -59,12 +59,12 @@ const ReactFlowRenderer = React.memo(() => {
     }
   });
 
-  console.log('[ReactFlowRenderer]', {
-    nodes,
-    draggedDappIndexesSignal: draggedDappIndexesSignal.value,
-    draggedIds2DSignal: draggedIds2DSignal.value,
-    formDappSignal: formDappSignal.value,
-  });
+  // console.log('[ReactFlowRenderer]', {
+  //   nodes,
+  //   draggedDappIndexesSignal: draggedDappIndexesSignal.value,
+  //   draggedIds2DSignal: draggedIds2DSignal.value,
+  //   formDappSignal: formDappSignal.value,
+  // });
 
   React.useEffect(() => {
     if (!isFirstLoadTemplateBox) return;

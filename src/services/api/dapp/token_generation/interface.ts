@@ -18,6 +18,7 @@ export interface IToken extends IPosition {
   total_supply?: string;
   user_created?: boolean;
   vestings?: ITokenVesting[];
+  is_native?: boolean;
 }
 
 export interface ITokenVesting {

@@ -17,6 +17,8 @@ import {
 } from './constants';
 import { IModelOption } from '@/types/customize-model';
 
+const BLACKLIST_CATEGORY_BY_DAPP_PARAM = ['bridge_apps', 'tools'];
+
 const getL2ServicesStateSelector = (state: RootState): L2ServicesState =>
   state.l2Services;
 
@@ -334,10 +336,25 @@ const getAvailableListTemplateSelector = createSelector(
   getL2ServicesStateSelector,
   (state) => {
     const availableListTemplate = state.availableListTemplate || [];
-
+    const dAppParam = state.dAppParam;
     //Sort
-    const result = availableListTemplate;
+    let result = availableListTemplate;
 
+    //Fitler DApp Param
+
+    if (dAppParam === '0') {
+      // Returl default
+    } else {
+      result = [...result];
+      result[0] = result[0]?.filter((item) => {
+        // console.log('KEY -- ', item.key);
+        if (BLACKLIST_CATEGORY_BY_DAPP_PARAM.includes(item.key)) {
+          return false;
+        } else {
+          return true;
+        }
+      });
+    }
     return result;
   },
 );
