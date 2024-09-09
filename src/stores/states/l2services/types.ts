@@ -367,6 +367,7 @@ interface L2ServicesState {
   isAvailableListTemplateFetching: boolean;
   isAvailableListTemplateFetched: boolean;
   availableListTemplate?: [IModelCategory[]];
+  dAppParam: string;
 
   isModelCategoriesFetching: boolean;
   isModelCategoriesFetched: boolean;

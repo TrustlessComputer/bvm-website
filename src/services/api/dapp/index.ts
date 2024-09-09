@@ -55,9 +55,17 @@ class CDappAPI {
   }) => {
     try {
 
-      if (compareString(params.appName, DappType.walletType)) {
-        return JSON.stringify(dappMockupData.find((item) => item?.key === DappType.walletType) || {});
+      // token_generation
+      const mockupApp = dappMockupData.find((item) => (
+        item?.key === params.appName || (params.appName === 'create_token' && item?.key === DappType.token_generation)
+      ));
+      if (mockupApp) {
+        return JSON.stringify(mockupApp);
       }
+
+      // if (compareString(params.appName, DappType.walletType)) {
+      //   return JSON.stringify(dappMockupData.find((item) => item?.key === DappType.walletType) || {});
+      // }
 
       const app = (await this.http.get(
         `/apps/detail-by-code/${params.appName}?network_id=${params.network_id}&address=${params.address}`,

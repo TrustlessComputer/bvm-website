@@ -19,7 +19,7 @@ const useSubmitStaking = () => {
     //   dappKey: 'staking',
     // });
 
-    const params = [];
+    // const params = [];
     let index = 0;
 
     for (const form of forms) {
@@ -59,22 +59,20 @@ const useSubmitStaking = () => {
         );
         const formFinal = finalFormMappings.find((item) => !!item);
 
-        const info: any = formFinal?.info.find((item) => !!item);
-
         // TODO: JACKIE - update position below
         const position: IPosition = {
           position_id: uuidv4(),
           position_x: positions[index].x ?? 0,
           position_y: positions[index].y ?? 0,
         };
+
         index++;
-        // console.log(position);
 
         await cStakeAPI.createNewStakingPool({
           principle_token: formFinal?.staking_token,
           reward_token: formFinal?.reward_token,
-          base_ratio: Number(info?.apr?.replaceAll('%', '')) / 100,
-          token_price: 1 / Number(info?.rate),
+          base_ratio: Number((formFinal?.apr as any)?.replaceAll('%', '')) / 100,
+          token_price: 1 / Number(formFinal?.rate),
           ...position, // TODO: JACKIE - update position
         });
       } catch (error) {

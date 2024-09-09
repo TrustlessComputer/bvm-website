@@ -16,7 +16,7 @@ import {
 } from '../mockup_3';
 import {
   draggedDappIndexesSignal,
-  draggedIds2DSignal
+  draggedIds2DSignal,
 } from '../signals/useDragSignal';
 import useDappsStore from '../stores/useDappStore';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
@@ -24,12 +24,14 @@ import { cloneDeep } from '../utils';
 import { IModelOption } from '@/types/customize-model';
 import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
 import useFormChain from './useFormChain';
+import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
 
 export default function useCheckNodes() {
   const { field } = useOrderFormStoreV3();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const { getCurrentFieldFromChain } = useFormChain();
   const { lineBridgeStatus } = useBridgesModule();
+  const { lineAAStatus } = useAAModule();
   const { dapps } = useDappsStore();
   const store = useStoreApi();
   const {
@@ -123,11 +125,11 @@ export default function useCheckNodes() {
           target: `account_abstraction`,
           targetHandle: `account_abstraction-t-${rootNode}`,
           type: 'customEdge',
-          label: handleStatusEdges('', lineBridgeStatus, 'account_abstraction')
+          label: handleStatusEdges('', lineAAStatus, 'account_abstraction')
             .icon,
           animated: handleStatusEdges(
             '',
-            lineBridgeStatus,
+            lineAAStatus,
             'account_abstraction',
           ).animate,
           markerEnd: {

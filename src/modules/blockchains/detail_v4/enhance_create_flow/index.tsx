@@ -5,6 +5,7 @@ import enhanceClearStudioLocalStorage from './enhance.clearStudioLocalStorage';
 
 import enhanceGetTemplateParam from './enhance.getTemplateParam';
 import enhancePrepareData from './enhance.prepareData';
+import enhanceFilterWithDappParam from './enhance.FilterWithDappParam';
 
 import withLoading from './enhance.withLoading';
 
@@ -21,6 +22,9 @@ export default compose<any>(
 
   //
   withLoading,
+
+  // Already Data
+  enhanceFilterWithDappParam,
 
   // Main Page
   enhance,

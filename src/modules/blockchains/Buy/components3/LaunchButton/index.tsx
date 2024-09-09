@@ -388,7 +388,12 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     });
 
     // console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
-    // console.log('LEON LOG: 111', tokensForms);
+    console.log('LEON LOG: 111', {
+      stakingForms,
+      yoloGameForms,
+      airdropForms,
+      tokensForms
+    });
     let isConfigDapp = false;
 
     try {
@@ -398,7 +403,6 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       if (result) {
         //Config Account Abstraction...
         configAccountAbstraction(dynamicForm);
-        let isConfigDapp = false;
         if (yoloGameForms && yoloGameForms.length > 0) {
           await onSubmitYoloGame({
             forms: yoloGameForms,
@@ -477,6 +481,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         setTimeout(() => {
           dispatch(requestReload());
           setUpdated(true);
+          // window.location.reload();
         }, 1000);
       }
       getOrderDetailByID(orderDetail.orderId);

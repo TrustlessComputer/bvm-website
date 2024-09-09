@@ -200,7 +200,6 @@ const BoxOption = ({
                               checked = true;
                             }
                           }
-
                           return (
                             <React.Fragment
                               key={section.key + blockKey + block.title}
@@ -347,9 +346,10 @@ const BoxOption = ({
                       {thisDapp.baseModuleFields
                         ?.filter((f) => f.section === section.key)
                         ?.map((item) => {
-                          let checked = false;
 
                           return item.fields.map((field) => {
+                            let checked = false;
+
                             if (allThisDappForm.length > 0) {
                               for (const key in formDappSignal.value) {
                                 if (

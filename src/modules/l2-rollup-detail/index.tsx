@@ -5,7 +5,18 @@
 import { HEART_BEAT } from '@/constants/route-path';
 import { shortCryptoAddress } from '@/utils/address';
 import { formatCurrency } from '@/utils/format';
-import { Box, Flex, Image, Skeleton, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Image,
+  Skeleton,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+} from '@chakra-ui/react';
 import copy from 'copy-to-clipboard';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
@@ -15,16 +26,20 @@ import ButtonFavorite from './FavoriteAddress';
 import NFTTab from './NFTTab';
 import PortfolioTab from './PortfolioTab';
 import PortfolioTabBitcoin from './PortfolioTabBitcoin';
-import { L2RollupDetailContext, L2RollupDetailProvider } from './providers/l2-rollup-detail-context';
+import {
+  L2RollupDetailContext,
+  L2RollupDetailProvider,
+} from './providers/l2-rollup-detail-context';
 import SearchAddress from './SearchAddress';
 import s from './styles.module.scss';
 import TokenTransferTab from './TokenTransferTab';
 import TokenTransferTabBitcoin from './TokenTransferTabBitcoin';
 import TransactionsTab from './TransactionsTab';
 import TransactionsTabBitcoin from './TransactionsTabBitcoin';
+import TransactionsTabFBitcoin from './TransactionsTabFBitcoin';
 import WatchListAddresses from './Watchlist';
 import { formatAiSummary } from './utils';
-import Markdown from 'react-markdown';
+import MarkdownComponent from './MarkdownComponent';
 
 const L2RollupDetail = () => {
   const {
@@ -73,7 +88,7 @@ const L2RollupDetail = () => {
             onClick={() => router.push(HEART_BEAT)}
           >
             <Image w={'24px'} src={'/heartbeat/ic-back.svg'} />
-            <Text>Bitcoin Heartbeat Project</Text>
+            <Text>Bitcoin Heartbeats Project</Text>
           </Flex>
           <Flex alignItems={'center'} gap={'4px'} position={'relative'}>
             <SearchAddress
@@ -96,7 +111,7 @@ const L2RollupDetail = () => {
             w={{ base: '0px', md: '140px' }}
             src={'/heartbeat/ic-wallet.svg'}
           />
-          <Flex gap="6px" direction={'column'}>
+          <Flex gap="6px" direction={'column'} w={'100%'}>
             <Flex direction={'row'} alignItems={'center'} gap={'8px'}>
               <Text fontWeight={'400'} fontSize={'16px'}>
                 {isMobile ? shortCryptoAddress(address) : address}
@@ -119,7 +134,9 @@ const L2RollupDetail = () => {
                   {`${formatCurrency(balanceBitcoinInfo?.balance, 2, 6)} BTC ${
                     rollupBitcoinBalances && rollupBitcoinBalances.length > 0
                       ? `($${formatCurrency(
-                          rollupBitcoinBalances[0].amountUsd,
+                          rollupBitcoinBalances.find(
+                            (balance) => balance.title === 'BTC',
+                          )?.amountUsd || 0,
                           2,
                           2,
                         )})`
@@ -166,12 +183,12 @@ const L2RollupDetail = () => {
                 {isLoadingAI ? (
                   <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
                     <Text>Analyzing...</Text>
-                    <Skeleton w={'140px'} h={'20px'} speed={1.2} />
+                    <Skeleton w={'120px'} h={'20px'} speed={1.2} />
                   </Flex>
                 ) : (
                   <>
                     {aiSummary && (
-                      <Markdown>{formatAiSummary(aiSummary)}</Markdown>
+                      <MarkdownComponent text={formatAiSummary(aiSummary)} />
                     )}
                   </>
                 )}
@@ -192,6 +209,7 @@ const L2RollupDetail = () => {
               >
                 <Tab>Portfolio</Tab>
                 <Tab>Transactions</Tab>
+                <Tab>Fractal Transactions</Tab>
                 <Tab>Token Transfer</Tab>
               </TabList>
               <TabPanels className={s.tabPanel}>
@@ -200,6 +218,9 @@ const L2RollupDetail = () => {
                 </TabPanel>
                 <TabPanel minH={'40vh'}>
                   <TransactionsTabBitcoin />
+                </TabPanel>
+                <TabPanel minH={'40vh'}>
+                  <TransactionsTabFBitcoin />
                 </TabPanel>
                 <TabPanel minH={'40vh'}>
                   <TokenTransferTabBitcoin />

@@ -10,12 +10,20 @@ export default function RightContent(): ReactElement {
   const flowRef = React.useRef<HTMLDivElement>(null);
   const { isCapture } = useCaptureStore();
   const { addListeners, removeListeners } = useContainerMouse({
-    ref: flowRef , handleOnTick,
+    ref: flowRef, handleOnTick,
   });
-  function handleOnTick( contentRect: DOMRect,
-                          mousePosition: { x: number; y: number },
-                          previousMousePosition: { x: number; y: number }) {
-    mouseDroppedPositionSignal.value = mousePosition
+
+  function handleOnTick(contentRect: DOMRect,
+                        mousePosition: { x: number; y: number },
+                        previousMousePosition: { x: number; y: number }) {
+    if (mousePosition.x === 0 && mousePosition.y === 0) {
+      mouseDroppedPositionSignal.value = {
+        x: 600,
+        y: 30,
+      };
+    } else {
+      mouseDroppedPositionSignal.value = mousePosition;
+    }
   }
 
   React.useEffect(() => {
@@ -36,5 +44,5 @@ export default function RightContent(): ReactElement {
   >
     <ReactFlowRenderer />
     <DroppableMask />
-  </div>
+  </div>;
 }

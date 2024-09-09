@@ -128,10 +128,16 @@ export default function useHandleDragging() {
     const ignoreKeys = ['bridge_apps', 'gaming_apps'];
     console.log('runnnnnnnn 1');
     if (!rightDragging && !overIsFinalDroppable && overSuffix1 !== 'right') {
-      if(isMultiChoice) {
+      if (isMultiChoice) {
         const currentValues = (field[activeKey].value || []) as string[];
         const isCurrentEmpty = currentValues.length === 0;
         const newValue = [...currentValues, active.data.current.value];
+        const bridgeAppsIndex = dapps.findIndex(
+          (dapp) => dapp.key === 'bridge_apps',
+        );
+        const gamingAppsIndex = dapps.findIndex(
+          (dapp) => dapp.key === 'gaming_apps',
+        );
 
         if (currentValues.includes(active.data.current.value)) return;
 
@@ -140,19 +146,25 @@ export default function useHandleDragging() {
 
         if (
           activeKey === 'bridge_apps' &&
-          !draggedDappIndexesSignal.value.includes(1) &&
+          !draggedDappIndexesSignal.value.includes(bridgeAppsIndex) &&
           !activeIsParent
         ) {
-          draggedDappIndexesSignal.value = [...draggedDappIndexesSignal.value, 1];
+          draggedDappIndexesSignal.value = [
+            ...draggedDappIndexesSignal.value,
+            bridgeAppsIndex,
+          ];
           draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
         }
 
         if (
           activeKey === 'gaming_apps' &&
-          !draggedDappIndexesSignal.value.includes(2) &&
+          !draggedDappIndexesSignal.value.includes(gamingAppsIndex) &&
           !activeIsParent
         ) {
-          draggedDappIndexesSignal.value = [...draggedDappIndexesSignal.value, 2];
+          draggedDappIndexesSignal.value = [
+            ...draggedDappIndexesSignal.value,
+            gamingAppsIndex,
+          ];
           draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
         }
 
@@ -262,12 +274,18 @@ export default function useHandleDragging() {
         // setValueOptionInputStore(optionKey, '');
         deleteValueOptionInputStore(optionKey);
       });
+      const bridgeAppsIndex = dapps.findIndex(
+        (dapp) => dapp.key === 'bridge_apps',
+      );
+      const gamingAppsIndex = dapps.findIndex(
+        (dapp) => dapp.key === 'gaming_apps',
+      );
 
       setField(activeKey, [], false);
       setDraggedFields(draggedFields.filter((field) => field !== activeKey));
 
       if (activeKey === 'bridge_apps') {
-        const index = draggedDappIndexesSignal.value.indexOf(1);
+        const index = draggedDappIndexesSignal.value.indexOf(bridgeAppsIndex);
 
         if (index !== -1) {
           draggedDappIndexesSignal.value = removeItemAtIndex(
@@ -283,7 +301,7 @@ export default function useHandleDragging() {
       }
 
       if (activeKey === 'gaming_apps') {
-        const index = draggedDappIndexesSignal.value.indexOf(2);
+        const index = draggedDappIndexesSignal.value.indexOf(gamingAppsIndex);
 
         if (index !== -1) {
           draggedDappIndexesSignal.value = removeItemAtIndex(
@@ -303,13 +321,20 @@ export default function useHandleDragging() {
     console.log('runnnnnnnn 7');
     // Multi choice case
     if (
-      ((over && (overIsFinalDroppable || overIsParentOfActiveDroppable)) ||
-        (!overIsFinalDroppable && overSuffix1 === 'right')) || !over
+      (over && (overIsFinalDroppable || overIsParentOfActiveDroppable)) ||
+      (!overIsFinalDroppable && overSuffix1 === 'right') ||
+      !over
     ) {
       console.log('runnnnnnnn 8');
       const currentValues = (field[activeKey].value || []) as string[];
       const isCurrentEmpty = currentValues.length === 0;
       const newValue = [...currentValues, active.data.current.value];
+      const bridgeAppsIndex = dapps.findIndex(
+        (dapp) => dapp.key === 'bridge_apps',
+      );
+      const gamingAppsIndex = dapps.findIndex(
+        (dapp) => dapp.key === 'gaming_apps',
+      );
 
       if (currentValues.includes(active.data.current.value)) return;
 
@@ -318,19 +343,25 @@ export default function useHandleDragging() {
 
       if (
         activeKey === 'bridge_apps' &&
-        !draggedDappIndexesSignal.value.includes(1) &&
+        !draggedDappIndexesSignal.value.includes(bridgeAppsIndex) &&
         !activeIsParent
       ) {
-        draggedDappIndexesSignal.value = [...draggedDappIndexesSignal.value, 1];
+        draggedDappIndexesSignal.value = [
+          ...draggedDappIndexesSignal.value,
+          bridgeAppsIndex,
+        ];
         draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
       }
 
       if (
         activeKey === 'gaming_apps' &&
-        !draggedDappIndexesSignal.value.includes(2) &&
+        !draggedDappIndexesSignal.value.includes(gamingAppsIndex) &&
         !activeIsParent
       ) {
-        draggedDappIndexesSignal.value = [...draggedDappIndexesSignal.value, 2];
+        draggedDappIndexesSignal.value = [
+          ...draggedDappIndexesSignal.value,
+          gamingAppsIndex,
+        ];
         draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
       }
     } else {
@@ -353,10 +384,16 @@ export default function useHandleDragging() {
 
       setField(activeKey, newValue, !isEmpty);
       if (isEmpty) {
+        const bridgeAppsIndex = dapps.findIndex(
+          (dapp) => dapp.key === 'bridge_apps',
+        );
+        const gamingAppsIndex = dapps.findIndex(
+          (dapp) => dapp.key === 'gaming_apps',
+        );
         setDraggedFields(draggedFields.filter((field) => field !== activeKey));
 
         if (activeKey === 'bridge_apps') {
-          const index = draggedDappIndexesSignal.value.indexOf(1);
+          const index = draggedDappIndexesSignal.value.indexOf(bridgeAppsIndex);
 
           if (index !== -1) {
             draggedDappIndexesSignal.value = removeItemAtIndex(
@@ -372,7 +409,7 @@ export default function useHandleDragging() {
         }
 
         if (activeKey === 'gaming_apps') {
-          const index = draggedDappIndexesSignal.value.indexOf(2);
+          const index = draggedDappIndexesSignal.value.indexOf(gamingAppsIndex);
 
           if (index !== -1) {
             draggedDappIndexesSignal.value = removeItemAtIndex(
@@ -837,7 +874,7 @@ export default function useHandleDragging() {
       if (activeIsABaseModule) {
         const totalPlaced = draggedDappIndexesSignal.value.filter(
           (index) => index === dappIndex,
-        ).length
+        ).length;
         // prettier-ignore
         const canPlaceMoreBaseModule = baseModuleFieldMapping[dappIndex][activeOriginalKey].placableAmount === -1 ||
           totalPlaced < baseModuleFieldMapping[dappIndex][activeOriginalKey].placableAmount;
@@ -1078,17 +1115,19 @@ export default function useHandleDragging() {
       if (activeIsABase) {
         const totalTemplateDapps = (templateDapps || []).length;
         const removeIndex = activeBaseIndex + 1 + totalTemplateDapps;
+        console.log('JK HEHEHHE', {
+          nodes: nodes,
+          edges: edges.length,
+          removeIndex,
+          activeBaseIndex,
+          totalTemplateDapps,
+        });
         const rootNode = 'blockchain';
 
-        const newEdges = edges.filter(
-          (item) => item.target !== nodes[removeIndex].id,
-        );
         let newNodes = removeItemAtIndex(nodes, removeIndex);
-
         let getHandleNodeBlockChain = nodes.find(
           (item) => item.id === rootNode,
         );
-
         let countSourceHandle = 0;
 
         for (let i = 0; i < edges.length; i++) {
@@ -1152,10 +1191,9 @@ export default function useHandleDragging() {
             },
           };
         });
-
+        console.log('JK HEHEHHE newNodes', newNodes);
         //Drag remove node
         setNodes(newNodes);
-        setEdges(newEdges);
         needReactFlowRenderSignal.value = true;
 
         return;
