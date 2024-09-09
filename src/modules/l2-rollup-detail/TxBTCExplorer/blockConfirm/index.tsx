@@ -10,10 +10,12 @@ import { useDispatch } from 'react-redux';
 
 const BlockConfirm = ({
   txBTC,
+  isFBTxAddress,
   setIndexBlock,
   setTimeAvg,
 }: {
   txBTC: ITxBTC;
+  isFBTxAddress: boolean;
   setIndexBlock: any;
   setTimeAvg: any;
 }) => {
@@ -30,8 +32,8 @@ const BlockConfirm = ({
         return;
       }
       const [rs, rs1, rs2] = await Promise.all([
-        mempoolApi.getBlocks(),
-        mempoolApi.getTransactionStatus(txBTC.tx_id),
+        mempoolApi.getBlocks(isFBTxAddress),
+        mempoolApi.getTransactionStatus(txBTC.tx_id, isFBTxAddress),
         rollupDetailApi.getTimeAVG(),
       ]);
       if (rs1?.confirmed) {

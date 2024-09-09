@@ -1,4 +1,8 @@
-import { isValidBTCTxHash, isValidERC20TxHash } from '@/utils/form-validate';
+import {
+  isValidBTCTxHash,
+  isValidERC20TxHash,
+  isValidFractalBTCTxHash,
+} from '@/utils/form-validate';
 import { useParams } from 'next/navigation';
 import React, { PropsWithChildren, useMemo } from 'react';
 

@@ -17,6 +17,7 @@ import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
 import { HEART_BEAT } from '@/constants/route-path';
+import TransactionsTabFBitcoin from '../TransactionsTabFBitcoin';
 
 interface IProps {}
 
@@ -25,7 +26,7 @@ const TokenTransferTabBitcoin = (props: IProps) => {
   const router = useRouter();
 
   const rollupApi = new CRollupL2DetailBitcoinAPI();
-  const [balanceType, setBalanceType] = useState<BalanceBitcoinType>('runes');
+  const [balanceType, setBalanceType] = useState<BalanceBitcoinType>('fractal');
 
   const [list, setList] = useState<IBitcoinTokenTransaction[]>([]);
 
@@ -319,7 +320,13 @@ const TokenTransferTabBitcoin = (props: IProps) => {
         borderRadius={'8px'}
         mb={'20px'}
       >
-        {BalanceTypes.map((balance) => (
+        {[
+          {
+            type: 'fractal',
+            title: 'Fractal',
+          },
+          ...BalanceTypes,
+        ].map((balance) => (
           <Box
             bg={balanceType === balance.type ? '#ffff' : 'transparent'}
             fontWeight={balanceType === balance.type ? '400' : '500'}
@@ -332,33 +339,37 @@ const TokenTransferTabBitcoin = (props: IProps) => {
           </Box>
         ))}
       </Flex>
-      <Box className={`${s.container} ${s.shadow}`} h="60vh">
-        <ScrollWrapper
-          onFetch={() => {
-            refParams.current = {
-              ...refParams.current,
-              page: refParams.current.page + 1,
-            };
-            hasIncrementedPageRef.current = true;
-            fetchData();
-          }}
-          isFetching={refreshing}
-          hasIncrementedPageRef={hasIncrementedPageRef}
-          onFetchNewData={onRefresh}
-          wrapClassName={s.wrapScroll}
-          dependData={list}
-        >
-          <ListTable
-            data={list}
-            columns={columns}
-            className={s.tableContainer}
-            showEmpty={!isFetching}
-            emptyLabel="No transactions found."
-            emptyIcon={<Image src={'/icons/icon-empty.svg'} />}
-          />
-          {isFetching && <AppLoading className={s.loading} />}
-        </ScrollWrapper>
-      </Box>
+      {balanceType === 'fractal' ? (
+        <TransactionsTabFBitcoin />
+      ) : (
+        <Box className={`${s.container} ${s.shadow}`} h="60vh">
+          <ScrollWrapper
+            onFetch={() => {
+              refParams.current = {
+                ...refParams.current,
+                page: refParams.current.page + 1,
+              };
+              hasIncrementedPageRef.current = true;
+              fetchData();
+            }}
+            isFetching={refreshing}
+            hasIncrementedPageRef={hasIncrementedPageRef}
+            onFetchNewData={onRefresh}
+            wrapClassName={s.wrapScroll}
+            dependData={list}
+          >
+            <ListTable
+              data={list}
+              columns={columns}
+              className={s.tableContainer}
+              showEmpty={!isFetching}
+              emptyLabel="No transactions found."
+              emptyIcon={<Image src={'/icons/icon-empty.svg'} />}
+            />
+            {isFetching && <AppLoading className={s.loading} />}
+          </ScrollWrapper>
+        </Box>
+      )}
     </Flex>
   );
 };

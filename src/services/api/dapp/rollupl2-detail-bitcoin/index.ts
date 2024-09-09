@@ -5,6 +5,7 @@ import {
   IBitcoinTokenTransaction,
   ITxBTC,
   ISummaryInfo,
+  IFBitcoinTransaction,
 } from './interface';
 
 class CRollupL2DetailBitcoinAPI extends CDappApiClient {
@@ -44,6 +45,19 @@ class CRollupL2DetailBitcoinAPI extends CDappApiClient {
       }
       const rs: any = await this.api.get(
         `/explorer/token-transaction-list/${params.user_address}?page=${params.page}&limit=${params.limit}&type=${params.type}`,
+      );
+      return rs;
+    } catch (error) {
+      return [];
+    }
+  };
+
+  getRollupL2FractalBitcoinTokenTransactions = async (
+    params: any,
+  ): Promise<IFBitcoinTransaction[]> => {
+    try {
+      const rs: any = await this.api.get(
+        `/explorer/transaction-list/${params.user_address}?after_hash=${params.after_hash}&type=${params.type}`,
       );
       return rs;
     } catch (error) {

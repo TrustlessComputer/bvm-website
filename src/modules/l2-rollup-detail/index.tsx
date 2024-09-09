@@ -133,7 +133,9 @@ const L2RollupDetail = () => {
                   {`${formatCurrency(balanceBitcoinInfo?.balance, 2, 6)} BTC ${
                     rollupBitcoinBalances && rollupBitcoinBalances.length > 0
                       ? `($${formatCurrency(
-                          rollupBitcoinBalances[0].amountUsd,
+                          rollupBitcoinBalances.find(
+                            (balance) => balance.title === 'BTC',
+                          )?.amountUsd || 0,
                           2,
                           2,
                         )})`

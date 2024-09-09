@@ -35,9 +35,12 @@ import s from './styles.module.scss';
 import TokenTransfers from './tokenTransfer';
 import { shortCryptoAddress } from '@/utils/address';
 import { isMobile } from 'react-device-detect';
+import { formatTimeAgo } from '@/utils/time';
 
 const TxBTCExplorer = () => {
   const { address, isBTCTxAddress } = useContext(L2RollupExplorerContext);
+  const [isFBTxAddress, setIsFBTxAddress] = useState(false);
+
   const [loading, setLoading] = useState(true);
   const [txBTC, setTxBTC] = useState<ITxBTC>();
   const coinPrices = useSelector(commonSelector).coinPrices;
@@ -66,11 +69,16 @@ const TxBTCExplorer = () => {
         return;
       }
 
-      const [rs, rs1] = await Promise.all([
-        rollupBitcoinApi.getTxBTC(address),
-        mempoolApi.getTransactionTime(address),
-      ]);
+      const rs = await rollupBitcoinApi.getTxBTC(address);
+      if (!rs?.tx_id) return;
 
+      let isFBChain = false;
+      if (rs?.chain === 'fractal') {
+        isFBChain = true;
+        setIsFBTxAddress(true);
+      }
+
+      const rs1 = await mempoolApi.getTransactionTime(address, isFBChain);
       const _rs: any = rs;
 
       if (rs1?.[0]) {
@@ -87,8 +95,10 @@ const TxBTCExplorer = () => {
 
   const timestamp = useMemo(
     () =>
-      new BigNumber(txBTC?.transaction_time || '0').dividedBy(1000).toNumber(),
-    [txBTC],
+      new BigNumber(txBTC?.transaction_time || '0')
+        .dividedBy(isFBTxAddress ? 1 : 1000)
+        .toNumber(),
+    [txBTC, isFBTxAddress],
   );
 
   const isProcessing = useMemo(
@@ -145,7 +155,9 @@ const TxBTCExplorer = () => {
             gap={'4px'}
             flexDirection={['column', 'row']}
           >
-            <Text className={s.title}>Transaction</Text>
+            <Text className={s.title}>
+              {isFBTxAddress ? 'Fractal ' : ''}Transaction
+            </Text>
             <Text
               onClick={() => {
                 copy(address);
@@ -162,6 +174,7 @@ const TxBTCExplorer = () => {
         {isProcessing && (
           <BlockConfirm
             txBTC={txBTC}
+            isFBTxAddress={isFBTxAddress}
             setIndexBlock={setIndexBlock}
             setTimeAvg={setTimeAvg}
           />
@@ -181,7 +194,7 @@ const TxBTCExplorer = () => {
               ) : (
                 <>
                   {dayjs.unix(timestamp).format('YYYY-MM-DD HH:mm:ss')}
-                  <Text as={'span'}> ({dayjs.unix(timestamp).toNow()})</Text>
+                  <Text as={'span'}> ({formatTimeAgo(timestamp)})</Text>
                 </>
               )}
             </Text>
@@ -189,12 +202,25 @@ const TxBTCExplorer = () => {
           <Flex className={cs(s.rowItem, s.rowItemBold)}>
             <Text>Fee</Text>
             <Text display={'flex'} alignItems={'center'} gap={'12px'}>
-              <TextNumberTooSmallDecimal value={txBTC.txfee} isSats={true} />
+              <TextNumberTooSmallDecimal
+                value={
+                  isFBTxAddress
+                    ? new BigNumber(txBTC.txfee).dividedBy(1e8).toString()
+                    : txBTC.txfee
+                }
+                isSats={true}
+              />
               <Text as={'span'}>{txBTC.transaction_symbol}</Text>
               <Text color={'green'}>
                 $
                 {formatCurrency(
-                  new BigNumber(btcPrice).multipliedBy(txBTC.txfee).toString(),
+                  new BigNumber(btcPrice)
+                    .multipliedBy(
+                      isFBTxAddress
+                        ? new BigNumber(txBTC.txfee).dividedBy(1e8)
+                        : txBTC.txfee,
+                    )
+                    .toString(),
                 )}
               </Text>
             </Text>
@@ -244,7 +270,13 @@ const TxBTCExplorer = () => {
             <Text>
               {formatCurrency(
                 txBTC.input_details.reduce(
-                  (p, c) => p + parseFloat(c.amount),
+                  (p, c) =>
+                    p +
+                    parseFloat(
+                      isFBTxAddress
+                        ? new BigNumber(c.amount).dividedBy(1e8).toString()
+                        : c.amount,
+                    ),
                   0,
                 ),
                 2,
@@ -253,7 +285,13 @@ const TxBTCExplorer = () => {
               <Text as={'span'}>{txBTC.transaction_symbol} |</Text>{' '}
               {formatCurrency(
                 txBTC.output_details.reduce(
-                  (p, c) => p + parseFloat(c.amount),
+                  (p, c) =>
+                    p +
+                    parseFloat(
+                      isFBTxAddress
+                        ? new BigNumber(c.amount).dividedBy(1e8).toString()
+                        : c.amount,
+                    ),
                   0,
                 ),
                 2,
@@ -306,6 +344,7 @@ const TxBTCExplorer = () => {
                           symbol={txBTC.transaction_symbol}
                           address={d.input_hash}
                           tokenTransfer={txBTC.token_transfer}
+                          isFBTxAddress={isFBTxAddress}
                         />
                       ))}
                     </Flex>
@@ -317,6 +356,7 @@ const TxBTCExplorer = () => {
                           symbol={txBTC.transaction_symbol}
                           address={d.output_hash}
                           tokenTransfer={txBTC.token_transfer}
+                          isFBTxAddress={isFBTxAddress}
                         />
                       ))}
                     </Flex>
