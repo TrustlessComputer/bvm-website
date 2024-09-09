@@ -32,6 +32,7 @@ import {
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useDraggedId2DStore from '../stores/useDraggedId2DStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
+import { useGameModule } from '@/modules/blockchains/detail_v4/hook/useGameModule';
 
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
@@ -41,6 +42,7 @@ export default function useNodeFlowControl() {
   const store = useStoreApi();
   const { lineAAStatus } = useAAModule();
   const { lineBridgeStatus } = useBridgesModule();
+  const { statusMapper, getGameTypeIconUrl } = useGameModule();
   const {
     transform: [transformX, transformY, zoomLevel],
   } = store.getState();
@@ -197,7 +199,7 @@ export default function useNodeFlowControl() {
           id: newNodeId,
           type: dappKeyToNodeKey(thisDapp.key),
           dragHandle: '.drag-handle-area',
-          position: { x: 1000, y: 30 },
+          position: { x: 1050, y: 30 },
           data: {
             node: 'dapp',
             title: thisDapp.title,
@@ -260,7 +262,7 @@ export default function useNodeFlowControl() {
           id: newNodeId,
           type: dappKeyToNodeKey(thisDapp.key),
           dragHandle: '.drag-handle-area',
-          position: { x: 1500, y: 30 },
+          position: { x: 1300, y: 30 },
           data: {
             node: 'dapp',
             title: thisDapp.title,
@@ -285,8 +287,8 @@ export default function useNodeFlowControl() {
             sourceHandle: `${rootNode}-s-gaming_apps`,
             // target: `${newNodeId}`,
             target: `gaming_apps`,
-            label: handleStatusEdges('', lineBridgeStatus, 'gaming_apps').icon,
-            animated: handleStatusEdges('', lineBridgeStatus, 'gaming_apps')
+            label: handleStatusEdges('', statusMapper.statusStr, 'gaming_apps').icon,
+            animated: handleStatusEdges('', statusMapper.statusStr, 'gaming_apps')
               .animate,
             targetHandle: `gaming_apps-t-${rootNode}`,
             selectable: false,

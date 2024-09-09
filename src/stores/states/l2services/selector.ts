@@ -347,14 +347,16 @@ const getAvailableListTemplateSelector = createSelector(
     //Sort
     let result = availableListTemplate;
 
-    if (param in BLACKLIST_CATEGORY_BY_TEMPLATE_PARAM_MAPPER) {
-      result = [...result];
-      result[Number(param)] = result[Number(param)]?.filter((item) => {
-        return !BLACKLIST_CATEGORY_BY_TEMPLATE_PARAM_MAPPER[param].includes(
-          item.key,
-        );
-      });
-    } else if (param in BLACKLIST_CATEGORY_BY_DAPP_PARAM_MAPPER) {
+    // if (param in BLACKLIST_CATEGORY_BY_TEMPLATE_PARAM_MAPPER) {
+    //   result = [...result];
+    //   result[Number(param)] = result[Number(param)]?.filter((item) => {
+    //     return !BLACKLIST_CATEGORY_BY_TEMPLATE_PARAM_MAPPER[param].includes(
+    //       item.key,
+    //     );
+    //   });
+    // } else
+
+    if (param in BLACKLIST_CATEGORY_BY_DAPP_PARAM_MAPPER) {
       result = [...result];
       result[0] = result[0]?.filter((item) => {
         return !BLACKLIST_CATEGORY_BY_DAPP_PARAM_MAPPER[param].includes(

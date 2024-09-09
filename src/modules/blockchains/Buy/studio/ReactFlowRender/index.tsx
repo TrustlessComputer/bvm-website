@@ -1,7 +1,7 @@
 import CustomEdge from '@/modules/blockchains/Buy/component4/CustomEdge';
 import CustomNode from '@/modules/blockchains/Buy/component4/CustomNode';
 import useHandleReloadNode from '@/modules/blockchains/Buy/hooks/useHandleReloadNode';
-import MModal from '@/modules/blockchains/dapp/components/Modal';
+import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 import { signal, useSignalEffect } from '@preact/signals-react';
 import { ConnectionMode, ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
@@ -12,18 +12,12 @@ import AANode from '../../component4/YourNodes/AANode';
 import BridgeNode from '../../component4/YourNodes/BridgeNode';
 import ChainNodeV2 from '../../component4/YourNodes/ChainNodeV2';
 import DappNode from '../../component4/YourNodes/DappNode';
+import GamingAppsNode from '../../component4/YourNodes/GamingAppsNode';
 import { nodeKey } from '../../component4/YourNodes/node.constants';
-import {
-  draggedDappIndexesSignal,
-  draggedIds2DSignal,
-  restoreLocal,
-} from '../../signals/useDragSignal';
-import useFlowStore, { AppNode } from '../../stores/useFlowStore';
+import { restoreLocal } from '../../signals/useDragSignal';
+import useFlowStore from '../../stores/useFlowStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import s from './styles.module.scss';
-import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
-import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
-import GamingAppsNode from '../../component4/YourNodes/GamingAppsNode';
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });

@@ -12,7 +12,7 @@ const GamingAppsNode = ({ data, id }: NodeProps<ChainNodeAsDappNode>) => {
   const notification: NodeNotificationProps | undefined = React.useMemo(() => {
     return undefined;
   }, []);
-
+  console.log('statusMapper', statusMapper);
   return (
     <Node
       {...data}
