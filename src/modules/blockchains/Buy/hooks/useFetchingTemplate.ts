@@ -217,6 +217,8 @@ export default function useFetchingTemplate() {
       totalBase,
     ).fill([]);
 
+    console.log('[useFetchingTemplate] dataTemplateToBox', templateDapps);
+
     Object.keys(templateForm).forEach((fieldKey) => {
       const value = templateForm[fieldKey];
       const baseIndex = FormDappUtil.getBaseIndex(fieldKey);
@@ -325,6 +327,10 @@ export default function useFetchingTemplate() {
         },
       });
 
+      if (dappKey === 'airdrop') {
+        console.log('HEHEHEHEHHEHEHE', templateDapps[index], titleStatusDapp);
+      }
+
       return {
         id: idNode,
         type: 'dappTemplate',
@@ -362,6 +368,7 @@ export default function useFetchingTemplate() {
     //     };
     //   });
     // }
+    console.log('HEHEHEHEHHEHEHE', _newNodes);
     const map: any = {};
     for (const element of [...newNodes, ...nodesData, ..._newNodes]) {
       map[element.id] = element;
@@ -377,7 +384,6 @@ export default function useFetchingTemplate() {
     } else {
       setEdges([...edges, ...edgeData]);
     }
-    console.log('[useFetchingTemplate] case 1');
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
     setNeedCheckAndAddAA(true);

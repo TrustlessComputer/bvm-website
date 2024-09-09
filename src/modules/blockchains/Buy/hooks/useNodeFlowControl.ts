@@ -195,7 +195,7 @@ export default function useNodeFlowControl() {
           id: newNodeId,
           type: dappKeyToNodeKey(thisDapp.key),
           dragHandle: '.drag-handle-area',
-          position: { x: 1000, y: 30 },
+          position: { x: 1050, y: 30 },
           data: {
             node: 'dapp',
             title: thisDapp.title,
@@ -256,7 +256,7 @@ export default function useNodeFlowControl() {
           id: newNodeId,
           type: dappKeyToNodeKey(thisDapp.key),
           dragHandle: '.drag-handle-area',
-          position: { x: 1500, y: 30 },
+          position: { x: 1300, y: 30 },
           data: {
             node: 'dapp',
             title: thisDapp.title,

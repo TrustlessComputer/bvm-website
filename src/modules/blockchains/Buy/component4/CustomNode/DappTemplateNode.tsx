@@ -23,6 +23,8 @@ export enum StatusBox {
   MISSING = 'Missing',
   RUNNING = 'Running',
   DOWN = 'Down',
+  PROCESSING = 'Processing',
+  INSTALLED = 'Installed',
 }
 
 export type DataNode = Node<
@@ -47,6 +49,10 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { isCapture } = useCaptureStore();
   // const { templateDapps } = useTemplateFormStore();
   const { getLabelWithLego } = useDapps();
+
+  if (data.dapp?.key === 'airdrop') {
+    console.log('HEHEHEHEHHEHEHE', data);
+  }
 
   const DappRendering = (): ReactElement => {
     const thisDapp = data.dapp;
@@ -478,38 +484,42 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
   }, [data.dapp]);
 
   function renderTitleStatus(status: StatusBox) {
-    switch (status) {
-      case StatusBox.DOWN:
+    switch (status.toLowerCase()) {
+      case StatusBox.DOWN.toLowerCase():
         return 'Down temporarily';
-      case StatusBox.DRAFTING:
+      case StatusBox.DRAFTING.toLowerCase():
         return 'Drafting modules';
-      case StatusBox.READY:
+      case StatusBox.READY.toLowerCase():
         return 'Ready to launch';
-      case StatusBox.MISSING:
+      case StatusBox.MISSING.toLowerCase():
         return 'Missing fields';
-      case StatusBox.RUNNING:
+      case StatusBox.RUNNING.toLowerCase():
         return 'Running';
+      case StatusBox.PROCESSING.toLowerCase():
+        return 'Processing';
+      case StatusBox.INSTALLED.toLowerCase():
+        return 'Installed';
       default:
         return data.status;
     }
   }
 
   function handleColorStatusNode(status: string) {
-    console.log('status out', status);
-
-    switch (status) {
-      case 'Down temporarily':
-      case 'Run out':
-      case 'Ended':
-      case 'Expired':
+    switch (status.toLowerCase()) {
+      case 'down temporarily':
+      case 'run out':
+      case 'ended':
+      case 'expired':
         return StatusBox.DOWN;
-      case 'Drafting modules':
-      case 'Deposit now':
+      case 'drafting modules':
+      case 'deposit now':
         return StatusBox.DRAFTING;
-      case 'Ready to launch':
+      case 'ready to launch':
         return StatusBox.READY;
-      case 'Missing fields':
+      case 'missing fields':
         return StatusBox.MISSING;
+      case 'processing':
+        return StatusBox.PROCESSING;
       default:
         return StatusBox.RUNNING;
     }

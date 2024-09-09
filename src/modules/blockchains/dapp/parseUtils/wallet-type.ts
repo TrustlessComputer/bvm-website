@@ -1,29 +1,26 @@
 import { WalletType } from '@/stores/states/dapp/types';
+import { StatusBox } from '../../Buy/component4/CustomNode/DappTemplateNode';
 
 export const parseWalletType = (walletType: WalletType): any[] => {
-
-  let selected = {}
+  let selected = {};
   switch (walletType) {
     case WalletType.inGame:
-      selected =
-        {
-          key: WalletType.inGame,
-          value: 'In Game', // contract_address
-        };
+      selected = {
+        key: WalletType.inGame,
+        value: 'In Game', // contract_address
+      };
       break;
     case WalletType.naka:
-      selected =
-        {
-          key: WalletType.naka,
-          value: 'Naka Wallet', // contract_address
-        };
+      selected = {
+        key: WalletType.naka,
+        value: 'Naka Wallet', // contract_address
+      };
       break;
     case WalletType.thirdWeb:
-      selected =
-        {
-          key: WalletType.thirdWeb,
-          value: 'ThirdWeb Wallet', // contract_address
-        };
+      selected = {
+        key: WalletType.thirdWeb,
+        value: 'ThirdWeb Wallet', // contract_address
+      };
       break;
   }
 
@@ -39,10 +36,10 @@ export const parseWalletType = (walletType: WalletType): any[] => {
       updated_at: '2021-09-14T09:00:00.000Z',
       tooltip: '',
       label: {
-        title: 'New',
+        title: 'Installed',
         color: '#000',
         background: '#00AA6C',
-        status: '',
+        status: StatusBox.INSTALLED,
       },
       sections: [
         {
@@ -79,7 +76,7 @@ export const parseWalletType = (walletType: WalletType): any[] => {
             type: 'input',
             options: [],
             selectable: true,
-            ...selected
+            ...selected,
           },
         ],
       },
@@ -87,4 +84,4 @@ export const parseWalletType = (walletType: WalletType): any[] => {
   ];
 
   return result;
-}
+};
