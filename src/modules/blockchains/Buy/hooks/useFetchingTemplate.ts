@@ -2,7 +2,9 @@
 
 import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
+import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import { parseWalletType } from '@/modules/blockchains/dapp/parseUtils/wallet-type';
 import { parseYoloGames } from '@/modules/blockchains/dapp/parseUtils/yologame';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { IAirdrop } from '@/services/api/dapp/airdrop/interface';
@@ -14,6 +16,7 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
+import handleStatusEdges from '@utils/helpers';
 import { Edge, MarkerType } from '@xyflow/react';
 import { useParams, usePathname, useSearchParams } from 'next/navigation';
 import React from 'react';
@@ -23,6 +26,7 @@ import { parseStakingPools } from '../../dapp/parseUtils/staking';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { parseDappModel } from '../../utils';
 import { nodeKey } from '../component4/YourNodes/node.constants';
+import { ENABLE_CHATBOX } from '../constants';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
@@ -35,17 +39,12 @@ import {
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import useUpdateFlowStore from '../stores/useUpdateFlowStore';
+import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import useAvailableListTemplate from '../studio/useAvailableListTemplate';
 import useModelCategory from '../studio/useModelCategory';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
-import handleStatusEdges from '@utils/helpers';
-import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
-import { parseWalletType } from '@/modules/blockchains/dapp/parseUtils/wallet-type';
-import { WalletType } from '@/stores/states/dapp/types';
-import { ENABLE_CHATBOX } from '../constants';
-import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 
 export default function useFetchingTemplate() {
   const { templateList, templateDefault } = useAvailableListTemplate();
@@ -334,7 +333,7 @@ export default function useFetchingTemplate() {
         type: 'dappTemplate',
         dragHandle: '.drag-handle-area',
         data: {
-          node: 'dapp',
+          node: 'template',
           label: templateDapps[index].title,
           status: titleStatusDapp,
           isChain: false,
