@@ -229,7 +229,7 @@ export default function useFetchingTemplate() {
         blockFieldMapping[item.key] = item;
       });
 
-      if (!draggedIds2D[baseIndex][index] && !isInBase) {
+      if (draggedIds2D[baseIndex] && !draggedIds2D[baseIndex][index] && !isInBase) {
         const _key = isInBlock ? blockKey : key;
         const prefix = 'right-' + FormDappUtil.getBlockType(fieldKey);
         const children = !isInBlock
