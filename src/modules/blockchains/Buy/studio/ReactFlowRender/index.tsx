@@ -3,7 +3,7 @@ import CustomNode from '@/modules/blockchains/Buy/component4/CustomNode';
 import useHandleReloadNode from '@/modules/blockchains/Buy/hooks/useHandleReloadNode';
 import MModal from '@/modules/blockchains/dapp/components/Modal';
 import { signal, useSignalEffect } from '@preact/signals-react';
-import { ReactFlow } from '@xyflow/react';
+import { ConnectionMode, ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { usePathname, useSearchParams } from 'next/navigation';
 import React, { useState } from 'react';
@@ -24,7 +24,6 @@ import s from './styles.module.scss';
 import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
 import GamingAppsNode from '../../component4/YourNodes/GamingAppsNode';
-import useDynamicEdges from '@/modules/blockchains/Buy/hooks/useDynamicEdges';
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
@@ -40,7 +39,6 @@ const ReactFlowRenderer = React.memo(() => {
   const [count, setCount] = React.useState(0);
   const path = usePathname();
   const { categories } = useModelCategoriesStore();
-  const { handleGetPositionNode } = useDynamicEdges()
   const searchParamm = useSearchParams();
 
   const [loaded, setLoaded] = React.useState(false);
@@ -113,14 +111,14 @@ const ReactFlowRenderer = React.memo(() => {
         edgesFocusable={false}
         onInit={setRfInstance}
         zoomOnDoubleClick={false}
+        connectionMode={ConnectionMode.Loose}
         edges={edges}
         fitViewOptions={{ padding: 1 }}
         className={s.reactFlow}
         // onNodeDrag={(event: React.MouseEvent, node: AppNode)=> {
         //   console.log('[ReactFlowRenderer] onNodeDrag', { event, node, nodes });
         // }}
-        onNodeDragStop={(event: React.MouseEvent, node: AppNode) => {
-          handleGetPositionNode(node);
+        onNodeDragStop={() => {
           if (!isFirstLoadTemplateBox) return;
           if (path === '/studio') {
             onSave();

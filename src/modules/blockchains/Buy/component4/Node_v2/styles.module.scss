@@ -86,28 +86,41 @@
   }
 }
 
-.handles.sources {
-  right: 0;
-  top: 0;
-}
+//.handles.sources {
+//  right: 0;
+//  top: 0;
+//}
 
-.handles.target {
-  left: 0;
-  top: 0;
-}
+//.handles.top {
+//  //right: 0;
+//  top: 0;
+//}
+//
+//.handles.bottom {
+//  //right: 0;
+//  bottom: 0;
+//}
+
+
+//.handles.target {
+//  left: 0;
+//  top: 0;
+//}
 
 .handleDot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #777777;
+  //background: #777777;
+  background-color: transparent !important;
+  border-color: transparent !important;
   //position: absolute;
   //border: 1px solid #555555;
   z-index: 4;
-  :global {
-    .react-flow__handle {
-      background-color: #777777 !important;
-      position: relative !important;
-    }
-  }
+  //:global {
+  //  .react-flow__handle {
+  //    background-color: #777777 !important;
+  //    position: relative !important;
+  //  }
+  //}
 }

@@ -102,8 +102,10 @@ export default function useCheckNodes() {
             baseIndex: 0,
             categoryOption: {} as IModelOption,
             ids: [],
-            targetHandles: [`account_abstraction-t-${rootNode}`],
-            sourceHandles: [],
+            // targetHandles: [`account_abstraction-t-${rootNode}`],
+            targetHandles: [],
+            sourceHandles: [`account_abstraction-t-${rootNode}`],
+            // sourceHandles: [],
           },
         };
 
@@ -202,8 +204,10 @@ export default function useCheckNodes() {
             baseIndex: 0,
             categoryOption: {} as IModelOption,
             ids: [],
-            targetHandles: [`bridge_apps-t-${rootNode}`],
-            sourceHandles: [],
+            // targetHandles: [`bridge_apps-t-${rootNode}`],
+            targetHandles: [],
+            sourceHandles: [`bridge_apps-t-${rootNode}`],
+            // sourceHandles: [],
           },
         };
 
@@ -299,8 +303,10 @@ export default function useCheckNodes() {
             baseIndex: 0,
             categoryOption: {} as IModelOption,
             ids: [],
-            targetHandles: [`gaming_apps-t-${rootNode}`],
-            sourceHandles: [],
+            // targetHandles: [`gaming_apps-t-${rootNode}`],
+            targetHandles: [],
+            sourceHandles: [`gaming_apps-t-${rootNode}`],
+            // sourceHandles: [],
           },
         };
 

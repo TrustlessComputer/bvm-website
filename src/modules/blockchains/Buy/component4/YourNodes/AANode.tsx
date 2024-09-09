@@ -25,7 +25,7 @@ import styles from './styles.module.scss';
 import { useAccountAbstractionStore } from '@/modules/blockchains/detail_v3/account-abstraction_v2/store/hook';
 import { useParams } from 'next/navigation';
 
-const AANode = ({ data }: NodeProps<DappNodeProps>) => {
+const AANode = ({ data, id }: NodeProps<DappNodeProps>) => {
   const { dapp } = data;
 
   const {
@@ -78,6 +78,7 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
       }
       key={JSON.stringify(data)}
       borderColor={aaStatusData?.borderColorStr}
+      id={id}
       heading={{
         title: data.title,
         status: {

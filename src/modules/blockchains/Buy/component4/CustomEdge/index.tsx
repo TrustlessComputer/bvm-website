@@ -1,32 +1,61 @@
-import { BaseEdge, EdgeLabelRenderer, EdgeProps, getSmoothStepPath, useReactFlow } from '@xyflow/react';
+import {
+  BaseEdge,
+  EdgeLabelRenderer,
+  EdgeProps,
+  getSmoothStepPath,
+  useInternalNode,
+  useReactFlow,
+} from '@xyflow/react';
 import s from './styles.module.scss';
-import React from 'react';
+import React, { memo } from 'react';
 import Image from 'next/image';
+import { getEdgeParams } from '@/modules/blockchains/Buy/getEdgeParams';
 
-export default function CustomEdge({
+function CustomEdge({
                                      id,
                                      sourceX,
                                      sourceY,
                                      targetX,
                                      targetY,
+                                     source,
+                                     target,
                                      sourcePosition,
                                      targetPosition,
                                      markerEnd,
                                      data,
+                                     style,
                                      label,
+                                     sourceHandleId,
                                    }: EdgeProps) {
+  console.log('sourceHandleId', sourceHandleId);
+  const sourceNode = useInternalNode(source);
+  const targetNode = useInternalNode(target);
+  const { sx, sy, tx, ty, sourcePos, targetPos } = getEdgeParams(
+    sourceNode,
+    targetNode,
+  );
+  console.log('sourceNode', sourceNode);
+
   const [edgePath, labelX, labelY] = getSmoothStepPath({
-    sourceX,
-    sourceY,
-    targetX,
-    targetY,
-    sourcePosition,
-    targetPosition,
+    sourceX: sx,
+    sourceY: sy,
+    targetX: tx,
+    targetY: ty,
+    sourcePosition: sourcePos,
+    targetPosition: targetPos,
   });
 
   return (
     <React.Fragment key={id}>
-      <BaseEdge id={id} path={edgePath}  markerEnd={markerEnd} className={s.edge_line} />
+      <BaseEdge id={id} path={edgePath} markerEnd={markerEnd} className={s.edge_line} />
+      {/*<path*/}
+      {/*  id={id}*/}
+      {/*  className={s.edge_line}*/}
+      {/*  d={edgePath}*/}
+      {/*  strokeWidth={5}*/}
+      {/*  markerEnd={markerEnd}*/}
+      {/*  style={style}*/}
+      {/*/>*/}
       {
         label && (
           <EdgeLabelRenderer>
@@ -43,3 +72,5 @@ export default function CustomEdge({
     </React.Fragment>
   );
 }
+
+export default memo(CustomEdge)
