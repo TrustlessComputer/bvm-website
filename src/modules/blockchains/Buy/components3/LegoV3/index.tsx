@@ -30,6 +30,8 @@ type LegoV3 = {
     backgroundColor: string;
     textColor: string;
   };
+
+  suffixView?: React.ReactNode;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 function LegoV3({
@@ -50,6 +52,7 @@ function LegoV3({
   checked = false,
   children,
   status,
+  suffixView,
   ...props
 }: LegoV3) {
   const refTooltip = React.useRef<HTMLDivElement>(null);
@@ -207,6 +210,10 @@ function LegoV3({
           >
             {status.label}
           </div>
+        )}
+
+        {suffixView && (
+          <div className={styles.suffixViewContainer}>{suffixView}</div>
         )}
       </div>
     </React.Fragment>

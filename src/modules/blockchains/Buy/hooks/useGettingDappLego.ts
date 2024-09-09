@@ -12,7 +12,7 @@ const useGettingDappLego = () => {
 
   const { field, setFields } = useOrderFormStoreV3();
   const { dappCount } = useFormDappToFormChain();
-  const { order } = useChainProvider();
+  const { order, selectedCategoryMapping } = useChainProvider();
 
   console.log('[useGettingDappLego]', dappCount);
 
@@ -66,37 +66,29 @@ const useGettingDappLego = () => {
     console.log('[useGettingDappLego] 111', { dappCount, newField });
 
     for (const fieldKey in newField) {
-      const selectedCategory = order?.selectedOptions?.find(
-        (c) => c.key === fieldKey,
-      );
       const category = categories?.find((c) => c.key === fieldKey);
 
-      console.log('[useGettingDappLego] 222', {
-        fieldKey,
-        category,
-      });
       if (!category || ignoreKeys.includes(category.key) || category.isChain)
         continue;
-
-      console.log('[useGettingDappLego] 333', newField[fieldKey].value);
 
       if (Array.isArray(newField[fieldKey].value)) {
         const newValues = (newField[fieldKey].value as string[]).filter(
           (v) =>
-            !!dappCount[chainKeyToDappKey(v)] &&
-            !selectedCategory?.options.find((c) => c.key === v),
+            !!(
+              !!dappCount[chainKeyToDappKey(v)] ||
+              selectedCategoryMapping?.[fieldKey]?.options.find(
+                (o) => o.key === v,
+              )
+            ),
         );
         const isEmpty = newValues.length === 0;
-
-        console.log('[useGettingDappLego] 444', {
-          newValues,
-          isEmpty,
-        });
 
         newField[fieldKey].value = isEmpty ? null : newValues;
         newField[fieldKey].dragged = !isEmpty;
       }
     }
+
+    console.log('[useGettingDappLego] 555', { newField, newDraggedFields });
 
     setFields(newField);
     setDraggedFields(newDraggedFields);

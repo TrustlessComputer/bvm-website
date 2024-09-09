@@ -1114,8 +1114,8 @@ export default function useHandleDragging() {
       // Case 2.1: Dragged lego is a base block
       if (activeIsABase) {
         const totalTemplateDapps = (templateDapps || []).length;
-        const removeIndex = activeBaseIndex + 1 + totalTemplateDapps - 1;
-        console.log('HEHEHEHEHEHHEHEHEHHEHE', {
+        const removeIndex = activeBaseIndex + 1 + totalTemplateDapps;
+        console.log('JK HEHEHHE', {
           nodes: nodes,
           edges: edges.length,
           removeIndex,
@@ -1130,28 +1130,28 @@ export default function useHandleDragging() {
         );
         let countSourceHandle = 0;
 
-        // for (let i = 0; i < edges.length; i++) {
-        //   if (edges[i].sourceHandle === `${rootNode}-s-${thisDapp.title}`) {
-        //     countSourceHandle += 1;
-        //   }
-        // }
+        for (let i = 0; i < edges.length; i++) {
+          if (edges[i].sourceHandle === `${rootNode}-s-${thisDapp.title}`) {
+            countSourceHandle += 1;
+          }
+        }
 
-        // if (countSourceHandle == 1) {
-        //   const newSourceHandles =
-        //     getHandleNodeBlockChain?.data.sourceHandles?.filter(
-        //       (item) => item !== `${rootNode}-s-${thisDapp.title}`,
-        //     );
-        //   const data = {
-        //     ...getHandleNodeBlockChain,
-        //     data: {
-        //       ...getHandleNodeBlockChain?.data,
-        //       sourceHandles: newSourceHandles,
-        //     },
-        //   };
-        //   newNodes = newNodes.map((item) =>
-        //     item.id === rootNode ? data : item,
-        //   ) as AppState['nodes'];
-        // }
+        if (countSourceHandle == 1) {
+          const newSourceHandles =
+            getHandleNodeBlockChain?.data.sourceHandles?.filter(
+              (item) => item !== `${rootNode}-s-${thisDapp.title}`,
+            );
+          const data = {
+            ...getHandleNodeBlockChain,
+            data: {
+              ...getHandleNodeBlockChain?.data,
+              sourceHandles: newSourceHandles,
+            },
+          };
+          newNodes = newNodes.map((item) =>
+            item.id === rootNode ? data : item,
+          ) as AppState['nodes'];
+        }
 
         const formDapp = formDappSignal.value;
 
@@ -1191,10 +1191,9 @@ export default function useHandleDragging() {
             },
           };
         });
-
+        console.log('JK HEHEHHE newNodes', newNodes);
         //Drag remove node
         setNodes(newNodes);
-        // setEdges(newEdges);
         needReactFlowRenderSignal.value = true;
 
         return;

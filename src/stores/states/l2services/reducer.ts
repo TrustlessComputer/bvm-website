@@ -80,6 +80,7 @@ export const initialState: L2ServicesState = {
   isAvailableListTemplateFetching: false,
   isAvailableListTemplateFetched: false,
   availableListTemplate: undefined,
+  dAppParam: '0',
 
   //
   isModelCategoriesFetching: false,
@@ -97,6 +98,9 @@ const slice = createSlice({
   reducers: {
     setViewMode(state, action: PayloadAction<ViewMode>) {
       state.viewMode = action.payload;
+    },
+    setDAppParam(state, action: PayloadAction<string>) {
+      state.dAppParam = action.payload;
     },
     setL2ServiceAuth(state, action: PayloadAction<boolean>) {
       state.isL2ServiceLogged = action.payload;
@@ -322,6 +326,7 @@ const slice = createSlice({
 });
 
 export const {
+  setDAppParam,
   setOrderSelected,
   resetOrders,
   setViewMode,
@@ -335,6 +340,6 @@ export const {
   setDAppSelected,
   setDAppConfigSelected,
   setOpenWatchList,
-  updateWatchLists
+  updateWatchLists,
 } = slice.actions;
 export default slice.reducer;

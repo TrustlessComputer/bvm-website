@@ -2,7 +2,9 @@
 
 import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
+import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import { parseWalletType } from '@/modules/blockchains/dapp/parseUtils/wallet-type';
 import { parseYoloGames } from '@/modules/blockchains/dapp/parseUtils/yologame';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { IAirdrop } from '@/services/api/dapp/airdrop/interface';
@@ -14,6 +16,7 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
+import handleStatusEdges from '@utils/helpers';
 import { Edge, MarkerType } from '@xyflow/react';
 import { useParams, usePathname, useSearchParams } from 'next/navigation';
 import React from 'react';
@@ -23,6 +26,7 @@ import { parseStakingPools } from '../../dapp/parseUtils/staking';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { parseDappModel } from '../../utils';
 import { nodeKey } from '../component4/YourNodes/node.constants';
+import { ENABLE_CHATBOX } from '../constants';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
@@ -35,16 +39,12 @@ import {
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import useUpdateFlowStore from '../stores/useUpdateFlowStore';
+import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import useAvailableListTemplate from '../studio/useAvailableListTemplate';
 import useModelCategory from '../studio/useModelCategory';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
-import handleStatusEdges from '@utils/helpers';
-import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
-import { parseWalletType } from '@/modules/blockchains/dapp/parseUtils/wallet-type';
-import { WalletType } from '@/stores/states/dapp/types';
-import { ENABLE_CHATBOX } from '../constants';
 
 export default function useFetchingTemplate() {
   const { templateList, templateDefault } = useAvailableListTemplate();
@@ -83,6 +83,8 @@ export default function useFetchingTemplate() {
   const [needSetDataTemplateToBox, setNeedSetDataTemplateToBox] =
     React.useState(false);
   const [needCheckAndAddAA, setNeedCheckAndAddAA] = React.useState(false);
+  const [needSetPreTemplate, setNeedSetPreTemplate] = React.useState(false);
+  const [reseted, setReseted] = React.useState(false);
 
   const convertData = (data: IModelCategory[]) => {
     const newData = data?.map((item) => {
@@ -139,6 +141,7 @@ export default function useFetchingTemplate() {
     setCategoriesTemplates(templateList);
     setFields(newFields);
     setNeedSetDataTemplateToBox(true);
+    setNeedSetPreTemplate(true);
   };
 
   const dataTemplateToBox = async () => {
@@ -330,7 +333,7 @@ export default function useFetchingTemplate() {
         type: 'dappTemplate',
         dragHandle: '.drag-handle-area',
         data: {
-          node: 'dapp',
+          node: 'template',
           label: templateDapps[index].title,
           status: titleStatusDapp,
           isChain: false,
@@ -518,10 +521,56 @@ export default function useFetchingTemplate() {
     setNeedCheckAndAddAA(false);
   };
 
+  const setPreTemplate = () => {
+    if (isUpdateFlow && order) {
+      setTemplate(order.selectedOptions || []);
+    } else {
+      const template = searchParams.get('template');
+
+      console.log('template', template, templateDefault);
+
+      if (template || !ENABLE_CHATBOX) {
+        setTemplate(templateDefault || []);
+      } else if (ENABLE_CHATBOX) {
+        setTemplate([]);
+      }
+    }
+
+    setNeedSetPreTemplate(false);
+  };
+
   React.useEffect(() => {
+    setNodes([]);
+    setEdges([]);
+    setCategories([]);
+    setParsedCategories([]);
+    setCategoriesTemplates([]);
+    setFields({});
+    setCategoryMapping({});
+    setTemplateDapps([]);
+    setTemplateForm(null);
+
+    setNeedSetDataTemplateToBox(false);
+    setNeedSetPreTemplate(false);
+    setNeedCheckAndAddAA(false);
+
+    draggedIds2DSignal.value = [];
+    draggedDappIndexesSignal.value = [];
+    templateIds2DSignal.value = [];
+    formTemplateDappSignal.value = {};
+    formDappSignal.value = {};
+
+    needReactFlowRenderSignal.value = true;
+
+    setReseted(true);
+  }, []);
+
+  React.useEffect(() => {
+    if (!reseted) return;
+
     fetchData();
     // parseDappApiToDappModel();
-  }, []);
+  }, [reseted]);
 
   React.useEffect(() => {
     if (!isUpdateFlow) return;
@@ -549,18 +598,8 @@ export default function useFetchingTemplate() {
   }, [needSetDataTemplateToBox]);
 
   React.useEffect(() => {
-    if (isUpdateFlow && order) {
-      setTemplate(order.selectedOptions || []);
-    } else {
-      const template = searchParams.get('template');
+    if (!needSetPreTemplate) return;
 
-      console.log('template', template, templateDefault);
-
-      if (template || !ENABLE_CHATBOX) {
-        setTemplate(templateDefault || []);
-      } else if (ENABLE_CHATBOX) {
-        setTemplate([]);
-      }
-    }
-  }, [categoriesTemplates, isUpdateFlow, templateDefault]);
+    setPreTemplate();
+  }, [needSetPreTemplate]);
 }
