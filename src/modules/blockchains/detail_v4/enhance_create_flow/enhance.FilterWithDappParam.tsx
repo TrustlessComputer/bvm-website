@@ -28,7 +28,7 @@ const enhanceFilterWithDappParam =
       dispatch(setDAppParam(dappParam as DappParam));
       dispatch(setTemplateParam(templateParam));
       setInitFinish(true);
-    }, [dappParam]);
+    }, [dappParam, templateParam]);
 
     if (!isInitFinish) return null;
     if (isInitFinish) return <WrappedComponent {...props} />;

@@ -13,8 +13,8 @@ import { APP_BLOCKCHAIN } from './constants';
 import { L2ServicesState, OrderItem } from './types';
 
 const BLACKLIST_CATEGORY_BY_TEMPLATE_PARAM_MAPPER: Record<string, string[]> = {
+  '4': ['bridge_apps'],
   '5': ['tools'],
-  '6': ['bridge_apps'],
 };
 
 const BLACKLIST_CATEGORY_BY_DAPP_PARAM_MAPPER: Record<string, string[]> = {

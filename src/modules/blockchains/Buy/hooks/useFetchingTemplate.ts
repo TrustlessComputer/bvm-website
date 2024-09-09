@@ -30,6 +30,7 @@ import { ENABLE_CHATBOX } from '../constants';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
+  isRenderedInUpdateFlowSignal,
   templateIds2DSignal,
 } from '../signals/useDragSignal';
 import {
@@ -58,21 +59,17 @@ export default function useFetchingTemplate() {
     useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
-    categories,
     setParsedCategories,
     setCategories,
     setCategoriesTemplates,
-    categoriesTemplates,
     setCategoryMapping,
   } = useModelCategoriesStore();
   const { field, setFields } = useOrderFormStoreV3();
   const { setUpdated, updated } = useUpdateFlowStore();
-  const param = useParams();
   const searchParams = useSearchParams();
-  const refUpdatedBaseDapp = React.useRef(false);
   const { setIsFirstLoadTemplateBox } = useStoreFirstLoadTemplateBox();
   const { l2ServiceUserAddress } = useWeb3Auth();
-  const { initTemplate, setTemplate } = useTemplate();
+  const { setTemplate } = useTemplate();
   const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
 
@@ -517,6 +514,7 @@ export default function useFetchingTemplate() {
 
     draggedDappIndexesSignal.value = newDraggedDappIndexes;
     draggedIds2DSignal.value = newDraggedIds2D;
+    isRenderedInUpdateFlowSignal.value = true;
 
     setNeedCheckAndAddAA(false);
   };

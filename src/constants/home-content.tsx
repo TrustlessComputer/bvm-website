@@ -227,7 +227,7 @@ export const STEP_2_SECTION = {
       bgColor:
         'linear-gradient(138deg, rgba(179, 179, 179, 0.40) 1.72%, rgba(43, 43, 43, 0.32) 101.88%)',
       link: {
-        url: '/studio',
+        url: '/studio?template=4',
         target: '_blank',
       },
       tags: [''],
