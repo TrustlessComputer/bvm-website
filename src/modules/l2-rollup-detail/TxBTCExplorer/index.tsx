@@ -155,7 +155,7 @@ const TxBTCExplorer = () => {
             flexDirection={['column', 'row']}
           >
             <Text className={s.title}>
-              {isBTCTxAddress ? 'Fractal ' : ''}Transaction
+              {isFBTxAddress ? 'Fractal ' : ''}Transaction
             </Text>
             <Text
               onClick={() => {
