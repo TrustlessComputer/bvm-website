@@ -6,6 +6,7 @@ import CRollupL2DetailBitcoinAPI from '@/services/api/dapp/rollupl2-detail-bitco
 import { IFBitcoinTransaction } from '@/services/api/dapp/rollupl2-detail-bitcoin/interface';
 import { shortCryptoAddress } from '@/utils/address';
 import { formatCurrency } from '@/utils/format';
+import { formatTimeAgo } from '@/utils/time';
 import { Box, Flex, Image, SimpleGrid, Text } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import dayjs from 'dayjs';
@@ -159,7 +160,7 @@ const TransactionsTabFBitcoin = (props: IProps) => {
                           .format('HH:mm:ss MM/DD/YYYY')}
                         <Text as={'span'}>
                           {' '}
-                          ({dayjs.unix(item.status.block_time).toNow()})
+                          ({formatTimeAgo(item.status.block_time)})
                         </Text>
                       </Text>
                     </Flex>

@@ -1,5 +1,6 @@
 import moment from 'moment';
 import isNumber from 'lodash/isNumber';
+import dayjs from 'dayjs';
 
 const FORMAT_PATTERN = 'DD MMM hh:mm A';
 
@@ -48,6 +49,10 @@ function getCurrentUnixTimestamp() {
   return Math.floor(Date.now() / 1000);
 }
 
+function formatTimeAgo(time: number) {
+  return dayjs.unix(time).toNow().replaceAll('in ', '') + ' ago';
+}
+
 export {
   formatUnixDateTime,
   formatDateTime,
@@ -55,4 +60,5 @@ export {
   isExpiredTime,
   getCurrentUnixTimestamp,
   formatTimeStamp,
+  formatTimeAgo,
 };
