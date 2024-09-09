@@ -35,6 +35,7 @@ import s from './styles.module.scss';
 import TokenTransfers from './tokenTransfer';
 import { shortCryptoAddress } from '@/utils/address';
 import { isMobile } from 'react-device-detect';
+import { formatTimeAgo } from '@/utils/time';
 
 const TxBTCExplorer = () => {
   const { address, isBTCTxAddress } = useContext(L2RollupExplorerContext);
@@ -193,7 +194,7 @@ const TxBTCExplorer = () => {
               ) : (
                 <>
                   {dayjs.unix(timestamp).format('YYYY-MM-DD HH:mm:ss')}
-                  <Text as={'span'}> ({dayjs.unix(timestamp).toNow()})</Text>
+                  <Text as={'span'}> ({formatTimeAgo(timestamp)})</Text>
                 </>
               )}
             </Text>

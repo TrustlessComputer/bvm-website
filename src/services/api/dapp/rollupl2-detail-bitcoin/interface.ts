@@ -1,4 +1,5 @@
 export type BalanceBitcoinType =
+  | 'fractal'
   | 'runes'
   | 'brc20'
   | 'src20'
