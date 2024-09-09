@@ -1,30 +1,30 @@
+import { IDApp } from '@/services/api/DAServices/types';
+import { IModelOption } from '@/types/customize-model';
+import { compareString } from '@/utils/string';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import uniqBy from 'lodash/uniqBy';
 import {
-  fetchAllOrders,
-  fetchOrderList,
-  orderBuy,
   fetchAccountInfo,
-  fetchL2ServiceHistory,
-  fetchAvailableList,
+  fetchAllOrders,
   fetchAllOrdersV2,
-  fetchDAList,
-  fetchTemplateV2,
-  fetchOrderDetailByID,
+  fetchAvailableList,
   fetchAvailableListTemplate,
+  fetchDAList,
+  fetchL2ServiceHistory,
   fetchModelCategories,
+  fetchOrderDetailByID,
+  fetchOrderList,
+  fetchTemplateV2,
+  orderBuy,
 } from './actions';
 import { APP_BLOCKCHAIN, PREFIX } from './constants';
 import {
   L2ServicesState,
+  MonitorViewPage,
   OrderItem,
   ViewMode,
   ViewPage,
-  MonitorViewPage,
 } from './types';
-import uniqBy from 'lodash/uniqBy';
-import { IDApp } from '@/services/api/DAServices/types';
-import { IModelOption } from '@/types/customize-model';
-import { compareString } from '@/utils/string';
 
 export const initialState: L2ServicesState = {
   isMyOrderListFetched: false,
@@ -80,7 +80,8 @@ export const initialState: L2ServicesState = {
   isAvailableListTemplateFetching: false,
   isAvailableListTemplateFetched: false,
   availableListTemplate: undefined,
-  dAppParam: '0',
+  dAppParam: null,
+  templateParam: '0',
 
   //
   isModelCategoriesFetching: false,
@@ -99,8 +100,11 @@ const slice = createSlice({
     setViewMode(state, action: PayloadAction<ViewMode>) {
       state.viewMode = action.payload;
     },
-    setDAppParam(state, action: PayloadAction<string>) {
+    setDAppParam(state, action: PayloadAction<L2ServicesState['dAppParam']>) {
       state.dAppParam = action.payload;
+    },
+    setTemplateParam(state, action: PayloadAction<string>) {
+      state.templateParam = action.payload;
     },
     setL2ServiceAuth(state, action: PayloadAction<boolean>) {
       state.isL2ServiceLogged = action.payload;
@@ -327,6 +331,7 @@ const slice = createSlice({
 
 export const {
   setDAppParam,
+  setTemplateParam,
   setOrderSelected,
   resetOrders,
   setViewMode,
