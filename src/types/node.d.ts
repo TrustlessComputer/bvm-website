@@ -49,6 +49,7 @@ type NodeViewAndAction = {
 type NodeOverlayProps = NodeOnlyViewProps | NodeViewAndAction;
 
 type NodeProps = {
+  id: string;
   dapp?: DappModel;
   heading: NodeHeadingProps;
   content: NodeContentProps;

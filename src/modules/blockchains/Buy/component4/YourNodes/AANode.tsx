@@ -27,7 +27,7 @@ import { Button as ButtonChakra, Flex } from '@chakra-ui/react';
 import AACustomNotification from './AACustomNotification';
 import styles from './styles.module.scss';
 
-const AANode = ({ data }: NodeProps<DappNodeProps>) => {
+const AANode = ({ data, id }: NodeProps<DappNodeProps>) => {
   const { dapp } = data;
 
   const {
@@ -204,6 +204,7 @@ const AANode = ({ data }: NodeProps<DappNodeProps>) => {
       }
       key={JSON.stringify(data)}
       borderColor={aaStatusData?.borderColorStr}
+      id={id}
       heading={{
         title: data.title,
         status: {

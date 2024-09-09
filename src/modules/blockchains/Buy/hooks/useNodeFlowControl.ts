@@ -89,7 +89,6 @@ export default function useNodeFlowControl() {
       } as any;
 
       setNodes(newNodes);
-      console.log('[useNodeFlowControl] xxxxxx');
       resetDragState();
     } else if (!dragState.twoD.every((v) => v === -1)) {
       // handleAddBox();
@@ -135,7 +134,7 @@ export default function useNodeFlowControl() {
           id: newNodeId,
           type: dappKeyToNodeKey(thisDapp.key),
           dragHandle: '.drag-handle-area',
-          position: { x: 0, y: 0 },
+          position: { x: 500, y: 30 },
           data: {
             node: 'dapp',
             title: thisDapp.title,
@@ -143,11 +142,12 @@ export default function useNodeFlowControl() {
             baseIndex: draggedIds2D.length - 1,
             categoryOption: categoryOption as IModelOption,
             ids: draggedIds2D[draggedIds2D.length - 1],
-            targetHandles: [`account_abstraction-t-${rootNode}`],
-            sourceHandles: [],
+            // targetHandles: [`account_abstraction-t-${rootNode}`],
+            targetHandles: [],
+            sourceHandles: [`account_abstraction-t-${rootNode}`],
+            // sourceHandles: [],
           },
         };
-        console.log('[useNodeFlowControl], zzzzzzzzzzzz');
         setNodes([...nodesData, newNode]);
         setEdges([
           ...edges,
@@ -188,8 +188,6 @@ export default function useNodeFlowControl() {
       draggedDappIndexesSignal.value.includes(bridgeAppsIndex) &&
       isBridgeInstalled
     ) {
-      console.log('[useNodeFlowControl] case 1');
-
       if (!nodes.some((node) => node.id === 'bridge_apps')) {
         const rootNode = 'blockchain';
         const thisDapp = bridgesAsADapp;
@@ -199,7 +197,7 @@ export default function useNodeFlowControl() {
           id: newNodeId,
           type: dappKeyToNodeKey(thisDapp.key),
           dragHandle: '.drag-handle-area',
-          position: { x: 0, y: 0 },
+          position: { x: 1000, y: 30 },
           data: {
             node: 'dapp',
             title: thisDapp.title,
@@ -207,11 +205,12 @@ export default function useNodeFlowControl() {
             baseIndex: 0,
             categoryOption: {} as IModelOption,
             ids: [],
-            targetHandles: [`bridge_apps-t-${rootNode}`],
-            sourceHandles: [],
+            // targetHandles: [`bridge_apps-t-${rootNode}`],
+            targetHandles: [],
+            sourceHandles: [`bridge_apps-t-${rootNode}`],
+            // sourceHandles: [],
           },
         };
-        console.log('[useNodeFlowControl], qqqqqqqq');
 
         setNodes([...nodesData, newNode]);
         setEdges([
@@ -261,7 +260,7 @@ export default function useNodeFlowControl() {
           id: newNodeId,
           type: dappKeyToNodeKey(thisDapp.key),
           dragHandle: '.drag-handle-area',
-          position: { x: 0, y: 0 },
+          position: { x: 1500, y: 30 },
           data: {
             node: 'dapp',
             title: thisDapp.title,
@@ -269,11 +268,12 @@ export default function useNodeFlowControl() {
             baseIndex: 0,
             categoryOption: {} as IModelOption,
             ids: [],
-            targetHandles: [`gaming_apps-t-${rootNode}`],
-            sourceHandles: [],
+            // targetHandles: [`gaming_apps-t-${rootNode}`],
+            targetHandles: [],
+            sourceHandles: [`gaming_apps-t-${rootNode}`],
+            // sourceHandles: [],
           },
         };
-        console.log('[useNodeFlowControl], wwwwwwwwww');
 
         setNodes([...nodesData, newNode]);
         setEdges([
@@ -371,19 +371,14 @@ export default function useNodeFlowControl() {
       return;
     }
 
-    const transformedX =
-      (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
-    const transformedY =
-      (mouseDroppedPositionSignal.value.y - transformY) / zoomLevel;
-    const positionTo = {
-      x: transformedX,
-      y: transformedY,
-    };
-
     const rootNode = 'blockchain';
     let suffix = thisDapp.title;
     let statusMapping: any = '';
     let newNodeId = `${nodes.length + 1}`;
+    let transformedX =
+      (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
+    let transformedY =
+      (mouseDroppedPositionSignal.value.y - transformY) / zoomLevel;
 
     switch (thisDapp.key) {
       case accountAbstractionAsADapp.key:
@@ -404,6 +399,11 @@ export default function useNodeFlowControl() {
       default:
         break;
     }
+
+    const positionTo = {
+      x: transformedX,
+      y: transformedY,
+    };
 
     const getHandleNodeBlockChain = nodes.find((item) => item.id === rootNode);
     const isHandleExists = edges.some(
@@ -438,11 +438,12 @@ export default function useNodeFlowControl() {
         baseIndex: draggedIds2D.length - 1,
         categoryOption: categoryOption as IModelOption,
         ids: draggedIds2D[draggedIds2D.length - 1],
-        targetHandles: [`${newNodeId}-t-${rootNode}`],
-        sourceHandles: [],
+        // targetHandles: [`${newNodeId}-t-${rootNode}`],
+        targetHandles: [],
+        sourceHandles: [`${newNodeId}-t-${rootNode}`],
+        // sourceHandles: [],
       },
     };
-    console.log('[useNodeFlowControl], eeeeeeeeeeee');
 
     setNodes([...nodesData, newNode]);
     setEdges([
@@ -476,7 +477,6 @@ export default function useNodeFlowControl() {
     ]);
     needReactFlowRenderSignal.value = true;
     resetDragState();
-    console.log('run handleAddBox end');
   };
 
   return {

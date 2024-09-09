@@ -318,6 +318,7 @@ interface IVerifyEmail {
 type ViewMode = 'Mainnet' | 'Testnet';
 type ViewPage = 'Biiling' | 'ManageChains';
 type MonitorViewPage = 'OP' | 'ZK';
+type DappParam = 'token_generation' | 'staking' | 'airdrop';
 
 interface L2ServicesState {
   //My Order List
@@ -370,8 +371,8 @@ interface L2ServicesState {
   isAvailableListTemplateFetching: boolean;
   isAvailableListTemplateFetched: boolean;
   availableListTemplate?: [IModelCategory[]];
-  dAppParam: string;
-
+  dAppParam: DappParam | null;
+  templateParam: string;
   isModelCategoriesFetching: boolean;
   isModelCategoriesFetched: boolean;
   modelCategories?: IModelCategory[];
@@ -409,31 +410,32 @@ type WebsiteConfig = {
 };
 
 export type {
+  AccountInfo,
+  AccountInfoResp,
+  DappParam,
+  HistoryItemResp,
+  IDAppInstalled,
+  IGetNonceReq,
+  IGetNonceResp,
+  IOrderBuyEstimateRespone,
+  IOrderBuyReq,
+  IOrderBuyReq_V3,
+  IOrderUpdate,
+  IPlugin,
+  IQuickStart,
+  IVerifyEmail,
   IVerifySignatureReq,
   IVerifySignatureResp,
   IVerifyTokenReq,
   IVerifyTokenResp,
-  IGetNonceReq,
-  IGetNonceResp,
+  IWithdrawFundReq,
+  L2ServicesState,
+  MetaConfig,
+  MonitorViewPage,
   OrderItem,
   OrderItemResp,
-  AccountInfoResp,
-  AccountInfo,
-  IOrderBuyReq,
-  IWithdrawFundReq,
-  HistoryItemResp,
-  IQuickStart,
-  IPlugin,
-  IVerifyEmail,
-  IOrderBuyEstimateRespone,
-  L2ServicesState,
+  ThemeConfig,
   ViewMode,
   ViewPage,
-  MetaConfig,
-  ThemeConfig,
   WebsiteConfig,
-  IOrderUpdate,
-  MonitorViewPage,
-  IOrderBuyReq_V3,
-  IDAppInstalled,
 };

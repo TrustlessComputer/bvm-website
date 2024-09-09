@@ -2,10 +2,12 @@ import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useFlowStore, {
   AppState,
 } from '@/modules/blockchains/Buy/stores/useFlowStore';
+import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
 import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
+import { IModelOption } from '@/types/customize-model';
 import { DappNode } from '@/types/node';
-import { MarkerType, useStoreApi } from '@xyflow/react';
 import handleStatusEdges from '@utils/helpers';
+import { MarkerType, useStoreApi } from '@xyflow/react';
 import { useEffect } from 'react';
 import { removeItemAtIndex } from '../../dapp/utils';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
@@ -21,10 +23,7 @@ import {
 import useDappsStore from '../stores/useDappStore';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import { cloneDeep } from '../utils';
-import { IModelOption } from '@/types/customize-model';
-import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
 import useFormChain from './useFormChain';
-import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
 
 export default function useCheckNodes() {
   const { field } = useOrderFormStoreV3();
@@ -44,14 +43,14 @@ export default function useCheckNodes() {
     const newDraggedDappIndexes = cloneDeep(draggedDappIndexesSignal.value);
     const newDraggedIds2D = cloneDeep(draggedIds2DSignal.value);
     let somethingChanged = false;
-    const transformedX =
-      (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
-    const transformedY =
-      (mouseDroppedPositionSignal.value.y - transformY) / zoomLevel;
-    const positionTo = {
-      x: transformedX,
-      y: transformedY,
-    };
+    // const transformedX =
+    //   (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
+    // const transformedY =
+    //   (mouseDroppedPositionSignal.value.y - transformY) / zoomLevel;
+    // const positionTo = {
+    //   x: transformedX,
+    //   y: transformedY,
+    // };
 
     if (!getCurrentFieldFromChain('wallet')) {
       const nodeIndex = nodes.findIndex(
@@ -65,7 +64,6 @@ export default function useCheckNodes() {
       );
 
       if (nodeIndex != -1) {
-        console.log('[useCheckNodes] case 1');
         nodes.splice(nodeIndex, 1);
         setNodes(removeItemAtIndex(nodes, nodeIndex));
       }
@@ -94,7 +92,7 @@ export default function useCheckNodes() {
           id: newNodeId,
           type: dappKeyToNodeKey(thisDapp.key),
           dragHandle: '.drag-handle-area',
-          position: { x: 0, y: 0 },
+          position: { x: 500, y: 30 },
           data: {
             node: 'dapp',
             title: thisDapp.title,
@@ -102,8 +100,10 @@ export default function useCheckNodes() {
             baseIndex: 0,
             categoryOption: {} as IModelOption,
             ids: [],
-            targetHandles: [`account_abstraction-t-${rootNode}`],
-            sourceHandles: [],
+            // targetHandles: [`account_abstraction-t-${rootNode}`],
+            targetHandles: [],
+            sourceHandles: [`account_abstraction-t-${rootNode}`],
+            // sourceHandles: [],
           },
         };
 
@@ -125,13 +125,13 @@ export default function useCheckNodes() {
           target: `account_abstraction`,
           targetHandle: `account_abstraction-t-${rootNode}`,
           type: 'customEdge',
+          selectable: false,
+          selected: false,
+          focusable: false,
           label: handleStatusEdges('', lineAAStatus, 'account_abstraction')
             .icon,
-          animated: handleStatusEdges(
-            '',
-            lineAAStatus,
-            'account_abstraction',
-          ).animate,
+          animated: handleStatusEdges('', lineAAStatus, 'account_abstraction')
+            .animate,
           markerEnd: {
             type: MarkerType.Arrow,
             width: 25,
@@ -166,7 +166,6 @@ export default function useCheckNodes() {
       );
 
       if (nodeIndex != -1) {
-        console.log('[useCheckNodes] case 2');
         nodes.splice(nodeIndex, 1);
         setNodes(removeItemAtIndex(nodes, nodeIndex));
       }
@@ -191,7 +190,7 @@ export default function useCheckNodes() {
           id: newNodeId,
           type: dappKeyToNodeKey(thisDapp.key),
           dragHandle: '.drag-handle-area',
-          position: positionTo,
+          position: { x: 1000, y: 30 },
           data: {
             node: 'dapp',
             title: thisDapp.title,
@@ -199,8 +198,10 @@ export default function useCheckNodes() {
             baseIndex: 0,
             categoryOption: {} as IModelOption,
             ids: [],
-            targetHandles: [`bridge_apps-t-${rootNode}`],
-            sourceHandles: [],
+            // targetHandles: [`bridge_apps-t-${rootNode}`],
+            targetHandles: [],
+            sourceHandles: [`bridge_apps-t-${rootNode}`],
+            // sourceHandles: [],
           },
         };
 
@@ -225,6 +226,9 @@ export default function useCheckNodes() {
           label: handleStatusEdges('', lineBridgeStatus, 'bridge_apps').icon,
           animated: handleStatusEdges('', lineBridgeStatus, 'bridge_apps')
             .animate,
+          selectable: false,
+          selected: false,
+          focusable: false,
           markerEnd: {
             type: MarkerType.Arrow,
             width: 25,
@@ -285,7 +289,7 @@ export default function useCheckNodes() {
           id: newNodeId,
           type: dappKeyToNodeKey(thisDapp.key),
           dragHandle: '.drag-handle-area',
-          position: positionTo,
+          position: { x: 1500, y: 30 },
           data: {
             node: 'dapp',
             title: thisDapp.title,
@@ -293,8 +297,10 @@ export default function useCheckNodes() {
             baseIndex: 0,
             categoryOption: {} as IModelOption,
             ids: [],
-            targetHandles: [`gaming_apps-t-${rootNode}`],
-            sourceHandles: [],
+            // targetHandles: [`gaming_apps-t-${rootNode}`],
+            targetHandles: [],
+            sourceHandles: [`gaming_apps-t-${rootNode}`],
+            // sourceHandles: [],
           },
         };
 
@@ -319,6 +325,9 @@ export default function useCheckNodes() {
           label: handleStatusEdges('', lineBridgeStatus, 'gaming_apps').icon,
           animated: handleStatusEdges('', lineBridgeStatus, 'gaming_apps')
             .animate,
+          selectable: false,
+          selected: false,
+          focusable: false,
           markerEnd: {
             type: MarkerType.Arrow,
             width: 25,

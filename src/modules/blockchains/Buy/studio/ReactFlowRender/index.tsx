@@ -3,7 +3,7 @@ import CustomNode from '@/modules/blockchains/Buy/component4/CustomNode';
 import useHandleReloadNode from '@/modules/blockchains/Buy/hooks/useHandleReloadNode';
 import MModal from '@/modules/blockchains/dapp/components/Modal';
 import { signal, useSignalEffect } from '@preact/signals-react';
-import { ReactFlow } from '@xyflow/react';
+import { ConnectionMode, ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { usePathname, useSearchParams } from 'next/navigation';
 import React, { useState } from 'react';
@@ -18,7 +18,7 @@ import {
   draggedIds2DSignal,
   restoreLocal,
 } from '../../signals/useDragSignal';
-import useFlowStore from '../../stores/useFlowStore';
+import useFlowStore, { AppNode } from '../../stores/useFlowStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import s from './styles.module.scss';
 import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
@@ -111,9 +111,13 @@ const ReactFlowRenderer = React.memo(() => {
         edgesFocusable={false}
         onInit={setRfInstance}
         zoomOnDoubleClick={false}
+        connectionMode={ConnectionMode.Loose}
         edges={edges}
         fitViewOptions={{ padding: 1 }}
         className={s.reactFlow}
+        // onNodeDrag={(event: React.MouseEvent, node: AppNode)=> {
+        //   console.log('[ReactFlowRenderer] onNodeDrag', { event, node, nodes });
+        // }}
         onNodeDragStop={() => {
           if (!isFirstLoadTemplateBox) return;
           if (path === '/studio') {
