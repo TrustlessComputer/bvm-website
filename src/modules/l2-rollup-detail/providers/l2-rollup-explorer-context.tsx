@@ -10,14 +10,12 @@ export interface IL2RollupExplorerContext {
   address: string;
   isBTCTxAddress: boolean;
   isERC20TxAddress: boolean;
-  isFBTxAddress: boolean;
 }
 
 const initialValue: IL2RollupExplorerContext = {
   address: '',
   isBTCTxAddress: false,
   isERC20TxAddress: false,
-  isFBTxAddress: false,
 };
 
 export const L2RollupExplorerContext =
@@ -30,22 +28,15 @@ export const L2RollupExplorerProvider: React.FC<PropsWithChildren> = ({
 
   const address = useMemo(() => params?.id as string, [params]);
 
-  const isFBTxAddress = useMemo(
-    () => isValidFractalBTCTxHash(address),
-    [address],
-  );
-  const isBTCTxAddress = useMemo(
-    () => isValidBTCTxHash(address) || isFBTxAddress,
-    [address, isFBTxAddress],
-  );
+  const isBTCTxAddress = useMemo(() => isValidBTCTxHash(address), [address]);
   const isERC20TxAddress = useMemo(
     () => isValidERC20TxHash(address),
     [address],
   );
 
   const contextValues = React.useMemo((): IL2RollupExplorerContext => {
-    return { address, isBTCTxAddress, isERC20TxAddress, isFBTxAddress };
-  }, [address, isBTCTxAddress, isERC20TxAddress, isFBTxAddress]);
+    return { address, isBTCTxAddress, isERC20TxAddress };
+  }, [address, isBTCTxAddress, isERC20TxAddress]);
 
   return (
     <L2RollupExplorerContext.Provider value={contextValues}>

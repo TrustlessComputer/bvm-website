@@ -108,6 +108,7 @@ export interface ITxBTC {
   virtual_size: string;
   weight: string;
   token_transfer: ITxBTCTokenTransfer[];
+  chain?: string;
 }
 
 export interface ITxBTCPutDetail {
