@@ -24,6 +24,7 @@ import Node from '../Node_v2/Node';
 import { useAccountAbstractionStore } from '@/modules/blockchains/detail_v3/account-abstraction_v2/store/hook';
 import { useDAServicesHelper } from '@/modules/blockchains/detail_v4/hook/useDAServicesHelper';
 import { Button as ButtonChakra, Flex } from '@chakra-ui/react';
+import useNodeAction from '../../hooks/useNodeAction';
 import AACustomNotification from './AACustomNotification';
 import styles from './styles.module.scss';
 
@@ -41,6 +42,7 @@ const AANode = ({ data, id }: NodeProps<DappNodeProps>) => {
 
   const paymasterAddress = aaInstalledData?.aaPaymasterContract || '';
 
+  const { handleOnClickCreateToken } = useNodeAction();
   const { getAAStatus, isUpdateFlow, isCreateChainFlow } = useChainProvider();
   const { resetAAStore, tokenContractAddress } = useAccountAbstractionStore();
   const { isEmptyIssueTokenList } = useDAServicesHelper();
@@ -172,7 +174,7 @@ const AANode = ({ data, id }: NodeProps<DappNodeProps>) => {
               opacity: 0.7,
             }}
             onClick={() => {
-              //TODO Jackie
+              handleOnClickCreateToken();
             }}
           >
             Create Token
