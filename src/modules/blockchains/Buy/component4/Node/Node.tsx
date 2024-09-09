@@ -25,8 +25,6 @@ const Node = ({
               }: NodeProps) => {
   const nodeRef = React.useRef<HTMLDivElement>(null);
   const [focus, setFocus] = useState(false);
-  const sourceNode = useInternalNode(id);
-  console.log('sourceNode22', sourceNode);
   React.useEffect(() => {
     if (!nodeRef.current) return;
 

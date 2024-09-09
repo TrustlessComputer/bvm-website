@@ -16,6 +16,7 @@ import React, { memo, ReactElement } from 'react';
 import Label from '../../components3/Label';
 import { useCaptureStore } from '../../stores/index_v3';
 import s from './styles.module.scss';
+import styles from '@/modules/blockchains/Buy/component4/Node_v2/styles.module.scss';
 
 export enum StatusBox {
   DRAFTING = 'Drafting',
@@ -531,17 +532,17 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
         s[`borderColor_${handleColorStatusNode(data.status)}`],
       )}`}
     >
-      <div className={`${s.handles} ${s.target}`}>
-        {data.targetHandles?.map((handle) => (
-          <Handle
-            key={handle}
-            id={handle}
-            type="target"
-            position={Position.Left}
-            className={s.handleDot}
-          />
-        ))}
-      </div>
+      {/*<div className={`${s.handles} ${s.target}`}>*/}
+      {/*  {data.targetHandles?.map((handle) => (*/}
+      {/*    <Handle*/}
+      {/*      key={handle}*/}
+      {/*      id={handle}*/}
+      {/*      type="target"*/}
+      {/*      position={Position.Left}*/}
+      {/*      className={s.handleDot}*/}
+      {/*    />*/}
+      {/*  ))}*/}
+      {/*</div>*/}
       <div
         className={`${s.wrapperBox_top} drag-handle-area ${cn(
           s[`borderColor_${handleColorStatusNode(data.status)}`],
@@ -576,18 +577,54 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
 
         {data.dapp && <DappRendering />}
       </div>
-      <div className={`${s.handles} ${s.sources}`}>
-        {data.sourceHandles?.map((handle, index) => (
-          <Handle
-            key={handle}
-            id={handle}
-            type="source"
-            position={Position.Right}
-            className={s.handleDot}
-            // style={{ top: 50 * (index+1)}}
-          />
-        ))}
-      </div>
+      {/*<div className={`${s.handles} ${s.sources}`}>*/}
+      {/*  {data.sourceHandles?.map((handle, index) => (*/}
+      {/*    <Handle*/}
+      {/*      key={handle}*/}
+      {/*      id={handle}*/}
+      {/*      type="source"*/}
+      {/*      position={Position.Right}*/}
+      {/*      className={s.handleDot}*/}
+      {/*      // style={{ top: 50 * (index+1)}}*/}
+      {/*    />*/}
+      {/*  ))}*/}
+      {/*</div>*/}
+      {data.sourceHandles?.map((handle, index) => (
+        <Handle
+          key={handle}
+          id={handle}
+          type="source"
+          position={Position.Right}
+          className={styles.handleDot}
+        />
+      ))}
+      {data.sourceHandles?.map((handle, index) => (
+        <Handle
+          key={handle}
+          id={handle}
+          type="source"
+          position={Position.Top}
+          className={styles.handleDot}
+        />
+      ))}
+      {data.sourceHandles?.map((handle, index) => (
+        <Handle
+          key={handle}
+          id={handle}
+          type="source"
+          position={Position.Left}
+          className={styles.handleDot}
+        />
+      ))}
+      {data.sourceHandles?.map((handle, index) => (
+        <Handle
+          key={handle}
+          id={handle}
+          type="source"
+          position={Position.Bottom}
+          className={styles.handleDot}
+        />
+      ))}
     </div>
   );
 }
