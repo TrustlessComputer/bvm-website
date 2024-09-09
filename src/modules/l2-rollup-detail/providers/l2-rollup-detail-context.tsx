@@ -286,6 +286,20 @@ export const L2RollupDetailProvider: React.FC<PropsWithChildren> = ({
           count: assetBitcoin[balanceType.type].length,
         };
       }),
+      {
+        amountUsd: new BigNumber(
+          new BigNumber(
+            balanceBitcoinInfo?.fractal?.funded_txo_sum || '0',
+          ).dividedBy(1e8),
+        )
+          .multipliedBy(
+            new BigNumber(rollupTokensRate ? rollupTokensRate['BTC'] : 0),
+          )
+          .toNumber(),
+        title: 'BTC (Fractal)',
+        color: '#F8C462',
+        count: 0,
+      },
     ];
   }, [balanceBitcoinInfo, rollupTokensRate, assetBitcoin]);
 

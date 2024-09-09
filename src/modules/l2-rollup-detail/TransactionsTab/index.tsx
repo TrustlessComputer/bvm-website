@@ -16,6 +16,7 @@ import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
 import s from './styles.module.scss';
 import { HEART_BEAT } from '@/constants/route-path';
+import EmptyList from '@/components/ListTable/EmptyList';
 
 interface IProps {}
 
@@ -325,14 +326,13 @@ const TransactionsTab = (props: IProps) => {
         wrapClassName={s.wrapScroll}
         dependData={list}
       >
-        <ListTable
-          data={list}
-          columns={columns}
-          className={s.tableContainer}
-          showEmpty={!isFetching}
-          emptyLabel="No transactions found."
-          emptyIcon={<Image src={'/icons/icon-empty.svg'} />}
-        />
+        {!isFetching && list.length === 0 && (
+          <EmptyList
+            color={'#000'}
+            labelText={`No transactions found.`}
+            emptyIcon={<Image src={'/icons/icon-empty.svg'} />}
+          />
+        )}
         {isFetching && <AppLoading className={s.loading} />}
       </ScrollWrapper>
     </Box>

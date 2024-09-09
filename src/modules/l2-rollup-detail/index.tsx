@@ -36,6 +36,7 @@ import TokenTransferTab from './TokenTransferTab';
 import TokenTransferTabBitcoin from './TokenTransferTabBitcoin';
 import TransactionsTab from './TransactionsTab';
 import TransactionsTabBitcoin from './TransactionsTabBitcoin';
+import TransactionsTabFBitcoin from './TransactionsTabFBitcoin';
 import WatchListAddresses from './Watchlist';
 import { formatAiSummary } from './utils';
 import MarkdownComponent from './MarkdownComponent';
@@ -133,7 +134,9 @@ const L2RollupDetail = () => {
                   {`${formatCurrency(balanceBitcoinInfo?.balance, 2, 6)} BTC ${
                     rollupBitcoinBalances && rollupBitcoinBalances.length > 0
                       ? `($${formatCurrency(
-                          rollupBitcoinBalances[0].amountUsd,
+                          rollupBitcoinBalances.find(
+                            (balance) => balance.title === 'BTC',
+                          )?.amountUsd || 0,
                           2,
                           2,
                         )})`
@@ -206,6 +209,7 @@ const L2RollupDetail = () => {
               >
                 <Tab>Portfolio</Tab>
                 <Tab>Transactions</Tab>
+                <Tab>Fractal Transactions</Tab>
                 <Tab>Token Transfer</Tab>
               </TabList>
               <TabPanels className={s.tabPanel}>
@@ -214,6 +218,9 @@ const L2RollupDetail = () => {
                 </TabPanel>
                 <TabPanel minH={'40vh'}>
                   <TransactionsTabBitcoin />
+                </TabPanel>
+                <TabPanel minH={'40vh'}>
+                  <TransactionsTabFBitcoin />
                 </TabPanel>
                 <TabPanel minH={'40vh'}>
                   <TokenTransferTabBitcoin />
