@@ -49,6 +49,7 @@ import useSubmitYoloGame from '@/modules/blockchains/Buy/components3/LaunchButto
 import useSubmitWalletType from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitWalletType';
 import { useComputerNameInputStore } from '../ComputerNameInput/ComputerNameInputStore';
 import BigNumber from 'bignumber.js';
+import useSubmitWhitePaper from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitWhitePaper';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
@@ -130,6 +131,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
   const { onSubmitTokenGeneration } = useSubmitFormTokenGeneration();
   const { onSubmitYoloGame } = useSubmitYoloGame();
   const { onSubmit: onSubmitWalletType } = useSubmitWalletType();
+  const { onSubmitWhitePaper } = useSubmitWhitePaper();
 
   const { chainName } = useOrderFormStore();
   const searchParams = useSearchParams();
@@ -343,6 +345,13 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       dynamicFormValues: dynamicForm,
     });
 
+    const whitePaperForms = retrieveFormsByDappKey({
+      dappKey: DappType.white_paper,
+    });
+    const whitePaperPositions = retrieveNodePositionsByDappKey({
+      dappKey: DappType.white_paper,
+    });
+
     const yoloGameForms = retrieveFormsByDappKey({
       dappKey: DappType.yologame,
     });
@@ -385,6 +394,8 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       yoloGameForms,
       yoloNodePositions,
       walletTypeForms,
+      whitePaperForms,
+      whitePaperPositions
     });
 
     // console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
@@ -403,6 +414,13 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       if (result) {
         //Config Account Abstraction...
         configAccountAbstraction(dynamicForm);
+        if (whitePaperForms && whitePaperForms.length > 0) {
+          await onSubmitWhitePaper({
+            forms: whitePaperForms,
+            positions: whitePaperPositions,
+          });
+          isConfigDapp = true;
+        }
         if (yoloGameForms && yoloGameForms.length > 0) {
           await onSubmitYoloGame({
             forms: yoloGameForms,

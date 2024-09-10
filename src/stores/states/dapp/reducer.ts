@@ -14,6 +14,7 @@ const initialState: DappState = {
   yoloGames: [],
   tokensAll: [],
   walletType: undefined,
+  whitePapers: [],
 };
 
 const slice = createSlice({
@@ -56,6 +57,9 @@ const slice = createSlice({
     setWalletType: (state, actions) => {
       state.walletType = actions.payload;
     },
+    setWhitePapers: (state, actions) => {
+      state.whitePapers = actions.payload;
+    },
   },
 });
 
@@ -72,6 +76,7 @@ export const {
   setYoloGames,
   setTokensAll,
   setWalletType,
+  setWhitePapers,
 } = slice.actions;
 
 export default slice.reducer;

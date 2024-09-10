@@ -1,0 +1,34 @@
+.modalContent {
+  background-color: #fff !important;
+  font-family: var(--font-dmsans);
+  //max-width: 600px !important;
+  margin: 20px !important;
+  max-height: 100dvh;
+  overflow-y: auto;
+
+  .whitePaperContent {
+    background: white;
+    color: black;
+    padding: 40px 80px;
+
+    p {
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    ul {
+      padding-inline-start: 20px;
+    }
+  }
+
+  :global {
+    .chakra-modal__body {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+.headerClassName {
+
+}

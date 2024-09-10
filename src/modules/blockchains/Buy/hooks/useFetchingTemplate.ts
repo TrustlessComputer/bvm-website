@@ -33,10 +33,7 @@ import {
   isRenderedInUpdateFlowSignal,
   templateIds2DSignal,
 } from '../signals/useDragSignal';
-import {
-  formDappSignal,
-  formTemplateDappSignal,
-} from '../signals/useFormDappsSignal';
+import { formDappSignal, formTemplateDappSignal } from '../signals/useFormDappsSignal';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import useUpdateFlowStore from '../stores/useUpdateFlowStore';
@@ -46,6 +43,7 @@ import useModelCategory from '../studio/useModelCategory';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
+import { parseWhitePapers } from '@/modules/blockchains/dapp/parseUtils/whitePaper';
 
 export default function useFetchingTemplate() {
   const { templateList, templateDefault } = useAvailableListTemplate();
@@ -75,7 +73,7 @@ export default function useFetchingTemplate() {
 
   const { counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
-  const { tokens, airdrops, stakingPools, yoloGames, walletType } = dappState;
+  const { tokens, airdrops, stakingPools, yoloGames, walletType, whitePapers } = dappState;
 
   const [needSetDataTemplateToBox, setNeedSetDataTemplateToBox] =
     React.useState(false);
@@ -233,7 +231,7 @@ export default function useFetchingTemplate() {
         blockFieldMapping[item.key] = item;
       });
 
-      if (!draggedIds2D[baseIndex][index] && !isInBase) {
+      if (draggedIds2D[baseIndex] && !draggedIds2D[baseIndex][index] && !isInBase) {
         const _key = isInBlock ? blockKey : key;
         const prefix = 'right-' + FormDappUtil.getBlockType(fieldKey);
         const children = !isInBlock
@@ -280,7 +278,7 @@ export default function useFetchingTemplate() {
       const statusDapp = templateDapps[index].label?.status || '';
       const titleStatusDapp = templateDapps[index].label?.title || '';
 
-      const thisNode = [...tokens, ...airdrops, ...stakingPools, ...yoloGames][
+      const thisNode = [...tokens, ...airdrops, ...stakingPools, ...yoloGames, ...whitePapers][
         index
       ];
       const defaultPositionX = 30 + 500 * xOffsetCount[dappKey]++;
@@ -437,11 +435,21 @@ export default function useFetchingTemplate() {
         })
       : {};
 
+    startIndex += parsedYoloGameData.length;
+    const parsedWhitePaperData = parseWhitePapers(whitePapers);
+    const parsedWhitePaperForm = parseDappModel({
+      key: DappType.white_paper,
+      model: parsedWhitePaperData,
+      startIndex: startIndex,
+    });
+
     console.log('[useFetchingTemplate] parsedTokensData', {
       tokens,
       airdrops,
       stakingPools,
       parsedWalletData,
+      yoloGames,
+      whitePapers,
     });
 
     setTemplateDapps([
@@ -450,6 +458,7 @@ export default function useFetchingTemplate() {
       ...parsedStakingPoolsData,
       ...parsedYoloGameData,
       ...parsedWalletData,
+      ...parsedWhitePaperData,
     ]);
     setTemplateForm({
       ...parsedTokensForm.fieldValue,
@@ -457,6 +466,7 @@ export default function useFetchingTemplate() {
       ...parsedStakingPoolsForm.fieldValue,
       ...parsedYoloGameForm.fieldValue,
       ...((parsedWalletForm as any)?.fieldValue || {}),
+      ...parsedWhitePaperForm.fieldValue,
     } as any);
 
     setNeedSetDataTemplateToBox(true);
