@@ -11,6 +11,7 @@ import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
+import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 
 interface IProps {
   show: boolean;
@@ -25,13 +26,14 @@ const WhitePaperModal = (props: IProps) => {
   const [isDownloadingHtml, setIsDownloadingHtml] = useState(false);
   const [isDownloadingPdf, setIsDownloadingPdf] = useState(false);
   const [whitePaper, setWhitePaper] = useState<IWhitePaper>();
+  const { isOwnerChain } = useChainProvider();
 
   const dispatch = useDispatch();
   const cWhitePaperAPI = new CWhitePaperAPI();
   const needReload = useAppSelector(commonSelector).needReload;
 
   const isAllDisabled = useMemo(() => {
-    return isRegenerating || isDownloadingHtml || isDownloadingPdf;
+    return isRegenerating || isDownloadingHtml || isDownloadingPdf || !isOwnerChain;
   }, [isRegenerating, isDownloadingHtml, isDownloadingPdf]);
 
   const markdownString = useMemo(() => {
