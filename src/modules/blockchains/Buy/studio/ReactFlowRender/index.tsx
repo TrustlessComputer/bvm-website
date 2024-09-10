@@ -30,12 +30,12 @@ const ReactFlowRenderer = React.memo(() => {
   const [currentPosition, setCurrentPosition] = useState(
     currentPositionSignal.value,
   );
-  useLineIssueToken();
   const { isFirstLoadTemplateBox } = useStoreFirstLoadTemplateBox();
   const [count, setCount] = React.useState(0);
   const path = usePathname();
   const { categories } = useModelCategoriesStore();
   const searchParamm = useSearchParams();
+  useLineIssueToken();
 
   const [loaded, setLoaded] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
@@ -53,12 +53,10 @@ const ReactFlowRenderer = React.memo(() => {
     }
   });
 
-  // console.log('[ReactFlowRenderer]', {
-  //   nodes,
-  //   draggedDappIndexesSignal: draggedDappIndexesSignal.value,
-  //   draggedIds2DSignal: draggedIds2DSignal.value,
-  //   formDappSignal: formDappSignal.value,
-  // });
+  console.log('[ReactFlowRenderer]', {
+    nodes,
+    edges
+  });
 
   React.useEffect(() => {
     if (!isFirstLoadTemplateBox) return;
