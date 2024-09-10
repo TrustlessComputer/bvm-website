@@ -130,8 +130,8 @@ class CDappAPI {
           DappType.staking,
           DappType.airdrop,
           DappType.yologame,
-          DappType.orderbook,
           DappType.walletType,
+          DappType.white_paper,
         ].map((app) =>
           this.getDappConfig({
             appName: app,

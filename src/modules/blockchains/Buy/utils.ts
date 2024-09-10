@@ -425,6 +425,47 @@ export const preDataYoloGame = (
   return _sortedDapps;
 };
 
+export const preDataWhitePaper = (
+  sortedDapps: DappModel[] = [],
+  tokens: IToken[],
+) => {
+  const _sortedDapps = cloneDeep(sortedDapps);
+
+  if (tokens.length > 0) {
+    const _appIndex = _sortedDapps.findIndex((v) =>
+      compareString(v.key, DappType.white_paper),
+    );
+
+    if (_appIndex > -1) {
+      const fieldToken = _sortedDapps[
+        _appIndex
+      ].baseModuleFields?.findIndex((v: BlockModel) =>
+        compareString(v.key, 'token'),
+      );
+
+      // @ts-ignore
+      if (fieldToken > -1) {
+        // // @ts-ignore
+        const options: any = tokens.map((t) => ({
+          key: t.id,
+          title: t.name,
+          value: t.contract_address,
+          icon: t.image_url,
+          tooltip: '',
+          type: '',
+          options: [],
+          selectable: true,
+        }));
+
+        // @ts-ignore
+        _sortedDapps[_appIndex].baseModuleFields[fieldToken].fields =
+          options;
+      }
+    }
+  }
+  return _sortedDapps;
+};
+
 export const getAirdropTaskKey = (task: IAirdropTask) => {
   if (compareString(task.type, 'follow') || compareString(task.id, '1')) {
     return 'follow_twitter_username';
