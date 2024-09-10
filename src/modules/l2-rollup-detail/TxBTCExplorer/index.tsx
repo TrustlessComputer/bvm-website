@@ -38,7 +38,9 @@ import { isMobile } from 'react-device-detect';
 import { formatTimeAgo } from '@/utils/time';
 
 const TxBTCExplorer = () => {
-  const { address, isBTCTxAddress } = useContext(L2RollupExplorerContext);
+  const { address, isBTCTxAddress, fbBlockCount } = useContext(
+    L2RollupExplorerContext,
+  );
   const [isFBTxAddress, setIsFBTxAddress] = useState(false);
 
   const [loading, setLoading] = useState(true);
@@ -114,7 +116,14 @@ const TxBTCExplorer = () => {
     }
     return (
       <Tag className={s.tagConfirm}>
-        {formatCurrency(txBTC?.confirm, 0, 2)} confirmation
+        {formatCurrency(
+          isFBTxAddress
+            ? fbBlockCount - Number(txBTC?.height || '0')
+            : txBTC?.confirm,
+          0,
+          2,
+        )}{' '}
+        confirmation
         {labelAmountOrNumberAdds(txBTC?.confirm || 0)}
       </Tag>
     );

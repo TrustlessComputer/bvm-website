@@ -12,13 +12,17 @@ import BigNumber from 'bignumber.js';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation';
 import { useContext, useEffect, useRef, useState } from 'react';
-import { L2RollupDetailContext } from '../providers/l2-rollup-detail-context';
+import {
+  L2RollupExplorerContext,
+  L2RollupExplorerProvider,
+} from '../providers/l2-rollup-explorer-context';
 import s from './styles.module.scss';
 
 interface IProps {}
 
 const TransactionsTabFBitcoin = (props: IProps) => {
-  const { address } = useContext(L2RollupDetailContext);
+  const { address, fbBlockCount } = useContext(L2RollupExplorerContext);
+
   const router = useRouter();
 
   const rollupApi = new CRollupL2DetailBitcoinAPI();
@@ -287,7 +291,13 @@ const TransactionsTabFBitcoin = (props: IProps) => {
                         borderRadius={'4px'}
                         color={'#fff'}
                       >
-                        {item.status.confirmed ? 'Confirmed' : 'Pending'}
+                        {item.status.confirmed
+                          ? `${formatCurrency(
+                              fbBlockCount - Number(item.status.block_height),
+                              0,
+                              2,
+                            )} confirmed`
+                          : 'Pending'}
                       </Flex>
                     </Flex>
                   </Flex>
@@ -308,4 +318,12 @@ const TransactionsTabFBitcoin = (props: IProps) => {
   );
 };
 
-export default TransactionsTabFBitcoin;
+const TransactionsTabFBitcoinModule = () => {
+  return (
+    <L2RollupExplorerProvider>
+      <TransactionsTabFBitcoin />
+    </L2RollupExplorerProvider>
+  );
+};
+
+export default TransactionsTabFBitcoinModule;
