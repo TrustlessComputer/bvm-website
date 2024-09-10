@@ -553,7 +553,7 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
             isCapture ? s.label_margin : ''
           }`}
         >
-          {data.label}
+          {data.label}: {data.dapp?.baseBlock.title}
         </p>
         {
           <div className={s.tag}>
