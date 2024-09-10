@@ -1,5 +1,9 @@
 import { Axios, AxiosError, AxiosResponse } from 'axios';
-import { IMempoolBlock, IMempoolTransactionStatus } from './interface';
+import {
+  IMempoolBlock,
+  IMempoolMining,
+  IMempoolTransactionStatus,
+} from './interface';
 
 class CMempoolApi {
   #api = new Axios({ baseURL: 'https://mempool.space/api' });
@@ -120,6 +124,16 @@ class CMempoolApi {
       const rs: any = await (isFBTxAddress ? this.#apiFB : this.#api).get(
         `/tx/${txHash}/status`,
       );
+
+      return rs;
+    } catch (error) {
+      return undefined;
+    }
+  };
+
+  getFBMiningPool = async (): Promise<IMempoolMining | undefined> => {
+    try {
+      const rs: any = await this.#apiFB.get(`v1/mining/pools/1w`);
 
       return rs;
     } catch (error) {
