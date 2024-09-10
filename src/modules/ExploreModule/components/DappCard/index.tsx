@@ -4,6 +4,7 @@ import Fade from '@interactive/Fade';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import Link from 'next/link';
 import cn from 'classnames';
+import { Box } from '@chakra-ui/react';
 
 export type TDappCardProps = {
   id?: string;
@@ -24,7 +25,6 @@ export default function DappCard({
   idx,
   ...props
 }: TDappCardProps): React.JSX.Element {
-  console.log('props.bgColor', props.bgColor);
   const { link } = props;
   return (
     <Fade delayEnter={0.5 + idx / 10}>
@@ -36,14 +36,19 @@ export default function DappCard({
         })}
         style={{ background: props.bgColor }}
       >
-        <div className={s.wrapperDappCard_image}>
+        <Box
+          className={cn(s.wrapperDappCard_image, {
+            [s.wrapperDappCard_image__first]: props.title === 'Bitcoin Wars',
+          })}
+          aspectRatio={props.title === 'Bitcoin Wars' ? '17  / 15' : 'auto'}
+        >
           <ImagePlaceholder
             src={props.image}
             alt={'dapp1'}
             width={448}
             height={432}
           />
-        </div>
+        </Box>
         <div className={s.wrapperDappCardContent}>
           <p className={s.wrapperDappCard_heading}>{props.title}</p>
           <p
