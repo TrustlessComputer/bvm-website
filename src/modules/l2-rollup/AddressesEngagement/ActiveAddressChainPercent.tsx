@@ -16,6 +16,11 @@ const ActiveAddressChainPercent = ({ data = [] }: { data: any }) => {
       title: {
         text: '',
       },
+      legend: {
+        reversed: true,
+        verticalAlign: 'center',
+        horizontalAlign: 'right',
+      },
       axisX: {
         lineColor: '#f5f5f5',
         gridColor: '#f5f5f5',

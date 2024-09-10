@@ -218,8 +218,8 @@ const TxBTCExplorer = () => {
                     : txBTC.txfee
                 }
                 isSats={true}
+                symbol={txBTC.transaction_symbol}
               />
-              <Text as={'span'}>{txBTC.transaction_symbol}</Text>
               <Text color={'green'}>
                 $
                 {formatCurrency(
@@ -253,7 +253,7 @@ const TxBTCExplorer = () => {
           </Flex>
           <Flex className={cs(s.rowItem)}>
             <Text>Fee rate</Text>
-            <Text display={'flex'} alignItems={'center'} gap={'12px'}>
+            <Text>
               <TextNumberTooSmallDecimal
                 value={new BigNumber(txBTC.txfee)
                   .dividedBy(txBTC.virtual_size || 1)
@@ -261,7 +261,7 @@ const TxBTCExplorer = () => {
                 isSats={true}
                 hideSymbol={true}
               />
-              <Text as="span">sats/vB</Text>
+              <Text as="span"> sat/vB</Text>
             </Text>
           </Flex>
           <Flex className={cs(s.rowItem, s.rowItemBold)}>
@@ -290,8 +290,8 @@ const TxBTCExplorer = () => {
                 ),
                 2,
                 6,
-              )}{' '}
-              <Text as={'span'}>{txBTC.transaction_symbol} |</Text>{' '}
+              )}
+              <Text as="span"> {txBTC.transaction_symbol}</Text> |{' '}
               {formatCurrency(
                 txBTC.output_details.reduce(
                   (p, c) =>
@@ -305,8 +305,8 @@ const TxBTCExplorer = () => {
                 ),
                 2,
                 6,
-              )}{' '}
-              <Text as={'span'}>{txBTC.transaction_symbol}</Text>
+              )}
+              <Text as="span"> {txBTC.transaction_symbol}</Text>
             </Text>
           </Flex>
         </SimpleGrid>
