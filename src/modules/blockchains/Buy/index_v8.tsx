@@ -16,6 +16,7 @@ import useNodeFlowControl from './hooks/useNodeFlowControl';
 import useOnlyFetchDapp from './hooks/useOnlyFetchDapp';
 import useSetDefaultDapp from './hooks/useSetDefaultDapp';
 import s from './styles_v6.module.scss';
+import useLineIssueToken from '@/modules/blockchains/Buy/hooks/useLineIssueToken';
 
 const BuyPage = () => {
   const { handleDragStart, handleDragEnd, sensors } = useHandleDragging();
@@ -30,6 +31,7 @@ const BuyPage = () => {
   useGettingDappLego();
   useCheckNodes();
   useSetDefaultDapp();
+
   // useCheckEdges();
 
   const { tabActive } = useTabs((state) => state);
