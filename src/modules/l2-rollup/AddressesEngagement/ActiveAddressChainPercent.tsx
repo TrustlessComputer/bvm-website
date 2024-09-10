@@ -13,11 +13,11 @@ const ActiveAddressChainPercent = ({ data = [] }: { data: any }) => {
       animationEnabled: true,
       exportEnabled: false,
       dataPointWidth: 0,
+      height: 200,
       title: {
         text: '',
       },
       legend: {
-        reversed: true,
         verticalAlign: 'center',
         horizontalAlign: 'right',
       },
