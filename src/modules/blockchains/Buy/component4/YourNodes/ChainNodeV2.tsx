@@ -13,7 +13,7 @@ import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 
-const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
+const ChainNodeV2 = ({ data, id }: NodeProps<ChainNodeProps>) => {
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
   const { showContactUsModal } = useContactUs();
   const {
@@ -74,6 +74,7 @@ const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
             : undefined
         }
         key={JSON.stringify(data)}
+        id={id}
         heading={{
           title: data.title,
           status: {

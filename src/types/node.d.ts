@@ -49,10 +49,12 @@ type NodeViewAndAction = {
 type NodeOverlayProps = NodeOnlyViewProps | NodeViewAndAction;
 
 type NodeProps = {
+  id: string;
   dapp?: DappModel;
   heading: NodeHeadingProps;
   content: NodeContentProps;
   notification?: NodeNotificationProps;
+  customNotification?: React.ReactNode;
   overlay?: NodeOverlayProps;
   mainContentStyles?: React.CSSProperties;
   borderColor?: string;

@@ -2,7 +2,9 @@
 
 import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
+import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import { parseWalletType } from '@/modules/blockchains/dapp/parseUtils/wallet-type';
 import { parseYoloGames } from '@/modules/blockchains/dapp/parseUtils/yologame';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { IAirdrop } from '@/services/api/dapp/airdrop/interface';
@@ -14,6 +16,7 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
+import handleStatusEdges from '@utils/helpers';
 import { Edge, MarkerType } from '@xyflow/react';
 import { useParams, usePathname, useSearchParams } from 'next/navigation';
 import React from 'react';
@@ -23,22 +26,23 @@ import { parseStakingPools } from '../../dapp/parseUtils/staking';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { parseDappModel } from '../../utils';
 import { nodeKey } from '../component4/YourNodes/node.constants';
-import { draggedDappIndexesSignal, draggedIds2DSignal, templateIds2DSignal } from '../signals/useDragSignal';
+import { ENABLE_CHATBOX } from '../constants';
+import {
+  draggedDappIndexesSignal,
+  draggedIds2DSignal,
+  isRenderedInUpdateFlowSignal,
+  templateIds2DSignal,
+} from '../signals/useDragSignal';
 import { formDappSignal, formTemplateDappSignal } from '../signals/useFormDappsSignal';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import useUpdateFlowStore from '../stores/useUpdateFlowStore';
+import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import useAvailableListTemplate from '../studio/useAvailableListTemplate';
 import useModelCategory from '../studio/useModelCategory';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
-import handleStatusEdges from '@utils/helpers';
-import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
-import { parseWalletType } from '@/modules/blockchains/dapp/parseUtils/wallet-type';
-import { WalletType } from '@/stores/states/dapp/types';
-import { ENABLE_CHATBOX } from '../constants';
-import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import { parseWhitePapers } from '@/modules/blockchains/dapp/parseUtils/whitePaper';
 
 export default function useFetchingTemplate() {
@@ -53,21 +57,17 @@ export default function useFetchingTemplate() {
     useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
-    categories,
     setParsedCategories,
     setCategories,
     setCategoriesTemplates,
-    categoriesTemplates,
     setCategoryMapping,
   } = useModelCategoriesStore();
   const { field, setFields } = useOrderFormStoreV3();
   const { setUpdated, updated } = useUpdateFlowStore();
-  const param = useParams();
   const searchParams = useSearchParams();
-  const refUpdatedBaseDapp = React.useRef(false);
   const { setIsFirstLoadTemplateBox } = useStoreFirstLoadTemplateBox();
   const { l2ServiceUserAddress } = useWeb3Auth();
-  const { initTemplate, setTemplate } = useTemplate();
+  const { setTemplate } = useTemplate();
   const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
 
@@ -215,6 +215,8 @@ export default function useFetchingTemplate() {
       totalBase,
     ).fill([]);
 
+    console.log('[useFetchingTemplate] dataTemplateToBox', templateDapps);
+
     Object.keys(templateForm).forEach((fieldKey) => {
       const value = templateForm[fieldKey];
       const baseIndex = FormDappUtil.getBaseIndex(fieldKey);
@@ -323,20 +325,26 @@ export default function useFetchingTemplate() {
         },
       });
 
+      if (dappKey === 'airdrop') {
+        console.log('HEHEHEHEHHEHEHE', templateDapps[index], titleStatusDapp);
+      }
+
       return {
         id: idNode,
         type: 'dappTemplate',
         dragHandle: '.drag-handle-area',
         data: {
-          node: 'dapp',
+          node: 'template',
           label: templateDapps[index].title,
           status: titleStatusDapp,
           isChain: false,
           dapp: templateDapps[index],
           ids,
           baseIndex: index,
-          targetHandles: [`${idNode}-t-${rootNode}`],
-          sourceHandles: [],
+          // targetHandles: [`${idNode}-t-${rootNode}`],
+          targetHandles: [],
+          sourceHandles: [`${idNode}-t-${rootNode}`],
+          // sourceHandles: [],
           itemId: thisNode?.id,
           positionId: thisNode?.position_id,
         },
@@ -360,6 +368,7 @@ export default function useFetchingTemplate() {
     //     };
     //   });
     // }
+    console.log('HEHEHEHEHHEHEHE', _newNodes);
     const map: any = {};
     for (const element of [...newNodes, ...nodesData, ..._newNodes]) {
       map[element.id] = element;
@@ -375,7 +384,6 @@ export default function useFetchingTemplate() {
     } else {
       setEdges([...edges, ...edgeData]);
     }
-    console.log('[useFetchingTemplate] case 1');
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
     setNeedCheckAndAddAA(true);
@@ -524,6 +532,7 @@ export default function useFetchingTemplate() {
 
     draggedDappIndexesSignal.value = newDraggedDappIndexes;
     draggedIds2DSignal.value = newDraggedIds2D;
+    isRenderedInUpdateFlowSignal.value = true;
 
     setNeedCheckAndAddAA(false);
   };

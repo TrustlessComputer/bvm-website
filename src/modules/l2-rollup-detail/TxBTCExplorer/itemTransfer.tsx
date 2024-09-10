@@ -9,7 +9,7 @@ import { compareString } from '@/utils/string';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import copy from 'copy-to-clipboard';
 import { useMemo } from 'react';
-import toast from 'react-hot-toast';
+import BigNumber from 'bignumber.js';
 import s from './styles.module.scss';
 import AddressCopy from './addressCopy';
 import { useRouter } from 'next/navigation';
@@ -35,11 +35,13 @@ const ItemTransfer = ({
   symbol,
   address,
   tokenTransfer,
+  isFBTxAddress,
 }: {
   data: ITxBTCPutDetail;
   symbol: string;
   address: string;
   tokenTransfer: ITxBTCTokenTransfer[];
+  isFBTxAddress: boolean;
 }) => {
   const router = useRouter();
   const token: ITxBTCTokenTransfer = useMemo(
@@ -62,7 +64,14 @@ const ItemTransfer = ({
           onClick={() => router.push(`${HEART_BEAT}/address/${address}`)}
         />
         <Text className={s.price}>
-          {formatCurrency(data.amount, 0, 6)} <Text as="span">{symbol}</Text>
+          {formatCurrency(
+            isFBTxAddress
+              ? new BigNumber(data.amount).dividedBy(1e8).toString()
+              : data.amount,
+            0,
+            6,
+          )}{' '}
+          <Text as="span">{symbol}</Text>
         </Text>
       </Flex>
       {token && (

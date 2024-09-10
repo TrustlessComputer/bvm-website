@@ -6,7 +6,7 @@ export type Field = {
   parentNames: string[];
   children: Field[];
 };
-
+export const isRenderedInUpdateFlowSignal = signal<boolean>(false);
 export const draggedIdsSignal = signal<string[]>([]);
 export const draggedDappIndexesSignal = signal<number[]>([]);
 export const draggedIds2DSignal = signal<Field[][]>([]);

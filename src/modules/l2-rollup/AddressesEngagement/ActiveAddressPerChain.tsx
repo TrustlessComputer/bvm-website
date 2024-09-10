@@ -18,6 +18,18 @@ const ActiveAddressPerChain = ({ data = [] }: { data: any }) => {
       axisY: {
         title: '',
         includeZero: true,
+        gridColor: '#f5f5f5',
+        lineColor: '#f5f5f5',
+        labelFontSize: 10,
+        labelFontColor: '#434343',
+        tickColor: '#f5f5f5',
+      },
+      axisX: {
+        lineColor: '#f5f5f5',
+        gridColor: '#f5f5f5',
+        labelFontSize: 10,
+        labelFontColor: '#434343',
+        tickColor: '#f5f5f5',
       },
       toolTip: {
         shared: true,

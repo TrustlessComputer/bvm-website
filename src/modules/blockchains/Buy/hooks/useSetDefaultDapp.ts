@@ -99,8 +99,10 @@ const useSetDefaultDapp = () => {
         baseIndex: 0,
         categoryOption: categoryOption as IModelOption,
         ids,
-        targetHandles: [`${newNodeId}-t-${rootNode}`],
-        sourceHandles: [],
+        // targetHandles: [`${newNodeId}-t-${rootNode}`],
+        targetHandles: [],
+        sourceHandles: [`${newNodeId}-t-${rootNode}`],
+        // sourceHandles: [],
       },
     };
 

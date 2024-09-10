@@ -33,6 +33,12 @@ const ActiveAddressChart = ({ data = [] }: { data: any }) => {
         title: {
           text: '',
         },
+        labels: {
+          style: {
+            fontSize: '10px',
+            color: '#434343',
+          },
+        },
       },
       legend: {
         enabled: false,
