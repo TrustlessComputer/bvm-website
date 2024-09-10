@@ -24,6 +24,7 @@ import useDappsStore from '../stores/useDappStore';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import { cloneDeep } from '../utils';
 import useFormChain from './useFormChain';
+import { useGameModule } from '@/modules/blockchains/detail_v4/hook/useGameModule';
 
 export default function useCheckNodes() {
   const { field } = useOrderFormStoreV3();
@@ -31,6 +32,7 @@ export default function useCheckNodes() {
   const { getCurrentFieldFromChain } = useFormChain();
   const { lineBridgeStatus } = useBridgesModule();
   const { lineAAStatus } = useAAModule();
+  const { statusMapper } = useGameModule();
   const { dapps } = useDappsStore();
   const store = useStoreApi();
   const {
@@ -322,8 +324,8 @@ export default function useCheckNodes() {
           target: `gaming_apps`,
           targetHandle: `gaming_apps-t-${rootNode}`,
           type: 'customEdge',
-          label: handleStatusEdges('', lineBridgeStatus, 'gaming_apps').icon,
-          animated: handleStatusEdges('', lineBridgeStatus, 'gaming_apps')
+          label: handleStatusEdges('',  statusMapper.statusStr, 'gaming_apps').icon,
+          animated: handleStatusEdges('',  statusMapper.statusStr, 'gaming_apps')
             .animate,
           selectable: false,
           selected: false,

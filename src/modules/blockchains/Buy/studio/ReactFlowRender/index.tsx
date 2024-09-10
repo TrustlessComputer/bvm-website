@@ -18,6 +18,7 @@ import { restoreLocal } from '../../signals/useDragSignal';
 import useFlowStore from '../../stores/useFlowStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import s from './styles.module.scss';
+import useLineIssueToken from '@/modules/blockchains/Buy/hooks/useLineIssueToken';
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
@@ -29,6 +30,7 @@ const ReactFlowRenderer = React.memo(() => {
   const [currentPosition, setCurrentPosition] = useState(
     currentPositionSignal.value,
   );
+  useLineIssueToken();
   const { isFirstLoadTemplateBox } = useStoreFirstLoadTemplateBox();
   const [count, setCount] = React.useState(0);
   const path = usePathname();
