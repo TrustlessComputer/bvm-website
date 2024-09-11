@@ -1,5 +1,5 @@
 import BaseModal from '@/components/BaseModal';
-import { Button, Flex } from '@chakra-ui/react';
+import { Button, Flex, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -50,6 +50,14 @@ const WhitePaperModal = (props: IProps) => {
     const res = await cWhitePaperAPI.getWhitePaperDetail(tokenInfo?.id?.toString() as string);
     setWhitePaper(res);
   }
+
+  useEffect(() => {
+    if(whitePaper?.status === 'processing') {
+      setIsRegenerating(true);
+    } else {
+      setIsRegenerating(false);
+    }
+  }, [whitePaper]);
 
   const convertMarkdownToHtml = (markdownText: string) => {
     return marked(markdownText);
@@ -217,6 +225,11 @@ const WhitePaperModal = (props: IProps) => {
         <div ref={contentRef} className={s.whitePaperContent}
           dangerouslySetInnerHTML={{ __html: convertMarkdownToHtml(markdownString) }}
         ></div>
+        {
+          isRegenerating && (
+            <Text textAlign={"center"} color={"#FA4E0E"} mt={4}>White Paper's content is generating. Please wait some minutes!</Text>
+          )
+        }
         <Flex mt={"24px"} gap={"24px"} alignItems={"center"} justifyContent={"center"}>
           <Button
             bg={"#000 !important"}
