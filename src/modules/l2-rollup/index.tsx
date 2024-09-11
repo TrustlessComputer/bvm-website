@@ -1099,7 +1099,7 @@ const L2Rollup = () => {
               fontSize={['16px', '18px', ' 20px']}
               mt={isShowIntro ? '24px' : '0px'}
             >
-              <Tab borderLeftRadius={'4px'}>Real-time Data</Tab>
+              <Tab borderLeftRadius={'4px'}>Live Data</Tab>
               <Tab borderRightRadius={'4px'}>Analytics</Tab>
               <Flex position={'absolute'} right={0} top={'12px'}>
                 <Flex
