@@ -1094,7 +1094,11 @@ const L2Rollup = () => {
         >
           {isShowIntro && renderIntro()}
           <Tabs className={s.tabContainer}>
-            <TabList className={s.tabList} fontSize={['16px', '18px', ' 20px']}>
+            <TabList
+              className={s.tabList}
+              fontSize={['16px', '18px', ' 20px']}
+              mt={isShowIntro ? '24px' : '0px'}
+            >
               <Tab>Realtime Data</Tab>
               <Tab>Static Data</Tab>
               <Flex position={'absolute'} right={0} top={'12px'}>
