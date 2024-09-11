@@ -10,10 +10,10 @@ export enum ChatBoxStatus {
 
 type BotMessage = {
   beforeJSON: string;
-  jsonPart: string;
-  afterJSON: string;
+  jsonPart?: string;
+  afterJSON?: string;
   sender: 'bot';
-  template: IModelCategory[];
+  template?: IModelCategory[];
 };
 
 type UserMessage = {

@@ -4,8 +4,7 @@ import ButtonClose from './Actions/ButtonClsoe';
 import ButtonStop from './Actions/ButtonStop';
 import useChatBoxState from './chatbox-store';
 import useChatBoxService from './hooks/useChatBoxService';
-import { useParseMessage } from './hooks/usePasrMessage';
-import Message from './Message';
+import MessageStream from './MessageStream';
 import styles from './styles.module.scss';
 import TextInput from './TextInput';
 
@@ -60,12 +59,13 @@ export default function Chatbox() {
                   className={`${styles.message} ${styles[message.sender]}`}
                 >
                   {message.sender === 'bot' ? (
-                    <Message
-                      beforeJSON={useParseMessage(message.beforeJSON)[0]}
-                      afterJSON={useParseMessage(message.afterJSON)[2]}
-                      template={message.template}
-                      onUpdateScroll={focusChatBox}
-                    />
+                    // <Message
+                    //   beforeJSON={useParseMessage(message.beforeJSON)[0]}
+                    //   afterJSON={useParseMessage(message.afterJSON)[2]}
+                    //   template={message.template}
+                    //   onUpdateScroll={focusChatBox}
+                    // />
+                    <MessageStream message={message.beforeJSON} />
                   ) : (
                     message.text
                   )}
