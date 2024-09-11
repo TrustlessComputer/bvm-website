@@ -2,7 +2,9 @@
 
 import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
+import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import { parseWalletType } from '@/modules/blockchains/dapp/parseUtils/wallet-type';
 import { parseYoloGames } from '@/modules/blockchains/dapp/parseUtils/yologame';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { IAirdrop } from '@/services/api/dapp/airdrop/interface';
@@ -14,6 +16,7 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
 import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
+import handleStatusEdges from '@utils/helpers';
 import { Edge, MarkerType } from '@xyflow/react';
 import { useParams, usePathname, useSearchParams } from 'next/navigation';
 import React from 'react';
@@ -40,11 +43,6 @@ import useModelCategory from '../studio/useModelCategory';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
-import handleStatusEdges from '@utils/helpers';
-import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
-import { parseWalletType } from '@/modules/blockchains/dapp/parseUtils/wallet-type';
-import { WalletType } from '@/stores/states/dapp/types';
-import { ENABLE_CHATBOX } from '../constants';
 
 export default function useFetchingTemplate() {
   const { templateList, templateDefault } = useAvailableListTemplate();
@@ -547,15 +545,7 @@ export default function useFetchingTemplate() {
     if (isUpdateFlow && order) {
       setTemplate(order.selectedOptions || []);
     } else {
-      const template = searchParams.get('template');
-
-      console.log('template', template, templateDefault);
-
-      if (template || !ENABLE_CHATBOX) {
-        setTemplate(templateDefault || []);
-      } else if (ENABLE_CHATBOX) {
-        setTemplate([]);
-      }
+      setTemplate(templateDefault || []);
     }
   }, [categoriesTemplates, isUpdateFlow, templateDefault]);
 }
