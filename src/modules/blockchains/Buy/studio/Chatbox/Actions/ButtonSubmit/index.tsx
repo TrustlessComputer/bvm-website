@@ -5,13 +5,13 @@ import styles from './styles.module.scss';
 export default function ButtonSubmit({
   handleSendMessage,
 }: {
-  handleSendMessage: any;
+  handleSendMessage: (message: string) => void;
 }): ReactElement {
-  const { isGenerating, isListening } = useChatBoxState();
+  const { inputMessage, isGenerating, isListening } = useChatBoxState();
 
   return (
     <button
-      onClick={handleSendMessage}
+      onClick={() => handleSendMessage(inputMessage)}
       className={styles.sendButton}
       disabled={isGenerating || isListening}
     >

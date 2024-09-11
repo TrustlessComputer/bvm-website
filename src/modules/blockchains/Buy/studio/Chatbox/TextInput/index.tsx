@@ -8,7 +8,7 @@ import styles from './styles.module.scss';
 export default function TextInput({
   handleSendMessage,
 }: {
-  handleSendMessage: any;
+  handleSendMessage: (message: string) => void;
 }): ReactElement {
   const { inputMessage, isListening, isGenerating, setInputMessage } =
     useChatBoxState((state) => state);
@@ -20,10 +20,10 @@ export default function TextInput({
         <textarea
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
-          onKeyPress={(e) => {
+          onKeyDown={(e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
               e.preventDefault();
-              handleSendMessage();
+              handleSendMessage(inputMessage);
             }
           }}
           className={styles.inputField}
@@ -35,7 +35,7 @@ export default function TextInput({
         )}
         {isListening && <LabelListening />}
         <div className={styles.buttonWrapper}>
-          <ButtonVoice />
+          <ButtonVoice handleSendMessage={handleSendMessage} />
           <ButtonSubmit handleSendMessage={handleSendMessage} />
         </div>
       </div>

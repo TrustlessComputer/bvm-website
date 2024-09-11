@@ -4,10 +4,10 @@ import ButtonClose from './Actions/ButtonClsoe';
 import ButtonStop from './Actions/ButtonStop';
 import useChatBoxState from './chatbox-store';
 import useChatBoxService from './hooks/useChatBoxService';
+import { useParseMessage } from './hooks/usePasrMessage';
 import Message from './Message';
 import styles from './styles.module.scss';
 import TextInput from './TextInput';
-import { useParseMessage } from './hooks/usePasrMessage';
 
 export default function Chatbox() {
   const {
@@ -29,9 +29,9 @@ export default function Chatbox() {
     }, 5);
   };
 
-  const handleSendMessage = () => {
-    if (inputMessage.trim() !== '') {
-      setMessages([...messages, { text: inputMessage, sender: 'user' }]);
+  const handleSendMessage = (message: string) => {
+    if (message.trim() !== '') {
+      setMessages([...messages, { text: message, sender: 'user' }]);
       setInputMessage('');
       focusChatBox();
     }
