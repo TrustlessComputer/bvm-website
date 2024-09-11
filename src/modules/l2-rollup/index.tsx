@@ -5,6 +5,7 @@
 import AppLoading from '@/components/AppLoading';
 import ListTable, { ColumnProp } from '@/components/ListTable';
 import { MIN_DECIMAL } from '@/constants/constants';
+import PowerBox from '@/modules/l2-rollup/PowerBox';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import CRollupL2API from '@/services/api/dapp/rollupl2';
 import {
@@ -27,19 +28,17 @@ import {
   Tooltip,
   useDisclosure,
 } from '@chakra-ui/react';
+import { DotLottiePlayer } from '@dotlottie/react-player';
 import orderBy from 'lodash/orderBy';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import { useDispatch } from 'react-redux';
+import SearchAddress from '../l2-rollup-detail/SearchAddress';
+import AddressesEngagement from './AddressesEngagement';
+import AnimArrowDown from './AnimArrowDown';
 import BitcoinRentModal from './BitcoinRentModal';
 import L2RollupFee from './fees';
 import s from './styles.module.scss';
-import SearchAddress from '../l2-rollup-detail/SearchAddress';
-import React from 'react';
-import { isMobile } from 'react-device-detect';
-import { DotLottiePlayer } from '@dotlottie/react-player';
-import AnimArrowDown from './AnimArrowDown';
-import PowerBox from '@/modules/l2-rollup/PowerBox';
-import AddressesEngagement from './AddressesEngagement';
 
 enum SortRollupType {
   name,
@@ -267,6 +266,40 @@ const L2Rollup = () => {
                 }.svg`
           }
         />
+      </Flex>
+    );
+  };
+
+  const renderItemTotal = (
+    title: string,
+    value: string,
+    tooltip?: string,
+    mulValue?: string,
+  ) => {
+    return (
+      <Flex direction={'column'} alignItems={'center'}>
+        <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
+          <Text className={s.total_title}>{title}</Text>
+          {tooltip && (
+            <Tooltip label={tooltip}>
+              <Image
+                cursor={'pointer'}
+                width="18px"
+                height="18px"
+                alt="tooltip"
+                src={'/icons/ic-tooltip-blue.svg'}
+              />
+            </Tooltip>
+          )}
+        </Flex>
+        <Text fontSize={'18px'} fontWeight={'500'}>
+          {value}
+        </Text>
+        {mulValue && (
+          <Text color={'green'} fontSize={'16px'} fontWeight={'500'}>
+            {mulValue}
+          </Text>
+        )}
       </Flex>
     );
   };
@@ -575,34 +608,6 @@ const L2Rollup = () => {
           );
         },
       },
-      // {
-      //   id: 'fdv',
-      //   label: renderLabel('FDV', SortRollupType.fdv),
-      //   labelConfig,
-      //   config: {
-      //     borderBottom: 'none',
-      //     fontSize: '16px',
-      //     fontWeight: 500,
-      //     verticalAlign: 'middle',
-      //     letterSpacing: '-0.5px',
-      //   },
-      //   render(data: IRollupL2Info) {
-      //     return (
-      //       <Flex
-      //         alignItems={'center'}
-      //         width={'100%'}
-      //         justifyContent={'space-between'}
-      //         px={'2px'}
-      //       >
-      //         <Text className={s.title}>
-      //           {data.fdv_usd && data.fdv_usd !== '0'
-      //             ? `$${formatCurrency(data.fdv_usd, MIN_DECIMAL, MIN_DECIMAL)}`
-      //             : '-'}
-      //         </Text>
-      //       </Flex>
-      //     );
-      //   },
-      // },
       {
         id: 'block',
         label: renderLabel('Block', SortRollupType.block),
@@ -635,7 +640,18 @@ const L2Rollup = () => {
       },
       {
         id: 'tps',
-        label: renderLabel('TPS', SortRollupType.tps),
+        label: (
+          <Box>
+            {renderLabel(
+              'TPS',
+              SortRollupType.tps,
+              'The total transactions per second',
+            )}
+            <Text fontSize={'12px'} color={'#000'} opacity={0.7}>
+              Total: {formatCurrency(total.tps, MIN_DECIMAL, MIN_DECIMAL)}
+            </Text>
+          </Box>
+        ),
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -662,7 +678,18 @@ const L2Rollup = () => {
       },
       {
         id: 'mgas',
-        label: renderLabel('Mgas/s', SortRollupType.mgas),
+        label: (
+          <Box>
+            {renderLabel(
+              'Mgas/s',
+              SortRollupType.mgas,
+              'The total megagas (Million Gas) per second',
+            )}
+            <Text fontSize={'12px'} color={'#000'} opacity={0.7}>
+              Total: {formatCurrency(total.mgas, MIN_DECIMAL, MIN_DECIMAL)}
+            </Text>
+          </Box>
+        ),
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -685,7 +712,14 @@ const L2Rollup = () => {
       },
       {
         id: 'kbs',
-        label: renderLabel('Kb/s', SortRollupType.kbs),
+        label: (
+          <Box>
+            {renderLabel('Kb/s', SortRollupType.kbs, 'Total KB per second')}
+            <Text fontSize={'12px'} color={'#000'} opacity={0.7}>
+              Total: {formatCurrency(total.kbs, MIN_DECIMAL, MIN_DECIMAL)}
+            </Text>
+          </Box>
+        ),
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -904,40 +938,6 @@ const L2Rollup = () => {
       },
     ];
   }, [currentSort]);
-
-  const renderItemTotal = (
-    title: string,
-    value: string,
-    tooltip?: string,
-    mulValue?: string,
-  ) => {
-    return (
-      <Flex direction={'column'} alignItems={'center'}>
-        <Flex direction={'row'} alignItems={'center'} gap={'4px'}>
-          <Text className={s.total_title}>{title}</Text>
-          {tooltip && (
-            <Tooltip label={tooltip}>
-              <Image
-                cursor={'pointer'}
-                width="18px"
-                height="18px"
-                alt="tooltip"
-                src={'/icons/ic-tooltip-blue.svg'}
-              />
-            </Tooltip>
-          )}
-        </Flex>
-        <Text fontSize={'18px'} fontWeight={'500'}>
-          {value}
-        </Text>
-        {mulValue && (
-          <Text color={'green'} fontSize={'16px'} fontWeight={'500'}>
-            {mulValue}
-          </Text>
-        )}
-      </Flex>
-    );
-  };
 
   const chainsSupportForChart = useMemo(
     () => data.filter((d) => d.fee_chart_supported).map((v) => v.name),
@@ -1227,7 +1227,7 @@ const L2Rollup = () => {
             <AddressesEngagement />
           </Box>
 
-          <Flex
+          {/* <Flex
             className={s.totalContainer}
             bg="#FAFAFA"
             w="100%"
@@ -1269,8 +1269,8 @@ const L2Rollup = () => {
                   : '-',
               )}
             </Flex>
-          </Flex>
-          <Box w="100%" bg="#FAFAFA" minH={'450px'} mt={'56px'}>
+          </Flex> */}
+          <Box w="100%" bg="#FAFAFA" minH={'450px'} mt={'20px'}>
             {data.length <= 0 ? (
               <Box mt={'24px'}>
                 <AppLoading />
