@@ -19,6 +19,7 @@ import useDraggingStore from '@/modules/blockchains/Buy/stores/useDraggingStore'
 import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
 import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
 import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
+import { useGameModule } from '@/modules/blockchains/detail_v4/hook/useGameModule';
 import { IModelOption } from '@/types/customize-model';
 import { DappNode } from '@/types/node';
 import handleStatusEdges from '@utils/helpers';
@@ -32,7 +33,6 @@ import {
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useDraggedId2DStore from '../stores/useDraggedId2DStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
-import { useGameModule } from '@/modules/blockchains/detail_v4/hook/useGameModule';
 
 export default function useNodeFlowControl() {
   const { dapps } = useDapps();
@@ -262,7 +262,7 @@ export default function useNodeFlowControl() {
           id: newNodeId,
           type: dappKeyToNodeKey(thisDapp.key),
           dragHandle: '.drag-handle-area',
-          position: { x: 1300, y: 30 },
+          position: { x: 1400, y: 30 },
           data: {
             node: 'dapp',
             title: thisDapp.title,
@@ -287,9 +287,13 @@ export default function useNodeFlowControl() {
             sourceHandle: `${rootNode}-s-gaming_apps`,
             // target: `${newNodeId}`,
             target: `gaming_apps`,
-            label: handleStatusEdges('', statusMapper.statusStr, 'gaming_apps').icon,
-            animated: handleStatusEdges('', statusMapper.statusStr, 'gaming_apps')
-              .animate,
+            label: handleStatusEdges('', statusMapper.statusStr, 'gaming_apps')
+              .icon,
+            animated: handleStatusEdges(
+              '',
+              statusMapper.statusStr,
+              'gaming_apps',
+            ).animate,
             targetHandle: `gaming_apps-t-${rootNode}`,
             selectable: false,
             selected: false,
