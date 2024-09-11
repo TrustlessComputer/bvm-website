@@ -171,8 +171,8 @@ export default function useNodeFlowControl() {
               .animate,
             markerEnd: {
               type: MarkerType.Arrow,
-              width: 25,
-              height: 25,
+              width: 20,
+              height: 20,
               strokeWidth: 1,
               color: '#AAAAAA',
             },
@@ -234,8 +234,8 @@ export default function useNodeFlowControl() {
             type: 'customEdge',
             markerEnd: {
               type: MarkerType.Arrow,
-              width: 25,
-              height: 25,
+              width: 20,
+              height: 20,
               strokeWidth: 1,
               color: '#AAAAAA',
             },
@@ -301,8 +301,8 @@ export default function useNodeFlowControl() {
             type: 'customEdge',
             markerEnd: {
               type: MarkerType.Arrow,
-              width: 25,
-              height: 25,
+              width: 20,
+              height: 20,
               strokeWidth: 1,
               color: '#AAAAAA',
             },
@@ -470,8 +470,8 @@ export default function useNodeFlowControl() {
           .animate,
         markerEnd: {
           type: MarkerType.Arrow,
-          width: 25,
-          height: 25,
+          width: 20,
+          height: 20,
           strokeWidth: 1,
           color: '#AAAAAA',
         },

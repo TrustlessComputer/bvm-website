@@ -127,8 +127,8 @@ const useSetDefaultDapp = () => {
         focusable: false,
         markerEnd: {
           type: MarkerType.Arrow,
-          width: 25,
-          height: 25,
+          width: 20,
+          height: 20,
           strokeWidth: 1,
           color: '#AAAAAA',
         },
@@ -156,8 +156,8 @@ const useSetDefaultDapp = () => {
         focusable: false,
         markerEnd: {
           type: MarkerType.Arrow,
-          width: 25,
-          height: 25,
+          width: 20,
+          height: 20,
           strokeWidth: 1,
           color: '#AAAAAA',
         },

@@ -56,13 +56,13 @@ function useLineIssueToken(): void {
             focusable: false,
             markerEnd: {
               type: MarkerType.Arrow,
-              width: 25,
-              height: 25,
+              width: 20,
+              height: 20,
               strokeWidth: 1,
-              color: '#AAAAAA',
+              color: '#E5BBB2',
             },
             style: {
-              stroke: '#AAAAAA',
+              stroke: '#E5BBB2',
               strokeWidth: 2,
             },
           }
@@ -88,13 +88,13 @@ function useLineIssueToken(): void {
             focusable: false,
             markerEnd: {
               type: MarkerType.Arrow,
-              width: 25,
-              height: 25,
+              width: 20,
+              height: 20,
               strokeWidth: 1,
-              color: '#AAAAAA',
+              color: '#E5BBB2',
             },
             style: {
-              stroke: '#AAAAAA',
+              stroke: '#E5BBB2',
               strokeWidth: 2,
             },
           };
@@ -120,13 +120,13 @@ function useLineIssueToken(): void {
             focusable: false,
             markerEnd: {
               type: MarkerType.Arrow,
-              width: 25,
-              height: 25,
+              width: 20,
+              height: 20,
               strokeWidth: 1,
-              color: '#AAAAAA',
+              color: '#E5BBB2',
             },
             style: {
-              stroke: '#AAAAAA',
+              stroke: '#E5BBB2',
               strokeWidth: 2,
             },
           };
@@ -152,13 +152,13 @@ function useLineIssueToken(): void {
             focusable: false,
             markerEnd: {
               type: MarkerType.Arrow,
-              width: 25,
-              height: 25,
+              width: 20,
+              height: 20,
               strokeWidth: 1,
-              color: '#AAAAAA',
+              color: '#E5BBB2',
             },
             style: {
-              stroke: '#AAAAAA',
+              stroke: '#E5BBB2',
               strokeWidth: 2,
             },
           };
