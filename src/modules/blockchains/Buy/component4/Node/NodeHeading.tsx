@@ -8,6 +8,7 @@ import styles from './styles.module.scss';
 
 const NodeHeading = ({
   title,
+  icon,
   status,
   backgroundColor = '#FFF6D8',
   borderColor,
@@ -23,10 +24,14 @@ const NodeHeading = ({
         backgroundColor,
         borderColor,
         color: textColor,
+        // @ts-ignore
+        '--textColor': textColor,
         ...headingStyles,
       }}
     >
-      <div className={styles.nodeHeading__title}>{title}</div>
+      <div className={styles.nodeHeading__title}>
+        {title} {icon && <SvgInset svgUrl={icon} size={20} />}
+      </div>
 
       {status && (
         <div
