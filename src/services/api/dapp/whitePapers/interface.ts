@@ -8,4 +8,5 @@ export interface IWhitePaper extends IPosition {
   token_id: number
   white_paper: string
   token: IToken
+  status: string;
 }
