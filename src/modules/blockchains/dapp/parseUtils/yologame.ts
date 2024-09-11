@@ -78,7 +78,7 @@ export const parseYoloGames = (games: IYoloGame[]): any[] => {
               type: 'input',
               icon: '',
               value: game.round_duration,
-              tooltip: 'Set the duration of each round in seconds.',
+              tooltip: 'Set the duration of each round in seconds. (min 120s) ',
               placeholder: 'eg. 300',
               options: [],
               background: '#00AA6C',
