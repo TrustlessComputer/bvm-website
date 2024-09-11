@@ -229,36 +229,31 @@ table {
     align-items: center;
     justify-content: center;
     align-self: center;
-    gap: 12px;
     margin-bottom: 12px;
-    border-bottom: 1px solid #efefef;
+    border-bottom: 1px solid transparent;
     width: fit-content;
 
     > button {
       background: none;
       border: none;
-      color: #fff;
-      opacity: 50%;
-      font-weight: 400;
+      color: gray;
+      font-weight: 500;
+      background: #f4f4f4;
+      font-size: 14px;
+      line-height: 20px;
+      padding-top: 8px;
+      padding-bottom: 8px;
 
       flex: unset;
       position: relative;
       text-align: center;
+      width: 160px;
 
       &[aria-selected='true'] {
         opacity: 1;
         font-weight: 600;
-        color: #fa4e0e !important;
-
-        &::after {
-          content: '';
-          display: block;
-          height: 2px;
-          width: 100%;
-          background-color: #fa4e0e !important;
-          position: absolute;
-          bottom: 0;
-        }
+        color: #fff !important;
+        background: linear-gradient(95.67deg, #ffc076 7.06%, #ff0000 92.21%);
       }
     }
   }
