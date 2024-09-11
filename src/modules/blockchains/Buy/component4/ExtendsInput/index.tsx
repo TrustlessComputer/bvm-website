@@ -37,6 +37,7 @@ const ExtendsInput = ({
     type,
     name,
     options,
+    tooltip,
     inBaseField,
     inBlockField,
     inSingleField,
@@ -172,7 +173,7 @@ const ExtendsInput = ({
         </Lego>
       </React.Fragment>
     );
-  } else if (type !== 'extends') {
+  } else if (type !== 'extends') {//group?
     return (
       <React.Fragment>
         <Lego
@@ -202,6 +203,7 @@ const ExtendsInput = ({
         titleInLeft={true}
         titleInRight={false}
         zIndex={zIndex}
+        tooltip={tooltip}
       >
         <Toggle
           background={adjustBrightness(background, -20)}

@@ -1240,6 +1240,16 @@ export const dappMockupData: DappModel[] = [
           options: [],
           background: '#C44127',
         },
+        {
+          key: 'is_multiple_token',
+          title: 'Support Multiple Token',
+          type: 'extends',
+          value: 0,
+          tooltip: 'Allow joining game by paying other supported tokens.',
+          icon: '',
+          background: '#43766C',
+          options: [],
+        }
       ],
     },
   },
