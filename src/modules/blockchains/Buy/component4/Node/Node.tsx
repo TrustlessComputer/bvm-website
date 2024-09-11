@@ -1,45 +1,28 @@
-import { Handle, Position, useInternalNode } from '@xyflow/react';
-import React, { useState } from 'react';
+import { Handle, Position } from '@xyflow/react';
+import { useState } from 'react';
 
+import { idNodeSignal } from '@/modules/blockchains/Buy/hooks/useFocusNode';
 import { NodeProps } from '@/types/node';
+import { useSignalEffect } from '@preact/signals-react';
 import NodeNotification from '../YourNodes/NodeNotification';
 import NodeContent from './NodeContent';
 import NodeHeading from './NodeHeading';
 import NodeOverlay from './NodeOverlay';
 import styles from './styles.module.scss';
-import { idNodeSignal } from '@/modules/blockchains/Buy/hooks/useFocusNode';
-import { useSignalEffect } from '@preact/signals-react';
-import useFlowStore from '@/modules/blockchains/Buy/stores/useFlowStore';
 
 const Node = ({
-                dapp,
-                overlay,
-                content,
-                heading,
-                notification,
-                borderColor = '#FFC700',
-                targetHandles,
-                sourceHandles,
-                mainContentStyles,
-                id,
-              }: NodeProps) => {
-  const nodeRef = React.useRef<HTMLDivElement>(null);
+  dapp,
+  overlay,
+  content,
+  heading,
+  notification,
+  borderColor = '#FFC700',
+  targetHandles,
+  sourceHandles,
+  mainContentStyles,
+  id,
+}: NodeProps) => {
   const [focus, setFocus] = useState(false);
-  React.useEffect(() => {
-    if (!nodeRef.current) return;
-
-    const preventKeyDown = (e: KeyboardEvent) => {
-      e.stopPropagation();
-    };
-
-    const node = nodeRef.current;
-
-    node.addEventListener('keydown', preventKeyDown);
-
-    return () => {
-      node.removeEventListener('keydown', preventKeyDown);
-    };
-  }, []);
 
   useSignalEffect(() => {
     setFocus(idNodeSignal.value === dapp?.id);

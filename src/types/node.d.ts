@@ -5,6 +5,7 @@ import { DappModel, IModelOption } from './customize-model';
 
 type NodeHeadingProps = {
   title: string;
+  icon?: string;
   status?: {
     message: string;
     color?: string;
