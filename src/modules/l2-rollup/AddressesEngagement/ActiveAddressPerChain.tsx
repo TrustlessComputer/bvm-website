@@ -15,6 +15,7 @@ const ActiveAddressPerChain = ({ data = [] }: { data: any }) => {
       title: {
         text: '',
       },
+      height: 200,
       legend: {
         reversed: true,
         verticalAlign: 'center',

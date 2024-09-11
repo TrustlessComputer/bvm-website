@@ -50,6 +50,7 @@ const ActiveAddressChart = ({ data = [] }: { data: any }) => {
       ],
       chart: {
         type: 'column',
+        height: '200px',
       },
       plotOptions: {
         column: {
