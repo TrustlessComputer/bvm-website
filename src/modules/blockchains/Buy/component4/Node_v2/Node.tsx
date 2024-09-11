@@ -51,6 +51,7 @@ const Node = ({
           type="source"
           position={Position.Right}
           className={styles.handleDot}
+          isConnectable={false}
         />
       ))}
       {sourceHandles?.map((handle, index) => (
@@ -60,6 +61,7 @@ const Node = ({
           type="source"
           position={Position.Top}
           className={styles.handleDot}
+          isConnectable={false}
         />
       ))}
       {sourceHandles?.map((handle, index) => (
@@ -69,6 +71,7 @@ const Node = ({
           type="source"
           position={Position.Left}
           className={styles.handleDot}
+          isConnectable={false}
         />
       ))}
       {sourceHandles?.map((handle, index) => (
@@ -78,6 +81,7 @@ const Node = ({
           type="source"
           position={Position.Bottom}
           className={styles.handleDot}
+          isConnectable={false}
         />
       ))}
     </div>
