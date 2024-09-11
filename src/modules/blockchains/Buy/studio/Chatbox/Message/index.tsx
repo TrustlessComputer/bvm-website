@@ -1,7 +1,10 @@
-import { IModelCategory } from '@/types/customize-model';
+import { DappModel, IModelCategory } from '@/types/customize-model';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Lego from '../../../component4/Lego';
+import useNodeHelper from '../../../hooks/useNodeHelper';
 import useTemplate from '../../../hooks/useTemplate';
+import useDappsStore from '../../../stores/useDappStore';
+import { chainKeyToDappKey } from '../../../utils';
 import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
 import styles from './styles.module.scss';
 
@@ -16,6 +19,9 @@ export default function Message({
   afterJSON: string;
   onUpdateScroll: () => void;
 }) {
+  const { dapps } = useDappsStore();
+  const { addDappToNode } = useNodeHelper();
+
   const { setChatBoxStatus, isGenerating, prepareCategoryTemplate } =
     useChatBoxState((state) => state);
   const { setTemplate } = useTemplate();
@@ -37,6 +43,40 @@ export default function Message({
 
   const refBeforeJSONRender = useRef<string>('');
   const refAfterJSONRender = useRef<string>('');
+
+  const handleApply = () => {
+    let optionBelongToDapp: DappModel | null = null;
+    prepareCategoryTemplate.find((template) => {
+      if (template.isChain) return undefined;
+
+      return template.options.find((option) => {
+        const dappKey = chainKeyToDappKey(option.key);
+        const dapp = dapps.find((dA) => dA.key === dappKey);
+
+        if (dapp && !dapp.isDefaultDapp) {
+          optionBelongToDapp = dapp;
+        }
+
+        return dapp && !dapp.isDefaultDapp;
+      });
+    });
+
+    setChatBoxStatus({
+      status: ChatBoxStatus.Close,
+      isGenerating: false,
+      isComplete: false,
+      isListening: false,
+    });
+    setTemplate(prepareCategoryTemplate);
+
+    if (optionBelongToDapp) {
+      const dappIndex = dapps.findIndex(
+        (dapp) => dapp.key === (optionBelongToDapp as DappModel).key,
+      );
+
+      addDappToNode(dappIndex);
+    }
+  };
 
   const animateMessage = useCallback(() => {
     let beforeJSONIndex = 0;
@@ -137,7 +177,7 @@ export default function Message({
       {displayedAfterJSON}
 
       {isRendered && template.length > 0 ? (
-        <div className={styles.applyBtn} onClick={() => setTemplate(template)}>
+        <div className={styles.applyBtn} onClick={() => handleApply()}>
           Apply
         </div>
       ) : null}
