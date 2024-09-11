@@ -155,16 +155,15 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isNewWindow: false,
     isHide: false,
   },
-
   {
-    label: 'BVM',
-    href: '/bvm',
+    label: 'Ecosystem',
+    href: '/explore',
     isNewWindow: false,
     isHide: false,
   },
   {
-    label: 'Ecosystem',
-    href: '/explore',
+    label: '$BVM',
+    href: '/bvm',
     isNewWindow: false,
     isHide: false,
   },
