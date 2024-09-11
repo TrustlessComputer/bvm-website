@@ -8,8 +8,10 @@ import { useDisclosure } from '@chakra-ui/react';
 import { NodeProps } from '@xyflow/react';
 import ChainRenderer from '../DappRenderer/ChainRenderer';
 import Node from '../Node/Node';
+import { useRouter } from 'next/navigation';
 
 const ChainNodeV2 = ({ data, id }: NodeProps<ChainNodeProps>) => {
+  const router = useRouter();
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
   const { showContactUsModal } = useContactUs();
   const {
@@ -19,6 +21,8 @@ const ChainNodeV2 = ({ data, id }: NodeProps<ChainNodeProps>) => {
     getChainTypeIconUrl,
     isInsufficientBalance,
     textCTA,
+    order,
+    isUpdateFlow,
   } = useChainProvider();
   const {
     statusStr: statusMessage,
@@ -73,8 +77,12 @@ const ChainNodeV2 = ({ data, id }: NodeProps<ChainNodeProps>) => {
         id={id}
         heading={{
           title: data.title,
-          // TODO: @Tony - get icon
-          // icon: getChainTypeIconUrl(),
+          icon: isUpdateFlow
+            ? '/blockchains/customize/ic-infor.svg'
+            : undefined,
+          iconOnClick: () => {
+            router.push(`/chains/${order?.orderId}/detail`);
+          },
           status: {
             message: statusMessage,
             color: borderColor,

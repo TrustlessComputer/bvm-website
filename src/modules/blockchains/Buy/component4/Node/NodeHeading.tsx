@@ -14,6 +14,7 @@ const NodeHeading = ({
   borderColor,
   textColor = '#555555',
   headingStyles,
+  iconOnClick,
 }: NodeHeadingProps) => {
   const haveAction = React.useMemo(() => !!status?.onClick, [status]);
 
@@ -30,7 +31,15 @@ const NodeHeading = ({
       }}
     >
       <div className={styles.nodeHeading__title}>
-        {title} {icon && <SvgInset svgUrl={icon} size={20} />}
+        {title}{' '}
+        {icon && (
+          <SvgInset
+            className={styles.nodeHeading__icon}
+            svgUrl={icon}
+            size={20}
+            onClick={iconOnClick}
+          />
+        )}
       </div>
 
       {status && (
