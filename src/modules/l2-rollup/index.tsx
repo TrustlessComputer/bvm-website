@@ -1099,8 +1099,8 @@ const L2Rollup = () => {
               fontSize={['16px', '18px', ' 20px']}
               mt={isShowIntro ? '24px' : '0px'}
             >
-              <Tab>Realtime Data</Tab>
-              <Tab>Static Data</Tab>
+              <Tab>Real-time Data</Tab>
+              <Tab>Analytics</Tab>
               <Flex position={'absolute'} right={0} top={'12px'}>
                 <Flex
                   alignSelf={'flex-end'}
@@ -1116,7 +1116,7 @@ const L2Rollup = () => {
                 >
                   {hoverTooltip && (
                     <Text pl={'8px'} fontSize={'14px'}>
-                      About project Bitcoin Heartbeats
+                      About Heartbeats
                     </Text>
                   )}
                   <Image
