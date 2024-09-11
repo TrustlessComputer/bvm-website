@@ -76,7 +76,72 @@ const WhitePaperModal = (props: IProps) => {
       setIsDownloadingHtml(true);
 
       const htmlString = await convertMarkdownToHtml(markdownString);
-      const blob = new Blob([htmlString], { type: 'text/html' });
+
+      const htmlContent = `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>${tokenInfo?.token?.symbol} White Paper</title>
+                    <style>
+                         body {
+                            background-color: #FFFF;
+                            margin: 40px auto;
+                            max-width: 1440px;
+                        }
+                        
+                        h1 {
+      font-size: 32px;
+      font-weight: 700;
+      white-space: pre-wrap;
+    }
+
+    h2 {
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    h4 {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    h5 {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    p {
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    ul {
+      padding-inline-start: 40px;
+    }
+    ol {
+      padding-inline-start: 40px;
+    }
+
+    a {
+      color: #0d87ff;
+      text-decoration: underline;
+    }
+                    </style>
+                </head>
+                <body>
+                    ${htmlString}
+                </body>
+                </html>
+            `;
+
+      const blob = new Blob([htmlContent], { type: 'text/html' });
 
       const url = URL.createObjectURL(blob);
 
@@ -167,13 +232,13 @@ const WhitePaperModal = (props: IProps) => {
             isDisabled={isAllDisabled}
             isLoading={isDownloadingHtml}
           >Download Html</Button>
-          <Button
+          {/*<Button
             bg={"#FA4E0E !important"}
             borderRadius="100px"
             onClick={downloadPdf}
             isDisabled={isAllDisabled}
             isLoading={isDownloadingPdf}
-          >Download PDF</Button>
+          >Download PDF</Button>*/}
         </Flex>
       </Flex>
     </BaseModal>
