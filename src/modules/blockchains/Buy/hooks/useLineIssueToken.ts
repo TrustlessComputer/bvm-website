@@ -59,10 +59,10 @@ function useLineIssueToken(): void {
               width: 20,
               height: 20,
               strokeWidth: 1,
-              color: '#E5BBB2',
+              color: '#FA9984',
             },
             style: {
-              stroke: '#E5BBB2',
+              stroke: '#FA9984',
               strokeWidth: 2,
             },
           }
@@ -91,10 +91,10 @@ function useLineIssueToken(): void {
               width: 20,
               height: 20,
               strokeWidth: 1,
-              color: '#E5BBB2',
+              color: '#FA9984',
             },
             style: {
-              stroke: '#E5BBB2',
+              stroke: '#FA9984',
               strokeWidth: 2,
             },
           };
@@ -123,10 +123,10 @@ function useLineIssueToken(): void {
               width: 20,
               height: 20,
               strokeWidth: 1,
-              color: '#E5BBB2',
+              color: '#FA9984',
             },
             style: {
-              stroke: '#E5BBB2',
+              stroke: '#FA9984',
               strokeWidth: 2,
             },
           };
@@ -155,10 +155,10 @@ function useLineIssueToken(): void {
               width: 20,
               height: 20,
               strokeWidth: 1,
-              color: '#E5BBB2',
+              color: '#FA9984',
             },
             style: {
-              stroke: '#E5BBB2',
+              stroke: '#FA9984',
               strokeWidth: 2,
             },
           };
