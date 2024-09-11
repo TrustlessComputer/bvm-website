@@ -1128,6 +1128,58 @@ const L2Rollup = () => {
             </TabList>
             <TabPanels className={s.tabPanel}>
               <TabPanel>
+                <Flex
+                  className={s.totalContainer}
+                  bg="#FAFAFA"
+                  w="100%"
+                  direction={'column'}
+                  gap={'8px'}
+                  mt={'32px'}
+                >
+                  <Text
+                    fontSize={'24px'}
+                    fontWeight={'600'}
+                    textAlign={'center'}
+                  >
+                    Total
+                  </Text>
+                  <Flex
+                    w="100%"
+                    direction={'row'}
+                    justifyContent={'space-evenly'}
+                  >
+                    {renderItemTotal(
+                      'TPS',
+                      formatCurrency(total.tps, MIN_DECIMAL, MIN_DECIMAL),
+                      'The total transactions per second',
+                      bitcoinRollup
+                        ? `(${formatCurrency(
+                            Math.abs(total.tps / bitcoinRollup.tps),
+                            MIN_DECIMAL,
+                            MIN_DECIMAL,
+                          )}x)`
+                        : '-',
+                    )}
+                    {renderItemTotal(
+                      'Mgas/s',
+                      formatCurrency(total.mgas, MIN_DECIMAL, MIN_DECIMAL),
+                      'The total megagas (Million Gas) per second',
+                      '',
+                    )}
+                    {renderItemTotal(
+                      'KB/s',
+                      formatCurrency(total.kbs, MIN_DECIMAL, MIN_DECIMAL),
+                      'Total KB per second',
+                      bitcoinRollup
+                        ? `(${formatCurrency(
+                            Math.abs(total.kbs / bitcoinRollup.kbs),
+                            MIN_DECIMAL,
+                            MIN_DECIMAL,
+                          )}x)`
+                        : '-',
+                    )}
+                  </Flex>
+                </Flex>
                 <Box w="100%" bg="#FAFAFA" minH={'450px'} mt={'32px'}>
                   {data.length <= 0 ? (
                     <Box mt={'24px'}>
@@ -1260,58 +1312,6 @@ const L2Rollup = () => {
                 >
                   <AddressesEngagement />
                 </Box>
-
-                <Flex
-                  className={s.totalContainer}
-                  bg="#FAFAFA"
-                  w="100%"
-                  direction={'column'}
-                  gap={'8px'}
-                >
-                  <Text
-                    fontSize={'24px'}
-                    fontWeight={'600'}
-                    textAlign={'center'}
-                  >
-                    Total
-                  </Text>
-                  <Flex
-                    w="100%"
-                    direction={'row'}
-                    justifyContent={'space-evenly'}
-                  >
-                    {renderItemTotal(
-                      'TPS',
-                      formatCurrency(total.tps, MIN_DECIMAL, MIN_DECIMAL),
-                      'The total transactions per second',
-                      bitcoinRollup
-                        ? `(${formatCurrency(
-                            Math.abs(total.tps / bitcoinRollup.tps),
-                            MIN_DECIMAL,
-                            MIN_DECIMAL,
-                          )}x)`
-                        : '-',
-                    )}
-                    {renderItemTotal(
-                      'Mgas/s',
-                      formatCurrency(total.mgas, MIN_DECIMAL, MIN_DECIMAL),
-                      'The total megagas (Million Gas) per second',
-                      '',
-                    )}
-                    {renderItemTotal(
-                      'KB/s',
-                      formatCurrency(total.kbs, MIN_DECIMAL, MIN_DECIMAL),
-                      'Total KB per second',
-                      bitcoinRollup
-                        ? `(${formatCurrency(
-                            Math.abs(total.kbs / bitcoinRollup.kbs),
-                            MIN_DECIMAL,
-                            MIN_DECIMAL,
-                          )}x)`
-                        : '-',
-                    )}
-                  </Flex>
-                </Flex>
               </TabPanel>
             </TabPanels>
           </Tabs>
