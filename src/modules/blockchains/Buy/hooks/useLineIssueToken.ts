@@ -3,13 +3,16 @@ import useFlowStore from '@/modules/blockchains/Buy/stores/useFlowStore';
 import { useParams } from 'next/navigation';
 import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
 import { Edge, MarkerType } from '@xyflow/react';
+import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import handleStatusEdges from '@utils/helpers';
 
 function useLineIssueToken(): void {
   const { nodes, edges, setEdges } = useFlowStore()
   const params = useParams();
   const isUpdateFlow = React.useMemo(() => !!params.id, [params.id]);
-  const {  aaInstalledData, } = useAAModule();
-
+  const {  aaInstalledData } = useAAModule();
+  const { getAAStatus } = useChainProvider();
+  const { lineAAStatus } = useAAModule();
   function addLineIssueToken() {
     if(nodes.length === 0) return;
     const newEdges: Edge[] = [];
@@ -43,8 +46,10 @@ function useLineIssueToken(): void {
             target: node.id,
             sourceHandle: `${issueTokenNode.id}-s-account_abstraction`,
             targetHandle: `account_abstraction-t-${issueTokenNode.id}`,
-            label: '',
-            animated: false,
+            label: handleStatusEdges('', lineAAStatus, 'account_abstraction')
+              .icon,
+            animated: handleStatusEdges('', lineAAStatus, 'account_abstraction')
+              .animate,
             type: 'customEdge',
             selectable: false,
             selected: false,
@@ -66,7 +71,7 @@ function useLineIssueToken(): void {
 
         // Airdrop Node
         // @ts-ignore
-        if(dataNode?.dapp?.id === 'airdrop' && tokenNameOfAirdrop?.options[0].key == tokenNameOfIssueToken?.value) {
+        if(dataNode?.dapp?.id === 'airdrop' && tokenNameOfAirdrop?.options[0].key == tokenNameOfIssueToken?.value && checkStatusNode(statusNode)) {
           dataNode.sourceHandles.push(`airdrop-t-${issueTokenNode.id}`);
           issueTokenNode.data.sourceHandles.push(`${issueTokenNode.id}-s-airdrop`)
           const issueTokenToAirdrop: Edge = {
