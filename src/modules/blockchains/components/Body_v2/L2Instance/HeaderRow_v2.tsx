@@ -18,11 +18,10 @@ const HeaderRow = (props: Props) => {
   const { item, isOwner, depositOnClick, editOnClick } = props;
   const mapper = useOrderMapper(item);
 
-  const router = useRouter();
-
-  const isShowStatus =
-    item.status === OrderStatus.Started ||
-    item.status === OrderStatus.Processing;
+  // const isShowStatus =
+  //   item.status === OrderStatus.Started ||
+  //   item.status === OrderStatus.Processing;
+  const isShowStatus = true;
 
   const renderLeftView = () => {
     return (
@@ -30,7 +29,7 @@ const HeaderRow = (props: Props) => {
         flex={1}
         flexDir={'row'}
         gap={'12px'}
-        align={'center'}
+        align={'flex-start'}
         w={'100%'}
         justify={'flex-start'}
       >
@@ -76,21 +75,6 @@ const HeaderRow = (props: Props) => {
             }}
           />
         )} */}
-
-        <Image
-          src={`/blockchains/customize/ic-infor.svg`}
-          fit={'contain'}
-          maxW={'40px'}
-          maxH={'40px'}
-          _hover={{
-            cursor: 'pointer',
-            opacity: 0.8,
-          }}
-          onClick={(event: any) => {
-            if (event.stopPropagation) event.stopPropagation();
-            router.push(`/chains/${item?.orderId}/detail`);
-          }}
-        />
       </Flex>
     );
   };
@@ -99,7 +83,7 @@ const HeaderRow = (props: Props) => {
     if (!isShowStatus) return null;
     return (
       <Flex
-        flex={1}
+        flex={0.5}
         flexDir={'row'}
         align={'center'}
         gap={'10px'}
