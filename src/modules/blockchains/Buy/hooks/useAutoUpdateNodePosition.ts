@@ -16,17 +16,17 @@ const useAutoUpdateNodePosition = () => {
   const timeoutRef = React.useRef<any>(null);
 
   const update = async () => {
-    if (!isOwnerChain) return;
+    // if (!isOwnerChain) return;
 
     const promises: any[] = [];
 
     nodes.forEach((node: AppNode) => {
       const _node = node as unknown as AppNode;
 
-      if (_node.data.node !== 'dapp' || !l2ServiceUserAddress) return;
+      if (_node.data.node != 'template' || !l2ServiceUserAddress) return;
 
       const { data } = _node as DappNode;
-      if (data.dapp.isDefaultDapp || !!!data.positionId) return;
+      if (data.dapp?.isDefaultDapp || !!!data.positionId) return;
 
       promises.push(
         dappApi.updatePosition({
