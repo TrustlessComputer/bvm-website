@@ -16,7 +16,7 @@ const useAutoUpdateNodePosition = () => {
   const timeoutRef = React.useRef<any>(null);
 
   const update = async () => {
-    // if (!isOwnerChain) return;
+    if (!isOwnerChain) return;
 
     const promises: any[] = [];
 
