@@ -27,6 +27,7 @@ export default function Message({
   const { setTemplate } = useTemplate();
 
   const [isRendered, setIsRendered] = useState(false);
+  const [isApplied, setIsApplied] = useState(false);
 
   const refRender = useRef<NodeJS.Timeout>();
   const [displayedBeforeJSON, setDisplayedBeforeJSON] = useState<string>('');
@@ -34,12 +35,6 @@ export default function Message({
   const [displayedTemplate, setDisplayedTemplate] = useState<typeof template>(
     [],
   );
-
-  console.log('[Message] template', {
-    displayedBeforeJSON,
-    displayedAfterJSON,
-    displayedTemplate,
-  });
 
   const refBeforeJSONRender = useRef<string>('');
   const refAfterJSONRender = useRef<string>('');
@@ -68,6 +63,7 @@ export default function Message({
       isListening: false,
     });
     setTemplate(prepareCategoryTemplate);
+    setIsApplied(true);
 
     if (optionBelongToDapp) {
       const dappIndex = dapps.findIndex(
@@ -176,7 +172,7 @@ export default function Message({
 
       {displayedAfterJSON}
 
-      {isRendered && template.length > 0 ? (
+      {isRendered && template.length > 0 && !isApplied ? (
         <div className={styles.applyBtn} onClick={() => handleApply()}>
           Apply
         </div>
