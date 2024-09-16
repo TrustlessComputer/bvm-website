@@ -24,6 +24,8 @@ export type SendPromptBodyRequest = {
 export type SendPromptBodyRequestV2 = {
   session_id: string;
   command: string;
+  Stream?: boolean;
+  UserSession?: string;
   current_state: PromptCategory[];
 };
 

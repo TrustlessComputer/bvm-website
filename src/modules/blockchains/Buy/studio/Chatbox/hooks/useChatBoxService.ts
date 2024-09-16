@@ -9,7 +9,6 @@ import {
   blockLegoResponseToModelCategory,
   modelCategoryToPromptCategory
 } from '../utils/convertApiUtils';
-import { useAIStream } from './useAIStream';
 import { useParseMessage } from './usePasrMessage';
 import { useVoiceChatSession } from './useVoiceChatSession';
 
@@ -29,67 +28,68 @@ export default function useChatBoxService({
     isComplete
   } = useChatBoxState();
   const { getVoiceChatAiSessionId } = useVoiceChatSession();
-  const { stream, cancel } = useAIStream();
+  // const { stream, cancel } = useAIStream();
+  // const { stream, cancel } = useAISocketConnect();
   const refMessageRender = useRef<string>('');
 
 
-  const handleSendPromptStream = async (message: string) => {
-    setChatBoxStatus({
-      status: ChatBoxStatus.Generating,
-      isGenerating: true,
-      isComplete: false,
-      isListening: false,
-    });
+  // const handleSendPromptStream = async (message: string) => {
+  //   setChatBoxStatus({
+  //     status: ChatBoxStatus.Generating,
+  //     isGenerating: true,
+  //     isComplete: false,
+  //     isListening: false,
+  //   });
 
-    refMessageRender.current = '';
+  //   refMessageRender.current = '';
 
-    const result = await stream({ messages: [{ role: 'user', content: message }], onStream: (data, isDone) => {
-      if(data.choices[0].delta.content === undefined) return;
-      refMessageRender.current += data.choices[0].delta.content;
+  //   const result = await stream({ messages: [{ role: 'user', content: message }], onStream: (data, isDone) => {
+  //     if(data.choices[0].delta.content === undefined) return;
+  //     refMessageRender.current += data.choices[0].delta.content;
 
-      const newMessage = () => {
-        const lastMessage = messages[messages.length - 1];
-        if (lastMessage && lastMessage.sender === 'bot') {
+  //     const newMessage = () => {
+  //       const lastMessage = messages[messages.length - 1];
+  //       if (lastMessage && lastMessage.sender === 'bot') {
          
-          const updatedMessages = [...messages];
-          updatedMessages[updatedMessages.length - 1] = {
-            ...lastMessage,
-            beforeJSON: refMessageRender.current,
-            afterJSON: '',
-            template: [],
-          };
-          return updatedMessages;
-        } else {
+  //         const updatedMessages = [...messages];
+  //         updatedMessages[updatedMessages.length - 1] = {
+  //           ...lastMessage,
+  //           beforeJSON: refMessageRender.current,
+  //           afterJSON: '',
+  //           template: [],
+  //         };
+  //         return updatedMessages;
+  //       } else {
          
-          return [
-            ...messages,
-            {
-              beforeJSON: refMessageRender.current,
-              template: [],
-              afterJSON: '',
-              sender: 'bot',
-            },
-          ];
-        }
-      }
+  //         return [
+  //           ...messages,
+  //           {
+  //             beforeJSON: refMessageRender.current,
+  //             template: [],
+  //             afterJSON: '',
+  //             sender: 'bot',
+  //           },
+  //         ];
+  //       }
+  //     }
    
-      setMessages(newMessage() as Message[]);   
-      focusChatBox();
-    },
-      onDone: () => {
-        setChatBoxStatus({
-          status:
-            // prepareCategoryTemplate.length > 0
-            //   ? ChatBoxStatus.Complete
-            //   : ChatBoxStatus.Close,
-             ChatBoxStatus.Close,
-          isGenerating: false,
-          isComplete: false,//prepareCategoryTemplate.length > 0,
-          isListening: false,
-        })
-      }
-    });
-  };
+  //     setMessages(newMessage() as Message[]);   
+  //     focusChatBox();
+  //   },
+  //     onDone: () => {
+  //       setChatBoxStatus({
+  //         status:
+  //           // prepareCategoryTemplate.length > 0
+  //           //   ? ChatBoxStatus.Complete
+  //           //   : ChatBoxStatus.Close,
+  //            ChatBoxStatus.Close,
+  //         isGenerating: false,
+  //         isComplete: false,//prepareCategoryTemplate.length > 0,
+  //         isListening: false,
+  //       })
+  //     }
+  //   });
+  // };
 
   const handleSendPrompt = async (message: string) => {
     setChatBoxStatus({
@@ -106,6 +106,8 @@ export default function useChatBoxService({
     const pureResponse = (
       await sendPromptV2({
         session_id: getVoiceChatAiSessionId()!,
+        UserSession: getVoiceChatAiSessionId()!,
+        Stream: true,
         command: message,
         current_state,
       })
@@ -145,13 +147,13 @@ export default function useChatBoxService({
     const lastMessage = messages[messages.length - 1];
 
     if (lastMessage && lastMessage.sender === 'user') {
-      // handleSendPrompt(lastMessage.text);
-      handleSendPromptStream(lastMessage.text);
+      handleSendPrompt(lastMessage.text);
+      // handleSendPromptStream(lastMessage.text);
     }
   }, [messages]);
 
 
-  useEffect(() => {
-    !isGenerating && !isComplete && cancel();
-  }, [isGenerating, isComplete])
+  // useEffect(() => {
+  //   !isGenerating && !isComplete && cancel();
+  // }, [isGenerating, isComplete])
 }
