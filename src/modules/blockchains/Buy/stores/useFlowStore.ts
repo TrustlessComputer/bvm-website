@@ -21,6 +21,8 @@ export type AppState = {
   onConnect: OnConnect;
   setNodes: (nodes: AppNode[]) => void;
   setEdges: (edges: Edge[]) => void;
+  removedNode: AppNode | null;
+  setRemovedNode: (node: AppNode | null) => void;
 };
 
 const useFlowStore = create<AppState>((set, get) => ({
@@ -46,6 +48,10 @@ const useFlowStore = create<AppState>((set, get) => ({
   },
   setEdges: (edges) => {
     set({ edges });
+  },
+  removedNode: null,
+  setRemovedNode: (node) => {
+    set({ removedNode: node });
   },
 }));
 

@@ -276,7 +276,6 @@ export default function useNodeFlowControl() {
             // sourceHandles: [],
           },
         };
-
         setNodes([...nodesData, newNode]);
         setEdges([
           ...edges,
@@ -450,12 +449,11 @@ export default function useNodeFlowControl() {
         // sourceHandles: [],
       },
     };
-
+    console.log('statusMapping', statusMapping);
     setNodes([...nodesData, newNode]);
     setEdges([
       ...edges,
       {
-        // id: `${edges.length + 1}`,
         id: `${Math.random()}`,
         source: rootNode,
         sourceHandle: `${rootNode}-s-${suffix}`,
