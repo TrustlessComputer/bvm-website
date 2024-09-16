@@ -33,7 +33,10 @@ import {
   isRenderedInUpdateFlowSignal,
   templateIds2DSignal,
 } from '../signals/useDragSignal';
-import { formDappSignal, formTemplateDappSignal } from '../signals/useFormDappsSignal';
+import {
+  formDappSignal,
+  formTemplateDappSignal,
+} from '../signals/useFormDappsSignal';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import useUpdateFlowStore from '../stores/useUpdateFlowStore';
@@ -73,7 +76,8 @@ export default function useFetchingTemplate() {
 
   const { counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
-  const { tokens, airdrops, stakingPools, yoloGames, walletType, whitePapers } = dappState;
+  const { tokens, airdrops, stakingPools, yoloGames, walletType, whitePapers } =
+    dappState;
 
   const [needSetDataTemplateToBox, setNeedSetDataTemplateToBox] =
     React.useState(false);
@@ -231,7 +235,11 @@ export default function useFetchingTemplate() {
         blockFieldMapping[item.key] = item;
       });
 
-      if (draggedIds2D[baseIndex] && !draggedIds2D[baseIndex][index] && !isInBase) {
+      if (
+        draggedIds2D[baseIndex] &&
+        !draggedIds2D[baseIndex][index] &&
+        !isInBase
+      ) {
         const _key = isInBlock ? blockKey : key;
         const prefix = 'right-' + FormDappUtil.getBlockType(fieldKey);
         const children = !isInBlock
@@ -278,13 +286,20 @@ export default function useFetchingTemplate() {
       const statusDapp = templateDapps[index].label?.status || '';
       const titleStatusDapp = templateDapps[index].label?.title || '';
 
-      const thisNode = [...tokens, ...airdrops, ...stakingPools, ...yoloGames, ...whitePapers][
-        index
-      ];
-      const defaultPositionX = 30 + 500 * xOffsetCount[dappKey]++;
-      const defaultPositionY = 30 + 500 * allDappKeys.indexOf(dappKey);
-      const xOffset = thisNode?.position_x ?? defaultPositionX;
-      const yOffset = thisNode?.position_y ?? defaultPositionY;
+      const thisNode = [
+        ...tokens,
+        ...airdrops,
+        ...stakingPools,
+        ...yoloGames,
+        ...whitePapers,
+      ][index];
+      const defaultPositionX =
+        50 * (xOffsetCount[dappKey] - 1) + 500 * xOffsetCount[dappKey]++;
+      const defaultPositionY = 30 + 500 * (allDappKeys.indexOf(dappKey) + 1);
+      // const xOffset = thisNode?.position_x ?? defaultPositionX;
+      const xOffset = defaultPositionX;
+      // const yOffset = thisNode?.position_y ?? defaultPositionY;
+      const yOffset = defaultPositionY;
       const idNode = index.toString();
       const isHandleExists = getHandleNodeBlockChain?.data?.sourceHandles?.some(
         (handle) => handle === `${rootNode}-s-${templateDapps[index].title}`,
