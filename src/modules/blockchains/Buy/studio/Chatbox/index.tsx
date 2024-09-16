@@ -52,7 +52,7 @@ export default function Chatbox() {
             </div>
           </div>
           <div className={styles.body_inner}>
-            <div className={styles.chats} ref={elChatBox}>
+            <div id="chatbox-messages" className={styles.chats} ref={elChatBox}>
               {messages.map((message, index) => (
                 <div
                   key={index}
