@@ -37,6 +37,7 @@ export default function ButtonVoice({
       isComplete: false,
       isListening: true,
     });
+
     const SpeechRecognition =
       (window as any).SpeechRecognition ||
       (window as any).webkitSpeechRecognition;
@@ -50,6 +51,7 @@ export default function ButtonVoice({
       const transcript = event.results[0][0].transcript;
       const message = `${inputMessage} ${transcript}`;
       setInputMessage(message);
+
       setChatBoxStatus({
         status: ChatBoxStatus.Close,
         isGenerating: false,
@@ -82,6 +84,7 @@ export default function ButtonVoice({
   const stopVoiceInput = useCallback(() => {
     if (recognition) {
       recognition.stop();
+
       setChatBoxStatus({
         status: ChatBoxStatus.Close,
         isGenerating: false,
@@ -119,34 +122,34 @@ export default function ButtonVoice({
     };
   }, [stopVoiceInput, isClose, isGenerating, isListening]);
 
-  useEffect(() => {
-    if (isListening) {
-      handleVoiceInput();
-    } else {
-      stopVoiceInput();
-    }
+  // useEffect(() => {
+  //   if (isListening) {
+  //     handleVoiceInput();
+  //   } else {
+  //     stopVoiceInput();
+  //   }
 
-    return () => {
-      stopVoiceInput();
-    };
-  }, [isListening]);
+  //   return () => {
+  //     stopVoiceInput();
+  //   };
+  // }, [isListening]);
 
-  useEffect(() => {
-    if (isOpenVoice) {
-      handleVoiceInput();
-    }
+  // useEffect(() => {
+  //   if (isOpenVoice) {
+  //     handleVoiceInput();
+  //   }
 
-    return () => {
-      stopVoiceInput();
-    };
-  }, [isOpenVoice]);
+  //   return () => {
+  //     stopVoiceInput();
+  //   };
+  // }, [isOpenVoice]);
 
   const Listening = useMemo((): ReactElement => {
     return (
       <button
         className={styles.buttonVoice_el}
         disabled={isGenerating}
-        onClick={() => setIsListening(true)}
+        onClick={() => handleVoiceInput()}
       >
         <svg
           width="16"
@@ -201,7 +204,7 @@ export default function ButtonVoice({
       <button
         className={styles.buttonVoice_el}
         disabled={isGenerating}
-        onClick={() => setIsListening(false)}
+        onClick={() => stopVoiceInput()}
       >
         <svg
           width="16"

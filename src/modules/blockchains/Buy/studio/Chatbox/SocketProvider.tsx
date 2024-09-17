@@ -1,9 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
-import useChatBoxState, { ChatBoxStatus } from './chatbox-store';
+import useChatBoxState, {
+  BotMessage,
+  ChatBoxStatus,
+  Message,
+} from './chatbox-store';
 import { WebSocketEventName } from './enums/events';
 import useFocusChatBox from './hooks/useFocusChatBox';
 import { useVoiceChatSession } from './hooks/useVoiceChatSession';
+import { PromptCategory } from './types';
+import { modelCategoryToPromptCategory } from './utils/convertApiUtils';
 
 const SOCKET_URL = 'wss://ai-dojo-socketer.eternalai.org/dojo';
 
@@ -28,8 +34,15 @@ export default function SocketProvider({
   const socketRef = useRef<ReturnType<typeof io> | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const { getVoiceChatAiSessionId } = useVoiceChatSession();
-  const { setChatBoxStatus, setMessages, messages, isGenerating, isComplete } =
-    useChatBoxState();
+  const {
+    setChatBoxStatus,
+    setMessages,
+    messages,
+    isGenerating,
+    isComplete,
+    isListening,
+    status,
+  } = useChatBoxState();
   const { focusChatBox } = useFocusChatBox();
   const refMessageRender = useRef<string>('');
 
@@ -39,68 +52,92 @@ export default function SocketProvider({
     socketRef.current?.on('connect', () => {
       setIsConnected(true);
 
+      // SUBSCRIBE
       socketRef.current?.emit(
         WebSocketEventName.BVM_SUBSCRIBE_ADDRESS,
         getVoiceChatAiSessionId(),
       );
 
-      socketRef.current?.on(
-        WebSocketEventName.GROUP_STREAM_AI_REPLY_START,
-        (data: any) => {
-          setChatBoxStatus({
-            status: ChatBoxStatus.Generating,
-            isGenerating: true,
-            isComplete: false,
-            isListening: false,
-          });
-          refMessageRender.current = '';
-        },
-      );
+      // START
+      // socketRef.current?.on(
+      //   WebSocketEventName.GROUP_STREAM_AI_REPLY_START,
+      //   (data: any) => {
+      //     console.log('[SocketProvider] GROUP_STREAM_AI_REPLY_START', data);
 
+      //     setChatBoxStatus({
+      //       status: ChatBoxStatus.Generating,
+      //       isGenerating: true,
+      //       isComplete: false,
+      //       isListening: false,
+      //     });
+
+      //     const newMessage: BotMessage = {
+      //       beforeJSON: refMessageRender.current,
+      //       template: [],
+      //       afterJSON: '',
+      //       sender: 'bot',
+      //     };
+
+      //     setMessages([...messages, newMessage]);
+      //     focusChatBox();
+
+      //     refMessageRender.current = '';
+      //   },
+      // );
+
+      // REPLYING
       socketRef.current?.on(
         WebSocketEventName.GROUP_STREAM_AI_REPLY,
         (data: any) => {
           refMessageRender.current += JSON.parse(data).content;
-          const newMessage = () => {
+
+          console.log(
+            '[SocketProvider] GROUP_STREAM_AI_REPLY',
+            refMessageRender.current,
+          );
+
+          const newMessages = () => {
             const lastMessage = messages[messages.length - 1];
+
             if (lastMessage && lastMessage.sender === 'bot') {
               const updatedMessages = [...messages];
-              updatedMessages[updatedMessages.length - 1] = {
-                ...lastMessage,
+              const newMessage: BotMessage = {
                 beforeJSON: refMessageRender.current,
-                afterJSON: '',
                 template: [],
+                afterJSON: '',
+                sender: 'bot',
               };
+
+              updatedMessages[updatedMessages.length - 1] = newMessage;
+
               return updatedMessages;
             } else {
-              return [
-                ...messages,
-                {
-                  beforeJSON: refMessageRender.current,
-                  template: [],
-                  afterJSON: '',
-                  sender: 'bot',
-                },
-              ];
+              const newMessage: BotMessage = {
+                beforeJSON: refMessageRender.current,
+                template: [],
+                afterJSON: '',
+                sender: 'bot',
+              };
+
+              return [...messages, newMessage];
             }
           };
 
-          setMessages(newMessage() as Message[]);
+          setMessages(newMessages());
           focusChatBox();
         },
       );
 
+      // END
       socketRef.current?.on(
         WebSocketEventName.GROUP_STREAM_AI_REPLY_END,
         (data: any) => {
+          console.log('[SocketProvider] GROUP_STREAM_AI_REPLY_END', data);
+
           setChatBoxStatus({
-            status:
-              // prepareCategoryTemplate.length > 0
-              //           //   ? ChatBoxStatus.Complete
-              //           //   : ChatBoxStatus.Close,
-              ChatBoxStatus.Close,
+            status: ChatBoxStatus.Close,
             isGenerating: false,
-            isComplete: false, //prepareCategoryTemplate.length > 0,
+            isComplete: false,
             isListening: false,
           });
         },
@@ -108,30 +145,28 @@ export default function SocketProvider({
     });
 
     socketRef.current?.on('disconnect', () => {
+      console.log('[SocketProvider] disconnect');
       setIsConnected(false);
     });
 
     socketRef.current?.on('error', (error: Error) => {
-      console.error('_____Socket error:', error);
+      console.error('[SocketProvider] error:', error);
     });
   };
 
   const disconnectSocket = () => {
+    console.log('[SocketProvider] disconnectSocket');
     socketRef.current?.removeAllListeners();
     socketRef.current?.disconnect();
   };
 
   useEffect(() => {
-    isGenerating && connectToSocket();
-
-    return () => {
+    if (isGenerating) {
+      connectToSocket();
+    } else {
       disconnectSocket();
-    };
+    }
   }, [isGenerating]);
-
-  useEffect(() => {
-    !isGenerating && !isComplete && disconnectSocket();
-  }, [isGenerating, isComplete]);
 
   return <>{children}</>;
 }

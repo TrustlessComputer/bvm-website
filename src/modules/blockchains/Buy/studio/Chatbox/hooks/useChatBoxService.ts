@@ -7,7 +7,7 @@ import { sendPromptV2 } from '../services/prompt';
 import { PromptCategory } from '../types';
 import {
   blockLegoResponseToModelCategory,
-  modelCategoryToPromptCategory
+  modelCategoryToPromptCategory,
 } from '../utils/convertApiUtils';
 import { useParseMessage } from './usePasrMessage';
 import { useVoiceChatSession } from './useVoiceChatSession';
@@ -23,13 +23,9 @@ export default function useChatBoxService({
     setChatBoxStatus,
     setMessages,
     setPrepareCategoryTemplate,
-    messages, 
-    isGenerating,
-    isComplete
+    messages,
   } = useChatBoxState();
   const { getVoiceChatAiSessionId } = useVoiceChatSession();
-  const refMessageRender = useRef<string>('');
-  
 
   const handleSendPrompt = async (message: string) => {
     setChatBoxStatus({
@@ -43,44 +39,43 @@ export default function useChatBoxService({
     const current_state: PromptCategory[] = currentTemplate.map(
       modelCategoryToPromptCategory,
     );
-    const pureResponse = (
-      await sendPromptV2({
-        session_id: getVoiceChatAiSessionId()!,
-        user_session: getVoiceChatAiSessionId()!,
-        stream: true,
-        command: message,
-        current_state,
-      })
-    ).data.content
-      .replace('```json', '')
-      .replace('```', '');
-    const [beforeJSON, jsonPart, afterJSON] = useParseMessage(pureResponse);
-    const blockLegoResponse = jsonPart ? JSON.parse(jsonPart) : {};
 
-    console.log('[useChatBoxService] parsed', {
-      beforeJSON,
-      jsonPart,
-      afterJSON,
-      blockLegoResponse,
+    await sendPromptV2({
+      session_id: getVoiceChatAiSessionId()!,
+      user_session: getVoiceChatAiSessionId()!,
+      stream: true,
+      command: message,
+      current_state,
     });
+    //   .replace('```json', '')
+    //   .replace('```', '');
+    // const [beforeJSON, jsonPart, afterJSON] = useParseMessage(pureResponse);
+    // const blockLegoResponse = jsonPart ? JSON.parse(jsonPart) : {};
 
-    const newTemplate = blockLegoResponseToModelCategory(
-      categories!,
-      blockLegoResponse,
-    );
+    // console.log('[useChatBoxService] parsed', {
+    //   beforeJSON,
+    //   jsonPart,
+    //   afterJSON,
+    //   blockLegoResponse,
+    // });
 
-    setMessages([
-      ...messages,
-      {
-        beforeJSON,
-        jsonPart,
-        afterJSON,
-        template: newTemplate,
-        sender: 'bot',
-      },
-    ]);
-    setPrepareCategoryTemplate(uniqBy(newTemplate, 'key'));
-    focusChatBox();
+    // const newTemplate = blockLegoResponseToModelCategory(
+    //   categories!,
+    //   blockLegoResponse,
+    // );
+
+    // setMessages([
+    //   ...messages,
+    //   {
+    //     beforeJSON,
+    //     jsonPart,
+    //     afterJSON,
+    //     template: newTemplate,
+    //     sender: 'bot',
+    //   },
+    // ]);
+    // setPrepareCategoryTemplate(uniqBy(newTemplate, 'key'));
+    // focusChatBox();
   };
 
   useEffect(() => {
@@ -91,7 +86,4 @@ export default function useChatBoxService({
       // handleSendPromptStream(lastMessage.text);
     }
   }, [messages]);
-
-
-
 }
