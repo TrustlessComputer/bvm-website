@@ -118,16 +118,23 @@
   align-items: center;
   padding: 10px 16px;
   border-top: 1px solid #e0e0e0;
-  height: 44px;
 }
 
 .statusInner {
   color: #555555;
   font-size: 16px;
   font-weight: 500;
-  line-height: calc(24 / 16);
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
 }
 
 .statusButtons {
   position: relative;
+}
+
+.dotPulse {
+  --gap: 2px;
+  --dot-size: 2px;
+  padding-bottom: 5px;
 }

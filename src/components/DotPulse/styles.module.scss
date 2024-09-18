@@ -1,15 +1,17 @@
 .dotPulse {
+  --gap: 4px;
+  --dot-size: 6px;
   --dot-pulse-color: #4285f4;
   --dot-pulse-duration: 1.5s;
   --dot-pulse-delay: 0s;
 
   display: flex;
-  gap: 4px;
-  align-items: center;
+  gap: var(--gap);
+  align-items: flex-end;
 
   &__dot {
-    width: 6px;
-    height: 6px;
+    width: var(--dot-size);
+    height: var(--dot-size);
     border-radius: 50%;
     background-color: var(--dot-pulse-color);
     animation: dotPulse var(--dot-pulse-duration) infinite linear

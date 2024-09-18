@@ -2,7 +2,7 @@ import { IModelCategory } from '@/types/customize-model';
 import { create } from 'zustand';
 import { SetChatBoxStatusParams } from './types';
 export enum ChatBoxStatus {
-  Generating = 'Generating...',
+  Generating = 'Generating',
   Cancel = 'Esc to cancel',
   Complete = 'Completed',
   Close = '',
