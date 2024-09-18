@@ -27,10 +27,8 @@ const useNodeHelper = () => {
     edges,
   });
 
-  const addDappToNode = (
-    dappIndex: number,
-    { x = 600, y = 30 }: { x: number; y: number },
-  ) => {
+  const addDappToNode = (dappIndex: number, position = { x: 600, y: 30 }) => {
+    const { x, y } = position;
     const thisDapp = dapps[dappIndex];
     if (!thisDapp) {
       return;
