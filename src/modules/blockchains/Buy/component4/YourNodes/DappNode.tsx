@@ -29,7 +29,7 @@ const DappNode = ({ data, id }: NodeProps<DappNodeProps>) => {
     if (!isUpdateFlow) {
       return {
         label: 'IMPORTANT',
-        message: 'Chain is not available at the moment.',
+        message: 'This module needs to be configured and completed later after the chain is deployed and the payment is confirmed',
       };
     }
 
