@@ -74,9 +74,11 @@ export default function Chatbox() {
                   <DotPulse className={styles.dotPulse} />
                 )}
               </div>
-              <div className={styles.statusButtons}>
+
+              {/* TODO: Wait BE support END event */}
+              {/*<div className={styles.statusButtons}>
                 {isGenerating && <ButtonStop />}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
