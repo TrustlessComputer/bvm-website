@@ -13,3 +13,8 @@ export interface IMempoolTransactionStatus {
   block_hash: string;
   block_time: number;
 }
+
+export interface IMempoolMining {
+  blockCount: number;
+  lastEstimatedHashrate: number;
+}

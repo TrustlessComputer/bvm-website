@@ -105,6 +105,12 @@ const Lego = (props: Props) => {
     icon ||
     null;
 
+  if(props.infoLego?.title === 'Staking') {
+    console.log('checked', checked);
+
+  }
+
+
   return (
     <Flex
       className={cn(styles.lego, {

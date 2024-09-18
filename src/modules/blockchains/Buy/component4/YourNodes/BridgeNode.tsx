@@ -6,7 +6,7 @@ import BridgeRenderer from '../DappRenderer/BridgeRenderer';
 import Node from '../Node/Node';
 import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
 
-const BridgeNode = ({ data }: NodeProps<ChainNodeAsDappNode>) => {
+const BridgeNode = ({ data, id }: NodeProps<ChainNodeAsDappNode>) => {
   const { statusMapper, getBridgeTypeIconUrl } = useBridgesModule();
 
   const notification: NodeNotificationProps | undefined = React.useMemo(() => {
@@ -32,6 +32,7 @@ const BridgeNode = ({ data }: NodeProps<ChainNodeAsDappNode>) => {
       content={{
         children: <BridgeRenderer />,
       }}
+      id={id}
       mainContentStyles={{ padding: 0 }}
     />
   );

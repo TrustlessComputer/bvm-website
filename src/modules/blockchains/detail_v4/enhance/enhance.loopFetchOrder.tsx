@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useFetchOrderTimer } from '../hook/useFetchOrderTimer';
 
 const enhanceLoopFetchOrder = (WrappedComponent: any) => (props: any) => {
-  const { orderId } = props;
+  const { orderId, chainDetailData } = props;
 
   const { loopFetchChainInfor, clearIntervalTimer } = useFetchOrderTimer(
     orderId!,

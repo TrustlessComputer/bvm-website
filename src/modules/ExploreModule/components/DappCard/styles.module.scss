@@ -10,9 +10,17 @@
   flex-direction: column;
 
   &_image {
-    max-height: 300px;
+    // max-height: 300px;
     width: 100%;
     flex: 1;
+
+    &__first {
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
 
 
     :global(.imagePreload) {
@@ -31,12 +39,11 @@
   &_heading {
     color: #FFF;
     font-family: "SF Pro Display";
-    font-size: 14px;
+    font-size: 28px;
     font-style: normal;
-    font-weight: 500;
-    line-height: 120%;
-    /* 16.8px */
-    text-transform: uppercase;
+    font-weight: 600;
+    line-height: 110%;
+    /* 30.8px */
   }
 
   &_decs {

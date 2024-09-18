@@ -1,11 +1,9 @@
 .textContainer {
-  :global {
-    .decimal-number {
-      position: relative;
-      font-size: 70%;
-      top: 3px;
-      padding-inline: 2px;
-      font-weight: 700;
-    }
+  line-height: 140%;
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  span {
+    line-height: 140%;
   }
 }

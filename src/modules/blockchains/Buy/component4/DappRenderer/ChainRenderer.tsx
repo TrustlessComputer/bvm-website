@@ -1,12 +1,9 @@
-import React from 'react';
-
 // import ComputerNameInput from '@/modules/blockchains/Buy/components3/ComputerNameInput';
 import ComputerNameInput from '@/modules/blockchains/Buy/components3/ComputerNameInput/index_v2';
 import ChainDraggable from '@/modules/blockchains/Buy/components3/Draggable';
 import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
 import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
-import { IModelCategory } from '@/types/customize-model';
 import Label from '../../components3/Label';
 import ChainLegoParent from '../../components3/LegoParent';
 import useOrderFormStoreV3 from '../../stores/index_v3';
@@ -20,27 +17,23 @@ import styles from './styles.module.scss';
 
 type Props = {};
 
-const hiddenFields = ['bridge_apps', 'network', 'gaming_apps'];
+const hiddenFields = ['network'];
 
 const ChainRenderer = () => {
-  const { parsedCategories, categories } = useModelCategoriesStore();
+  const { parsedCategories } = useModelCategoriesStore();
   const { draggedFields } = useDragStore();
   const { overlappingId } = useOverlappingChainLegoStore();
   const { field } = useOrderFormStoreV3();
+  const { isUpdateFlow, selectedCategoryMapping } = useChainProvider();
 
-  const { order, getBlockChainStatus, isUpdateFlow } = useChainProvider();
-
-  const selectedCategoryMapping = React.useMemo(() => {
-    if (!order?.selectedOptions) return undefined;
-
-    const mapping: Record<string, IModelCategory> = {};
-
-    order.selectedOptions.forEach((category) => {
-      mapping[category.key] = category;
-    });
-
-    return mapping;
-  }, [order?.selectedOptions]);
+  // console.log('[ChainRenderer]', {
+  //   parsedCategories,
+  //   draggedFields,
+  //   overlappingId,
+  //   field,
+  //   isUpdateFlow,
+  //   selectedCategoryMapping,
+  // });
 
   return (
     <DroppableV2
@@ -87,7 +80,7 @@ const ChainRenderer = () => {
               <ChainDraggable
                 right
                 key={item.key + '-' + option.key}
-                id={item.key + '-' + option.key}
+                id={item.key + '-' + option.key + '-right' + '-chain'}
                 useMask
                 tooltip={item.tooltip}
                 value={{
@@ -117,7 +110,7 @@ const ChainRenderer = () => {
           return (
             <ChainDraggable
               key={item.key + '-parent' + '-right'}
-              id={item.key + '-parent' + '-right'}
+              id={item.key + '-parent' + '-right' + '-chain'}
               useMask
               value={{
                 isChain: true,

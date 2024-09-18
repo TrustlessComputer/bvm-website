@@ -1,21 +1,28 @@
-import { createSelector } from '@reduxjs/toolkit';
-import { OrderItem, L2ServicesState } from './types';
-import BigNumber from 'bignumber.js';
-import { RootState } from '@/stores';
-import formatter from '@/modules/price/Pricing.helper';
 import {
   NetworkEnum,
   RollupEnum,
 } from '@/modules/blockchains/Buy/Buy.constanst';
+import formatter from '@/modules/price/Pricing.helper';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 import { IExploreItem } from '@/services/api/l2services/types';
-import {
-  APP_AIRDROP,
-  APP_BLOCKCHAIN,
-  APP_STAKING,
-  APP_TOKEN_GERNERATION,
-} from './constants';
+import { RootState } from '@/stores';
 import { IModelOption } from '@/types/customize-model';
+import { createSelector } from '@reduxjs/toolkit';
+import BigNumber from 'bignumber.js';
+import { APP_BLOCKCHAIN } from './constants';
+import { L2ServicesState, OrderItem } from './types';
+
+const BLACKLIST_CATEGORY_BY_TEMPLATE_PARAM_MAPPER: Record<string, string[]> = {
+  '4': ['bridge_apps'],
+  '5': ['tools'],
+};
+
+const BLACKLIST_CATEGORY_BY_DAPP_PARAM_MAPPER: Record<string, string[]> = {
+  token_generation: ['tools', 'bridge_apps'],
+  staking: ['tools', 'bridge_apps'],
+  airdrop: ['tools', 'bridge_apps'],
+  yologame: ['tools', 'bridge_apps'],
+};
 
 const getL2ServicesStateSelector = (state: RootState): L2ServicesState =>
   state.l2Services;
@@ -334,9 +341,29 @@ const getAvailableListTemplateSelector = createSelector(
   getL2ServicesStateSelector,
   (state) => {
     const availableListTemplate = state.availableListTemplate || [];
+    const param = state.dAppParam || state.templateParam;
 
+    console.log('[getAvailableListTemplateSelector] param', param);
     //Sort
-    const result = availableListTemplate;
+    let result = availableListTemplate;
+
+    // if (param in BLACKLIST_CATEGORY_BY_TEMPLATE_PARAM_MAPPER) {
+    //   result = [...result];
+    //   result[Number(param)] = result[Number(param)]?.filter((item) => {
+    //     return !BLACKLIST_CATEGORY_BY_TEMPLATE_PARAM_MAPPER[param].includes(
+    //       item.key,
+    //     );
+    //   });
+    // } else
+
+    if (param in BLACKLIST_CATEGORY_BY_DAPP_PARAM_MAPPER) {
+      result = [...result];
+      result[0] = result[0]?.filter((item) => {
+        return !BLACKLIST_CATEGORY_BY_DAPP_PARAM_MAPPER[param].includes(
+          item.key,
+        );
+      });
+    }
 
     return result;
   },
@@ -355,40 +382,34 @@ const getModelCategoriesSelector = createSelector(
 );
 
 export {
-  getL2ServicesStateSelector,
-  orderListSelector,
-  orderSelectedSelector,
-  withdrawableRewardSelector,
-  getOrderByIDSelector,
-  allOrdersSelector,
-  historyInfoSelector,
-  myOrderListSelector,
   accountInforSelector,
-  packageDataSelector,
-  packageDetailByPackageEnumSelector,
-  myOrderListWithNetworkSelector,
-  myOrderListFilteredByNetwork,
-
-  //Monitor
-  ZKOrdersSelector,
-  OPOrdersSelector,
-
-  //Dapp
-  getDappSelectedSelector,
-  getDAListSelector,
-  getDADetailByIDSelector,
-
-  //Template
-  templateV2Selector,
-
-  //Detail
-  getOrderDetailSelected,
-
+  allOrdersSelector,
   //
   getAvailableListTemplateSelector,
-  getModelCategoriesSelector,
-
+  getDADetailByIDSelector,
+  getDAListSelector,
+  getDappByAppNameIDSelector,
   //
   getDAppConfigByKeySelector,
-  getDappByAppNameIDSelector,
+  //Dapp
+  getDappSelectedSelector,
+  getL2ServicesStateSelector,
+  getModelCategoriesSelector,
+  getOrderByIDSelector,
+  //Detail
+  getOrderDetailSelected,
+  historyInfoSelector,
+  myOrderListFilteredByNetwork,
+  myOrderListSelector,
+  myOrderListWithNetworkSelector,
+  OPOrdersSelector,
+  orderListSelector,
+  orderSelectedSelector,
+  packageDataSelector,
+  packageDetailByPackageEnumSelector,
+  //Template
+  templateV2Selector,
+  withdrawableRewardSelector,
+  //Monitor
+  ZKOrdersSelector,
 };

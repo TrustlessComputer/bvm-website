@@ -17,6 +17,7 @@ export interface IToken extends IPosition {
   decimals?: number;
   total_supply?: string;
   user_created?: boolean;
+  is_native?: boolean;
   vestings?: ITokenVesting[];
 }
 

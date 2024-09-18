@@ -118,6 +118,7 @@ export default function Message({
       } else {
         refRender.current && clearInterval(refRender.current);
         setIsRendered(true);
+
         setChatBoxStatus({
           status:
             prepareCategoryTemplate.length > 0

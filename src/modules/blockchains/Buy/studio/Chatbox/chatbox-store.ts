@@ -8,20 +8,20 @@ export enum ChatBoxStatus {
   Close = '',
 }
 
-type BotMessage = {
+export type BotMessage = {
   beforeJSON: string;
-  jsonPart: string;
-  afterJSON: string;
+  jsonPart?: string;
+  afterJSON?: string;
   sender: 'bot';
-  template: IModelCategory[];
+  template?: IModelCategory[];
 };
 
-type UserMessage = {
+export type UserMessage = {
   text: string;
   sender: 'user';
 };
 
-type Message = BotMessage | UserMessage;
+export type Message = BotMessage | UserMessage;
 
 interface ChatBoxState {
   messages: Message[];
@@ -66,8 +66,8 @@ const useChatBoxState = create<ChatBoxState>((set) => ({
   setPrepareCategoryTemplate: (prepareCategoryTemplate) =>
     set({ prepareCategoryTemplate, isIdle: false }),
   setChatBoxStatus: (params: SetChatBoxStatusParams) => {
-    set(params);
     set({
+      ...params,
       isIdle: !params.isGenerating && !params.isComplete && !params.isListening,
     });
   },

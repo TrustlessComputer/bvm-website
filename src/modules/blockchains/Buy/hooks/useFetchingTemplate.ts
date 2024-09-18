@@ -26,9 +26,11 @@ import { parseStakingPools } from '../../dapp/parseUtils/staking';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { parseDappModel } from '../../utils';
 import { nodeKey } from '../component4/YourNodes/node.constants';
+import { ENABLE_CHATBOX } from '../constants';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
+  isRenderedInUpdateFlowSignal,
   templateIds2DSignal,
 } from '../signals/useDragSignal';
 import {
@@ -38,11 +40,13 @@ import {
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import useUpdateFlowStore from '../stores/useUpdateFlowStore';
+import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import useAvailableListTemplate from '../studio/useAvailableListTemplate';
 import useModelCategory from '../studio/useModelCategory';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
+import { parseWhitePapers } from '@/modules/blockchains/dapp/parseUtils/whitePaper';
 
 export default function useFetchingTemplate() {
   const { templateList, templateDefault } = useAvailableListTemplate();
@@ -56,31 +60,30 @@ export default function useFetchingTemplate() {
     useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
-    categories,
     setParsedCategories,
     setCategories,
     setCategoriesTemplates,
-    categoriesTemplates,
     setCategoryMapping,
   } = useModelCategoriesStore();
   const { field, setFields } = useOrderFormStoreV3();
   const { setUpdated, updated } = useUpdateFlowStore();
-  const param = useParams();
   const searchParams = useSearchParams();
-  const refUpdatedBaseDapp = React.useRef(false);
   const { setIsFirstLoadTemplateBox } = useStoreFirstLoadTemplateBox();
   const { l2ServiceUserAddress } = useWeb3Auth();
-  const { initTemplate, setTemplate } = useTemplate();
+  const { setTemplate } = useTemplate();
   const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
 
   const { counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
-  const { tokens, airdrops, stakingPools, yoloGames, walletType } = dappState;
+  const { tokens, airdrops, stakingPools, yoloGames, walletType, whitePapers } =
+    dappState;
 
   const [needSetDataTemplateToBox, setNeedSetDataTemplateToBox] =
     React.useState(false);
   const [needCheckAndAddAA, setNeedCheckAndAddAA] = React.useState(false);
+  const [needSetPreTemplate, setNeedSetPreTemplate] = React.useState(false);
+  const [reseted, setReseted] = React.useState(false);
 
   const convertData = (data: IModelCategory[]) => {
     const newData = data?.map((item) => {
@@ -137,6 +140,7 @@ export default function useFetchingTemplate() {
     setCategoriesTemplates(templateList);
     setFields(newFields);
     setNeedSetDataTemplateToBox(true);
+    setNeedSetPreTemplate(true);
   };
 
   const dataTemplateToBox = async () => {
@@ -215,6 +219,8 @@ export default function useFetchingTemplate() {
       totalBase,
     ).fill([]);
 
+    console.log('[useFetchingTemplate] dataTemplateToBox', templateDapps);
+
     Object.keys(templateForm).forEach((fieldKey) => {
       const value = templateForm[fieldKey];
       const baseIndex = FormDappUtil.getBaseIndex(fieldKey);
@@ -229,7 +235,11 @@ export default function useFetchingTemplate() {
         blockFieldMapping[item.key] = item;
       });
 
-      if (!draggedIds2D[baseIndex][index] && !isInBase) {
+      if (
+        draggedIds2D[baseIndex] &&
+        !draggedIds2D[baseIndex][index] &&
+        !isInBase
+      ) {
         const _key = isInBlock ? blockKey : key;
         const prefix = 'right-' + FormDappUtil.getBlockType(fieldKey);
         const children = !isInBlock
@@ -276,13 +286,20 @@ export default function useFetchingTemplate() {
       const statusDapp = templateDapps[index].label?.status || '';
       const titleStatusDapp = templateDapps[index].label?.title || '';
 
-      const thisNode = [...tokens, ...airdrops, ...stakingPools, ...yoloGames][
-        index
-      ];
-      const defaultPositionX = 30 + 500 * xOffsetCount[dappKey]++;
-      const defaultPositionY = 30 + 500 * allDappKeys.indexOf(dappKey);
-      const xOffset = thisNode?.position_x ?? defaultPositionX;
-      const yOffset = thisNode?.position_y ?? defaultPositionY;
+      const thisNode = [
+        ...tokens,
+        ...airdrops,
+        ...stakingPools,
+        ...yoloGames,
+        ...whitePapers,
+      ][index];
+      const defaultPositionX =
+        50 * (xOffsetCount[dappKey] - 1) + 500 * xOffsetCount[dappKey]++;
+      const defaultPositionY = 30 + 500 * (allDappKeys.indexOf(dappKey) + 1);
+      // const xOffset = thisNode?.position_x ?? defaultPositionX;
+      const xOffset = defaultPositionX;
+      // const yOffset = thisNode?.position_y ?? defaultPositionY;
+      const yOffset = defaultPositionY;
       const idNode = index.toString();
       const isHandleExists = getHandleNodeBlockChain?.data?.sourceHandles?.some(
         (handle) => handle === `${rootNode}-s-${templateDapps[index].title}`,
@@ -312,8 +329,8 @@ export default function useFetchingTemplate() {
         focusable: false,
         markerEnd: {
           type: MarkerType.Arrow,
-          width: 25,
-          height: 25,
+          width: 20,
+          height: 20,
           strokeWidth: 1,
           color: '#AAAAAA',
         },
@@ -323,20 +340,26 @@ export default function useFetchingTemplate() {
         },
       });
 
+      if (dappKey === 'airdrop') {
+        console.log('HEHEHEHEHHEHEHE', templateDapps[index], titleStatusDapp);
+      }
+
       return {
         id: idNode,
         type: 'dappTemplate',
         dragHandle: '.drag-handle-area',
         data: {
-          node: 'dapp',
+          node: 'template',
           label: templateDapps[index].title,
           status: titleStatusDapp,
           isChain: false,
           dapp: templateDapps[index],
           ids,
           baseIndex: index,
-          targetHandles: [`${idNode}-t-${rootNode}`],
-          sourceHandles: [],
+          // targetHandles: [`${idNode}-t-${rootNode}`],
+          targetHandles: [],
+          sourceHandles: [`${idNode}-t-${rootNode}`],
+          // sourceHandles: [],
           itemId: thisNode?.id,
           positionId: thisNode?.position_id,
         },
@@ -360,6 +383,7 @@ export default function useFetchingTemplate() {
     //     };
     //   });
     // }
+    console.log('HEHEHEHEHHEHEHE', _newNodes);
     const map: any = {};
     for (const element of [...newNodes, ...nodesData, ..._newNodes]) {
       map[element.id] = element;
@@ -375,7 +399,6 @@ export default function useFetchingTemplate() {
     } else {
       setEdges([...edges, ...edgeData]);
     }
-    console.log('[useFetchingTemplate] case 1');
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
     setNeedCheckAndAddAA(true);
@@ -427,11 +450,21 @@ export default function useFetchingTemplate() {
         })
       : {};
 
+    startIndex += parsedYoloGameData.length;
+    const parsedWhitePaperData = parseWhitePapers(whitePapers);
+    const parsedWhitePaperForm = parseDappModel({
+      key: DappType.white_paper,
+      model: parsedWhitePaperData,
+      startIndex: startIndex,
+    });
+
     console.log('[useFetchingTemplate] parsedTokensData', {
       tokens,
       airdrops,
       stakingPools,
       parsedWalletData,
+      yoloGames,
+      whitePapers,
     });
 
     setTemplateDapps([
@@ -440,6 +473,7 @@ export default function useFetchingTemplate() {
       ...parsedStakingPoolsData,
       ...parsedYoloGameData,
       ...parsedWalletData,
+      ...parsedWhitePaperData,
     ]);
     setTemplateForm({
       ...parsedTokensForm.fieldValue,
@@ -447,6 +481,7 @@ export default function useFetchingTemplate() {
       ...parsedStakingPoolsForm.fieldValue,
       ...parsedYoloGameForm.fieldValue,
       ...((parsedWalletForm as any)?.fieldValue || {}),
+      ...parsedWhitePaperForm.fieldValue,
     } as any);
 
     setNeedSetDataTemplateToBox(true);
@@ -491,30 +526,82 @@ export default function useFetchingTemplate() {
     const newDraggedDappIndexes = [];
 
     if (isAAInstalled) {
-      newDraggedDappIndexes.push(0);
+      const dappIndex = dapps.findIndex(
+        (dapp) => dapp.key === 'account_abstraction',
+      );
+      newDraggedDappIndexes.push(dappIndex);
       newDraggedIds2D.push([]);
     }
 
     if (isBridgeInstalled) {
-      newDraggedDappIndexes.push(1);
+      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'bridge_apps');
+      newDraggedDappIndexes.push(dappIndex);
       newDraggedIds2D.push([]);
     }
 
     if (isGamingAppsInstalled) {
-      newDraggedDappIndexes.push(2);
+      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'gaming_apps');
+      newDraggedDappIndexes.push(dappIndex);
       newDraggedIds2D.push([]);
     }
 
     draggedDappIndexesSignal.value = newDraggedDappIndexes;
     draggedIds2DSignal.value = newDraggedIds2D;
+    isRenderedInUpdateFlowSignal.value = true;
 
     setNeedCheckAndAddAA(false);
   };
 
+  const setPreTemplate = () => {
+    if (isUpdateFlow && order) {
+      setTemplate(order.selectedOptions || []);
+    } else {
+      // const template = searchParams.get('template');
+
+      // console.log('template', template, templateDefault);
+
+      // if (template || !ENABLE_CHATBOX) {
+      setTemplate(templateDefault || []);
+      // } else if (ENABLE_CHATBOX) {
+      //   setTemplate([]);
+      // }
+    }
+
+    setNeedSetPreTemplate(false);
+  };
+
   React.useEffect(() => {
+    setNodes([]);
+    setEdges([]);
+    setCategories([]);
+    setParsedCategories([]);
+    setCategoriesTemplates([]);
+    setFields({});
+    setCategoryMapping({});
+    setTemplateDapps([]);
+    setTemplateForm(null);
+
+    setNeedSetDataTemplateToBox(false);
+    setNeedSetPreTemplate(false);
+    setNeedCheckAndAddAA(false);
+
+    draggedIds2DSignal.value = [];
+    draggedDappIndexesSignal.value = [];
+    templateIds2DSignal.value = [];
+    formTemplateDappSignal.value = {};
+    formDappSignal.value = {};
+
+    needReactFlowRenderSignal.value = true;
+
+    setReseted(true);
+  }, []);
+
+  React.useEffect(() => {
+    if (!reseted) return;
+
     fetchData();
     // parseDappApiToDappModel();
-  }, []);
+  }, [reseted]);
 
   React.useEffect(() => {
     if (!isUpdateFlow) return;
@@ -542,10 +629,8 @@ export default function useFetchingTemplate() {
   }, [needSetDataTemplateToBox]);
 
   React.useEffect(() => {
-    if (isUpdateFlow && order) {
-      setTemplate(order.selectedOptions || []);
-    } else {
-      setTemplate(templateDefault || []);
-    }
-  }, [categoriesTemplates, isUpdateFlow, templateDefault]);
+    if (!needSetPreTemplate) return;
+
+    setPreTemplate();
+  }, [needSetPreTemplate]);
 }

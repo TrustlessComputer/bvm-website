@@ -197,7 +197,6 @@ const useSubmitFormAirdrop = () => {
             body.tasks = tasks;
             await cAirdropAPI.setupTask(body);
             showSuccess({ message: 'Airdrop created successfully!.' });
-            dispatch(requestReload());
             handleReset();
             // setLoading(false);
           } else {
@@ -211,7 +210,6 @@ const useSubmitFormAirdrop = () => {
                   body.receivers = result.data;
                   await cAirdropAPI.setupTask(body);
                   showSuccess({ message: 'Airdrop created successfully!.' });
-                  dispatch(requestReload());
                   handleReset();
                   // setLoading(false);
                 },

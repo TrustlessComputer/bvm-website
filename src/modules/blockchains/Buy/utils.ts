@@ -278,19 +278,19 @@ export const preDataAirdropTask = (
 
       if (fieldRewardToken > -1) {
         // // @ts-ignore
-        const options: any = tokens.map((t) => ({
-          key: t.id,
-          title: t.name,
-          value: t.contract_address,
-          icon: t.image_url,
-          tooltip: '',
-          type: '',
-          options: [],
-        }));
+        // const options: any = tokens.map((t) => ({
+        //   key: t.id,
+        //   title: t.name,
+        //   value: t.contract_address,
+        //   icon: t.image_url,
+        //   tooltip: '',
+        //   type: '',
+        //   options: [],
+        // }));
 
         // @ts-ignore
-        _sortedDapps[_airdropIndex].baseBlock.fields[fieldRewardToken].options =
-          options;
+        // _sortedDapps[_airdropIndex].baseBlock.fields[fieldRewardToken].options =
+        //   options;
 
         if (airdropTasks.length > 0) {
           const singleFields: BlockModel[] = cloneDeep(
@@ -418,6 +418,47 @@ export const preDataYoloGame = (
 
         // @ts-ignore
         _sortedDapps[_appIndex].baseModuleFields[fieldSettlementToken].fields =
+          options;
+      }
+    }
+  }
+  return _sortedDapps;
+};
+
+export const preDataWhitePaper = (
+  sortedDapps: DappModel[] = [],
+  tokens: IToken[],
+) => {
+  const _sortedDapps = cloneDeep(sortedDapps);
+
+  if (tokens.length > 0) {
+    const _appIndex = _sortedDapps.findIndex((v) =>
+      compareString(v.key, DappType.white_paper),
+    );
+
+    if (_appIndex > -1) {
+      const fieldToken = _sortedDapps[
+        _appIndex
+      ].baseModuleFields?.findIndex((v: BlockModel) =>
+        compareString(v.key, 'token'),
+      );
+
+      // @ts-ignore
+      if (fieldToken > -1) {
+        // // @ts-ignore
+        const options: any = tokens.map((t) => ({
+          key: t.id,
+          title: t.name,
+          value: t.contract_address,
+          icon: t.image_url,
+          tooltip: '',
+          type: '',
+          options: [],
+          selectable: true,
+        }));
+
+        // @ts-ignore
+        _sortedDapps[_appIndex].baseModuleFields[fieldToken].fields =
           options;
       }
     }

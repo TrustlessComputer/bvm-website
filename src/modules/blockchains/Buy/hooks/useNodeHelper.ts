@@ -1,3 +1,4 @@
+import React from 'react';
 import { IModelOption } from '@/types/customize-model';
 import { DappNode } from '@/types/node';
 import { MarkerType } from '@xyflow/react';
@@ -21,7 +22,15 @@ const useNodeHelper = () => {
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const { setDraggedIds2D } = useDraggedId2DStore();
 
-  const addDappToNode = (dappIndex: number) => {
+  const [newState, setNewState] = React.useState({
+    nodes,
+    edges,
+  });
+
+  const addDappToNode = (
+    dappIndex: number,
+    { x = 600, y = 30 }: { x: number; y: number },
+  ) => {
     const thisDapp = dapps[dappIndex];
     if (!thisDapp) {
       return;
@@ -40,11 +49,6 @@ const useNodeHelper = () => {
       return;
     }
 
-    const positionTo = {
-      x: 600,
-      y: 30,
-    };
-
     const rootNode = 'blockchain';
     let suffix = thisDapp.title;
 
@@ -53,7 +57,6 @@ const useNodeHelper = () => {
       (handle) => handle.sourceHandle === `${rootNode}-s-${suffix}`,
     );
     let nodesData = nodes;
-    console.log('nodes frist', nodesData);
 
     if (!isHandleExists) {
       getHandleNodeBlockChain?.data?.sourceHandles?.push(
@@ -83,81 +86,66 @@ const useNodeHelper = () => {
       id: newNodeId,
       type: dappKeyToNodeKey(thisDapp.key),
       dragHandle: '.drag-handle-area',
-      position: positionTo,
+      position: {
+        x,
+        y,
+      },
       data: {
         node: 'dapp',
         title: thisDapp.title,
         dapp: thisDapp,
-        baseIndex: 0,
+        baseIndex: draggedIds2DSignal.value.length - 1,
         categoryOption: categoryOption as IModelOption,
         ids,
-        targetHandles: [`${newNodeId}-t-${rootNode}`],
-        sourceHandles: [],
+        targetHandles: [],
+        sourceHandles: [`${newNodeId}-t-${rootNode}`],
+      },
+    };
+    const newEdge = {
+      id: `${Math.random()}`,
+      source: rootNode,
+      sourceHandle: `${rootNode}-s-${suffix}`,
+      target: `${newNodeId}`,
+      targetHandle: `${newNodeId}-t-${rootNode}`,
+      type: 'customEdge',
+      label: '',
+      selectable: false,
+      selected: false,
+      focusable: false,
+      markerEnd: {
+        type: MarkerType.Arrow,
+        width: 25,
+        height: 25,
+        strokeWidth: 1,
+        color: '#AAAAAA',
+      },
+      animated: true,
+      style: {
+        stroke: '#AAAAAA',
+        strokeWidth: 2,
       },
     };
 
-    draggedDappIndexesSignal.value = [dappIndex];
-    draggedIds2DSignal.value = [[]];
-    setDraggedIds2D([]);
-    console.log('[useSetDefaultDapp] case 1');
+    draggedDappIndexesSignal.value = [
+      ...draggedDappIndexesSignal.value,
+      dappIndex,
+    ];
+    draggedIds2DSignal.value = [...draggedIds2DSignal.value, ids];
 
-    setNodes([...nodesData, newNode]);
-    setEdges([
-      ...edges,
-      {
-        id: `${Math.random()}`,
-        source: rootNode,
-        sourceHandle: `${rootNode}-s-${suffix}`,
-        target: `${newNodeId}`,
-        targetHandle: `${newNodeId}-t-${rootNode}`,
-        type: 'customEdge',
-        label: '',
-        selectable: false,
-        selected: false,
-        focusable: false,
-        markerEnd: {
-          type: MarkerType.Arrow,
-          width: 25,
-          height: 25,
-          strokeWidth: 1,
-          color: '#AAAAAA',
-        },
-        animated: true,
-        style: {
-          stroke: '#AAAAAA',
-          strokeWidth: 2,
-        },
-      },
-    ]);
+    setDraggedIds2D([...draggedIds2DSignal.value]);
+    setNodes([...newState.nodes, newNode]);
+    setEdges([...newState.edges, newEdge]);
+    setNewState({
+      nodes: [...newState.nodes, newNode],
+      edges: [...newState.edges, newEdge],
+    });
+
+    console.log('[SocketProvider] addDappToNode', {
+      nodes: [...newState.nodes, newNode],
+      edges: [...newState.edges, newEdge],
+    });
+
     needReactFlowRenderSignal.value = true;
-    console.log('[...nodesData, newNode]', [...nodesData, newNode]);
-    console.log('edge', [
-      ...edges,
-      {
-        id: `${Math.random()}`,
-        source: rootNode,
-        sourceHandle: `${rootNode}-s-${suffix}`,
-        target: `${newNodeId}`,
-        targetHandle: `${newNodeId}-t-${rootNode}`,
-        type: 'customEdge',
-        label: '',
-        selectable: false,
-        selected: false,
-        focusable: false,
-        markerEnd: {
-          type: MarkerType.Arrow,
-          width: 25,
-          height: 25,
-          strokeWidth: 1,
-          color: '#AAAAAA',
-        },
-        animated: true,
-        style: {
-          stroke: '#AAAAAA',
-          strokeWidth: 2,
-        },
-      },
-    ]);
   };
 
   return { addDappToNode };

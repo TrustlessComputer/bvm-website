@@ -216,6 +216,55 @@ table {
       font-size: 20px;
     }
   }
+
+  .tabContainer {
+    width: 100% !important;
+    padding: 0px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .tabList {
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    margin-bottom: 12px;
+    border-bottom: 1px solid transparent;
+    width: fit-content;
+
+    > button {
+      background: none;
+      border: none;
+      color: gray;
+      font-weight: 500;
+      background: #f4f4f4;
+      font-size: 14px;
+      line-height: 20px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+
+      flex: unset;
+      position: relative;
+      text-align: center;
+      width: 150px;
+
+      &[aria-selected='true'] {
+        opacity: 1;
+        font-weight: 600;
+        color: #fff !important;
+        background: linear-gradient(95.67deg, #ffc076 7.06%, #ff0000 92.21%);
+      }
+    }
+  }
+
+  .tabPanel {
+    > [role='tabpanel'] {
+      padding: 0;
+      border-color: transparent !important;
+    }
+    border-color: transparent !important;
+  }
 }
 
 .search {

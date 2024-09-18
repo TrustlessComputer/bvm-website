@@ -4,8 +4,7 @@ import ButtonClose from './Actions/ButtonClsoe';
 import ButtonStop from './Actions/ButtonStop';
 import useChatBoxState from './chatbox-store';
 import useChatBoxService from './hooks/useChatBoxService';
-import { useParseMessage } from './hooks/usePasrMessage';
-import Message from './Message';
+import MessageStream from './MessageStream';
 import styles from './styles.module.scss';
 import TextInput from './TextInput';
 
@@ -53,19 +52,14 @@ export default function Chatbox() {
             </div>
           </div>
           <div className={styles.body_inner}>
-            <div className={styles.chats} ref={elChatBox}>
+            <div id="chatbox-messages" className={styles.chats} ref={elChatBox}>
               {messages.map((message, index) => (
                 <div
                   key={index}
                   className={`${styles.message} ${styles[message.sender]}`}
                 >
                   {message.sender === 'bot' ? (
-                    <Message
-                      beforeJSON={useParseMessage(message.beforeJSON)[0]}
-                      afterJSON={useParseMessage(message.afterJSON)[2]}
-                      template={message.template}
-                      onUpdateScroll={focusChatBox}
-                    />
+                    <MessageStream message={message.beforeJSON} />
                   ) : (
                     message.text
                   )}

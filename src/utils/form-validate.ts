@@ -21,6 +21,13 @@ export const isValidBTCTxHash = (txHash: string) => {
   return regex.test(txHash);
 };
 
+export const isValidFractalBTCTxHash = (txHash: string) => {
+  const hexPattern = /^[a-fA-F0-9]+$/;
+
+  // Check if the hash matches the hex pattern and has an even length (since hex is in pairs)
+  return hexPattern.test(txHash) && txHash.length % 2 === 0;
+};
+
 export const isValidERC20TxHash = (txHash: string) => {
   // Check if txHash is a 64-character hexadecimal string
   const regex = /^0x([A-Fa-f0-9]{64})$/;

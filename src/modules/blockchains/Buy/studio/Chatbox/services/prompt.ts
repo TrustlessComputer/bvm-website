@@ -56,3 +56,41 @@ export const sendPromptV2 = async (
     throw error;
   }
 };
+export const sendPromptStream = async (
+  body: SendPromptBodyRequestV2,
+  onChunk: (chunk: any) => void,
+): Promise<void> => {
+  console.log('[sendPromptV2] body', body);
+
+  try {
+    const response = await fetch(
+      'https://api-dojo2.eternalai.org/api/chat/assistant-v3',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      },
+    );
+
+    if (!response.body) {
+      throw new Error('Response body is unavailable');
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+
+    while (true) {
+      const { done, value } = await reader.read();
+
+      if (done) break;
+
+      const chunk = decoder.decode(value, { stream: true });
+      onChunk(chunk);
+    }
+  } catch (error) {
+    console.error('[sendPromptV2] error', error);
+    throw error;
+  }
+};

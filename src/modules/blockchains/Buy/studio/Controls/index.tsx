@@ -134,6 +134,7 @@ export default memo(function StudioControls() {
               id={item.key}
               isRequired={item.required}
               active={field[item.key].dragged}
+              needCheckIcon={item.required}
               description={{
                 title: item.title,
                 content: item.tooltip,

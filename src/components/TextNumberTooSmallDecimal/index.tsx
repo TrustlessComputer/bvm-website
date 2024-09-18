@@ -1,11 +1,11 @@
-import { MIN_DECIMAL } from "@/constants/constants";
-import { formatCurrency } from "@/utils/format";
-import { Text } from "@chakra-ui/react";
-import BigNumber from "bignumber.js";
-import cs from "classnames";
-import { isNaN } from "lodash";
-import React, { useMemo } from "react";
-import s from "./styles.module.scss";
+import { MIN_DECIMAL } from '@/constants/constants';
+import { formatCurrency } from '@/utils/format';
+import { Text } from '@chakra-ui/react';
+import BigNumber from 'bignumber.js';
+import cs from 'classnames';
+import { isNaN } from 'lodash';
+import React, { useMemo } from 'react';
+import s from './styles.module.scss';
 
 interface IProps {
   value: string;
@@ -14,6 +14,7 @@ interface IProps {
   isSats?: boolean;
   hideSymbol?: boolean;
   decimals?: number;
+  symbol?: string;
 }
 
 const TextNumberTooSmallDecimal: React.FC<IProps> = ({
@@ -23,6 +24,7 @@ const TextNumberTooSmallDecimal: React.FC<IProps> = ({
   isSats,
   hideSymbol,
   decimals = 2,
+  symbol,
 }) => {
   const parts = useMemo(() => {
     if (
@@ -34,7 +36,7 @@ const TextNumberTooSmallDecimal: React.FC<IProps> = ({
         <Text
           className={cs(s.textContainer, className)}
           dangerouslySetInnerHTML={{
-            __html: formatCurrency(value, MIN_DECIMAL, decimals),
+            __html: `${formatCurrency(value, MIN_DECIMAL, decimals)} ${symbol}`,
           }}
           style={style}
         ></Text>
@@ -49,7 +51,7 @@ const TextNumberTooSmallDecimal: React.FC<IProps> = ({
             className={cs(s.textContainer, className)}
             dangerouslySetInnerHTML={{
               __html: `${formatCurrency(satAmount, 0, 2)}${
-                hideSymbol ? "" : ' <span style="opacity: 0.7">sats</span>'
+                hideSymbol ? '' : '<span style="opacity: 0.7"> sat</span>'
               }`,
             }}
             style={style}
@@ -62,7 +64,7 @@ const TextNumberTooSmallDecimal: React.FC<IProps> = ({
       <Text
         className={cs(s.textContainer, className)}
         dangerouslySetInnerHTML={{
-          __html: formatCurrency(value, MIN_DECIMAL, decimals),
+          __html: `${formatCurrency(value, MIN_DECIMAL, decimals)} ${symbol}`,
         }}
         style={style}
       ></Text>

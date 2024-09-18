@@ -17,7 +17,16 @@ const Node = ({
   borderColor = '#FFC700',
   targetHandles,
   sourceHandles,
+  customNotification,
 }: NodeProps) => {
+  const renderDefaultNotfication = () => {
+    return notification && <NodeNotification {...notification} />;
+  };
+
+  const renderCustomNotfication = () => {
+    return customNotification;
+  };
+
   return (
     <div
       className={styles.node}
@@ -25,38 +34,56 @@ const Node = ({
         borderColor,
       }}
     >
-      <div className={`${styles.handles} ${styles.target}`}>
-        {targetHandles?.map((handle) => (
-          <Handle
-            key={handle}
-            id={handle}
-            type="target"
-            position={Position.Left}
-            className={styles.handleDot}
-          />
-        ))}
-      </div>
-
       <NodeHeading {...heading} borderColor={borderColor} />
       <NodeContent>
         {overlay && <NodeOverlay {...overlay} />}
-
-        {notification && <NodeNotification {...notification} />}
+        {customNotification
+          ? renderCustomNotfication()
+          : renderDefaultNotfication()}
 
         <div className={styles.node__mainContent}>{content.children}</div>
       </NodeContent>
 
-      <div className={`${styles.handles} ${styles.sources}`}>
-        {sourceHandles?.map((handle, index) => (
-          <Handle
-            key={handle}
-            id={handle}
-            type="source"
-            position={Position.Right}
-            className={styles.handleDot}
-          />
-        ))}
-      </div>
+      {sourceHandles?.map((handle, index) => (
+        <Handle
+          key={handle}
+          id={handle}
+          type="source"
+          position={Position.Right}
+          className={styles.handleDot}
+          isConnectable={false}
+        />
+      ))}
+      {sourceHandles?.map((handle, index) => (
+        <Handle
+          key={handle}
+          id={handle}
+          type="source"
+          position={Position.Top}
+          className={styles.handleDot}
+          isConnectable={false}
+        />
+      ))}
+      {sourceHandles?.map((handle, index) => (
+        <Handle
+          key={handle}
+          id={handle}
+          type="source"
+          position={Position.Left}
+          className={styles.handleDot}
+          isConnectable={false}
+        />
+      ))}
+      {sourceHandles?.map((handle, index) => (
+        <Handle
+          key={handle}
+          id={handle}
+          type="source"
+          position={Position.Bottom}
+          className={styles.handleDot}
+          isConnectable={false}
+        />
+      ))}
     </div>
   );
 };
