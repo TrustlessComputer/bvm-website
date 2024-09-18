@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
-import styles from './styles.module.scss';
-import { blockLegoResponseToModelCategory } from '../utils/convertApiUtils';
+import DotPulse from '@/components/DotPulse';
+import { IModelCategory } from '@/types/customize-model';
 import Lego from '../../../component4/Lego';
-import useModelCategoriesStore from '../../../stores/useModelCategoriesStore';
-import { useParseMessage } from '../hooks/usePasrMessage';
-import { DappModel, IModelCategory } from '@/types/customize-model';
-import { chainKeyToDappKey } from '../../../utils';
-import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
-import useDappsStore from '../../../stores/useDappStore';
 import useNodeHelper from '../../../hooks/useNodeHelper';
 import useTemplate from '../../../hooks/useTemplate';
-import DotPulse from '@/components/DotPulse';
+import useDappsStore from '../../../stores/useDappStore';
+import useModelCategoriesStore from '../../../stores/useModelCategoriesStore';
+import { chainKeyToDappKey } from '../../../utils';
+import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
+import { blockLegoResponseToModelCategory } from '../utils/convertApiUtils';
+import styles from './styles.module.scss';
 
 function MessageStream({ message }: { message: string }) {
   const { categories } = useModelCategoriesStore();
@@ -119,9 +118,17 @@ function MessageStream({ message }: { message: string }) {
     trackMessageChange();
   }, [message]);
 
+  const isEmpty = useMemo(() => {
+    return (
+      generationStatus.beforeJsonBlock === '' &&
+      generationStatus.afterJsonBlock === '' &&
+      generationStatus.template.length === 0
+    );
+  }, [generationStatus]);
+
   return (
     <div className={styles.message}>
-      {generationStatus.beforeJsonBlock}
+      {isEmpty ? <DotPulse /> : generationStatus.beforeJsonBlock}
 
       {generationStatus.isGeneratingJson &&
       !generationStatus.isGeneratedJson ? (
