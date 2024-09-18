@@ -122,27 +122,27 @@ export default function ButtonVoice({
     };
   }, [stopVoiceInput, isClose, isGenerating, isListening]);
 
-  // useEffect(() => {
-  //   if (isListening) {
-  //     handleVoiceInput();
-  //   } else {
-  //     stopVoiceInput();
-  //   }
+  useEffect(() => {
+    if (isListening) {
+      handleVoiceInput();
+    } else {
+      stopVoiceInput();
+    }
 
-  //   return () => {
-  //     stopVoiceInput();
-  //   };
-  // }, [isListening]);
+    return () => {
+      stopVoiceInput();
+    };
+  }, [isListening]);
 
-  // useEffect(() => {
-  //   if (isOpenVoice) {
-  //     handleVoiceInput();
-  //   }
+  useEffect(() => {
+    if (isOpenVoice) {
+      handleVoiceInput();
+    }
 
-  //   return () => {
-  //     stopVoiceInput();
-  //   };
-  // }, [isOpenVoice]);
+    return () => {
+      stopVoiceInput();
+    };
+  }, [isOpenVoice]);
 
   const Listening = useMemo((): ReactElement => {
     return (
