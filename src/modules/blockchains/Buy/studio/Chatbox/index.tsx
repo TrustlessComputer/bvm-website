@@ -2,11 +2,12 @@ import MagicIcon from '@/components/MagicIcon';
 import { useRef } from 'react';
 import ButtonClose from './Actions/ButtonClsoe';
 import ButtonStop from './Actions/ButtonStop';
-import useChatBoxState from './chatbox-store';
+import useChatBoxState, { ChatBoxStatus } from './chatbox-store';
 import useChatBoxService from './hooks/useChatBoxService';
 import MessageStream from './MessageStream';
 import styles from './styles.module.scss';
 import TextInput from './TextInput';
+import DotPulse from '@/components/DotPulse';
 
 export default function Chatbox() {
   const {
@@ -67,10 +68,17 @@ export default function Chatbox() {
               ))}
             </div>
             <div className={styles.status}>
-              <div className={styles.statusInner}>{isIdle ? '' : status}</div>
-              <div className={styles.statusButtons}>
-                {isGenerating && <ButtonStop />}
+              <div className={styles.statusInner}>
+                {isIdle ? '' : status}
+                {status === ChatBoxStatus.Generating && (
+                  <DotPulse className={styles.dotPulse} />
+                )}
               </div>
+
+              {/* TODO: Wait BE support END event */}
+              {/*<div className={styles.statusButtons}>
+                {isGenerating && <ButtonStop />}
+              </div> */}
             </div>
           </div>
         </div>

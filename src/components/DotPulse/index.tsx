@@ -1,13 +1,19 @@
 import React from 'react';
+import cn from 'classnames';
 
 import styles from './styles.module.scss';
 
-const DotPulse = () => {
+type Props = {
+  className?: string;
+};
+
+const DotPulse = ({ className }: Props) => {
   return (
-    <div className={styles.dotPulse}>
-      <div className={styles.dotPulse__dot}>.</div>
-      <div className={styles.dotPulse__dot}>.</div>
-      <div className={styles.dotPulse__dot}>.</div>
+    <div className={cn(styles.dotPulse, className)}>
+      <div className={styles.dotPulse__dot} />
+      <div className={styles.dotPulse__dot} />
+      <div className={styles.dotPulse__dot} />
+      <div className={styles.dotPulse__dot} />
     </div>
   );
 };

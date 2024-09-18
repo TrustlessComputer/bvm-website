@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo, useRef } from 'react';
 import useChatBoxState, { ChatBoxStatus } from '../../chatbox-store';
 import styles from './styles.module.scss';
 
@@ -20,7 +20,7 @@ export default function ButtonVoice({
     setInputMessage,
     setIsChatboxOpen,
   } = useChatBoxState();
-  const [recognition, setRecognition] = useState<any>(null);
+  const recognitionRef = useRef<any>(null);
 
   const isClose = useMemo(() => {
     return !isComplete && !isGenerating && !isListening;
@@ -58,7 +58,7 @@ export default function ButtonVoice({
         isComplete: false,
         isListening: false,
       });
-      setRecognition(null);
+      recognitionRef.current = null;
 
       setTimeout(() => {
         if (message.trim() !== '') {
@@ -74,16 +74,16 @@ export default function ButtonVoice({
         isComplete: false,
         isListening: false,
       });
-      setRecognition(null);
+      recognitionRef.current = null;
     };
 
     newRecognition.start();
-    setRecognition(newRecognition);
+    recognitionRef.current = newRecognition;
   };
 
   const stopVoiceInput = useCallback(() => {
-    if (recognition) {
-      recognition.stop();
+    if (recognitionRef.current) {
+      recognitionRef.current.stop();
 
       setChatBoxStatus({
         status: ChatBoxStatus.Close,
@@ -91,9 +91,9 @@ export default function ButtonVoice({
         isComplete: false,
         isListening: false,
       });
-      setRecognition(null);
+      recognitionRef.current = null;
     }
-  }, [recognition]);
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -103,15 +103,14 @@ export default function ButtonVoice({
         } else if (isListening) {
           stopVoiceInput();
         } else if (isGenerating) {
-          setChatBoxStatus({
-            status: ChatBoxStatus.Close,
-            isGenerating: false,
-            isComplete: false,
-            isListening: false,
-          });
+          //todo: wait for the BE have event stop socket
+          // setChatBoxStatus({
+          //   status: ChatBoxStatus.Close,
+          //   isGenerating: false,
+          //   isComplete: false,
+          //   isListening: false,
+          // });
         }
-      } else if (event.ctrlKey && event.shiftKey && event.key === 'V') {
-        !isGenerating && handleVoiceInput();
       }
     };
 
