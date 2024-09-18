@@ -39,6 +39,13 @@ export default function SocketProvider({
   const { focusChatBox } = useFocusChatBox();
   const refMessageRender = useRef<string>('');
 
+  const disconnectSocket = () => {
+    console.log('[SocketProvider] disconnectSocket');
+    socketRef.current?.removeAllListeners();
+    socketRef.current?.disconnect();
+    setIsConnected(false);
+  };
+
   const connectToSocket = () => {
     socketRef.current = getSocket();
 
@@ -140,25 +147,19 @@ export default function SocketProvider({
     });
 
     socketRef.current?.on('disconnect', () => {
-      console.log('[SocketProvider] disconnect');
-      setIsConnected(false);
+      disconnectSocket();
     });
 
     socketRef.current?.on('error', (error: Error) => {
       console.error('[SocketProvider] error:', error);
+      disconnectSocket();
     });
   };
 
-  const disconnectSocket = () => {
-    console.log('[SocketProvider] disconnectSocket');
-    refMessageRender.current = '';
-    socketRef.current?.removeAllListeners();
-    socketRef.current?.disconnect();
-  };
-
   useEffect(() => {
+    refMessageRender.current = '';
+
     if (isGenerating) {
-      refMessageRender.current = '';
       connectToSocket();
     } else {
       disconnectSocket();

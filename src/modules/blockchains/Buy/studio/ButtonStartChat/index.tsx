@@ -12,7 +12,7 @@ export default function ButtonStartChat(): ReactElement {
   const chatboxRef = useRef<HTMLDivElement>(null);
 
   const params = useSearchParams();
-  const chatAIParams = params.get('chat-ai') || 0;
+  const chatAIParams = params.get('chat-ai') || '0';
   const ENTER_CHATBOX = localStorage.getItem('chat-ai') === '1' || chatAIParams;
 
   useEffect(() => {

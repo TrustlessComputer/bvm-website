@@ -1,28 +1,55 @@
 .dotPulse {
+  --dot-pulse-color: #4285f4;
+  --dot-pulse-duration: 1.5s;
+  --dot-pulse-delay: 0s;
+
   display: flex;
   gap: 4px;
   align-items: center;
-  // justify-content: center;
+
+  &__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--dot-pulse-color);
+    animation: dotPulse var(--dot-pulse-duration) infinite linear
+      var(--dot-pulse-delay);
+  }
 
   &__dot:nth-child(1) {
-    animation: dotPulse 1s infinite linear 0s;
+    --dot-pulse-color: #4285f4;
+    --dot-pulse-delay: 0s;
   }
 
   &__dot:nth-child(2) {
-    animation: dotPulse 1s infinite linear 0.2s;
+    --dot-pulse-color: #db4437;
+    --dot-pulse-delay: 0.1s;
   }
 
   &__dot:nth-child(3) {
-    animation: dotPulse 1s infinite linear 0.4s;
+    --dot-pulse-color: #f4b400;
+    --dot-pulse-delay: 0.2s;
+  }
+
+  &__dot:nth-child(4) {
+    --dot-pulse-color: #0f9d58;
+    --dot-pulse-delay: 0.3s;
   }
 }
 
 @keyframes dotPulse {
-  0% {
-    opacity: 0;
+  0%,
+  44% {
+    transform: translateY(0px);
   }
 
-  100% {
-    opacity: 1;
+  22% {
+    opacity: 0.4;
+    transform: translateY(-7px);
+  }
+
+  44% {
+    opacity: 0.2;
+    transform: translateY(0px);
   }
 }
