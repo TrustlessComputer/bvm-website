@@ -11,6 +11,7 @@ import enhanceUpdateOrderModal from './enhance.UpdateOrderModal';
 import enhanceWaittingSettingUpModal from './enhance.WaittingSettingUpModal';
 import enhanceDappListModal from './enhance.DappListModal';
 import enhanceInstallDappDetailModal from './enhance.InstallDappDetailModal';
+import withWaiting from './enhance.withWaiting';
 
 import { DashboardContext } from '../providers/DashboardProvider';
 
@@ -34,5 +35,6 @@ export default compose<DashboardWrappedComponent>(
   enhanceWaittingSettingUpModal,
   enhanceInstallDappDetailModal,
   enhanceDappListModal,
+  withWaiting,
   enhance,
 );

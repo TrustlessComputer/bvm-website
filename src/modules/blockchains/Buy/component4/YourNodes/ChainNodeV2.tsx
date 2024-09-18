@@ -1,19 +1,17 @@
-import React from 'react';
-
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
-import { ChainNode as ChainNodeProps } from '@/types/node';
-import { NodeProps } from '@xyflow/react';
-import ChainRenderer from '../DappRenderer/ChainRenderer';
-// import Node from '../Node/Node';
-import Node from '../Node_v2/Node';
-import { getModuleIconUrlByType } from '@/modules/blockchains/detail_v4/helper/moduleIconHelper';
-import { useDisclosure } from '@chakra-ui/react';
 import TopupModal from '@/modules/blockchains/components/TopupModal';
+import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
-import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+import { ChainNode as ChainNodeProps } from '@/types/node';
+import { useDisclosure } from '@chakra-ui/react';
+import { NodeProps } from '@xyflow/react';
+import ChainRenderer from '../DappRenderer/ChainRenderer';
+import Node from '../Node/Node';
+import { useRouter } from 'next/navigation';
 
-const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
+const ChainNodeV2 = ({ data, id }: NodeProps<ChainNodeProps>) => {
+  const router = useRouter();
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
   const { showContactUsModal } = useContactUs();
   const {
@@ -23,6 +21,8 @@ const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
     getChainTypeIconUrl,
     isInsufficientBalance,
     textCTA,
+    order,
+    isUpdateFlow,
   } = useChainProvider();
   const {
     statusStr: statusMessage,
@@ -74,8 +74,15 @@ const ChainNodeV2 = ({ data }: NodeProps<ChainNodeProps>) => {
             : undefined
         }
         key={JSON.stringify(data)}
+        id={id}
         heading={{
           title: data.title,
+          icon: isUpdateFlow
+            ? '/blockchains/customize/ic-infor.svg'
+            : undefined,
+          iconOnClick: () => {
+            router.push(`/chains/${order?.orderId}/detail`);
+          },
           status: {
             message: statusMessage,
             color: borderColor,

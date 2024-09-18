@@ -23,10 +23,10 @@ const useAutoUpdateNodePosition = () => {
     nodes.forEach((node: AppNode) => {
       const _node = node as unknown as AppNode;
 
-      if (_node.data.node !== 'dapp' || !l2ServiceUserAddress) return;
+      if (_node.data.node != 'template' || !l2ServiceUserAddress) return;
 
       const { data } = _node as DappNode;
-      if (data.dapp.isDefaultDapp || !!!data.positionId) return;
+      if (data.dapp?.isDefaultDapp || !!!data.positionId) return;
 
       promises.push(
         dappApi.updatePosition({

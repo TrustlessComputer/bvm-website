@@ -262,39 +262,41 @@ export function isLocalhost() {
 
 function handleStatusEdgeByBox(status: any) {
   switch (status) {
-    case "draft":
-    case "setting_up":
+    case 'draft':
+    case 'setting_up':
+    case 'Drafting Modules':
     case EAirdropStatus.new:
     case '':
       //draft
       return {
         animate: true,
         icon: '',
-      }
-      // down
-    case "down":
-    case "run_out":
+      };
+    // down
+    case 'down':
+    case 'run_out':
     case EAirdropStatus.ended:
-    case "stopped":
+    case 'stopped':
       return {
         animate: true,
         icon: 'true',
-      }
-      //run
+      };
+    //run
     default:
       return {
         animate: false,
         icon: '',
-      }
+      };
   }
 }
 
-export default function handleStatusEdges(statusDapp: any, status: aa, idNode: string) {
-  if(idNode === 'account-abstraction' || idNode === 'bridge_apps') {
-   return handleStatusEdgeByBox(status)
+export default function handleStatusEdges(statusDapp: any, status: aa | string, idNode: string) {
+  if (idNode === 'account_abstraction' || idNode === 'bridge_apps' || idNode === 'gaming_apps') {
+    console.log('status here', status, idNode);
+    return handleStatusEdgeByBox(status);
   }
 
-  return handleStatusEdgeByBox(statusDapp)
+  return handleStatusEdgeByBox(statusDapp);
 }
 
-type aa = "draft" | "running" | "down" | 'setting_up' | EAirdropStatus
+type aa = 'draft' | 'running' | 'down' | 'setting_up' | EAirdropStatus

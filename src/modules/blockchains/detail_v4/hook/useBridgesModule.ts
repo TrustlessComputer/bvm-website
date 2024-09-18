@@ -25,6 +25,8 @@ export const useBridgesModule = () => {
       const isSettingUp =
         item?.status === 'new' || item?.status === 'processing';
 
+      const isDone = item?.status === 'done';
+
       let label = !isUpdateFlow ? '' : isSettingUp ? 'Setting up' : 'Running';
       let backgroundColor = !isUpdateFlow
         ? 'transparent'
@@ -39,6 +41,7 @@ export const useBridgesModule = () => {
 
       const mapper = {
         ...item,
+        isDone,
         label: label,
         backgroundColor: backgroundColor,
         textColor: textColor,

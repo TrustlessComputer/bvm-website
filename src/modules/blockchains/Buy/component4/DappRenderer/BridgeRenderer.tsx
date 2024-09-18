@@ -15,6 +15,7 @@ import useOverlappingChainLegoStore from '../../stores/useOverlappingChainLegoSt
 import OptionInputValue from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue';
 import styles from './styles.module.scss';
 import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
+import { Link } from '@chakra-ui/react';
 
 const BridgeRenderer = () => {
   const { parsedCategories } = useModelCategoriesStore();
@@ -53,6 +54,16 @@ const BridgeRenderer = () => {
 
             if (!option) return null;
 
+            const itemDetailMapper =
+              detailBridgesMapperStatus[option.key] || {};
+            const {
+              isDone,
+              label: labelDetail,
+              backgroundColor: backgroundColorDetail,
+              textColor: textColorDetail,
+              appURL,
+            } = itemDetailMapper;
+
             return (
               <ChainDraggable
                 right
@@ -83,13 +94,27 @@ const BridgeRenderer = () => {
                     icon={item.confuseIcon}
                     zIndex={item.options.length - opIdx}
                     // TODO: @Tony
-                    status={{
-                      label: detailBridgesMapperStatus[option.key]?.label,
-                      backgroundColor:
-                        detailBridgesMapperStatus[option.key]?.backgroundColor,
-                      textColor:
-                        detailBridgesMapperStatus[option.key]?.textColor,
-                    }}
+                    status={
+                      isDone
+                        ? undefined
+                        : {
+                            label: labelDetail,
+                            backgroundColor: backgroundColorDetail,
+                            textColor: textColorDetail,
+                          }
+                    }
+                    suffixView={
+                      isDone ? (
+                        <Link
+                          href={`${appURL || '--'}`}
+                          target={'_blank'}
+                          cursor={'pointer'}
+                          textDecoration={'underline'}
+                        >
+                          View
+                        </Link>
+                      ) : undefined
+                    }
                   >
                     <Label icon={option.icon} title={option.title} />
                   </LegoV3>

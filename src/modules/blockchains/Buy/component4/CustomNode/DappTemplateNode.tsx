@@ -7,6 +7,7 @@ import AA from '@/modules/blockchains/Buy/dapp/AA';
 import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
 import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { adjustBrightness, DragUtil } from '@/modules/blockchains/Buy/utils';
+import BottomButton from '@/modules/blockchains/dapp/components/BottomButton';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
 import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
@@ -15,7 +16,7 @@ import React, { memo, ReactElement } from 'react';
 import Label from '../../components3/Label';
 import { useCaptureStore } from '../../stores/index_v3';
 import s from './styles.module.scss';
-import BottomButton from '@/modules/blockchains/dapp/components/BottomButton';
+import styles from '@/modules/blockchains/Buy/component4/Node_v2/styles.module.scss';
 
 export enum StatusBox {
   DRAFTING = 'Drafting',
@@ -23,6 +24,8 @@ export enum StatusBox {
   MISSING = 'Missing',
   RUNNING = 'Running',
   DOWN = 'Down',
+  PROCESSING = 'Processing',
+  INSTALLED = 'Installed',
 }
 
 export type DataNode = Node<
@@ -47,6 +50,10 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
   const { isCapture } = useCaptureStore();
   // const { templateDapps } = useTemplateFormStore();
   const { getLabelWithLego } = useDapps();
+
+  if (data.dapp?.key === 'airdrop') {
+    console.log('HEHEHEHEHHEHEHE', data);
+  }
 
   const DappRendering = (): ReactElement => {
     const thisDapp = data.dapp;
@@ -478,56 +485,64 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
   }, [data.dapp]);
 
   function renderTitleStatus(status: StatusBox) {
-    switch (status) {
-      case StatusBox.DOWN:
+    switch (status.toLowerCase()) {
+      case StatusBox.DOWN.toLowerCase():
         return 'Down temporarily';
-      case StatusBox.DRAFTING:
+      case StatusBox.DRAFTING.toLowerCase():
         return 'Drafting modules';
-      case StatusBox.READY:
+      case StatusBox.READY.toLowerCase():
         return 'Ready to launch';
-      case StatusBox.MISSING:
+      case StatusBox.MISSING.toLowerCase():
         return 'Missing fields';
-      case StatusBox.RUNNING:
+      case StatusBox.RUNNING.toLowerCase():
         return 'Running';
+      case StatusBox.PROCESSING.toLowerCase():
+        return 'Processing';
+      case StatusBox.INSTALLED.toLowerCase():
+        return 'Installed';
       default:
         return data.status;
     }
   }
 
   function handleColorStatusNode(status: string) {
-    console.log('status out', status);
-
-    switch (status) {
-      case 'Down temporarily':
-      case 'Run out':
-      case 'Ended':
-      case 'Expired':
+    switch (status.toLowerCase()) {
+      case 'down temporarily':
+      case 'run out':
+      case 'ended':
+      case 'expired':
         return StatusBox.DOWN;
-      case 'Drafting modules':
-      case 'Deposit now':
+      case 'drafting modules':
+      case 'deposit now':
         return StatusBox.DRAFTING;
-      case  'Ready to launch':
+      case 'ready to launch':
         return StatusBox.READY;
-      case 'Missing fields':
+      case 'missing fields':
         return StatusBox.MISSING;
+      case 'processing':
+        return StatusBox.PROCESSING;
       default:
         return StatusBox.RUNNING;
     }
   }
 
   return (
-    <div className={`${s.wrapperBox} ${cn(s[`borderColor_${handleColorStatusNode(data.status)}`])}`}>
-      <div className={`${s.handles} ${s.target}`}>
-        {data.targetHandles?.map((handle) => (
-          <Handle
-            key={handle}
-            id={handle}
-            type="target"
-            position={Position.Left}
-            className={s.handleDot}
-          />
-        ))}
-      </div>
+    <div
+      className={`${s.wrapperBox} ${cn(
+        s[`borderColor_${handleColorStatusNode(data.status)}`],
+      )}`}
+    >
+      {/*<div className={`${s.handles} ${s.target}`}>*/}
+      {/*  {data.targetHandles?.map((handle) => (*/}
+      {/*    <Handle*/}
+      {/*      key={handle}*/}
+      {/*      id={handle}*/}
+      {/*      type="target"*/}
+      {/*      position={Position.Left}*/}
+      {/*      className={s.handleDot}*/}
+      {/*    />*/}
+      {/*  ))}*/}
+      {/*</div>*/}
       <div
         className={`${s.wrapperBox_top} drag-handle-area ${cn(
           s[`borderColor_${handleColorStatusNode(data.status)}`],
@@ -538,19 +553,21 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
             isCapture ? s.label_margin : ''
           }`}
         >
-          {data.label}
+          {data.label}: {data.dapp?.baseBlock.title}
         </p>
         {
           <div className={s.tag}>
             <p
-              className={`${s.titleTag} ${cn(s[`titleTag_${handleColorStatusNode(data.status)}`])} ${
-                isCapture ? s.label_margin : ''
-              }`}
+              className={`${s.titleTag} ${cn(
+                s[`titleTag_${handleColorStatusNode(data.status)}`],
+              )} ${isCapture ? s.label_margin : ''}`}
             >
               {renderTitleStatus(data.status)}
             </p>
             <div
-              className={`${s.tag_dot}  ${cn(s[`tag_${handleColorStatusNode(data.status)}`])}`}
+              className={`${s.tag_dot}  ${cn(
+                s[`tag_${handleColorStatusNode(data.status)}`],
+              )}`}
             ></div>
           </div>
         }
@@ -560,18 +577,54 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
 
         {data.dapp && <DappRendering />}
       </div>
-      <div className={`${s.handles} ${s.sources}`}>
-        {data.sourceHandles?.map((handle, index) => (
-          <Handle
-            key={handle}
-            id={handle}
-            type="source"
-            position={Position.Right}
-            className={s.handleDot}
-            // style={{ top: 50 * (index+1)}}
-          />
-        ))}
-      </div>
+      {/*<div className={`${s.handles} ${s.sources}`}>*/}
+      {/*  {data.sourceHandles?.map((handle, index) => (*/}
+      {/*    <Handle*/}
+      {/*      key={handle}*/}
+      {/*      id={handle}*/}
+      {/*      type="source"*/}
+      {/*      position={Position.Right}*/}
+      {/*      className={s.handleDot}*/}
+      {/*      // style={{ top: 50 * (index+1)}}*/}
+      {/*    />*/}
+      {/*  ))}*/}
+      {/*</div>*/}
+      {data.sourceHandles?.map((handle, index) => (
+        <Handle
+          key={handle}
+          id={handle}
+          type="source"
+          position={Position.Right}
+          className={styles.handleDot}
+        />
+      ))}
+      {data.sourceHandles?.map((handle, index) => (
+        <Handle
+          key={handle}
+          id={handle}
+          type="source"
+          position={Position.Top}
+          className={styles.handleDot}
+        />
+      ))}
+      {data.sourceHandles?.map((handle, index) => (
+        <Handle
+          key={handle}
+          id={handle}
+          type="source"
+          position={Position.Left}
+          className={styles.handleDot}
+        />
+      ))}
+      {data.sourceHandles?.map((handle, index) => (
+        <Handle
+          key={handle}
+          id={handle}
+          type="source"
+          position={Position.Bottom}
+          className={styles.handleDot}
+        />
+      ))}
     </div>
   );
 }

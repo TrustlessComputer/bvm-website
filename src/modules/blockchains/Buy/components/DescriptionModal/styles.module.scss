@@ -4,9 +4,7 @@
   margin: 20px !important;
 }
 
-
 .content {
-
   margin-top: 24px;
   font-family: var(--font-SFProDisplay);
   font-size: 16px;
@@ -14,6 +12,10 @@
   line-height: 22.4px;
   letter-spacing: 0.01em;
   text-align: left;
+
+  ul {
+    padding-left: 1.1em;
+  }
 
   h2 {
     font-family: var(--font-SFProDisplay);
@@ -35,7 +37,7 @@
     margin-bottom: 4px;
   }
 
-  i{
-    color: #FF7E21;
+  i {
+    color: #ff7e21;
   }
 }

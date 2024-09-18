@@ -1,4 +1,5 @@
 export type BalanceBitcoinType =
+  | 'fractal'
   | 'runes'
   | 'brc20'
   | 'src20'
@@ -56,6 +57,12 @@ export interface IBalanceBitcoinInfo {
   transaction_count: string;
   first_transaction_time: string;
   last_transaction_time: string;
+  fractal?: {
+    funded_txo_sum: number;
+    funded_txo_count: number;
+    spent_txo_count: number;
+    tx_count: number;
+  };
 }
 
 export interface IBitcoinTokenTransaction {
@@ -102,6 +109,7 @@ export interface ITxBTC {
   virtual_size: string;
   weight: string;
   token_transfer: ITxBTCTokenTransfer[];
+  chain?: string;
 }
 
 export interface ITxBTCPutDetail {
@@ -128,4 +136,46 @@ export interface ITxBTCTokenTransfer {
   inscription_number: string;
   symbol: string;
   output_index: string;
+}
+
+export interface IFBitcoinTransaction {
+  txid: string;
+  size: number;
+  weight: number;
+  fee: number;
+  vin: IFBTxVin[];
+  vout: IFBTxVout[];
+  status: IFBTxStatus;
+  order: number;
+  vsize: number;
+  adjustedVsize: number;
+  sigops: number;
+  feePerVsize: number;
+  adjustedFeePerVsize: number;
+  effectiveFeePerVsize: number;
+}
+
+export interface IFBTxStatus {
+  confirmed: boolean;
+  block_height: number;
+  block_hash: string;
+  block_time: number;
+}
+
+export interface IFBTxVin {
+  is_coinbase: boolean;
+  prevout: IFBTxVout;
+  scriptsig: string;
+  scriptsig_asm: string;
+  sequence: number;
+  vout: number;
+  txid: string;
+}
+
+export interface IFBTxVout {
+  value: number;
+  scriptpubkey: string;
+  scriptpubkey_address: string;
+  scriptpubkey_asm: string;
+  scriptpubkey_type: string;
 }

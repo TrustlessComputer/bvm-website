@@ -180,3 +180,23 @@
 .label_margin {
   margin-top: -15px;
 }
+
+.view {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 48%;
+  transform: translateY(-48%) translateX(calc(100% + 100px));
+
+  border-radius: 4px;
+  padding: 0 14px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-decoration: underline;
+  color: black;
+
+  &:hover {
+    color: blue;
+  }
+}

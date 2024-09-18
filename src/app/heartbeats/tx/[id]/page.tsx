@@ -1,3 +1,4 @@
+import { CDN_URL } from '@/config';
 import MainLayout from '@/layouts/MainLayout';
 import TxExplorerModule from '@/modules/l2-rollup-detail/TxExplorer';
 import { Metadata } from 'next';
@@ -5,6 +6,8 @@ import { Metadata } from 'next';
 const TITLE = 'Bitcoin Heartbeat | Welcome to the future of Bitcoin.';
 const DESCRIPTION =
   'Provide transparent and verifiable insights into Bitcoin rollups.';
+
+const THUMBNAIL = `${CDN_URL}/pages/bvm-studio/bvm-heartbeat-metadata.png`;
 
 export const metadata: Metadata = {
   applicationName: TITLE,
@@ -22,7 +25,7 @@ export const metadata: Metadata = {
     },
     images: [
       {
-        url: '/heartbeat/metadata.png',
+        url: THUMBNAIL,
         width: 1200,
         height: 630,
         alt: TITLE,
@@ -36,7 +39,7 @@ export const metadata: Metadata = {
       template: '',
     },
     description: DESCRIPTION,
-    images: '/heartbeat/metadata.png',
+    images: THUMBNAIL,
   },
 };
 
