@@ -5,11 +5,21 @@ import { blockLegoResponseToModelCategory } from '../utils/convertApiUtils';
 import Lego from '../../../component4/Lego';
 import useModelCategoriesStore from '../../../stores/useModelCategoriesStore';
 import { useParseMessage } from '../hooks/usePasrMessage';
-import { IModelCategory } from '@/types/customize-model';
+import { DappModel, IModelCategory } from '@/types/customize-model';
+import { chainKeyToDappKey } from '../../../utils';
+import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
+import useDappsStore from '../../../stores/useDappStore';
+import useNodeHelper from '../../../hooks/useNodeHelper';
+import useTemplate from '../../../hooks/useTemplate';
 
 export default function MessageStream({ message }: { message: string }) {
   const { categories } = useModelCategoriesStore();
+  const { setChatBoxStatus } = useChatBoxState((state) => state);
+  const { dapps } = useDappsStore();
+  const { addDappToNode } = useNodeHelper();
+  const { setTemplate } = useTemplate();
 
+  const [isApplied, setIsApplied] = React.useState(false);
   const [generationStatus, setGenerationStatus] = React.useState({
     isGenerating: true,
     isGenerated: false,
@@ -20,9 +30,29 @@ export default function MessageStream({ message }: { message: string }) {
     afterJsonBlock: '',
   });
 
-  console.log('[MessageStream] message', {
-    generationStatus,
-  });
+  const handleApply = () => {
+    setChatBoxStatus({
+      status: ChatBoxStatus.Close,
+      isGenerating: false,
+      isComplete: false,
+      isListening: false,
+    });
+    setTemplate(generationStatus.template);
+    setIsApplied(true);
+
+    generationStatus.template.forEach((template) => {
+      template.options.forEach((option) => {
+        const dappKey = chainKeyToDappKey(option.key);
+        const dappIndex = dapps.findIndex((dA) => dA.key === dappKey);
+
+        console.log('[SocketProvider] dappIndex', { dappIndex, dappKey });
+
+        if (dappIndex !== -1 && !dapps[dappIndex].isDefaultDapp) {
+          addDappToNode(dappIndex);
+        }
+      });
+    });
+  };
 
   const trackMessageChange = () => {
     const messageHaveJson = message.includes('```json');
@@ -69,31 +99,43 @@ export default function MessageStream({ message }: { message: string }) {
       {generationStatus.beforeJsonBlock}
 
       {generationStatus.isGeneratingJson &&
-        !generationStatus.isGeneratedJson && <div>...</div>}
+      !generationStatus.isGeneratedJson ? (
+        <div>...</div>
+      ) : null}
 
-      <div className={styles.categories}>
-        {generationStatus.isGeneratedJson &&
-          generationStatus.template.map((item) => (
-            <div key={item.id} className={styles.category}>
-              <h6 className={styles.categoryTitle}>Generated {item.title}</h6>
+      {generationStatus.isGeneratedJson &&
+      generationStatus.template.length > 0 ? (
+        <>
+          <div className={styles.categories}>
+            {generationStatus.template.map((item) => (
+              <div key={item.id} className={styles.category}>
+                <h6 className={styles.categoryTitle}>Generated {item.title}</h6>
 
-              <div className={styles.categoryOptions}>
-                {item.options.map((option) => (
-                  <Lego
-                    {...option}
-                    background={item.color}
-                    key={option.key}
-                    titleInLeft
-                    titleInRight={false}
-                    first={false}
-                    last={false}
-                    legoAI
-                  />
-                ))}
+                <div className={styles.categoryOptions}>
+                  {item.options.map((option) => (
+                    <Lego
+                      {...option}
+                      background={item.color}
+                      key={option.key}
+                      titleInLeft
+                      titleInRight={false}
+                      first={false}
+                      last={false}
+                      legoAI
+                    />
+                  ))}
+                </div>
               </div>
+            ))}
+          </div>
+
+          {!isApplied && (
+            <div className={styles.applyBtn} onClick={() => handleApply()}>
+              Apply
             </div>
-          ))}
-      </div>
+          )}
+        </>
+      ) : null}
 
       {generationStatus.afterJsonBlock}
     </div>

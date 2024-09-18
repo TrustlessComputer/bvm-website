@@ -556,15 +556,15 @@ export default function useFetchingTemplate() {
     if (isUpdateFlow && order) {
       setTemplate(order.selectedOptions || []);
     } else {
-      const template = searchParams.get('template');
+      // const template = searchParams.get('template');
 
-      console.log('template', template, templateDefault);
+      // console.log('template', template, templateDefault);
 
-      if (template || !ENABLE_CHATBOX) {
-        setTemplate(templateDefault || []);
-      } else if (ENABLE_CHATBOX) {
-        setTemplate([]);
-      }
+      // if (template || !ENABLE_CHATBOX) {
+      setTemplate(templateDefault || []);
+      // } else if (ENABLE_CHATBOX) {
+      //   setTemplate([]);
+      // }
     }
 
     setNeedSetPreTemplate(false);

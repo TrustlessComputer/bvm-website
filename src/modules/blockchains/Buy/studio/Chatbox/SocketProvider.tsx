@@ -134,6 +134,8 @@ export default function SocketProvider({
         (data: any) => {
           console.log('[SocketProvider] GROUP_STREAM_AI_REPLY_END', data);
 
+          refMessageRender.current = '';
+
           setChatBoxStatus({
             status: ChatBoxStatus.Close,
             isGenerating: false,
@@ -156,12 +158,14 @@ export default function SocketProvider({
 
   const disconnectSocket = () => {
     console.log('[SocketProvider] disconnectSocket');
+    refMessageRender.current = '';
     socketRef.current?.removeAllListeners();
     socketRef.current?.disconnect();
   };
 
   useEffect(() => {
     if (isGenerating) {
+      refMessageRender.current = '';
       connectToSocket();
     } else {
       disconnectSocket();
