@@ -12,13 +12,20 @@ import useDappsStore from '../../../stores/useDappStore';
 import useNodeHelper from '../../../hooks/useNodeHelper';
 import useTemplate from '../../../hooks/useTemplate';
 
-export default function MessageStream({ message }: { message: string }) {
+function MessageStream({ message }: { message: string }) {
   const { categories } = useModelCategoriesStore();
   const { setChatBoxStatus } = useChatBoxState((state) => state);
   const { dapps } = useDappsStore();
   const { addDappToNode } = useNodeHelper();
   const { setTemplate } = useTemplate();
 
+  const [dappIndexesNeedToAdd, setDappIndexesNeedToAdd] = React.useState<
+    {
+      dappIndex: number;
+      x: number;
+      y: number;
+    }[]
+  >([]);
   const [isApplied, setIsApplied] = React.useState(false);
   const [generationStatus, setGenerationStatus] = React.useState({
     isGenerating: true,
@@ -31,6 +38,25 @@ export default function MessageStream({ message }: { message: string }) {
   });
 
   const handleApply = () => {
+    let count = 0;
+    const _dappIndexesNeedToAdd: typeof dappIndexesNeedToAdd = [];
+    generationStatus.template.forEach((template) => {
+      template.options.forEach((option) => {
+        const dappKey = chainKeyToDappKey(option.key);
+        const dappIndex = dapps.findIndex((dA) => dA.key === dappKey);
+
+        if (dappIndex !== -1 && !dapps[dappIndex].isDefaultDapp) {
+          _dappIndexesNeedToAdd.push({
+            dappIndex,
+            x: 600 * (count + 1),
+            y: 30,
+          });
+          count++;
+        }
+      });
+    });
+
+    setDappIndexesNeedToAdd(_dappIndexesNeedToAdd);
     setChatBoxStatus({
       status: ChatBoxStatus.Close,
       isGenerating: false,
@@ -39,19 +65,6 @@ export default function MessageStream({ message }: { message: string }) {
     });
     setTemplate(generationStatus.template);
     setIsApplied(true);
-
-    generationStatus.template.forEach((template) => {
-      template.options.forEach((option) => {
-        const dappKey = chainKeyToDappKey(option.key);
-        const dappIndex = dapps.findIndex((dA) => dA.key === dappKey);
-
-        console.log('[SocketProvider] dappIndex', { dappIndex, dappKey });
-
-        if (dappIndex !== -1 && !dapps[dappIndex].isDefaultDapp) {
-          addDappToNode(dappIndex);
-        }
-      });
-    });
   };
 
   const trackMessageChange = () => {
@@ -89,6 +102,17 @@ export default function MessageStream({ message }: { message: string }) {
       });
     }
   };
+
+  React.useEffect(() => {
+    if (dappIndexesNeedToAdd.length > 0) {
+      addDappToNode(dappIndexesNeedToAdd[0].dappIndex, {
+        x: dappIndexesNeedToAdd[0].x,
+        y: dappIndexesNeedToAdd[0].y,
+      });
+
+      setDappIndexesNeedToAdd(dappIndexesNeedToAdd.slice(1));
+    }
+  }, [dappIndexesNeedToAdd, addDappToNode]);
 
   React.useEffect(() => {
     trackMessageChange();
@@ -141,3 +165,5 @@ export default function MessageStream({ message }: { message: string }) {
     </div>
   );
 }
+
+export default React.memo(MessageStream);

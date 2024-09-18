@@ -34,15 +34,8 @@ export default function SocketProvider({
   const socketRef = useRef<ReturnType<typeof io> | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const { getVoiceChatAiSessionId } = useVoiceChatSession();
-  const {
-    setChatBoxStatus,
-    setMessages,
-    messages,
-    isGenerating,
-    isComplete,
-    isListening,
-    status,
-  } = useChatBoxState();
+  const { setChatBoxStatus, setMessages, messages, isGenerating } =
+    useChatBoxState();
   const { focusChatBox } = useFocusChatBox();
   const refMessageRender = useRef<string>('');
 

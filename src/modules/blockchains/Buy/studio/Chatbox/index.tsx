@@ -59,12 +59,6 @@ export default function Chatbox() {
                   className={`${styles.message} ${styles[message.sender]}`}
                 >
                   {message.sender === 'bot' ? (
-                    // <Message
-                    //   beforeJSON={useParseMessage(message.beforeJSON)[0]}
-                    //   afterJSON={useParseMessage(message.afterJSON)[2]}
-                    //   template={message.template}
-                    //   onUpdateScroll={focusChatBox}
-                    // />
                     <MessageStream message={message.beforeJSON} />
                   ) : (
                     message.text
