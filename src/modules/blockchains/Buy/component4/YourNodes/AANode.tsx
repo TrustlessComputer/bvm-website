@@ -157,8 +157,8 @@ const AANode = ({ data, id }: NodeProps<DappNodeProps>) => {
 
   const renderContentBox = () => {
     if (isCreateChainFlow) {
-      // return renderDefaultContentBox();
-      return undefined;
+      return renderDefaultContentBox();
+      // return undefined;
     } else if (isEmptyIssueTokenList) {
       return (
         <Flex justify={'center'} align={'center'}>
