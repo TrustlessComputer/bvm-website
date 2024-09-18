@@ -1,7 +1,6 @@
 import MagicIcon from '@/components/MagicIcon';
 import { useRef } from 'react';
 import ButtonClose from './Actions/ButtonClsoe';
-import ButtonStop from './Actions/ButtonStop';
 import useChatBoxState from './chatbox-store';
 import useChatBoxService from './hooks/useChatBoxService';
 import MessageStream from './MessageStream';
@@ -68,9 +67,12 @@ export default function Chatbox() {
             </div>
             <div className={styles.status}>
               <div className={styles.statusInner}>{isIdle ? '' : status}</div>
+
+              {/* 
+               //todo: wait for the BE have event stop socket
               <div className={styles.statusButtons}>
                 {isGenerating && <ButtonStop />}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

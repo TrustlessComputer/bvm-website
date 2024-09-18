@@ -103,12 +103,13 @@ export default function ButtonVoice({
         } else if (isListening) {
           stopVoiceInput();
         } else if (isGenerating) {
-          setChatBoxStatus({
-            status: ChatBoxStatus.Close,
-            isGenerating: false,
-            isComplete: false,
-            isListening: false,
-          });
+          //todo: wait for the BE have event stop socket
+          // setChatBoxStatus({
+          //   status: ChatBoxStatus.Close,
+          //   isGenerating: false,
+          //   isComplete: false,
+          //   isListening: false,
+          // });
         }
       } else if (event.ctrlKey && event.shiftKey && event.key === 'V') {
         !isGenerating && handleVoiceInput();
