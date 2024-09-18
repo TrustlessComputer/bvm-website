@@ -1,4 +1,6 @@
 import { ReactElement } from 'react';
+import ButtonSubmit from '../Actions/ButtonSubmit';
+import ButtonVoice from '../Actions/ButtonVoice';
 import useChatBoxState from '../chatbox-store';
 import LabelListening from '../LabelListening';
 import styles from './styles.module.scss';
@@ -6,10 +8,11 @@ import styles from './styles.module.scss';
 export default function TextInput({
   handleSendMessage,
 }: {
-  handleSendMessage: any;
+  handleSendMessage: (message: string) => void;
 }): ReactElement {
   const { inputMessage, isListening, isGenerating, setInputMessage } =
     useChatBoxState((state) => state);
+
   return (
     <div className={styles.input}>
       <h3 className={styles.input_heading}>Prompt</h3>
@@ -17,26 +20,23 @@ export default function TextInput({
         <textarea
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
-          onKeyPress={(e) => {
+          onKeyDown={(e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
               e.preventDefault();
-              handleSendMessage();
+              handleSendMessage(inputMessage);
             }
           }}
           className={styles.inputField}
           disabled={isListening || isGenerating}
         />
-        {isListening && <LabelListening />}
+
         {!isListening && inputMessage === '' && (
-          <div className={styles.inputOverlay}>
-            Type your instructions or Press <strong>Control + Shift + V</strong>{' '}
-            to voice prompt
-          </div>
+          <div className={styles.inputOverlay}>Type your prompt</div>
         )}
+        {isListening && <LabelListening />}
         <div className={styles.buttonWrapper}>
-          <button onClick={handleSendMessage} className={styles.sendButton}>
-            Submit
-          </button>
+          <ButtonVoice handleSendMessage={handleSendMessage} />
+          <ButtonSubmit handleSendMessage={handleSendMessage} />
         </div>
       </div>
     </div>

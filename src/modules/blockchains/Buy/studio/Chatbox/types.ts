@@ -21,6 +21,14 @@ export type SendPromptBodyRequest = {
   current_state: PromptCategory[];
 };
 
+export type SendPromptBodyRequestV2 = {
+  session_id: string;
+  command: string;
+  stream?: boolean;
+  user_session?: string;
+  current_state: PromptCategory[];
+};
+
 export enum CategoryAction {
   UNKNOWN = 'unknown',
   ADD = 'add',
@@ -37,5 +45,12 @@ export type SendPromptResponse = {
       category: PromptCategory;
     }[];
     is_clear: boolean;
+  };
+};
+
+export type SendPromptResponseV2 = {
+  status: number;
+  data: {
+    content: string;
   };
 };

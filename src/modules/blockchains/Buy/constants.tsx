@@ -10,4 +10,4 @@ export const TABS_MAP = {
   [TABS.TEMPLATE]: 'Template',
 };
 
-export const ENABLE_CHATBOX = false;
+export const ENABLE_CHATBOX = true;

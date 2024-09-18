@@ -1,12 +1,35 @@
 import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
+import {
+  draggedDappIndexesSignal,
+  draggedIds2DSignal,
+} from '@/modules/blockchains/Buy/signals/useDragSignal';
+import useDappsStore from '@/modules/blockchains/Buy/stores/useDappStore';
+import { chainKeyToDappKey } from '@/modules/blockchains/Buy/utils';
 import useChatBoxState, { ChatBoxStatus } from '../../chatbox-store';
 import styles from './styles.module.scss';
 
 const ButtonApply = () => {
+  const { dapps } = useDappsStore();
   const { setTemplate } = useTemplate();
   const { prepareCategoryTemplate, setChatBoxStatus } = useChatBoxState();
 
   const handleApply = () => {
+    const optionBelongToDapp = prepareCategoryTemplate.find((template) => {
+      if (template.isChain) return undefined;
+
+      return template.options.find((option) => {
+        const dappKey = chainKeyToDappKey(option.key);
+        const dapp = dapps.find((dA) => dA.key === dappKey);
+
+        return dapp && !dapp.isDefaultDapp;
+      });
+    });
+
+    console.log('[ButtonApply] handleApply', {
+      optionBelongToDapp,
+      prepareCategoryTemplate,
+    });
+
     setChatBoxStatus({
       status: ChatBoxStatus.Close,
       isGenerating: false,
@@ -14,6 +37,17 @@ const ButtonApply = () => {
       isListening: false,
     });
     setTemplate(prepareCategoryTemplate);
+
+    if (optionBelongToDapp) {
+      const dappIndex = dapps.findIndex(
+        (dapp) => dapp.key === optionBelongToDapp.key,
+      );
+      draggedDappIndexesSignal.value = [
+        ...draggedDappIndexesSignal.value,
+        dappIndex,
+      ];
+      draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
+    }
   };
 
   return (

@@ -1,3 +1,5 @@
+import { on } from 'events';
+import { limit } from 'react-laag/dist/util';
 import { CategoryAction, SendPromptResponse } from '../types';
 
 export const mockupPromptResponses: SendPromptResponse[] = [
@@ -129,4 +131,8 @@ export const mockupPromptResponses: SendPromptResponse[] = [
       ],
     },
   },
+];
+
+export const mockupPromptResponsesV2: string[] = [
+  'To improve the performance of your blockchain, you might want to consider upgrading your hardware configuration for better RAM and CPU capabilities. Additionally, implementing scaling solutions, particularly focusing on more advanced rollup technologies, can significantly enhance transaction throughput and efficiency. \n\nHere’s a recommendation for you based on these factors:\n\n```json{"network": ["mainnet"], "hardware": ["32g"], "layers": ["layer2"], "block_gas_limit": ["2m"], "storage": ["polygon"], "withdrawal_time": ["withdrawal_time_3"], "bridge_apps": ["btc_bridge", "eth_bridge"], "tools": ["explorer"], "settlement": ["bitcoin"]}```\n\nThis configuration includes an upgrade to 32 GB of RAM, adjustments to the scaling solution, and an increase in the block gas limit to facilitate higher throughput. Please let me know if you would like any other specific adjustments or have further questions!',
 ];

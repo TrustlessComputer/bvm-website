@@ -1,3 +1,4 @@
+import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
 import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useFlowStore, {
   AppState,

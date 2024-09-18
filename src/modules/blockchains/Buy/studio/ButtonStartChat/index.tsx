@@ -1,14 +1,26 @@
 import MagicIcon from '@/components/MagicIcon';
 import { gsap } from 'gsap';
+import { useSearchParams } from 'next/navigation';
 import { ReactElement, useEffect, useRef } from 'react';
 import Chatbox from '../Chatbox';
 import useChatBoxState from '../Chatbox/chatbox-store';
+import SocketProvider from '../Chatbox/SocketProvider';
 import styles from './styles.module.scss';
-import { ENABLE_CHATBOX } from '../../constants';
 
 export default function ButtonStartChat(): ReactElement {
   const { isChatboxOpen, setIsChatboxOpen } = useChatBoxState((state) => state);
   const chatboxRef = useRef<HTMLDivElement>(null);
+
+  const params = useSearchParams();
+  const chatAIParams = params.get('chat-ai') || undefined;
+  const ENTER_CHATBOX =
+    localStorage.getItem('chat-ai') === '1' || chatAIParams === '1';
+
+  useEffect(() => {
+    if (chatAIParams !== undefined) {
+      localStorage.setItem('chat-ai', chatAIParams.toString());
+    }
+  }, [chatAIParams]);
 
   useEffect(() => {
     if (chatboxRef.current) {
@@ -28,10 +40,10 @@ export default function ButtonStartChat(): ReactElement {
     }
   }, [isChatboxOpen]);
 
-  if (!ENABLE_CHATBOX) return <></>;
+  if (!ENTER_CHATBOX) return <></>;
 
   return (
-    <>
+    <SocketProvider>
       <button className={styles.button} onClick={() => setIsChatboxOpen(true)}>
         Ai voice prompt <MagicIcon color="white" />
       </button>
@@ -47,6 +59,6 @@ export default function ButtonStartChat(): ReactElement {
       >
         <Chatbox />
       </div>
-    </>
+    </SocketProvider>
   );
 }
