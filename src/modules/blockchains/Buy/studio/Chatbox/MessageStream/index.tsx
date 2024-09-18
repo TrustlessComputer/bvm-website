@@ -11,6 +11,7 @@ import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
 import useDappsStore from '../../../stores/useDappStore';
 import useNodeHelper from '../../../hooks/useNodeHelper';
 import useTemplate from '../../../hooks/useTemplate';
+import DotPulse from '@/components/DotPulse';
 
 function MessageStream({ message }: { message: string }) {
   const { categories } = useModelCategoriesStore();
@@ -124,7 +125,7 @@ function MessageStream({ message }: { message: string }) {
 
       {generationStatus.isGeneratingJson &&
       !generationStatus.isGeneratedJson ? (
-        <div>...</div>
+        <DotPulse />
       ) : null}
 
       {generationStatus.isGeneratedJson &&
