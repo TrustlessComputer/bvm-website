@@ -297,8 +297,8 @@ export default function useHandleDragging() {
             index,
           );
         }
-        console.log('nodessssss', nodes[ index + 1 + totalTemplateDapps]);
-        setRemovedNode(nodes[ index + 1 + totalTemplateDapps])
+        console.log('nodessssss', nodes[index + 1 + totalTemplateDapps]);
+        setRemovedNode(nodes[index + 1 + totalTemplateDapps]);
         setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
       }
 
@@ -315,8 +315,8 @@ export default function useHandleDragging() {
             index,
           );
         }
-        console.log('nodessssss1', nodes[ index + 1 + totalTemplateDapps]);
-        setRemovedNode(nodes[ index + 1 + totalTemplateDapps])
+        console.log('nodessssss1', nodes[index + 1 + totalTemplateDapps]);
+        setRemovedNode(nodes[index + 1 + totalTemplateDapps]);
         setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
       }
 
@@ -408,8 +408,8 @@ export default function useHandleDragging() {
               draggedIds2DSignal.value,
               index,
             );
-            console.log('nodessssss2', nodes[ index + 1 + totalTemplateDapps]);
-            setRemovedNode(nodes[ index + 1 + totalTemplateDapps])
+            console.log('nodessssss2', nodes[index + 1 + totalTemplateDapps]);
+            setRemovedNode(nodes[index + 1 + totalTemplateDapps]);
             setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
           }
         }
@@ -426,8 +426,8 @@ export default function useHandleDragging() {
               draggedIds2DSignal.value,
               index,
             );
-            console.log('nodessssss3', nodes[ index + 1 + totalTemplateDapps]);
-            setRemovedNode(nodes[ index + 1 + totalTemplateDapps])
+            console.log('nodessssss3', nodes[index + 1 + totalTemplateDapps]);
+            setRemovedNode(nodes[index + 1 + totalTemplateDapps]);
             setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
           }
         }
@@ -466,10 +466,10 @@ export default function useHandleDragging() {
     //   thisDapp.baseBlock.placableAmount === -1;
     // const canPlaceMoreBase = draggedIds2D.length === 0;
 
-    const overIsInput = over.id === 'input';
+    const overIsInput =
+      over.id === 'input' || (over.id.split('-')[1] || '') === 'droppable';
     const overIsOutput =
-      over.id === 'output' ||
-      over.id.split('-').some((key: string) => key === 'droppable');
+      over.id === 'output' || (over.id.split('-')[2] || '') === 'droppable';
     const overIsABase = DragUtil.idDraggingIsABase(overId);
     const overBaseIndex = Number(DragUtil.getBaseIndex(overId));
     const overIsABlock = DragUtil.idDraggingIsABlock(overId);
@@ -491,6 +491,28 @@ export default function useHandleDragging() {
     const activeIsABlock = DragUtil.idDraggingIsABlock(activeId);
     const activeIsASingle = DragUtil.idDraggingIsASingle(activeId);
     const activeIsABaseModule = DragUtil.idDraggingIsABaseModule(activeId);
+
+    console.log('[useHandleDragging] handleDappDragEnd', {
+      overIsInput,
+      overIsOutput,
+      overIsABase,
+      overBaseIndex,
+      overIsABlock,
+      overIndex,
+      overOriginalKey,
+      activeFromRightSide,
+      activeFromLeftSide,
+      activeIsAChildOfABlock,
+      activeIsRightSide,
+      activeBaseIndex,
+      activeIndex,
+      activeOriginalKey,
+      activeFieldKey,
+      activeIsABase,
+      activeIsAModule,
+      activeIsABlock,
+      activeIsASingle,
+    });
 
     // Case 0.1: Drag to the block parent
     if (activeFromLeftSide && activeIsAChildOfABlock && overIsABlock) {
@@ -1132,7 +1154,7 @@ export default function useHandleDragging() {
         });
         const rootNode = 'blockchain';
         console.log('nodessssss', nodes[removeIndex]);
-        setRemovedNode(nodes[removeIndex])
+        setRemovedNode(nodes[removeIndex]);
 
         let newNodes = removeItemAtIndex(nodes, removeIndex);
         let getHandleNodeBlockChain = nodes.find(
