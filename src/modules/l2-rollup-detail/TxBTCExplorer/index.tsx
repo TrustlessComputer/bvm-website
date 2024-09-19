@@ -38,7 +38,9 @@ import { isMobile } from 'react-device-detect';
 import { formatTimeAgo } from '@/utils/time';
 
 const TxBTCExplorer = () => {
-  const { address, isBTCTxAddress } = useContext(L2RollupExplorerContext);
+  const { address, isBTCTxAddress, fbBlockCount } = useContext(
+    L2RollupExplorerContext,
+  );
   const [isFBTxAddress, setIsFBTxAddress] = useState(false);
 
   const [loading, setLoading] = useState(true);
@@ -114,7 +116,14 @@ const TxBTCExplorer = () => {
     }
     return (
       <Tag className={s.tagConfirm}>
-        {formatCurrency(txBTC?.confirm, 0, 2)} confirmation
+        {formatCurrency(
+          isFBTxAddress
+            ? fbBlockCount - Number(txBTC?.height || '0')
+            : txBTC?.confirm,
+          0,
+          2,
+        )}{' '}
+        confirmation
         {labelAmountOrNumberAdds(txBTC?.confirm || 0)}
       </Tag>
     );
@@ -209,8 +218,8 @@ const TxBTCExplorer = () => {
                     : txBTC.txfee
                 }
                 isSats={true}
+                symbol={txBTC.transaction_symbol}
               />
-              <Text as={'span'}>{txBTC.transaction_symbol}</Text>
               <Text color={'green'}>
                 $
                 {formatCurrency(
@@ -244,7 +253,7 @@ const TxBTCExplorer = () => {
           </Flex>
           <Flex className={cs(s.rowItem)}>
             <Text>Fee rate</Text>
-            <Text display={'flex'} alignItems={'center'} gap={'12px'}>
+            <Text>
               <TextNumberTooSmallDecimal
                 value={new BigNumber(txBTC.txfee)
                   .dividedBy(txBTC.virtual_size || 1)
@@ -252,7 +261,7 @@ const TxBTCExplorer = () => {
                 isSats={true}
                 hideSymbol={true}
               />
-              <Text as="span">sats/vB</Text>
+              <Text as="span"> sat/vB</Text>
             </Text>
           </Flex>
           <Flex className={cs(s.rowItem, s.rowItemBold)}>
@@ -281,8 +290,8 @@ const TxBTCExplorer = () => {
                 ),
                 2,
                 6,
-              )}{' '}
-              <Text as={'span'}>{txBTC.transaction_symbol} |</Text>{' '}
+              )}
+              <Text as="span"> {txBTC.transaction_symbol}</Text> |{' '}
               {formatCurrency(
                 txBTC.output_details.reduce(
                   (p, c) =>
@@ -296,8 +305,8 @@ const TxBTCExplorer = () => {
                 ),
                 2,
                 6,
-              )}{' '}
-              <Text as={'span'}>{txBTC.transaction_symbol}</Text>
+              )}
+              <Text as="span"> {txBTC.transaction_symbol}</Text>
             </Text>
           </Flex>
         </SimpleGrid>

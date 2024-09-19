@@ -79,7 +79,7 @@ const AddressesEngagement = () => {
       return {
         type: 'stackedColumn',
         name: c.name,
-        showInLegend: false,
+        showInLegend: true,
         yValueFormatString: '#,###',
         dataPoints: reCharts.map((v) => ({
           label: dayjs.unix(v.timestamp).format('DD MMM, YY'),
@@ -95,7 +95,7 @@ const AddressesEngagement = () => {
       return {
         type: 'stackedColumn100',
         name: c.name,
-        showInLegend: false,
+        showInLegend: true,
         dataPoints: reCharts.map((v) => ({
           label: dayjs.unix(v.timestamp).format('DD MMM, YY'),
           y: Number(
@@ -115,10 +115,10 @@ const AddressesEngagement = () => {
 
   return (
     <>
-      <Text className={s.title}>Layer 2 Weekly Engagement</Text>
+      <Text className={s.title}>Layer 2 Daily Engagement</Text>
       <Text className={s.desc}>
         Number of distinct addresses interacting with one or multiple Layer 2s
-        in a given week.
+        in a given day.
       </Text>
       <Box className={s.chartWrapper}>
         <Tabs isLazy={true} lazyBehavior="keepMounted" defaultIndex={0}>

@@ -4,14 +4,9 @@ import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { useParams, usePathname } from 'next/navigation';
-import {
-  accountAbstractionAsADapp,
-  bridgesAsADapp,
-  dappMockupData,
-  gamingAppsAsADapp,
-} from '../mockup_3';
+import { accountAbstractionAsADapp, bridgesAsADapp, dappMockupData, gamingAppsAsADapp } from '../mockup_3';
 import useDappsStore from '../stores/useDappStore';
-import { cloneDeep, preDataAirdropTask, preDataYoloGame } from '../utils';
+import { cloneDeep, preDataAirdropTask, preDataWhitePaper, preDataYoloGame } from '../utils';
 import { DappType } from '@/modules/blockchains/dapp/types';
 import { orderBy } from 'lodash';
 
@@ -97,6 +92,7 @@ const useOnlyFetchDapp = () => {
     let sortedDapps = _dapps.sort((a, b) => a.order - b.order);
     sortedDapps = preDataAirdropTask(sortedDapps, tokens, airdropTasks);
     sortedDapps = preDataYoloGame(sortedDapps, tokensAll);
+    sortedDapps = preDataWhitePaper(sortedDapps, tokens);
     setDapps(sortedDapps);
     console.log('[useOnlyFetchDapp] dapps', sortedDapps);
     // setDapps(preDataYoloGame(sortedDapps, tokensAll));

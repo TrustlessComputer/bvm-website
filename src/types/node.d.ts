@@ -5,6 +5,8 @@ import { DappModel, IModelOption } from './customize-model';
 
 type NodeHeadingProps = {
   title: string;
+  icon?: string;
+  iconOnClick?: () => void;
   status?: {
     message: string;
     color?: string;
@@ -49,10 +51,12 @@ type NodeViewAndAction = {
 type NodeOverlayProps = NodeOnlyViewProps | NodeViewAndAction;
 
 type NodeProps = {
+  id: string;
   dapp?: DappModel;
   heading: NodeHeadingProps;
   content: NodeContentProps;
   notification?: NodeNotificationProps;
+  customNotification?: React.ReactNode;
   overlay?: NodeOverlayProps;
   mainContentStyles?: React.CSSProperties;
   borderColor?: string;

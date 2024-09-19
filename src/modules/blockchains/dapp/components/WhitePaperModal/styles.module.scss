@@ -1,0 +1,68 @@
+.modalContent {
+  background-color: #fff !important;
+  font-family: var(--font-dmsans);
+  //max-width: 600px !important;
+  margin: 20px !important;
+  max-height: 100dvh;
+  overflow-y: auto;
+
+  .whitePaperContent {
+    background: white;
+    color: black;
+    padding: 40px 80px;
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      white-space: pre-wrap;
+    }
+
+    h2 {
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    h4 {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    h5 {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    p {
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    ul {
+      padding-inline-start: 40px;
+    }
+    ol {
+      padding-inline-start: 40px;
+    }
+
+    a {
+      color: #0d87ff;
+      text-decoration: underline;
+    }
+  }
+
+  :global {
+    .chakra-modal__body {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+.headerClassName {
+
+}

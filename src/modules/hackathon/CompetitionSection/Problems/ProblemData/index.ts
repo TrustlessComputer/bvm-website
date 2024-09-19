@@ -1,29 +1,19 @@
-import { PROBLEM_A_TIMES_B_PLUS_C } from './1_21_ATimesBPlusC';
-import { PROBLEM_REPEAT_MODULO_MARKDOWN } from './2_22_RepeatModulo';
-import { PROBLEM_PRODUCT_K_INTEGER_MARKDOWN } from './3_23_ProductKInteger';
-import { PROBLEM_GRID_POWER_MARKDOWN } from './4_24_GridPower';
-import { PROBLEM_TEAM_SPLITTING_MARKDOWN } from './5_26_TeamSplitting';
+import { PROBLEM_DISTINCT_QUERY_MARKDOWN } from "./3_25_DistinctQuery";
+import { PROBLEM_STRING_SIMILARITY_MARKDOWN } from "./1_27_StringSimilarity";
+import { PROBLEM_FAVORITE_NUMBERS_MARKDOWN } from "./2_28_FavoriteNumbers";
 
 export const PROBLEM_DATASOURCE = [
   {
-    id: '21',
-    content: PROBLEM_A_TIMES_B_PLUS_C,
+    id: '27',
+    content: PROBLEM_STRING_SIMILARITY_MARKDOWN,
   },
   {
-    id: '22',
-    content: PROBLEM_REPEAT_MODULO_MARKDOWN,
+    id: '28',
+    content: PROBLEM_FAVORITE_NUMBERS_MARKDOWN,
   },
   {
-    id: '23',
-    content: PROBLEM_PRODUCT_K_INTEGER_MARKDOWN,
-  },
-  {
-    id: '24',
-    content: PROBLEM_GRID_POWER_MARKDOWN,
-  },
-  {
-    id: '26',
-    content: PROBLEM_TEAM_SPLITTING_MARKDOWN,
+    id: '25',
+    content: PROBLEM_DISTINCT_QUERY_MARKDOWN,
   },
 ];
 

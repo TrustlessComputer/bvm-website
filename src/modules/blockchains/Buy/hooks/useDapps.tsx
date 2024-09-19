@@ -10,9 +10,11 @@ import Lego from '../component4/Lego';
 import useDappsStore from '../stores/useDappStore';
 import { FieldOption } from '../types';
 import { adjustBrightness } from '../utils';
+import Button from '@/modules/blockchains/Buy/component4/Button';
 
 const useDapps = () => {
   const { dapps } = useDappsStore();
+  // const dappState = useAppSelector(dappSelector);
 
   const blockFieldMapping = React.useMemo(() => {
     return dapps.map((dapp) => {
@@ -69,6 +71,16 @@ const useDapps = () => {
       return mapping;
     });
   }, [dapps]);
+
+  const handleFieldClick = (dapp: DappModel, field: any) => {
+    console.log('thisDapp, field', dapp, field);
+    switch (dapp?.key) {
+      case 'white_paper': {
+        return;
+      }
+    }
+  };
+
 
   const getInputWithLego = React.useCallback(
     (
@@ -170,6 +182,29 @@ const useDapps = () => {
               dappKey={thisDapp.key}
               placeholder={field.placeholder}
             />
+          </Lego>
+        );
+      } else if (field.type === 'button') {
+        return (
+          <Lego
+            first={false}
+            last={false}
+            titleInLeft={false}
+            titleInRight={false}
+            zIndex={_zIndex}
+            {...field}
+            key={fieldKey}
+          >
+            <Button
+              onClick={() => handleFieldClick(thisDapp, field)}
+              {...field}
+              {...fieldOpt}
+              dappKey={thisDapp.key}
+              name={fieldKey}
+              key={fieldKey}
+              variant={"outline"}
+              icon={false}
+            >{field.title}</Button>
           </Lego>
         );
       }
@@ -368,6 +403,29 @@ const useDapps = () => {
             zIndex={_zIndex}
           >
             <LabelCopy value={field.value as string} />
+          </Lego>
+        );
+      } else if (field.type === 'button') {
+        return (
+          <Lego
+            first={false}
+            last={false}
+            titleInLeft={false}
+            titleInRight={false}
+            zIndex={_zIndex}
+            {...field}
+            key={fieldKey}
+          >
+            <Button
+              onClick={() => handleFieldClick(thisDapp, field)}
+              {...field}
+              {...fieldOpt}
+              dappKey={thisDapp.key}
+              name={fieldKey}
+              key={fieldKey}
+              variant={"outline"}
+              icon={false}
+            >{field.title}</Button>
           </Lego>
         );
       }

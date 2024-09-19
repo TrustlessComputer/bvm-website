@@ -63,7 +63,7 @@ export const parseIssuedToken = (token: IToken) => {
     },
     {
       key: 'contract_address',
-      title: 'Contact Address',
+      title: 'Contract Address',
       type: 'label_value',
       icon: '',
       value: token?.contract_address || '',

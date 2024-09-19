@@ -27,9 +27,6 @@ import { useRouter } from 'next/navigation';
 
 const BodyGridView = () => {
   const dispatch = useAppDispatch();
-  const { onOpenWaittingSetingUp } = useDashboard();
-  const { getMyOrderList } = useL2Service();
-  // const allOrders = useAppSelector(allOrdersSelector);
   const myOrders = useAppSelector(myOrderListFilteredByNetwork);
   const { accountInforL2Service, isMyOrderListFetched } = useAppSelector(
     getL2ServicesStateSelector,

@@ -10,7 +10,7 @@ import { NodeProps } from '@xyflow/react';
 import DappRenderer from '../DappRenderer';
 import Node from '../Node/Node';
 
-const DappNode = ({ data }: NodeProps<DappNodeProps>) => {
+const DappNode = ({ data, id }: NodeProps<DappNodeProps>) => {
   const { statusCode, statusStr } = useChainStatus();
   const { isUpdateFlow } = useChainProvider();
 
@@ -29,7 +29,7 @@ const DappNode = ({ data }: NodeProps<DappNodeProps>) => {
     if (!isUpdateFlow) {
       return {
         label: 'IMPORTANT',
-        message: 'Chain is not available at the moment.',
+        message: 'This module needs to be configured and completed later after the chain is deployed and the payment is confirmed',
       };
     }
 
@@ -66,6 +66,7 @@ const DappNode = ({ data }: NodeProps<DappNodeProps>) => {
           message: data.statusMessage ?? 'Drafting modules',
         },
       }}
+      id={id}
       notification={notification}
       content={{
         children: <DappRenderer {...data} key={data.ids.toString()} />,

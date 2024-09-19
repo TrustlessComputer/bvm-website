@@ -30,6 +30,7 @@ import { ENABLE_CHATBOX } from '../constants';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
+  isRenderedInUpdateFlowSignal,
   templateIds2DSignal,
 } from '../signals/useDragSignal';
 import {
@@ -45,6 +46,7 @@ import useModelCategory from '../studio/useModelCategory';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
+import { parseWhitePapers } from '@/modules/blockchains/dapp/parseUtils/whitePaper';
 
 export default function useFetchingTemplate() {
   const { templateList, templateDefault } = useAvailableListTemplate();
@@ -58,27 +60,24 @@ export default function useFetchingTemplate() {
     useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const {
-    categories,
     setParsedCategories,
     setCategories,
     setCategoriesTemplates,
-    categoriesTemplates,
     setCategoryMapping,
   } = useModelCategoriesStore();
   const { field, setFields } = useOrderFormStoreV3();
   const { setUpdated, updated } = useUpdateFlowStore();
-  const param = useParams();
   const searchParams = useSearchParams();
-  const refUpdatedBaseDapp = React.useRef(false);
   const { setIsFirstLoadTemplateBox } = useStoreFirstLoadTemplateBox();
   const { l2ServiceUserAddress } = useWeb3Auth();
-  const { initTemplate, setTemplate } = useTemplate();
+  const { setTemplate } = useTemplate();
   const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
 
   const { counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
-  const { tokens, airdrops, stakingPools, yoloGames, walletType } = dappState;
+  const { tokens, airdrops, stakingPools, yoloGames, walletType, whitePapers } =
+    dappState;
 
   const [needSetDataTemplateToBox, setNeedSetDataTemplateToBox] =
     React.useState(false);
@@ -220,6 +219,8 @@ export default function useFetchingTemplate() {
       totalBase,
     ).fill([]);
 
+    console.log('[useFetchingTemplate] dataTemplateToBox', templateDapps);
+
     Object.keys(templateForm).forEach((fieldKey) => {
       const value = templateForm[fieldKey];
       const baseIndex = FormDappUtil.getBaseIndex(fieldKey);
@@ -234,7 +235,11 @@ export default function useFetchingTemplate() {
         blockFieldMapping[item.key] = item;
       });
 
-      if (!draggedIds2D[baseIndex][index] && !isInBase) {
+      if (
+        draggedIds2D[baseIndex] &&
+        !draggedIds2D[baseIndex][index] &&
+        !isInBase
+      ) {
         const _key = isInBlock ? blockKey : key;
         const prefix = 'right-' + FormDappUtil.getBlockType(fieldKey);
         const children = !isInBlock
@@ -281,13 +286,20 @@ export default function useFetchingTemplate() {
       const statusDapp = templateDapps[index].label?.status || '';
       const titleStatusDapp = templateDapps[index].label?.title || '';
 
-      const thisNode = [...tokens, ...airdrops, ...stakingPools, ...yoloGames][
-        index
-      ];
-      const defaultPositionX = 30 + 500 * xOffsetCount[dappKey]++;
-      const defaultPositionY = 30 + 500 * allDappKeys.indexOf(dappKey);
-      const xOffset = thisNode?.position_x ?? defaultPositionX;
-      const yOffset = thisNode?.position_y ?? defaultPositionY;
+      const thisNode = [
+        ...tokens,
+        ...airdrops,
+        ...stakingPools,
+        ...yoloGames,
+        ...whitePapers,
+      ][index];
+      const defaultPositionX =
+        50 * (xOffsetCount[dappKey] - 1) + 500 * xOffsetCount[dappKey]++;
+      const defaultPositionY = 30 + 500 * (allDappKeys.indexOf(dappKey) + 1);
+      // const xOffset = thisNode?.position_x ?? defaultPositionX;
+      const xOffset = defaultPositionX;
+      // const yOffset = thisNode?.position_y ?? defaultPositionY;
+      const yOffset = defaultPositionY;
       const idNode = index.toString();
       const isHandleExists = getHandleNodeBlockChain?.data?.sourceHandles?.some(
         (handle) => handle === `${rootNode}-s-${templateDapps[index].title}`,
@@ -317,8 +329,8 @@ export default function useFetchingTemplate() {
         focusable: false,
         markerEnd: {
           type: MarkerType.Arrow,
-          width: 25,
-          height: 25,
+          width: 20,
+          height: 20,
           strokeWidth: 1,
           color: '#AAAAAA',
         },
@@ -327,6 +339,10 @@ export default function useFetchingTemplate() {
           strokeWidth: 2,
         },
       });
+
+      if (dappKey === 'airdrop') {
+        console.log('HEHEHEHEHHEHEHE', templateDapps[index], titleStatusDapp);
+      }
 
       return {
         id: idNode,
@@ -340,8 +356,10 @@ export default function useFetchingTemplate() {
           dapp: templateDapps[index],
           ids,
           baseIndex: index,
-          targetHandles: [`${idNode}-t-${rootNode}`],
-          sourceHandles: [],
+          // targetHandles: [`${idNode}-t-${rootNode}`],
+          targetHandles: [],
+          sourceHandles: [`${idNode}-t-${rootNode}`],
+          // sourceHandles: [],
           itemId: thisNode?.id,
           positionId: thisNode?.position_id,
         },
@@ -365,6 +383,7 @@ export default function useFetchingTemplate() {
     //     };
     //   });
     // }
+    console.log('HEHEHEHEHHEHEHE', _newNodes);
     const map: any = {};
     for (const element of [...newNodes, ...nodesData, ..._newNodes]) {
       map[element.id] = element;
@@ -380,7 +399,6 @@ export default function useFetchingTemplate() {
     } else {
       setEdges([...edges, ...edgeData]);
     }
-    console.log('[useFetchingTemplate] case 1');
     setNodes(newArray);
     setNeedSetDataTemplateToBox(false);
     setNeedCheckAndAddAA(true);
@@ -432,11 +450,21 @@ export default function useFetchingTemplate() {
         })
       : {};
 
+    startIndex += parsedYoloGameData.length;
+    const parsedWhitePaperData = parseWhitePapers(whitePapers);
+    const parsedWhitePaperForm = parseDappModel({
+      key: DappType.white_paper,
+      model: parsedWhitePaperData,
+      startIndex: startIndex,
+    });
+
     console.log('[useFetchingTemplate] parsedTokensData', {
       tokens,
       airdrops,
       stakingPools,
       parsedWalletData,
+      yoloGames,
+      whitePapers,
     });
 
     setTemplateDapps([
@@ -445,6 +473,7 @@ export default function useFetchingTemplate() {
       ...parsedStakingPoolsData,
       ...parsedYoloGameData,
       ...parsedWalletData,
+      ...parsedWhitePaperData,
     ]);
     setTemplateForm({
       ...parsedTokensForm.fieldValue,
@@ -452,6 +481,7 @@ export default function useFetchingTemplate() {
       ...parsedStakingPoolsForm.fieldValue,
       ...parsedYoloGameForm.fieldValue,
       ...((parsedWalletForm as any)?.fieldValue || {}),
+      ...parsedWhitePaperForm.fieldValue,
     } as any);
 
     setNeedSetDataTemplateToBox(true);
@@ -517,6 +547,7 @@ export default function useFetchingTemplate() {
 
     draggedDappIndexesSignal.value = newDraggedDappIndexes;
     draggedIds2DSignal.value = newDraggedIds2D;
+    isRenderedInUpdateFlowSignal.value = true;
 
     setNeedCheckAndAddAA(false);
   };
@@ -525,15 +556,15 @@ export default function useFetchingTemplate() {
     if (isUpdateFlow && order) {
       setTemplate(order.selectedOptions || []);
     } else {
-      const template = searchParams.get('template');
+      // const template = searchParams.get('template');
 
-      console.log('template', template, templateDefault);
+      // console.log('template', template, templateDefault);
 
-      if (template || !ENABLE_CHATBOX) {
-        setTemplate(templateDefault || []);
-      } else if (ENABLE_CHATBOX) {
-        setTemplate([]);
-      }
+      // if (template || !ENABLE_CHATBOX) {
+      setTemplate(templateDefault || []);
+      // } else if (ENABLE_CHATBOX) {
+      //   setTemplate([]);
+      // }
     }
 
     setNeedSetPreTemplate(false);

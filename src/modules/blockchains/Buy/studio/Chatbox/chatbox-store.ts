@@ -2,28 +2,38 @@ import { IModelCategory } from '@/types/customize-model';
 import { create } from 'zustand';
 import { SetChatBoxStatusParams } from './types';
 export enum ChatBoxStatus {
-  Generating = 'Generating...',
+  Generating = 'Generating',
   Cancel = 'Esc to cancel',
   Complete = 'Completed',
-  Close = 'Esc to close',
+  Close = '',
 }
 
+export type BotMessage = {
+  beforeJSON: string;
+  jsonPart?: string;
+  afterJSON?: string;
+  sender: 'bot';
+  template?: IModelCategory[];
+};
+
+export type UserMessage = {
+  text: string;
+  sender: 'user';
+};
+
+export type Message = BotMessage | UserMessage;
+
 interface ChatBoxState {
-  messages: Array<{ text: string; sender: string; template: IModelCategory[] }>;
+  messages: Message[];
   inputMessage: string;
   isListening: boolean;
   isGenerating: boolean;
   isComplete: boolean;
+  isIdle: boolean;
   isChatboxOpen: boolean;
   status: ChatBoxStatus;
   prepareCategoryTemplate: IModelCategory[];
-  setMessages: (
-    messages: Array<{
-      text: string;
-      sender: string;
-      template: IModelCategory[];
-    }>,
-  ) => void;
+  setMessages: (messages: Message[]) => void;
   setInputMessage: (inputMessage: string) => void;
   setIsListening: (isListening: boolean) => void;
   setIsGenerating: (isGenerating: boolean) => void;
@@ -39,6 +49,7 @@ interface ChatBoxState {
 const useChatBoxState = create<ChatBoxState>((set) => ({
   messages: [],
   inputMessage: '',
+  isIdle: true,
   isListening: false,
   isGenerating: false,
   isComplete: false,
@@ -47,14 +58,19 @@ const useChatBoxState = create<ChatBoxState>((set) => ({
   prepareCategoryTemplate: [],
   setMessages: (messages) => set({ messages }),
   setInputMessage: (inputMessage) => set({ inputMessage }),
-  setIsListening: (isListening) => set({ isListening }),
-  setIsGenerating: (isGenerating) => set({ isGenerating }),
-  setIsComplete: (isComplete) => set({ isComplete }),
-  setIsChatboxOpen: (isChatboxOpen) => set({ isChatboxOpen }),
+  setIsListening: (isListening) => set({ isListening, isIdle: false }),
+  setIsGenerating: (isGenerating) => set({ isGenerating, isIdle: false }),
+  setIsComplete: (isComplete) => set({ isComplete, isIdle: false }),
+  setIsChatboxOpen: (isChatboxOpen) => set({ isChatboxOpen, isIdle: false }),
   setStatus: (status) => set({ status }),
   setPrepareCategoryTemplate: (prepareCategoryTemplate) =>
-    set({ prepareCategoryTemplate }),
-  setChatBoxStatus: (params: SetChatBoxStatusParams) => set(params),
+    set({ prepareCategoryTemplate, isIdle: false }),
+  setChatBoxStatus: (params: SetChatBoxStatusParams) => {
+    set({
+      ...params,
+      isIdle: !params.isGenerating && !params.isComplete && !params.isListening,
+    });
+  },
 }));
 
 export default useChatBoxState;

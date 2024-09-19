@@ -39,7 +39,7 @@ import useOverlappingChainLegoStore from '../stores/useOverlappingChainLegoStore
 
 export default function useHandleDragging() {
   const { setOverlappingId } = useOverlappingChainLegoStore();
-  const { nodes, setNodes, edges, setEdges } = useFlowStore();
+  const { nodes, setNodes, edges, setEdges, setRemovedNode } = useFlowStore();
   const {
     setIdDragging,
     rightDragging,
@@ -297,6 +297,8 @@ export default function useHandleDragging() {
             index,
           );
         }
+        console.log('nodessssss', nodes[ index + 1 + totalTemplateDapps]);
+        setRemovedNode(nodes[ index + 1 + totalTemplateDapps])
         setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
       }
 
@@ -313,6 +315,8 @@ export default function useHandleDragging() {
             index,
           );
         }
+        console.log('nodessssss1', nodes[ index + 1 + totalTemplateDapps]);
+        setRemovedNode(nodes[ index + 1 + totalTemplateDapps])
         setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
       }
 
@@ -404,6 +408,8 @@ export default function useHandleDragging() {
               draggedIds2DSignal.value,
               index,
             );
+            console.log('nodessssss2', nodes[ index + 1 + totalTemplateDapps]);
+            setRemovedNode(nodes[ index + 1 + totalTemplateDapps])
             setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
           }
         }
@@ -420,6 +426,8 @@ export default function useHandleDragging() {
               draggedIds2DSignal.value,
               index,
             );
+            console.log('nodessssss3', nodes[ index + 1 + totalTemplateDapps]);
+            setRemovedNode(nodes[ index + 1 + totalTemplateDapps])
             setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
           }
         }
@@ -1123,6 +1131,8 @@ export default function useHandleDragging() {
           totalTemplateDapps,
         });
         const rootNode = 'blockchain';
+        console.log('nodessssss', nodes[removeIndex]);
+        setRemovedNode(nodes[removeIndex])
 
         let newNodes = removeItemAtIndex(nodes, removeIndex);
         let getHandleNodeBlockChain = nodes.find(

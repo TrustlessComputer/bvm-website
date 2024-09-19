@@ -1,0 +1,57 @@
+.dotPulse {
+  --gap: 4px;
+  --dot-size: 6px;
+  --dot-pulse-color: #4285f4;
+  --dot-pulse-duration: 1.5s;
+  --dot-pulse-delay: 0s;
+
+  display: flex;
+  gap: var(--gap);
+  align-items: flex-end;
+
+  &__dot {
+    width: var(--dot-size);
+    height: var(--dot-size);
+    border-radius: 50%;
+    background-color: var(--dot-pulse-color);
+    animation: dotPulse var(--dot-pulse-duration) infinite linear
+      var(--dot-pulse-delay);
+  }
+
+  &__dot:nth-child(1) {
+    --dot-pulse-color: #4285f4;
+    --dot-pulse-delay: 0s;
+  }
+
+  &__dot:nth-child(2) {
+    --dot-pulse-color: #db4437;
+    --dot-pulse-delay: 0.1s;
+  }
+
+  &__dot:nth-child(3) {
+    --dot-pulse-color: #f4b400;
+    --dot-pulse-delay: 0.2s;
+  }
+
+  &__dot:nth-child(4) {
+    --dot-pulse-color: #0f9d58;
+    --dot-pulse-delay: 0.3s;
+  }
+}
+
+@keyframes dotPulse {
+  0%,
+  44% {
+    transform: translateY(0px);
+  }
+
+  22% {
+    opacity: 0.4;
+    transform: translateY(-7px);
+  }
+
+  44% {
+    opacity: 0.2;
+    transform: translateY(0px);
+  }
+}

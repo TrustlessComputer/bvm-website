@@ -1,9 +1,9 @@
 import CustomEdge from '@/modules/blockchains/Buy/component4/CustomEdge';
 import CustomNode from '@/modules/blockchains/Buy/component4/CustomNode';
 import useHandleReloadNode from '@/modules/blockchains/Buy/hooks/useHandleReloadNode';
-import MModal from '@/modules/blockchains/dapp/components/Modal';
+import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
 import { signal, useSignalEffect } from '@preact/signals-react';
-import { ReactFlow } from '@xyflow/react';
+import { ConnectionMode, ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { usePathname, useSearchParams } from 'next/navigation';
 import React, { useState } from 'react';
@@ -12,18 +12,13 @@ import AANode from '../../component4/YourNodes/AANode';
 import BridgeNode from '../../component4/YourNodes/BridgeNode';
 import ChainNodeV2 from '../../component4/YourNodes/ChainNodeV2';
 import DappNode from '../../component4/YourNodes/DappNode';
+import GamingAppsNode from '../../component4/YourNodes/GamingAppsNode';
 import { nodeKey } from '../../component4/YourNodes/node.constants';
-import {
-  draggedDappIndexesSignal,
-  draggedIds2DSignal,
-  restoreLocal,
-} from '../../signals/useDragSignal';
+import { restoreLocal } from '../../signals/useDragSignal';
 import useFlowStore from '../../stores/useFlowStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import s from './styles.module.scss';
-import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
-import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
-import GamingAppsNode from '../../component4/YourNodes/GamingAppsNode';
+import useLineIssueToken from '@/modules/blockchains/Buy/hooks/useLineIssueToken';
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
@@ -40,6 +35,7 @@ const ReactFlowRenderer = React.memo(() => {
   const path = usePathname();
   const { categories } = useModelCategoriesStore();
   const searchParamm = useSearchParams();
+  useLineIssueToken();
 
   const [loaded, setLoaded] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
@@ -57,12 +53,10 @@ const ReactFlowRenderer = React.memo(() => {
     }
   });
 
-  // console.log('[ReactFlowRenderer]', {
-  //   nodes,
-  //   draggedDappIndexesSignal: draggedDappIndexesSignal.value,
-  //   draggedIds2DSignal: draggedIds2DSignal.value,
-  //   formDappSignal: formDappSignal.value,
-  // });
+  console.log('[ReactFlowRenderer]', {
+    nodes,
+    edges
+  });
 
   React.useEffect(() => {
     if (!isFirstLoadTemplateBox) return;
@@ -111,9 +105,13 @@ const ReactFlowRenderer = React.memo(() => {
         edgesFocusable={false}
         onInit={setRfInstance}
         zoomOnDoubleClick={false}
+        connectionMode={ConnectionMode.Loose}
         edges={edges}
         fitViewOptions={{ padding: 1 }}
         className={s.reactFlow}
+        // onNodeDrag={(event: React.MouseEvent, node: AppNode)=> {
+        //   console.log('[ReactFlowRenderer] onNodeDrag', { event, node, nodes });
+        // }}
         onNodeDragStop={() => {
           if (!isFirstLoadTemplateBox) return;
           if (path === '/studio') {

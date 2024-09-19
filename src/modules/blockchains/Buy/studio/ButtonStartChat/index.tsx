@@ -3,8 +3,8 @@ import { gsap } from 'gsap';
 import { ReactElement, useEffect, useRef } from 'react';
 import Chatbox from '../Chatbox';
 import useChatBoxState from '../Chatbox/chatbox-store';
+import SocketProvider from '../Chatbox/SocketProvider';
 import styles from './styles.module.scss';
-import { ENABLE_CHATBOX } from '../../constants';
 
 export default function ButtonStartChat(): ReactElement {
   const { isChatboxOpen, setIsChatboxOpen } = useChatBoxState((state) => state);
@@ -27,11 +27,8 @@ export default function ButtonStartChat(): ReactElement {
       }
     }
   }, [isChatboxOpen]);
-
-  if (!ENABLE_CHATBOX) return <></>;
-
   return (
-    <>
+    <SocketProvider>
       <button className={styles.button} onClick={() => setIsChatboxOpen(true)}>
         Ai voice prompt <MagicIcon color="white" />
       </button>
@@ -47,6 +44,6 @@ export default function ButtonStartChat(): ReactElement {
       >
         <Chatbox />
       </div>
-    </>
+    </SocketProvider>
   );
 }

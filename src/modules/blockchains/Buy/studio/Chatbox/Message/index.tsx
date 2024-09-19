@@ -1,40 +1,90 @@
-import { IModelCategory } from '@/types/customize-model';
+import { DappModel, IModelCategory } from '@/types/customize-model';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Lego from '../../../component4/Lego';
+import useNodeHelper from '../../../hooks/useNodeHelper';
+import useTemplate from '../../../hooks/useTemplate';
+import useDappsStore from '../../../stores/useDappStore';
+import { chainKeyToDappKey } from '../../../utils';
 import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
 import styles from './styles.module.scss';
 
 export default function Message({
-  message,
+  beforeJSON,
   template,
+  afterJSON,
   onUpdateScroll,
 }: {
-  message: string;
+  beforeJSON: string;
   template: IModelCategory[];
+  afterJSON: string;
   onUpdateScroll: () => void;
 }) {
+  const { dapps } = useDappsStore();
+  const { addDappToNode } = useNodeHelper();
+
   const { setChatBoxStatus, isGenerating, prepareCategoryTemplate } =
     useChatBoxState((state) => state);
+  const { setTemplate } = useTemplate();
+
   const [isRendered, setIsRendered] = useState(false);
+  const [isApplied, setIsApplied] = useState(false);
 
   const refRender = useRef<NodeJS.Timeout>();
-  const [displayedMessage, setDisplayedMessage] = useState<string>('');
+  const [displayedBeforeJSON, setDisplayedBeforeJSON] = useState<string>('');
+  const [displayedAfterJSON, setDisplayedAfterJSON] = useState<string>('');
   const [displayedTemplate, setDisplayedTemplate] = useState<typeof template>(
     [],
   );
 
-  const refTextRender = useRef<string>('');
+  const refBeforeJSONRender = useRef<string>('');
+  const refAfterJSONRender = useRef<string>('');
+
+  const handleApply = () => {
+    let optionBelongToDapp: DappModel | null = null;
+    prepareCategoryTemplate.find((template) => {
+      if (template.isChain) return undefined;
+
+      return template.options.find((option) => {
+        const dappKey = chainKeyToDappKey(option.key);
+        const dapp = dapps.find((dA) => dA.key === dappKey);
+
+        if (dapp && !dapp.isDefaultDapp) {
+          optionBelongToDapp = dapp;
+        }
+
+        return dapp && !dapp.isDefaultDapp;
+      });
+    });
+
+    setChatBoxStatus({
+      status: ChatBoxStatus.Close,
+      isGenerating: false,
+      isComplete: false,
+      isListening: false,
+    });
+    setTemplate(prepareCategoryTemplate);
+    setIsApplied(true);
+
+    if (optionBelongToDapp) {
+      const dappIndex = dapps.findIndex(
+        (dapp) => dapp.key === (optionBelongToDapp as DappModel).key,
+      );
+
+      addDappToNode(dappIndex);
+    }
+  };
 
   const animateMessage = useCallback(() => {
-    let messageIndex = 0;
+    let beforeJSONIndex = 0;
+    let afterJSONIndex = 0;
     let templateIndex = 0;
     let optionIndex = 0;
 
     refRender.current = setInterval(() => {
-      if (messageIndex < message.length) {
-        refTextRender.current += message[messageIndex];
-        setDisplayedMessage(refTextRender.current);
-        messageIndex++;
+      if (beforeJSONIndex < beforeJSON.length) {
+        refBeforeJSONRender.current += beforeJSON[beforeJSONIndex];
+        setDisplayedBeforeJSON(refBeforeJSONRender.current);
+        beforeJSONIndex++;
       } else if (templateIndex < template.length) {
         const currentTemplate = template[templateIndex];
 
@@ -61,14 +111,19 @@ export default function Message({
           templateIndex++;
           optionIndex = 0;
         }
+      } else if (afterJSONIndex < afterJSON.length) {
+        refAfterJSONRender.current += afterJSON[afterJSONIndex];
+        setDisplayedAfterJSON(refAfterJSONRender.current);
+        afterJSONIndex++;
       } else {
         refRender.current && clearInterval(refRender.current);
         setIsRendered(true);
+
         setChatBoxStatus({
           status:
             prepareCategoryTemplate.length > 0
               ? ChatBoxStatus.Complete
-              : ChatBoxStatus.Cancel,
+              : ChatBoxStatus.Close,
           isGenerating: false,
           isComplete: prepareCategoryTemplate.length > 0,
           isListening: false,
@@ -76,7 +131,7 @@ export default function Message({
       }
       onUpdateScroll();
     }, 30);
-  }, [message, template]);
+  }, [beforeJSON, template, afterJSON]);
 
   useEffect(() => {
     if (isRendered) return;
@@ -90,8 +145,8 @@ export default function Message({
   }, [isGenerating]);
 
   return (
-    <div>
-      <div>{displayedMessage}</div>
+    <div className={styles.message}>
+      {displayedBeforeJSON}
 
       <div className={styles.categories}>
         {displayedTemplate.map((item) => (
@@ -115,6 +170,14 @@ export default function Message({
           </div>
         ))}
       </div>
+
+      {displayedAfterJSON}
+
+      {isRendered && template.length > 0 && !isApplied ? (
+        <div className={styles.applyBtn} onClick={() => handleApply()}>
+          Apply
+        </div>
+      ) : null}
     </div>
   );
 }

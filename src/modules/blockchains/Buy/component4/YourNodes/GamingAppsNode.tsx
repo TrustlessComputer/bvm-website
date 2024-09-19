@@ -6,13 +6,13 @@ import GamingAppsRenderer from '../DappRenderer/GamingAppsRenderer';
 import Node from '../Node/Node';
 import { useGameModule } from '@/modules/blockchains/detail_v4/hook/useGameModule';
 
-const GamingAppsNode = ({ data }: NodeProps<ChainNodeAsDappNode>) => {
+const GamingAppsNode = ({ data, id }: NodeProps<ChainNodeAsDappNode>) => {
   const { statusMapper, getGameTypeIconUrl } = useGameModule();
 
   const notification: NodeNotificationProps | undefined = React.useMemo(() => {
     return undefined;
   }, []);
-
+  console.log('statusMapper', statusMapper);
   return (
     <Node
       {...data}
@@ -28,6 +28,7 @@ const GamingAppsNode = ({ data }: NodeProps<ChainNodeAsDappNode>) => {
         borderColor: statusMapper?.borderColorStr,
         backgroundColor: statusMapper?.bgColorStr,
       }}
+      id={id}
       notification={notification}
       content={{
         children: <GamingAppsRenderer />,

@@ -68,9 +68,12 @@ export const parseAirdrop = async (airdrop: IAirdrop, _token: IToken) => {
     } as any;
   }
 
-  // console.log('renderLabel[airdrop.status]', renderLabel[airdrop.status]);
+  console.log('renderLabel[airdrop.status]', renderLabel[airdrop.status]);
 
-  result.label = renderLabel[airdrop.status] as any;
+  result.label = {
+    ...renderLabel[airdrop.status],
+    title: renderLabel[airdrop.status].label,
+  } as any;
 
   const baseBlock: BlockModel = {} as BlockModel;
 

@@ -21,7 +21,7 @@ const CompetitionTimer = (props: Props) => {
   if (!startTime.ended) {
     return (
       <Flex className={s.countdown_wrapper}>
-        <Text whiteSpace={'nowrap'} opacity={0.6}>
+        <Text whiteSpace={'nowrap'} opacity={0.6} mr={"4px"}>
           Competition starts in
         </Text>
         <Countdown
@@ -41,7 +41,7 @@ const CompetitionTimer = (props: Props) => {
   if (!endTime.ended) {
     return (
       <Flex className={s.countdown_wrapper}>
-        <Text whiteSpace={'nowrap'} opacity={0.6}>
+        <Text whiteSpace={'nowrap'} opacity={0.6} mr={"4px"}>
           Competition ends in
         </Text>
         <Countdown
