@@ -34,39 +34,39 @@ import CompetitionSection from './CompetitionSection';
 type Props = {};
 
 const START_TIME = isProduction
-  ? '2024-08-29T13:00:00Z'
-  : '2024-08-27T13:00:00Z';
+  ? '2024-09-19T13:00:00Z'
+  : '2024-09-19T08:00:00Z';
 
-const END_TIME = '2024-08-29T16:00:00Z';
+const END_TIME = '2024-09-19T15:00:00Z';
+const CURRENT_COMPETITION_CONTEST_TYPE = UserContestType.COMPETITION_2;
 
 const LeaderboardOrCompetition = memo(
   ({ currentUserContest }: { currentUserContest?: IUserContest }) => {
     const [comUserContest, setComUserContest] = useState<IUserContest>();
 
     useEffect(() => {
-      checkRegistered(UserContestType.COMPETITION).then((res) => {
+      checkRegistered(CURRENT_COMPETITION_CONTEST_TYPE).then((res) => {
         if (res) {
           setComUserContest(res);
         }
       });
     }, []);
-    // const startTime = useCountdown(START_TIME);
-    // const endTime = useCountdown(END_TIME);
-    // const isShowCompetition = startTime.ended && !endTime.ended;
+    const startTime = useCountdown(START_TIME);
+    const endTime = useCountdown(END_TIME);
+    const isShowCompetition = startTime.ended;
 
     return (
       <>
         <LeaderboardSection currentUserContest={currentUserContest} />
-        <CompetitionSection currentUserContest={comUserContest}/>
+        {isShowCompetition && (
+          <CompetitionSection
+            contestType={CURRENT_COMPETITION_CONTEST_TYPE}
+            isEnd={endTime.ended}
+            currentUserContest={comUserContest}
+          />
+        )}
       </>
     );
-
-    return <LeaderboardSection currentUserContest={currentUserContest} />;
-    // return isShowCompetition ? (
-    //   <CompetitionSection currentUserContest={currentUserContest} />
-    // ) : (
-    //   <LeaderboardSection currentUserContest={currentUserContest} />
-    // );
   },
 );
 
@@ -142,10 +142,6 @@ const HackathonModule = (props: Props) => {
 
   const checkUserRegistered = async () => {
     try {
-      // const now = new Date().getTime();
-      // const isShowCompetition = true;
-      // now >= new Date(START_TIME).getTime() &&
-      // now < new Date(END_TIME).getTime();
       const res = await checkRegistered();
       if (res) {
         setIsRegistered(res?.register || false);
@@ -257,7 +253,7 @@ const HackathonModule = (props: Props) => {
                 </a>
               </div>
             </Flex>
-            {/* <CompetitionTimer startTime={START_TIME} endTime={END_TIME} /> */}
+            <CompetitionTimer startTime={START_TIME} endTime={END_TIME} />
           </div>
           {/* </Fade> */}
           <div className={s.right}>

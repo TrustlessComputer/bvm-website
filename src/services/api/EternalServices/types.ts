@@ -1,6 +1,7 @@
 export enum UserContestType {
   NORMAL = 0,
   COMPETITION = 1,
+  COMPETITION_2 = 2,
 }
 export type IContestProblem = {
   id: string;
