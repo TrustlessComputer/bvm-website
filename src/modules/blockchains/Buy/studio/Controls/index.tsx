@@ -23,7 +23,6 @@ const ignoreFields = ['bridge_apps', 'gaming_apps', 'wallet_type'];
 const shouldGenFields = ['defi_apps', 'degen_apps'];
 const ignoreFieldMapper: Record<string, string[]> = {
   degen_apps: ['wallet_type'],
-  defi_apps: ['white_paper'],
 };
 
 export default memo(function StudioControls() {
@@ -230,25 +229,6 @@ export default memo(function StudioControls() {
             }
 
             if (shouldGenFields.includes(item.key)) {
-              const isDengenCategory = item.key === 'degen_apps';
-              const defiCategory = parsedCategories!.find(
-                (cat) => cat.key === 'defi_apps',
-              );
-              const whitePaperOption = defiCategory?.options.find(
-                (opt) => opt.key === 'white_paper',
-              );
-              const whitePaperDapp = isUpdateChainFlow
-                ? dapps?.find((item) =>
-                    compareString(
-                      item.key,
-                      chainKeyToDappKey(whitePaperOption?.key || ''),
-                    ),
-                  )
-                : dappMapping[chainKeyToDappKey(whitePaperOption?.key || '')];
-              const whitePaperDappIndex = dapps.findIndex(
-                (d) => d.key === chainKeyToDappKey(whitePaperOption?.key || ''),
-              );
-
               return (
                 <BoxOptionV3
                   key={item.key}
@@ -305,24 +285,6 @@ export default memo(function StudioControls() {
                       </React.Fragment>
                     );
                   })}
-
-                  {isDengenCategory &&
-                    whitePaperOption &&
-                    defiCategory &&
-                    whitePaperDapp && (
-                      <BoxOption
-                        info={{
-                          ...whitePaperOption,
-                          disabled:
-                            defiCategory.disable ||
-                            !whitePaperOption.selectable,
-                        }}
-                        thisDapp={whitePaperDapp}
-                        key={whitePaperDapp.key}
-                        dappIndex={whitePaperDappIndex}
-                        className={s.dappBoxOption}
-                      />
-                    )}
                 </BoxOptionV3>
               );
             }
