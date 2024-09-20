@@ -30,6 +30,7 @@ const useNodeHelper = () => {
   const addDappToNode = (dappIndex: number, position = { x: 600, y: 30 }) => {
     const { x, y } = position;
     const thisDapp = dapps[dappIndex];
+
     if (!thisDapp) {
       return;
     }
@@ -69,16 +70,25 @@ const useNodeHelper = () => {
     const ids: Field[] = [];
 
     if (
-      !!thisDapp.baseModuleFields?.length &&
+      (thisDapp.baseModuleFields?.length || 0) > 0 &&
       thisDapp.baseBlock.fields.length === 0
     ) {
       ids.push({
-        name: `right-${FieldKeyPrefix.BASE_MODULE}-${thisDapp.baseModuleFields[0].key}`,
-        value: thisDapp.baseModuleFields[0].fields[0].value,
+        name: `right-${FieldKeyPrefix.BASE_MODULE}-${
+          thisDapp.baseModuleFields![0].key
+        }`,
+        value: thisDapp.baseModuleFields![0].fields[0].value,
         parentNames: [],
         children: [],
       });
     }
+
+    console.log('[useNodeHelper] addDappToNode', {
+      dappIndex,
+      position,
+      thisDapp,
+      ids,
+    });
 
     const newNode: DappNode = {
       id: newNodeId,

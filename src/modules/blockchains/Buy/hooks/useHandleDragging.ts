@@ -468,7 +468,7 @@ export default function useHandleDragging() {
       over.id === 'input' || (over.id.split('-')[1] || '') === 'droppable';
     const overIsOutput =
       over.id === 'output' ||
-      (over.id.split('-')[2] || '') === 'droppable' ||
+      // (over.id.split('-')[2] || '') === 'droppable' ||
       over.id === 'final-droppable';
     const overIsABase = DragUtil.idDraggingIsABase(overId);
     const overBaseIndex = Number(DragUtil.getBaseIndex(overId));
