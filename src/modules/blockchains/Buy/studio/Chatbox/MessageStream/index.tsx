@@ -1,17 +1,16 @@
 import React, { useMemo } from 'react';
 
 import DotPulse from '@/components/DotPulse';
-import { IModelCategory } from '@/types/customize-model';
 import Lego from '../../../component4/Lego';
 import useNodeHelper from '../../../hooks/useNodeHelper';
 import useTemplate from '../../../hooks/useTemplate';
+import { draggedDappIndexesSignal } from '../../../signals/useDragSignal';
 import useDappsStore from '../../../stores/useDappStore';
 import useModelCategoriesStore from '../../../stores/useModelCategoriesStore';
 import { chainKeyToDappKey } from '../../../utils';
 import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
 import { blockLegoResponseToModelCategory } from '../utils/convertApiUtils';
 import styles from './styles.module.scss';
-import { draggedDappIndexesSignal } from '../../../signals/useDragSignal';
 
 function MessageStream({ message }: { message: string }) {
   const { categories } = useModelCategoriesStore();
@@ -105,8 +104,8 @@ function MessageStream({ message }: { message: string }) {
 
   const isEmpty = useMemo(() => {
     return (
-      generationStatus.beforeJsonBlock === '' &&
-      generationStatus.afterJsonBlock === '' &&
+      (generationStatus.beforeJsonBlock || '').replaceAll(' ', '') === '' &&
+      (generationStatus.afterJsonBlock || '').replaceAll(' ', '') === '' &&
       generationStatus.template.length === 0
     );
   }, [generationStatus]);
