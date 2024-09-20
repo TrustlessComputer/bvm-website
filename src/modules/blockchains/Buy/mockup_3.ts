@@ -920,7 +920,7 @@ export const dappMockupData: DappModel[] = [
         title: '',
         tooltip: '',
         required: false,
-      }
+      },
     ],
     baseModuleFields: [],
     moduleFields: [],
@@ -1108,7 +1108,7 @@ export const dappMockupData: DappModel[] = [
           icon: '',
           background: '#c4513a',
           options: [],
-        }
+        },
       ],
     },
     singleFields: [],
@@ -1133,7 +1133,7 @@ export const dappMockupData: DappModel[] = [
       {
         key: 'yolo',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-        title: 'Payment Token',
+        title: '',
         tooltip: '',
         required: false,
         show: true,

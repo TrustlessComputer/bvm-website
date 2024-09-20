@@ -99,8 +99,8 @@ const BoxOption = ({
           {info.tooltip && (
             <div onClick={() => setIsShowModal(true)}>
               <svg
-                width="20"
-                height="20"
+                width="14"
+                height="14"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#2b35e4"
@@ -346,7 +346,6 @@ const BoxOption = ({
                       {thisDapp.baseModuleFields
                         ?.filter((f) => f.section === section.key)
                         ?.map((item) => {
-
                           return item.fields.map((field) => {
                             let checked = false;
 

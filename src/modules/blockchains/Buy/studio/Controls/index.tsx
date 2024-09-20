@@ -17,8 +17,15 @@ import React, { memo } from 'react';
 import useDapps from '../../hooks/useDapps';
 import { accountAbstractionAsADapp } from '../../mockup_3';
 import { chainKeyToDappKey, isChainOptionDisabled } from '../../utils';
+import { DappModel } from '@/types/customize-model';
 
-const ignoreFields = ['bridge_apps', 'gaming_apps'];
+const ignoreFields = ['bridge_apps', 'gaming_apps', 'wallet_type'];
+const shouldGenFields = ['defi_apps', 'degen_apps'];
+const ignoreFieldMapper: Record<string, string[]> = {
+  degen_apps: ['wallet_type'],
+  defi_apps: ['white_paper'],
+};
+
 export default memo(function StudioControls() {
   const { parsedCategories } = useModelCategoriesStore();
   const { field } = useOrderFormStoreV3();
@@ -248,8 +255,37 @@ export default memo(function StudioControls() {
             // Special case, need to check manually
             if (item.key === 'wallet') {
               const dapp = accountAbstractionAsADapp;
+              const dengenCategory = parsedCategories!.find(
+                (cat) => cat.key === 'degen_apps',
+              );
+              const walletTypeOption = dengenCategory?.options.find(
+                (opt) => opt.key === 'wallet_type',
+              );
+              const degenDapp = isUpdateChainFlow
+                ? dapps?.find((item) =>
+                    compareString(
+                      item.key,
+                      chainKeyToDappKey(walletTypeOption?.key || ''),
+                    ),
+                  )
+                : dappMapping[chainKeyToDappKey(walletTypeOption?.key || '')];
+              const dengenDappIndex = dapps.findIndex(
+                (d) => d.key === chainKeyToDappKey(walletTypeOption?.key || ''),
+              );
+
               return (
-                <div id={item.key}>
+                <BoxOptionV3
+                  key={item.key}
+                  disable={item.disable}
+                  label={item.title}
+                  id={item.key}
+                  isRequired={item.required}
+                  description={{
+                    title: item.title,
+                    content: item.tooltip,
+                  }}
+                  needCheckIcon={false}
+                >
                   <BoxOption
                     info={{
                       ...item.options[0],
@@ -257,7 +293,7 @@ export default memo(function StudioControls() {
                         item.disable ||
                         !item.options[0].selectable ||
                         isChainOptionDisabled(field, item, item.options[0]),
-                      title: item.title,
+                      title: '',
                       description: {
                         title: item.title,
                         content: item.tooltip,
@@ -266,18 +302,51 @@ export default memo(function StudioControls() {
                     thisDapp={dapp}
                     key={dapp.key}
                     dappIndex={0}
-                  />
-                </div>
+                    className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
+                  >
+                    {walletTypeOption && degenDapp && dengenCategory && (
+                      <BoxOption
+                        info={{
+                          ...walletTypeOption,
+                          title: '',
+                          disabled:
+                            dengenCategory.disable ||
+                            !walletTypeOption.selectable,
+                          description: {
+                            title: walletTypeOption.title,
+                            content: walletTypeOption.tooltip,
+                          },
+                        }}
+                        thisDapp={degenDapp}
+                        key={degenDapp.key}
+                        dappIndex={dengenDappIndex}
+                        className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
+                      />
+                    )}
+                  </BoxOption>
+                </BoxOptionV3>
               );
             }
 
-            if (['defi_apps', 'degen_apps'].includes(item.key)) {
-              const currentPrice =
-                item.options.find(
-                  (opt) =>
-                    opt.key === field[item.key].value &&
-                    field[item.key].dragged,
-                )?.priceBVM ?? 0;
+            if (shouldGenFields.includes(item.key)) {
+              const isDengenCategory = item.key === 'degen_apps';
+              const defiCategory = parsedCategories!.find(
+                (cat) => cat.key === 'defi_apps',
+              );
+              const whitePaperOption = defiCategory?.options.find(
+                (opt) => opt.key === 'white_paper',
+              );
+              const whitePaperDapp = isUpdateChainFlow
+                ? dapps?.find((item) =>
+                    compareString(
+                      item.key,
+                      chainKeyToDappKey(whitePaperOption?.key || ''),
+                    ),
+                  )
+                : dappMapping[chainKeyToDappKey(whitePaperOption?.key || '')];
+              const whitePaperDappIndex = dapps.findIndex(
+                (d) => d.key === chainKeyToDappKey(whitePaperOption?.key || ''),
+              );
 
               return (
                 <BoxOptionV3
@@ -301,6 +370,9 @@ export default memo(function StudioControls() {
                           ),
                         )
                       : dappMapping[chainKeyToDappKey(option.key)];
+
+                    if (ignoreFieldMapper[item.key]?.includes(option.key))
+                      return null;
 
                     // console.log('dapp', dapp);
 
@@ -332,6 +404,24 @@ export default memo(function StudioControls() {
                       </React.Fragment>
                     );
                   })}
+
+                  {isDengenCategory &&
+                    whitePaperOption &&
+                    defiCategory &&
+                    whitePaperDapp && (
+                      <BoxOption
+                        info={{
+                          ...whitePaperOption,
+                          disabled:
+                            defiCategory.disable ||
+                            !whitePaperOption.selectable,
+                        }}
+                        thisDapp={whitePaperDapp}
+                        key={whitePaperDapp.key}
+                        dappIndex={whitePaperDappIndex}
+                        className={s.dappBoxOption}
+                      />
+                    )}
                 </BoxOptionV3>
               );
             }
