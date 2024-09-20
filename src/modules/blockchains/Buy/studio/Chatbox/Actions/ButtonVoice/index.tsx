@@ -3,7 +3,7 @@ import useChatBoxState, { ChatBoxStatus } from '../../chatbox-store';
 import styles from './styles.module.scss';
 
 type Props = {
-  handleSendMessage: (message: string) => void;
+  handleSendMessage: (message: string, isVoice?: boolean) => void;
 };
 
 export default function ButtonVoice({
