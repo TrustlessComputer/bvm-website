@@ -62,7 +62,7 @@ export default function ButtonVoice({
 
       setTimeout(() => {
         if (message.trim() !== '') {
-          handleSendMessage(message);
+          handleSendMessage(message, true);
         }
       }, 100);
     };

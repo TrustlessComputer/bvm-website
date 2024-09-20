@@ -14,11 +14,13 @@ export type BotMessage = {
   afterJSON?: string;
   sender: 'bot';
   template?: IModelCategory[];
+  isVoice?: boolean;
 };
 
 export type UserMessage = {
   text: string;
   sender: 'user';
+  isVoice?: boolean;
 };
 
 export type Message = BotMessage | UserMessage;

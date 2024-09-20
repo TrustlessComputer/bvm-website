@@ -27,9 +27,9 @@ export default function Chatbox() {
     }, 5);
   };
 
-  const handleSendMessage = (message: string) => {
+  const handleSendMessage = (message: string, isVoice = false) => {
     if (message.trim() !== '') {
-      setMessages([...messages, { text: message, sender: 'user' }]);
+      setMessages([...messages, { text: message, sender: 'user', isVoice }]);
       setInputMessage('');
       focusChatBox();
     }
@@ -52,18 +52,21 @@ export default function Chatbox() {
           </div>
           <div className={styles.body_inner}>
             <div id="chatbox-messages" className={styles.chats} ref={elChatBox}>
-              {messages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`${styles.message} ${styles[message.sender]}`}
-                >
-                  {message.sender === 'bot' ? (
-                    <MessageStream message={message.beforeJSON} />
-                  ) : (
-                    message.text
-                  )}
-                </div>
-              ))}
+              {messages.map(
+                (message, index) =>
+                  !message?.isVoice && (
+                    <div
+                      key={index}
+                      className={`${styles.message} ${styles[message.sender]}`}
+                    >
+                      {message.sender === 'bot' ? (
+                        <MessageStream message={message.beforeJSON} />
+                      ) : (
+                        message.text
+                      )}
+                    </div>
+                  ),
+              )}
             </div>
           </div>
         </div>
