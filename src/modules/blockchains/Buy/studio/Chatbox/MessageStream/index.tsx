@@ -11,6 +11,7 @@ import { chainKeyToDappKey } from '../../../utils';
 import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
 import { blockLegoResponseToModelCategory } from '../utils/convertApiUtils';
 import styles from './styles.module.scss';
+import { draggedDappIndexesSignal } from '../../../signals/useDragSignal';
 
 function MessageStream({ message }: { message: string }) {
   const { categories } = useModelCategoriesStore();
@@ -19,6 +20,7 @@ function MessageStream({ message }: { message: string }) {
   const { addDappToNode } = useNodeHelper();
   const { setTemplate } = useTemplate();
 
+  const countAdded = React.useRef(0);
   const [dappIndexesNeedToAdd, setDappIndexesNeedToAdd] = React.useState<
     {
       dappIndex: number;
@@ -27,18 +29,30 @@ function MessageStream({ message }: { message: string }) {
     }[]
   >([]);
   const [isApplied, setIsApplied] = React.useState(false);
-  const [generationStatus, setGenerationStatus] = React.useState({
-    isGenerating: true,
-    isGenerated: false,
-    isGeneratingJson: false,
-    isGeneratedJson: false,
-    template: [] as IModelCategory[],
-    beforeJsonBlock: '',
-    afterJsonBlock: '',
-  });
+
+  const generationStatus = React.useMemo(() => {
+    const messageHaveJson = message.includes('```json');
+    const messageHaveDoneJsonBlock = message.split('```').length > 2;
+    const beforeJsonBlock = message.split('```json')?.[0] || message;
+    const messageHaveJsonBlock = message.split('```json')?.[1];
+    const jsonBlock2 = messageHaveJsonBlock?.split('```')?.[0];
+    const afterJsonBlock = messageHaveJsonBlock?.split('```')?.[1];
+
+    return {
+      beforeJsonBlock: beforeJsonBlock.replaceAll('```', ''),
+      isGeneratingJson: messageHaveJson && !messageHaveDoneJsonBlock,
+      isGeneratedJson: messageHaveDoneJsonBlock,
+      template: messageHaveDoneJsonBlock
+        ? blockLegoResponseToModelCategory(
+            categories!,
+            JSON.parse(jsonBlock2 || '{}'),
+          )
+        : [],
+      afterJsonBlock,
+    };
+  }, [message]);
 
   const handleApply = () => {
-    let count = 0;
     const _dappIndexesNeedToAdd: typeof dappIndexesNeedToAdd = [];
     generationStatus.template.forEach((template) => {
       template.options.forEach((option) => {
@@ -48,10 +62,9 @@ function MessageStream({ message }: { message: string }) {
         if (dappIndex !== -1 && !dapps[dappIndex].isDefaultDapp) {
           _dappIndexesNeedToAdd.push({
             dappIndex,
-            x: 600 * (count + 1),
-            y: 30,
+            x: 0,
+            y: 0,
           });
-          count++;
         }
       });
     });
@@ -67,56 +80,28 @@ function MessageStream({ message }: { message: string }) {
     setIsApplied(true);
   };
 
-  const trackMessageChange = () => {
-    const messageHaveJson = message.includes('```json');
-    const messageHaveDoneJsonBlock = message.split('```').length > 2;
-    const beforeJsonBlock = message.split('```json')?.[0] || message;
-    const messageHaveJsonBlock = message.split('```json')?.[1];
-    const jsonBlock2 = messageHaveJsonBlock?.split('```')?.[0];
-    const afterJsonBlock = messageHaveJsonBlock?.split('```')?.[1];
-
-    if (!messageHaveJson) {
-      setGenerationStatus({
-        ...generationStatus,
-        beforeJsonBlock: beforeJsonBlock.replaceAll('```', ''),
-      });
-    } else if (messageHaveJson && !generationStatus.isGeneratingJson) {
-      setGenerationStatus({
-        ...generationStatus,
-        isGeneratingJson: true,
-      });
-    } else if (messageHaveDoneJsonBlock && generationStatus.isGeneratingJson) {
-      setGenerationStatus({
-        ...generationStatus,
-        isGeneratingJson: false,
-        isGeneratedJson: true,
-        template: blockLegoResponseToModelCategory(
-          categories!,
-          JSON.parse(jsonBlock2 || '{}'),
-        ),
-      });
-    } else if (generationStatus.isGeneratedJson) {
-      setGenerationStatus({
-        ...generationStatus,
-        afterJsonBlock,
-      });
-    }
-  };
-
   React.useEffect(() => {
     if (dappIndexesNeedToAdd.length > 0) {
-      addDappToNode(dappIndexesNeedToAdd[0].dappIndex, {
-        x: dappIndexesNeedToAdd[0].x,
-        y: dappIndexesNeedToAdd[0].y,
+      const dappIndexNeedToAdd = dappIndexesNeedToAdd[0];
+
+      if (
+        draggedDappIndexesSignal.value.includes(dappIndexNeedToAdd.dappIndex)
+      ) {
+        setDappIndexesNeedToAdd(dappIndexesNeedToAdd.slice(1));
+        return;
+      }
+
+      addDappToNode(dappIndexNeedToAdd.dappIndex, {
+        x: 600 * (countAdded.current + 1),
+        y: 30,
       });
+      countAdded.current += 1;
 
       setDappIndexesNeedToAdd(dappIndexesNeedToAdd.slice(1));
+    } else {
+      countAdded.current = 0;
     }
   }, [dappIndexesNeedToAdd, addDappToNode]);
-
-  React.useEffect(() => {
-    trackMessageChange();
-  }, [message]);
 
   const isEmpty = useMemo(() => {
     return (
