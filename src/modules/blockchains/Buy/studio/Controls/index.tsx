@@ -32,9 +32,6 @@ export default memo(function StudioControls() {
   const { dapps, dappMapping } = useDapps();
   const dappState = useAppSelector(dappSelector);
 
-  // console.log('dapps', dapps);
-  // console.log('dappMapping', dappMapping);
-
   const params = useParams();
   const isUpdateChainFlow = React.useMemo(() => !!params?.id, [params?.id]);
   const currentNetwork = React.useMemo(
@@ -42,85 +39,12 @@ export default memo(function StudioControls() {
     [field['network']?.value],
   );
 
-  // console.log('dappMapping :: ', dappMapping);
-
-  // const renderChainLego = (
-  //   item: IModelCategory,
-  //   option: IModelOption,
-  //   currentPrice: any,
-  //   optIdx: number,
-  // ) => {
-  //   let _price = option.priceBVM;
-  //   let operator = '+';
-  //   let suffix =
-  //     Math.abs(_price) > 0
-  //       ? ` (${formatCurrencyV2({
-  //           amount: _price,
-  //           decimals: 0,
-  //         })} BVM)`
-  //       : '';
-
-  //   _price = option.priceBVM - currentPrice;
-  //   operator = _price > 0 ? '+' : '-';
-  //   if (item.multiChoice) operator = '';
-  //   suffix =
-  //     Math.abs(_price) > 0
-  //       ? ` (${operator}${formatCurrencyV2({
-  //           amount: Math.abs(_price),
-  //           decimals: 0,
-  //         })} BVM)`
-  //       : '';
-
-  //   if (
-  //     (option.key === field[item.key].value && field[item.key].dragged) ||
-  //     item.type === 'dropdown'
-  //   )
-  //     return null;
-
-  //   const isDisabled = isChainOptionDisabled(field, item, option);
-
-  //   if (item.multiChoice && field[item.key].dragged) {
-  //     const currentValues = field[item.key].value as any[];
-
-  //     if (currentValues.includes(option.key)) {
-  //       return null;
-  //     }
-  //   }
-
-  //   return (
-  //     <Draggable
-  //       key={item.key + '-' + option.key}
-  //       id={item.key + '-' + option.key}
-  //       useMask
-  //       disabled={isDisabled}
-  //       isLabel={true}
-  //       value={{
-  //         isChain: true,
-  //         value: option.key,
-  //       }}
-  //       tooltip={option.tooltip}
-  //     >
-  //       <LegoV3
-  //         background={item.color}
-  //         zIndex={item.options.length - optIdx}
-  //         disabled={isDisabled}
-  //       >
-  //         <Label icon={option.icon} title={option.title + suffix} />
-  //       </LegoV3>
-  //     </Draggable>
-  //   );
-  // };
-
   return (
     <div id={'wrapper-data'} className={s.left_box_inner_content}>
       <DroppableV2 id="data">
         {(parsedCategories || []).map((item, index) => {
           if (!item.isChain && !ignoreFields.includes(item.key)) return null;
-          // console.log('[StudioControls] map', item.key, {
-          //   item: item,
-          //   field: field,
-          //   disabled: isUpdateChainFlow && !item.updatable,
-          // });
+
           if (item.hidden) return null;
 
           const currentOption = item.options.find(
@@ -148,17 +72,6 @@ export default memo(function StudioControls() {
               }}
             >
               {item.options.map((option, optIdx) => {
-                // let _price = formatCurrencyV2({
-                //   amount: option.priceBVM || 0,
-                //   decimals: 0,
-                // }).replace('.00', '');
-                // let suffix =
-                //   Math.abs(option.priceBVM) > 0
-                //     ? ` (${_price} BVM)`
-                //     : '';
-
-                // if (option.hidden) return null;
-
                 let _price = option.priceBVM;
                 let thisPrice = option.priceBVM;
 
@@ -193,24 +106,12 @@ export default memo(function StudioControls() {
                   field[item.key].dragged &&
                   field[item.key].value === option.key;
 
-                // if (
-                //   (option.key === field[item.key].value &&
-                //     field[item.key].dragged) ||
-                //   item.type === 'dropdown'
-                // )
-                //   return null;
-
                 const isDisabled = isChainOptionDisabled(field, item, option);
 
                 if (item.multiChoice && field[item.key].dragged) {
                   isThisOptionDragged = (
                     (field[item.key]?.value as any) || []
                   ).includes(option.key);
-                  // const currentValues = field[item.key].value as any[];
-                  //
-                  // if (currentValues.includes(option.key)) {
-                  //   return null;
-                  // }
                 }
 
                 if (option?.hidden) return null;

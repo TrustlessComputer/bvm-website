@@ -1,13 +1,11 @@
 import MagicIcon from '@/components/MagicIcon';
 import { useRef } from 'react';
 import ButtonClose from './Actions/ButtonClsoe';
-import ButtonStop from './Actions/ButtonStop';
-import useChatBoxState, { ChatBoxStatus } from './chatbox-store';
+import useChatBoxState from './chatbox-store';
 import useChatBoxService from './hooks/useChatBoxService';
 import MessageStream from './MessageStream';
 import styles from './styles.module.scss';
 import TextInput from './TextInput';
-import DotPulse from '@/components/DotPulse';
 
 export default function Chatbox() {
   const {
@@ -45,7 +43,7 @@ export default function Chatbox() {
           <div className={styles.header}>
             <div className={styles.title}>
               <MagicIcon color="black" />
-              Composer
+              Ai voice prompt
             </div>
 
             <div className={styles.close}>
@@ -66,19 +64,6 @@ export default function Chatbox() {
                   )}
                 </div>
               ))}
-            </div>
-            <div className={styles.status}>
-              <div className={styles.statusInner}>
-                {isIdle ? '' : status}
-                {status === ChatBoxStatus.Generating && (
-                  <DotPulse className={styles.dotPulse} />
-                )}
-              </div>
-
-              {/* TODO: Wait BE support END event */}
-              {/*<div className={styles.statusButtons}>
-                {isGenerating && <ButtonStop />}
-              </div> */}
             </div>
           </div>
         </div>
