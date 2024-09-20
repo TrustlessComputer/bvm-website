@@ -448,8 +448,6 @@ export default function useHandleDragging() {
       dappIndex: -1,
     };
 
-    if (!over) return;
-
     const dappIndex = active.data.current?.dappIndex;
     const thisDapp = dapps[dappIndex];
     const activeId = active.id.toString();
@@ -469,7 +467,9 @@ export default function useHandleDragging() {
     const overIsInput =
       over.id === 'input' || (over.id.split('-')[1] || '') === 'droppable';
     const overIsOutput =
-      over.id === 'output' || (over.id.split('-')[2] || '') === 'droppable';
+      over.id === 'output' ||
+      (over.id.split('-')[2] || '') === 'droppable' ||
+      over.id === 'final-droppable';
     const overIsABase = DragUtil.idDraggingIsABase(overId);
     const overBaseIndex = Number(DragUtil.getBaseIndex(overId));
     const overIsABlock = DragUtil.idDraggingIsABlock(overId);
@@ -493,6 +493,8 @@ export default function useHandleDragging() {
     const activeIsABaseModule = DragUtil.idDraggingIsABaseModule(activeId);
 
     console.log('[useHandleDragging] handleDappDragEnd', {
+      active,
+      over,
       overIsInput,
       overIsOutput,
       overIsABase,
