@@ -11,8 +11,6 @@ const useFormChain = () => {
   const { field } = useOrderFormStoreV3();
   const { dappCount } = useFormDappToFormChain();
 
-  console.log('[useFormChain] field', field);
-
   const getDynamicForm = () => {
     if (!categories) {
       return {

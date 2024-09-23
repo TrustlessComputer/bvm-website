@@ -43,7 +43,7 @@ export default function useStudioHelper() {
     }
   };
 
-  const capture = async () => {
+  const capture = async (signal: AbortSignal) => {
     const viewportDom = document.querySelector('#viewport');
 
     if (!viewportDom) return '';
@@ -60,19 +60,31 @@ export default function useStudioHelper() {
       0,
     );
 
-    return await toPng(
-      document.querySelector('.react-flow__viewport') as HTMLElement,
-      {
-        backgroundColor: '#fff',
-        width: imageWidth,
-        height: imageHeight,
-        style: {
-          width: `${imageWidth}`,
-          height: `${imageHeight}`,
-          transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
-        },
-      },
-    );
+    const abortPromise = new Promise((_, reject) => {
+      signal.addEventListener('abort', () => {
+        reject();
+      });
+    });
+
+    try {
+      const result = await Promise.all([
+        toPng(document.querySelector('.react-flow__viewport') as HTMLElement, {
+          backgroundColor: '#fff',
+          width: imageWidth,
+          height: imageHeight,
+          style: {
+            width: `${imageWidth}`,
+            height: `${imageHeight}`,
+            transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
+          },
+        }),
+        abortPromise,
+      ]);
+
+      return result[0] as string;
+    } catch (error) {
+      return '';
+    }
   };
 
   const getTwitterContent = (url: string) => {

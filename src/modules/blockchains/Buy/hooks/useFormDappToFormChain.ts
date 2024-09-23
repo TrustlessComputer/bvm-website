@@ -15,9 +15,9 @@ const useFormDappToFormChain = () => {
     setDappIndexes(draggedDappIndexesSignal.value);
   });
 
-  console.log('[useFormDappToFormChain]', {
-    dappIndexes,
-  });
+  // console.log('[useFormDappToFormChain]', {
+  //   dappIndexes,
+  // });
 
   const dappCount = React.useMemo(() => {
     const dappCount: Record<string, number> = {};
@@ -34,9 +34,9 @@ const useFormDappToFormChain = () => {
       }
     });
 
-    console.log('[useFormDappToFormChain] b', {
-      dappCount,
-    });
+    // console.log('[useFormDappToFormChain] b', {
+    //   dappCount,
+    // });
 
     return dappCount;
   }, [dappIndexes]);

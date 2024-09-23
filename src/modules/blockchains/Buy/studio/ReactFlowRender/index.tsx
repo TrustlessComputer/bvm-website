@@ -19,6 +19,7 @@ import useFlowStore from '../../stores/useFlowStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import s from './styles.module.scss';
 import useLineIssueToken from '@/modules/blockchains/Buy/hooks/useLineIssueToken';
+import { isActingSignal } from '../../signals/useFlowStatus';
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
@@ -27,18 +28,21 @@ const ReactFlowRenderer = React.memo(() => {
   const { nodes, onNodesChange, edges, onEdgesChange } = useFlowStore();
   const { setRfInstance, onRestore, rfInstance, onSave, haveOldData } =
     useHandleReloadNode();
-  const [currentPosition, setCurrentPosition] = useState(
-    currentPositionSignal.value,
-  );
   const { isFirstLoadTemplateBox } = useStoreFirstLoadTemplateBox();
-  const [count, setCount] = React.useState(0);
   const path = usePathname();
   const { categories } = useModelCategoriesStore();
   const searchParamm = useSearchParams();
   useLineIssueToken();
 
+  const [currentPosition, setCurrentPosition] = useState(
+    currentPositionSignal.value,
+  );
+  const [count, setCount] = React.useState(0);
+
   const [loaded, setLoaded] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
+
+  const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
   // const confirmLoad = () => {
   //   onRestore();
@@ -53,10 +57,17 @@ const ReactFlowRenderer = React.memo(() => {
     }
   });
 
-  console.log('[ReactFlowRenderer]', {
-    nodes,
-    edges
-  });
+  const handleActing = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    isActingSignal.value = true;
+
+    timeoutRef.current = setTimeout(() => {
+      isActingSignal.value = false;
+    }, 300);
+  };
 
   React.useEffect(() => {
     if (!isFirstLoadTemplateBox) return;
@@ -99,9 +110,13 @@ const ReactFlowRenderer = React.memo(() => {
         deleteKeyCode={''}
         onViewportChange={(viewState) => {
           currentPositionSignal.value = viewState;
+          handleActing();
         }}
         onEdgesChange={onEdgesChange}
-        onNodesChange={onNodesChange}
+        onNodesChange={(changes) => {
+          onNodesChange(changes);
+          handleActing();
+        }}
         edgesFocusable={false}
         onInit={setRfInstance}
         zoomOnDoubleClick={false}
@@ -109,9 +124,6 @@ const ReactFlowRenderer = React.memo(() => {
         edges={edges}
         fitViewOptions={{ padding: 1 }}
         className={s.reactFlow}
-        // onNodeDrag={(event: React.MouseEvent, node: AppNode)=> {
-        //   console.log('[ReactFlowRenderer] onNodeDrag', { event, node, nodes });
-        // }}
         onNodeDragStop={() => {
           if (!isFirstLoadTemplateBox) return;
           if (path === '/studio') {
