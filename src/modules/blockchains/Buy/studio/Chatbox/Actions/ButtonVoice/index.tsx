@@ -1,4 +1,11 @@
-import { ReactElement, useCallback, useEffect, useMemo, useRef } from 'react';
+import {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import useChatBoxState, { ChatBoxStatus } from '../../chatbox-store';
 import styles from './styles.module.scss';
 
@@ -21,6 +28,7 @@ export default function ButtonVoice({
     setIsChatboxOpen,
   } = useChatBoxState();
   const recognitionRef = useRef<any>(null);
+  const [language, setLanguage] = useState('en-US'); // State for selected language
 
   const isClose = useMemo(() => {
     return !isComplete && !isGenerating && !isListening;
@@ -45,7 +53,13 @@ export default function ButtonVoice({
 
     newRecognition.continuous = false;
     newRecognition.interimResults = false;
-    newRecognition.lang = 'en-US'; // Set language to English
+    newRecognition.lang = language || navigator.language;
+
+    // const cryptoGrammar = `#JSGF V1.0; grammar crypto; public <crypto> = bitcoin | ethereum | blockchain | crypto | cryptocurrency | hardware | wallet | token | exchange | platform | service | solution | technology | network | protocol | smart contract | blockchain technology | blockchain platform
+    //   | gas | withdrawals | tools | bridges | games | defi | issue a token | staking | airdrop | whitepaper | degens | yolo | prover | data availability | scaling solutions | base chains | layer 2 | layer 1 | layer 0 | celestia | filecoin | solana | avalanche | near | polygon | zk rollup | zk | rollup ;`;
+    // const speechRecognitionList = new (window as any).webkitSpeechGrammarList();
+    // speechRecognitionList.addFromString(cryptoGrammar, 1);
+    // newRecognition.grammars = speechRecognitionList;
 
     newRecognition.onresult = (event: any) => {
       const transcript = event.results[0][0].transcript;
@@ -62,6 +76,7 @@ export default function ButtonVoice({
 
       setTimeout(() => {
         if (message.trim() !== '') {
+          console.log('____message', message);
           handleSendMessage(message, true);
         }
       }, 100);
@@ -262,6 +277,19 @@ export default function ButtonVoice({
 
   return (
     <div className={styles.buttonVoice}>
+      <select
+        value={language}
+        onChange={(e) => setLanguage(e.target.value)}
+        className={styles.languageSelect}
+      >
+        <option value="en-US">English</option>
+        <option value="es-ES">Spanish</option>
+        <option value="fr-FR">French</option>
+        <option value="de-DE">German</option>
+        <option value="zh-CN">Chinese</option>
+        <option value="vi-VN">Vietnamese</option>
+        <option value="ko-KR">Korean</option>
+      </select>
       {!isListening ? Listening : MuteIcon}
     </div>
   );

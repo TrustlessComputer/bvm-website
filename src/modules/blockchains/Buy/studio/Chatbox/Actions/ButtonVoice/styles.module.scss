@@ -1,4 +1,7 @@
 .buttonVoice {
+  display: flex;
+  gap: 4px;
+
   &_el {
     display: flex;
     gap: 5px;
@@ -26,4 +29,13 @@
       cursor: not-allowed;
     }
   }
+}
+
+.languageSelect {
+  border-radius: 12px;
+  background: #f2f2f2;
+  border: 1px solid #e0e0e0;
+  padding-left: 8px;
+  box-shadow: none;
+  outline: none;
 }
