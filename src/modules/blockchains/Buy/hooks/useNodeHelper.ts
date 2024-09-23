@@ -148,7 +148,7 @@ const useNodeHelper = () => {
       edges: [...newState.edges, newEdge],
     });
 
-    console.log('[SocketProvider] addDappToNode', {
+    console.log('[useNodeHelper] addDappToNode', {
       nodes: [...newState.nodes, newNode],
       edges: [...newState.edges, newEdge],
     });

@@ -91,10 +91,10 @@ export default function SocketProvider({
         (data: any) => {
           refMessageRender.current += JSON.parse(data).content;
 
-          console.log(
-            '[SocketProvider] GROUP_STREAM_AI_REPLY',
-            refMessageRender.current,
-          );
+          // console.log(
+          //   '[SocketProvider] GROUP_STREAM_AI_REPLY',
+          //   refMessageRender.current,
+          // );
 
           const newMessages = () => {
             const lastMessage = messages[messages.length - 1];
@@ -132,7 +132,7 @@ export default function SocketProvider({
       socketRef.current?.on(
         WebSocketEventName.GROUP_STREAM_AI_REPLY_END,
         (data: any) => {
-          console.log('[SocketProvider] GROUP_STREAM_AI_REPLY_END', data);
+          // console.log('[SocketProvider] GROUP_STREAM_AI_REPLY_END', data);
 
           refMessageRender.current = '';
 

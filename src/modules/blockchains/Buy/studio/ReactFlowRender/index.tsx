@@ -44,6 +44,8 @@ const ReactFlowRenderer = React.memo(() => {
 
   const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
+  console.log('[ReactFlowRenderer]', { nodes, edges });
+
   // const confirmLoad = () => {
   //   onRestore();
   //   setShowModal(false);

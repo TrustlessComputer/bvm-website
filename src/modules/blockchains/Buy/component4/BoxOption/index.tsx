@@ -64,10 +64,10 @@ const BoxOption = ({
           .length || thisDapp.baseBlock.placableAmount === -1;
     // const canPlaceMoreBase = draggedIds2D.length === 0;
 
-    console.log('[retrieveFormsByDappKey]', {
-      dappKey: thisDapp.key,
-      forms: retrieveFormsByDappKey({ dappKey: thisDapp.key }),
-    });
+    // console.log('[retrieveFormsByDappKey]', {
+    //   dappKey: thisDapp.key,
+    //   forms: retrieveFormsByDappKey({ dappKey: thisDapp.key }),
+    // });
     setAllThisDappForm(retrieveFormsByDappKey({ dappKey: thisDapp.key }));
     setDisableBaseBlock(!canPlaceMoreBase);
   });

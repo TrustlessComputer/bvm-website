@@ -4,13 +4,19 @@ import DotPulse from '@/components/DotPulse';
 import Lego from '../../../component4/Lego';
 import useNodeHelper from '../../../hooks/useNodeHelper';
 import useTemplate from '../../../hooks/useTemplate';
-import { draggedDappIndexesSignal } from '../../../signals/useDragSignal';
+import {
+  draggedDappIndexesSignal,
+  draggedIds2DSignal,
+} from '../../../signals/useDragSignal';
 import useDappsStore from '../../../stores/useDappStore';
 import useModelCategoriesStore from '../../../stores/useModelCategoriesStore';
 import { chainKeyToDappKey } from '../../../utils';
 import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
 import { blockLegoResponseToModelCategory } from '../utils/convertApiUtils';
 import styles from './styles.module.scss';
+import { needReactFlowRenderSignal } from '../../ReactFlowRender';
+import { formDappSignal } from '../../../signals/useFormDappsSignal';
+import useStudioHelper from '../../../hooks/useStudioHelper';
 
 function MessageStream({ message }: { message: string }) {
   const { categories } = useModelCategoriesStore();
@@ -18,6 +24,7 @@ function MessageStream({ message }: { message: string }) {
   const { dapps } = useDappsStore();
   const { addDappToNode } = useNodeHelper();
   const { setTemplate } = useTemplate();
+  const { clearFlow } = useStudioHelper();
 
   const countAdded = React.useRef(0);
   const [dappIndexesNeedToAdd, setDappIndexesNeedToAdd] = React.useState<
@@ -52,31 +59,37 @@ function MessageStream({ message }: { message: string }) {
   }, [message]);
 
   const handleApply = () => {
-    const _dappIndexesNeedToAdd: typeof dappIndexesNeedToAdd = [];
-    generationStatus.template.forEach((template) => {
-      template.options.forEach((option) => {
-        const dappKey = chainKeyToDappKey(option.key);
-        const dappIndex = dapps.findIndex((dA) => dA.key === dappKey);
-
-        if (dappIndex !== -1 && !dapps[dappIndex].isDefaultDapp) {
-          _dappIndexesNeedToAdd.push({
-            dappIndex,
-            x: 0,
-            y: 0,
-          });
-        }
-      });
-    });
-
-    setDappIndexesNeedToAdd(_dappIndexesNeedToAdd);
-    setChatBoxStatus({
-      status: ChatBoxStatus.Close,
-      isGenerating: false,
-      isComplete: false,
-      isListening: false,
-    });
-    setTemplate(generationStatus.template);
+    clearFlow();
     setIsApplied(true);
+  };
+
+  const apply = () => {
+    setTimeout(() => {
+      const _dappIndexesNeedToAdd: typeof dappIndexesNeedToAdd = [];
+      generationStatus.template.forEach((template) => {
+        template.options.forEach((option) => {
+          const dappKey = chainKeyToDappKey(option.key);
+          const dappIndex = dapps.findIndex((dA) => dA.key === dappKey);
+
+          if (dappIndex !== -1 && !dapps[dappIndex].isDefaultDapp) {
+            _dappIndexesNeedToAdd.push({
+              dappIndex,
+              x: 0,
+              y: 0,
+            });
+          }
+        });
+      });
+
+      setDappIndexesNeedToAdd(_dappIndexesNeedToAdd);
+      setChatBoxStatus({
+        status: ChatBoxStatus.Close,
+        isGenerating: false,
+        isComplete: false,
+        isListening: false,
+      });
+      setTemplate(generationStatus.template);
+    }, 300);
   };
 
   React.useEffect(() => {
@@ -84,23 +97,24 @@ function MessageStream({ message }: { message: string }) {
       const dappIndexNeedToAdd = dappIndexesNeedToAdd[0];
 
       if (
-        draggedDappIndexesSignal.value.includes(dappIndexNeedToAdd.dappIndex)
+        !draggedDappIndexesSignal.value.includes(dappIndexNeedToAdd.dappIndex)
       ) {
-        setDappIndexesNeedToAdd(dappIndexesNeedToAdd.slice(1));
-        return;
+        addDappToNode(dappIndexNeedToAdd.dappIndex, {
+          x: 600 * (countAdded.current + 1),
+          y: 30,
+        });
+        countAdded.current += 1;
       }
 
-      addDappToNode(dappIndexNeedToAdd.dappIndex, {
-        x: 600 * (countAdded.current + 1),
-        y: 30,
-      });
-      countAdded.current += 1;
-
       setDappIndexesNeedToAdd(dappIndexesNeedToAdd.slice(1));
-    } else {
-      countAdded.current = 0;
     }
   }, [dappIndexesNeedToAdd, addDappToNode]);
+
+  React.useEffect(() => {
+    if (isApplied) {
+      apply();
+    }
+  }, [isApplied]);
 
   const isEmpty = useMemo(() => {
     return (

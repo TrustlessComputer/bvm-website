@@ -47,15 +47,14 @@ import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useDapps from './useDapps';
 import { parseWhitePapers } from '@/modules/blockchains/dapp/parseUtils/whitePaper';
+import useStudioHelper from './useStudioHelper';
 
 export default function useFetchingTemplate() {
+  const path = usePathname();
+
   const { templateList, templateDefault } = useAvailableListTemplate();
   const { modelCategoryList } = useModelCategory();
   const { dapps } = useDapps();
-  const path = usePathname();
-  const params = useParams();
-  const isUpdateFlow = React.useMemo(() => !!params?.id, [params?.id]);
-
   const { order, isAAInstalled, isBridgeInstalled, isGamingAppsInstalled } =
     useChainProvider();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
@@ -67,12 +66,12 @@ export default function useFetchingTemplate() {
   } = useModelCategoriesStore();
   const { field, setFields } = useOrderFormStoreV3();
   const { setUpdated, updated } = useUpdateFlowStore();
-  const searchParams = useSearchParams();
   const { setIsFirstLoadTemplateBox } = useStoreFirstLoadTemplateBox();
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { setTemplate } = useTemplate();
   const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
+  const { getChainNode, getChainNodeId, isUpdateFlow } = useStudioHelper();
 
   const { counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
@@ -108,22 +107,8 @@ export default function useFetchingTemplate() {
     const categoryMapping: Record<string, IModelCategory> = {};
     const [categories, templates] = await Promise.all([
       getModelCategories(l2ServiceUserAddress),
-      // getModelCategories('0x4113ed747047863Ea729f30C1164328D9Cc8CfcF'),
       getTemplates(),
     ]);
-
-    // console.log('LOG: data ', {
-    //   l2ServiceUserAddress,
-    //   categories,
-    //   templates,
-    //   templateList,
-    //   templateDefault,
-    //   modelCategoryList,
-    // });
-
-    // Use mockup data
-    // const sortedCategories = (categoriesMockup || []).sort(
-    // Use API
     const sortedCategories = [...modelCategoryList];
 
     sortedCategories.forEach((_field) => {
@@ -145,66 +130,19 @@ export default function useFetchingTemplate() {
 
   const dataTemplateToBox = async () => {
     setIsFirstLoadTemplateBox(true);
-    formDappSignal.value = {};
-    formTemplateDappSignal.value = {};
 
-    console.log('SET DATA TEMPLATE TO BOX');
     const newNodes: AppNode[] = [];
-    const rootNode = 'blockchain';
-    // const aaAsDapp = accountAbstractionAsADapp;
-    // if (isAAInstalled) {
-    //   newNodes.unshift({
-    //     id: '0',
-    //     type: nodeKey.ACCOUNT_ABSTRACTION_NODE,
-    //     dragHandle: '.drag-handle-area',
-    //     position: { x: 0, y: 0 },
-    //     data: {
-    //       node: 'dapp',
-    //       title: aaAsDapp.title,
-    //       dapp: aaAsDapp,
-    //       baseIndex: 0,
-    //       categoryOption:
-    //         (categories || []).find((dapp) => dapp.key === 'wallet')
-    //           ?.options[0] || {},
-    //       ids: [],
-    //       targetHandles: [`${0}-t-${rootNode}`],
-    //       sourceHandles: [],
-    //     },
-    //   });
-    // }
-
-    const chainNodeInitial: ChainNode = {
-      id: rootNode,
-      type: nodeKey.CHAIN_NODE,
-      data: {
-        node: 'chain',
-        title: 'Blockchain',
-        sourceHandles: isUpdateFlow
-          ? [
-              `${rootNode}-s-account_abstraction`,
-              `${rootNode}-s-bridge_apps`,
-              `${rootNode}-s-gaming_apps`,
-            ]
-          : [],
-        // sourceHandles: isUpdateFlow
-        //   ? [`${rootNode}-s-account_abstraction`]
-        //   : [],
-        targetHandles: [],
-      },
-      dragHandle: '.drag-handle-area',
-      position: { x: 30, y: 30 },
-    };
-    newNodes.unshift(chainNodeInitial);
+    newNodes.unshift(getChainNode({ x: 30, y: 30 }));
 
     if (!templateForm) {
       const edgeData: Edge[] = [];
 
       setEdges(edgeData);
       setNodes(newNodes);
-      console.log('newNodes ne', newNodes);
       setNeedSetDataTemplateToBox(false);
 
       if (isUpdateFlow) setNeedCheckAndAddAA(true);
+
       return;
     }
 
@@ -275,7 +213,7 @@ export default function useFetchingTemplate() {
       return acc;
     }, {} as Record<string, number>);
     const getHandleNodeBlockChain = newNodes.find(
-      (item) => item.id === rootNode,
+      (item) => item.id === getChainNodeId(),
     );
 
     let nodesData = nodes;
@@ -302,25 +240,26 @@ export default function useFetchingTemplate() {
       const yOffset = defaultPositionY;
       const idNode = index.toString();
       const isHandleExists = getHandleNodeBlockChain?.data?.sourceHandles?.some(
-        (handle) => handle === `${rootNode}-s-${templateDapps[index].title}`,
+        (handle) =>
+          handle === `${getChainNodeId()}-s-${templateDapps[index].title}`,
       );
 
       if (!isHandleExists) {
         getHandleNodeBlockChain?.data?.sourceHandles?.push(
-          `${rootNode}-s-${templateDapps[index].title}`,
+          `${getChainNodeId()}-s-${templateDapps[index].title}`,
         );
 
         nodesData = newNodes.map((item) =>
-          item.id === rootNode ? getHandleNodeBlockChain : item,
+          item.id === getChainNodeId() ? getHandleNodeBlockChain : item,
         ) as AppState['nodes'];
       }
 
       edgeData.push({
         id: `${Math.random()}`,
-        source: rootNode,
-        sourceHandle: `${rootNode}-s-${templateDapps[index].title}`,
+        source: getChainNodeId(),
+        sourceHandle: `${getChainNodeId()}-s-${templateDapps[index].title}`,
         target: `${idNode}`,
-        targetHandle: `${idNode}-t-${rootNode}`,
+        targetHandle: `${idNode}-t-${getChainNodeId()}`,
         type: 'customEdge',
         label: handleStatusEdges(statusDapp, 'running', idNode).icon,
         animated: handleStatusEdges(statusDapp, 'running', idNode).animate,
@@ -340,10 +279,6 @@ export default function useFetchingTemplate() {
         },
       });
 
-      if (dappKey === 'airdrop') {
-        console.log('HEHEHEHEHHEHEHE', templateDapps[index], titleStatusDapp);
-      }
-
       return {
         id: idNode,
         type: 'dappTemplate',
@@ -356,9 +291,9 @@ export default function useFetchingTemplate() {
           dapp: templateDapps[index],
           ids,
           baseIndex: index,
-          // targetHandles: [`${idNode}-t-${rootNode}`],
+          // targetHandles: [`${idNode}-t-${getChainNodeId()}`],
           targetHandles: [],
-          sourceHandles: [`${idNode}-t-${rootNode}`],
+          sourceHandles: [`${idNode}-t-${getChainNodeId()}`],
           // sourceHandles: [],
           itemId: thisNode?.id,
           positionId: thisNode?.position_id,
@@ -367,23 +302,6 @@ export default function useFetchingTemplate() {
       };
     });
 
-    // if (updated) {
-    //   const preNodes = (localStorage.getItem(
-    //     LocalStorageKey.UPDATE_FLOW_NODES,
-    //   ) || []) as AppNode[];
-
-    //   _newNodes.forEach((node, index) => {
-    //     if (!preNodes[index]) return;
-
-    //     node.position = preNodes[index].position;
-    //     node.data = {
-    //       ...node.data,
-    //       sourceHandles: preNodes[index].data.sourceHandles,
-    //       targetHandles: preNodes[index].data.targetHandles,
-    //     };
-    //   });
-    // }
-    console.log('HEHEHEHEHHEHEHE', _newNodes);
     const map: any = {};
     for (const element of [...newNodes, ...nodesData, ..._newNodes]) {
       map[element.id] = element;
@@ -556,15 +474,7 @@ export default function useFetchingTemplate() {
     if (isUpdateFlow && order) {
       setTemplate(order.selectedOptions || []);
     } else {
-      // const template = searchParams.get('template');
-
-      // console.log('template', template, templateDefault);
-
-      // if (template || !ENABLE_CHATBOX) {
       setTemplate(templateDefault || []);
-      // } else if (ENABLE_CHATBOX) {
-      //   setTemplate([]);
-      // }
     }
 
     setNeedSetPreTemplate(false);

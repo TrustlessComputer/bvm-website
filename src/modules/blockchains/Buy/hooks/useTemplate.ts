@@ -5,6 +5,12 @@ import { IModelCategory } from '@/types/customize-model';
 import { useSearchParams } from 'next/navigation';
 import { cloneDeep } from '../utils';
 import { useOptionInputStore } from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
+import {
+  draggedDappIndexesSignal,
+  draggedIds2DSignal,
+} from '../signals/useDragSignal';
+import { formDappSignal } from '../signals/useFormDappsSignal';
+import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 
 export default function useTemplate() {
   const searchParams = useSearchParams();
