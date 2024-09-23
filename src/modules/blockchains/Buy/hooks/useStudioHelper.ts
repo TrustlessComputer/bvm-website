@@ -1,6 +1,6 @@
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 import { IModelCategory } from '@/types/customize-model';
-import useTemplate from '../hooks/useTemplate';
+import useTemplate from './useTemplate';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
@@ -8,7 +8,10 @@ import {
 import { formDappSignal } from '../signals/useFormDappsSignal';
 import { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore from '../stores/useFlowStore';
-import useAvailableListTemplate from './useAvailableListTemplate';
+import useAvailableListTemplate from '../studio/useAvailableListTemplate';
+import l2ServicesAPI from '@/services/api/l2services';
+import { toPng } from 'html-to-image';
+import { getNodesBounds, getViewportForBounds } from '@xyflow/react';
 
 export default function useStudioHelper() {
   const { templateIndexDefault } = useAvailableListTemplate();
@@ -41,19 +44,50 @@ export default function useStudioHelper() {
   };
 
   const capture = async () => {
-    //TO DO
+    const viewportDom = document.querySelector('#viewport');
+
+    if (!viewportDom) return '';
+    const imageWidth = viewportDom.clientWidth;
+    const imageHeight = viewportDom.clientHeight;
+
+    const nodesBounds = getNodesBounds(nodes);
+    const viewport = getViewportForBounds(
+      nodesBounds,
+      imageWidth,
+      imageHeight,
+      0.5,
+      2,
+      0,
+    );
+
+    return await toPng(
+      document.querySelector('.react-flow__viewport') as HTMLElement,
+      {
+        backgroundColor: '#fff',
+        width: imageWidth,
+        height: imageHeight,
+        style: {
+          width: `${imageWidth}`,
+          height: `${imageHeight}`,
+          transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
+        },
+      },
+    );
   };
 
-  const share = async () => {
-    //TO DO
-  };
+  const getTwitterContent = (url: string) => {
+    return `I'm launching my own ZK Rollup on Bitcoin with @BVMnetwork! 🚀
 
-  // console.log('[useStudioHelper] --- ');
+BVM Studio makes blockchain building a breeze with simple drag-and-drop tools. No sweat, just pure innovation. Starting from $99/mo.
+
+Let's transform #Bitcoin beyond money together!
+https://bvm.network/studio/${url}`;
+  };
 
   return {
     resetEdit,
     capture,
-    share,
     cloneHandler,
+    getTwitterContent,
   };
 }

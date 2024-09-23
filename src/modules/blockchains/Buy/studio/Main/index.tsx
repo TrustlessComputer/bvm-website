@@ -15,7 +15,7 @@ import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/Chain
 import { IModelCategory } from '@/types/customize-model';
 import React, { ReactElement } from 'react';
 import OverlayControl from '../OverlayControl/Index';
-import useStudioHelper from '../useStudioHelper';
+import useStudioHelper from '../../hooks/useStudioHelper';
 import ChainInforView from './ChainInforView';
 
 const StudioMain = (): ReactElement => {
