@@ -55,7 +55,7 @@ const useNodeHelper = () => {
     const isHandleExists = edges.some(
       (handle) => handle.sourceHandle === `${rootNode}-s-${suffix}`,
     );
-    let nodesData = nodes;
+    let nodesData = newState.nodes;
 
     if (!isHandleExists) {
       getHandleNodeBlockChain?.data?.sourceHandles?.push(
@@ -82,13 +82,6 @@ const useNodeHelper = () => {
         children: [],
       });
     }
-
-    console.log('[useNodeHelper] addDappToNode', {
-      dappIndex,
-      position,
-      thisDapp,
-      ids,
-    });
 
     const newNode: DappNode = {
       id: newNodeId,
@@ -141,15 +134,10 @@ const useNodeHelper = () => {
     draggedIds2DSignal.value = [...draggedIds2DSignal.value, ids];
 
     setDraggedIds2D([...draggedIds2DSignal.value]);
-    setNodes([...newState.nodes, newNode]);
+    setNodes([...nodesData, newNode]);
     setEdges([...newState.edges, newEdge]);
     setNewState({
-      nodes: [...newState.nodes, newNode],
-      edges: [...newState.edges, newEdge],
-    });
-
-    console.log('[useNodeHelper] addDappToNode', {
-      nodes: [...newState.nodes, newNode],
+      nodes: [...nodesData, newNode],
       edges: [...newState.edges, newEdge],
     });
 
