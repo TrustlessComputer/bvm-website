@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
+import ButtonRecord from '../Actions/ButtonRecord';
 import ButtonSubmit from '../Actions/ButtonSubmit';
-import ButtonVoice from '../Actions/ButtonVoice';
 import useChatBoxState from '../chatbox-store';
 import LabelListening from '../LabelListening';
 import styles from './styles.module.scss';
@@ -35,7 +35,7 @@ export default function TextInput({
         )}
         {isListening && <LabelListening />}
         <div className={styles.buttonWrapper}>
-          <ButtonVoice handleSendMessage={handleSendMessage} />
+          <ButtonRecord handleSendMessage={handleSendMessage} />
           <ButtonSubmit handleSendMessage={handleSendMessage} />
         </div>
       </div>

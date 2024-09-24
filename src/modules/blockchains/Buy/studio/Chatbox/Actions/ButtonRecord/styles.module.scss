@@ -1,0 +1,29 @@
+.buttonVoice {
+  &_el {
+    display: flex;
+    gap: 5px;
+    border: 1px solid #fa4e0e;
+    background: none;
+    border-radius: 100px;
+    cursor: pointer;
+    padding-left: 16px;
+    padding-right: 16px;
+    color: #808080;
+    z-index: 10;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    color: #fa4e0e;
+
+    span {
+      display: block;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}
