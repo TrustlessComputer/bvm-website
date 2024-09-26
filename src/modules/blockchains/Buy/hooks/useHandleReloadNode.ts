@@ -92,7 +92,6 @@ function useHandleReloadNode() {
       STORAGE_KEYS.USE_DRAG_SIGNALS,
       JSON.stringify(signals),
     );
-    console.log('runnnn USE_SIGNALS_FORM end');
   });
 
   // useSignalEffect(() => {
@@ -124,7 +123,6 @@ function useHandleReloadNode() {
     if (!isFirstLoadTemplateBox || !restoreLocal.value) return;
 
     if (rfInstance) {
-      console.log('runnn on save');
       const flow = rfInstance.toObject();
       const signals = {
         draggedDappIndexesSignal,

@@ -7,7 +7,7 @@
     "dev": "cp ./envs/.env.develop .env && next dev -p 9001",
     "ld": "export PORT=3001 && cp ./envs/.env.develop .env  && rm -rf .next && next dev",
     "ls": "export PORT=3002 && cp ./envs/.env.staging .env  && rm -rf .next && next dev",
-    "lp": "export PORT=3003 && cp ./envs/.env.production .env  && rm -rf .next && next dev",
+    "lp": "set PORT=3003 && cp ./envs/.env.production .env  && rm -rf .next && next dev",
     "build": "next build",
     "start": "next start -p 3000",
     "build-stats": "cross-env ANALYZE=true npm run build",

@@ -1,5 +1,10 @@
 import React from 'react';
-import { getNodesBounds, getViewportForBounds } from '@xyflow/react';
+import {
+  Edge,
+  getNodesBounds,
+  getViewportForBounds,
+  MarkerType,
+} from '@xyflow/react';
 import { toPng } from 'html-to-image';
 import { useParams } from 'next/navigation';
 
@@ -9,14 +14,15 @@ import { IModelCategory, IModelOption } from '@/types/customize-model';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
+  Field,
   templateIds2DSignal,
 } from '../signals/useDragSignal';
 import {
   formDappSignal,
   formTemplateDappSignal,
 } from '../signals/useFormDappsSignal';
-import { useTemplateFormStore } from '../stores/useDappStore';
-import useFlowStore from '../stores/useFlowStore';
+import useDappsStore, { useTemplateFormStore } from '../stores/useDappStore';
+import useFlowStore, { AppState } from '../stores/useFlowStore';
 import useAvailableListTemplate from '../studio/useAvailableListTemplate';
 
 import useTemplate from './useTemplate';
@@ -31,21 +37,30 @@ import {
   bridgesAsADapp,
   gamingAppsAsADapp,
 } from '../mockup_3';
+import handleStatusEdges from '@/utils/helpers';
+import { useAAModule } from '../../detail_v4/hook/useAAModule';
+import { useBridgesModule } from '../../detail_v4/hook/useBridgesModule';
+import { useGameModule } from '../../detail_v4/hook/useGameModule';
+import { removeItemAtIndex } from '../../dapp/utils';
+import { cloneDeep } from '../utils';
 
 export default function useStudioHelper() {
   const params = useParams();
 
+  const { dapps } = useDappsStore();
   const { templateDefault } = useAvailableListTemplate();
   const { setTemplate } = useTemplate();
   const { nodes, setNodes, setEdges } = useFlowStore();
-  const { setTemplateDapps, setTemplateForm } = useTemplateFormStore();
   const { order, isAAInstalled } = useChainProvider();
+  const { lineBridgeStatus } = useBridgesModule();
+  const { lineAAStatus } = useAAModule();
+  const { statusMapper } = useGameModule();
 
   const isUpdateFlow = React.useMemo(() => {
     return !!params?.id;
   }, [params?.id]);
 
-  const getSourceHandle = ({
+  const getSourceHandleForSourceNode = ({
     source,
     target,
   }: {
@@ -53,10 +68,49 @@ export default function useStudioHelper() {
     target: string;
   }) => `${target}-s-${source}`;
 
+  const getSourceHandleForTargetNode = ({
+    source,
+    target,
+  }: {
+    source: string;
+    target: string;
+  }) => `${target}-t-${source}`;
+
   const getChainNodeId = () => 'blockchain';
   const getAccountAbstractionNodeId = () => 'account_abstraction';
   const getBridgeAppsNodeId = () => 'bridge_apps';
   const getGamingAppsNodeId = () => 'gaming_apps';
+
+  const getBasicEdgeInfo = (source: string, target: string) => {
+    return {
+      id: `${Math.random()}`,
+      source,
+      sourceHandle: getSourceHandleForSourceNode({
+        source,
+        target,
+      }),
+      target,
+      targetHandle: getSourceHandleForTargetNode({
+        source,
+        target,
+      }),
+      type: 'customEdge',
+      selectable: false,
+      selected: false,
+      focusable: false,
+      markerEnd: {
+        type: MarkerType.Arrow,
+        width: 20,
+        height: 20,
+        strokeWidth: 1,
+        color: '#AAAAAA',
+      },
+      style: {
+        stroke: '#AAAAAA',
+        strokeWidth: 2,
+      },
+    };
+  };
 
   const getChainNode = (position: { x: number; y: number }): ChainNode => {
     return {
@@ -67,9 +121,18 @@ export default function useStudioHelper() {
         title: 'Blockchain',
         sourceHandles: isUpdateFlow
           ? [
-              `${getChainNodeId()}-s-account_abstraction`,
-              `${getChainNodeId()}-s-bridge_apps`,
-              `${getChainNodeId()}-s-gaming_apps`,
+              getSourceHandleForSourceNode({
+                source: getChainNodeId(),
+                target: getAccountAbstractionNodeId(),
+              }),
+              getSourceHandleForSourceNode({
+                source: getChainNodeId(),
+                target: getBridgeAppsNodeId(),
+              }),
+              getSourceHandleForSourceNode({
+                source: getChainNodeId(),
+                target: getGamingAppsNodeId(),
+              }),
             ]
           : [],
         targetHandles: [],
@@ -82,10 +145,12 @@ export default function useStudioHelper() {
   const getAccountAbstractionNode = (position: {
     x: number;
     y: number;
-  }): DappNode => {
+  }): {
+    node: DappNode;
+    edge: Edge;
+  } => {
     const dapp = accountAbstractionAsADapp;
-
-    return {
+    const node: DappNode = {
       id: getAccountAbstractionNodeId(),
       type: dappKeyToNodeKey(dapp.key),
       dragHandle: '.drag-handle-area',
@@ -99,19 +164,40 @@ export default function useStudioHelper() {
         ids: [],
         targetHandles: [],
         sourceHandles: [
-          getSourceHandle({
+          getSourceHandleForTargetNode({
             source: getChainNodeId(),
             target: getAccountAbstractionNodeId(),
           }),
         ],
       },
     };
-  };
-
-  const getBridgeAppsNode = (position: { x: number; y: number }): DappNode => {
-    const dapp = bridgesAsADapp;
+    const newEdge = {
+      ...getBasicEdgeInfo(getChainNodeId(), getAccountAbstractionNodeId()),
+      label: handleStatusEdges('', lineAAStatus, getAccountAbstractionNodeId())
+        .icon,
+      animated: handleStatusEdges(
+        '',
+        lineAAStatus,
+        getAccountAbstractionNodeId(),
+      ).animate,
+    };
 
     return {
+      node,
+      edge: newEdge,
+    };
+  };
+
+  const getBridgeAppsNode = (position: {
+    x: number;
+    y: number;
+  }): {
+    node: DappNode;
+    edge: Edge;
+  } => {
+    const dapp = bridgesAsADapp;
+
+    const node: DappNode = {
       id: getBridgeAppsNodeId(),
       type: dappKeyToNodeKey(dapp.key),
       dragHandle: '.drag-handle-area',
@@ -125,19 +211,37 @@ export default function useStudioHelper() {
         ids: [],
         targetHandles: [],
         sourceHandles: [
-          getSourceHandle({
+          getSourceHandleForTargetNode({
             source: getChainNodeId(),
             target: getBridgeAppsNodeId(),
           }),
         ],
       },
     };
-  };
-
-  const getGamingAppsNode = (position: { x: number; y: number }): DappNode => {
-    const dapp = gamingAppsAsADapp;
+    const newEdge = {
+      ...getBasicEdgeInfo(getChainNodeId(), getBridgeAppsNodeId()),
+      label: handleStatusEdges('', lineBridgeStatus, getBridgeAppsNodeId())
+        .icon,
+      animated: handleStatusEdges('', lineBridgeStatus, getBridgeAppsNodeId())
+        .animate,
+    };
 
     return {
+      node,
+      edge: newEdge,
+    };
+  };
+
+  const getGamingAppsNode = (position: {
+    x: number;
+    y: number;
+  }): {
+    node: DappNode;
+    edge: Edge;
+  } => {
+    const dapp = gamingAppsAsADapp;
+
+    const node: DappNode = {
       id: getGamingAppsNodeId(),
       type: dappKeyToNodeKey(dapp.key),
       dragHandle: '.drag-handle-area',
@@ -151,13 +255,53 @@ export default function useStudioHelper() {
         ids: [],
         targetHandles: [],
         sourceHandles: [
-          getSourceHandle({
+          getSourceHandleForTargetNode({
             source: getChainNodeId(),
             target: getGamingAppsNodeId(),
           }),
         ],
       },
     };
+
+    const newEdge = {
+      ...getBasicEdgeInfo(getChainNodeId(), getGamingAppsNodeId()),
+      label: handleStatusEdges(
+        '',
+        statusMapper.statusStr,
+        getGamingAppsNodeId(),
+      ).icon,
+      animated: handleStatusEdges(
+        '',
+        statusMapper.statusStr,
+        getGamingAppsNodeId(),
+      ).animate,
+    };
+
+    return {
+      node,
+      edge: newEdge,
+    };
+  };
+
+  const pushEdgeToChainNode = (nodes: AppState['nodes'], target: string) => {
+    const blockchainNode = nodes.find((item) => item.id === getChainNodeId());
+    blockchainNode?.data?.sourceHandles?.push(
+      `${getChainNodeId()}-s-${target}`,
+    );
+
+    return nodes.map((item) =>
+      item.id === getChainNodeId() ? blockchainNode : item,
+    ) as AppState['nodes'];
+  };
+
+  const getNodeAndDappIndex = (id: string) => {
+    const nodeIndex = nodes.findIndex((node) => node.id == id);
+    const dappIndex = dapps.findIndex((dapp) => dapp.key === id);
+    const dappIndexInSignal = draggedDappIndexesSignal.value.findIndex(
+      (i) => i === dappIndex,
+    );
+
+    return { nodeIndex, dappIndex, dappIndexInSignal };
   };
 
   const cloneHandler = async (template: IModelCategory[]) => {
@@ -219,7 +363,7 @@ export default function useStudioHelper() {
     });
 
     try {
-      const result = await Promise.all([
+      const result = await Promise.race([
         toPng(document.querySelector('.react-flow__viewport') as HTMLElement, {
           backgroundColor: '#fff',
           width: imageWidth,
@@ -233,7 +377,7 @@ export default function useStudioHelper() {
         abortPromise,
       ]);
 
-      return result[0] as string;
+      return result as string;
     } catch (error) {
       return '';
     }
@@ -263,5 +407,7 @@ https://bvm.network/studio/${url}`;
     getBridgeAppsNodeId,
     getGamingAppsNode,
     getGamingAppsNodeId,
+    getNodeAndDappIndex,
+    pushEdgeToChainNode,
   };
 }

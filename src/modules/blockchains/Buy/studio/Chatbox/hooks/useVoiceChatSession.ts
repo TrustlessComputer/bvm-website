@@ -1,25 +1,23 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export function useVoiceChatSession(): {
-    getVoiceChatAiSessionId: () => string | null;
-} {
-    const getVoiceChatAiSessionId = () => {
-        const sessionId = localStorage.getItem('voice-chat-ai-session');
-        if (!sessionId) {
-            const tmpSessionId = uuidv4();
-            setVoiceChatAiSessionId(tmpSessionId);
-            return tmpSessionId;
-        };
-        return localStorage.getItem('voice-chat-ai-session');
+export const useVoiceChatSession = () => {
+  const getVoiceChatAiSessionId = () => {
+    const sessionId = localStorage.getItem('voice-chat-ai-session');
+
+    if (!sessionId) {
+      const tmpSessionId = uuidv4();
+      setVoiceChatAiSessionId(tmpSessionId);
+      return tmpSessionId;
     }
 
-    const setVoiceChatAiSessionId = (sessionId: string) => {
-        localStorage.setItem('voice-chat-ai-session', sessionId);
-    }
+    return sessionId;
+  };
 
-    return {
-        getVoiceChatAiSessionId
-    }
-    
-}
+  const setVoiceChatAiSessionId = (sessionId: string) => {
+    localStorage.setItem('voice-chat-ai-session', sessionId);
+  };
 
+  return {
+    getVoiceChatAiSessionId,
+  };
+};

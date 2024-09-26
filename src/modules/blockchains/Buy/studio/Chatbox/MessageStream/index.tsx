@@ -3,37 +3,21 @@ import React, { useMemo } from 'react';
 import DotPulse from '@/components/DotPulse';
 import Lego from '../../../component4/Lego';
 import useNodeHelper from '../../../hooks/useNodeHelper';
-import useTemplate from '../../../hooks/useTemplate';
-import {
-  draggedDappIndexesSignal,
-  draggedIds2DSignal,
-} from '../../../signals/useDragSignal';
-import useDappsStore from '../../../stores/useDappStore';
+import { draggedDappIndexesSignal } from '../../../signals/useDragSignal';
 import useModelCategoriesStore from '../../../stores/useModelCategoriesStore';
-import { chainKeyToDappKey } from '../../../utils';
-import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
 import { blockLegoResponseToModelCategory } from '../utils/convertApiUtils';
-import styles from './styles.module.scss';
-import { needReactFlowRenderSignal } from '../../ReactFlowRender';
-import { formDappSignal } from '../../../signals/useFormDappsSignal';
 import useStudioHelper from '../../../hooks/useStudioHelper';
+import useBotMessageServices from '../hooks/useBotMessageServices';
+import styles from './styles.module.scss';
 
 function MessageStream({ message }: { message: string }) {
   const { categories } = useModelCategoriesStore();
-  const { setChatBoxStatus } = useChatBoxState((state) => state);
-  const { dapps } = useDappsStore();
   const { addDappToNode } = useNodeHelper();
-  const { setTemplate } = useTemplate();
   const { clearFlow } = useStudioHelper();
+  const { applyBotTemplate, dappIndexesNeedToAdd, setDappIndexesNeedToAdd } =
+    useBotMessageServices();
 
   const countAdded = React.useRef(0);
-  const [dappIndexesNeedToAdd, setDappIndexesNeedToAdd] = React.useState<
-    {
-      dappIndex: number;
-      x: number;
-      y: number;
-    }[]
-  >([]);
   const [isApplied, setIsApplied] = React.useState(false);
 
   const generationStatus = React.useMemo(() => {
@@ -63,35 +47,6 @@ function MessageStream({ message }: { message: string }) {
     setIsApplied(true);
   };
 
-  const apply = () => {
-    setTimeout(() => {
-      const _dappIndexesNeedToAdd: typeof dappIndexesNeedToAdd = [];
-      generationStatus.template.forEach((template) => {
-        template.options.forEach((option) => {
-          const dappKey = chainKeyToDappKey(option.key);
-          const dappIndex = dapps.findIndex((dA) => dA.key === dappKey);
-
-          if (dappIndex !== -1 && !dapps[dappIndex].isDefaultDapp) {
-            _dappIndexesNeedToAdd.push({
-              dappIndex,
-              x: 0,
-              y: 0,
-            });
-          }
-        });
-      });
-
-      setDappIndexesNeedToAdd(_dappIndexesNeedToAdd);
-      setChatBoxStatus({
-        status: ChatBoxStatus.Close,
-        isGenerating: false,
-        isComplete: false,
-        isListening: false,
-      });
-      setTemplate(generationStatus.template);
-    }, 300);
-  };
-
   React.useEffect(() => {
     if (dappIndexesNeedToAdd.length > 0) {
       const dappIndexNeedToAdd = dappIndexesNeedToAdd[0];
@@ -112,9 +67,9 @@ function MessageStream({ message }: { message: string }) {
 
   React.useEffect(() => {
     if (isApplied) {
-      apply();
+      applyBotTemplate(generationStatus.template);
     }
-  }, [isApplied]);
+  }, [isApplied, applyBotTemplate, generationStatus.template]);
 
   const isEmpty = useMemo(() => {
     return (

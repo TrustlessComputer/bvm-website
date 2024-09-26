@@ -56,41 +56,27 @@ export const sendPromptV2 = async (
     throw error;
   }
 };
-export const sendPromptStream = async (
-  body: SendPromptBodyRequestV2,
-  onChunk: (chunk: any) => void,
-): Promise<void> => {
-  console.log('[sendPromptV2] body', body);
+
+export const voiceToText = async (audioBlob: Blob) => {
+  const formData = new FormData();
+  formData.append('audio_file', audioBlob);
 
   try {
     const response = await fetch(
-      'https://api-dojo2.eternalai.org/api/chat/assistant-v3',
+      'https://a75qhwlce2idwt-9000.proxy.runpod.net/asr?output=json&task=translate',
       {
         method: 'POST',
+        body: formData,
         headers: {
-          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'Access-Control-Allow-Origin': '*',
         },
-        body: JSON.stringify(body),
       },
     );
 
-    if (!response.body) {
-      throw new Error('Response body is unavailable');
-    }
-
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-
-    while (true) {
-      const { done, value } = await reader.read();
-
-      if (done) break;
-
-      const chunk = decoder.decode(value, { stream: true });
-      onChunk(chunk);
-    }
+    return await response.json();
   } catch (error) {
-    console.error('[sendPromptV2] error', error);
+    console.error('[voiceToText] error', error);
     throw error;
   }
 };

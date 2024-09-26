@@ -1,13 +1,11 @@
 import { ReactElement } from 'react';
 import useChatBoxState from '../../chatbox-store';
 import styles from './styles.module.scss';
+import useChatBoxServices from '../../hooks/useChatBoxServices';
 
-export default function ButtonSubmit({
-  handleSendMessage,
-}: {
-  handleSendMessage: (message: string) => void;
-}): ReactElement {
+export default function ButtonSubmit(): ReactElement {
   const { inputMessage, isGenerating, isListening } = useChatBoxState();
+  const { handleSendMessage } = useChatBoxServices();
 
   return (
     <button

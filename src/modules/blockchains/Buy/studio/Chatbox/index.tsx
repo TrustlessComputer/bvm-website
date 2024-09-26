@@ -1,41 +1,15 @@
 import MagicIcon from '@/components/MagicIcon';
-import { useRef } from 'react';
 import ButtonClose from './Actions/ButtonClsoe';
 import useChatBoxState from './chatbox-store';
-import useChatBoxService from './hooks/useChatBoxService';
 import MessageStream from './MessageStream';
-import styles from './styles.module.scss';
 import TextInput from './TextInput';
+import styles from './styles.module.scss';
 
 export default function Chatbox() {
-  const {
-    messages,
-    setMessages,
-    inputMessage,
-    setInputMessage,
-    isGenerating,
-    status,
-    isIdle,
-  } = useChatBoxState();
+  // useAutoSendRequest();
 
-  const elChatBox = useRef<HTMLDivElement>(null);
+  const { messages } = useChatBoxState();
 
-  const focusChatBox = () => {
-    setTimeout(() => {
-      if (elChatBox.current)
-        elChatBox.current.scrollTo(0, elChatBox.current.scrollHeight);
-    }, 5);
-  };
-
-  const handleSendMessage = (message: string, isVoice = false) => {
-    if (message.trim() !== '') {
-      setMessages([...messages, { text: message, sender: 'user', isVoice }]);
-      setInputMessage('');
-      focusChatBox();
-    }
-  };
-
-  useChatBoxService({ focusChatBox });
   return (
     <div className={styles.chatbox}>
       <div className={styles.chatboxInner}>
@@ -51,7 +25,7 @@ export default function Chatbox() {
             </div>
           </div>
           <div className={styles.body_inner}>
-            <div id="chatbox-messages" className={styles.chats} ref={elChatBox}>
+            <div id="chatbox-messages" className={styles.chats}>
               {messages.map(
                 (message, index) =>
                   !message?.isVoice && (
@@ -70,7 +44,7 @@ export default function Chatbox() {
             </div>
           </div>
         </div>
-        <TextInput handleSendMessage={handleSendMessage} />
+        <TextInput />
       </div>
     </div>
   );

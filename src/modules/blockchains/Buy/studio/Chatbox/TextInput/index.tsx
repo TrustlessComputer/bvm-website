@@ -1,17 +1,14 @@
-import { ReactElement } from 'react';
 import ButtonRecord from '../Actions/ButtonRecord';
 import ButtonSubmit from '../Actions/ButtonSubmit';
 import useChatBoxState from '../chatbox-store';
+import useChatBoxServices from '../hooks/useChatBoxServices';
 import LabelListening from '../LabelListening';
 import styles from './styles.module.scss';
 
-export default function TextInput({
-  handleSendMessage,
-}: {
-  handleSendMessage: (message: string) => void;
-}): ReactElement {
+export default function TextInput() {
   const { inputMessage, isListening, isGenerating, setInputMessage } =
-    useChatBoxState((state) => state);
+    useChatBoxState();
+  const { handleSendMessage } = useChatBoxServices();
 
   return (
     <div className={styles.input}>
@@ -33,10 +30,12 @@ export default function TextInput({
         {!isListening && inputMessage === '' && (
           <div className={styles.inputOverlay}>Type your prompt</div>
         )}
+
         {isListening && <LabelListening />}
+
         <div className={styles.buttonWrapper}>
-          <ButtonRecord handleSendMessage={handleSendMessage} />
-          <ButtonSubmit handleSendMessage={handleSendMessage} />
+          <ButtonRecord />
+          <ButtonSubmit />
         </div>
       </div>
       <a

@@ -27,6 +27,7 @@ const Node = ({
   useSignalEffect(() => {
     setFocus(idNodeSignal.value === dapp?.id);
   });
+  console.log('sourceHandles', sourceHandles);
 
   return (
     <div
@@ -45,7 +46,6 @@ const Node = ({
           {content.children}
         </div>
       </NodeContent>
-
       {sourceHandles?.map((handle, index) => (
         <Handle
           key={handle}

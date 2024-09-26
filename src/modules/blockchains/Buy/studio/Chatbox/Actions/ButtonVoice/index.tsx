@@ -13,26 +13,16 @@ export default function ButtonVoice({
     isGenerating,
     isListening,
     inputMessage,
-    isComplete,
-    isChatboxOpen,
-    setIsListening,
+    isIdle,
     setChatBoxStatus,
     setInputMessage,
     setIsChatboxOpen,
   } = useChatBoxState();
   const recognitionRef = useRef<any>(null);
 
-  const isClose = useMemo(() => {
-    return !isComplete && !isGenerating && !isListening;
-  }, [isComplete, isGenerating, isListening]);
-
-  const isOpenVoice = useMemo(() => {
-    return isChatboxOpen;
-  }, [isChatboxOpen]);
-
-  const handleVoiceInput = () => {
+  const startRecording = () => {
     setChatBoxStatus({
-      status: ChatBoxStatus.Close,
+      status: ChatBoxStatus.Cancel,
       isGenerating: false,
       isComplete: false,
       isListening: true,
@@ -81,7 +71,7 @@ export default function ButtonVoice({
     recognitionRef.current = newRecognition;
   };
 
-  const stopVoiceInput = useCallback(() => {
+  const stopRecording = () => {
     if (recognitionRef.current) {
       recognitionRef.current.stop();
 
@@ -93,24 +83,24 @@ export default function ButtonVoice({
       });
       recognitionRef.current = null;
     }
-  }, []);
+  };
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        if (isClose) {
-          setIsChatboxOpen(false);
-        } else if (isListening) {
-          stopVoiceInput();
-        } else if (isGenerating) {
-          //todo: wait for the BE have event stop socket
-          // setChatBoxStatus({
-          //   status: ChatBoxStatus.Close,
-          //   isGenerating: false,
-          //   isComplete: false,
-          //   isListening: false,
-          // });
-        }
+      if (event.key !== 'Escape') return;
+
+      if (isIdle) {
+        setIsChatboxOpen(false);
+      } else if (isListening) {
+        stopRecording();
+      } else if (isGenerating) {
+        //todo: wait for the BE have event stop socket
+        // setChatBoxStatus({
+        //   status: ChatBoxStatus.Close,
+        //   isGenerating: false,
+        //   isComplete: false,
+        //   isListening: false,
+        // });
       }
     };
 
@@ -119,36 +109,14 @@ export default function ButtonVoice({
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [stopVoiceInput, isClose, isGenerating, isListening]);
-
-  useEffect(() => {
-    if (isListening) {
-      handleVoiceInput();
-    } else {
-      stopVoiceInput();
-    }
-
-    return () => {
-      stopVoiceInput();
-    };
-  }, [isListening]);
-
-  useEffect(() => {
-    if (isOpenVoice) {
-      handleVoiceInput();
-    }
-
-    return () => {
-      stopVoiceInput();
-    };
-  }, [isOpenVoice]);
+  }, [stopRecording, isGenerating, isListening, isIdle]);
 
   const Listening = useMemo((): ReactElement => {
     return (
       <button
         className={styles.buttonVoice_el}
         disabled={isGenerating}
-        onClick={() => handleVoiceInput()}
+        onClick={() => startRecording()}
       >
         <svg
           width="16"
@@ -203,7 +171,7 @@ export default function ButtonVoice({
       <button
         className={styles.buttonVoice_el}
         disabled={isGenerating}
-        onClick={() => stopVoiceInput()}
+        onClick={() => stopRecording()}
       >
         <svg
           width="16"

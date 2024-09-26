@@ -1,37 +1,17 @@
-import { ReactElement, useEffect, useMemo, useRef, useState } from 'react';
-import useChatBoxState from '../../chatbox-store';
+import { ReactElement, useEffect, useMemo, useRef } from 'react';
+import useChatBoxState, { ChatBoxStatus } from '../../chatbox-store';
 import styles from './styles.module.scss';
+import { voiceToText } from '../../services/prompt';
 
-type Props = {
-  handleSendMessage: (message: string, isVoice?: boolean) => void;
-};
-
-export default function ButtonRecord({
-  handleSendMessage,
-}: Props): ReactElement {
+export default function ButtonRecord(): ReactElement {
   const {
     isGenerating,
     isListening,
-    inputMessage,
-    isComplete,
-    isChatboxOpen,
-    setIsListening,
+    isIdle,
     setChatBoxStatus,
-    setInputMessage,
     setIsChatboxOpen,
   } = useChatBoxState();
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const [isRecording, setIsRecording] = useState(false);
-  const [audioURL, setAudioURL] = useState<string | null>(null);
-  const [transcript, setTranscript] = useState<string | null>(null);
-
-  const isClose = useMemo(() => {
-    return !isComplete && !isGenerating && !isListening;
-  }, [isComplete, isGenerating, isListening]);
-
-  const isOpenVoice = useMemo(() => {
-    return isChatboxOpen;
-  }, [isChatboxOpen]);
 
   const startRecording = async () => {
     try {
@@ -45,17 +25,22 @@ export default function ButtonRecord({
 
       mediaRecorderRef.current.onstop = () => {
         const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-        const audioURL = URL.createObjectURL(audioBlob);
+        const audioFile = new File([audioBlob], 'audio.wav', {
+          type: 'audio/wav',
+        });
 
-        console.log('audioURL', audioURL);
-        setAudioURL(audioURL);
-
-        //todo send to API
-        // sendAudioToAI(audioBlob);
+        voiceToText(audioFile).then((result) => {
+          console.log('[ButtonRecord] voiceToText', result);
+        });
       };
 
       mediaRecorderRef.current.start();
-      setIsRecording(true);
+      setChatBoxStatus({
+        status: ChatBoxStatus.Cancel,
+        isGenerating: false,
+        isComplete: false,
+        isListening: true,
+      });
     } catch (error) {
       console.error('Error starting recording:', error);
     }
@@ -65,45 +50,27 @@ export default function ButtonRecord({
     if (mediaRecorderRef.current) {
       if (mediaRecorderRef.current.state === 'recording') {
         mediaRecorderRef.current.stop();
-        console.log('stop recording', mediaRecorderRef.current);
       }
       mediaRecorderRef.current.stream
         .getTracks()
         .forEach((track) => track.stop());
-      setIsRecording(false);
     }
-  };
 
-  const sendAudioToAI = async (audioBlob: Blob) => {
-    const formData = new FormData();
-    formData.append('file', audioBlob, 'audio.wav');
-
-    try {
-      const response = await fetch(
-        'https://api.openai.com/v1/audio/transcriptions',
-        {
-          method: 'POST',
-          body: formData,
-          headers: {
-            Authorization: `Bearer YOUR_OPENAI_API_KEY`,
-          },
-        },
-      );
-      const data = await response.json();
-      setTranscript(data.text);
-    } catch (error) {
-      console.error('Error transcribing audio:', error);
-    }
+    setChatBoxStatus({
+      status: ChatBoxStatus.Close,
+      isGenerating: false,
+      isComplete: false,
+      isListening: false,
+    });
   };
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        if (isClose) {
+        if (isIdle) {
           setIsChatboxOpen(false);
         } else if (isListening) {
           stopRecording();
-          setIsListening(false);
         } else if (isGenerating) {
           //todo: wait for the BE have event stop socket
           // setChatBoxStatus({
@@ -121,35 +88,14 @@ export default function ButtonRecord({
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [
-    stopRecording,
-    isClose,
-    isGenerating,
-    isListening,
-    setIsChatboxOpen,
-    setIsListening,
-  ]);
-
-  useEffect(() => {
-    if (isListening) {
-      startRecording();
-    } else {
-      stopRecording();
-    }
-  }, [isListening]);
-
-  useEffect(() => {
-    return () => {
-      stopRecording();
-    };
-  }, []);
+  }, [stopRecording, isIdle, isGenerating, isListening, setIsChatboxOpen]);
 
   const Listening = useMemo((): ReactElement => {
     return (
       <button
         className={styles.buttonVoice_el}
         disabled={isGenerating}
-        onClick={() => setIsListening(true)}
+        onClick={startRecording}
       >
         <svg
           width="16"
@@ -197,14 +143,14 @@ export default function ButtonRecord({
         <span>Voice</span>
       </button>
     );
-  }, [isGenerating, setIsListening]);
+  }, [isGenerating]);
 
   const MuteIcon = useMemo((): ReactElement => {
     return (
       <button
         className={styles.buttonVoice_el}
         disabled={isGenerating}
-        onClick={() => setIsListening(false)}
+        onClick={stopRecording}
       >
         <svg
           width="16"
@@ -259,11 +205,10 @@ export default function ButtonRecord({
         <span>Stop</span>
       </button>
     );
-  }, [isGenerating, setIsListening]);
+  }, [isGenerating]);
 
   return (
     <div className={styles.buttonVoice}>
-      {audioURL && <audio autoPlay controls loop src={audioURL} />}
       {!isListening ? Listening : MuteIcon}
     </div>
   );
