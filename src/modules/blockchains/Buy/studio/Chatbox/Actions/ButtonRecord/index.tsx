@@ -24,14 +24,16 @@ export default function ButtonRecord(): ReactElement {
       };
 
       mediaRecorderRef.current.onstop = () => {
-        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-        const audioFile = new File([audioBlob], 'audio.wav', {
-          type: 'audio/wav',
+        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+        const audioFile = new File([audioBlob], 'audio.webm', {
+          type: 'audio/webm',
         });
+        const url = URL.createObjectURL(audioFile);
+        console.log('[ButtonRecord] url', url);
 
-        voiceToText(audioFile).then((result) => {
-          console.log('[ButtonRecord] voiceToText', result);
-        });
+        // voiceToText(audioFile).then((result) => {
+        //   console.log('[ButtonRecord] voiceToText', result);
+        // });
       };
 
       mediaRecorderRef.current.start();

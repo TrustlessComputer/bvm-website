@@ -8,7 +8,7 @@ import { useVoiceChatSession } from './useVoiceChatSession';
 
 export default function useAutoSendRequest() {
   const { getDynamicForm } = useFormChain();
-  const { setChatBoxStatus, messages } = useChatBoxState();
+  const { setChatBoxStatus, messages, setIsWaitingReply } = useChatBoxState();
   const { getVoiceChatAiSessionId } = useVoiceChatSession();
 
   const handleSendPrompt = async (message: string) => {
@@ -24,6 +24,8 @@ export default function useAutoSendRequest() {
       modelCategoryToPromptCategory,
     );
 
+    setIsWaitingReply(true);
+
     await sendPromptV2({
       session_id: getVoiceChatAiSessionId()!,
       user_session: getVoiceChatAiSessionId()!,
@@ -31,6 +33,8 @@ export default function useAutoSendRequest() {
       command: message,
       current_state,
     });
+
+    setIsWaitingReply(false);
   };
 
   useEffect(() => {

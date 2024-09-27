@@ -1,4 +1,3 @@
-import React from 'react';
 import useFocusChatBox from './useFocusChatBox';
 import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
 import { sendPromptV2 } from '../services/prompt';
@@ -9,8 +8,13 @@ import { useVoiceChatSession } from './useVoiceChatSession';
 
 const useChatBoxServices = () => {
   const { focusChatBox } = useFocusChatBox();
-  const { setMessages, messages, setInputMessage, setChatBoxStatus } =
-    useChatBoxState();
+  const {
+    setMessages,
+    messages,
+    setInputMessage,
+    setChatBoxStatus,
+    setIsWaitingReply,
+  } = useChatBoxState();
   const { getDynamicForm } = useFormChain();
   const { getVoiceChatAiSessionId } = useVoiceChatSession();
 
@@ -27,6 +31,8 @@ const useChatBoxServices = () => {
       modelCategoryToPromptCategory,
     );
 
+    setIsWaitingReply(true);
+
     await sendPromptV2({
       session_id: getVoiceChatAiSessionId()!,
       user_session: getVoiceChatAiSessionId()!,
@@ -34,6 +40,8 @@ const useChatBoxServices = () => {
       command: message,
       current_state,
     });
+
+    setIsWaitingReply(false);
   };
 
   const handleSendMessage = (message: string, isVoice = false) => {
