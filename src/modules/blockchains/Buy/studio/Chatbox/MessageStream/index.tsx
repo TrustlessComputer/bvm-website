@@ -14,8 +14,6 @@ import { chainKeyToDappKey } from '../../../utils';
 import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
 import { blockLegoResponseToModelCategory } from '../utils/convertApiUtils';
 import styles from './styles.module.scss';
-import { needReactFlowRenderSignal } from '../../ReactFlowRender';
-import { formDappSignal } from '../../../signals/useFormDappsSignal';
 import useStudioHelper from '../../../hooks/useStudioHelper';
 
 function MessageStream({ message }: { message: string }) {
@@ -126,7 +124,7 @@ function MessageStream({ message }: { message: string }) {
 
   return (
     <div className={styles.message}>
-      {isEmpty ? <DotPulse /> : generationStatus.beforeJsonBlock}
+      {generationStatus.beforeJsonBlock}
 
       {generationStatus.isGeneratingJson &&
       !generationStatus.isGeneratedJson ? (

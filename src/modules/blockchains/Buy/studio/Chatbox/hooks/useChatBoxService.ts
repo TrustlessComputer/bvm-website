@@ -24,6 +24,7 @@ export default function useChatBoxService({
     setMessages,
     setPrepareCategoryTemplate,
     messages,
+    setIsWaitingReply,
   } = useChatBoxState();
   const { getVoiceChatAiSessionId } = useVoiceChatSession();
 
@@ -39,6 +40,7 @@ export default function useChatBoxService({
     const current_state: PromptCategory[] = currentTemplate.map(
       modelCategoryToPromptCategory,
     );
+    setIsWaitingReply(true);
 
     await sendPromptV2({
       session_id: getVoiceChatAiSessionId()!,
@@ -47,6 +49,7 @@ export default function useChatBoxService({
       command: message,
       current_state,
     });
+
     //   .replace('```json', '')
     //   .replace('```', '');
     // const [beforeJSON, jsonPart, afterJSON] = useParseMessage(pureResponse);

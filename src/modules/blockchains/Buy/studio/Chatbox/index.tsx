@@ -6,6 +6,7 @@ import useChatBoxService from './hooks/useChatBoxService';
 import MessageStream from './MessageStream';
 import styles from './styles.module.scss';
 import TextInput from './TextInput';
+import DotPulse from '@/components/DotPulse';
 
 export default function Chatbox() {
   const {
@@ -16,6 +17,7 @@ export default function Chatbox() {
     isGenerating,
     status,
     isIdle,
+    isWaitingReply,
   } = useChatBoxState();
 
   const elChatBox = useRef<HTMLDivElement>(null);
@@ -66,6 +68,11 @@ export default function Chatbox() {
                       )}
                     </div>
                   ),
+              )}
+              {isWaitingReply && (
+                <div className={`${styles.message} ${styles.bot}`}>
+                  <DotPulse />
+                </div>
               )}
             </div>
           </div>
