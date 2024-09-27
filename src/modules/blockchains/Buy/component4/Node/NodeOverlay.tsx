@@ -1,3 +1,4 @@
+import React from 'react';
 import { NodeOverlayProps } from '@/types/node';
 
 import Loading from '@/components/Loading';
@@ -18,4 +19,4 @@ const NodeOverlay = ({ ...props }: NodeOverlayProps) => {
   );
 };
 
-export default NodeOverlay;
+export default React.memo(NodeOverlay);

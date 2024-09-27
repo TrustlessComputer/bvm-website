@@ -23,13 +23,6 @@ export default function useCheckingSupported() {
 
     if (field[item.key].value === null || !field[item.key].dragged) return;
 
-    // if (item.key === 'tools') {
-    //   console.log('[useCheckingSupported] handleMultiChoice 01', {
-    //     category: item,
-    //     currentValues,
-    //   });
-    // }
-
     const newValues = currentValues.filter((value) => {
       const option = item.options.find((opt) => opt.key === value);
 
@@ -37,13 +30,6 @@ export default function useCheckingSupported() {
 
       return !isChainOptionDisabled(field, item, option);
     });
-
-    // if (item.key === 'tools') {
-    //   console.log('[useCheckingSupported] handleMultiChoice 02', {
-    //     category: item,
-    //     currentValues,
-    //   });
-    // }
 
     if (newValues.length === 0) {
       setField(item.key, null, false);

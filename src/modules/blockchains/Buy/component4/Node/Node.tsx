@@ -1,5 +1,5 @@
 import { Handle, Position } from '@xyflow/react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { idNodeSignal } from '@/modules/blockchains/Buy/hooks/useFocusNode';
 import { NodeProps } from '@/types/node';
@@ -9,6 +9,7 @@ import NodeContent from './NodeContent';
 import NodeHeading from './NodeHeading';
 import NodeOverlay from './NodeOverlay';
 import styles from './styles.module.scss';
+import SourceHandles from './SourceHandles';
 
 const Node = ({
   dapp,
@@ -27,7 +28,6 @@ const Node = ({
   useSignalEffect(() => {
     setFocus(idNodeSignal.value === dapp?.id);
   });
-  console.log('sourceHandles', sourceHandles);
 
   return (
     <div
@@ -45,49 +45,11 @@ const Node = ({
         <div className={styles.node__mainContent} style={mainContentStyles}>
           {content.children}
         </div>
+
+        <SourceHandles sourceHandles={sourceHandles} />
       </NodeContent>
-      {sourceHandles?.map((handle, index) => (
-        <Handle
-          key={handle}
-          id={handle}
-          type="source"
-          position={Position.Right}
-          className={styles.handleDot}
-          isConnectable={false}
-        />
-      ))}
-      {sourceHandles?.map((handle, index) => (
-        <Handle
-          key={handle}
-          id={handle}
-          type="source"
-          position={Position.Top}
-          className={styles.handleDot}
-          isConnectable={false}
-        />
-      ))}
-      {sourceHandles?.map((handle, index) => (
-        <Handle
-          key={handle}
-          id={handle}
-          type="source"
-          position={Position.Left}
-          className={styles.handleDot}
-          isConnectable={false}
-        />
-      ))}
-      {sourceHandles?.map((handle, index) => (
-        <Handle
-          key={handle}
-          id={handle}
-          type="source"
-          position={Position.Bottom}
-          isConnectable={false}
-          className={styles.handleDot}
-        />
-      ))}
     </div>
   );
 };
 
-export default Node;
+export default React.memo(Node);

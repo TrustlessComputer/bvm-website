@@ -14,8 +14,10 @@ import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import { cloneDeep } from '../utils';
 import useFormChain from './useFormChain';
 import useStudioHelper from './useStudioHelper';
+import useDraggingStore from '../stores/useDraggingStore';
 
 export default function useCheckNodes() {
+  const { dapps } = useDappsStore();
   const { field } = useOrderFormStoreV3();
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const { getCurrentFieldFromChain } = useFormChain();
@@ -26,9 +28,19 @@ export default function useCheckNodes() {
     getBridgeAppsNode,
     getGamingAppsNode,
     getAccountAbstractionNode,
-    getNodeAndDappIndex,
     pushEdgeToChainNode,
   } = useStudioHelper();
+  const { isDragging } = useDraggingStore();
+
+  const getNodeAndDappIndex = (id: string) => {
+    const nodeIndex = nodes.findIndex((node) => node.id === id);
+    const dappIndex = dapps.findIndex((dapp) => dapp.key === id);
+    const dappIndexInSignal = draggedDappIndexesSignal.value.findIndex(
+      (i) => i === dappIndex,
+    );
+
+    return { nodeIndex, dappIndex, dappIndexInSignal };
+  };
 
   const checkAndRemove = (
     id: string,
@@ -195,7 +207,7 @@ export default function useCheckNodes() {
       }
     });
 
-    if (somethingChanged) {
+    if (somethingChanged && !isDragging) {
       draggedDappIndexesSignal.value = newDraggedDappIndexes;
       draggedIds2DSignal.value = newDraggedIds2D;
       setNodes(newNodes);
@@ -206,6 +218,8 @@ export default function useCheckNodes() {
   };
 
   useEffect(() => {
+    if (isDragging) return;
+
     check();
-  }, [field]);
+  }, [field, isDragging]);
 }

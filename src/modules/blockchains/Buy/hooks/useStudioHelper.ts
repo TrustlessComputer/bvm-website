@@ -42,7 +42,10 @@ import { useAAModule } from '../../detail_v4/hook/useAAModule';
 import { useBridgesModule } from '../../detail_v4/hook/useBridgesModule';
 import { useGameModule } from '../../detail_v4/hook/useGameModule';
 import { removeItemAtIndex } from '../../dapp/utils';
-import { cloneDeep } from '../utils';
+import { cloneDeep, dappKeyToChainKey } from '../utils';
+import { FieldKeyPrefix } from '../contants';
+import useModelCategoriesStore from '../stores/useModelCategoriesStore';
+import useDraggedId2DStore from '../stores/useDraggedId2DStore';
 
 export default function useStudioHelper() {
   const params = useParams();
@@ -50,11 +53,13 @@ export default function useStudioHelper() {
   const { dapps } = useDappsStore();
   const { templateDefault } = useAvailableListTemplate();
   const { setTemplate } = useTemplate();
-  const { nodes, setNodes, setEdges } = useFlowStore();
+  const { nodes, setNodes, setEdges, edges } = useFlowStore();
   const { order, isAAInstalled } = useChainProvider();
   const { lineBridgeStatus } = useBridgesModule();
   const { lineAAStatus } = useAAModule();
   const { statusMapper } = useGameModule();
+  const { categories } = useModelCategoriesStore();
+  const { setDraggedIds2D } = useDraggedId2DStore();
 
   const isUpdateFlow = React.useMemo(() => {
     return !!params?.id;
@@ -66,7 +71,7 @@ export default function useStudioHelper() {
   }: {
     source: string;
     target: string;
-  }) => `${target}-s-${source}`;
+  }) => `${source}-s-${target}`;
 
   const getSourceHandleForTargetNode = ({
     source,
@@ -304,6 +309,95 @@ export default function useStudioHelper() {
     return { nodeIndex, dappIndex, dappIndexInSignal };
   };
 
+  const getNodeBasedOnDappIndex = (
+    dappIndex: number,
+    position: { x: number; y: number },
+  ) => {
+    const { x, y } = position;
+    const thisDapp = dapps[dappIndex];
+
+    if (!thisDapp) {
+      return {
+        node: null,
+        edge: null,
+        suffix: null,
+      };
+    }
+
+    const category = categories?.find((category) =>
+      category.options.some(
+        (option) => option.key === dappKeyToChainKey(thisDapp.key),
+      ),
+    );
+    const categoryOption = category?.options.find(
+      (option) => option.key === dappKeyToChainKey(thisDapp.key),
+    );
+
+    if (!categoryOption && !thisDapp.isDefaultDapp) {
+      return {
+        node: null,
+        edge: null,
+        suffix: null,
+      };
+    }
+
+    const suffix = thisDapp.key;
+    const newNodeId = thisDapp.isDefaultDapp
+      ? thisDapp.key
+      : `${nodes.length + 1}`;
+    const ids: Field[] = [];
+
+    if (
+      (thisDapp.baseModuleFields?.length || 0) > 0 &&
+      thisDapp.baseBlock.fields.length === 0
+    ) {
+      ids.push({
+        name: `right-${FieldKeyPrefix.BASE_MODULE}-${
+          thisDapp.baseModuleFields![0].key
+        }`,
+        value: thisDapp.baseModuleFields![0].fields[0].value,
+        parentNames: [],
+        children: [],
+      });
+    }
+
+    const newNode: DappNode = {
+      id: newNodeId,
+      type: dappKeyToNodeKey(thisDapp.key),
+      dragHandle: '.drag-handle-area',
+      position: {
+        x,
+        y,
+      },
+      data: {
+        node: 'dapp',
+        title: thisDapp.title,
+        dapp: thisDapp,
+        baseIndex: draggedIds2DSignal.value.length - 1,
+        categoryOption: categoryOption as IModelOption,
+        ids,
+        targetHandles: [],
+        sourceHandles: [
+          getSourceHandleForTargetNode({
+            source: getChainNodeId(),
+            target: suffix,
+          }),
+        ],
+      },
+    };
+    const newEdge = {
+      ...getBasicEdgeInfo(getChainNodeId(), suffix),
+      label: '',
+      animated: true,
+    };
+
+    return {
+      node: newNode,
+      edge: newEdge,
+      suffix,
+    };
+  };
+
   const cloneHandler = async (template: IModelCategory[]) => {
     resetEdit();
     setTemplate(template);
@@ -409,5 +503,6 @@ https://bvm.network/studio/${url}`;
     getGamingAppsNodeId,
     getNodeAndDappIndex,
     pushEdgeToChainNode,
+    getNodeBasedOnDappIndex,
   };
 }

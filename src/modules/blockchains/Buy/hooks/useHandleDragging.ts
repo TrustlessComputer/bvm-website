@@ -96,7 +96,6 @@ export default function useHandleDragging() {
     setDraggingParent(false);
 
     const { over, active } = event;
-    console.log('over, active', { over, active });
 
     // Format ID of single option = <key>-<value>
     // Format ID of parent option = <key>-parent-<suffix>
@@ -126,7 +125,6 @@ export default function useHandleDragging() {
     const category = categoryMapping?.[activeKey];
     const totalTemplateDapps = templateDapps.length;
     const ignoreKeys = ['bridge_apps', 'gaming_apps'];
-    console.log('runnnnnnnn 1');
     if (!rightDragging && !overIsFinalDroppable && overSuffix1 !== 'right') {
       if (isMultiChoice) {
         const currentValues = (field[activeKey].value || []) as string[];
@@ -172,7 +170,6 @@ export default function useHandleDragging() {
       }
       return;
     }
-    console.log('runnnnnnnn 2');
     if (rightDragging && !overIsFinalDroppable && overSuffix1 === 'right') {
       // swap activeKey, overKey in draggedFields
       const _draggedFields = cloneDeep(draggedFields);
@@ -189,17 +186,14 @@ export default function useHandleDragging() {
 
       return;
     }
-    console.log('runnnnnnnn 3');
     if (activeIsNotAChainField && !ignoreKeys.includes(activeKey)) {
       return;
     }
-    console.log('runnnnnnnn 4');
     if (!category?.updatable && isUpdateFlow) {
       // TODO: Notify if needed
 
       return;
     }
-    console.log('runnnnnnnn 5');
     if (!isMultiChoice) {
       // Error case
       if (
@@ -262,7 +256,6 @@ export default function useHandleDragging() {
 
       return;
     }
-    console.log('runnnnnnnn 6');
 
     // Active is parent and drag to the left side
     if (
@@ -297,7 +290,6 @@ export default function useHandleDragging() {
             index,
           );
         }
-        console.log('nodessssss', nodes[index + 1 + totalTemplateDapps]);
         setRemovedNode(nodes[index + 1 + totalTemplateDapps]);
         setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
       }
@@ -315,21 +307,18 @@ export default function useHandleDragging() {
             index,
           );
         }
-        console.log('nodessssss1', nodes[index + 1 + totalTemplateDapps]);
         setRemovedNode(nodes[index + 1 + totalTemplateDapps]);
         setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
       }
 
       return;
     }
-    console.log('runnnnnnnn 7');
     // Multi choice case
     if (
       (over && (overIsFinalDroppable || overIsParentOfActiveDroppable)) ||
       (!overIsFinalDroppable && overSuffix1 === 'right') ||
       !over
     ) {
-      console.log('runnnnnnnn 8');
       const currentValues = (field[activeKey].value || []) as string[];
       const isCurrentEmpty = currentValues.length === 0;
       const newValue = [...currentValues, active.data.current.value];
@@ -369,8 +358,6 @@ export default function useHandleDragging() {
         draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
       }
     } else {
-      console.log('runnnnnnnn 9');
-
       const currentValues = (field[activeKey].value || []) as string[];
       const newValue = currentValues.filter(
         (value) => value !== active.data.current.value,
@@ -408,7 +395,6 @@ export default function useHandleDragging() {
               draggedIds2DSignal.value,
               index,
             );
-            console.log('nodessssss2', nodes[index + 1 + totalTemplateDapps]);
             setRemovedNode(nodes[index + 1 + totalTemplateDapps]);
             setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
           }
@@ -426,7 +412,6 @@ export default function useHandleDragging() {
               draggedIds2DSignal.value,
               index,
             );
-            console.log('nodessssss3', nodes[index + 1 + totalTemplateDapps]);
             setRemovedNode(nodes[index + 1 + totalTemplateDapps]);
             setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
           }
@@ -436,8 +421,6 @@ export default function useHandleDragging() {
   };
 
   const handleDappDragEnd = (event: any) => {
-    console.log('[useHandleDragging] handleDappDragEnd', event);
-
     const { over, active } = event;
     subScribeDropEnd.value += 1;
     blockDraggingSignal.value = {
@@ -491,30 +474,6 @@ export default function useHandleDragging() {
     const activeIsABlock = DragUtil.idDraggingIsABlock(activeId);
     const activeIsASingle = DragUtil.idDraggingIsASingle(activeId);
     const activeIsABaseModule = DragUtil.idDraggingIsABaseModule(activeId);
-
-    console.log('[useHandleDragging] handleDappDragEnd', {
-      active,
-      over,
-      overIsInput,
-      overIsOutput,
-      overIsABase,
-      overBaseIndex,
-      overIsABlock,
-      overIndex,
-      overOriginalKey,
-      activeFromRightSide,
-      activeFromLeftSide,
-      activeIsAChildOfABlock,
-      activeIsRightSide,
-      activeBaseIndex,
-      activeIndex,
-      activeOriginalKey,
-      activeFieldKey,
-      activeIsABase,
-      activeIsAModule,
-      activeIsABlock,
-      activeIsASingle,
-    });
 
     // Case 0.1: Drag to the block parent
     if (activeFromLeftSide && activeIsAChildOfABlock && overIsABlock) {
@@ -1147,15 +1106,7 @@ export default function useHandleDragging() {
       if (activeIsABase) {
         const totalTemplateDapps = (templateDapps || []).length;
         const removeIndex = activeBaseIndex + 1 + totalTemplateDapps;
-        console.log('JK HEHEHHE', {
-          nodes: nodes,
-          edges: edges.length,
-          removeIndex,
-          activeBaseIndex,
-          totalTemplateDapps,
-        });
         const rootNode = 'blockchain';
-        console.log('nodessssss', nodes[removeIndex]);
         setRemovedNode(nodes[removeIndex]);
 
         let newNodes = removeItemAtIndex(nodes, removeIndex);
@@ -1225,7 +1176,6 @@ export default function useHandleDragging() {
             },
           };
         });
-        console.log('JK HEHEHHE newNodes', newNodes);
         //Drag remove node
         setNodes(newNodes);
         needReactFlowRenderSignal.value = true;

@@ -38,18 +38,15 @@ const ReactFlowRenderer = React.memo(() => {
     currentPositionSignal.value,
   );
   const [count, setCount] = React.useState(0);
-
   const [loaded, setLoaded] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
 
   const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
-  // const confirmLoad = () => {
-  //   onRestore();
-  //   setShowModal(false);
-  // };
-
-  console.log('[ReactFlowRenderer]', { nodes, edges });
+  console.log('[ReactFlowRenderer] ', {
+    nodes,
+    edges,
+  });
 
   useSignalEffect(() => {
     if (needReactFlowRenderSignal.value) {

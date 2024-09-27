@@ -144,6 +144,13 @@ const useNodeHelper = () => {
     needReactFlowRenderSignal.value = true;
   };
 
+  React.useEffect(() => {
+    setNewState({
+      nodes,
+      edges,
+    });
+  }, [nodes, edges]);
+
   return { addDappToNode };
 };
 

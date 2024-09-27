@@ -4,9 +4,19 @@ import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { useParams, usePathname } from 'next/navigation';
-import { accountAbstractionAsADapp, bridgesAsADapp, dappMockupData, gamingAppsAsADapp } from '../mockup_3';
+import {
+  accountAbstractionAsADapp,
+  bridgesAsADapp,
+  dappMockupData,
+  gamingAppsAsADapp,
+} from '../mockup_3';
 import useDappsStore from '../stores/useDappStore';
-import { cloneDeep, preDataAirdropTask, preDataWhitePaper, preDataYoloGame } from '../utils';
+import {
+  cloneDeep,
+  preDataAirdropTask,
+  preDataWhitePaper,
+  preDataYoloGame,
+} from '../utils';
 import { DappType } from '@/modules/blockchains/dapp/types';
 import { orderBy } from 'lodash';
 
@@ -22,7 +32,11 @@ const useOnlyFetchDapp = () => {
   const { configs, tokens, airdropTasks, tokensAll } = dappState;
 
   const configsMapping = React.useMemo(() => {
-    const _tokens = orderBy(tokensAll?.filter(token => token?.symbol && token.contract_address), token => token?.is_native, 'desc').map(token => ({
+    const _tokens = orderBy(
+      tokensAll?.filter((token) => token?.symbol && token.contract_address),
+      (token) => token?.is_native,
+      'desc',
+    ).map((token) => ({
       key: token.contract_address || '',
       title: token?.symbol || '',
       value: token.contract_address || '', // contract_address
@@ -32,47 +46,50 @@ const useOnlyFetchDapp = () => {
       options: [],
       selectable: true,
     }));
-    return configs?.map(config => {
+    return configs?.map((config) => {
       switch (config.key) {
         case DappType.staking: {
           return {
             ...config,
             baseBlock: {
               ...config.baseBlock,
-              fields: config.baseBlock.fields.map(field => {
-                if (field.key === 'staking_token' || field.key === 'reward_token') {
+              fields: config.baseBlock.fields.map((field) => {
+                if (
+                  field.key === 'staking_token' ||
+                  field.key === 'reward_token'
+                ) {
                   return {
                     ...field,
-                    options: _tokens
-                  }
+                    options: _tokens,
+                  };
                 }
                 return field;
-              })
-            }
-          }
+              }),
+            },
+          };
         }
         case DappType.airdrop: {
           return {
             ...config,
             baseBlock: {
               ...config.baseBlock,
-              fields: config.baseBlock.fields.map(field => {
+              fields: config.baseBlock.fields.map((field) => {
                 if (field.key === 'reward_token') {
                   return {
                     ...field,
-                    options: _tokens
-                  }
+                    options: _tokens,
+                  };
                 }
                 return field;
-              })
-            }
-          }
+              }),
+            },
+          };
         }
         default: {
-          return config
+          return config;
         }
       }
-    })
+    });
   }, [configs, tokensAll]);
 
   const fetchDapps = () => {
@@ -94,13 +111,16 @@ const useOnlyFetchDapp = () => {
     sortedDapps = preDataYoloGame(sortedDapps, tokensAll);
     sortedDapps = preDataWhitePaper(sortedDapps, tokens);
     setDapps(sortedDapps);
-    console.log('[useOnlyFetchDapp] dapps', sortedDapps);
-    // setDapps(preDataYoloGame(sortedDapps, tokensAll));
   };
 
   React.useEffect(() => {
     fetchDapps();
-  }, [counterFetchedDapp, pathname, JSON.stringify(configsMapping || {}), JSON.stringify(airdropTasks || {})]);
+  }, [
+    counterFetchedDapp,
+    pathname,
+    JSON.stringify(configsMapping || {}),
+    JSON.stringify(airdropTasks || {}),
+  ]);
 };
 
 export default useOnlyFetchDapp;
