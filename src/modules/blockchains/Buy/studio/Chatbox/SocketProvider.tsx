@@ -32,8 +32,13 @@ export default function SocketProvider({
   children: React.ReactNode;
 }) {
   const { getVoiceChatAiSessionId } = useVoiceChatSession();
-  const { setChatBoxStatus, setMessages, messages, isGenerating } =
-    useChatBoxState();
+  const {
+    setChatBoxStatus,
+    setMessages,
+    messages,
+    isGenerating,
+    setIsWaitingReply,
+  } = useChatBoxState();
   const { focusChatBox } = useFocusChatBox();
 
   const socketRef = useRef<ReturnType<typeof io> | null>(null);
@@ -52,6 +57,32 @@ export default function SocketProvider({
       socketRef.current?.emit(
         WebSocketEventName.BVM_SUBSCRIBE_ADDRESS,
         getVoiceChatAiSessionId(),
+      );
+
+      // START
+      socketRef.current?.on(
+        WebSocketEventName.GROUP_STREAM_AI_REPLY_START,
+        (data: any) => {
+          refMessageRender.current = '';
+
+          setIsWaitingReply(false);
+          setChatBoxStatus({
+            status: ChatBoxStatus.Generating,
+            isGenerating: true,
+            isComplete: false,
+            isListening: false,
+          });
+
+          const newMessage: BotMessage = {
+            beforeJSON: refMessageRender.current,
+            template: [],
+            afterJSON: '',
+            sender: 'bot',
+          };
+
+          setMessages([...messages, newMessage]);
+          focusChatBox();
+        },
       );
 
       // REPLYING

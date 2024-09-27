@@ -28,6 +28,7 @@ export type Message = BotMessage | UserMessage;
 interface ChatBoxState {
   messages: Message[];
   inputMessage: string;
+  isWaitingReply: boolean;
   isListening: boolean;
   isGenerating: boolean;
   isComplete: boolean;
@@ -36,6 +37,7 @@ interface ChatBoxState {
   status: ChatBoxStatus;
   prepareCategoryTemplate: IModelCategory[];
   setMessages: (messages: Message[]) => void;
+  setIsWaitingReply: (isWaitingReply: boolean) => void;
   setInputMessage: (inputMessage: string) => void;
   setIsChatboxOpen: (isChatboxOpen: boolean) => void;
   setPrepareCategoryTemplate: (
@@ -47,6 +49,7 @@ interface ChatBoxState {
 const useChatBoxState = create<ChatBoxState>((set) => ({
   messages: [],
   inputMessage: '',
+  isWaitingReply: false,
   isIdle: true,
   isListening: false,
   isGenerating: false,
@@ -56,6 +59,7 @@ const useChatBoxState = create<ChatBoxState>((set) => ({
   prepareCategoryTemplate: [],
   setMessages: (messages) => set({ messages }),
   setInputMessage: (inputMessage) => set({ inputMessage }),
+  setIsWaitingReply: (isWaitingReply) => set({ isWaitingReply }),
   setIsChatboxOpen: (isChatboxOpen) => set({ isChatboxOpen }),
   setPrepareCategoryTemplate: (prepareCategoryTemplate) =>
     set({ prepareCategoryTemplate }),

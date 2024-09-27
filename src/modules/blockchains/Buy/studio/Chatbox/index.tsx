@@ -4,11 +4,10 @@ import useChatBoxState from './chatbox-store';
 import MessageStream from './MessageStream';
 import TextInput from './TextInput';
 import styles from './styles.module.scss';
+import DotPulse from '@/components/DotPulse';
 
 export default function Chatbox() {
-  // useAutoSendRequest();
-
-  const { messages } = useChatBoxState();
+  const { messages, isWaitingReply } = useChatBoxState();
 
   return (
     <div className={styles.chatbox}>
@@ -40,6 +39,11 @@ export default function Chatbox() {
                       )}
                     </div>
                   ),
+              )}
+              {isWaitingReply && (
+                <div className={`${styles.message} ${styles.bot}`}>
+                  <DotPulse />
+                </div>
               )}
             </div>
           </div>

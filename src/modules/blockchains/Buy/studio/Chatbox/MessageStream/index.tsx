@@ -81,7 +81,7 @@ function MessageStream({ message }: { message: string }) {
 
   return (
     <div className={styles.message}>
-      {isEmpty ? <DotPulse /> : generationStatus.beforeJsonBlock}
+      {generationStatus.beforeJsonBlock}
 
       {generationStatus.isGeneratingJson &&
       !generationStatus.isGeneratedJson ? (
