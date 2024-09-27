@@ -44,14 +44,22 @@ export default function ButtonRecord({
       };
 
       mediaRecorderRef.current.onstop = () => {
-        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-        const audioURL = URL.createObjectURL(audioBlob);
+        const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
+        const audioFile = new File([audioBlob], 'audio.mp3', {
+          type: 'audio/mp3',
+        });
 
-        console.log('audioURL', audioURL);
-        setAudioURL(audioURL);
-
-        //todo send to API
-        // sendAudioToAI(audioBlob);
+        const url = URL.createObjectURL(audioFile);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'audio.mp3');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        // voiceToText(audioFile).then((result) => {
+        //   console.log('[ButtonRecord] voiceToText', result);
+        // });
       };
 
       mediaRecorderRef.current.start();
