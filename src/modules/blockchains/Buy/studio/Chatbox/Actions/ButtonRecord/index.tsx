@@ -1,163 +1,93 @@
-import { ReactElement, useEffect, useMemo, useRef, useState } from 'react';
-import useChatBoxState from '../../chatbox-store';
+import { ReactElement, useMemo, useRef } from 'react';
+
+import useChatBoxState, { ChatBoxStatus } from '../../chatbox-store';
+import useRecordAudio from '../../hooks/useRecordAudio';
+
 import styles from './styles.module.scss';
+import useVoiceToTextRealTime from '../../hooks/useVoiceToTextRealTime';
 
-type Props = {
-  handleSendMessage: (message: string, isVoice?: boolean) => void;
-};
+const SOCKET_URL = 'wss://861hc7bhmpgzhv-9000.proxy.runpod.net/asr';
 
-export default function ButtonRecord({
-  handleSendMessage,
-}: Props): ReactElement {
-  const {
-    isGenerating,
-    isListening,
-    inputMessage,
-    isComplete,
-    isChatboxOpen,
-    setIsListening,
-    setChatBoxStatus,
-    setInputMessage,
-    setIsChatboxOpen,
-  } = useChatBoxState();
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const [isRecording, setIsRecording] = useState(false);
-  const [audioURL, setAudioURL] = useState<string | null>(null);
-  const [transcript, setTranscript] = useState<string | null>(null);
+export default function ButtonRecord(): ReactElement {
+  const { isGenerating, setChatBoxStatus } = useChatBoxState();
 
-  const isClose = useMemo(() => {
-    return !isComplete && !isGenerating && !isListening;
-  }, [isComplete, isGenerating, isListening]);
+  const { connectSocket, emitEventToGetText, sendAudio, stopSocket } =
+    useVoiceToTextRealTime({
+      onClose: onSocketClose,
+      onMessage: onMessage,
+      onOpen: onSocketOpen,
+    });
+  const { isRecording, startRecording, stopRecording } = useRecordAudio({
+    onStart: onRecordStart,
+    onDataAvailable,
+    onError: onRecordError,
+    onStop: onRecordStop,
+  });
 
-  const isOpenVoice = useMemo(() => {
-    return isChatboxOpen;
-  }, [isChatboxOpen]);
+  // 1. Start recording and connect socket
+  // 2. Send audio to socket when audio is available
+  // 3. Get text from socket
+  // 4. Stop recording and close socket
 
-  const startRecording = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      mediaRecorderRef.current = new MediaRecorder(stream);
-      const audioChunks: Blob[] = [];
+  function onRecordStart() {
+    connectSocket();
+    setChatBoxStatus({
+      isComplete: false,
+      isGenerating: false,
+      isListening: true,
+      status: ChatBoxStatus.Cancel,
+    });
+  }
 
-      mediaRecorderRef.current.ondataavailable = (event) => {
-        audioChunks.push(event.data);
-      };
+  function onSocketOpen() {
+    console.log('[ButtonRecord] onSocketOpen');
+  }
 
-      mediaRecorderRef.current.onstop = () => {
-        const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
-        const audioFile = new File([audioBlob], 'audio.mp3', {
-          type: 'audio/mp3',
-        });
+  function onMessage(message: any) {
+    console.log('[ButtonRecord] onMessage', message);
+  }
 
-        const url = URL.createObjectURL(audioFile);
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', 'audio.mp3');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-        // voiceToText(audioFile).then((result) => {
-        //   console.log('[ButtonRecord] voiceToText', result);
-        // });
-      };
+  function onSocketClose() {
+    console.log('[ButtonRecord] onSocketClose');
+    setChatBoxStatus({
+      isComplete: false,
+      isGenerating: false,
+      isListening: false,
+      status: ChatBoxStatus.Close,
+    });
+  }
 
-      mediaRecorderRef.current.start();
-      setIsRecording(true);
-    } catch (error) {
-      console.error('Error starting recording:', error);
-    }
-  };
+  function onDataAvailable(blobEvent: BlobEvent) {
+    sendAudio(blobEvent.data);
+    emitEventToGetText();
+  }
 
-  const stopRecording = () => {
-    if (mediaRecorderRef.current) {
-      if (mediaRecorderRef.current.state === 'recording') {
-        mediaRecorderRef.current.stop();
-        console.log('stop recording', mediaRecorderRef.current);
-      }
-      mediaRecorderRef.current.stream
-        .getTracks()
-        .forEach((track) => track.stop());
-      setIsRecording(false);
-    }
-  };
+  function onRecordError(error: ErrorEvent) {
+    stopSocket();
+    setChatBoxStatus({
+      isComplete: false,
+      isGenerating: false,
+      isListening: false,
+      status: ChatBoxStatus.Close,
+    });
+  }
 
-  const sendAudioToAI = async (audioBlob: Blob) => {
-    const formData = new FormData();
-    formData.append('file', audioBlob, 'audio.wav');
-
-    try {
-      const response = await fetch(
-        'https://api.openai.com/v1/audio/transcriptions',
-        {
-          method: 'POST',
-          body: formData,
-          headers: {
-            Authorization: `Bearer YOUR_OPENAI_API_KEY`,
-          },
-        },
-      );
-      const data = await response.json();
-      setTranscript(data.text);
-    } catch (error) {
-      console.error('Error transcribing audio:', error);
-    }
-  };
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        if (isClose) {
-          setIsChatboxOpen(false);
-        } else if (isListening) {
-          stopRecording();
-          setIsListening(false);
-        } else if (isGenerating) {
-          //todo: wait for the BE have event stop socket
-          // setChatBoxStatus({
-          //   status: ChatBoxStatus.Close,
-          //   isGenerating: false,
-          //   isComplete: false,
-          //   isListening: false,
-          // });
-        }
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [
-    stopRecording,
-    isClose,
-    isGenerating,
-    isListening,
-    setIsChatboxOpen,
-    setIsListening,
-  ]);
-
-  useEffect(() => {
-    if (isListening) {
-      startRecording();
-    } else {
-      stopRecording();
-    }
-  }, [isListening]);
-
-  useEffect(() => {
-    return () => {
-      stopRecording();
-    };
-  }, []);
+  function onRecordStop() {
+    stopSocket();
+    setChatBoxStatus({
+      isComplete: false,
+      isGenerating: false,
+      isListening: false,
+      status: ChatBoxStatus.Close,
+    });
+  }
 
   const Listening = useMemo((): ReactElement => {
     return (
       <button
         className={styles.buttonVoice_el}
         disabled={isGenerating}
-        onClick={() => setIsListening(true)}
+        onClick={() => startRecording()}
       >
         <svg
           width="16"
@@ -205,14 +135,14 @@ export default function ButtonRecord({
         <span>Voice</span>
       </button>
     );
-  }, [isGenerating, setIsListening]);
+  }, [isGenerating]);
 
   const MuteIcon = useMemo((): ReactElement => {
     return (
       <button
         className={styles.buttonVoice_el}
         disabled={isGenerating}
-        onClick={() => setIsListening(false)}
+        onClick={() => stopRecording()}
       >
         <svg
           width="16"
@@ -267,12 +197,11 @@ export default function ButtonRecord({
         <span>Stop</span>
       </button>
     );
-  }, [isGenerating, setIsListening]);
+  }, [isGenerating]);
 
   return (
     <div className={styles.buttonVoice}>
-      {audioURL && <audio autoPlay controls loop src={audioURL} />}
-      {!isListening ? Listening : MuteIcon}
+      {!isRecording ? Listening : MuteIcon}
     </div>
   );
 }

@@ -166,5 +166,5 @@ export default function SocketProvider({
     }
   }, [isGenerating]);
 
-  return <>{children}</>;
+  return children;
 }
