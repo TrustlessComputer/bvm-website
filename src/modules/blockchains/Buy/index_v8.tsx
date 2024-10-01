@@ -22,7 +22,7 @@ import useCheckEdges from '@/modules/blockchains/Buy/hooks/useCheckEdges';
 const BuyPage = () => {
   const { handleDragStart, handleDragEnd, sensors } = useHandleDragging();
 
-  useAutoUpdateNodePosition();
+  // useAutoUpdateNodePosition();
   useOnlyFetchDapp();
   useFetchingTemplate();
   useCheckingSupported();

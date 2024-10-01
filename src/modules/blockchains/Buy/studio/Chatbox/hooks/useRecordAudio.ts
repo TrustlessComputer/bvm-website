@@ -8,6 +8,7 @@ type Props = {
   onDataAvailable: (data: BlobEvent) => void;
   onError: (error: ErrorEvent) => void;
   onStop: () => void;
+  timeslice?: number;
 };
 
 const useRecordAudio = ({
@@ -16,6 +17,7 @@ const useRecordAudio = ({
   onError,
   onStop,
   onStart,
+  timeslice,
 }: Props) => {
   const mediaRecorderRef = React.useRef<MediaRecorder | null>(null);
   const audioChunksRef = React.useRef<Blob[]>([]);
@@ -26,7 +28,9 @@ const useRecordAudio = ({
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
-      mediaRecorderRef.current = new MediaRecorder(stream);
+      mediaRecorderRef.current = new MediaRecorder(stream, {
+        mimeType: `audio/${extension}`,
+      });
 
       mediaRecorderRef.current.onstart = () => {
         setIsRecording(true);
@@ -49,7 +53,7 @@ const useRecordAudio = ({
         onError(error as ErrorEvent);
       };
 
-      mediaRecorderRef.current.start();
+      mediaRecorderRef.current.start(timeslice);
     } catch (error) {}
   };
 

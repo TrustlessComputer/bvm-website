@@ -31,7 +31,7 @@ const useVoiceToTextSocket = ({ onMessage, onOpen, onClose }: Props) => {
     socketRef.current?.close();
   };
 
-  const emitEventToGetText = () => {
+  const emitEventToStop = () => {
     socketRef.current?.send(`{ "EOF": true }`);
   };
 
@@ -39,7 +39,7 @@ const useVoiceToTextSocket = ({ onMessage, onOpen, onClose }: Props) => {
     connectSocket,
     sendAudio,
     stopSocket,
-    emitEventToGetText,
+    emitEventToStop,
   };
 };
 
