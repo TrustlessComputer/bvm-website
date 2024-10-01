@@ -4,7 +4,7 @@ import useChatBoxState, { ChatBoxStatus } from '../../chatbox-store';
 import useRecordAudio from '../../hooks/useRecordAudio';
 
 import styles from './styles.module.scss';
-import useVoiceToTextRealTime from '../../hooks/useVoiceToTextRealTime';
+import useVoiceToTextSocket from '../../hooks/useVoiceToTextSocket';
 
 const SOCKET_URL = 'wss://861hc7bhmpgzhv-9000.proxy.runpod.net/asr';
 
@@ -12,7 +12,7 @@ export default function ButtonRecord(): ReactElement {
   const { isGenerating, setChatBoxStatus } = useChatBoxState();
 
   const { connectSocket, emitEventToGetText, sendAudio, stopSocket } =
-    useVoiceToTextRealTime({
+    useVoiceToTextSocket({
       onClose: onSocketClose,
       onMessage: onMessage,
       onOpen: onSocketOpen,

@@ -1,11 +1,9 @@
 import useChatBoxState from '../../chatbox-store';
 import styles from './styles.module.scss';
 
-export default function ButtonCancel({ onClick }: { onClick: () => void }) {
-  const { setIsChatboxOpen } = useChatBoxState();
-
+export default function ButtonCancel() {
   return (
-    <button className={styles.voiceButton} onClick={onClick}>
+    <button className={styles.voiceButton}>
       <svg
         width="16"
         height="16"

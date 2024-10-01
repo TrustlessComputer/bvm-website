@@ -1,163 +1,92 @@
-import { useEffect, useRef, useState } from 'react';
-import { io } from 'socket.io-client';
-import useChatBoxState, {
-  BotMessage,
-  ChatBoxStatus,
-  Message,
-} from './chatbox-store';
+import { createContext, useEffect, useRef } from 'react';
+import useChatBoxState, { BotMessage, ChatBoxStatus } from './chatbox-store';
 import { WebSocketEventName } from './enums/events';
 import useFocusChatBox from './hooks/useFocusChatBox';
 import { useVoiceChatSession } from './hooks/useVoiceChatSession';
-import { PromptCategory } from './types';
-import { modelCategoryToPromptCategory } from './utils/convertApiUtils';
-
-const SOCKET_URL = 'wss://ai-dojo-socketer.eternalai.org/dojo';
-
-const getSocket = () => {
-  if ((window as any).io) {
-    return (window as any).io;
-  }
-  return io(SOCKET_URL, {
-    auth: {
-      token: 'xxx',
-    },
-    reconnectionDelay: 30000,
-    transports: ['websocket'],
-  });
-};
+import useChatBoxSocket from './hooks/useChatBoxSocket';
+import useMessageServices from './hooks/useMessageServices';
 
 export default function SocketProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const socketRef = useRef<ReturnType<typeof io> | null>(null);
-  const [isConnected, setIsConnected] = useState(false);
-  const { getVoiceChatAiSessionId } = useVoiceChatSession();
-  const { setChatBoxStatus, setMessages, messages, isGenerating } =
-    useChatBoxState();
-  const { focusChatBox } = useFocusChatBox();
   const refMessageRender = useRef<string>('');
 
-  const disconnectSocket = () => {
-    socketRef.current?.removeAllListeners();
-    socketRef.current?.disconnect();
-    setIsConnected(false);
-  };
+  const { getVoiceChatAiSessionId } = useVoiceChatSession();
+  const {
+    setChatBoxStatus,
+    isGenerating,
+    messages,
+    addMessage,
+    updateLastBotMessage,
+  } = useChatBoxState();
+  const { focusChatBox } = useFocusChatBox();
+  const { connectSocket, disconnectSocket } = useChatBoxSocket();
 
   const connectToSocket = () => {
-    socketRef.current = getSocket();
+    const socket = connectSocket();
 
-    socketRef.current?.on('connect', () => {
-      setIsConnected(true);
+    socket?.on('connect', () => {
+      refMessageRender.current = '';
 
       // SUBSCRIBE
-      socketRef.current?.emit(
+      socket?.emit(
         WebSocketEventName.BVM_SUBSCRIBE_ADDRESS,
         getVoiceChatAiSessionId(),
       );
 
-      // START
-      // socketRef.current?.on(
-      //   WebSocketEventName.GROUP_STREAM_AI_REPLY_START,
-      //   (data: any) => {
-      //     console.log('[SocketProvider] GROUP_STREAM_AI_REPLY_START', data);
-
-      //     setChatBoxStatus({
-      //       status: ChatBoxStatus.Generating,
-      //       isGenerating: true,
-      //       isComplete: false,
-      //       isListening: false,
-      //     });
-
-      //     const newMessage: BotMessage = {
-      //       beforeJSON: refMessageRender.current,
-      //       template: [],
-      //       afterJSON: '',
-      //       sender: 'bot',
-      //     };
-
-      //     setMessages([...messages, newMessage]);
-      //     focusChatBox();
-
-      //     refMessageRender.current = '';
-      //   },
-      // );
-
-      // REPLYING
-      socketRef.current?.on(
-        WebSocketEventName.GROUP_STREAM_AI_REPLY,
-        (data: any) => {
-          refMessageRender.current += JSON.parse(data).content;
-
-          // console.log(
-          //   '[SocketProvider] GROUP_STREAM_AI_REPLY',
-          //   refMessageRender.current,
-          // );
-
-          const newMessages = () => {
-            const lastMessage = messages[messages.length - 1];
-
-            if (lastMessage && lastMessage.sender === 'bot') {
-              const updatedMessages = [...messages];
-              const newMessage: BotMessage = {
-                beforeJSON: refMessageRender.current,
-                template: [],
-                afterJSON: '',
-                sender: 'bot',
-              };
-
-              updatedMessages[updatedMessages.length - 1] = newMessage;
-
-              return updatedMessages;
-            } else {
-              const newMessage: BotMessage = {
-                beforeJSON: refMessageRender.current,
-                template: [],
-                afterJSON: '',
-                sender: 'bot',
-              };
-
-              return [...messages, newMessage];
-            }
-          };
-
-          setMessages(newMessages());
-          focusChatBox();
-        },
-      );
-
-      // END
-      socketRef.current?.on(
-        WebSocketEventName.GROUP_STREAM_AI_REPLY_END,
-        (data: any) => {
-          // console.log('[SocketProvider] GROUP_STREAM_AI_REPLY_END', data);
-
-          refMessageRender.current = '';
-
-          setChatBoxStatus({
-            status: ChatBoxStatus.Close,
-            isGenerating: false,
-            isComplete: false,
-            isListening: false,
-          });
-        },
-      );
+      const botMessage: BotMessage = {
+        beforeJSON: '',
+        afterJSON: '',
+        jsonPart: '',
+        template: [],
+        sender: 'bot',
+      };
+      addMessage(botMessage);
     });
 
-    socketRef.current?.on('disconnect', () => {
+    // REPLYING
+    socket?.on(WebSocketEventName.GROUP_STREAM_AI_REPLY, (data: any) => {
+      refMessageRender.current += JSON.parse(data).content;
+
+      updateLastBotMessage(refMessageRender.current);
+      focusChatBox();
+    });
+
+    // END
+    socket?.on(WebSocketEventName.GROUP_STREAM_AI_REPLY_END, (data: any) => {
+      setChatBoxStatus({
+        status: ChatBoxStatus.Close,
+        isGenerating: false,
+        isComplete: true,
+        isListening: false,
+      });
+    });
+
+    socket?.on('disconnect', () => {
+      setChatBoxStatus({
+        status: ChatBoxStatus.Close,
+        isGenerating: false,
+        isComplete: true,
+        isListening: false,
+      });
       disconnectSocket();
     });
 
-    socketRef.current?.on('error', (error: Error) => {
-      console.error('[SocketProvider] error:', error);
+    socket?.on('error', (error: Error) => {
+      setChatBoxStatus({
+        status: ChatBoxStatus.Close,
+        isGenerating: false,
+        isComplete: true,
+        isListening: false,
+      });
+
       disconnectSocket();
     });
   };
 
   useEffect(() => {
-    refMessageRender.current = '';
-
     if (isGenerating) {
       connectToSocket();
     } else {

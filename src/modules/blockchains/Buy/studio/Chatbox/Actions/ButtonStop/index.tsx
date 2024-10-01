@@ -3,6 +3,7 @@ import styles from './styles.module.scss';
 
 const ButtonStop = () => {
   const { setChatBoxStatus } = useChatBoxState((state) => state);
+
   return (
     <button
       className={styles.buttonStop}

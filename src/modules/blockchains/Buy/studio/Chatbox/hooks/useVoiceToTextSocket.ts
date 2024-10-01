@@ -8,7 +8,7 @@ type Props = {
   onClose: () => void;
 };
 
-const useVoiceToTextRealTime = ({ onMessage, onOpen, onClose }: Props) => {
+const useVoiceToTextSocket = ({ onMessage, onOpen, onClose }: Props) => {
   const socketRef = useRef<WebSocket | null>(null);
 
   const connectSocket = () => {
@@ -43,4 +43,4 @@ const useVoiceToTextRealTime = ({ onMessage, onOpen, onClose }: Props) => {
   };
 };
 
-export default useVoiceToTextRealTime;
+export default useVoiceToTextSocket;

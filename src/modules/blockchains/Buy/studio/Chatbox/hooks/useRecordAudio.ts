@@ -46,7 +46,7 @@ const useRecordAudio = ({
 
       mediaRecorderRef.current.onerror = (error) => {
         setIsRecording(false);
-        onError(error);
+        onError(error as ErrorEvent);
       };
 
       mediaRecorderRef.current.start();

@@ -1,19 +1,17 @@
 import { ReactElement } from 'react';
 import useChatBoxState from '../../chatbox-store';
 import styles from './styles.module.scss';
+import useChatBoxServices from '../../hooks/useChatBoxServices';
 
-export default function ButtonSubmit({
-  handleSendMessage,
-}: {
-  handleSendMessage: (message: string) => void;
-}): ReactElement {
-  const { inputMessage, isGenerating, isListening } = useChatBoxState();
+export default function ButtonSubmit(): ReactElement {
+  const { inputMessage, isIdle } = useChatBoxState();
+  const { handleSendMessage } = useChatBoxServices();
 
   return (
     <button
       onClick={() => handleSendMessage(inputMessage)}
       className={styles.sendButton}
-      disabled={isGenerating || isListening}
+      disabled={!isIdle}
     >
       <svg
         width="16"

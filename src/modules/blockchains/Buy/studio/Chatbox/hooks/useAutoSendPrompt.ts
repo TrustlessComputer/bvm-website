@@ -12,19 +12,9 @@ import {
 import { useParseMessage } from './usePasrMessage';
 import { useVoiceChatSession } from './useVoiceChatSession';
 
-export default function useChatBoxService({
-  focusChatBox,
-}: {
-  focusChatBox: () => void;
-}) {
-  const { categories } = useModelCategoriesStore();
+export default function useAutoSendPrompt() {
   const { getDynamicForm } = useFormChain();
-  const {
-    setChatBoxStatus,
-    setMessages,
-    setPrepareCategoryTemplate,
-    messages,
-  } = useChatBoxState();
+  const { setChatBoxStatus, messages } = useChatBoxState();
   const { getVoiceChatAiSessionId } = useVoiceChatSession();
 
   const handleSendPrompt = async (message: string) => {
@@ -47,35 +37,6 @@ export default function useChatBoxService({
       command: message,
       current_state,
     });
-    //   .replace('```json', '')
-    //   .replace('```', '');
-    // const [beforeJSON, jsonPart, afterJSON] = useParseMessage(pureResponse);
-    // const blockLegoResponse = jsonPart ? JSON.parse(jsonPart) : {};
-
-    // console.log('[useChatBoxService] parsed', {
-    //   beforeJSON,
-    //   jsonPart,
-    //   afterJSON,
-    //   blockLegoResponse,
-    // });
-
-    // const newTemplate = blockLegoResponseToModelCategory(
-    //   categories!,
-    //   blockLegoResponse,
-    // );
-
-    // setMessages([
-    //   ...messages,
-    //   {
-    //     beforeJSON,
-    //     jsonPart,
-    //     afterJSON,
-    //     template: newTemplate,
-    //     sender: 'bot',
-    //   },
-    // ]);
-    // setPrepareCategoryTemplate(uniqBy(newTemplate, 'key'));
-    // focusChatBox();
   };
 
   useEffect(() => {
@@ -83,7 +44,6 @@ export default function useChatBoxService({
 
     if (lastMessage && lastMessage.sender === 'user') {
       handleSendPrompt(lastMessage.text);
-      // handleSendPromptStream(lastMessage.text);
     }
   }, [messages]);
 }
