@@ -1,34 +1,39 @@
-import { ReactElement, useMemo } from 'react';
+import { ReactElement, useMemo, useRef } from 'react';
 
 import useChatBoxState, { ChatBoxStatus } from '../../chatbox-store';
 import useRecordAudio from '../../hooks/useRecordAudio';
 import useVoiceToTextSocket from '../../hooks/useVoiceToTextSocket';
+import { RecordPromptResponse } from '../../types';
 
 import styles from './styles.module.scss';
 
 const WEBM_MIME_TYPE = 'audio/webm';
 
 export default function ButtonRecord(): ReactElement {
-  const { isGenerating, setChatBoxStatus } = useChatBoxState();
-
+  const { isGenerating, setChatBoxStatus, inputMessage, setInputMessage } =
+    useChatBoxState();
   const { connectSocket, emitEventToStop, sendAudio, stopSocket } =
     useVoiceToTextSocket({
       onClose: onSocketClose,
       onMessage: onMessage,
       onOpen: onSocketOpen,
     });
-  const { isRecording, startRecording, stopRecording } = useRecordAudio({
+  const {
+    isRecording,
+    startRecording,
+    stopRecording,
+    getAudioBlob,
+    resetChunks,
+  } = useRecordAudio({
     onStart: onRecordStart,
     onDataAvailable,
     onError: onRecordError,
+    onSilent,
     onStop: onRecordStop,
-    timeslice: 3000, // 1 second
+    timeslice: 1000,
   });
 
-  // 1. Start recording and connect socket
-  // 2. Send audio to socket when audio is available
-  // 3. Emit EOF event to get data from socket
-  // 4. Stop recording and close socket
+  const inputRef = useRef<string>(inputMessage);
 
   function onRecordStart() {
     console.log('[ButtonRecord] onRecordStart');
@@ -45,32 +50,47 @@ export default function ButtonRecord(): ReactElement {
     console.log('[ButtonRecord] onSocketOpen');
   }
 
-  function onMessage(message: unknown) {
+  function onMessage(message: RecordPromptResponse) {
     console.log('[ButtonRecord] message from socket', message);
+
+    const text = message.text.trim();
+
+    if (text) {
+      inputRef.current += ` ${text}`;
+      setInputMessage(inputRef.current);
+    }
+
+    stopRecording();
+    setChatBoxIdle();
+    stopSocket();
   }
 
   function onSocketClose() {
     console.log('[ButtonRecord] onSocketClose');
+    stopRecording();
+    setChatBoxIdle();
+    stopSocket();
   }
 
-  function onDataAvailable(blobEvent: BlobEvent) {
-    if (!blobEvent.data.size) {
+  function onSilent(blob: Blob | null) {
+    if (!blob) {
       return;
     }
 
-    const webmBlob = new Blob([blobEvent.data], { type: WEBM_MIME_TYPE });
+    const webmBlob = new Blob([blob], { type: WEBM_MIME_TYPE });
+    const webmFile = new File([webmBlob], 'audio.webm', {
+      type: WEBM_MIME_TYPE,
+    });
 
-    // const webmUrl = URL.createObjectURL(webmFile);
-    // const a = document.createElement('a');
-    // a.href = webmUrl;
-    // a.download = 'audio.webm';
-    // a.click();
-    // URL.revokeObjectURL(webmUrl);
+    console.log('[ButtonRecord] onSilent', webmFile);
 
-    sendAudio(webmBlob);
-
-    console.log('[ButtonRecord] send audio to socket', webmBlob);
+    sendAudio(webmFile);
+    resetChunks();
+    stopRecording();
+    setChatBoxIdle();
   }
+
+  function onDataAvailable(blobEvent: BlobEvent) {}
 
   function onRecordError(error: ErrorEvent) {
     console.log('[ButtonRecord] onRecordError', error);
@@ -81,11 +101,25 @@ export default function ButtonRecord(): ReactElement {
 
   function onRecordStop() {
     console.log('[ButtonRecord] onRecordStop');
+    setChatBoxIdle();
   }
 
   function onMute() {
-    emitEventToStop();
-    stopSocket();
+    const blob = getAudioBlob();
+
+    if (!blob) {
+      return;
+    }
+
+    const webmBlob = new Blob([blob], { type: WEBM_MIME_TYPE });
+    const webmFile = new File([webmBlob], 'audio.webm', {
+      type: WEBM_MIME_TYPE,
+    });
+
+    console.log('[ButtonRecord] onMute', webmFile);
+
+    sendAudio(webmFile);
+    resetChunks();
     stopRecording();
     setChatBoxIdle();
   }

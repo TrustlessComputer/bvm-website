@@ -1,9 +1,10 @@
 import { useRef } from 'react';
+import { RecordPromptResponse } from '../types';
 
 const SOCKET_URL = 'wss://861hc7bhmpgzhv-9000.proxy.runpod.net/asr';
 
 type Props = {
-  onMessage: (message: string) => void;
+  onMessage: (message: RecordPromptResponse) => void;
   onOpen: () => void;
   onClose: () => void;
 };
@@ -32,7 +33,7 @@ const useVoiceToTextSocket = ({ onMessage, onOpen, onClose }: Props) => {
   };
 
   const emitEventToStop = () => {
-    socketRef.current?.send(`{ "EOF": true }`);
+    socketRef.current?.send(JSON.stringify({ EOF: true }));
   };
 
   return {

@@ -54,3 +54,8 @@ export type SendPromptResponseV2 = {
     content: string;
   };
 };
+
+export type RecordPromptResponse = {
+  partial: boolean;
+  text: string;
+};
