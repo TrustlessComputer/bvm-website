@@ -343,7 +343,6 @@ const getAvailableListTemplateSelector = createSelector(
     const availableListTemplate = state.availableListTemplate || [];
     const param = state.dAppParam || state.templateParam;
 
-    console.log('[getAvailableListTemplateSelector] param', param);
     //Sort
     let result = availableListTemplate;
 

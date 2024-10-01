@@ -40,7 +40,6 @@ export default function SocketProvider({
   const refMessageRender = useRef<string>('');
 
   const disconnectSocket = () => {
-    console.log('[SocketProvider] disconnectSocket');
     socketRef.current?.removeAllListeners();
     socketRef.current?.disconnect();
     setIsConnected(false);

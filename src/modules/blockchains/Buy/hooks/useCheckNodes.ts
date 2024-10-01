@@ -358,20 +358,10 @@ export default function useCheckNodes() {
       }
     }
 
-    console.log('[useCheckNodes] useEffect[field]', {
-      newNodes,
-      newEdges,
-      field,
-      newDraggedDappIndexes,
-      newDraggedIds2D,
-      somethingChanged,
-    });
-
     if (somethingChanged) {
       needReactFlowRenderSignal.value = true;
       draggedDappIndexesSignal.value = newDraggedDappIndexes;
       draggedIds2DSignal.value = newDraggedIds2D;
-      console.log('[useCheckNodes] case 4');
       setNodes(newNodes);
       setEdges(newEdges);
     }

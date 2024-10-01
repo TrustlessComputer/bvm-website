@@ -50,7 +50,6 @@ export default function useNodeFlowControl() {
   const { draggedIds2D, setDraggedIds2D } = useDraggedId2DStore();
   const { isAAInstalled, isBridgeInstalled, isGamingAppsInstalled } =
     useChainProvider();
-  console.log('[useNodeFlowControl]', dapps);
   const [dragState, setDragState] = React.useState<{
     oneD: [number];
     twoD: [number, number];
@@ -107,7 +106,6 @@ export default function useNodeFlowControl() {
     const accountAbstractionIndex = dapps.findIndex(
       (dapp) => dapp.key === 'account_abstraction',
     );
-    console.log('[useNodeFlowControl]', { nodes });
 
     needReactFlowRenderSignal.value = true;
 

@@ -46,7 +46,6 @@ function useHandleReloadNode() {
     const template = searchParam.get('template') || searchParam.get('dapp');
     if (!!template) return;
 
-    console.log('runnnn dapp');
     const restoreFlow = async () => {
       const flow = LocalStorage.getItem(STORAGE_KEYS.LAST_NODES);
       const signals = LocalStorage.getItem(STORAGE_KEYS.USE_DRAG_SIGNALS) || {};
@@ -92,7 +91,6 @@ function useHandleReloadNode() {
       STORAGE_KEYS.USE_DRAG_SIGNALS,
       JSON.stringify(signals),
     );
-    console.log('runnnn USE_SIGNALS_FORM end');
   });
 
   // useSignalEffect(() => {
@@ -124,7 +122,6 @@ function useHandleReloadNode() {
     if (!isFirstLoadTemplateBox || !restoreLocal.value) return;
 
     if (rfInstance) {
-      console.log('runnn on save');
       const flow = rfInstance.toObject();
       const signals = {
         draggedDappIndexesSignal,
