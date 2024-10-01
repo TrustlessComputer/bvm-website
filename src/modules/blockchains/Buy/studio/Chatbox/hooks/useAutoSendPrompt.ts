@@ -29,6 +29,7 @@ export default function useAutoSendPrompt() {
     const current_state: PromptCategory[] = currentTemplate.map(
       modelCategoryToPromptCategory,
     );
+    setIsWaitingReply(true);
 
     await sendPromptV2({
       session_id: getVoiceChatAiSessionId()!,

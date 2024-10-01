@@ -145,14 +145,17 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     if (!loggedIn) {
       return 'Launch';
     }
-    if (needContactUs) {
-      return 'Launch';
-    }
+    // if (needContactUs) {
+    //   return 'Launch';
+    // }
     if (isUpdate) {
       return 'Update';
     }
+    if (isUpdateFlow) {
+      return 'Update';
+    }
     return 'Launch';
-  }, [loggedIn, isUpdate, needContactUs]);
+  }, [loggedIn, isUpdate, needContactUs, isUpdateFlow]);
 
   useEffect(() => {
     const getChainIDRandomFunc = async () => {
@@ -395,7 +398,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       yoloNodePositions,
       walletTypeForms,
       whitePaperForms,
-      whitePaperPositions
+      whitePaperPositions,
     });
 
     // console.log('UPDATE FLOW: --- dynamicForm --- ', dynamicForm);
@@ -403,7 +406,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
       stakingForms,
       yoloGameForms,
       airdropForms,
-      tokensForms
+      tokensForms,
     });
     let isConfigDapp = false;
 
