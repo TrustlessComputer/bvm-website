@@ -8,8 +8,9 @@ type Props = {
   onDataAvailable: (data: BlobEvent) => void;
   onError: (error: ErrorEvent) => void;
   onStop: () => void;
-  onSilent: (blob: Blob | null) => void;
+  onSilent?: (blob: Blob | null) => void;
   timeslice?: number;
+  stopOnSilent?: boolean;
 };
 
 const useRecordAudio = ({
@@ -19,6 +20,7 @@ const useRecordAudio = ({
   onStop,
   onStart,
   timeslice,
+  stopOnSilent = false,
   onSilent,
 }: Props) => {
   const mediaRecorderRef = React.useRef<MediaRecorder | null>(null);
@@ -87,9 +89,12 @@ const useRecordAudio = ({
             Date.now() - silenceStartTime.current >=
             silenceDuration.current
           ) {
-            onSilent(getAudioBlob());
+            onSilent?.(getAudioBlob());
             silenceStartTime.current = null;
-            return;
+
+            if (stopOnSilent) {
+              return;
+            }
           }
         } else {
           silenceStartTime.current = null;

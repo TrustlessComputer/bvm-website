@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { RecordPromptResponse } from '../types';
 
-const SOCKET_URL = 'wss://861hc7bhmpgzhv-9000.proxy.runpod.net/asr';
+const SOCKET_URL = 'wss://uj6ne4kw25z67t-9000.proxy.runpod.net/asr';
 
 type Props = {
   onMessage: (message: RecordPromptResponse) => void;

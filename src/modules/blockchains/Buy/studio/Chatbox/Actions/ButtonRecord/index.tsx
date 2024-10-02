@@ -1,4 +1,4 @@
-import { ReactElement, useMemo, useRef } from 'react';
+import { ReactElement, useEffect, useMemo, useRef } from 'react';
 
 import useChatBoxState, { ChatBoxStatus } from '../../chatbox-store';
 import useRecordAudio from '../../hooks/useRecordAudio';
@@ -12,12 +12,11 @@ const WEBM_MIME_TYPE = 'audio/webm';
 export default function ButtonRecord(): ReactElement {
   const { isGenerating, setChatBoxStatus, inputMessage, setInputMessage } =
     useChatBoxState();
-  const { connectSocket, emitEventToStop, sendAudio, stopSocket } =
-    useVoiceToTextSocket({
-      onClose: onSocketClose,
-      onMessage: onMessage,
-      onOpen: onSocketOpen,
-    });
+  const { connectSocket, sendAudio, stopSocket } = useVoiceToTextSocket({
+    onClose: onSocketClose,
+    onMessage: onMessage,
+    onOpen: onSocketOpen,
+  });
   const {
     isRecording,
     startRecording,
@@ -81,8 +80,14 @@ export default function ButtonRecord(): ReactElement {
     const webmFile = new File([webmBlob], 'audio.webm', {
       type: WEBM_MIME_TYPE,
     });
+    // const webmUrl = URL.createObjectURL(webmFile);
 
-    console.log('[ButtonRecord] onSilent', webmFile);
+    // const a = document.createElement('a');
+    // a.href = webmUrl;
+    // a.download = 'audio.webm';
+    // a.click();
+
+    // console.log('[ButtonRecord] onSilent', webmFile);
 
     sendAudio(webmFile);
     resetChunks();
@@ -132,6 +137,10 @@ export default function ButtonRecord(): ReactElement {
       status: ChatBoxStatus.Close,
     });
   }
+
+  useEffect(() => {
+    inputRef.current = inputMessage;
+  }, [inputMessage]);
 
   const Listening = useMemo((): ReactElement => {
     return (
