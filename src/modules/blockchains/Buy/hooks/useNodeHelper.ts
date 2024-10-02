@@ -22,11 +22,6 @@ const useNodeHelper = () => {
   const { nodes, setNodes, edges, setEdges } = useFlowStore();
   const { setDraggedIds2D } = useDraggedId2DStore();
 
-  const [newState, setNewState] = React.useState({
-    nodes,
-    edges,
-  });
-
   const addDappToNode = (dappIndex: number, position = { x: 600, y: 30 }) => {
     const { x, y } = position;
     const thisDapp = dapps[dappIndex];
@@ -55,7 +50,7 @@ const useNodeHelper = () => {
     const isHandleExists = edges.some(
       (handle) => handle.sourceHandle === `${rootNode}-s-${suffix}`,
     );
-    let nodesData = newState.nodes;
+    let nodesData = nodes;
 
     if (!isHandleExists) {
       getHandleNodeBlockChain?.data?.sourceHandles?.push(
@@ -135,11 +130,7 @@ const useNodeHelper = () => {
 
     setDraggedIds2D([...draggedIds2DSignal.value]);
     setNodes([...nodesData, newNode]);
-    setEdges([...newState.edges, newEdge]);
-    setNewState({
-      nodes: [...nodesData, newNode],
-      edges: [...newState.edges, newEdge],
-    });
+    setEdges([...edges, newEdge]);
 
     needReactFlowRenderSignal.value = true;
   };
