@@ -121,7 +121,7 @@ function MessageStream({ message }: { message: string }) {
           !draggedDappIndexesSignal.value.includes(dappIndexNeedToAdd.dappIndex)
         ) {
           addDappToNode(dappIndexNeedToAdd.dappIndex, {
-            x: 550 * (countAdded.current + 1),
+            x: 500 * (countAdded.current + 1),
             y: 600,
           });
           countAdded.current += 1;
