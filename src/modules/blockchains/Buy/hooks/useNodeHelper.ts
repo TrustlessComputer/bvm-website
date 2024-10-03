@@ -284,6 +284,10 @@ const useNodeHelper = () => {
     getAccountAbstractionNode,
     getBridgeAppsNode,
     getGamingAppsNode,
+    getChainNodeId,
+    getAccountAbstractionNodeId,
+    getBridgeAppsNodeId,
+    getGamingAppsNodeId,
   };
 };
 

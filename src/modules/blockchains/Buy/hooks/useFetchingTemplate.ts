@@ -44,6 +44,8 @@ import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import { parseWhitePapers } from '@/modules/blockchains/dapp/parseUtils/whitePaper';
 import useStudioHelper from './useStudioHelper';
+import useNodeHelper from './useNodeHelper';
+import useStudioInfo from './useStudioInfo';
 
 export default function useFetchingTemplate() {
   const path = usePathname();
@@ -84,7 +86,8 @@ export default function useFetchingTemplate() {
   const { setIsFirstLoadTemplateBox } = useStoreFirstLoadTemplateBox();
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { setTemplate } = useTemplate();
-  const { getChainNode, getChainNodeId, isUpdateFlow } = useStudioHelper();
+  const { isUpdateFlow } = useStudioInfo();
+  const { getChainNode, getChainNodeId } = useNodeHelper();
   const { order, isAAInstalled, isBridgeInstalled, isGamingAppsInstalled } =
     useChainProvider();
   const { templateList, templateDefault } = useAvailableListTemplate();

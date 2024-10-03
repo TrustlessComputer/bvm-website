@@ -1,3 +1,4 @@
+import React from 'react';
 import { getNodesBounds, getViewportForBounds } from '@xyflow/react';
 import { toPng } from 'html-to-image';
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
@@ -15,7 +16,6 @@ import useStudioInfo from './useStudioInfo';
 import useNodeHelper from './useNodeHelper';
 
 export default function useStudioHelper() {
-
   const { templateDefault } = useAvailableListTemplate();
   const { setTemplate } = useTemplate();
   const { order, isAAInstalled } = useChainProvider();
@@ -27,13 +27,17 @@ export default function useStudioHelper() {
   const { isUpdateFlow } = useStudioInfo();
   const { getChainNode } = useNodeHelper();
 
+  const defaultChainNode = React.useMemo(() => {
+    return getChainNode({ x: 30, y: 30 });
+  }, [getChainNode]);
+
   const cloneHandler = async (template: IModelCategory[]) => {
     resetEdit();
     setTemplate(template);
   };
 
   const resetEdit = async () => {
-    setNodes([getChainNode({ x: 30, y: 30 })]);
+    setNodes([defaultChainNode]);
 
     draggedIds2DSignal.value = [];
     formDappSignal.value = {};
@@ -52,7 +56,7 @@ export default function useStudioHelper() {
   };
 
   const clearFlow = () => {
-    setNodes([getChainNode({ x: 30, y: 30 })]);
+    setNodes([defaultChainNode]);
     setEdges([]);
 
     draggedIds2DSignal.value = [];
@@ -121,6 +125,5 @@ https://bvm.network/studio/${url}`;
     cloneHandler,
     getTwitterContent,
     clearFlow,
-    isUpdateFlow,
   };
 }
