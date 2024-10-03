@@ -1,8 +1,11 @@
 import React from 'react';
 import { IModelOption } from '@/types/customize-model';
-import { DappNode } from '@/types/node';
+import { ChainNode, DappNode } from '@/types/node';
 import { MarkerType } from '@xyflow/react';
-import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
+import {
+  dappKeyToNodeKey,
+  nodeKey,
+} from '../component4/YourNodes/node.constants';
 import { FieldKeyPrefix } from '../contants';
 import {
   draggedDappIndexesSignal,
@@ -15,6 +18,12 @@ import useFlowStore, { AppState } from '../stores/useFlowStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import { dappKeyToChainKey } from '../utils';
+import {
+  accountAbstractionAsADapp,
+  bridgesAsADapp,
+  gamingAppsAsADapp,
+} from '../mockup_3';
+import useStudioInfo from './useStudioInfo';
 
 const useNodeHelper = () => {
   const setDraggedIds2D = useDraggedId2DStore((state) => state.setDraggedIds2D);
@@ -26,6 +35,135 @@ const useNodeHelper = () => {
   const edges = useFlowStore((state) => state.edges);
   const setNodes = useFlowStore((state) => state.setNodes);
   const setEdges = useFlowStore((state) => state.setEdges);
+
+  const { isUpdateFlow } = useStudioInfo();
+
+  const getSourceHandle = ({
+    source,
+    target,
+  }: {
+    source: string;
+    target: string;
+  }) => `${target}-s-${source}`;
+
+  const getChainNodeId = React.useCallback(() => 'blockchain', []);
+  const getAccountAbstractionNodeId = React.useCallback(
+    () => 'account_abstraction',
+    [],
+  );
+  const getBridgeAppsNodeId = React.useCallback(() => 'bridge_apps', []);
+  const getGamingAppsNodeId = React.useCallback(() => 'gaming_apps', []);
+
+  const getChainNode = React.useCallback(
+    (position: { x: number; y: number }): ChainNode => {
+      return {
+        id: getChainNodeId(),
+        type: nodeKey.CHAIN_NODE,
+        data: {
+          node: 'chain',
+          title: 'Blockchain',
+          sourceHandles: isUpdateFlow
+            ? [
+                `${getChainNodeId()}-s-${getAccountAbstractionNodeId()}`,
+                `${getChainNodeId()}-s-${getBridgeAppsNodeId()}`,
+                `${getChainNodeId()}-s-${getGamingAppsNodeId()}`,
+              ]
+            : [],
+          targetHandles: [],
+        },
+        dragHandle: '.drag-handle-area',
+        position,
+      };
+    },
+    [],
+  );
+
+  const getAccountAbstractionNode = React.useCallback(
+    (position: { x: number; y: number }): DappNode => {
+      const dapp = accountAbstractionAsADapp;
+
+      return {
+        id: getAccountAbstractionNodeId(),
+        type: dappKeyToNodeKey(dapp.key),
+        dragHandle: '.drag-handle-area',
+        position,
+        data: {
+          node: 'dapp',
+          title: dapp.title,
+          dapp,
+          baseIndex: 0,
+          categoryOption: {} as IModelOption,
+          ids: [],
+          targetHandles: [],
+          sourceHandles: [
+            getSourceHandle({
+              source: getChainNodeId(),
+              target: getAccountAbstractionNodeId(),
+            }),
+          ],
+        },
+      };
+    },
+    [],
+  );
+
+  const getBridgeAppsNode = React.useCallback(
+    (position: { x: number; y: number }): DappNode => {
+      const dapp = bridgesAsADapp;
+
+      return {
+        id: getBridgeAppsNodeId(),
+        type: dappKeyToNodeKey(dapp.key),
+        dragHandle: '.drag-handle-area',
+        position,
+        data: {
+          node: 'dapp',
+          title: dapp.title,
+          dapp,
+          baseIndex: 0,
+          categoryOption: {} as IModelOption,
+          ids: [],
+          targetHandles: [],
+          sourceHandles: [
+            getSourceHandle({
+              source: getChainNodeId(),
+              target: getBridgeAppsNodeId(),
+            }),
+          ],
+        },
+      };
+    },
+    [],
+  );
+
+  const getGamingAppsNode = React.useCallback(
+    (position: { x: number; y: number }): DappNode => {
+      const dapp = gamingAppsAsADapp;
+
+      return {
+        id: getGamingAppsNodeId(),
+        type: dappKeyToNodeKey(dapp.key),
+        dragHandle: '.drag-handle-area',
+        position,
+        data: {
+          node: 'dapp',
+          title: dapp.title,
+          dapp,
+          baseIndex: 0,
+          categoryOption: {} as IModelOption,
+          ids: [],
+          targetHandles: [],
+          sourceHandles: [
+            getSourceHandle({
+              source: getChainNodeId(),
+              target: getGamingAppsNodeId(),
+            }),
+          ],
+        },
+      };
+    },
+    [],
+  );
 
   const addDappToNode = (dappIndex: number, position = { x: 600, y: 30 }) => {
     const { x, y } = position;
@@ -140,7 +278,13 @@ const useNodeHelper = () => {
     needReactFlowRenderSignal.value = true;
   };
 
-  return { addDappToNode };
+  return {
+    addDappToNode,
+    getChainNode,
+    getAccountAbstractionNode,
+    getBridgeAppsNode,
+    getGamingAppsNode,
+  };
 };
 
 export default useNodeHelper;

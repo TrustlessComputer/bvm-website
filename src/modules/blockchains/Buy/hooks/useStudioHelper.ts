@@ -1,11 +1,7 @@
-import React from 'react';
 import { getNodesBounds, getViewportForBounds } from '@xyflow/react';
 import { toPng } from 'html-to-image';
-import { useParams } from 'next/navigation';
-
 import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
-import { IModelCategory, IModelOption } from '@/types/customize-model';
-
+import { IModelCategory } from '@/types/customize-model';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
@@ -13,22 +9,12 @@ import {
 import { formDappSignal } from '../signals/useFormDappsSignal';
 import useFlowStore from '../stores/useFlowStore';
 import useAvailableListTemplate from '../studio/useAvailableListTemplate';
-
 import useTemplate from './useTemplate';
-import { ChainNode, DappNode } from '@/types/node';
-import {
-  dappKeyToNodeKey,
-  nodeKey,
-} from '../component4/YourNodes/node.constants';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
-import {
-  accountAbstractionAsADapp,
-  bridgesAsADapp,
-  gamingAppsAsADapp,
-} from '../mockup_3';
+import useStudioInfo from './useStudioInfo';
+import useNodeHelper from './useNodeHelper';
 
 export default function useStudioHelper() {
-  const params = useParams();
 
   const { templateDefault } = useAvailableListTemplate();
   const { setTemplate } = useTemplate();
@@ -38,124 +24,8 @@ export default function useStudioHelper() {
   const setNodes = useFlowStore((state) => state.setNodes);
   const setEdges = useFlowStore((state) => state.setEdges);
 
-  const isUpdateFlow = React.useMemo(() => {
-    return !!params?.id;
-  }, [params?.id]);
-
-  const getSourceHandle = ({
-    source,
-    target,
-  }: {
-    source: string;
-    target: string;
-  }) => `${target}-s-${source}`;
-
-  const getChainNodeId = () => 'blockchain';
-  const getAccountAbstractionNodeId = () => 'account_abstraction';
-  const getBridgeAppsNodeId = () => 'bridge_apps';
-  const getGamingAppsNodeId = () => 'gaming_apps';
-
-  const getChainNode = (position: { x: number; y: number }): ChainNode => {
-    return {
-      id: getChainNodeId(),
-      type: nodeKey.CHAIN_NODE,
-      data: {
-        node: 'chain',
-        title: 'Blockchain',
-        sourceHandles: isUpdateFlow
-          ? [
-              `${getChainNodeId()}-s-account_abstraction`,
-              `${getChainNodeId()}-s-bridge_apps`,
-              `${getChainNodeId()}-s-gaming_apps`,
-            ]
-          : [],
-        targetHandles: [],
-      },
-      dragHandle: '.drag-handle-area',
-      position,
-    };
-  };
-
-  const getAccountAbstractionNode = (position: {
-    x: number;
-    y: number;
-  }): DappNode => {
-    const dapp = accountAbstractionAsADapp;
-
-    return {
-      id: getAccountAbstractionNodeId(),
-      type: dappKeyToNodeKey(dapp.key),
-      dragHandle: '.drag-handle-area',
-      position,
-      data: {
-        node: 'dapp',
-        title: dapp.title,
-        dapp,
-        baseIndex: 0,
-        categoryOption: {} as IModelOption,
-        ids: [],
-        targetHandles: [],
-        sourceHandles: [
-          getSourceHandle({
-            source: getChainNodeId(),
-            target: getAccountAbstractionNodeId(),
-          }),
-        ],
-      },
-    };
-  };
-
-  const getBridgeAppsNode = (position: { x: number; y: number }): DappNode => {
-    const dapp = bridgesAsADapp;
-
-    return {
-      id: getBridgeAppsNodeId(),
-      type: dappKeyToNodeKey(dapp.key),
-      dragHandle: '.drag-handle-area',
-      position,
-      data: {
-        node: 'dapp',
-        title: dapp.title,
-        dapp,
-        baseIndex: 0,
-        categoryOption: {} as IModelOption,
-        ids: [],
-        targetHandles: [],
-        sourceHandles: [
-          getSourceHandle({
-            source: getChainNodeId(),
-            target: getBridgeAppsNodeId(),
-          }),
-        ],
-      },
-    };
-  };
-
-  const getGamingAppsNode = (position: { x: number; y: number }): DappNode => {
-    const dapp = gamingAppsAsADapp;
-
-    return {
-      id: getGamingAppsNodeId(),
-      type: dappKeyToNodeKey(dapp.key),
-      dragHandle: '.drag-handle-area',
-      position,
-      data: {
-        node: 'dapp',
-        title: dapp.title,
-        dapp,
-        baseIndex: 0,
-        categoryOption: {} as IModelOption,
-        ids: [],
-        targetHandles: [],
-        sourceHandles: [
-          getSourceHandle({
-            source: getChainNodeId(),
-            target: getGamingAppsNodeId(),
-          }),
-        ],
-      },
-    };
-  };
+  const { isUpdateFlow } = useStudioInfo();
+  const { getChainNode } = useNodeHelper();
 
   const cloneHandler = async (template: IModelCategory[]) => {
     resetEdit();
@@ -252,13 +122,5 @@ https://bvm.network/studio/${url}`;
     getTwitterContent,
     clearFlow,
     isUpdateFlow,
-    getChainNode,
-    getChainNodeId,
-    getAccountAbstractionNode,
-    getAccountAbstractionNodeId,
-    getBridgeAppsNode,
-    getBridgeAppsNodeId,
-    getGamingAppsNode,
-    getGamingAppsNodeId,
   };
 }

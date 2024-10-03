@@ -14,7 +14,7 @@ const useCheckEdges = () => {
       (edge) =>
         edge.target === removedNode?.id || edge.source === removedNode?.id,
     );
-    console.log('indexEdgeRemoved', indexEdgeRemoved);
+
     if (indexEdgeRemoved === -1) return;
 
     setEdges(removeItemAtIndex(edges, indexEdgeRemoved));
@@ -23,8 +23,9 @@ const useCheckEdges = () => {
   };
 
   React.useEffect(() => {
-    console.log('runmnnn here');
+
     if (removedNode === null) return;
+
     checkEdges();
   }, [removedNode]);
 };
