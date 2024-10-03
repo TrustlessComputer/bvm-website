@@ -8,16 +8,13 @@ import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
 import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
 import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
 import Droppable from '@/modules/blockchains/dapp/components/Droppable';
-import { useAppSelector } from '@/stores/hooks';
-import { dappSelector } from '@/stores/states/dapp/selector';
 import { formatCurrencyV2 } from '@utils/format';
 import { compareString } from '@utils/string';
-import { useParams } from 'next/navigation';
 import React, { memo } from 'react';
 import useDapps from '../../hooks/useDapps';
 import { accountAbstractionAsADapp } from '../../mockup_3';
 import { chainKeyToDappKey, isChainOptionDisabled } from '../../utils';
-import { DappModel } from '@/types/customize-model';
+import useStudioInfo from '../../hooks/useStudioInfo';
 
 const ignoreFields = ['bridge_apps', 'gaming_apps', 'wallet_type'];
 const shouldGenFields = ['defi_apps', 'degen_apps'];
@@ -26,13 +23,15 @@ const ignoreFieldMapper: Record<string, string[]> = {
 };
 
 export default memo(function StudioControls() {
-  const { parsedCategories } = useModelCategoriesStore();
-  const { field } = useOrderFormStoreV3();
-  const { dapps, dappMapping } = useDapps();
-  const dappState = useAppSelector(dappSelector);
+  const parsedCategories = useModelCategoriesStore(
+    (state) => state.parsedCategories,
+  );
+  const field = useOrderFormStoreV3((state) => state.field);
 
-  const params = useParams();
-  const isUpdateChainFlow = React.useMemo(() => !!params?.id, [params?.id]);
+  const { dapps, dappMapping } = useDapps();
+
+  const { isUpdateFlow } = useStudioInfo();
+
   const currentNetwork = React.useMemo(
     () => field['network']?.value as string,
     [field['network']?.value],
@@ -59,7 +58,7 @@ export default memo(function StudioControls() {
           return (
             <BoxOptionV3
               key={item.key}
-              disable={item.disable || (isUpdateChainFlow && !item.updatable)}
+              disable={item.disable || (isUpdateFlow && !item.updatable)}
               label={item.title}
               id={item.key}
               isRequired={item.required}
@@ -161,7 +160,7 @@ export default memo(function StudioControls() {
               const walletTypeOption = dengenCategory?.options.find(
                 (opt) => opt.key === 'wallet_type',
               );
-              const degenDapp = isUpdateChainFlow
+              const degenDapp = isUpdateFlow
                 ? dapps?.find((item) =>
                     compareString(
                       item.key,
@@ -189,10 +188,10 @@ export default memo(function StudioControls() {
                   <BoxOption
                     info={{
                       ...item.options[0],
-                      disabled:
-                        item.disable ||
-                        !item.options[0].selectable ||
-                        isChainOptionDisabled(field, item, item.options[0]),
+                      disabled: false,
+                      // item.disable ||
+                      // !item.options[0].selectable ||
+                      // isChainOptionDisabled(field, item, item.options[0]),
                       title: '',
                       description: {
                         title: item.title,
@@ -243,7 +242,7 @@ export default memo(function StudioControls() {
                   needCheckIcon={false}
                 >
                   {item.options.map((option, index) => {
-                    const dapp = isUpdateChainFlow
+                    const dapp = isUpdateFlow
                       ? dapps?.find((item) =>
                           compareString(
                             item.key,
