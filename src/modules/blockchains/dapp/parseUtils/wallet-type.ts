@@ -22,6 +22,11 @@ export const parseWalletType = (walletType: WalletType): any[] => {
         value: 'ThirdWeb Wallet', // contract_address
       };
       break;
+    case WalletType.unisat:
+      selected = {
+        key: WalletType.unisat,
+        value: 'Unisat Wallet', // contract_address
+      }
   }
 
   const result: any[] = [

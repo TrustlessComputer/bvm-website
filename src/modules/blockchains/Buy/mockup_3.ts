@@ -1369,6 +1369,16 @@ export const dappMockupData: DappModel[] = [
             options: [],
             selectable: true,
           },
+          {
+            key: 'unisat-wallet',
+            title: 'Unisat wallet', // symbol
+            value: WalletType.unisat, // contract_address
+            icon: 'https://next-cdn.unisat.io/_/304/logo/color.svg', // image_url
+            tooltip: '',
+            type: '',
+            options: [],
+            selectable: true,
+          },
         ],
       },
     ],

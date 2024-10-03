@@ -11,6 +11,7 @@ export enum WalletType {
   naka = "naka",
   inGame = "inGame",
   thirdWeb = "thirdWeb",
+  unisat = "unisat"
 }
 
 export interface DappState {
