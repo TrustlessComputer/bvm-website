@@ -9,17 +9,15 @@ type Props = {
 export default function ButtonVoice({
   handleSendMessage,
 }: Props): ReactElement {
-  const {
-    isGenerating,
-    isListening,
-    inputMessage,
-    isComplete,
-    isChatboxOpen,
-    setIsListening,
-    setChatBoxStatus,
-    setInputMessage,
-    setIsChatboxOpen,
-  } = useChatBoxState();
+  const isGenerating = useChatBoxState((state) => state.isGenerating);
+  const isComplete = useChatBoxState((state) => state.isComplete);
+  const isListening = useChatBoxState((state) => state.isListening);
+  const inputMessage = useChatBoxState((state) => state.inputMessage);
+  const isChatboxOpen = useChatBoxState((state) => state.isChatboxOpen);
+  const setChatBoxStatus = useChatBoxState((state) => state.setChatBoxStatus);
+  const setInputMessage = useChatBoxState((state) => state.setInputMessage);
+  const setIsChatboxOpen = useChatBoxState((state) => state.setIsChatboxOpen);
+
   const recognitionRef = useRef<any>(null);
 
   const isClose = useMemo(() => {

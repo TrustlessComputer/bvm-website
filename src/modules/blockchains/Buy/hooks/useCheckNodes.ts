@@ -28,17 +28,19 @@ import { cloneDeep } from '../utils';
 import useFormChain from './useFormChain';
 
 export default function useCheckNodes() {
-  const { field } = useOrderFormStoreV3();
-  const { nodes, setNodes, edges, setEdges } = useFlowStore();
+  const field = useOrderFormStoreV3((state) => state.field);
+
+  const nodes = useFlowStore((state) => state.nodes);
+  const setNodes = useFlowStore((state) => state.setNodes);
+  const edges = useFlowStore((state) => state.edges);
+  const setEdges = useFlowStore((state) => state.setEdges);
+
   const { getCurrentFieldFromChain } = useFormChain();
   const { lineBridgeStatus } = useBridgesModule();
   const { lineAAStatus } = useAAModule();
   const { statusMapper } = useGameModule();
   const { dapps } = useDappsStore();
   const store = useStoreApi();
-  const {
-    transform: [transformX, transformY, zoomLevel],
-  } = store.getState();
 
   const check = () => {
     const newNodes = [...nodes];

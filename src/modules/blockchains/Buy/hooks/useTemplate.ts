@@ -14,10 +14,20 @@ import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 
 export default function useTemplate() {
   const searchParams = useSearchParams();
-  const { setDraggedFields } = useDragStore();
-  const { parsedCategories, categoriesTemplates } = useModelCategoriesStore();
-  const { field, setField, setFields } = useOrderFormStoreV3();
   const { setValue } = useOptionInputStore();
+
+  const setDraggedFields = useDragStore((state) => state.setDraggedFields);
+
+  const parsedCategories = useModelCategoriesStore(
+    (state) => state.parsedCategories,
+  );
+  const categoriesTemplates = useModelCategoriesStore(
+    (state) => state.categoriesTemplates,
+  );
+
+  const field = useOrderFormStoreV3((state) => state.field);
+  const setFields = useOrderFormStoreV3((state) => state.setFields);
+  const setField = useOrderFormStoreV3((state) => state.setField);
 
   // console.log('useTemplate -> field', field);
 
@@ -33,8 +43,6 @@ export default function useTemplate() {
         value: null,
         dragged: false,
       };
-      // newFields[_field.key].value = _field.options[0].key || null;
-      // newFields[_field.key].dragged = false;
     });
 
     const fieldsNotInTemplate = parsedCategories?.filter(

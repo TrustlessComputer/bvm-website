@@ -6,8 +6,8 @@ import useDappsStore from '../stores/useDappStore';
 import useDraggingStore from '../stores/useDraggingStore';
 
 const useNodeAction = () => {
-  const { dapps } = useDappsStore();
-  const { setIsDragging } = useDraggingStore();
+  const dapps = useDappsStore((state) => state.dapps);
+  const setIsDragging = useDraggingStore((state) => state.setIsDragging);
 
   const handleOnClickCreateToken = () => {
     const tokenDappIndex = dapps.findIndex(

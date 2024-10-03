@@ -2,18 +2,17 @@ import { useSearchParams } from 'next/navigation';
 import React, { useState } from 'react';
 import useFlowStore from '../stores/useFlowStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
-import useDapps from './useDapps';
+import useDappsStore from '../stores/useDappStore';
 import useNodeHelper from './useNodeHelper';
-import { dappKeyToChainKey } from '../utils';
-import { MarkerType } from '@xyflow/react';
-import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 
 const useSetDefaultDapp = () => {
   const searchParams = useSearchParams();
-  const { categories } = useModelCategoriesStore();
-  const { dapps } = useDapps();
-  const { nodes } = useFlowStore();
+
   const { addDappToNode } = useNodeHelper();
+
+  const categories = useModelCategoriesStore((state) => state.categories);
+  const nodes = useFlowStore((state) => state.nodes);
+  const dapps = useDappsStore((state) => state.dapps);
 
   const [loaded, setLoaded] = useState<boolean>(false);
 

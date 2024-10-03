@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
 
 export default function useFixScrollOverDrag() {
-  const { idDragging } = useDragMask();
+  const idDragging = useDragMask((state) => state.idDragging);
   const refTime = useRef<NodeJS.Timeout>();
 
   useEffect(() => {

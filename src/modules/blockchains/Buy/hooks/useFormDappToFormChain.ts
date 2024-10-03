@@ -3,9 +3,10 @@ import React from 'react';
 import { draggedDappIndexesSignal } from '../signals/useDragSignal';
 import { cloneDeep } from '../utils';
 import useDapps from './useDapps';
+import useDappsStore from '../stores/useDappStore';
 
 const useFormDappToFormChain = () => {
-  const { dapps } = useDapps();
+  const dapps = useDappsStore((state) => state.dapps);
 
   const [dappIndexes, setDappIndexes] = React.useState<
     typeof draggedDappIndexesSignal.value

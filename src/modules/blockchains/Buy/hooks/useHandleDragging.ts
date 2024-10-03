@@ -39,21 +39,37 @@ import useOverlappingChainLegoStore from '../stores/useOverlappingChainLegoStore
 
 export default function useHandleDragging() {
   const { setOverlappingId } = useOverlappingChainLegoStore();
-  const { nodes, setNodes, edges, setEdges, setRemovedNode } = useFlowStore();
-  const {
-    setIdDragging,
-    rightDragging,
-    setRightDragging,
-    idDragging,
-    dataDragging,
-    setDataDragging,
-    setDraggingParent,
-  } = useDragMask();
-  const { draggedFields, setDraggedFields } = useDragStore();
-  const { field, setField } = useOrderFormStoreV3();
-  const { setIsDragging, isDragging } = useDraggingStore();
-  const { parsedCategories, categories, categoryMapping } =
-    useModelCategoriesStore();
+
+  const nodes = useFlowStore((state) => state.nodes);
+  const setNodes = useFlowStore((state) => state.setNodes);
+  const edges = useFlowStore((state) => state.edges);
+  const setRemovedNode = useFlowStore((state) => state.setRemovedNode);
+
+  const setIdDragging = useDragMask((state) => state.setIdDragging);
+  const rightDragging = useDragMask((state) => state.rightDragging);
+  const setRightDragging = useDragMask((state) => state.setRightDragging);
+  const setDataDragging = useDragMask((state) => state.setDataDragging);
+  const setDraggingParent = useDragMask((state) => state.setDraggingParent);
+
+  const draggedFields = useDragStore((state) => state.draggedFields);
+  const setDraggedFields = useDragStore((state) => state.setDraggedFields);
+
+  const field = useOrderFormStoreV3((state) => state.field);
+  const setField = useOrderFormStoreV3((state) => state.setField);
+
+  const setIsDragging = useDraggingStore((state) => state.setIsDragging);
+  const isDragging = useDraggingStore((state) => state.isDragging);
+
+  const parsedCategories = useModelCategoriesStore(
+    (state) => state.parsedCategories,
+  );
+  const categories = useModelCategoriesStore((state) => state.categories);
+  const categoryMapping = useModelCategoriesStore(
+    (state) => state.categoryMapping,
+  );
+
+  const templateDapps = useTemplateFormStore((state) => state.templateDapps);
+
   const {
     dapps,
     baseModuleFieldMapping,
@@ -61,8 +77,9 @@ export default function useHandleDragging() {
     moduleFieldMapping,
     singleFieldMapping,
   } = useDapps();
-  const { selectedCategoryMapping, isUpdateFlow } = useChainProvider();
-  const { templateDapps } = useTemplateFormStore();
+
+  const { isUpdateFlow } = useChainProvider();
+
   const { deleteValue: deleteValueOptionInputStore } = useOptionInputStore();
 
   const getAllOptionKeysOfItem = (item: FieldModel) => {

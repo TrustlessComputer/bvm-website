@@ -14,19 +14,16 @@ import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
-import { ChainNode } from '@/types/node';
 import { compareString } from '@/utils/string';
 import handleStatusEdges from '@utils/helpers';
 import { Edge, MarkerType } from '@xyflow/react';
-import { useParams, usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
 import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
 import { parseStakingPools } from '../../dapp/parseUtils/staking';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { parseDappModel } from '../../utils';
-import { nodeKey } from '../component4/YourNodes/node.constants';
-import { ENABLE_CHATBOX } from '../constants';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
@@ -37,7 +34,7 @@ import {
   formDappSignal,
   formTemplateDappSignal,
 } from '../signals/useFormDappsSignal';
-import { useTemplateFormStore } from '../stores/useDappStore';
+import useDappsStore, { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import useUpdateFlowStore from '../stores/useUpdateFlowStore';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
@@ -45,34 +42,52 @@ import useAvailableListTemplate from '../studio/useAvailableListTemplate';
 import useModelCategory from '../studio/useModelCategory';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
-import useDapps from './useDapps';
 import { parseWhitePapers } from '@/modules/blockchains/dapp/parseUtils/whitePaper';
 import useStudioHelper from './useStudioHelper';
 
 export default function useFetchingTemplate() {
   const path = usePathname();
 
-  const { templateList, templateDefault } = useAvailableListTemplate();
-  const { modelCategoryList } = useModelCategory();
-  const { dapps } = useDapps();
-  const { order, isAAInstalled, isBridgeInstalled, isGamingAppsInstalled } =
-    useChainProvider();
-  const { nodes, setNodes, edges, setEdges } = useFlowStore();
-  const {
-    setParsedCategories,
-    setCategories,
-    setCategoriesTemplates,
-    setCategoryMapping,
-  } = useModelCategoriesStore();
-  const { field, setFields } = useOrderFormStoreV3();
+  const dapps = useDappsStore((state) => state.dapps);
+
+  const templateDapps = useTemplateFormStore((state) => state.templateDapps);
+  const templateForm = useTemplateFormStore((state) => state.templateForm);
+  const setTemplateForm = useTemplateFormStore(
+    (state) => state.setTemplateForm,
+  );
+  const setTemplateDapps = useTemplateFormStore(
+    (state) => state.setTemplateDapps,
+  );
+
+  const nodes = useFlowStore((state) => state.nodes);
+  const setNodes = useFlowStore((state) => state.setNodes);
+  const edges = useFlowStore((state) => state.edges);
+  const setEdges = useFlowStore((state) => state.setEdges);
+
+  const setParsedCategories = useModelCategoriesStore(
+    (state) => state.setParsedCategories,
+  );
+  const setCategories = useModelCategoriesStore((state) => state.setCategories);
+  const setCategoriesTemplates = useModelCategoriesStore(
+    (state) => state.setCategoriesTemplates,
+  );
+  const setCategoryMapping = useModelCategoriesStore(
+    (state) => state.setCategoryMapping,
+  );
+
+  const field = useOrderFormStoreV3((state) => state.field);
+  const setFields = useOrderFormStoreV3((state) => state.setFields);
+
+  const modelCategoryList = useModelCategory().modelCategoryList;
+
   const { setUpdated, updated } = useUpdateFlowStore();
   const { setIsFirstLoadTemplateBox } = useStoreFirstLoadTemplateBox();
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { setTemplate } = useTemplate();
-  const { templateDapps, templateForm, setTemplateForm, setTemplateDapps } =
-    useTemplateFormStore();
   const { getChainNode, getChainNodeId, isUpdateFlow } = useStudioHelper();
-
+  const { order, isAAInstalled, isBridgeInstalled, isGamingAppsInstalled } =
+    useChainProvider();
+  const { templateList, templateDefault } = useAvailableListTemplate();
   const { counterFetchedDapp } = useAppSelector(commonSelector);
   const dappState = useAppSelector(dappSelector);
   const { tokens, airdrops, stakingPools, yoloGames, walletType, whitePapers } =
@@ -105,6 +120,8 @@ export default function useFetchingTemplate() {
   const fetchData = async () => {
     const newFields = cloneDeep(field);
     const categoryMapping: Record<string, IModelCategory> = {};
+
+    // DON'T REMOVE THIS, IT CAUSES ERROR
     const [categories, templates] = await Promise.all([
       getModelCategories(l2ServiceUserAddress),
       getTemplates(),
@@ -156,8 +173,6 @@ export default function useFetchingTemplate() {
     const draggedIds2D: typeof templateIds2DSignal.value = Array(
       totalBase,
     ).fill([]);
-
-    console.log('[useFetchingTemplate] dataTemplateToBox', templateDapps);
 
     Object.keys(templateForm).forEach((fieldKey) => {
       const value = templateForm[fieldKey];

@@ -9,13 +9,8 @@ import { IModelCategory, IModelOption } from '@/types/customize-model';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
-  templateIds2DSignal,
 } from '../signals/useDragSignal';
-import {
-  formDappSignal,
-  formTemplateDappSignal,
-} from '../signals/useFormDappsSignal';
-import { useTemplateFormStore } from '../stores/useDappStore';
+import { formDappSignal } from '../signals/useFormDappsSignal';
 import useFlowStore from '../stores/useFlowStore';
 import useAvailableListTemplate from '../studio/useAvailableListTemplate';
 
@@ -37,9 +32,11 @@ export default function useStudioHelper() {
 
   const { templateDefault } = useAvailableListTemplate();
   const { setTemplate } = useTemplate();
-  const { nodes, setNodes, setEdges } = useFlowStore();
-  const { setTemplateDapps, setTemplateForm } = useTemplateFormStore();
   const { order, isAAInstalled } = useChainProvider();
+
+  const nodes = useFlowStore((state) => state.nodes);
+  const setNodes = useFlowStore((state) => state.setNodes);
+  const setEdges = useFlowStore((state) => state.setEdges);
 
   const isUpdateFlow = React.useMemo(() => {
     return !!params?.id;

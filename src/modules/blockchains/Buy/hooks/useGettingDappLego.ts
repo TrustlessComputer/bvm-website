@@ -7,14 +7,16 @@ import useFormDappToFormChain from './useFormDappToFormChain';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 
 const useGettingDappLego = () => {
-  const { categories } = useModelCategoriesStore();
-  const { draggedFields, setDraggedFields } = useDragStore();
+  const categories = useModelCategoriesStore((state) => state.categories);
 
-  const { field, setFields } = useOrderFormStoreV3();
+  const draggedFields = useDragStore((state) => state.draggedFields);
+  const setDraggedFields = useDragStore((state) => state.setDraggedFields);
+
+  const field = useOrderFormStoreV3((state) => state.field);
+  const setFields = useOrderFormStoreV3((state) => state.setFields);
+
   const { dappCount } = useFormDappToFormChain();
   const { order, selectedCategoryMapping } = useChainProvider();
-
-  // console.log('[useGettingDappLego]', dappCount);
 
   const setDappLegoToChain = () => {
     if (order && draggedFields.length === 0) return;

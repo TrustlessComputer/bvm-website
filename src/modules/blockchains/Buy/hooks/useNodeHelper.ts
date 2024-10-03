@@ -17,10 +17,15 @@ import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import { dappKeyToChainKey } from '../utils';
 
 const useNodeHelper = () => {
-  const { categories } = useModelCategoriesStore();
-  const { dapps } = useDappsStore();
-  const { nodes, setNodes, edges, setEdges } = useFlowStore();
-  const { setDraggedIds2D } = useDraggedId2DStore();
+  const setDraggedIds2D = useDraggedId2DStore((state) => state.setDraggedIds2D);
+
+  const categories = useModelCategoriesStore((state) => state.categories);
+  const dapps = useDappsStore((state) => state.dapps);
+
+  const nodes = useFlowStore((state) => state.nodes);
+  const edges = useFlowStore((state) => state.edges);
+  const setNodes = useFlowStore((state) => state.setNodes);
+  const setEdges = useFlowStore((state) => state.setEdges);
 
   const addDappToNode = (dappIndex: number, position = { x: 600, y: 30 }) => {
     const { x, y } = position;
