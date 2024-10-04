@@ -1,9 +1,9 @@
 'use client';
 
 import MainLayout from '@/layouts/MainLayout';
+import Page from '@/modules/blockchains/feat/monitor/page';
 
 // import Page from '@/modules/blockchains/customize';
-import Page from '@/modules/blockchains/customize/index_v2';
 
 const CustomizePage = () => {
   return (

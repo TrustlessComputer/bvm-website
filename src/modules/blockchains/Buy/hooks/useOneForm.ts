@@ -10,7 +10,7 @@ export interface IRetrieveFormsByDappKey {
 }
 
 const useOneForm = () => {
-  const { templateDapps } = useTemplateFormStore();
+  const templateDapps = useTemplateFormStore((state) => state.templateDapps);
 
   const nodes = useFlowStore((state) => state.nodes);
   const dapps = useDappsStore((state) => state.dapps);

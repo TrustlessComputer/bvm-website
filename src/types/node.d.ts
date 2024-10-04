@@ -83,5 +83,11 @@ type DappNode = Node<
   } & BaseNodeData
 >;
 
+type DappNodeV2 = Node<
+  {
+    dapp: DappModel;
+  } & BaseNodeData
+>;
+
 type ChainNode = Node<{} & BaseNodeData>;
 type ChainNodeAsDappNode = Node<{} & BaseNodeData>;
