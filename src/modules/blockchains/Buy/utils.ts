@@ -17,6 +17,7 @@ import type { MouseEvent, TouchEvent } from 'react';
 import { FieldKeyPrefix } from './contants';
 import { UseOrderFormStoreV3 } from './stores/index_v3';
 import { DappType, FieldOption } from './types';
+import { ChainField } from './stores/useChainFormStore';
 
 const handler = ({ nativeEvent: event }: MouseEvent | TouchEvent) => {
   let cur = event.target as HTMLElement;
@@ -437,10 +438,8 @@ export const preDataWhitePaper = (
     );
 
     if (_appIndex > -1) {
-      const fieldToken = _sortedDapps[
-        _appIndex
-      ].baseModuleFields?.findIndex((v: BlockModel) =>
-        compareString(v.key, 'token'),
+      const fieldToken = _sortedDapps[_appIndex].baseModuleFields?.findIndex(
+        (v: BlockModel) => compareString(v.key, 'token'),
       );
 
       // @ts-ignore
@@ -458,8 +457,7 @@ export const preDataWhitePaper = (
         }));
 
         // @ts-ignore
-        _sortedDapps[_appIndex].baseModuleFields[fieldToken].fields =
-          options;
+        _sortedDapps[_appIndex].baseModuleFields[fieldToken].fields = options;
       }
     }
   }

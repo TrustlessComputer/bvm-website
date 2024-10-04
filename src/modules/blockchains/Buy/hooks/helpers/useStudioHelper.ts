@@ -1,7 +1,7 @@
 import { useParams } from 'next/navigation';
 import React from 'react';
 
-const useReactFlowHelper = () => {
+const useStudioHelper = () => {
   const params = useParams();
 
   const isUpdateFlow = React.useMemo(() => {
@@ -13,4 +13,4 @@ const useReactFlowHelper = () => {
   };
 };
 
-export default useReactFlowHelper;
+export default useStudioHelper;
