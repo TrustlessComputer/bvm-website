@@ -189,10 +189,10 @@ export default memo(function StudioControls() {
                   <BoxOption
                     info={{
                       ...item.options[0],
-                      disabled:
-                        item.disable ||
-                        !item.options[0].selectable ||
-                        isChainOptionDisabled(field, item, item.options[0]),
+                      disabled: false,
+                      // item.disable ||
+                      // !item.options[0].selectable ||
+                      // isChainOptionDisabled(field, item, item.options[0]),
                       title: '',
                       description: {
                         title: item.title,
