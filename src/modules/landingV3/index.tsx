@@ -15,6 +15,7 @@ import HeadingSection from '@/modules/landingV3/Componets/HeadingSection';
 import VideoSection from '@/modules/landingV3/Componets/VideoSection';
 import ScrollingSection from '@/modules/landingV3/Componets/ScrollingSection';
 import useWindowResize, { useIsMobile } from '@hooks/useWindowResize';
+import HeroV5 from './Componets/HeroV5';
 
 export default function LandingV3() {
   useWhiteBackground();
@@ -29,8 +30,11 @@ export default function LandingV3() {
 
   return (
     <div className={s.landing}>
-      <HeroVideo />
-      <VideoSection />
+      {/* <HeroVideo /> */}
+      {/* <VideoSection /> */}
+
+      <HeroV5 />
+
       <HeadingSection title={'How it works'} showBtn>
         Whether you're an indie developer or a large-scale project, BVM makes it
         easy and affordable to create your own ZK rollup — secured by Bitcoin.
