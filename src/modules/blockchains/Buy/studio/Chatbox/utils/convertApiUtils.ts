@@ -30,7 +30,7 @@ export const blockLegoResponseToModelCategory = (
   categories: IModelCategory[],
   blockLego: Record<string, string[]>,
 ): IModelCategory[] => {
-  return Object.keys(blockLego)
+  const result = Object.keys(blockLego)
     .filter((key) => !!categories.find((category) => category.key === key))
     .map((key) => {
       const category = categories.find((category) => category.key === key)!;
@@ -42,6 +42,8 @@ export const blockLegoResponseToModelCategory = (
         ),
       };
     });
+
+  return result.filter((category) => category.options.length > 0);
 };
 
 export const parseAIResponse = (response: string) => {

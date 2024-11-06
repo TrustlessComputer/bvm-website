@@ -19,7 +19,7 @@ const HeaderV4 = ({
   const isMobile = useIsMobile();
   return (
     <div className={`${s.header}`} style={{ position: position }}>
-      {!isMobile && <TopMenu theme={theme} />}
+      {/* {!isMobile && <TopMenu theme={theme} />} */}
       <Main color={color} colorLogo={colorLogo} backgroundColor={bgColor} />
     </div>
   );

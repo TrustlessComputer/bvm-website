@@ -11,41 +11,43 @@ type THeadingSection = PropsWithChildren & {
   video?: string;
   bgColor?: string;
   showBtn?: boolean;
-}
+};
 
-
-const HeadingSection = ({...props}: THeadingSection) => {
-  const { bgColor = '#ffffff', title = '' } = props;
+const HeadingSection = ({ ...props }: THeadingSection) => {
+  const { bgColor = '#fafafa', title = '' } = props;
   const { tracking } = useL2ServiceTracking();
   const router = useRouter();
   const { showContactUsModal } = useContactUs();
 
-
   return (
-    <div className={s.headingSection} style={{backgroundColor: bgColor}}>
+    <div className={s.headingSection} style={{ backgroundColor: bgColor }}>
       <div className={`${s.top} containerV3`}>
         <p className={s.top_heading}>{title}</p>
         <p className={s.top_desc}>{props.children}</p>
-        {
-          props.showBtn && (
-            <div className={s.wrapperBtn}>
-              <div className={`${s.btn} ${s.btn__primary}`} onClick={() => {
+        {props.showBtn && (
+          <div className={s.wrapperBtn}>
+            <div
+              className={`${s.btn} ${s.btn__primary}`}
+              onClick={() => {
                 tracking('GET_STARTED');
                 router.push('/rollups/customizev2');
-              }}>
-                <p>Build now</p>
-              </div>
-              <div className={`${s.btn} ${s.btn__secondary}`} onClick={() => {
-                showContactUsModal({ subjectDefault: 0 });
-              }}>
-                <p>Request a demo</p>
-              </div>
+              }}
+            >
+              <p>Build now</p>
             </div>
-          )
-        }
+            <div
+              className={`${s.btn} ${s.btn__secondary}`}
+              onClick={() => {
+                showContactUsModal({ subjectDefault: 0 });
+              }}
+            >
+              <p>Request a demo</p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default HeadingSection;

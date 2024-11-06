@@ -34,8 +34,13 @@ export default function SocketProvider({
   const socketRef = useRef<ReturnType<typeof io> | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const { getVoiceChatAiSessionId } = useVoiceChatSession();
-  const { setChatBoxStatus, setMessages, messages, isGenerating } =
-    useChatBoxState();
+  const {
+    setChatBoxStatus,
+    setMessages,
+    messages,
+    isGenerating,
+    setIsWaitingReply,
+  } = useChatBoxState();
   const { focusChatBox } = useFocusChatBox();
   const refMessageRender = useRef<string>('');
 
@@ -59,42 +64,36 @@ export default function SocketProvider({
       );
 
       // START
-      // socketRef.current?.on(
-      //   WebSocketEventName.GROUP_STREAM_AI_REPLY_START,
-      //   (data: any) => {
-      //     console.log('[SocketProvider] GROUP_STREAM_AI_REPLY_START', data);
+      socketRef.current?.on(
+        WebSocketEventName.GROUP_STREAM_AI_REPLY_START,
+        (data: any) => {
+          refMessageRender.current = '';
 
-      //     setChatBoxStatus({
-      //       status: ChatBoxStatus.Generating,
-      //       isGenerating: true,
-      //       isComplete: false,
-      //       isListening: false,
-      //     });
+          setIsWaitingReply(false);
+          setChatBoxStatus({
+            status: ChatBoxStatus.Generating,
+            isGenerating: true,
+            isComplete: false,
+            isListening: false,
+          });
 
-      //     const newMessage: BotMessage = {
-      //       beforeJSON: refMessageRender.current,
-      //       template: [],
-      //       afterJSON: '',
-      //       sender: 'bot',
-      //     };
+          const newMessage: BotMessage = {
+            beforeJSON: refMessageRender.current,
+            template: [],
+            afterJSON: '',
+            sender: 'bot',
+          };
 
-      //     setMessages([...messages, newMessage]);
-      //     focusChatBox();
-
-      //     refMessageRender.current = '';
-      //   },
-      // );
+          setMessages([...messages, newMessage]);
+          focusChatBox();
+        },
+      );
 
       // REPLYING
       socketRef.current?.on(
         WebSocketEventName.GROUP_STREAM_AI_REPLY,
         (data: any) => {
           refMessageRender.current += JSON.parse(data).content;
-
-          console.log(
-            '[SocketProvider] GROUP_STREAM_AI_REPLY',
-            refMessageRender.current,
-          );
 
           const newMessages = () => {
             const lastMessage = messages[messages.length - 1];
@@ -132,7 +131,7 @@ export default function SocketProvider({
       socketRef.current?.on(
         WebSocketEventName.GROUP_STREAM_AI_REPLY_END,
         (data: any) => {
-          console.log('[SocketProvider] GROUP_STREAM_AI_REPLY_END', data);
+          // console.log('[SocketProvider] GROUP_STREAM_AI_REPLY_END', data);
 
           refMessageRender.current = '';
 

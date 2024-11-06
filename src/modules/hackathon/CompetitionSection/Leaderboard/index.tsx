@@ -26,6 +26,7 @@ import { PROBLEM_DATASOURCE } from '../Problems/ProblemData';
 
 type Props = {
   currentUserContest?: IUserContest;
+  contestType: number;
 };
 
 const LIMIT_PAGE = 50;
@@ -50,7 +51,7 @@ const Leaderboard = (props: Props) => {
     try {
       return getListLeaderboard({
         ...params,
-        contest_type: UserContestType.COMPETITION,
+        contest_type: props.contestType,
       });
     } catch (error) {
       console.error('Error fetching leaderboard data', error);

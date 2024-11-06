@@ -5,8 +5,12 @@ import React from 'react';
 import { isChainOptionDisabled } from '../utils';
 
 export default function useCheckingSupported() {
-  const { parsedCategories } = useModelCategoriesStore();
-  const { field, setField } = useOrderFormStoreV3();
+  const parsedCategories = useModelCategoriesStore(
+    (state) => state.parsedCategories,
+  );
+
+  const field = useOrderFormStoreV3((state) => state.field);
+  const setField = useOrderFormStoreV3((state) => state.setField);
 
   React.useEffect(() => {
     parsedCategories?.forEach((item) => {

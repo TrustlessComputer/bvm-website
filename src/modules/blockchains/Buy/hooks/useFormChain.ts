@@ -7,11 +7,11 @@ import { chainKeyToDappKey } from '../utils';
 import useFormDappToFormChain from './useFormDappToFormChain';
 
 const useFormChain = () => {
-  const { categories } = useModelCategoriesStore();
-  const { field } = useOrderFormStoreV3();
-  const { dappCount } = useFormDappToFormChain();
+  const categories = useModelCategoriesStore((state) => state.categories);
 
-  console.log('[useFormChain] field', field);
+  const field = useOrderFormStoreV3((state) => state.field);
+
+  const { dappCount } = useFormDappToFormChain();
 
   const getDynamicForm = () => {
     if (!categories) {

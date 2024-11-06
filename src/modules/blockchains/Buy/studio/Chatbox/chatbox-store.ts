@@ -14,11 +14,13 @@ export type BotMessage = {
   afterJSON?: string;
   sender: 'bot';
   template?: IModelCategory[];
+  isVoice?: boolean;
 };
 
 export type UserMessage = {
   text: string;
   sender: 'user';
+  isVoice?: boolean;
 };
 
 export type Message = BotMessage | UserMessage;
@@ -26,6 +28,7 @@ export type Message = BotMessage | UserMessage;
 interface ChatBoxState {
   messages: Message[];
   inputMessage: string;
+  isWaitingReply: boolean;
   isListening: boolean;
   isGenerating: boolean;
   isComplete: boolean;
@@ -34,6 +37,7 @@ interface ChatBoxState {
   status: ChatBoxStatus;
   prepareCategoryTemplate: IModelCategory[];
   setMessages: (messages: Message[]) => void;
+  setIsWaitingReply: (isWaitingReply: boolean) => void;
   setInputMessage: (inputMessage: string) => void;
   setIsListening: (isListening: boolean) => void;
   setIsGenerating: (isGenerating: boolean) => void;
@@ -49,6 +53,7 @@ interface ChatBoxState {
 const useChatBoxState = create<ChatBoxState>((set) => ({
   messages: [],
   inputMessage: '',
+  isWaitingReply: false,
   isIdle: true,
   isListening: false,
   isGenerating: false,
@@ -58,6 +63,7 @@ const useChatBoxState = create<ChatBoxState>((set) => ({
   prepareCategoryTemplate: [],
   setMessages: (messages) => set({ messages }),
   setInputMessage: (inputMessage) => set({ inputMessage }),
+  setIsWaitingReply: (isWaitingReply) => set({ isWaitingReply }),
   setIsListening: (isListening) => set({ isListening, isIdle: false }),
   setIsGenerating: (isGenerating) => set({ isGenerating, isIdle: false }),
   setIsComplete: (isComplete) => set({ isComplete, isIdle: false }),

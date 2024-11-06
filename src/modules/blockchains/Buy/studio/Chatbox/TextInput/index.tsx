@@ -39,6 +39,13 @@ export default function TextInput({
           <ButtonSubmit handleSendMessage={handleSendMessage} />
         </div>
       </div>
+      <a
+        className={styles.poweredBy}
+        target={'_blank'}
+        href="https://eternalai.org"
+      >
+        Powered by Eternal AI
+      </a>
     </div>
   );
 }

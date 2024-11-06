@@ -30,27 +30,38 @@ import {
   bridgesAsADapp,
   gamingAppsAsADapp,
 } from '../mockup_3';
-import { useTemplateFormStore } from '../stores/useDappStore';
+import useDappsStore, { useTemplateFormStore } from '../stores/useDappStore';
 import useDraggedId2DStore from '../stores/useDraggedId2DStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 
 export default function useNodeFlowControl() {
-  const { dapps } = useDapps();
-  const { categories } = useModelCategoriesStore();
-  const { nodes, setNodes, setEdges, edges } = useFlowStore();
-  const { isDragging, setIsDragging } = useDraggingStore();
+  const dapps = useDappsStore((state) => state.dapps);
+
+  const categories = useModelCategoriesStore((state) => state.categories);
+
+  const nodes = useFlowStore((state) => state.nodes);
+  const edges = useFlowStore((state) => state.edges);
+  const setNodes = useFlowStore((state) => state.setNodes);
+  const setEdges = useFlowStore((state) => state.setEdges);
+
+  const isDragging = useDraggingStore((state) => state.isDragging);
+  const setIsDragging = useDraggingStore((state) => state.setIsDragging);
+
+  const templateDapps = useTemplateFormStore((state) => state.templateDapps);
+
+  const draggedIds2D = useDraggedId2DStore((state) => state.draggedIds2D);
+  const setDraggedIds2D = useDraggedId2DStore((state) => state.setDraggedIds2D);
+
   const store = useStoreApi();
   const { lineAAStatus } = useAAModule();
   const { lineBridgeStatus } = useBridgesModule();
-  const { statusMapper, getGameTypeIconUrl } = useGameModule();
+  const { statusMapper } = useGameModule();
   const {
     transform: [transformX, transformY, zoomLevel],
   } = store.getState();
-  const { templateDapps } = useTemplateFormStore();
-  const { draggedIds2D, setDraggedIds2D } = useDraggedId2DStore();
   const { isAAInstalled, isBridgeInstalled, isGamingAppsInstalled } =
     useChainProvider();
-  console.log('[useNodeFlowControl]', dapps);
+
   const [dragState, setDragState] = React.useState<{
     oneD: [number];
     twoD: [number, number];

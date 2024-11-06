@@ -4,7 +4,7 @@ import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
 import Image from 'next/image';
 import React, { ReactElement } from 'react';
 import ErrorModal from '../../components3/ErrorModal';
-import useStudioHelper from '../useStudioHelper';
+import useStudioHelper from '../../hooks/useStudioHelper';
 
 export default function ActionsWorkArea(): ReactElement {
   const { isCapture } = useCaptureStore();
