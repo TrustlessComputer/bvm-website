@@ -1,6 +1,6 @@
 .wrapper {
     .item_wrapper {
-        height: 210px;
+        height: 265px;
         position: relative;
         padding: 48px 24px 12px;
         border-radius: 8px;
@@ -9,11 +9,11 @@
         margin-top: 40px;
 
         .avatar {
-            max-width: 80px;
+            max-width: 71px;
             position: absolute;
             top: 0;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            left: 24px;
+            transform: translateY(-50%);
         }
 
         .text {
@@ -43,13 +43,12 @@
                 font-style: normal;
                 font-weight: 500;
                 line-height: 140%;
-                text-align: center;
+                white-space: nowrap;
                 /* 16.8px */
             }
 
             .username {
                 color: #000;
-                text-align: center;
                 font-family: "SF Pro Display";
                 font-size: 11px;
                 font-style: normal;

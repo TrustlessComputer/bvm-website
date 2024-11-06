@@ -7,7 +7,7 @@ type Props = {};
 
 type ItemProps = {
   avatarSrc: string;
-  content: string;
+  content: string | React.ReactNode | (() => React.ReactNode);
   name: string;
   username: string;
 };
@@ -15,10 +15,17 @@ type ItemProps = {
 const CONTENT = [
   {
     avatarSrc: '/landing-v6/avt-stonecoldpat0.png',
-    content: `Rollups are the new server.
-Rollup as a service providers are the new Wordpress.
-They handle the infra so you can focus on the user experience /
-application / business logic lfg! crazy to think this is all happening`,
+    content: () => (
+      <>
+        Rollups are the new server.
+        <br /> Rollup as a service providers are the new Wordpress.
+        <br />
+        <br /> They handle the infra so you can focus on the user experience /
+        application / business logic
+        <br />
+        <br /> lfg! crazy to think this is all happening
+      </>
+    ),
     name: 'Patrick McCorry',
     username: '@stonecoldpat0',
   },
@@ -39,24 +46,43 @@ provability, etc`,
   },
   {
     avatarSrc: '/landing-v6/avt-eoracle_network.png',
-    content: `@ethereum is the verifiable internet 
-Rollups are the verifiable web server
-@eigenlayer is the verifiable cloud 
-eoracle is the verifiable real-world connection`,
+    //     content: `@ethereum is the verifiable internet.
+    // Rollups are the verifiable web server
+    // @eigenlayer is the verifiable cloud
+    // eoracle is the verifiable real-world connection.`,
+    content: () => (
+      <>
+        @ethereum is the verifiable internet
+        <br />
+        Rollups are the verifiable web server
+        <br />
+        @eigenlayer is the verifiable cloud
+        <br />
+        eoracle is the verifiable real-world
+      </>
+    ),
+
     name: 'eOracle',
     username: '@eoracle_network',
   },
   {
     avatarSrc: '/landing-v6/avt-allred_chase.png',
-    content: `If rollups are the new servers
-What is the new Linux?`,
+
+    content: () => <>Rollups are the new server</>,
     name: 'Chunk',
     username: '@allred_chase',
   },
   {
     avatarSrc: '/landing-v6/avt-Polymer_Labs.png',
-    content: `The future of Ethereum interop will resemble the cloud today 
-Rollups = on-chain web servers`,
+    content: () => (
+      <>
+        The future of Ethereum interop will resemble the cloud today
+        <br />
+        <br />
+        Rollups = on-chain web servers
+      </>
+    ),
+
     name: 'Polymer Labs',
     username: '@Polymer_Labs',
   },
@@ -68,7 +94,13 @@ const Item = (props: ItemProps) => {
   return (
     <div className={s.item_wrapper}>
       <div className={s.avatar}>
-        <Image src={avatarSrc} alt="user avatar" />
+        <Flex alignItems={'flex-end'} gap="12px">
+          <Image src={avatarSrc} alt="user avatar" />
+          <div className={s.user_info}>
+            <div className={s.name}>{name}</div>
+            <div className={s.username}>{username}</div>
+          </div>
+        </Flex>
       </div>
       <Flex flexDir={'column'} justifyContent={'space-between'} h="100%">
         <div className={s.text}>
@@ -95,11 +127,7 @@ const Item = (props: ItemProps) => {
               </clipPath>
             </defs>
           </svg>
-          <p>{content}</p>
-        </div>
-        <div className={s.user_info}>
-          <div className={s.name}>{name}</div>
-          <div className={s.username}>{username}</div>
+          <p>{typeof content === 'function' ? content() : content}</p>
         </div>
       </Flex>
     </div>

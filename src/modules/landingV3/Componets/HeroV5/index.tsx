@@ -20,10 +20,10 @@ const HeroV5 = () => {
           <p className={s.desc}>
             Bitcoin Virtual Machines are servers with superpowers like smart
             contracts, censorship resistance, and transparency. Backed by
-            Bitcoin's security. they are designed to power an entirely new kind
-            of applications: decentralized applications. Set up your Bitcoin
-            Virtual Machine today and start building decentralized applications
-            that can change the world.
+            Bitcoin's security. They are designed to power an entirely new kind
+            of applications: decentralized applications.<br></br>
+            <br></br> Set up your Bitcoin Virtual Machine today and start
+            building decentralized applications that can change the world.
           </p>
           <Flex alignItems={'center'} gap="20px">
             <Link href="/studio" className={s.primary_btn}>
@@ -72,7 +72,9 @@ const HeroV5 = () => {
             <video
               ref={videoRef}
               poster={'/home-v5-video.png'}
-              src={VIDEO_BVM_STUDIO_HOW_IT_WORK}
+              src={
+                'https://storage.googleapis.com/tc-cdn-prod/pages/bvm-studio/AIVoicePrompt_v2_02.mp4'
+              }
               width={160}
               height={90}
               preload="auto"
