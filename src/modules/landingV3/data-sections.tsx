@@ -44,14 +44,14 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     fameOuts: [25, 32],
   },
   {
-    title: 'Assemble building blocks into a Bitcoin L2',
+    title: 'Assemble building blocks',
     subTitle: 'STEP 2',
     children: (
       <div>
         <p>
-          Once you've selected the best building blocks for your Bitcoin L2,
-          assemble them into your unique rollup with simple drag-and-drop
-          functionality.
+          Once you've selected the best building blocks for your use case,
+          assemble them into your unique Bitcoin Virtual Machine with the simple
+          drag-and-drop functionality.
         </p>
       </div>
     ),
@@ -64,7 +64,7 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     fameOuts: [48, 62],
   },
   {
-    title: 'Deploy your Bitcoin L2 with just a click',
+    title: 'Deploy your Bitcoin Virtual Machine with just a click',
     subTitle: 'STEP 3',
     children: (
       <div>
@@ -85,7 +85,7 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     fameOuts: [78, 92],
   },
   {
-    title: 'Extend your Bitcoin L2 with more dapps',
+    title: 'Extend your Bitcoin Virtual Machine with more dapps',
     subTitle: 'STEP 4',
 
     children: (

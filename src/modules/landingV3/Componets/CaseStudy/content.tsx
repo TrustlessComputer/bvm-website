@@ -47,8 +47,8 @@ export default function CaseStudyContent({ idx }: { idx?: number }) {
       <div className={s.caseStudy}>
         <p className={s.caseStudy_title}>Eternal AI</p>
         <p className={s.caseStudy_description}>
-          Eternal AI is the community-run network of AI chains powering the
-          world’s most intelligent AI models.
+          Eternals are unstoppable AI agents living on Bitcoin. Fully onchain.
+          Fully autonomous.
         </p>
       </div>
       <div className={s.caseStudy_button}>

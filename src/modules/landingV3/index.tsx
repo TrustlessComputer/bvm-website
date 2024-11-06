@@ -37,7 +37,8 @@ export default function LandingV3() {
 
       <HeadingSection title={'How it works'} showBtn>
         Whether you're an indie developer or a large-scale project, BVM makes it
-        easy and affordable to create your own ZK rollup — secured by Bitcoin.
+        easy and affordable to create your own virtual server on Bitcoin and
+        start building decentralized applications.
       </HeadingSection>
 
       {isMobile ? (
