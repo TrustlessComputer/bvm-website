@@ -108,14 +108,15 @@ const Item = (props: ItemProps) => {
 
 const UserReviews = (props: Props) => {
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
-    speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
-    autoPlay: true,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 2000,
     arrows: false,
-    centerPadding: '24px',
+    // centerPadding: '24px',
     responsive: [
       {
         breakpoint: 1024,
