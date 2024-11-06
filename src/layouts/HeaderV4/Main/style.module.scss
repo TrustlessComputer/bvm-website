@@ -111,18 +111,18 @@
       gap: 4px;
     }
 
-    .menu-item:first-child {
-      color: #fff !important;
-      border-radius: 100px;
-      background: linear-gradient(96deg, #FFC076 7.06%, #F00 92.21%);
-      margin-right: 16px;
-      margin-left: 16px;
-    }
+    // .menu-item:first-child {
+    //   color: #fff !important;
+    //   border-radius: 100px;
+    //   background: linear-gradient(96deg, #FFC076 7.06%, #F00 92.21%);
+    //   margin-right: 16px;
+    //   margin-left: 16px;
+    // }
   }
 }
 
 .itemLabel {
-  color: #fff;
+  color: #000;
   font-family: var(--font-jetbrains);
   font-size: 14px;
   font-weight: 500;
