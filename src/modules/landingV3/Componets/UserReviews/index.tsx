@@ -114,7 +114,7 @@ const UserReviews = (props: Props) => {
     slidesToScroll: 4,
     autoplay: true,
     speed: 2000,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 8000,
     arrows: false,
     // centerPadding: '24px',
     responsive: [
