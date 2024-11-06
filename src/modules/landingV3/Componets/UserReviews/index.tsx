@@ -108,8 +108,9 @@ const Item = (props: ItemProps) => {
 
 const UserReviews = (props: Props) => {
   const settings = {
-    dots: false,
+    dots: true,
     infinite: true,
+    dotsClass: 'slick-dots slick-thumb',
     slidesToShow: 4,
     slidesToScroll: 4,
     autoplay: true,

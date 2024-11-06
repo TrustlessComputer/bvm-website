@@ -61,31 +61,53 @@
         }
     }
 
-    .dots {
-        position: absolute;
-        bottom: 0;
-        display: flex !important;
-        align-items: center;
-        width: 200px;
+    :global {
+        .slick-list {
+            width: 100%;
+        }
 
-        button {
-            display: none;
+        .slick-dots {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex !important;
+            gap: 24px;
+            z-index: 2;
+
+            button {
+                margin-left: -24px;
+                color: transparent;
+            }
+
+            li {
+                width: 12px;
+                height: 12px;
+                opacity: 0.4;
+            }
+
+            li::marker {
+                width: 12px;
+                height: 12px;
+                font-size: 24px;
+                color: #CECECE;
+            }
+
+            li.slick-active {
+                opacity: 1;
+
+            }
+        }
+
+        //.slick-active a {
+        //    border: 1px solid #fff;
+        //}
+
+        .slick-arrow {
+            display: none !important;
         }
     }
 
-    :global(.slick-dots) {
-        bottom: -50px;
-    }
-
-    :global(.slick-dots li button:before) {
-        opacity: 0.4;
-        color: #CECECE;
-    }
-
-    :global(.slick-dots li.slick-active button:before) {
-        opacity: 1;
-        color: #CECECE;
-    }
 
 
 }
