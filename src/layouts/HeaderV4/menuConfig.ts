@@ -91,7 +91,7 @@ export const NAV_ITEMS: Array<NavItem> = [
 export const NAV_ITEMS_LEFT: Array<NavItem> = [
   {
     label: 'BVM Studio',
-    href: '/build-bitcoin',
+    href: '/studio',
     isNewWindow: false,
     isHide: false,
   },
