@@ -26,10 +26,17 @@ const HeroV5 = () => {
             that can change the world.
           </p>
           <Flex alignItems={'center'} gap="20px">
-            <Link href="/" className={s.primary_btn}>
+            <Link href="/studio" className={s.primary_btn}>
               Start building
             </Link>
-            <Link href="/" className={s.link_docs}>
+            <Link
+              href="https://docs.bvm.network/bvm"
+              target="_blank"
+              rel="
+              noopener noreferrer
+            "
+              className={s.link_docs}
+            >
               View docs
               <svg
                 xmlns="http://www.w3.org/2000/svg"
