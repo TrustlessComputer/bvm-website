@@ -1,260 +1,138 @@
-import l2ServicesAPI from '@/services/api/l2services';
-import { convertBase64ToFile } from '@/utils/file';
-// import html2canvas from 'html2canvas';
+import React from 'react';
 import Image from 'next/image';
+import { memo, useState } from 'react';
+
+import { convertBase64ToFile } from '@/utils/file';
+
+import useStudioHelper from './hooks/useStudioHelper';
+import useImageHelper from './hooks/useImageHelper';
+
 import s from '@/modules/blockchains/Buy/styles_v5.module.scss';
-// import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
-// import { useReactFlow } from '@xyflow/react';
-import { toPng } from 'html-to-image';
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
-import Loading from '@components/Loading';
-import BaseModal from '@components/BaseModal';
-import { signal, useSignalEffect } from '@preact/signals-react';
-import useFocusNode from '@/modules/blockchains/Buy/hooks/useFocusNode';
-
-
-const isExportImage = signal(false);
-const isSharing = signal(false);
+import useFlowStore from './stores/useFlowStore';
+import { isActingSignal } from './signals/useFlowStatus';
+import { useSignalEffect } from '@preact/signals-react';
 
 const Capture = () => {
-  // const { setIsCapture } = useCaptureStore();
-  const { handleFocusNode } = useFocusNode()
-  const timerRef = useRef<any>();
-  const [isCapturing, setIsCapturing] = useState<boolean>(false);
-  const [seconds, setSeconds] = useState(10);
-  const handleClickShareTwitter = (url: string) => {
-    try {
-      // const imgEncode = encodeBase64(url);
+  const [captureStatus, setCaptureStatus] = useState({
+    isCapturing: false,
+    isCaptured: false,
+    content: '',
+  });
+  const { capture, getTwitterContent } = useStudioHelper();
+  const { shareToTwitter, uploadFile, downloadImage } = useImageHelper();
 
-      const content = `I'm launching my own ZK Rollup on Bitcoin with @BVMnetwork! 🚀
+  const abortSignal = React.useRef(new AbortController());
 
-BVM Studio makes blockchain building a breeze with simple drag-and-drop tools. No sweat, just pure innovation. Starting from $99/mo.
-
-Let's transform #Bitcoin beyond money together!
-https://bvm.network/studio/${url}`;
-
-      window.open(
-        `https://twitter.com/intent/tweet?text=${encodeURIComponent(content)}`,
-        '_blank',
-      );
-    } catch (error) {
-      //
-    }
-  };
-
-  // async function download() {
-  //   setIsCapture(true);
-  //   const a = document.createElement('a');
-  //   setTimeout(async () => {
-  //
-  //     a.href = await exportBase64();
-  //     setIsCapture(false);
-  //     a.download = `${new Date()}.png`;
-  //     a.click();
-  //   }, 150);
-  // }
-
-  // capture old flow
-  // async function download() {
-  //   setIsCapture(true);
-  //
-  //   const a = document.createElement('a');
-  //   setTimeout(async () => {
-  //     a.href = await exportBase64();
-  //     a.download = `${new Date()}.png`;
-  //     a.click();
-  //     setIsCapture(false);
-  //   }, 150);
-  // }
-
-  // const exportBase64 = async (): Promise<string> => {
-  //   const canvasDom = document.querySelector('#viewport') as HTMLElement;
-  //   const canvas = await html2canvas(canvasDom, {
-  //     // width: 1920,
-  //     // height: 1080,
-  //     removeContainer: false,
-  //     x: 0,
-  //     y: 0,
-  //   }).then((res) => {
-  //     return res;
-  //   });
-  //   return canvas.toDataURL('image/png', 1.0);
-  //   // const canvasDom = document.querySelector('.react-flow__viewport') as HTMLElement;
-  //   // return toPng(canvasDom, {
-  //   //   backgroundColor: '#fff',
-  //   //   width: imageWidth,
-  //   //   height: imageHeight,
-  //   //   quality: 1,
-  //   //   style: {
-  //   //     width: `${imageWidth}`,
-  //   //     height: `${imageHeight}`,
-  //   //     transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
-  //   //   },
-  //   // }).then(res => {
-  //   //   // setIsCapture(false);
-  //   //   return res;
-  //   // })
-  // };
-
-  const handleShareTwitter = async () => {
-    if (isCapturing) return;
-    isSharing.value = true;
-    setIsCapturing(true);
-    setTimeout(async () => {
-      const image = await convertToBase64();
-
-      if (!image) return;
-
-      const file = convertBase64ToFile(image);
-      const res = await l2ServicesAPI.uploadFile({ file });
-
-      if (!res) return;
-
-      setIsCapturing(false);
-      isSharing.value = false;
-      clearIntervalTimer();
-      setSeconds(10);
-      handleClickShareTwitter(res);
-    }, 150);
-  };
-
-  // async function convertToBase64() {
-  //   const viewport = document.querySelector('#viewport');
-  //
-  //   if (!viewport) return '';
-  //   const imageWidth = viewport.clientWidth;
-  //   const imageHeight = viewport.clientHeight;
-  //
-  //   return await toPng(document.querySelector('.react-flow__viewport') as HTMLElement, {
-  //     backgroundColor: '#fff',
-  //     width: imageWidth,
-  //     height: imageHeight,
-  //     canvasWidth: imageWidth,
-  //     canvasHeight: imageHeight,
-  //     quality: 1,
-  //     style: {
-  //       width: `${imageWidth}`,
-  //       height: `${imageHeight}`,
-  //     },
-  //   });
-  // }
-
-  const convertToBase64 = useCallback(async () => {
-    const viewport = document.querySelector('#viewport');
-
-    if (!viewport) return '';
-    const imageWidth = viewport.clientWidth;
-    const imageHeight = viewport.clientHeight;
-
-    return await toPng(document.querySelector('.react-flow__viewport') as HTMLElement, {
-      backgroundColor: '#fff',
-      width: imageWidth,
-      height: imageHeight,
-      canvasWidth: imageWidth,
-      canvasHeight: imageHeight,
-      quality: 1,
-      style: {
-        width: `${imageWidth}`,
-        height: `${imageHeight}`,
-      },
-    });
-  }, []);
-
-  async function downloadImage() {
-    if (isCapturing) return;
-
-    isExportImage.value = true;
-    setIsCapturing(true);
-
-    const a = document.createElement('a');
-    const dataUrl = await convertToBase64();
-    a.setAttribute('download', `${new Date()}.png`);
-    a.setAttribute('href', dataUrl);
-    a.click();
-    setIsCapturing(false);
-    isExportImage.value = false;
-    clearIntervalTimer();
-    setSeconds(10);
-  }
-
-
-  const clearIntervalTimer = () => {
-    clearInterval(timerRef.current);
-    timerRef.current = undefined;
-  };
-
+  const [isActing, setIsActing] = useState(false);
 
   useSignalEffect(() => {
-    if (isExportImage.value || isSharing.value) {
-      countDown();
-    }
+    setIsActing(isActingSignal.value);
   });
 
-  const countDown = () => {
-    let num = seconds;
-    timerRef.current = setInterval(() => {
-      if (num === 0) {
-        clearIntervalTimer();
-      }
-      if (num > 0) {
-        num--;
-        setSeconds(num);
-      }
-    }, 1000);
+  const startCapture = async () => {
+    abortSignal.current.abort();
+    abortSignal.current = new AbortController();
+
+    setCaptureStatus({
+      isCapturing: true,
+      isCaptured: false,
+      content: '',
+    });
   };
 
-  // const onClick = () => {
-  //   if (isCapturing) return;
-  //   setIsCapturing(true);
-  //
-  //   toPng(document.querySelector('#viewport') as HTMLElement, {
-  //     backgroundColor: '#fff',
-  //     width: imageWidth,
-  //     height: imageHeight,
-  //     canvasWidth: imageWidth,
-  //     canvasHeight: imageHeight,
-  //     quality: 1,
-  //     style: {
-  //       width: `${imageWidth}`,
-  //       height: `${imageHeight}`,
-  //     },
-  //   }).then(downloadImage).then(() => setIsCapturing(false));
-  // };
+  const stopCapture = () => {
+    setCaptureStatus({
+      isCapturing: false,
+      isCaptured: false,
+      content: '',
+    });
+  };
+
+  const endCapture = (content: string) => {
+    setCaptureStatus({
+      isCapturing: false,
+      isCaptured: true,
+      content,
+    });
+  };
+
+  const cancelCapture = () => {
+    abortSignal.current.abort();
+    abortSignal.current = new AbortController();
+
+    setCaptureStatus({
+      isCapturing: false,
+      isCaptured: false,
+      content: '',
+    });
+  };
+
+  const handleAfterCaptured = async () => {
+    await shareToTwitter(captureStatus.content);
+
+    stopCapture();
+  };
+
+  const handleOnShare = async () => {
+    if (captureStatus.isCapturing) return;
+
+    startCapture();
+
+    const imageAsBase64 = await capture(abortSignal.current.signal);
+
+    if (!imageAsBase64) {
+      stopCapture();
+      return;
+    }
+
+    const imageAsFile = convertBase64ToFile(imageAsBase64);
+    const url = await uploadFile(imageAsFile);
+    const content = getTwitterContent(url);
+
+    setCaptureStatus({
+      isCapturing: false,
+      isCaptured: true,
+      content,
+    });
+
+    endCapture(content);
+  };
+
+  const handleOnExport = async () => {
+    if (captureStatus.isCapturing) return;
+
+    startCapture();
+
+    const imageAsBase64 = await capture(abortSignal.current.signal);
+
+    if (!imageAsBase64) {
+      stopCapture();
+      return;
+    }
+
+    downloadImage(imageAsBase64);
+    endCapture('');
+  };
+
+  React.useEffect(() => {
+    if (captureStatus.isCaptured && !isActing) {
+      handleAfterCaptured();
+    } else if (captureStatus.isCapturing && isActing) {
+      cancelCapture();
+    }
+  }, [captureStatus.isCaptured, captureStatus.isCapturing, isActing]);
 
   return (
     <div className={s.wrapper_btn_top}>
-      {/*<div className={`${s.reset2}`} onClick={() => handleFocusNode('gaming_apps')}>*/}
-      {/*  <p>Focus node</p>*/}
-      {/*</div>*/}
-      <div className={`${s.reset2} ${isCapturing && s.isCapturing}`} onClick={downloadImage}>
-        <p>{isExportImage.value ? `EXPORTING...${seconds}` : 'EXPORT'}</p>
-        <div>
-          <Image
-            src={'/icons/ic_image_2.svg'}
-            alt={'icon'}
-            width={20}
-            height={20}
-          />
-        </div>
-      </div>
-      <div className={`${s.reset2} ${isCapturing && s.isCapturing}`} onClick={handleShareTwitter}>
-        <p>{isSharing.value ? `SHARING...${seconds}` : 'SHARE'}</p>
+      <div
+        className={`${s.reset2} ${captureStatus.isCapturing && s.isCapturing}`}
+        onClick={handleOnShare}
+      >
+        <p>{captureStatus.isCapturing ? 'SHARING...' : 'SHARE'}</p>
         <div>
           <Image src={'/icons/ic_x_v2.svg'} alt={'x'} width={20} height={20} />
         </div>
       </div>
-      {/*<BaseModal*/}
-      {/*  isShow={isCapturing}*/}
-      {/*  onHide={() => setIsCapturing(false)}*/}
-      {/*  className={s.modalContent}*/}
-      {/*  size="custom"*/}
-      {/*  icCloseUrl="/icons/ic-close-grey.svg"*/}
-      {/*>*/}
-      {/*  <div className={s.inner}>*/}
-      {/*    <Image src={'/loading.gif'} alt={'loading'} width={150} height={150} />*/}
-      {/*    <p className={s.loading_text}>Exporting as PNG...</p>*/}
-      {/*  </div>*/}
-      {/*</BaseModal>*/}
     </div>
   );
 };

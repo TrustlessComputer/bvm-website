@@ -117,7 +117,7 @@ export const FOOTER_DATA = {
         },
         {
           title: 'Gaming',
-          link: '/mgamefi',
+          link: '/gamefi',
         },
         {
           title: 'AI',

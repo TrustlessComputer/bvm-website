@@ -121,7 +121,7 @@ const ChainRenderer = () => {
                 parent: true,
               }}
             >
-              <DroppableV2 id={item.key}>
+              <DroppableV2 id={item.key + '-right'}>
                 <ChainLegoParent
                   parentOfNested
                   background={item.color}

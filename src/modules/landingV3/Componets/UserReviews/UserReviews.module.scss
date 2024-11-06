@@ -1,0 +1,91 @@
+.wrapper {
+    .item_wrapper {
+        height: 210px;
+        position: relative;
+        padding: 48px 24px 12px;
+        border-radius: 8px;
+        background: #FAFAFA;
+        margin: 0 12px;
+        margin-top: 40px;
+
+        .avatar {
+            max-width: 80px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .text {
+            display: flex;
+            align-items: start;
+            gap: 8px;
+
+            p {
+                flex: 1;
+                color: #000;
+                font-family: "SF Pro Display";
+                font-size: 14px;
+                font-style: italic;
+                font-weight: 400;
+                line-height: 140%;
+                margin-top: 3px;
+                /* 19.6px */
+                margin-bottom: 16px;
+            }
+        }
+
+        .user_info {
+            .name {
+                color: #000;
+                font-family: "SF Pro Display";
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 140%;
+                text-align: center;
+                /* 16.8px */
+            }
+
+            .username {
+                color: #000;
+                text-align: center;
+                font-family: "SF Pro Display";
+                font-size: 11px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 140%;
+                /* 15.4px */
+                opacity: 0.7;
+            }
+        }
+    }
+
+    .dots {
+        position: absolute;
+        bottom: 0;
+        display: flex !important;
+        align-items: center;
+        width: 200px;
+
+        button {
+            display: none;
+        }
+    }
+
+    :global(.slick-dots) {
+        bottom: -50px;
+    }
+
+    :global(.slick-dots li button:before) {
+        opacity: 0.4;
+        color: #CECECE;
+    }
+
+    :global(.slick-dots li.slick-active button:before) {
+        opacity: 1;
+        color: #CECECE;
+    }
+
+
+}

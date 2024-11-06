@@ -1,0 +1,141 @@
+.wrapper {
+    padding-top: 80px;
+    padding-bottom: 80px;
+
+    .upper {
+        display: flex;
+        align-items: flex-start;
+        gap: 125px;
+        margin-bottom: 40px;
+
+        @include is-mobile {
+            gap: 60px;
+            flex-direction: column;
+        }
+
+        .left {
+            flex: 0.4;
+
+            @include is-mobile {
+                flex: 1;
+            }
+
+
+            .title {
+                color: #000;
+                font-family: var(--font-jetbrains);
+                font-size: 40px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 120%;
+                /* 48px */
+                margin-bottom: 24px;
+
+                @include is-mobile {
+                    font-size: 32px;
+                }
+
+            }
+
+            .desc {
+                color: #000;
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 170%;
+                /* 34px */
+                font-family: SF Pro Display;
+
+                margin-bottom: 32px;
+
+                @include is-mobile {
+                    font-size: 16px;
+                }
+
+            }
+
+            .primary_btn {
+                height: 60px;
+                padding: 0 48px;
+                border-radius: 100px;
+                background: #FA4E0E;
+                color: #FAF4ED;
+                text-align: center;
+                font-family: "SF Pro Display";
+                display: grid;
+                place-items: center;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 28px;
+                transition: 0.3s;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+
+                @include is-mobile {
+                    height: 48px;
+                    padding: 0 32px;
+                    font-size: 16px;
+                }
+
+                /* 155.556% */
+            }
+
+            .link_docs {
+                color: #FA4E0E;
+                text-align: center;
+                font-family: "SF Pro Display";
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 28px;
+                display: flex;
+                align-items: center;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+
+                @include is-mobile {
+                    font-size: 16px;
+                }
+
+                /* 155.556% */
+            }
+        }
+
+        .right {
+            flex: 0.6;
+            // min-width: 400px;
+            width: 100%;
+
+            @include is-mobile {
+                flex: 1;
+            }
+
+            .thumbnail {
+                border-radius: 16px;
+                overflow: hidden;
+                position: relative;
+                min-height: 100%;
+
+                .thumbnail_bg {
+                    // position: relative;
+                    z-index: 2;
+                }
+
+                video {
+                    width: 100% !important;
+                    object-fit: contain;
+                    overflow: hidden;
+                    z-index: 1;
+                }
+            }
+
+        }
+    }
+
+
+}

@@ -18,10 +18,8 @@ type Props = {
 };
 
 const DappRenderer = ({ baseIndex, dapp: thisDapp, ids }: Props) => {
-  const [draggedDappIndexes, setDraggedDappIndexes] = React.useState<number[]>(
-    [],
-  );
   const {
+    dapps,
     getInputWithLego,
     blockFieldMapping,
     baseModuleFieldMapping,
@@ -30,8 +28,8 @@ const DappRenderer = ({ baseIndex, dapp: thisDapp, ids }: Props) => {
   } = useDapps();
 
   const dappIndex = React.useMemo(
-    () => draggedDappIndexes[baseIndex],
-    [baseIndex, draggedDappIndexes],
+    () => dapps.findIndex((dapp) => dapp.key === thisDapp.key),
+    [dapps, thisDapp.key],
   );
   const mainColor = React.useMemo(
     () => adjustBrightness(thisDapp.color, -10),
@@ -46,10 +44,6 @@ const DappRenderer = ({ baseIndex, dapp: thisDapp, ids }: Props) => {
   }).length;
   const totalDragged = 9999 - totalBaseModuleBlock;
   const totalAll = totalBaseFields + totalDragged + totalBaseModuleBlock;
-
-  useSignalEffect(() => {
-    setDraggedDappIndexes(draggedDappIndexesSignal.value);
-  });
 
   if (typeof dappIndex === 'undefined') {
     return null;

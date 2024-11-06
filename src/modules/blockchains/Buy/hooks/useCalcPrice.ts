@@ -5,10 +5,17 @@ import React from 'react';
 import { shouldCalcPrice } from '../utils';
 
 export default function useCalcPrice() {
-  const { field, setPriceBVM, setPriceUSD, setNeedContactUs } =
-    useOrderFormStoreV3();
+  const field = useOrderFormStoreV3((state) => state.field);
+  const setPriceBVM = useOrderFormStoreV3((state) => state.setPriceBVM);
+  const setPriceUSD = useOrderFormStoreV3((state) => state.setPriceUSD);
+  const setNeedContactUs = useOrderFormStoreV3(
+    (state) => state.setNeedContactUs,
+  );
 
-  const { parsedCategories, categories } = useModelCategoriesStore();
+  const parsedCategories = useModelCategoriesStore(
+    (state) => state.parsedCategories,
+  );
+  const categories = useModelCategoriesStore((state) => state.categories);
 
   const isAnyOptionNeedContactUs = () => {
     if (!categories) return false;

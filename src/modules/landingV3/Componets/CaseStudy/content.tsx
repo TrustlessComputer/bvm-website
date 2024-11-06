@@ -8,7 +8,6 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import gsap from 'gsap';
 
 export default function CaseStudyContent({ idx }: { idx?: number }) {
-
   const refContent = useRef<HTMLDivElement>(null);
   const { setSectionActive } = useScrollingSectionStore();
 
@@ -16,35 +15,51 @@ export default function CaseStudyContent({ idx }: { idx?: number }) {
     gsap.registerPlugin(ScrollTrigger);
 
     if (idx === undefined) return;
-    gsap.fromTo(refContent.current, { opacity: 0 }, {
-      scrollTrigger: {
-        trigger: refContent.current,
-        start: 'top bottom-=10%',
-        end: 'bottom bottom-=10%',
-        // markers: true,
-        scrub: true,
-        onToggle: (self) => {
-          if (self.isActive) {
-            setSectionActive(idx);
-          }
+    gsap.fromTo(
+      refContent.current,
+      { opacity: 0 },
+      {
+        scrollTrigger: {
+          trigger: refContent.current,
+          start: 'top bottom-=10%',
+          end: 'bottom bottom-=10%',
+          // markers: true,
+          scrub: true,
+          onToggle: (self) => {
+            if (self.isActive) {
+              setSectionActive(idx);
+            }
+          },
         },
-      }, opacity: 1, ease: 'power3.inOut', duration: .4,
-    });
+        opacity: 1,
+        ease: 'power3.inOut',
+        duration: 0.4,
+      },
+    );
   });
 
-  return <div className={s.inner_right} ref={refContent}>
-    <p className={s.tag}>Case Study</p>
-    <div className={s.inner_img}>
-      <img src="/trump.png" alt="Case Study" />
+  return (
+    <div className={s.inner_right} ref={refContent}>
+      <p className={s.tag}>Case Study</p>
+      <div className={s.inner_img}>
+        <img src="/eai-logo-on-white-1.png" alt="Case Study" />
+      </div>
+      <div className={s.caseStudy}>
+        <p className={s.caseStudy_title}>Eternal AI</p>
+        <p className={s.caseStudy_description}>
+          Eternal AI is the community-run network of AI chains powering the
+          world’s most intelligent AI models.
+        </p>
+      </div>
+      <div className={s.caseStudy_button}>
+        <Link
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://eternalai.org/"
+        >
+          Learn more
+        </Link>
+      </div>
     </div>
-    <div className={s.caseStudy}>
-      <p className={s.caseStudy_title}>BITCOIN WARS</p>
-      <p className={s.caseStudy_description}>The first fully on-chain game built on a ZK Rollup on <span>the Bitcoin
-        network</span>.</p>
-    </div>
-    <div className={s.caseStudy_button}>
-      <Link href="/bitcoinwars">Learn more</Link>
-    </div>
-  </div>;
-
+  );
 }
