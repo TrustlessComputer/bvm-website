@@ -83,7 +83,6 @@ TMainHeader): ReactElement => {
                       } 
                     ${isActiveLight && s.activeLight}
                     `}
-                      style={{ color: index === 0 ? 'white' : color }}
                     >
                       {item.label}
                     </p>
@@ -99,7 +98,7 @@ TMainHeader): ReactElement => {
             {/* <Link href={'/bvm'} className={s.getBVM}>
               Get BVM
             </Link> */}
-            <ContactUs color={color} />
+            {/* <ContactUs color={color} /> */}
 
             <ButtonLogin className={s.getBVM} color={color} title="CONNECT" />
           </Flex>
