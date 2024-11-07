@@ -10,7 +10,8 @@ import cn from 'classnames';
 const HeroV5 = () => {
   const videoRef = React.useRef<HTMLVideoElement>(null);
 
-  const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
+  // const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
+  const [firstClick, setFirstClick] = useState(false);
 
   return (
     <div className={cn(s.wrapper, 'containerV3')}>
@@ -58,15 +59,18 @@ const HeroV5 = () => {
             className={`${s.thumbnail} `}
             // ref={refContent}
             onClick={() => {
+              setFirstClick(true);
               // toggle video
-              if (videoRef.current) {
-                // check if video playing
-                if (videoRef.current.paused) {
-                  videoRef.current.play();
-                } else {
-                  videoRef.current.pause();
+              setTimeout(() => {
+                if (videoRef.current) {
+                  // check if video playing
+                  if (videoRef.current.paused) {
+                    videoRef.current.play();
+                  } else {
+                    videoRef.current.pause();
+                  }
                 }
-              }
+              }, 100);
             }}
           >
             <video
@@ -79,7 +83,7 @@ const HeroV5 = () => {
               height={90}
               preload="auto"
               playsInline
-              // controls
+              controls={!!firstClick}
             />
           </div>
         </div>
