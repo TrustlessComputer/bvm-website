@@ -6,11 +6,12 @@
         display: flex;
         align-items: flex-start;
         gap: 125px;
-        margin-bottom: 40px;
+        margin-bottom: 60px;
 
         @include is-mobile {
             gap: 60px;
             flex-direction: column;
+            margin-bottom: 40px;
         }
 
         .left {
