@@ -1,7 +1,7 @@
 import React from 'react';
 import Slider from 'react-slick';
 import s from './UserReviews.module.scss';
-import { Flex, Image } from '@chakra-ui/react';
+import { Flex, Image, Text } from '@chakra-ui/react';
 
 type Props = {};
 
@@ -17,9 +17,8 @@ const CONTENT = [
     avatarSrc: '/landing-v6/avt-stonecoldpat0.png',
     content: () => (
       <>
-        Rollups are the new server.
-        <br />
-        <br /> Rollup as a service providers are the new Wordpress.
+        <span>Rollups are the new server.</span>
+        <span>Rollup as a service providers are the new Wordpress. </span>
       </>
     ),
     name: 'Patrick McCorry',
@@ -48,11 +47,8 @@ provability, etc`,
     // eoracle is the verifiable real-world connection.`,
     content: () => (
       <>
-        @ethereum is the verifiable internet
-        <br />
-        <br />
-        Rollups are the verifiable web server
-        <br />
+        <span>@ethereum is the verifiable internet</span>
+        <span>Rollups are the verifiable web server</span>
         {/* @eigenlayer is the verifiable cloud
         <br />
         eoracle is the verifiable real-world */}
@@ -73,10 +69,10 @@ provability, etc`,
     avatarSrc: '/landing-v6/avt-Polymer_Labs.png',
     content: () => (
       <>
-        The future of Ethereum interop will resemble the cloud today
-        <br />
-        <br />
-        Rollups = on-chain web servers
+        <span>
+          The future of Ethereum interop will resemble the cloud today
+        </span>
+        <span>Rollups = on-chain web servers</span>
       </>
     ),
 
@@ -130,7 +126,9 @@ const Item = (props: ItemProps) => {
             </defs>
           </svg>
 
-          <p>{typeof content === 'function' ? content() : content}</p>
+          <Text display={'flex'} flexDir={'column'} gap="12px">
+            {typeof content === 'function' ? content() : content}
+          </Text>
         </div>
       </Flex>
     </div>
