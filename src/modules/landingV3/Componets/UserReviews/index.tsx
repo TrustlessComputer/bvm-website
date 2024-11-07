@@ -126,7 +126,7 @@ const Item = (props: ItemProps) => {
             </defs>
           </svg>
 
-          <Text display={'flex'} flexDir={'column'} gap="12px">
+          <Text display={'flex'} flexDir={'column'} gap="8px">
             {typeof content === 'function' ? content() : content}
           </Text>
         </div>
