@@ -18,12 +18,8 @@ const CONTENT = [
     content: () => (
       <>
         Rollups are the new server.
+        <br />
         <br /> Rollup as a service providers are the new Wordpress.
-        <br />
-        <br /> They handle the infra so you can focus on the user experience /
-        application / business logic
-        <br />
-        <br /> lfg! crazy to think this is all happening
       </>
     ),
     name: 'Patrick McCorry',
@@ -54,11 +50,12 @@ provability, etc`,
       <>
         @ethereum is the verifiable internet
         <br />
+        <br />
         Rollups are the verifiable web server
         <br />
-        @eigenlayer is the verifiable cloud
+        {/* @eigenlayer is the verifiable cloud
         <br />
-        eoracle is the verifiable real-world
+        eoracle is the verifiable real-world */}
       </>
     ),
 
@@ -94,8 +91,8 @@ const Item = (props: ItemProps) => {
   return (
     <div className={s.item_wrapper}>
       <div className={s.avatar}>
-        <Flex alignItems={'flex-end'} gap="12px">
-          <Image src={avatarSrc} alt="user avatar" />
+        <Flex alignItems={'center'} gap="12px">
+          <Image src={avatarSrc} alt="user avatar" w="48px" />
           <div className={s.user_info}>
             <div className={s.name}>{name}</div>
             <div className={s.username}>{username}</div>
@@ -104,6 +101,35 @@ const Item = (props: ItemProps) => {
       </div>
       <Flex flexDir={'column'} justifyContent={'space-between'} h="100%">
         <div className={s.text}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="13"
+            height="12"
+            viewBox="0 0 13 12"
+            fill="none"
+          >
+            <g clip-path="url(#clip0_39373_4693)">
+              <path
+                d="M5.375 11.2496H1.25C1.04263 11.2496 0.875 11.0816 0.875 10.8746V5.99961C0.875 3.25199 2.02287 1.26449 4.10675 0.40311C4.298 0.32511 4.51737 0.414735 4.5965 0.60636C4.67562 0.79761 4.58487 1.01699 4.39325 1.09611C2.70162 1.79549 1.73 3.39599 1.63325 5.62461H5.375C5.58238 5.62461 5.75 5.79261 5.75 5.99961V10.8746C5.75 11.0816 5.58238 11.2496 5.375 11.2496Z"
+                fill="black"
+              />
+              <path
+                d="M11.75 11.2496H7.625C7.41763 11.2496 7.25 11.0816 7.25 10.8746V5.99961C7.25 3.25199 8.39787 1.26449 10.4818 0.40311C10.673 0.32511 10.8928 0.414735 10.9715 0.60636C11.0506 0.79761 10.9599 1.01699 10.7682 1.09611C9.07662 1.79549 8.105 3.39599 8.00825 5.62461H11.7504C11.9577 5.62461 12.1254 5.79261 12.1254 5.99961V10.8746C12.1254 11.0816 11.9574 11.2496 11.75 11.2496Z"
+                fill="black"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_39373_4693">
+                <rect
+                  width="12"
+                  height="12"
+                  fill="white"
+                  transform="translate(0.5)"
+                />
+              </clipPath>
+            </defs>
+          </svg>
+
           <p>{typeof content === 'function' ? content() : content}</p>
         </div>
       </Flex>
