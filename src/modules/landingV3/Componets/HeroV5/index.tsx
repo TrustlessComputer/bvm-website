@@ -17,20 +17,17 @@ const HeroV5 = () => {
     <div className={cn(s.wrapper, 'containerV3')}>
       <div className={s.upper}>
         <div className={s.left}>
-          <h2 className={s.title}>Virtual servers running on Bitcoin.</h2>
+          <h2 className={s.title}>Servers with superpowers.</h2>
           <p className={s.desc}>
-            Bitcoin Virtual Machines are servers with superpowers like smart
-            contracts, censorship resistance, and transparency. Backed by
-            Bitcoin's security. They are designed to power an entirely new kind
-            of applications: decentralized applications.<br></br>
-            <br></br> Set up your Bitcoin Virtual Machine today and start
-            building decentralized applications that can change the world.
+            Bitcoin Virtual Machines are a new kind of server running on
+            Bitcoin. Open, verifiable, and censorship-resistant. Built to power
+            the next generation of unstoppable applications.
           </p>
           <Flex alignItems={'center'} gap="20px">
             <Link href="/studio" className={s.primary_btn}>
-              Start building
+              Get Started
             </Link>
-            <Link
+            {/* <Link
               href="https://docs.bvm.network/bvm"
               target="_blank"
               rel="
@@ -51,7 +48,7 @@ const HeroV5 = () => {
                   fill="#FA4E0E"
                 />
               </svg>
-            </Link>
+            </Link> */}
           </Flex>
         </div>
         <div className={s.right}>
