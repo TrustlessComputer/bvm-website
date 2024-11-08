@@ -87,8 +87,13 @@ const Item = (props: ItemProps) => {
   return (
     <div className={s.item_wrapper}>
       <div className={s.avatar}>
-        <Flex alignItems={'center'} gap="12px">
-          <Image src={avatarSrc} alt="user avatar" w="48px" />
+        <Flex alignItems={'center'} gap="10px">
+          <Image
+            src={avatarSrc}
+            alt="user avatar"
+            w="50px"
+            transform={'translateX(-2px)'}
+          />
           <div className={s.user_info}>
             <div className={s.name}>{name}</div>
             <div className={s.username}>{username}</div>
@@ -97,7 +102,7 @@ const Item = (props: ItemProps) => {
       </div>
       <Flex flexDir={'column'} justifyContent={'space-between'} h="100%">
         <div className={s.text}>
-          <svg
+          {/* <svg
             xmlns="http://www.w3.org/2000/svg"
             width="13"
             height="12"
@@ -124,7 +129,7 @@ const Item = (props: ItemProps) => {
                 />
               </clipPath>
             </defs>
-          </svg>
+          </svg> */}
 
           <Text display={'flex'} flexDir={'column'} gap="8px">
             {typeof content === 'function' ? content() : content}
