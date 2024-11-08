@@ -61,14 +61,14 @@ const StudioMain = (): ReactElement => {
                   >
                     <p>Studio</p>
                   </div>
-                  <div
+                  {/* <div
                     className={`${s.top_left_filter} ${
                       isTabExplore && s.active
                     }`}
                     onClick={() => setTab(TABS.EXPLORE)}
                   >
                     <p>Bitcoin L2s</p>
-                  </div>
+                  </div> */}
                 </>
               )}
             </div>
