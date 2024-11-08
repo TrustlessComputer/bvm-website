@@ -5,7 +5,7 @@
     .upper {
         display: flex;
         align-items: flex-start;
-        gap: 125px;
+        gap: 100px;
         margin-bottom: 60px;
 
         @include is-mobile {
@@ -15,7 +15,7 @@
         }
 
         .left {
-            flex: 0.4;
+            flex: 0.45;
 
             @include is-mobile {
                 flex: 1;
@@ -25,7 +25,7 @@
             .title {
                 color: #000;
                 font-family: var(--font-jetbrains);
-                font-size: 40px;
+                font-size: 38px;
                 font-style: normal;
                 font-weight: 700;
                 line-height: 120%;
