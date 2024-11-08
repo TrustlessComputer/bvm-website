@@ -33,12 +33,12 @@ provability, etc`,
     name: 'Hayden Adams',
     username: '@haydenzadams',
   },
-  {
-    avatarSrc: '/landing-v6/avt-mattmurrs.png',
-    content: `Rollups are open, verifiable web servers`,
-    name: 'Matt Murray',
-    username: '@mattmurrs',
-  },
+  // {
+  //   avatarSrc: '/landing-v6/avt-mattmurrs.png',
+  //   content: `Rollups are open, verifiable web servers`,
+  //   name: 'Matt Murray',
+  //   username: '@mattmurrs',
+  // },
   {
     avatarSrc: '/landing-v6/avt-eoracle_network.png',
     //     content: `@ethereum is the verifiable internet.
@@ -58,13 +58,13 @@ provability, etc`,
     name: 'eOracle',
     username: '@eoracle_network',
   },
-  {
-    avatarSrc: '/landing-v6/avt-allred_chase.png',
+  // {
+  //   avatarSrc: '/landing-v6/avt-allred_chase.png',
 
-    content: () => <>Rollups are the new server</>,
-    name: 'Chunk',
-    username: '@allred_chase',
-  },
+  //   content: () => <>Rollups are the new server</>,
+  //   name: 'Chunk',
+  //   username: '@allred_chase',
+  // },
   {
     avatarSrc: '/landing-v6/avt-Polymer_Labs.png',
     content: () => (

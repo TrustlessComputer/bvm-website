@@ -5,8 +5,9 @@
     .upper {
         display: flex;
         align-items: flex-start;
+        justify-content: space-between;
         gap: 100px;
-        margin-bottom: 60px;
+        margin-bottom: 120px;
 
         @include is-mobile {
             gap: 60px;
@@ -25,7 +26,7 @@
             .title {
                 color: #000;
                 font-family: var(--font-jetbrains);
-                font-size: 38px;
+                font-size: 40px;
                 font-style: normal;
                 font-weight: 700;
                 line-height: 120%;
@@ -108,7 +109,7 @@
         }
 
         .right {
-            flex: 0.6;
+            flex: 0.5;
             // min-width: 400px;
             width: 100%;
 
@@ -121,6 +122,7 @@
                 overflow: hidden;
                 position: relative;
                 min-height: 100%;
+                cursor: pointer;
 
                 .thumbnail_bg {
                     // position: relative;
@@ -133,7 +135,52 @@
                     overflow: hidden;
                     z-index: 1;
                 }
+
+                .video_pause {
+                    &::after {
+                        content: '';
+                        background-color: rgba($color: #000000, $alpha: 0.3);
+                        width: 100%;
+                        height: 100%;
+                        z-index: 5;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        display: block;
+                    }
+                }
+
+                .video_thumbnail {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    z-index: 2;
+                    position: relative;
+
+
+
+                }
+
+                .play_btn {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: 6;
+                    cursor: pointer;
+
+                    width: 80px;
+                    height: 80px;
+                    transition: 0.3s;
+
+
+
+
+                }
+
             }
+
+
 
         }
     }
