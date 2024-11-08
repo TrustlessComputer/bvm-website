@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import s from './HeroV5.module.scss';
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { VIDEO_BVM_STUDIO_HOW_IT_WORK } from '@/constants/common';
@@ -12,6 +12,7 @@ const HeroV5 = () => {
 
   // const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
   const [firstClick, setFirstClick] = useState(false);
+  // const [playVideo, setPlayVideo] = useState(false);
 
   return (
     <div className={cn(s.wrapper, 'containerV3')}>
@@ -56,23 +57,37 @@ const HeroV5 = () => {
             className={`${s.thumbnail} `}
             // ref={refContent}
             onClick={() => {
-              setFirstClick(true);
-              // toggle video
-              setTimeout(() => {
-                if (videoRef.current) {
-                  // check if video playing
-                  if (videoRef.current.paused) {
-                    videoRef.current.play();
-                  } else {
-                    videoRef.current.pause();
+              if (!firstClick) {
+                setFirstClick(true);
+
+                setTimeout(() => {
+                  if (videoRef.current) {
+                    // check if video playing
+                    if (videoRef.current.paused) {
+                      videoRef.current.play();
+                    } else {
+                      videoRef.current.pause();
+                    }
                   }
-                }
-              }, 100);
+                }, 100);
+              }
+              // else {
+              //   if (videoRef.current) {
+              //     // check if video playing
+              //     if (videoRef.current.paused) {
+              //       // videoRef.current.play();
+              //     } else {
+              //       videoRef.current.pause();
+              //     }
+              //   }
+              // }
+
+              // toggle video
             }}
           >
             <video
               ref={videoRef}
-              poster={'/home-v5-video.png'}
+              // poster={'/home-v5-video.png'}
               src={
                 'https://storage.googleapis.com/tc-cdn-prod/pages/bvm-studio/AIVoicePrompt_v2_02.mp4'
               }
@@ -82,6 +97,31 @@ const HeroV5 = () => {
               playsInline
               controls={!!firstClick}
             />
+            {!firstClick && (
+              <Box
+                position={'absolute'}
+                top={0}
+                left="0"
+                w="100%"
+                h="100%"
+                className={s.video_pause}
+              >
+                <video
+                  className={s.video_thumbnail}
+                  src={
+                    'https://storage.googleapis.com/bvm-network/image/bvm_hero_video_v3_comp.mp4'
+                  }
+                  loop
+                  muted
+                  playsInline
+                  autoPlay
+                  preload={'auto'}
+                />
+                <div className={s.play_btn}>
+                  <img src="/landing-v6/ic-play.png" />
+                </div>
+              </Box>
+            )}
           </div>
         </div>
       </div>
