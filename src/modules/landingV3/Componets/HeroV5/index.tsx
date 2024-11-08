@@ -26,7 +26,7 @@ const HeroV5 = () => {
           </p>
           <Flex alignItems={'center'} gap="20px">
             <Link href="/studio" className={s.primary_btn}>
-              Get Started
+              Get started
             </Link>
             {/* <Link
               href="https://docs.bvm.network/bvm"
