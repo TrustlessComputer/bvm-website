@@ -83,7 +83,6 @@ const SectionItemApp = ({ item, sectionId, idx }: Props) => {
             //   [s.game_desc]: gameUnavailable,
             // }
           )}
-          fontSize={sectionId === 'step-1' ? '22px !important' : ''}
         >
           {item.description}
         </Text>

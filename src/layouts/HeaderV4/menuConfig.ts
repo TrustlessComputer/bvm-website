@@ -89,12 +89,6 @@ export const NAV_ITEMS: Array<NavItem> = [
   // },
 ];
 export const NAV_ITEMS_LEFT: Array<NavItem> = [
-  {
-    label: 'Build on Bitcoin',
-    href: '/build-bitcoin',
-    isNewWindow: false,
-    isHide: false,
-  },
   // {
   //   label: 'Research',
   //   href: '/research',
@@ -171,6 +165,12 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   {
     label: 'Experience Bitcoin',
     href: '/',
+    isNewWindow: false,
+    isHide: false,
+  },
+  {
+    label: 'Build on Bitcoin',
+    href: '/build-bitcoin',
     isNewWindow: false,
     isHide: false,
   },
