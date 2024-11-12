@@ -61,8 +61,9 @@ const SectionBlock = (props: any) => {
   );
 
   const isCardLayout = useMemo(() => {
+    return true;
     // check if props.id is within the list of card layout
-    return ['apps', 'step-1', 'step-2'].includes(props.id);
+    return !['games'].includes(props.id);
   }, [props.id]);
 
   useEffect(() => {
@@ -134,9 +135,15 @@ const SectionBlock = (props: any) => {
         </Box>
         <div className={s.scroll_wrapper} ref={scrollWrapperRef}>
           <Box
-            className={cn(s.items_wrapper, {
-              [s.items_wrapper__apps]: isCardLayout,
-            })}
+            className={cn(
+              s.items_wrapper,
+              {
+                [s.items_wrapper__apps]: isCardLayout,
+              },
+              // {
+              //   [s.items_wrapper__games]: props.id === 'games',
+              // },
+            )}
             ref={itemsWrapperRef}
             mb={spacing}
           >
@@ -147,6 +154,7 @@ const SectionBlock = (props: any) => {
                     key={`${props.id}-${index}`}
                     item={item as BlockCardItem}
                     sectionId={props.id}
+                    idx={index}
                   />
                 );
               }

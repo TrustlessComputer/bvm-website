@@ -169,10 +169,9 @@ export default function Intro() {
               Welcome to <b>the future of Bitcoin.</b>
             </h1>
             <p className={s.intro_supper_content_desc}>
-              BVM is the first <b>modular Bitcoin L2 metaprotocol</b> on
-              Bitcoin. With a few clicks, anyone can plug and play the
-              best-of-breed blockchain modules to launch their own Bitcoin L2
-              blockchain.
+              Ethereum’s heyday is over. Bitcoin is the new home for
+              decentralized applications. Enter a whole new world where finance,
+              gaming, social networks, and AI coverge on the biggest blockchain.
             </p>
           </div>
 

@@ -215,3 +215,10 @@ input[type='number'] {
 .react-flow__edge-custom {
   pointer-events: none !important;
 }
+
+.gradient_text {
+  background: linear-gradient(90deg, #FBAF3A 0%, #FF6265 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

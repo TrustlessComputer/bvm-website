@@ -17,8 +17,8 @@ export default function Home() {
       }}
       hideFooter
     >
-      <LandingV3 />
-      {/* <LandingV5 /> */}
+      {/* <LandingV3 /> */}
+      <LandingV5 />
     </MainLayout>
   );
 }

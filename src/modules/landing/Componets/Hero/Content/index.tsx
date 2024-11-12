@@ -18,12 +18,13 @@ export default function HeroContent() {
       <div className={s.heroContent}>
         <div className={s.heroContent_inner}>
           <Chars classNames={s.heroContent_inner_heading} delayEnter={6}>
-            <h1 className={s.heroContent_heading}>Bitcoin L2 as a Service</h1>
+            <h1 className={s.heroContent_heading}>Bitcoin, upgraded.</h1>
           </Chars>
           <div className={s.heroContent_content}>
             <Lines delayEnter={6.1}>
-              Powerful infrastructure and tools to build and scale your own
-              Bitcoin L2 with ease.
+              Join us on the mission to reinvent Bitcoin beyond just a currency
+              — the next internet with AI, Gaming, DeFi, Social, and more on
+              Bitcoin.
             </Lines>
           </div>
           <ul className={s.heroContent_actions}>
@@ -33,7 +34,7 @@ export default function HeroContent() {
                   onClick={() => router.push('/studio')}
                   className={`${s.btn} ${s.btn__red}`}
                 >
-                  Deploy a Bitcoin L2
+                  Build on Bitcoin
                 </button>
               </Fade>
             </li>
@@ -47,12 +48,12 @@ export default function HeroContent() {
                   }
                   className={`${s.btn} ${s.btn__red}`}
                 >
-                  Deploy a Bitcoin dapp
+                  Experience Bitcoin
                 </button>
               </Fade>
             </li>
           </ul>
-          <Fade delay={6.7}>
+          {/* <Fade delay={6.7}>
             <div className={s.contact}>
               Questions?{' '}
               <span
@@ -62,7 +63,7 @@ export default function HeroContent() {
                 Contact us
               </span>
             </div>
-          </Fade>
+          </Fade> */}
           <Fade delay={6.8}>
             <div className={s.btnVideo}>
               <a
@@ -77,7 +78,7 @@ export default function HeroContent() {
                   style={{ margin: 'auto', marginBottom: '8px' }}
                 />
                 <span style={{ fontSize: '14px', fontWeight: 400 }}>
-                  Watch the film
+                  What is BVM?
                 </span>
               </a>
             </div>

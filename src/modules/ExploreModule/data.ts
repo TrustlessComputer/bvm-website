@@ -43,7 +43,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   // },
   {
     id: 'eternalAI',
-    image: '/explore/dapp-eai3.png',
+    image: `${CDN_URL}/pages/explore/eternal-banner.png`,
     title: 'Eternal AI',
     bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
     description: 'Decentralized AI in your pocket.',

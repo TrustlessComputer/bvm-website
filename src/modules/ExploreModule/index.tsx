@@ -67,7 +67,7 @@ export default function ExploreModule(): React.JSX.Element {
                 <div className={s.wrapperCardDapps}>
                   {DAPPS_DATA.map((item, idx) => {
                     // return <DappCard {...item} idx={idx} key={item.title} />;
-                    return <AppCard item={item} key={item.title} />;
+                    return <AppCard item={item} key={item.title} idx={idx} />;
                   })}
                 </div>
                 <Disclaimer />

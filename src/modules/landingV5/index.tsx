@@ -1,21 +1,17 @@
-import { Box, Flex, Text, Image as ChakraImage } from '@chakra-ui/react';
-import BuildItem from './components/BuildItem';
-import s from './styles.module.scss';
-import Link from 'next/link';
+import { Box } from '@chakra-ui/react';
 import cn from 'classnames';
+import BuildItem from './components/BuildItem';
 import SectionBlock from './components/SectionBlock';
+import s from './styles.module.scss';
 
-import Image from 'next/image';
 import {
   STEP_1_SECTION,
-  NEWS_SECTION,
-  APPS_SECTION,
-  OPENSOURCE_SECTION,
-  RESEARCH_SECTION,
-  TECH_STACKS,
   STEP_2_SECTION,
+  GAME_SECTION,
+  TOOLS_SECTION,
+  ART_SECTION,
+  SOCIALFI_SECTION,
 } from '@/constants/home-content';
-import { motion } from 'framer-motion';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 
 type Props = {};
@@ -38,9 +34,9 @@ const LandingV5 = (props: Props) => {
             >
               <Box flex="1">
                 <div className={s.introduction_title}>
-                  Development infrastructure for Bitcoin
+                  Experience Bitcoin like never before.
                 </div>
-                <div className={s.introduction_desc}>
+                {/* <div className={s.introduction_desc}>
                   Bitcoin Virtual Machine (BVM) is Bitcoin’s most comprehensive
                   development platform, offering builders over 30 products and
                   services for building on Bitcoin. From scaling technologies
@@ -50,45 +46,13 @@ const LandingV5 = (props: Props) => {
                   possible on Bitcoin.
                   {/* <br />
                   <br /> Let’s build. */}
-                </div>
+                {/* </div> */}
               </Box>
-              <Box className={s.introduction_links}>
-                <div className={s.link_item}>
-                  <div className={s.link_ic}>
-                    <ChakraImage
-                      src="/landing-v5/avatar-dev-1.png"
-                      w="48px"
-                      h="48px"
-                    />
-                  </div>
-                  <Flex gap="4px" flexDir={'column'}>
-                    <p>Need development help?</p>
-                    <Box
-                      onClick={showContactUsModal}
-                      className={s.link}
-                      cursor="pointer"
-                    >
-                      Talk to a BVM dev
-                      <div className={s.icon_link}>
-                        <ChakraImage src="/landing-v5/ic-link.svg" />
-                      </div>
-                    </Box>
-                  </Flex>
-                </div>
-                <Box mt={'24px'} className={s.link_item}>
-                  <div className={s.link_ic}>
-                    <ChakraImage src="/landing-v5/ic-appstore.svg" />
-                  </div>
-                  <Flex gap="4px" flexDir={'column'}>
-                    <p>Experience Bitcoin apps</p>
-                    <Link href="/explore" className={s.link}>
-                      Visit Bitcoin App Store
-                      <div className={s.icon_link}>
-                        <ChakraImage src="/landing-v5/ic-link.svg" />
-                      </div>
-                    </Link>
-                  </Flex>
-                </Box>
+              <Box className={s.introduction_desc}>
+                Ethereum’s heyday is over. Powered by BVM, Bitcoin is the new
+                home for decentralized applications. Enter a whole new world
+                where finance, gaming, social networks, and AI coverge on the
+                biggest blockchain.{' '}
               </Box>
             </Box>
           </BuildItem>
@@ -101,7 +65,20 @@ const LandingV5 = (props: Props) => {
               spacing={{ base: '100px', md: '185px' }}
             />
           </BuildItem>
-          <BuildItem iconUrl="/landing-v5/ic-step-3.svg">
+          <BuildItem>
+            <SectionBlock {...GAME_SECTION} />
+          </BuildItem>
+          <BuildItem>
+            <SectionBlock {...TOOLS_SECTION} />
+          </BuildItem>
+          <BuildItem>
+            <SectionBlock {...ART_SECTION} />
+          </BuildItem>
+          <BuildItem>
+            <SectionBlock {...SOCIALFI_SECTION} />
+          </BuildItem>
+
+          {/* <BuildItem iconUrl="/landing-v5/ic-step-3.svg">
             <Box>
               <div className={s.tag}>
                 Launch your own{' '}
@@ -208,7 +185,7 @@ const LandingV5 = (props: Props) => {
                 </Link>
               </Flex>
             </div>
-          </BuildItem>
+          </BuildItem> */}
         </Box>
       </Box>
     </div>
