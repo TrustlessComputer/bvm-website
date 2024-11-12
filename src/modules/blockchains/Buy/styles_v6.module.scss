@@ -599,16 +599,15 @@
 }
 
 .dappBoxOption {
-  margin-left: -20px;
-  margin-top: -15px;
+  padding: 0;
 
   &:first-child {
-    margin-top: -10px;
+    margin-top: 0px;
   }
 }
 
 .reset2 {
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
   color: #555555;
   height: 38px;
   align-items: center;

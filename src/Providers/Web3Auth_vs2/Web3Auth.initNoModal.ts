@@ -7,7 +7,7 @@ import { CHAIN_CONFIG } from './chainConfig';
 
 // Private Key format EVM (Ex: Ethereum, NOS,....)
 const privateKeyProvider = new EthereumPrivateKeyProvider({
-  config: { chainConfig: CHAIN_CONFIG.nos },
+  config: { chainConfig: CHAIN_CONFIG.ethereum },
 });
 
 // web3auth Instance

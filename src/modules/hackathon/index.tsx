@@ -57,7 +57,9 @@ const LeaderboardOrCompetition = memo(
 
     return (
       <>
-        <LeaderboardSection currentUserContest={currentUserContest} />
+        {(!startTime.ended || endTime.ended) && (
+          <LeaderboardSection currentUserContest={currentUserContest} />
+        )}
         {isShowCompetition && (
           <CompetitionSection
             contestType={CURRENT_COMPETITION_CONTEST_TYPE}

@@ -1,10 +1,7 @@
-import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { draggedDappIndexesSignal } from '../signals/useDragSignal';
 import { formDappSignal } from '../signals/useFormDappsSignal';
-import { useTemplateFormStore } from '../stores/useDappStore';
+import useDappsStore, { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore from '../stores/useFlowStore';
-import useDapps from './useDapps';
-// import { cloneDeep } from '../utils';
 
 import cloneDeep from 'lodash/cloneDeep';
 
@@ -13,9 +10,10 @@ export interface IRetrieveFormsByDappKey {
 }
 
 const useOneForm = () => {
-  const { dapps } = useDapps();
-  const { nodes } = useFlowStore();
   const { templateDapps } = useTemplateFormStore();
+
+  const nodes = useFlowStore((state) => state.nodes);
+  const dapps = useDappsStore((state) => state.dapps);
 
   const retrieveFormsByDappKey = ({ dappKey }: { dappKey: string }) => {
     const forms: IRetrieveFormsByDappKey[][] = [];

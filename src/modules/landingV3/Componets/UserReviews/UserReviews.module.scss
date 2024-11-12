@@ -1,0 +1,117 @@
+.wrapper {
+    .item_wrapper {
+        height: 200px;
+        position: relative;
+        // padding: 48px 24px 12px;
+        overflow: hidden;
+        border-radius: 8px;
+        border: 1px solid #E5E7EB;
+        background: #FFF;
+        margin: 0 12px;
+        // margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .avatar {
+            padding: 20px;
+            padding-bottom: 0px;
+            // background: #F4F4F4;
+
+            // position: absolute;
+            // top: 0;
+            // left: 24px;
+            // transform: translateY(-50%);
+        }
+
+        .text {
+            display: flex;
+            align-items: start;
+            gap: 8px;
+            padding-left: 20px;
+            padding-right: 20px;
+
+            p {
+                flex: 1;
+                color: #000;
+                font-family: "SF Pro Display";
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 24px;
+            }
+        }
+
+        .user_info {
+            .name {
+                color: #000;
+                font-family: "SF Pro Display";
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 140%;
+                white-space: nowrap;
+            }
+
+            .username {
+                color: #000;
+                font-family: "SF Pro Display";
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 140%;
+                opacity: 0.7;
+            }
+        }
+    }
+
+    :global {
+        .slick-list {
+            width: 100%;
+        }
+
+        .slick-dots {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex !important;
+            gap: 24px;
+            z-index: 2;
+
+            button {
+                margin-left: -24px;
+                color: transparent;
+            }
+
+            li {
+                width: 12px;
+                height: 12px;
+                opacity: 0.4;
+            }
+
+            li::marker {
+                width: 12px;
+                height: 12px;
+                font-size: 24px;
+                color: #CECECE;
+            }
+
+            li.slick-active {
+                opacity: 1;
+
+            }
+        }
+
+        //.slick-active a {
+        //    border: 1px solid #fff;
+        //}
+
+        .slick-arrow {
+            display: none !important;
+        }
+    }
+
+
+
+}

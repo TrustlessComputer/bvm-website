@@ -10,17 +10,15 @@ import { useTabs } from '@/modules/blockchains/Buy/studio/useTabs';
 import VideoEducation from '@/modules/blockchains/Buy/studio/VideoEducation';
 import WorkArea from '@/modules/blockchains/Buy/studio/WorkArea';
 import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
+import TemplatePage from '@/modules/blockchains/Buy/Template';
+import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 import { IModelCategory } from '@/types/customize-model';
 import React, { ReactElement } from 'react';
 import OverlayControl from '../OverlayControl/Index';
-import TemplatePage from '@/modules/blockchains/Buy/Template';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
-import { Flex } from '@chakra-ui/react';
+import useStudioHelper from '../../hooks/useStudioHelper';
 import ChainInforView from './ChainInforView';
-import useStudioHelper from '../useStudioHelper';
 
 const StudioMain = (): ReactElement => {
-  // const { order } = useChainProvider();
   const { isUpdateFlow } = useChainProvider();
   const { cloneHandler } = useStudioHelper();
   const { toggleErrorMessage } = useErrorMessage((state) => state);
@@ -38,7 +36,6 @@ const StudioMain = (): ReactElement => {
   }, [tabActive]);
 
   const { setDraggedFields } = useDragStore();
-  // const { setTemplate } = useTemplate();
 
   const cloneItemCallback = (template: IModelCategory[]) => {
     setTab(TABS.CODE);
@@ -47,17 +44,6 @@ const StudioMain = (): ReactElement => {
 
     cloneHandler(template);
   };
-
-  // useEffect(() => {
-  //   if (order) {
-  //     setTab(TABS.CODE);
-  //     setDraggedFields([]);
-  //     toggleErrorMessage(false);
-
-  //     console.log('DEBUG --- template::: ', order.selectedOptions);
-  //     setTemplate(order.selectedOptions || []);
-  //   }
-  // }, [order]);
 
   return (
     <>
@@ -75,22 +61,14 @@ const StudioMain = (): ReactElement => {
                   >
                     <p>Studio</p>
                   </div>
-                  <div
+                  {/* <div
                     className={`${s.top_left_filter} ${
                       isTabExplore && s.active
                     }`}
                     onClick={() => setTab(TABS.EXPLORE)}
                   >
                     <p>Bitcoin L2s</p>
-                  </div>
-                  {/*<div*/}
-                  {/*  className={`${s.top_left_filter} ${*/}
-                  {/*    isTabTemplate && s.active*/}
-                  {/*  }`}*/}
-                  {/*  onClick={() => setTab(TABS.TEMPLATE)}*/}
-                  {/*>*/}
-                  {/*  <p>Template</p>*/}
-                  {/*</div>*/}
+                  </div> */}
                 </>
               )}
             </div>

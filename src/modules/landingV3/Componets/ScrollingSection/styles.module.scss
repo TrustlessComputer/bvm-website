@@ -1,9 +1,11 @@
 .scrollingSection {
+  background: #fafafa;
 
 }
 
 .container {
   padding: 120px 0;
+
 }
 
 .inner {
@@ -33,7 +35,7 @@
 .left {
   width: 100%;
 
-  canvas{
+  canvas {
     border-radius: 24px;
   }
 
@@ -106,7 +108,7 @@
     max-width: 600px;
     margin-bottom: 24px;
 
-    p:not(:last-child ) {
+    p:not(:last-child) {
       margin-bottom: 24px;
     }
   }

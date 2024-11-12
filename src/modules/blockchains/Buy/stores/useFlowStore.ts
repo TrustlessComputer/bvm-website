@@ -10,19 +10,22 @@ import {
 } from '@xyflow/react';
 import { create } from 'zustand';
 
-// export type AppNode = DataNode;
-export type AppNode = ChainNode | DappNode; // V2 coming soon
+export type AppNode = ChainNode | DappNode;
 
 export type AppState = {
   nodes: AppNode[];
+  setNodes: (nodes: AppNode[]) => void;
   edges: Edge[];
+  setEdges: (edges: Edge[]) => void;
   onNodesChange: OnNodesChange<AppNode>;
   onEdgesChange: OnEdgesChange;
   onConnect: OnConnect;
-  setNodes: (nodes: AppNode[]) => void;
-  setEdges: (edges: Edge[]) => void;
   removedNode: AppNode | null;
   setRemovedNode: (node: AppNode | null) => void;
+  appStatus: {
+    isActing: boolean;
+  };
+  setAppStatus: (status: { isActing: boolean }) => void;
 };
 
 const useFlowStore = create<AppState>((set, get) => ({
@@ -52,6 +55,12 @@ const useFlowStore = create<AppState>((set, get) => ({
   removedNode: null,
   setRemovedNode: (node) => {
     set({ removedNode: node });
+  },
+  appStatus: {
+    isActing: false,
+  },
+  setAppStatus: (status) => {
+    set({ appStatus: status });
   },
 }));
 

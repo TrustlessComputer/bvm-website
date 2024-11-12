@@ -13,8 +13,7 @@ import { adjustBrightness } from '../utils';
 import Button from '@/modules/blockchains/Buy/component4/Button';
 
 const useDapps = () => {
-  const { dapps } = useDappsStore();
-  // const dappState = useAppSelector(dappSelector);
+  const dapps = useDappsStore((state) => state.dapps);
 
   const blockFieldMapping = React.useMemo(() => {
     return dapps.map((dapp) => {
@@ -80,7 +79,6 @@ const useDapps = () => {
       }
     }
   };
-
 
   const getInputWithLego = React.useCallback(
     (
@@ -202,9 +200,11 @@ const useDapps = () => {
               dappKey={thisDapp.key}
               name={fieldKey}
               key={fieldKey}
-              variant={"outline"}
+              variant={'outline'}
               icon={false}
-            >{field.title}</Button>
+            >
+              {field.title}
+            </Button>
           </Lego>
         );
       }
@@ -423,9 +423,11 @@ const useDapps = () => {
               dappKey={thisDapp.key}
               name={fieldKey}
               key={fieldKey}
-              variant={"outline"}
+              variant={'outline'}
               icon={false}
-            >{field.title}</Button>
+            >
+              {field.title}
+            </Button>
           </Lego>
         );
       }

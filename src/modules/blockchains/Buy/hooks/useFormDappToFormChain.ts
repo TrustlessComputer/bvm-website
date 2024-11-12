@@ -3,9 +3,10 @@ import React from 'react';
 import { draggedDappIndexesSignal } from '../signals/useDragSignal';
 import { cloneDeep } from '../utils';
 import useDapps from './useDapps';
+import useDappsStore from '../stores/useDappStore';
 
 const useFormDappToFormChain = () => {
-  const { dapps } = useDapps();
+  const dapps = useDappsStore((state) => state.dapps);
 
   const [dappIndexes, setDappIndexes] = React.useState<
     typeof draggedDappIndexesSignal.value
@@ -15,9 +16,9 @@ const useFormDappToFormChain = () => {
     setDappIndexes(draggedDappIndexesSignal.value);
   });
 
-  console.log('[useFormDappToFormChain]', {
-    dappIndexes,
-  });
+  // console.log('[useFormDappToFormChain]', {
+  //   dappIndexes,
+  // });
 
   const dappCount = React.useMemo(() => {
     const dappCount: Record<string, number> = {};
@@ -34,9 +35,9 @@ const useFormDappToFormChain = () => {
       }
     });
 
-    console.log('[useFormDappToFormChain] b', {
-      dappCount,
-    });
+    // console.log('[useFormDappToFormChain] b', {
+    //   dappCount,
+    // });
 
     return dappCount;
   }, [dappIndexes]);

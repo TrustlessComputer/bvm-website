@@ -1,16 +1,25 @@
 import React, { useMemo } from 'react';
 
 import DotPulse from '@/components/DotPulse';
-import { IModelCategory } from '@/types/customize-model';
 import Lego from '../../../component4/Lego';
 import useNodeHelper from '../../../hooks/useNodeHelper';
 import useTemplate from '../../../hooks/useTemplate';
+import {
+  draggedDappIndexesSignal,
+  draggedIds2DSignal,
+} from '../../../signals/useDragSignal';
 import useDappsStore from '../../../stores/useDappStore';
 import useModelCategoriesStore from '../../../stores/useModelCategoriesStore';
 import { chainKeyToDappKey } from '../../../utils';
 import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
 import { blockLegoResponseToModelCategory } from '../utils/convertApiUtils';
 import styles from './styles.module.scss';
+import useStudioHelper from '../../../hooks/useStudioHelper';
+import { formDappSignal } from '../../../signals/useFormDappsSignal';
+import sleep from '@/utils/sleep';
+import { Edge } from '@xyflow/react';
+import useFlowStore, { AppNode } from '../../../stores/useFlowStore';
+import { needReactFlowRenderSignal } from '../../ReactFlowRender';
 
 function MessageStream({ message }: { message: string }) {
   const { categories } = useModelCategoriesStore();
@@ -18,7 +27,9 @@ function MessageStream({ message }: { message: string }) {
   const { dapps } = useDappsStore();
   const { addDappToNode } = useNodeHelper();
   const { setTemplate } = useTemplate();
+  const { clearFlow } = useStudioHelper();
 
+  const countAdded = React.useRef(0);
   const [dappIndexesNeedToAdd, setDappIndexesNeedToAdd] = React.useState<
     {
       dappIndex: number;
@@ -27,18 +38,37 @@ function MessageStream({ message }: { message: string }) {
     }[]
   >([]);
   const [isApplied, setIsApplied] = React.useState(false);
-  const [generationStatus, setGenerationStatus] = React.useState({
-    isGenerating: true,
-    isGenerated: false,
-    isGeneratingJson: false,
-    isGeneratedJson: false,
-    template: [] as IModelCategory[],
-    beforeJsonBlock: '',
-    afterJsonBlock: '',
-  });
+  const [isReseted, setIsReseted] = React.useState(false);
+  const [isTemplateApplied, setIsTemplateApplied] = React.useState(false);
+
+  const generationStatus = React.useMemo(() => {
+    const messageHaveJson = message.includes('```json');
+    const messageHaveDoneJsonBlock = message.split('```').length > 2;
+    const beforeJsonBlock = message.split('```json')?.[0] || message;
+    const messageHaveJsonBlock = message.split('```json')?.[1];
+    const jsonBlock2 = messageHaveJsonBlock?.split('```')?.[0];
+    const afterJsonBlock = messageHaveJsonBlock?.split('```')?.[1];
+
+    return {
+      beforeJsonBlock: beforeJsonBlock.replaceAll('```', ''),
+      isGeneratingJson: messageHaveJson && !messageHaveDoneJsonBlock,
+      isGeneratedJson: messageHaveDoneJsonBlock,
+      template: messageHaveDoneJsonBlock
+        ? blockLegoResponseToModelCategory(
+            categories!,
+            JSON.parse(jsonBlock2 || '{}'),
+          )
+        : [],
+      afterJsonBlock,
+    };
+  }, [message]);
 
   const handleApply = () => {
-    let count = 0;
+    clearFlow();
+    setIsApplied(true);
+  };
+
+  const apply = async () => {
     const _dappIndexesNeedToAdd: typeof dappIndexesNeedToAdd = [];
     generationStatus.template.forEach((template) => {
       template.options.forEach((option) => {
@@ -48,15 +78,13 @@ function MessageStream({ message }: { message: string }) {
         if (dappIndex !== -1 && !dapps[dappIndex].isDefaultDapp) {
           _dappIndexesNeedToAdd.push({
             dappIndex,
-            x: 600 * (count + 1),
-            y: 30,
+            x: 0,
+            y: 0,
           });
-          count++;
         }
       });
     });
 
-    setDappIndexesNeedToAdd(_dappIndexesNeedToAdd);
     setChatBoxStatus({
       status: ChatBoxStatus.Close,
       isGenerating: false,
@@ -64,71 +92,73 @@ function MessageStream({ message }: { message: string }) {
       isListening: false,
     });
     setTemplate(generationStatus.template);
-    setIsApplied(true);
+
+    needReactFlowRenderSignal.value = true;
+
+    setDappIndexesNeedToAdd(_dappIndexesNeedToAdd);
+
+    await sleep(0.01);
+
+    setIsTemplateApplied(true);
   };
 
-  const trackMessageChange = () => {
-    const messageHaveJson = message.includes('```json');
-    const messageHaveDoneJsonBlock = message.split('```').length > 2;
-    const beforeJsonBlock = message.split('```json')?.[0] || message;
-    const messageHaveJsonBlock = message.split('```json')?.[1];
-    const jsonBlock2 = messageHaveJsonBlock?.split('```')?.[0];
-    const afterJsonBlock = messageHaveJsonBlock?.split('```')?.[1];
+  const reset = async () => {
+    await sleep(0.01);
 
-    if (!messageHaveJson) {
-      setGenerationStatus({
-        ...generationStatus,
-        beforeJsonBlock: beforeJsonBlock.replaceAll('```', ''),
-      });
-    } else if (messageHaveJson && !generationStatus.isGeneratingJson) {
-      setGenerationStatus({
-        ...generationStatus,
-        isGeneratingJson: true,
-      });
-    } else if (messageHaveDoneJsonBlock && generationStatus.isGeneratingJson) {
-      setGenerationStatus({
-        ...generationStatus,
-        isGeneratingJson: false,
-        isGeneratedJson: true,
-        template: blockLegoResponseToModelCategory(
-          categories!,
-          JSON.parse(jsonBlock2 || '{}'),
-        ),
-      });
-    } else if (generationStatus.isGeneratedJson) {
-      setGenerationStatus({
-        ...generationStatus,
-        afterJsonBlock,
-      });
-    }
+    needReactFlowRenderSignal.value = true;
+
+    setIsReseted(true);
   };
 
   React.useEffect(() => {
-    if (dappIndexesNeedToAdd.length > 0) {
-      addDappToNode(dappIndexesNeedToAdd[0].dappIndex, {
-        x: dappIndexesNeedToAdd[0].x,
-        y: dappIndexesNeedToAdd[0].y,
-      });
+    if (!isTemplateApplied) return;
 
-      setDappIndexesNeedToAdd(dappIndexesNeedToAdd.slice(1));
-    }
-  }, [dappIndexesNeedToAdd, addDappToNode]);
+    const applyDapps = async () => {
+      if (dappIndexesNeedToAdd.length > 0) {
+        const dappIndexNeedToAdd = dappIndexesNeedToAdd[0];
+
+        if (
+          !draggedDappIndexesSignal.value.includes(dappIndexNeedToAdd.dappIndex)
+        ) {
+          addDappToNode(dappIndexNeedToAdd.dappIndex, {
+            x: 500 * (countAdded.current + 1),
+            y: 600,
+          });
+          countAdded.current += 1;
+        }
+
+        await sleep(0.01);
+
+        setDappIndexesNeedToAdd(dappIndexesNeedToAdd.slice(1));
+      }
+    };
+
+    applyDapps();
+  }, [dappIndexesNeedToAdd, addDappToNode, isTemplateApplied]);
 
   React.useEffect(() => {
-    trackMessageChange();
-  }, [message]);
+    if (isApplied) {
+      reset();
+    }
+  }, [isApplied]);
+
+  React.useEffect(() => {
+    if (isReseted) {
+      apply();
+    }
+  }, [isReseted]);
 
   const isEmpty = useMemo(() => {
     return (
-      generationStatus.beforeJsonBlock === '' &&
-      generationStatus.afterJsonBlock === '' &&
+      (generationStatus.beforeJsonBlock || '').replaceAll(' ', '') === '' &&
+      (generationStatus.afterJsonBlock || '').replaceAll(' ', '') === '' &&
       generationStatus.template.length === 0
     );
   }, [generationStatus]);
 
   return (
     <div className={styles.message}>
-      {isEmpty ? <DotPulse /> : generationStatus.beforeJsonBlock}
+      {generationStatus.beforeJsonBlock}
 
       {generationStatus.isGeneratingJson &&
       !generationStatus.isGeneratedJson ? (
