@@ -294,7 +294,7 @@ export const ART_SECTION = {
     {
       title: 'Timechain',
       description: 'The first long-form gen art collection',
-      homeImage: `/landing-v7/home-timechain-1.png`,
+      homeImage: `/landing-v7/home-timechain-2.png`,
 
       link: {
         url: 'https://generative.xyz/generative/1000001',
