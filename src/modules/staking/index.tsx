@@ -35,9 +35,9 @@ const StakingUser = () => {
         <HeaderPoints />
         {stakeUser?.isHaveTeam ? <TeamPoints /> : <StakeRole />}
         <MiningBox />
-        <AirdropBox />
+        {/* <AirdropBox /> */}
         {/* <CurrentLaunchpad /> */}
-        <EternalSeeds />
+        {/* <EternalSeeds /> */}
       </Box>
     </MainLayout>
   );
