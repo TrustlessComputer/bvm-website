@@ -1,0 +1,44 @@
+.hero {
+  width: 100%;
+  position: relative;
+
+
+  @include is-pc {
+    overflow: hidden;
+    height: 100svh;
+  }
+
+  &_wrap {
+    height: 100svh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  @include is-mobile {
+    width: auto;
+  }
+  @include is-tablet {
+    width: 100%;
+  }
+
+  &_inner {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    display: none;
+
+    @include is-pc {
+      bottom: 210px;
+      display: block;
+    }
+  }
+
+}
+
+.hero_wrap__mobile {
+  background: white;
+  @include is-pc {
+    display: none;
+  }
+}

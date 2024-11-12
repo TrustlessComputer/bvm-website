@@ -1,0 +1,34 @@
+.scalableItem {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  clip-path: var(--clipPath);
+
+  img {
+    object-fit: contain;
+    max-width: 100%;
+    max-height: calc(100% - 40vh);
+
+    @include is-tablet {
+      width: 40%;
+    }
+  }
+
+  &__1 {
+    background: #1a67e3;
+  }
+
+  &__2 {
+    background: #2aa848;
+  }
+
+  &__3 {
+    background: #dd9910;
+  }
+}

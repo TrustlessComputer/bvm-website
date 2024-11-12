@@ -1,0 +1,20 @@
+.heading {
+
+  &_mask {
+    position: relative;
+    display: block;
+    overflow: hidden;
+
+    &_el:not(:first-child) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: max-content;
+    }
+
+    &_el {
+      display: block;
+      white-space: nowrap;
+    }
+  }
+}
