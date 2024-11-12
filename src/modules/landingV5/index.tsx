@@ -29,7 +29,7 @@ const LandingV5 = (props: Props) => {
           <BuildItem stagger={0} iconUrl="/landing-v5/ic-bvm.svg">
             <Box
               className={cn(s.introduction)}
-              mx={{ base: '20px', '2xl': 'calc((100vw - 1440px) / 2)' }}
+              mx={{ base: '20px', '2xl': 'calc((100vw - 1460px) / 2)' }}
 
               // mx="auto"
               // ml={{ base: '0px', '2xl': 'calc((100vw - 1440px) / 2)' }}

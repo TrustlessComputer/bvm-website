@@ -129,7 +129,7 @@ const SectionBlock = (props: any) => {
         <Box
           w={{ base: '80%', md: '100%' }}
           className={s.heading}
-          mx={{ base: '20px', '2xl': 'calc((100vw - 1440px) / 2)' }}
+          mx={{ base: '20px', '2xl': 'calc((100vw - 1460px) / 2)' }}
         >
           <Box>
             {!!tag && <span className={s.tag}>{tag}</span>}
