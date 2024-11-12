@@ -41,11 +41,7 @@ export default function HeroContent() {
             <li>
               <Fade delayEnter={6.6}>
                 <button
-                  onClick={() =>
-                    window.open(
-                      'https://docs.bvm.network/bvm/quickstart/build-your-first-bitcoin-dapps',
-                    )
-                  }
+                  onClick={() => router.push('/')}
                   className={`${s.btn} ${s.btn__red}`}
                 >
                   Experience Bitcoin

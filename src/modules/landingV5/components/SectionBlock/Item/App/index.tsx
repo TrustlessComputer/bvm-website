@@ -4,7 +4,7 @@ import s from './SectionItemApp.module.scss';
 import Link from 'next/link';
 import cn from 'classnames';
 import { Box, Flex, Text } from '@chakra-ui/react';
-import { ETERNAL_TITLE } from '@/constants/home-content';
+import { ETERNAL_TITLE, ETERNAL_URL } from '@/constants/home-content';
 
 type Props = {
   item: BlockCardItem;
@@ -66,7 +66,7 @@ const SectionItemApp = ({ item, sectionId, idx }: Props) => {
         {
           ['pointer-none']: !item.link?.url,
         },
-        { [s.eternal]: item.title === ETERNAL_TITLE },
+        { [s.eternal]: item.link?.url === ETERNAL_URL },
       )}
       href={item.link?.url}
       target="_blank"

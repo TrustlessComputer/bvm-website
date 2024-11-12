@@ -11,5 +11,5 @@ export default function PreLoader() {
     }
   }, []);
 
-  return <>{false ? <Loader /> : <Intro />}</>;
+  return <>{true ? <Loader /> : <Intro />}</>;
 }

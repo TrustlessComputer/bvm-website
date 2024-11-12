@@ -91,7 +91,7 @@ export const NAV_ITEMS: Array<NavItem> = [
 export const NAV_ITEMS_LEFT: Array<NavItem> = [
   {
     label: 'Build on Bitcoin',
-    href: '/',
+    href: '/build-bitcoin',
     isNewWindow: false,
     isHide: false,
   },
@@ -170,7 +170,7 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   // },
   {
     label: 'Experience Bitcoin',
-    href: '/explore',
+    href: '/',
     isNewWindow: false,
     isHide: false,
   },
@@ -195,12 +195,12 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
     isNewWindow: true,
     isHide: false,
   },
-  // {
-  //   label: '$BVM',
-  //   href: '/bvm',
-  //   isNewWindow: false,
-  //   isHide: false,
-  // },
+  {
+    label: '$BVM',
+    href: '/bvm',
+    isNewWindow: false,
+    isHide: false,
+  },
   // {
   //   label: 'Team',
   //   href: '/team',

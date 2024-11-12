@@ -1,8 +1,8 @@
 import { CDN_URL } from '@/config';
 import { APP_NAME } from '@/config/metadata';
 import MainLayout from '@/layouts/MainLayout';
-import LandingV3 from '@/modules/landingV3';
 import { Metadata } from 'next';
+import Landing from '@/modules/landing';
 
 const THUMBNAIL = `${CDN_URL}/pages/build-bitcoin/build-bitcoin-metadata.png`;
 
@@ -30,16 +30,20 @@ export const metadata: Metadata = {
   },
 };
 
+// import LandingV3 from '@/modules/landingV3';
+
 export default function Home() {
   return (
     <MainLayout
       headerProps={{
-        color: 'black',
-        colorLogo: 'black',
+        // color: 'white',
+        // colorLogo: 'white',
+        // bgColor: '#1C1C1C',
+        theme: 'white',
       }}
-      footerClassName={'mt-0'}
+      hideFooter
     >
-      <LandingV3 />
+      <Landing />
     </MainLayout>
   );
 }

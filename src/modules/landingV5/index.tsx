@@ -23,14 +23,19 @@ const LandingV5 = (props: Props) => {
     <div className={s.landing}>
       <Box>
         <Box
-          ml={{ base: '20px', '2xl': 'calc((100vw - 1480px) / 2)' }}
+          // ml={{ base: '20px', '2xl': 'calc((100vw - 1440px) / 2)' }}
           mt={'80px'}
         >
           <BuildItem stagger={0} iconUrl="/landing-v5/ic-bvm.svg">
             <Box
               className={cn(s.introduction)}
-              mr={{ base: '0px', '2xl': 'calc((100vw - 1480px) / 2)' }}
-              pr="20px"
+              mx={{ base: '20px', '2xl': 'calc((100vw - 1440px) / 2)' }}
+
+              // mx="auto"
+              // ml={{ base: '0px', '2xl': 'calc((100vw - 1440px) / 2)' }}
+              // ml={{ base: '20px', '2xl': 'calc((100vw - 1440px) / 2)' }}
+
+              // pr="20px"
             >
               <Box flex="1">
                 <div className={s.introduction_title}>
@@ -57,13 +62,10 @@ const LandingV5 = (props: Props) => {
             </Box>
           </BuildItem>
           <BuildItem stagger={1}>
-            <SectionBlock {...STEP_1_SECTION} spacing="126px" />
+            <SectionBlock {...STEP_1_SECTION} />
           </BuildItem>
           <BuildItem iconUrl="/landing-v5/ic-step-2.svg">
-            <SectionBlock
-              {...STEP_2_SECTION}
-              spacing={{ base: '100px', md: '185px' }}
-            />
+            <SectionBlock {...STEP_2_SECTION} />
           </BuildItem>
           <BuildItem>
             <SectionBlock {...GAME_SECTION} />
