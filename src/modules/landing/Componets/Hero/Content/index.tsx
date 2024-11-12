@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import ModalVideo from 'react-modal-video';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
-import {VIDEO_HERO_MAIN} from "@constants/common";
+import { VIDEO_HERO_MAIN } from '@constants/common';
 
 export default function HeroContent() {
   const router = useRouter();
@@ -30,7 +30,7 @@ export default function HeroContent() {
             <li>
               <Fade delayEnter={6.5}>
                 <button
-                  onClick={() => router.push('/rollups/customize')}
+                  onClick={() => router.push('/studio')}
                   className={`${s.btn} ${s.btn__red}`}
                 >
                   Deploy a Bitcoin L2
@@ -63,27 +63,28 @@ export default function HeroContent() {
               </span>
             </div>
           </Fade>
+          <Fade delay={6.8}>
+            <div className={s.btnVideo}>
+              <a
+                href={'#'}
+                onClick={() => setOpen(true)}
+                style={{ textAlign: 'center', display: 'block' }}
+              >
+                <img
+                  src={`/landing/btn-hero-play-v2.png`}
+                  width={224}
+                  alt={'right'}
+                  style={{ margin: 'auto', marginBottom: '8px' }}
+                />
+                <span style={{ fontSize: '14px', fontWeight: 400 }}>
+                  Watch the film
+                </span>
+              </a>
+            </div>
+          </Fade>
         </div>
       </div>
-      <Fade delay={6.8}>
-        <div className={s.btnVideo}>
-          <a
-            href={'#'}
-            onClick={() => setOpen(true)}
-            style={{ textAlign: 'center', display: 'block' }}
-          >
-            <img
-              src={`/landing/btn-hero-play-v2.png`}
-              width={224}
-              alt={'right'}
-              style={{ margin: 'auto', marginBottom: '8px' }}
-            />
-            <span style={{ fontSize: '14px', fontWeight: 400 }}>
-              Watch the film
-            </span>
-          </a>
-        </div>
-      </Fade>
+
       <ModalVideo
         channel="custom"
         url={VIDEO_HERO_MAIN}

@@ -3,7 +3,7 @@ import s from './style.module.scss';
 import { Flex, IconButton, useDisclosure } from '@chakra-ui/react';
 import useWindowSize from '@/hooks/useWindowSize';
 import DrawerMobileMenu from '@/layouts/HeaderV4/components/DrawerMenu';
-import { NAV_ITEMS_LEFT } from '../menuConfig';
+import { NAV_ITEMS_LEFT, NAV_ITEMS_RIGHT } from '../menuConfig';
 import { usePathname, useRouter } from 'next/navigation';
 import IcMenuMobile from '../components/IcMenuMobile';
 import DropDown from '../components/Dropdown';
@@ -39,14 +39,6 @@ TMainHeader): ReactElement => {
     >
       <div className={`${s.inner} containerV3`}>
         <div className={s.left}>
-          <div
-            className={`${s.logo}  ${
-              colorLogo === 'black' ? s.logo_black : ''
-            }`}
-            onClick={() => router.push('/')}
-          >
-            <IconLogo />
-          </div>
           {isDesktop && (
             <div className={s.menu}>
               {NAV_ITEMS_LEFT.map((item, index) => {
@@ -92,6 +84,12 @@ TMainHeader): ReactElement => {
             </div>
           )}
         </div>
+        <div
+          className={`${s.logo}  ${colorLogo === 'black' ? s.logo_black : ''}`}
+          onClick={() => router.push('/')}
+        >
+          <IconLogo />
+        </div>
 
         {isDesktop ? (
           <Flex alignItems={'center'} gap="32px">
@@ -99,6 +97,48 @@ TMainHeader): ReactElement => {
               Get BVM
             </Link> */}
             {/* <ContactUs color={color} /> */}
+            <div className={s.menu}>
+              {NAV_ITEMS_RIGHT.map((item, index) => {
+                const isActive = pathname === item.href;
+                const isActiveDark = isActive && color === 'white';
+                const isActiveLight = isActive && color === 'black';
+                return item.subMenu ? (
+                  <DropDown
+                    key={item.label}
+                    title={item.label}
+                    lists={item.subMenu}
+                    Icon={item.icon}
+                    color={color}
+                  />
+                ) : item.GroupDropDown ? (
+                  <GroupDownItem
+                    key={item.label}
+                    title={item.label}
+                    color={color}
+                    typeGroup={item.groupType}
+                  >
+                    {item.GroupDropDown()}
+                  </GroupDownItem>
+                ) : (
+                  <Link
+                    key={item.label}
+                    href={item.href ?? '#'}
+                    className={'menu-item'}
+                    target={item.isNewWindow ? '_blank' : '_self'}
+                  >
+                    <p
+                      className={`${s.itemLabel} ${
+                        isActiveDark && s.activeDark
+                      } 
+                    ${isActiveLight && s.activeLight}
+                    `}
+                    >
+                      {item.label}
+                    </p>
+                  </Link>
+                );
+              })}
+            </div>
 
             <ButtonLogin className={s.getBVM} color={color} title="CONNECT" />
           </Flex>
