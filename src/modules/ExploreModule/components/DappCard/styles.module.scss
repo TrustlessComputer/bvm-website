@@ -1,18 +1,28 @@
 .wrapperDappCard {
   width: 100%;
-  max-width: 442px;
-  border-radius: 32px;
+  // max-width: 442px;
+  // border-radius: 32px;
   display: block;
-  background: linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%);
+  // background: linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%);
   margin: 0 auto;
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 
   &_image {
     // max-height: 300px;
     width: 100%;
-    flex: 1;
+    // height: 100%;
+    // flex: 1;
+
+
+    &:not(.wrapperDappCard_image__first) {
+      img {
+        max-width: 60%;
+
+      }
+    }
 
     &__first {
       img {
@@ -24,8 +34,9 @@
 
 
     :global(.imagePreload) {
-      // display: grid;
-      // place-items: center;
+
+      display: grid;
+      place-items: center;
 
       img {
         border-top-left-radius: 32px;
@@ -37,25 +48,31 @@
   }
 
   &_heading {
-    color: #FFF;
+    color: #000;
     font-family: "SF Pro Display";
     font-size: 28px;
     font-style: normal;
-    font-weight: 600;
-    line-height: 110%;
-    /* 30.8px */
+    font-weight: 500;
+    line-height: 140%;
+    /* 39.2px */
+    text-transform: uppercase;
+    margin-bottom: 8px;
   }
 
   &_decs {
-    color: #fff;
-    font-size: 16px;
+    color: #000;
+    font-family: "SF Pro Display";
+    font-size: 22px;
+    font-style: normal;
     font-weight: 400;
-    line-height: calc(27 / 18);
+    line-height: 150%;
+    /* 33px */
+    letter-spacing: 1.1px;
   }
 }
 
 .wrapperDappCardContent {
-  padding: 12px 24px;
+  padding-top: 16px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -64,16 +81,23 @@
 
 .tags {
   display: flex;
-  gap: 4px;
-  padding-bottom: 12px;
+  gap: 8px;
+  padding-top: 24px;
 
   p {
-    font-size: 14px;
-    color: #fff;
-    font-weight: 600;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.05);
+
     border-radius: 100px;
-    padding: 4px 12px;
+    padding: 8px 20px;
     line-height: calc(21 / 14);
+
+
+    color: #000;
+    font-family: "SF Pro Display";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    /* 24px */
   }
 }
