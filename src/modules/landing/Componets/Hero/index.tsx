@@ -11,7 +11,7 @@ export default function Hero() {
       <div className={s.hero}>
         <div className={s.hero_wrap}>
           <BgHero />
-          <Banner />
+          {/* <Banner /> */}
         </div>
         <HeroContent />
       </div>

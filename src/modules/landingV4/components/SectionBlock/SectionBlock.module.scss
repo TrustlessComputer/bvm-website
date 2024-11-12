@@ -1,112 +1,112 @@
-.wrapper {
-    padding-top: 80px;
-    // padding-bottom: 80px;
-    background-color: #fff;
-    position: relative;
+// .wrapper {
+//     padding-top: 80px;
+//     // padding-bottom: 80px;
+//     background-color: #fff;
+//     position: relative;
 
 
-    @include is-mobile {
-        padding-top: 60px;
-        padding-bottom: 60px;
-    }
+//     @include is-mobile {
+//         padding-top: 60px;
+//         padding-bottom: 60px;
+//     }
 
 
 
-    .heading {
-        color: #000;
-        font-family: "JetBrains Mono";
-        font-size: 32px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 110%;
-        /* 35.2px */
-        margin-bottom: 40px;
+//     .heading {
+//         color: #000;
+//         font-family: "JetBrains Mono";
+//         font-size: 32px;
+//         font-style: normal;
+//         font-weight: 500;
+//         line-height: 110%;
+//         /* 35.2px */
+//         margin-bottom: 40px;
 
-        .tag {
-            color: #FA4E0E;
-        }
+//         .tag {
+//             color: #FA4E0E;
+//         }
 
-        @include is-mobile {
-            font-size: 28px;
-            margin-bottom: 40px;
-        }
-    }
+//         @include is-mobile {
+//             font-size: 28px;
+//             margin-bottom: 40px;
+//         }
+//     }
 
-    .scroll_wrapper {
-        scroll-snap-type: x mandatory;
-        scroll-padding: 50%;
-        overflow-x: auto;
-        overflow-y: hidden;
+//     .scroll_wrapper {
+//         scroll-snap-type: x mandatory;
+//         scroll-padding: 50%;
+//         overflow-x: auto;
+//         overflow-y: hidden;
 
-        & {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+//         & {
+//             -ms-overflow-style: none;
+//             scrollbar-width: none;
+//         }
 
-        &::-webkit-scrollbar {
-            display: none;
-        }
+//         &::-webkit-scrollbar {
+//             display: none;
+//         }
 
-        .control_btn {
-            border-radius: 50%;
-            position: absolute;
-            cursor: pointer;
-            height: 48px;
-            width: 48px;
-            display: grid;
-            place-items: center;
-            background: rgba(207, 207, 207, 0.80);
+//         .control_btn {
+//             border-radius: 50%;
+//             position: absolute;
+//             cursor: pointer;
+//             height: 48px;
+//             width: 48px;
+//             display: grid;
+//             place-items: center;
+//             background: rgba(207, 207, 207, 0.80);
 
-            &:hover {
-                opacity: 0.75;
-            }
-        }
+//             &:hover {
+//                 opacity: 0.75;
+//             }
+//         }
 
-        .prev_btn {
-            transform: rotate(180deg);
-            left: 20px;
-        }
+//         .prev_btn {
+//             transform: rotate(180deg);
+//             left: 20px;
+//         }
 
-        .next_btn {
-            right: 20px;
-
-
-        }
-
-        @include not-pc {
-
-            .prev_btn,
-            .next_btn {
-                display: none;
-            }
+//         .next_btn {
+//             right: 20px;
 
 
-        }
+//         }
+
+//         @include not-pc {
+
+//             .prev_btn,
+//             .next_btn {
+//                 display: none;
+//             }
 
 
-    }
-
-    .items_wrapper {
-        display: flex;
-        align-items: flex-start;
-        gap: 24px;
-
-        width: fit-content;
-        margin-right: 30px;
+//         }
 
 
-        &.items_wrapper__apps {
+//     }
 
-            gap: 44px;
+//     .items_wrapper {
+//         display: flex;
+//         align-items: flex-start;
+//         gap: 24px;
 
-            @include is-mobile {
-                gap: 24px;
-
-
-            }
-
-        }
+//         width: fit-content;
+//         margin-right: 30px;
 
 
-    }
-}
+//         &.items_wrapper__apps {
+
+//             gap: 44px;
+
+//             @include is-mobile {
+//                 gap: 24px;
+
+
+//             }
+
+//         }
+
+
+//     }
+// }

@@ -13,16 +13,20 @@
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 44px;
-  width: fit-content;
+  // width: fit-content;
 
 
   @include is_min-table {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @include is-pc {
-    grid-template-columns: repeat(3, 1fr);
+  >div:first-of-type {
+    // grid span 2
+    grid-column: span 2;
+    width: 100%;
   }
+
+
 }
 
 .wrapperCardChains {
@@ -46,40 +50,19 @@
   opacity: 0.7;
 }
 
-.tabWrapper {
-  display: flex !important;
-  flex-direction: row;
-  gap: 120px;
-  justify-content: space-between;
-
-  @include is-tablet {
-    gap: 60px;
-  }
-
-  @include is-mobile {
-    flex-direction: column;
-    gap: 30px;
-  }
-
-  :global {
-    .chakra-tabs__tab-panels {
-      width: fit-content;
-    }
-  }
-}
+.tabWrapper {}
 
 .tabList {
-  flex-direction: column !important;
-  // align-items: center;
+  align-items: center;
+  justify-content: center !important;
+  display: flex;
   gap: 10px;
   flex: 1;
+  margin-bottom: 40px;
 
-  @include is-mobile {
-    flex-direction: row !important;
-  }
 
   >button {
-    width: fit-content;
+    width: 200px;
     padding: 12px 0;
     // border-radius: 100px;
     background: none;
@@ -98,10 +81,10 @@
     line-height: 130%;
 
     &[aria-selected='true'] {
-      color: #FA4E0E;
+      color: #000;
       opacity: 1;
       font-weight: 700;
-      border-bottom: 2px solid #FA4E0E;
+      border-bottom: 2px solid #000;
       // background: rgba(250, 78, 14, 0.10);
     }
 

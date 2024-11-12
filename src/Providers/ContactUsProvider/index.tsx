@@ -22,7 +22,7 @@ export const ContactUsProvider: React.FC<PropsWithChildren> = ({
     setParams(params);
     setShowContactUsModal(true);
     setSubjectDefault(
-      params.subjectDefault !== undefined ? params.subjectDefault : 3,
+      params?.subjectDefault !== undefined ? params?.subjectDefault : 3,
     );
   };
 

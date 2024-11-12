@@ -1,3 +1,4 @@
+'use client';
 import useWindowSize from '@/hooks/useWindowSize';
 import Chain from './Componets/Chain';
 import ScaleableMobile from './Componets/ScaleableMobile';

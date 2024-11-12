@@ -31,7 +31,7 @@ const BuildItem = ({
 
   return (
     <Flex className={s.buildItem} ref={ref}>
-      <Flex
+      {/* <Flex
         justifyContent="center"
         direction="column"
         alignItems="center"
@@ -74,7 +74,7 @@ const BuildItem = ({
             }}
           ></Box>
         </Box>
-      </Flex>
+      </Flex> */}
       <Box
         w={{ base: '100%' }}
         // flex="1"
