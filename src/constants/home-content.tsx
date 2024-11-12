@@ -3,6 +3,11 @@ import { CDN_URL, CDN_URL_IMAGES_NBC } from '@/config';
 import { CHAIN_DATA, DAPPS_DATA } from '@/modules/ExploreModule/data';
 import { Research } from '@/modules/Lab/data';
 import { BLOGS } from '@/modules/landingV3/Componets/Section_7/constant';
+import { Flex } from '@chakra-ui/react';
+
+export const ETERNAL_TITLE = 'Eternals';
+
+export const ETERNAL_URL = 'https://eternalai.org/';
 
 export const APPS_SECTION = {
   id: 'apps',
@@ -39,23 +44,12 @@ export const STEP_1_SECTION = {
   id: 'step-1',
   tag: '',
   title: (
-    <p>
-      Launch your own <span>Bitcoin L2 with BVM Studio.</span>
-    </p>
+    <Flex alignItems={'center'} flexWrap={'wrap'}>
+      <p className={'gradient_text'}>AI on Bitcoin. </p>{' '}
+      <p>The world’s first onchain AIs on Bitcoin.</p>
+    </Flex>
   ),
-  desc: (
-    <>
-      {' '}
-      <p>
-        Bitcoin L2s extend Bitcoin’s capabilities without changing Bitcoin. BVM
-        offers the broadest range of scaling solutions — including ZK,
-        Optimistic, and Sovereign rollups. Whether you’re migrating dapps from
-        Ethereum to Bitcoin or creating something entirely new, BVM Studio
-        simplifies and accelerates the process, making it cost-effective to
-        bring your ideas to Bitcoin.
-      </p>
-    </>
-  ),
+  desc: <></>,
   item: [
     // {
     //   title: 'DAPP',
@@ -71,29 +65,26 @@ export const STEP_1_SECTION = {
     //   tags: ['Free'],
     // },
     {
-      title: 'ZK ROLLUP Hybrid',
-      description: 'Bitcoin L2 with Hybrid DA.',
-      homeImage: '/landing-v5/home-zk-hybrid-2.png',
-      bgColor: 'linear-gradient(180deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
+      title: ETERNAL_TITLE,
+      description: 'Unstoppable AI agents',
+      homeImage: '/landing-v7/home-eternal-1.png',
+      // bgColor: 'linear-gradient(180deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
       link: {
-        url: '/studio?template=1',
+        url: ETERNAL_URL,
         target: '_blank',
       },
       // popular: true,
-      tags: ['$39/day'],
+      // tags: ['$39/day'],
     },
     {
-      title: 'ZK RollUp',
-      description: 'Bitcoin L2 with 100% Bitcoin DA.',
-      homeImage: '/landing-v5/home-zk-4.png',
-
-      bgColor:
-        'linear-gradient(47deg, #FFC32A 0%, #F5E000 31.53%, #53B900 75.82%, #BDF710 107.83%)',
+      title: 'Decentralized Llama 3.1 405B ',
+      description: 'Deployed on its own ZK rollups',
+      homeImage: '/landing-v7/home-llama-1.png',
       link: {
-        url: '/studio?template=2',
+        url: 'https://eternalai.org/agi',
         target: '_blank',
       },
-      tags: ['$149/day'],
+      // tags: ['$149/day'],
     },
 
     // {
@@ -109,29 +100,28 @@ export const STEP_1_SECTION = {
     //   tags: ['From $499/month'],
     // },
     {
-      title: 'MEtaProtocol',
-      description: 'Bitcoin L1 scaling solution.',
-      homeImage: '/landing-v5/home-metaprotocol-2.png',
+      title: 'Decentralized FLUX.1 [dev]',
+      description: 'Deployed on its own ZK rollups',
+      homeImage: '/landing-v7/home-flux-1.png',
 
-      bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%)',
       link: {
-        url: '/studio?template=3',
+        url: 'https://eternalai.org/imagine',
         target: '_blank',
       },
-      tags: ['$199/day'],
+      // tags: ['$199/day'],
     },
     {
-      title: 'Optimistic Rollup Hybrid',
-      description: 'Bitcoin L2 powered by OP Stack.',
-      homeImage: '/landing-v5/home-op-4.png',
+      title: 'Perceptrons',
+      description: 'The first on-chain neural networks',
+      homeImage: '/landing-v7/home-perp-1.png',
 
-      bgColor:
-        'linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
+      // bgColor:
+      //   'linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
       link: {
-        url: '/studio?template=4',
+        url: 'https://eternalai.org/perceptrons',
         target: '_blank',
       },
-      tags: ['$69/day'],
+      // tags: ['$69/day'],
     },
 
     // {
@@ -167,70 +157,30 @@ export const STEP_2_SECTION = {
   id: 'step-2',
   tag: '',
   title: (
-    <p>
-      <span>Jumpstart your Bitcoin L2</span> with ready-made apps.
-    </p>
+    <Flex alignItems={'center'}>
+      <p className="gradient_text">DeFi on Bitcoin.</p>
+      <p> Make DeFi on Bitcoin permissionless to everyone.</p>
+    </Flex>
   ),
-  desc: 'Get up and running instantly with pre-installed apps or easily add new ones from BVM Studio. Simply drag, drop, and enhance engagement, TVL, and more—no coding required.',
+  // desc: 'Get up and running instantly with pre-installed apps or easily add new ones from BVM Studio. Simply drag, drop, and enhance engagement, TVL, and more—no coding required.',
   item: [
     {
-      title: 'Token Issuance',
-      description: 'Issue your own token with drag and drop.',
-      homeImage: '/landing-v5/home-token-issue-1.png',
-      bgColor:
-        'linear-gradient(138deg, rgba(120, 170, 143, 0.40) 1.72%, rgba(2, 47, 22, 0.32) 101.88%)',
+      title: 'Rune Dex',
+      description: 'Buy & sell Bitcoin permisionlessly',
+      homeImage: '/explore/dapp-runedex2.png',
       link: {
-        url: '/studio?dapp=token_generation',
+        url: 'https://runechain.com/',
         target: '_blank',
       },
-      tags: [''],
     },
     {
-      title: 'YOLO',
-      description: 'Have some fun with your users.',
-      homeImage: '/landing-v5/home-yolo-1.png',
-      bgColor:
-        'linear-gradient(171deg, rgba(255, 212, 103, 0.40) 4.5%, rgba(106, 57, 0, 0.32) 94.43%)',
+      title: 'NAKA Dex',
+      description: 'Trade Bitcoin futures',
+      homeImage: '/landing-v7/home-naka-1.png',
       link: {
-        url: '/studio?dapp=yologame',
+        url: 'https://nakachain.xyz/perpetual',
         target: '_blank',
       },
-      tags: [''],
-    },
-    {
-      title: 'STAKING',
-      description: 'Boost TVL & offer community rewards.',
-      homeImage: '/landing-v5/home-staking.png',
-      bgColor: 'linear-gradient(#2E2E2E, #2E2E2E)',
-      link: {
-        url: '/studio?dapp=staking',
-        target: '_blank',
-      },
-      tags: [''],
-    },
-    {
-      title: 'Bridge',
-      description: 'Bring more assets to your chain & enhance liquidity.',
-      homeImage: '/landing-v5/home-bridge-1.png',
-      bgColor:
-        'linear-gradient(198deg, rgba(40, 142, 185, 0.40) 7.57%, rgba(0, 57, 75, 0.32) 105.99%)',
-      link: {
-        url: '/studio?template=5',
-        target: '_blank',
-      },
-      tags: [''],
-    },
-    {
-      title: 'EXPLORER',
-      description: 'Your block explorer & analytics site.',
-      homeImage: '/landing-v5/home-explorer-1.png',
-      bgColor:
-        'linear-gradient(138deg, rgba(179, 179, 179, 0.40) 1.72%, rgba(43, 43, 43, 0.32) 101.88%)',
-      link: {
-        url: '/studio?template=6',
-        target: '_blank',
-      },
-      tags: [''],
     },
   ],
 };
@@ -238,84 +188,141 @@ export const STEP_2_SECTION = {
 export const GAME_SECTION = {
   id: 'games',
   tag: 'Games. ',
-  title: 'Play incredibly fun games, fully on-chain.',
+  title: (
+    <Flex alignItems={'center'}>
+      <p className="gradient_text">Games on Bitcoin.</p>
+      <p> Make DeFi on Bitcoin permissionless to everyone.</p>
+    </Flex>
+  ),
+  // title: 'Play incredibly fun games, fully on-chain.',
   item: [
     {
       title: 'Bitcoin Wars',
       description:
-        'The first fully on-chain game built on a ZK Rollup on the Bitcoin network.',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
+        'The first fully on-chain game built on a ZK Rollup on Bitcoin',
+      homeImage: `/landing-v7/home-bitcoinwar-1.png`,
       link: {
         url: '/bitcoin-wars',
         target: '_blank',
       },
-      tags: ['Bitcoin Wars'],
+      // tags: ['Bitcoin Wars'],
     },
 
     {
-      title: 'Key Merge (Soon)',
-      description:
-        'Combine matching keys to unlock higher levels. Strategically merge keys to progress and reach the ultimate goal.',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-keymerge.png`,
+      title: 'Bitcoin ARCADE (Coming Soon)',
+      description: 'Endless fun with onchain Bitcoin games.',
+      homeImage: `/landing-v7/home-arcade-1.png`,
       link: {
         url: '',
         target: '_blank',
       },
-      tags: ['Bitcoin Arcade'],
+      // tags: ['Bitcoin Arcade'],
     },
+  ],
+};
+
+export const TOOLS_SECTION = {
+  id: 'tools',
+  tag: 'Tools. ',
+  title: (
+    <Flex alignItems={'center'}>
+      <p className="gradient_text">Developer tools on Bitcoin.</p>
+      <p> Unlock Bitcoin's potential beyond currency.</p>
+    </Flex>
+  ),
+  // title: 'Play incredibly fun games, fully on-chain.',
+  item: [
     {
-      title: 'Bitcoin 21 (Soon)',
-      description:
-        'A classic card game where the objective is to reach a total of 21. Play smart and calculate your moves to win big!',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-btc21.png`,
+      title: 'BVM Studio',
+      description: 'Customize your blockchain with drag-and-drop',
+      homeImage: `/landing-v7/home-studio-1.png`,
       link: {
-        url: '',
+        url: '/studio',
         target: '_blank',
       },
-      tags: ['Bitcoin Arcade'],
+      // tags: ['Bitcoin Wars'],
     },
+
     {
-      title: 'Blast (Soon)',
-      description:
-        'Match and blast in this fast-paced puzzle game. Clear the board and create powerful combos to score high!',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-blast.png`,
+      title: 'Heartbeat',
+      description: 'Insights into Bitcoin chains',
+      homeImage: `/landing-v7/home-heartbeats-3.png`,
       link: {
-        url: '',
+        url: '/heartbeats',
         target: '_blank',
       },
-      tags: ['Bitcoin Arcade'],
+      // tags: ['Bitcoin Arcade'],
     },
+  ],
+};
+
+export const ART_SECTION = {
+  id: 'art',
+  tag: 'Art. ',
+  title: (
+    <Flex alignItems={'center'}>
+      <p className="gradient_text">Art on Bitcoin.</p>
+      <p> Experience fully onchain generative art on Bitcoin.</p>
+    </Flex>
+  ),
+  // title: 'Play incredibly fun games, fully on-chain.',
+  item: [
     {
-      title: 'Wombat (Soon)',
-      description:
-        'Deploy your units smartly in lines to face off against your opponent. Strategize carefully to ensure your lineup dominates the battlefield!',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-wombat.png`,
+      title: 'Perceptrons',
+      description: 'The first on-chain neural networks',
+      homeImage: `/landing-v7/home-perp-1.png`,
       link: {
-        url: '',
+        url: 'https://eternalai.org/perceptrons',
         target: '_blank',
       },
-      tags: ['Bitcoin Arcade'],
+      // tags: ['Bitcoin Wars'],
     },
+
     {
-      title: 'ZK Battleship Duel (Soon)',
-      description: `Engage in naval warfare by strategically placing your ships and guessing the locations of your opponent's fleet. Sink all their ships before they sink yours!`,
-      homeImage: `${CDN_URL}/pages/landing-v4/home-battleship.png`,
+      title: 'Timechain',
+      description: 'The first long-form gen art collection',
+      homeImage: `/landing-v7/home-timechain-1.png`,
+
       link: {
-        url: '',
+        url: 'https://generative.xyz/generative/1000001',
         target: '_blank',
       },
-      tags: ['Bitcoin Arcade'],
+      // tags: ['Bitcoin Arcade'],
     },
+  ],
+};
+
+export const SOCIALFI_SECTION = {
+  id: 'socialfi',
+  tag: 'Socialfi. ',
+  title: (
+    <Flex alignItems={'center'}>
+      <p className="gradient_text">SoFi on Bitcoin.</p>
+      <p> A new way to interact with humans and AIs on Bitcoin.</p>
+    </Flex>
+  ),
+  // title: 'Play incredibly fun games, fully on-chain.',
+  item: [
     {
-      title: 'Zero-Knowledge Mines (Soon)',
-      description:
-        'Test your logic in this classic puzzle game. Mark all the mines on the board without triggering any of them. One wrong move, and it’s game over!',
-      homeImage: `${CDN_URL}/pages/landing-v4/home-minesweeper.png`,
+      title: 'Alpha',
+      description: 'The first social app on Bitcoin. ',
+      homeImage: `/landing-v7/home-alpha-1.png`,
+
       link: {
-        url: '',
+        url: 'https://alpha.wtf/',
         target: '_blank',
       },
-      tags: ['Bitcoin Arcade'],
+    },
+
+    {
+      title: 'X AI AGENTS',
+      description: 'Fully on-chain. Fully autonomous.',
+      homeImage: `/landing-v7/home-eternal-1.png`,
+
+      link: {
+        url: ETERNAL_URL,
+        target: '_blank',
+      },
     },
   ],
 };
@@ -473,116 +480,115 @@ export const BOB_SECTION = {
   ],
 };
 
-// export const PARTNER_SECTION = {
-
-//   tag: 'Partners. ',
-//   title: 'Work with the best tech.',
-//   item: [
-//     {
-//       title: 'BitZK',
-//       description:
-//         'ZK rollups on Bitcoin for virtually any decentralized applications.',
-//       homeImage: `${CDN_URL}/pages/landing-v4/home-bitzk.png`,
-//       link: {
-//         url: '/module/bitzk',
-//         target: '',
-//       },
-//     },
-//     {
-//       title: 'BitOP',
-//       description:
-//         'Optimistic rollups on Bitcoin for virtually any decentralized applications.',
-//       homeImage: `${CDN_URL}/pages/landing-v4/home-bitop.png`,
-//       link: {
-//         url: '/module/bitop',
-//         target: '',
-//       },
-//     },
-//     {
-//       title: 'Celestia',
-//       description: 'A high-throughput DA verifiable with a light node.',
-//       homeImage: `${CDN_URL}/pages/landing-v4/home-celestia.png`,
-//       link: {
-//         url: '/module/bitcoin-celestia',
-//         target: '',
-//       },
-//     },
-//     {
-//       title: 'Eigen DA',
-//       description:
-//         'A scalable DA solution specialized in serving Ethereum rollups that leverage EigenLayer.',
-//       homeImage: `${CDN_URL}/pages/landing-v4/home-eigen.png`,
-//       link: {
-//         url: '/module/bitcoin-eigen',
-//         target: '',
-//       },
-//     },
-//     {
-//       title: 'Avail',
-//       description: 'Low-cost and expandable blobspace',
-//       homeImage: `${CDN_URL}/pages/landing-v4/home-avail.png`,
-//       link: {
-//         url: '/module/bitcoin-avail',
-//         target: '',
-//       },
-//     },
-//     {
-//       title: 'Near DA',
-//       description: 'An efficient and robust data availability layer',
-//       homeImage: `${CDN_URL}/pages/landing-v4/home-near.png`,
-//       link: {
-//         url: '/module/bitcoin-near',
-//         target: '',
-//       },
-//     },
-//     {
-//       title: 'Polygon',
-//       description: 'The most cost-effective storage solution',
-//       homeImage: `${CDN_URL}/pages/landing-v4/home-polygon.png`,
-//       link: {
-//         url: '/module/bitcoin-polygon',
-//         target: '',
-//       },
-//     },
-//     {
-//       title: 'Filecoin',
-//       description:
-//         'The largest decentralized data storage marketplace, protocol, & cryptocurrency',
-//       homeImage: `${CDN_URL}/pages/landing-v4/home-filecoin.png`,
-//       link: {
-//         url: '/module/bitcoin-filecoin',
-//         target: '',
-//       },
-//     },
-//     {
-//       title: 'Ordinals',
-//       description: 'Roll up to Bitcoin as Ordinal Inscriptions',
-//       homeImage: `${CDN_URL}/pages/landing-v4/home-ordinals.png`,
-//       link: {
-//         url: '/module-detail',
-//         target: '',
-//       },
-//     },
-//     {
-//       title: 'Bitcoin Taproot',
-//       description: 'Embed proofs in Taproot transactions',
-//       homeImage: `${CDN_URL}/pages/landing-v4/home-taproot.png`,
-//       link: {
-//         url: '/module-detail',
-//         target: '',
-//       },
-//     },
-//     {
-//       title: 'Bitcoin Stamps',
-//       description: `Record data directly on Bitcoin's UTXO, ensuring data permanence and immutability`,
-//       homeImage: `${CDN_URL}/pages/landing-v4/home-stamps.png`,
-//       link: {
-//         url: '/module-detail',
-//         target: '',
-//       },
-//     },
-//   ],
-// };
+export const PARTNER_SECTION = {
+  tag: 'Partners. ',
+  title: 'Work with the best tech.',
+  item: [
+    {
+      title: 'BitZK',
+      description:
+        'ZK rollups on Bitcoin for virtually any decentralized applications.',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-bitzk.png`,
+      link: {
+        url: '/module/bitzk',
+        target: '',
+      },
+    },
+    {
+      title: 'BitOP',
+      description:
+        'Optimistic rollups on Bitcoin for virtually any decentralized applications.',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-bitop.png`,
+      link: {
+        url: '/module/bitop',
+        target: '',
+      },
+    },
+    {
+      title: 'Celestia',
+      description: 'A high-throughput DA verifiable with a light node.',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-celestia.png`,
+      link: {
+        url: '/module/bitcoin-celestia',
+        target: '',
+      },
+    },
+    {
+      title: 'Eigen DA',
+      description:
+        'A scalable DA solution specialized in serving Ethereum rollups that leverage EigenLayer.',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-eigen.png`,
+      link: {
+        url: '/module/bitcoin-eigen',
+        target: '',
+      },
+    },
+    {
+      title: 'Avail',
+      description: 'Low-cost and expandable blobspace',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-avail.png`,
+      link: {
+        url: '/module/bitcoin-avail',
+        target: '',
+      },
+    },
+    {
+      title: 'Near DA',
+      description: 'An efficient and robust data availability layer',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-near.png`,
+      link: {
+        url: '/module/bitcoin-near',
+        target: '',
+      },
+    },
+    {
+      title: 'Polygon',
+      description: 'The most cost-effective storage solution',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-polygon.png`,
+      link: {
+        url: '/module/bitcoin-polygon',
+        target: '',
+      },
+    },
+    {
+      title: 'Filecoin',
+      description:
+        'The largest decentralized data storage marketplace, protocol, & cryptocurrency',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-filecoin.png`,
+      link: {
+        url: '/module/bitcoin-filecoin',
+        target: '',
+      },
+    },
+    {
+      title: 'Ordinals',
+      description: 'Roll up to Bitcoin as Ordinal Inscriptions',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-ordinals.png`,
+      link: {
+        url: '/module-detail',
+        target: '',
+      },
+    },
+    {
+      title: 'Bitcoin Taproot',
+      description: 'Embed proofs in Taproot transactions',
+      homeImage: `${CDN_URL}/pages/landing-v4/home-taproot.png`,
+      link: {
+        url: '/module-detail',
+        target: '',
+      },
+    },
+    {
+      title: 'Bitcoin Stamps',
+      description: `Record data directly on Bitcoin's UTXO, ensuring data permanence and immutability`,
+      homeImage: `${CDN_URL}/pages/landing-v4/home-stamps.png`,
+      link: {
+        url: '/module-detail',
+        target: '',
+      },
+    },
+  ],
+};
 
 export const OPENSOURCE_SECTION = {
   id: 'opensource',

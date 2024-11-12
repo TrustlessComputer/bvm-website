@@ -17,9 +17,12 @@
 
         transition: all .4s ease-in-out;
 
-        .thumbnail {
-            // transform: scale(1.1);
-        }
+
+    }
+
+    &.firstItem {
+        grid-column: span 2;
+        width: 100%;
     }
 
 
@@ -79,9 +82,9 @@
     }
 
     .thumbnail {
-        display: flex;
-        align-self: flex-end;
-        transition: all 0.3s ease;
+        // display: flex;
+        // align-self: flex-end;
+        // transition: all 0.3s ease;
 
         // img {
         //     width: 100%;

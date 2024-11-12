@@ -11,9 +11,5 @@ export default function PreLoader() {
     }
   }, []);
 
-  return <>
-    {
-      isHadLoaded ? <Loader /> : <Intro />
-    }
-  </>;
+  return <>{true ? <Loader /> : <Intro />}</>;
 }

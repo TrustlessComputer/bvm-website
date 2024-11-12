@@ -407,14 +407,14 @@ const ContactUsModal = ({
               <Text fontSize={['18px', '20px', '24px']} fontWeight={500}>
                 {params?.title
                   ? params.title
-                  : params.changeText
+                  : params?.changeText
                   ? 'Finish your setup'
                   : 'Get a personalized demo'}
               </Text>
               <Text fontSize={['14', '16']} fontWeight={400}>
                 {params?.description
                   ? params.description
-                  : params.changeText
+                  : params?.changeText
                   ? 'Your setup requires manual assistance. We’ll reach out to you shortly to help complete it.'
                   : 'Help us tailor the demo experience to your needs.'}
               </Text>
@@ -570,7 +570,7 @@ const ContactUsModal = ({
                   borderRadius={'8px'}
                   fontSize={['18px']}
                   border="1px solid #E7E7E7"
-                  disabled={params.disableSelect}
+                  disabled={params?.disableSelect}
                   _hover={{}}
                   onChange={(e) => {
                     setSubject(Number(e.target.value));

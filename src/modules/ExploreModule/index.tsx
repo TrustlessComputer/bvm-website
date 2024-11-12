@@ -40,7 +40,7 @@ export default function ExploreModule(): React.JSX.Element {
     <>
       <Loader bgColor={'#FFF'} />
       <div className={`containerV3`}>
-        <p className={s.heading}>
+        {/* <p className={s.heading}>
           <Chars>Welcome to the future of Bitcoin!</Chars>
         </p>
         <Chars>
@@ -48,7 +48,7 @@ export default function ExploreModule(): React.JSX.Element {
             Discover how BVM is unlocking Bitcoin's potential far beyond just
             being a currency.
           </Text>
-        </Chars>
+        </Chars> */}
         {/* tab */}
         <Tabs
           index={tabIndex}
@@ -67,14 +67,14 @@ export default function ExploreModule(): React.JSX.Element {
                 <div className={s.wrapperCardDapps}>
                   {DAPPS_DATA.map((item, idx) => {
                     // return <DappCard {...item} idx={idx} key={item.title} />;
-                    return <AppCard item={item} key={item.title} />;
+                    return <AppCard item={item} key={item.title} idx={idx} />;
                   })}
                 </div>
                 <Disclaimer />
               </Flex>
             </TabPanel>
             <TabPanel p="0">
-              <Flex direction="column" gap="44px">
+              <Flex direction="column" gap="40px">
                 <div className={s.wrapperCardDapps}>
                   {GAMES_DATA.map((item, idx) => {
                     return <DappCard {...item} idx={idx} key={item.title} />;

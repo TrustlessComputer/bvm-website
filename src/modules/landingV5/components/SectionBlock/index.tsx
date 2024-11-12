@@ -61,8 +61,9 @@ const SectionBlock = (props: any) => {
   );
 
   const isCardLayout = useMemo(() => {
+    return true;
     // check if props.id is within the list of card layout
-    return ['apps', 'step-1', 'step-2'].includes(props.id);
+    return !['games'].includes(props.id);
   }, [props.id]);
 
   useEffect(() => {
@@ -125,7 +126,11 @@ const SectionBlock = (props: any) => {
   return (
     <Box>
       <div className={s.wrapper}>
-        <Box w={{ base: '80%', md: '100%' }} className={s.heading}>
+        <Box
+          w={{ base: '80%', md: '100%' }}
+          className={s.heading}
+          mx={{ base: '20px', '2xl': 'calc((100vw - 1440px) / 2)' }}
+        >
           <Box>
             {!!tag && <span className={s.tag}>{tag}</span>}
             {!!title && <span className={s.title}>{title}</span>}
@@ -134,12 +139,20 @@ const SectionBlock = (props: any) => {
         </Box>
         <div className={s.scroll_wrapper} ref={scrollWrapperRef}>
           <Box
-            className={cn(s.items_wrapper, {
-              [s.items_wrapper__apps]: isCardLayout,
-            })}
+            className={cn(
+              s.items_wrapper,
+              {
+                [s.items_wrapper__apps]: isCardLayout,
+              },
+              // {
+              //   [s.items_wrapper__games]: props.id === 'games',
+              // },
+            )}
             ref={itemsWrapperRef}
             mb={spacing}
           >
+            <Box w={'calc((100vw - 1520px) / 2)'}></Box>
+
             {item.map((item: BlockCardItem | BlockChainItem, index: number) => {
               if (isCardLayout) {
                 return (
@@ -147,6 +160,7 @@ const SectionBlock = (props: any) => {
                     key={`${props.id}-${index}`}
                     item={item as BlockCardItem}
                     sectionId={props.id}
+                    idx={index}
                   />
                 );
               }

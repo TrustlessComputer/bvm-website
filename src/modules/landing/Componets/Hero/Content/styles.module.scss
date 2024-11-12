@@ -269,7 +269,7 @@
   font-size: 16px;
   font-weight: 500;
 
-  @include is-pc{
+  @include is-pc {
     font-size: 18px;
   }
 
@@ -287,14 +287,14 @@
 }
 
 .btnVideo {
-  position: absolute;
+  // position: absolute;
 
-  left: 50%;
-  transform: translateX(-50%);
+  // left: 50%;
+  // transform: translateX(-50%);
   text-transform: uppercase;
-  bottom: 16px;
+  // bottom: 16px;
 
-  @include is-min-table{
-    bottom: 30px;
-  }
+  // @include is-min-table {
+  // bottom: 30px;
+  // }
 }

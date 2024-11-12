@@ -43,7 +43,7 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   // },
   {
     id: 'eternalAI',
-    image: '/explore/dapp-eai3.png',
+    image: `${CDN_URL}/pages/explore/eternal-banner.png`,
     title: 'Eternal AI',
     bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
     description: 'Decentralized AI in your pocket.',
@@ -156,14 +156,14 @@ export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
 
 export const GAMES_DATA: Omit<TDappCardProps, 'idx'>[] = [
   {
-    image: '/explore/bitcoin-wars2.png',
+    image: `${CDN_URL}/pages/explore/home-bitcoinwar.png`,
     title: 'Bitcoin Wars',
     description:
       'The first fully on-chain game built on a ZK Rollup on the Bitcoin network.',
     bgColor: 'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%);',
     tags: ['Bitcoin Wars Chain', 'GameFi'],
     link: { url: '/bitcoin-wars', target: '_self' },
-    homeImage: `${CDN_URL}/pages/landing-v4/home-bitcoinwar-org.png`,
+    homeImage: `${CDN_URL}/pages/explore/home-bitcoinwar.png`,
   },
   {
     image: '/explore/blast.png',

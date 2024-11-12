@@ -90,23 +90,23 @@ export const NAV_ITEMS: Array<NavItem> = [
 ];
 export const NAV_ITEMS_LEFT: Array<NavItem> = [
   {
-    label: 'BVM Studio',
-    href: '/studio',
+    label: 'Build on Bitcoin',
+    href: '/build-bitcoin',
     isNewWindow: false,
     isHide: false,
   },
-  {
-    label: 'Research',
-    href: '/research',
-    isNewWindow: false,
-    isHide: false,
-  },
-  {
-    label: 'Docs',
-    href: 'https://docs.bvm.network/bvm',
-    isNewWindow: true,
-    isHide: false,
-  },
+  // {
+  //   label: 'Research',
+  //   href: '/research',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
+  // {
+  //   label: 'Docs',
+  //   href: 'https://docs.bvm.network/bvm',
+  //   isNewWindow: true,
+  //   isHide: false,
+  // },
 
   // {
   //   label: 'Products',
@@ -168,43 +168,49 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   //   isNewWindow: false,
   //   isHide: false,
   // },
-  // {
-  //   label: 'Ecosystem',
-  //   href: '/explore',
-  //   isNewWindow: false,
-  //   isHide: false,
-  // },
   {
-    label: '$BVM',
-    href: '/bvm',
+    label: 'Experience Bitcoin',
+    href: '/',
     isNewWindow: false,
     isHide: false,
   },
+  // {
+  //   label: '$BVM',
+  //   href: '/bvm',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
 ];
 
 export const NAV_ITEMS_RIGHT: Array<NavItem> = [
   {
+    label: 'Research',
+    href: '/research',
+    isNewWindow: false,
+    isHide: false,
+  },
+  {
+    label: 'Docs',
+    href: 'https://docs.bvm.network/bvm',
+    isNewWindow: true,
+    isHide: false,
+  },
+  {
     label: '$BVM',
     href: '/bvm',
     isNewWindow: false,
     isHide: false,
   },
   // {
-  //   label: 'Research',
-  //   href: '/research',
+  //   label: 'Team',
+  //   href: '/team',
   //   isNewWindow: false,
   //   isHide: false,
   // },
-  {
-    label: 'Team',
-    href: '/team',
-    isNewWindow: false,
-    isHide: false,
-  },
-  {
-    label: 'Contact us',
-    MenuItemEl: ContactUs,
-  },
+  // {
+  //   label: 'Contact us',
+  //   MenuItemEl: ContactUs,
+  // },
 ];
 export const NAV_ITEMS_MOBILE: Array<NavItem> = [
   {

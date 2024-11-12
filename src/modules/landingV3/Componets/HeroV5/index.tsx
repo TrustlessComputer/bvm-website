@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import s from './HeroV5.module.scss';
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { VIDEO_BVM_STUDIO_HOW_IT_WORK } from '@/constants/common';
@@ -10,26 +10,25 @@ import cn from 'classnames';
 const HeroV5 = () => {
   const videoRef = React.useRef<HTMLVideoElement>(null);
 
-  const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
+  // const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
+  const [firstClick, setFirstClick] = useState(false);
+  // const [playVideo, setPlayVideo] = useState(false);
 
   return (
     <div className={cn(s.wrapper, 'containerV3')}>
       <div className={s.upper}>
         <div className={s.left}>
-          <h2 className={s.title}>Virtual servers running on Bitcoin.</h2>
+          <h2 className={s.title}>Servers with superpowers.</h2>
           <p className={s.desc}>
-            Bitcoin Virtual Machines are servers with superpowers like smart
-            contracts, censorship resistance, and transparency. Backed by
-            Bitcoin's security. They are designed to power an entirely new kind
-            of applications: decentralized applications.<br></br>
-            <br></br> Set up your Bitcoin Virtual Machine today and start
-            building decentralized applications that can change the world.
+            Bitcoin Virtual Machines are a new kind of server running on
+            Bitcoin. Open, verifiable, and censorship-resistant. Built to power
+            the next generation of unstoppable applications.
           </p>
           <Flex alignItems={'center'} gap="20px">
             <Link href="/studio" className={s.primary_btn}>
-              Start building
+              Get started
             </Link>
-            <Link
+            {/* <Link
               href="https://docs.bvm.network/bvm"
               target="_blank"
               rel="
@@ -50,7 +49,7 @@ const HeroV5 = () => {
                   fill="#FA4E0E"
                 />
               </svg>
-            </Link>
+            </Link> */}
           </Flex>
         </div>
         <div className={s.right}>
@@ -58,20 +57,37 @@ const HeroV5 = () => {
             className={`${s.thumbnail} `}
             // ref={refContent}
             onClick={() => {
-              // toggle video
-              if (videoRef.current) {
-                // check if video playing
-                if (videoRef.current.paused) {
-                  videoRef.current.play();
-                } else {
-                  videoRef.current.pause();
-                }
+              if (!firstClick) {
+                setFirstClick(true);
+
+                setTimeout(() => {
+                  if (videoRef.current) {
+                    // check if video playing
+                    if (videoRef.current.paused) {
+                      videoRef.current.play();
+                    } else {
+                      videoRef.current.pause();
+                    }
+                  }
+                }, 100);
               }
+              // else {
+              //   if (videoRef.current) {
+              //     // check if video playing
+              //     if (videoRef.current.paused) {
+              //       // videoRef.current.play();
+              //     } else {
+              //       videoRef.current.pause();
+              //     }
+              //   }
+              // }
+
+              // toggle video
             }}
           >
             <video
               ref={videoRef}
-              poster={'/home-v5-video.png'}
+              // poster={'/home-v5-video.png'}
               src={
                 'https://storage.googleapis.com/tc-cdn-prod/pages/bvm-studio/AIVoicePrompt_v2_02.mp4'
               }
@@ -79,8 +95,33 @@ const HeroV5 = () => {
               height={90}
               preload="auto"
               playsInline
-              // controls
+              controls={!!firstClick}
             />
+            {!firstClick && (
+              <Box
+                position={'absolute'}
+                top={0}
+                left="0"
+                w="100%"
+                h="100%"
+                className={s.video_pause}
+              >
+                <video
+                  className={s.video_thumbnail}
+                  src={
+                    'https://storage.googleapis.com/bvm-network/image/bvm_hero_video_v3_comp.mp4'
+                  }
+                  loop
+                  muted
+                  playsInline
+                  autoPlay
+                  preload={'auto'}
+                />
+                <div className={s.play_btn}>
+                  <img src="/landing-v6/ic-play.png" />
+                </div>
+              </Box>
+            )}
           </div>
         </div>
       </div>

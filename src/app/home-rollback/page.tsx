@@ -1,8 +1,8 @@
 'use client';
 
 import MainLayout from '@/layouts/MainLayout';
+import Landing from '@/modules/landing';
 // import LandingV3 from '@/modules/landingV3';
-import LandingV5 from '@/modules/landingV5';
 
 export default function Home() {
   return (
@@ -15,8 +15,7 @@ export default function Home() {
       }}
       hideFooter
     >
-      {/* <LandingV3 /> */}
-      <LandingV5 />
+      <Landing />
     </MainLayout>
   );
 }
