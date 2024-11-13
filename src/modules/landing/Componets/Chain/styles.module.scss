@@ -21,8 +21,8 @@
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @include is-pc-wide{
-    grid-template-columns: repeat(5, 1fr);
+  @include is-pc-wide {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -45,6 +45,7 @@
       padding-top: 24px;
       padding-bottom: 40px;
     }
+
     @include is-tablet {
       padding-top: 24px;
       padding-bottom: 40px;
