@@ -170,7 +170,7 @@ export const STEP_2_SECTION = {
   item: [
     {
       title: 'Rune Dex',
-      description: 'Buy & sell Bitcoin permisionlessly',
+      description: 'Buy & sell Bitcoin permisionlessly.',
       homeImage: '/landing-v7/home-rundex-1.png',
       link: {
         url: 'https://runechain.com/',
@@ -244,7 +244,7 @@ export const TOOLS_SECTION = {
   item: [
     {
       title: 'BVM Studio',
-      description: 'Customize your blockchain with drag-and-drop',
+      description: 'Customize your blockchain with drag-and-drop.',
       homeImage: `/landing-v7/home-studio-2.png`,
       link: {
         url: '/studio',
@@ -255,7 +255,7 @@ export const TOOLS_SECTION = {
 
     {
       title: 'Heartbeats',
-      description: 'Insights into Bitcoin chains',
+      description: 'Insights into Bitcoin chains.',
       homeImage: `/landing-v7/home-heartbeats-4.png`,
       link: {
         url: '/heartbeats',
@@ -282,7 +282,7 @@ export const ART_SECTION = {
   item: [
     {
       title: 'Perceptrons',
-      description: 'The first on-chain neural networks',
+      description: 'The first on-chain neural networks.',
       homeImage: `/landing-v7/home-perp-2.png`,
       link: {
         url: 'https://eternalai.org/perceptrons',
@@ -293,7 +293,7 @@ export const ART_SECTION = {
 
     {
       title: 'Timechain',
-      description: 'The first long-form gen art collection',
+      description: 'The first long-form gen art collection.',
       homeImage: `/landing-v7/home-timechain-4.png`,
 
       link: {
@@ -320,7 +320,7 @@ export const SOCIALFI_SECTION = {
   item: [
     {
       title: 'Alpha',
-      description: 'The first social app on Bitcoin. ',
+      description: 'The first social app on Bitcoin.',
       homeImage: `/landing-v7/home-alpha-2.png`,
 
       link: {
