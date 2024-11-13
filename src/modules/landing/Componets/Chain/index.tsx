@@ -160,41 +160,41 @@ const DATA_CHAINS = [
     bgTop: 'FF9999',
     bgBottom: 'B74D4D',
   },
-  {
-    img: chain_5,
-    title: 'Swamps',
-    stud: 1,
-    link: 'https://stampchain.io/',
-    data: [
-      {
-        left: 'Currency',
-        right: 'SWP',
-        icon: '/landing/svg/lego_icon_flat.svg',
-      },
-      {
-        left: 'Use Case',
-        right: 'SRC-20 trading',
-        icon: '/landing/svg/lego_icon_rect.svg',
-      },
-      {
-        left: 'Rollups',
-        right: 'Optimistic, Sovereign',
-        icon: '/landing/svg/lego_icon_rollup.svg',
-      },
-      {
-        left: 'Data Validity',
-        right: 'Bitcoin Stamps',
-        icon: '/landing/svg/lego_icon_cube.svg',
-      },
-      {
-        left: 'Data Availability',
-        right: 'Polygon',
-        icon: '/landing/svg/lego_icon_cube.svg',
-      },
-    ],
-    bgTop: 'F0B9FE',
-    bgBottom: 'A459A6',
-  },
+  // {
+  //   img: chain_5,
+  //   title: 'Swamps',
+  //   stud: 1,
+  //   link: 'https://stampchain.io/',
+  //   data: [
+  //     {
+  //       left: 'Currency',
+  //       right: 'SWP',
+  //       icon: '/landing/svg/lego_icon_flat.svg',
+  //     },
+  //     {
+  //       left: 'Use Case',
+  //       right: 'SRC-20 trading',
+  //       icon: '/landing/svg/lego_icon_rect.svg',
+  //     },
+  //     {
+  //       left: 'Rollups',
+  //       right: 'Optimistic, Sovereign',
+  //       icon: '/landing/svg/lego_icon_rollup.svg',
+  //     },
+  //     {
+  //       left: 'Data Validity',
+  //       right: 'Bitcoin Stamps',
+  //       icon: '/landing/svg/lego_icon_cube.svg',
+  //     },
+  //     {
+  //       left: 'Data Availability',
+  //       right: 'Polygon',
+  //       icon: '/landing/svg/lego_icon_cube.svg',
+  //     },
+  //   ],
+  //   bgTop: 'F0B9FE',
+  //   bgBottom: 'A459A6',
+  // },
   // {
   //   img: chain_6,
   //   title: 'Your chain',
