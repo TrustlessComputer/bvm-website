@@ -56,7 +56,7 @@ const LandingV5 = (props: Props) => {
               <Box className={s.introduction_desc}>
                 Ethereum’s heyday is over. Powered by BVM, Bitcoin is the new
                 home for decentralized applications. Enter a whole new world
-                where finance, gaming, social networks, and AI coverge on the
+                where finance, gaming, social networks, and AI converge on the
                 biggest blockchain.{' '}
               </Box>
             </Box>
