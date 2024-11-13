@@ -18,13 +18,16 @@ export default function HeroContent() {
       <div className={s.heroContent}>
         <div className={s.heroContent_inner}>
           <Chars classNames={s.heroContent_inner_heading} delayEnter={6}>
-            <h1 className={s.heroContent_heading}>Bitcoin, upgraded.</h1>
+            <h1 className={s.heroContent_heading}>
+              Powerful, fast, and cost-effective Bitcoin L2s anyone can set up
+              by drag ’n drop.
+            </h1>
           </Chars>
           <div className={s.heroContent_content}>
             <Lines delayEnter={6.1}>
-              Join us on the mission to reinvent Bitcoin beyond just a currency
-              — the next internet with AI, Gaming, DeFi, Social, and more on
-              Bitcoin.
+              Get your own Bitcoin L2 with a 1-second block time, a $0.001
+              transaction fee, and EVM compatibility to build high-performance
+              dapps.
             </Lines>
           </div>
           <ul className={s.heroContent_actions}>
@@ -34,11 +37,11 @@ export default function HeroContent() {
                   onClick={() => router.push('/studio')}
                   className={`${s.btn} ${s.btn__white}`}
                 >
-                  Build on Bitcoin
+                  Launch your Bitcoin L2 now
                 </button>
               </Fade>
             </li>
-            <li>
+            {/* <li>
               <Fade delayEnter={6.6}>
                 <button
                   onClick={() => router.push('/experience')}
@@ -47,7 +50,7 @@ export default function HeroContent() {
                   Experience Bitcoin
                 </button>
               </Fade>
-            </li>
+            </li> */}
           </ul>
           {/* <Fade delay={6.7}>
             <div className={s.contact}>
