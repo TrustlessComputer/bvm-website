@@ -67,6 +67,7 @@ const SectionItemApp = ({ item, sectionId, idx }: Props) => {
           ['pointer-none']: !item.link?.url,
         },
         { [s.eternal]: item.link?.url === ETERNAL_URL },
+        { [s.games]: sectionId === 'games' },
       )}
       href={item.link?.url}
       target="_blank"

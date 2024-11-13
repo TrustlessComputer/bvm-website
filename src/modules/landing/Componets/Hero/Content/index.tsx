@@ -38,16 +38,16 @@ export default function HeroContent() {
                 </button>
               </Fade>
             </li>
-            {/* <li>
+            <li>
               <Fade delayEnter={6.6}>
                 <button
-                  onClick={() => router.push('/')}
+                  onClick={() => router.push('/experience')}
                   className={`${s.btn} ${s.btn__red}`}
                 >
                   Experience Bitcoin
                 </button>
               </Fade>
-            </li> */}
+            </li>
           </ul>
           {/* <Fade delay={6.7}>
             <div className={s.contact}>

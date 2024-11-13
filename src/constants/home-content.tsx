@@ -115,7 +115,7 @@ export const STEP_1_SECTION = {
     {
       title: 'Perceptrons',
       description: 'The first onchain neural networks.',
-      homeImage: '/landing-v7/home-perp-1.png',
+      homeImage: '/landing-v7/home-perp-2.png',
 
       // bgColor:
       //   'linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
@@ -171,7 +171,7 @@ export const STEP_2_SECTION = {
     {
       title: 'Rune Dex',
       description: 'Buy & sell Bitcoin permisionlessly',
-      homeImage: '/explore/dapp-runedex2.png',
+      homeImage: '/landing-v7/home-rundex-1.png',
       link: {
         url: 'https://runechain.com/',
         target: '_blank',
@@ -180,7 +180,7 @@ export const STEP_2_SECTION = {
     {
       title: 'NAKA Dex',
       description: 'Trade Bitcoin futures permisionlessly.',
-      homeImage: '/landing-v7/home-naka-1.png',
+      homeImage: '/landing-v7/home-naka-2.png',
       link: {
         url: 'https://nakachain.xyz/perpetual',
         target: '_blank',
@@ -207,7 +207,7 @@ export const GAME_SECTION = {
       title: 'Bitcoin Wars',
       description:
         'The first fully onchain game built on a ZK Rollup on Bitcoin.',
-      homeImage: `/landing-v7/home-bitcoinwar-1.png`,
+      homeImage: `/landing-v7/home-bitcoinwar-5.png`,
       link: {
         url: '/bitcoin-wars',
         target: '_blank',
@@ -218,7 +218,7 @@ export const GAME_SECTION = {
     {
       title: 'Bitcoin ARCADE (Coming Soon)',
       description: 'Endless fun with onchain Bitcoin games.',
-      homeImage: `/landing-v7/home-arcade-1.png`,
+      homeImage: `/landing-v7/home-arcade-3.png`,
       link: {
         url: '',
         target: '_blank',
@@ -245,7 +245,7 @@ export const TOOLS_SECTION = {
     {
       title: 'BVM Studio',
       description: 'Customize your blockchain with drag-and-drop',
-      homeImage: `/landing-v7/home-studio-1.png`,
+      homeImage: `/landing-v7/home-studio-2.png`,
       link: {
         url: '/studio',
         target: '_blank',
@@ -256,7 +256,7 @@ export const TOOLS_SECTION = {
     {
       title: 'Heartbeats',
       description: 'Insights into Bitcoin chains',
-      homeImage: `/landing-v7/home-heartbeats-3.png`,
+      homeImage: `/landing-v7/home-heartbeats-4.png`,
       link: {
         url: '/heartbeats',
         target: '_blank',
@@ -283,7 +283,7 @@ export const ART_SECTION = {
     {
       title: 'Perceptrons',
       description: 'The first on-chain neural networks',
-      homeImage: `/landing-v7/home-perp-1.png`,
+      homeImage: `/landing-v7/home-perp-2.png`,
       link: {
         url: 'https://eternalai.org/perceptrons',
         target: '_blank',
@@ -294,7 +294,7 @@ export const ART_SECTION = {
     {
       title: 'Timechain',
       description: 'The first long-form gen art collection',
-      homeImage: `/landing-v7/home-timechain-2.png`,
+      homeImage: `/landing-v7/home-timechain-4.png`,
 
       link: {
         url: 'https://generative.xyz/generative/1000001',
@@ -321,7 +321,7 @@ export const SOCIALFI_SECTION = {
     {
       title: 'Alpha',
       description: 'The first social app on Bitcoin. ',
-      homeImage: `/landing-v7/home-alpha-1.png`,
+      homeImage: `/landing-v7/home-alpha-2.png`,
 
       link: {
         url: 'https://alpha.wtf/',
