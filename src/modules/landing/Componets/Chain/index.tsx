@@ -10,12 +10,16 @@ import chain_5 from 'public/landing/images/chain_5.png';
 import chain_6 from 'public/landing/images/chain_6.png';
 import Chars from '@/interactive/Chars';
 import Fade from '@/interactive/Fade';
-import { Button, HStack } from '@chakra-ui/react';
+import { Button, HStack, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import useWindowSize from '@/hooks/useWindowSize';
 import HeroLabel from '../Hero/HeroLabel';
 import Cursor from '@/modules/landing/Componets/Chain/Cursor';
 import HeadingSection from '../HeadingSection';
+import HeadingText from '../HeadingText';
+import HeadingTextV2 from '../HeadingTextV2';
+import ContentSection from '../ContentSection';
+import Lines from '@/interactive/Lines';
 
 const DATA_CHAINS = [
   {
@@ -217,15 +221,27 @@ export default function Chain() {
       <div className={s.chain}>
         <div className="container">
           <section className={s.chain_inner}>
-            <p className={s.chain_case}>
-              <Fade delayEnter={1.8}>THE GROWING BVM ECOSYSTEM</Fade>
-            </p>
-            <HeadingSection className={s.chain_heading}>
-              <Chars delayEnter={2}>
-                Say hello to the first <b>Bitcoin L2 blockchains</b> powered by
-                BVM.
+            <Text className={s.chain_case}>
+              <Fade delayEnter={1.8}>Bitcoin, reimagined</Fade>
+            </Text>
+            <HeadingSection className={s.lego_heading_title}>
+              <Chars>
+                Bitcoin as a <b>network of blockchains.</b>
               </Chars>
             </HeadingSection>
+
+            <ContentSection className={s.lego_heading_description}>
+              <Lines delay={0.2}>
+                Enter a whole new world where finance, gaming, social networks,
+                and AI converge on the biggest blockchain. Bitcoin L2s are
+                powerful, fast, and cost-effective ZK rollups powered by BVM,
+                each unlocking new use cases and possibilities on the Bitcoin
+                network that were not possible before BVM.
+              </Lines>
+            </ContentSection>
+
+            {/* </HeadingTextV2> */}
+
             <Fade delay={0.6} delayEnter={2.2}>
               <HStack
                 justify={'center'}
@@ -256,7 +272,7 @@ export default function Chain() {
                     router.push('/rollups/customize');
                   }}
                 >
-                  {`Build your ZK-powered Blockchain`}
+                  {`Experience Bitcoin like never before`}
                 </Button>
               </HStack>
             </Fade>
