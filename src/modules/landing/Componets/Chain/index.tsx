@@ -222,8 +222,8 @@ export default function Chain() {
             </p>
             <HeadingSection className={s.chain_heading}>
               <Chars delayEnter={2}>
-                Say hello to the first <b>modular Bitcoin L2 blockchains</b>{' '}
-                powered by BVM.
+                Say hello to the first <b>Bitcoin L2 blockchains</b> powered by
+                BVM.
               </Chars>
             </HeadingSection>
             <Fade delay={0.6} delayEnter={2.2}>

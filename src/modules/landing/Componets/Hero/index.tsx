@@ -4,6 +4,7 @@ import HeroLabel from '@/modules/landing/Componets/Hero/HeroLabel';
 import HeroContent from '@/modules/landing/Componets/Hero/Content';
 import React from 'react';
 import Banner from './Banner';
+import Fade from '@/interactive/Fade';
 
 export default function Hero() {
   return (

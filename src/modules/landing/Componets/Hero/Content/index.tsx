@@ -32,7 +32,7 @@ export default function HeroContent() {
               <Fade delayEnter={6.5}>
                 <button
                   onClick={() => router.push('/studio')}
-                  className={`${s.btn} ${s.btn__red}`}
+                  className={`${s.btn} ${s.btn__white}`}
                 >
                   Build on Bitcoin
                 </button>
@@ -42,7 +42,7 @@ export default function HeroContent() {
               <Fade delayEnter={6.6}>
                 <button
                   onClick={() => router.push('/experience')}
-                  className={`${s.btn} ${s.btn__red}`}
+                  className={`${s.btn} ${s.btn__white}`}
                 >
                   Experience Bitcoin
                 </button>
@@ -80,6 +80,11 @@ export default function HeroContent() {
             </div>
           </Fade>
         </div>
+        <Fade delayEnter={7}>
+          <section className={s.mouse_scroll}>
+            <span></span>
+          </section>
+        </Fade>
       </div>
 
       <ModalVideo
