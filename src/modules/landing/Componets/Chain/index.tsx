@@ -22,21 +22,58 @@ import ContentSection from '../ContentSection';
 import Lines from '@/interactive/Lines';
 
 const DATA_CHAINS = [
+  // {
+  //   img: chain_1,
+  //   title: 'Alpha Chain',
+  //   subTitle: '',
+  //   stud: 1,
+  //   link: 'https://alpha.wtf',
+  //   data: [
+  //     {
+  //       left: 'Currency',
+  //       right: 'BVM',
+  //       icon: '/landing/svg/lego_icon_flat.svg',
+  //     },
+  //     {
+  //       left: 'Use Case',
+  //       right: 'SocialFi',
+  //       icon: '/landing/svg/lego_icon_rect.svg',
+  //     },
+  //     {
+  //       left: 'Rollups',
+  //       right: 'Optimistic, Sovereign',
+  //       icon: '/landing/svg/lego_icon_rollup.svg',
+  //     },
+  //     {
+  //       left: 'Data Validity',
+  //       right: 'Bitcoin Ordinals',
+  //       icon: '/landing/svg/lego_icon_cube.svg',
+  //     },
+  //     {
+  //       left: 'Data Availability',
+  //       right: 'Polygon',
+  //       icon: '/landing/svg/lego_icon_cube.svg',
+  //     },
+  //   ],
+
+  //   bgTop: '35CCA6',
+  //   bgBottom: '007659',
+  // },
   {
-    img: chain_1,
-    title: 'Alpha Chain',
-    subTitle: '',
+    img: chain_4,
+    title: 'Eternal AI',
+    desc: 'A Bitcoin Layer 2 powering unstoppable AI.',
     stud: 1,
-    link: 'https://alpha.wtf',
+    link: 'https://eternalai.org/',
     data: [
       {
         left: 'Currency',
-        right: 'BVM',
+        right: 'EAI',
         icon: '/landing/svg/lego_icon_flat.svg',
       },
       {
         left: 'Use Case',
-        right: 'SocialFi',
+        right: 'Crypto x AI',
         icon: '/landing/svg/lego_icon_rect.svg',
       },
       {
@@ -51,17 +88,17 @@ const DATA_CHAINS = [
       },
       {
         left: 'Data Availability',
-        right: 'Polygon',
+        right: 'NearDA',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
     ],
-
-    bgTop: '35CCA6',
-    bgBottom: '007659',
+    bgTop: 'FF9999',
+    bgBottom: 'B74D4D',
   },
   {
     img: chain_2,
     title: 'Naka Chain',
+    desc: 'A Bitcoin Layer 2 optimized for DeFi with extremely low gas fees.',
     stud: 2,
     link: 'https://nakachain.xyz/',
     data: [
@@ -97,12 +134,13 @@ const DATA_CHAINS = [
   {
     img: chain_3,
     title: 'Arcade Chain',
+    desc: 'A Bitcoin Layer 2 tailored for gaming with 2-second block times.',
     stud: 3,
     link: 'https://bitcoinarcade.xyz/',
     data: [
       {
         left: 'Currency',
-        right: 'GAME',
+        right: 'BVM',
         icon: '/landing/svg/lego_icon_flat.svg',
       },
       {
@@ -112,7 +150,7 @@ const DATA_CHAINS = [
       },
       {
         left: 'Rollups',
-        right: 'Optimistic, Sovereign',
+        right: 'ZK, Sovereign',
         icon: '/landing/svg/lego_icon_rollup.svg',
       },
       {
@@ -122,48 +160,14 @@ const DATA_CHAINS = [
       },
       {
         left: 'Data Availability',
-        right: 'EigenDA',
+        right: 'Polygon',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
     ],
     bgTop: '4DBDE0',
     bgBottom: '0074BB',
   },
-  {
-    img: chain_4,
-    title: 'Eternal AI',
-    stud: 1,
-    link: 'https://eternalai.org/',
-    data: [
-      {
-        left: 'Currency',
-        right: 'AI',
-        icon: '/landing/svg/lego_icon_flat.svg',
-      },
-      {
-        left: 'Use Case',
-        right: 'Crypto x AI',
-        icon: '/landing/svg/lego_icon_rect.svg',
-      },
-      {
-        left: 'Rollups',
-        right: 'Optimistic, Sovereign',
-        icon: '/landing/svg/lego_icon_rollup.svg',
-      },
-      {
-        left: 'Data Validity',
-        right: 'Bitcoin Ordinals',
-        icon: '/landing/svg/lego_icon_cube.svg',
-      },
-      {
-        left: 'Data Availability',
-        right: 'NearDA',
-        icon: '/landing/svg/lego_icon_cube.svg',
-      },
-    ],
-    bgTop: 'FF9999',
-    bgBottom: 'B74D4D',
-  },
+
   // {
   //   img: chain_5,
   //   title: 'Swamps',
