@@ -81,7 +81,7 @@ export const STEP_1_SECTION = {
     {
       title: 'Onchain Llama 3.1 405B ',
       description: 'Chat for free. Permissionless.',
-      homeImage: '/landing-v7/home-llama-2.png',
+      homeImage: '/landing-v7/home-llama-3.png',
       link: {
         url: 'https://eternalai.org/agi',
         target: '_blank',
