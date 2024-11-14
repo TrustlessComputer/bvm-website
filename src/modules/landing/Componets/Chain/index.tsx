@@ -269,7 +269,7 @@ export default function Chain() {
                   }}
                   className={s.chain_btn}
                   onClick={() => {
-                    router.push('/rollups/customize');
+                    router.push('/experience');
                   }}
                 >
                   {`Experience Bitcoin like never before`}

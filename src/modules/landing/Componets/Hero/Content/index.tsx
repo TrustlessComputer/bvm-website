@@ -35,7 +35,7 @@ export default function HeroContent() {
               <Fade delayEnter={6.5}>
                 <button
                   onClick={() => router.push('/studio')}
-                  className={`${s.btn} ${s.btn__white}`}
+                  className={`${s.btn} ${s.btn__red}`}
                 >
                   Launch your Bitcoin L2 now
                 </button>
