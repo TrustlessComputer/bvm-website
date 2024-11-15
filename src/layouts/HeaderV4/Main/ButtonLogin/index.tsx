@@ -30,6 +30,8 @@ const ButtonLoginTwitter = (props: Props) => {
   };
   const [isHover, setIsHover] = useState<boolean>(false);
 
+  if (!loggedIn) return null;
+
   return (
     <div
       className={`${s.buttonLogin} ${
