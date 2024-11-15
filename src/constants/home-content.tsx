@@ -330,7 +330,7 @@ export const SOCIALFI_SECTION = {
     },
 
     {
-      title: 'X AI Agents',
+      title: 'AI Agents as a Service',
       description: 'Fully on-chain. Fully autonomous.',
       homeImage: `/landing-v7/home-eternal-2.png`,
 
