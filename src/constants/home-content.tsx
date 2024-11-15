@@ -331,7 +331,7 @@ export const SOCIALFI_SECTION = {
 
     {
       title: 'AI Agents as a Service',
-      description: 'Fully on-chain. Fully autonomous.',
+      description: 'Fully onchain. Fully autonomous.',
       homeImage: `/landing-v7/home-eternal-2.png`,
 
       link: {
