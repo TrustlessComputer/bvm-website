@@ -169,7 +169,7 @@ export const STEP_2_SECTION = {
   // desc: 'Get up and running instantly with pre-installed apps or easily add new ones from BVM Studio. Simply drag, drop, and enhance engagement, TVL, and more—no coding required.',
   item: [
     {
-      title: 'Rune Dex',
+      title: 'Rune DEX',
       description: 'Buy & sell Bitcoin permisionlessly.',
       homeImage: '/landing-v7/home-rundex-2.png',
       link: {
@@ -178,7 +178,7 @@ export const STEP_2_SECTION = {
       },
     },
     {
-      title: 'NAKA Dex',
+      title: 'NAKA DEX',
       description: 'Trade Bitcoin futures permisionlessly.',
       homeImage: '/landing-v7/home-naka-3.png',
       link: {
