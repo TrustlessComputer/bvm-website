@@ -1,7 +1,7 @@
 import Loading from '@/components/Loading';
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
-import { useIsFetchingData } from '../../stores/useFetchDappState';
+import { useIsFetchingData } from '../../stores/useFetchDataState';
 import styles from './styles.module.scss';
 
 const LoadingOverlay = () => {
