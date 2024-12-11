@@ -1,0 +1,76 @@
+.dropFile {
+  display: flex;
+  width: 100%;
+  background-color: #fafafa;
+  border-radius: 12px;
+  border-width: 1px;
+  border-color: #e7e7e7;
+
+  .dropZone {
+    width: 100%;
+    height: 100%;
+    padding: 11px 13px;
+    gap: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .dropZoneDescription {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28px;
+    color: #898989;
+  }
+
+  .successText {
+    color: #000000;
+  }
+
+  .isMobile {
+    font-weight: 400;
+    font-size: 13px;
+  }
+
+  &__success {
+    color: #000000;
+    background-color: #fff;
+    border-color: #06aa06;
+  }
+
+  &__drag {
+    background-color: blue;
+  }
+
+  &__error {
+    border: 1px solid red;
+  }
+
+  .errorText {
+    color: red;
+  }
+
+  .loadingWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgb(255 255 255 / 20%);
+    backdrop-filter: blur(16px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .loadingIndicatorWrapper {
+      position: relative;
+    }
+
+    .loadingText {
+      font-weight: 500;
+    }
+  }
+}

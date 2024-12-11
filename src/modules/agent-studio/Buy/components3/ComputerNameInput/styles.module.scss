@@ -1,0 +1,33 @@
+.input {
+  background-color: #fff;
+  color: #0e0e0e;
+  width: 100%;
+  padding: 0 12px;
+  border-radius: 17px;
+  font-size: 16px;
+  line-height: calc(20 / 16);
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  outline: none;
+  &::placeholder {
+    color: rgb(141, 141, 141);
+  }
+
+  &.notAllowed {
+    cursor: not-allowed;
+  }
+}
+
+.setLine {
+  input {
+    display: block;
+    margin-top: -10px;
+  }
+}
+
+.wrapper_input {
+  height: 23px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 17px;
+  overflow: hidden;
+}

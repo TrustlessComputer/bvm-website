@@ -1,0 +1,41 @@
+.message {
+  position: relative;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .category {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .categoryTitle {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+    }
+
+    .categoryOptions {
+      display: flex;
+      gap: 8px;
+    }
+  }
+}
+
+.applyBtn {
+  position: relative;
+  margin-left: auto;
+  width: fit-content;
+  padding: 2px 12px;
+  border-radius: 16px;
+  background: #fa4e0e;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 16px;
+}

@@ -1,0 +1,68 @@
+.sidebar {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  border-right: 1px solid #dadada;
+  height: 100%;
+  overflow-y: scroll;
+  padding-left: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background: #fff;
+
+  &_inner {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #fff;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #e0e0e0;
+  }
+}
+
+.item {
+  background-color: #fff;
+  display: block;
+  padding: 12px 14px 8px 14px;
+  border-radius: 12px;
+
+  &.isActive {
+    background-color: #fff6f2 !important;
+  }
+
+  &_inner {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &_icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  &_title {
+    color: #333;
+    font-family: var(--font-JetBrainsMono);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: calc(22 / 14);
+  }
+
+  sup{
+    color: red;
+  }
+}
+
+
