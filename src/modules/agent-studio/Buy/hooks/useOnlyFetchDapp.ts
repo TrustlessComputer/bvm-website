@@ -17,7 +17,7 @@ import {
   preDataWhitePaper,
   preDataYoloGame,
 } from '../utils';
-import { DappType } from '@/modules/blockchains/dapp/types';
+import { DappType } from '@/modules/agent-studio/dapp/types';
 import { orderBy } from 'lodash';
 
 const useOnlyFetchDapp = () => {

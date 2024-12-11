@@ -1,6 +1,6 @@
-import { IRetrieveFormsByDappKey } from '@/modules/blockchains/Buy/hooks/useOneForm';
-import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
-import { FormDappUtil } from '@/modules/blockchains/dapp/utils';
+import { IRetrieveFormsByDappKey } from '@/modules/agent-studio/Buy/hooks/useOneForm';
+import { extractedValue } from '@/modules/agent-studio/dapp/hooks/utils';
+import { FormDappUtil } from '@/modules/agent-studio/dapp/utils';
 import CStakingAPI from '@/services/api/dapp/staking';
 import { IPosition } from '@/services/api/dapp/staking/interface';
 import { v4 as uuidv4 } from 'uuid';
@@ -71,7 +71,8 @@ const useSubmitStaking = () => {
         await cStakeAPI.createNewStakingPool({
           principle_token: formFinal?.staking_token,
           reward_token: formFinal?.reward_token,
-          base_ratio: Number((formFinal?.apr as any)?.replaceAll('%', '')) / 100,
+          base_ratio:
+            Number((formFinal?.apr as any)?.replaceAll('%', '')) / 100,
           token_price: 1 / Number(formFinal?.rate),
           ...position, // TODO: JACKIE - update position
         });

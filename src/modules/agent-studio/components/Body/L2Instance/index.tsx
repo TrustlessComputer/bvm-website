@@ -8,7 +8,7 @@ import { Box, Divider, Flex } from '@chakra-ui/react';
 import BodyInfor from './BodyInfor/index';
 import BottomView from './Bottom';
 import HeaderRow from './HeaderRow';
-import { useDashboard } from '@/modules/blockchains/providers/DashboardProvider';
+import { useDashboard } from '@/modules/agent-studio/providers/DashboardProvider';
 import { getBridgeLink } from '@/services/api/l2services/constants';
 import BreakLine from './BreakLine';
 

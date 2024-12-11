@@ -1,7 +1,7 @@
-import CustomEdge from '@/modules/blockchains/Buy/component4/CustomEdge';
-import CustomNode from '@/modules/blockchains/Buy/component4/CustomNode';
-import useHandleReloadNode from '@/modules/blockchains/Buy/hooks/useHandleReloadNode';
-import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
+import CustomEdge from '@/modules/agent-studio/Buy/component4/CustomEdge';
+import CustomNode from '@/modules/agent-studio/Buy/component4/CustomNode';
+import useHandleReloadNode from '@/modules/agent-studio/Buy/hooks/useHandleReloadNode';
+import useStoreFirstLoadTemplateBox from '@/modules/agent-studio/Buy/stores/useFirstLoadTemplateBoxStore';
 import { signal, useSignalEffect } from '@preact/signals-react';
 import { ConnectionMode, ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
@@ -18,7 +18,7 @@ import { restoreLocal } from '../../signals/useDragSignal';
 import useFlowStore from '../../stores/useFlowStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import s from './styles.module.scss';
-import useLineIssueToken from '@/modules/blockchains/Buy/hooks/useLineIssueToken';
+import useLineIssueToken from '@/modules/agent-studio/Buy/hooks/useLineIssueToken';
 import { isActingSignal } from '../../signals/useFlowStatus';
 
 export const needReactFlowRenderSignal = signal(false);

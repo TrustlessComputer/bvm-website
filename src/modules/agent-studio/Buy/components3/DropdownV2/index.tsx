@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useOnClickOutside } from '@hooks/useOnClickOutside';
 import useOrderFormStoreV3, { useCaptureStore } from '../../stores/index_v3';
 import { iconToolNames } from '../../Buy.data';
-import styles from '@/modules/blockchains/Buy/components3/LegoV3/styles.module.scss';
+import styles from '@/modules/agent-studio/Buy/components3/LegoV3/styles.module.scss';
 import { IModelOption } from '@/types/customize-model';
 
 type TDropdown = {

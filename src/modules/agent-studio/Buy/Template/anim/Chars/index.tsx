@@ -2,7 +2,7 @@ import { gsap } from 'gsap';
 import { PropsWithChildren, useCallback, useRef } from 'react';
 import SplitType from 'split-type';
 import s from './styles.module.scss';
-import useAnimation from '@/modules/blockchains/Buy/Template/hooks/useAnimation';
+import useAnimation from '@/modules/agent-studio/Buy/Template/hooks/useAnimation';
 
 interface IProp extends PropsWithChildren {
   delay?: number;

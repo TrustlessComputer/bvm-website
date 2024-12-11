@@ -1,7 +1,7 @@
 import React from 'react';
 import { getNodesBounds, getViewportForBounds } from '@xyflow/react';
 import { toPng } from 'html-to-image';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
 import { IModelCategory } from '@/types/customize-model';
 import {
   draggedDappIndexesSignal,

@@ -9,7 +9,7 @@ import DateTimeInput from '../components/DateTimeInput';
 import Input from '../components/Input';
 
 import { BlockModel, FieldModel } from '@/types/customize-model';
-import useDappsStore from '@/modules/blockchains/dapp/stores/useDappStore';
+import useDappsStore from '@/modules/agent-studio/dapp/stores/useDappStore';
 
 export const useThisDapp = () => {
   const { dapps, currentIndexDapp } = useDappsStore();

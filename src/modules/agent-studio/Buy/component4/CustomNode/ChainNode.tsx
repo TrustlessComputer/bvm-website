@@ -1,10 +1,10 @@
-import { StatusBox } from '@/modules/blockchains/Buy/component4/CustomNode/DappTemplateNode';
-import ComputerNameInput from '@/modules/blockchains/Buy/components3/ComputerNameInput';
-import ChainDraggable from '@/modules/blockchains/Buy/components3/Draggable';
-import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
-import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
-import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import { StatusBox } from '@/modules/agent-studio/Buy/component4/CustomNode/DappTemplateNode';
+import ComputerNameInput from '@/modules/agent-studio/Buy/components3/ComputerNameInput';
+import ChainDraggable from '@/modules/agent-studio/Buy/components3/Draggable';
+import DroppableV2 from '@/modules/agent-studio/Buy/components3/DroppableV2';
+import LegoV3 from '@/modules/agent-studio/Buy/components3/LegoV3';
+import { Field } from '@/modules/agent-studio/Buy/signals/useDragSignal';
+import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { DappModel, IModelCategory } from '@/types/customize-model';
 import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';

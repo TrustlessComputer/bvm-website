@@ -1,9 +1,9 @@
-// import ComputerNameInput from '@/modules/blockchains/Buy/components3/ComputerNameInput';
-import ComputerNameInput from '@/modules/blockchains/Buy/components3/ComputerNameInput/index_v2';
-import ChainDraggable from '@/modules/blockchains/Buy/components3/Draggable';
-import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
-import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+// import ComputerNameInput from '@/modules/agent-studio/Buy/components3/ComputerNameInput';
+import ComputerNameInput from '@/modules/agent-studio/Buy/components3/ComputerNameInput/index_v2';
+import ChainDraggable from '@/modules/agent-studio/Buy/components3/Draggable';
+import DroppableV2 from '@/modules/agent-studio/Buy/components3/DroppableV2';
+import LegoV3 from '@/modules/agent-studio/Buy/components3/LegoV3';
+import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
 import Label from '../../components3/Label';
 import ChainLegoParent from '../../components3/LegoParent';
 import useOrderFormStoreV3 from '../../stores/index_v3';
@@ -11,7 +11,7 @@ import useDragStore from '../../stores/useDragStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import useOverlappingChainLegoStore from '../../stores/useOverlappingChainLegoStore';
 
-import OptionInputValue from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue';
+import OptionInputValue from '@/modules/agent-studio/Buy/component4/DappRenderer/OptionInputValue';
 import NetworkDropdown from '../../components3/NetworkDropdown';
 import styles from './styles.module.scss';
 

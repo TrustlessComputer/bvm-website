@@ -1,16 +1,16 @@
-import Draggable from '@/modules/blockchains/Buy/component4/Draggable';
-import Droppable from '@/modules/blockchains/Buy/component4/Droppable';
-import Lego from '@/modules/blockchains/Buy/component4/Lego';
-import LegoParent from '@/modules/blockchains/Buy/component4/LegoParent';
-import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
-import AA from '@/modules/blockchains/Buy/dapp/AA';
-import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
+import Draggable from '@/modules/agent-studio/Buy/component4/Draggable';
+import Droppable from '@/modules/agent-studio/Buy/component4/Droppable';
+import Lego from '@/modules/agent-studio/Buy/component4/Lego';
+import LegoParent from '@/modules/agent-studio/Buy/component4/LegoParent';
+import { FieldKeyPrefix } from '@/modules/agent-studio/Buy/contants';
+import AA from '@/modules/agent-studio/Buy/dapp/AA';
+import useDapps from '@/modules/agent-studio/Buy/hooks/useDapps';
 import {
   draggedDappIndexesSignal,
   Field,
-} from '@/modules/blockchains/Buy/signals/useDragSignal';
-import { adjustBrightness, DragUtil } from '@/modules/blockchains/Buy/utils';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+} from '@/modules/agent-studio/Buy/signals/useDragSignal';
+import { adjustBrightness, DragUtil } from '@/modules/agent-studio/Buy/utils';
+import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { DappModel, FieldModel, IModelOption } from '@/types/customize-model';
 import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';

@@ -2,8 +2,8 @@ import { debounce, isEmpty } from 'lodash';
 import React, { useCallback, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
-import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import { useCaptureStore } from '@/modules/agent-studio/Buy/stores/index_v3';
+import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
 import { validateSubDomainAPI } from '@/services/api/l2services';
 import { useComputerNameInputStore } from './ComputerNameInputStore';
 

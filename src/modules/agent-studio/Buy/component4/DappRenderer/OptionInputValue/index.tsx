@@ -1,18 +1,18 @@
 import classNames from 'classnames';
-// import styles from '@/modules/blockchains/Buy/component4/DappRenderer/styles.module.scss';
-import Label from '@/modules/blockchains/Buy/components3/Label';
+// import styles from '@/modules/agent-studio/Buy/component4/DappRenderer/styles.module.scss';
+import Label from '@/modules/agent-studio/Buy/components3/Label';
 import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import {
   useOptionInputStore,
   useOptionInputValue,
-} from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
+} from '@/modules/agent-studio/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
 import { useSignalEffect } from '@preact/signals-react';
 import { IModelOption } from '@/types/customize-model';
 import { Flex, Input, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { isEmpty, debounce } from 'lodash';
 import { getErrorMessage } from '@/utils/errorV2';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
 
 export default function OptionInputValue({ option }: { option: IModelOption }) {
   const { isUpdateFlow } = useChainProvider();

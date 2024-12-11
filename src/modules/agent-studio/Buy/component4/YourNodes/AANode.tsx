@@ -1,10 +1,10 @@
 import React from 'react';
 
 import AddressInput from '@/modules/blockchains/detail_v3/account-abstraction_v2/components/AddressInput';
-// import SelectTokenView from '@/modules/blockchains/detail_v3/account-abstraction_v2/components/SelectTokenView';
+// import SelectTokenView from '@/modules/agent-studio/detail_v3/account-abstraction_v2/components/SelectTokenView';
 import FeeRateInput from '@/modules/blockchains/detail_v3/account-abstraction_v2/components/FeeRateInput';
 
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
 import { DappNode as DappNodeProps } from '@/types/node';
 import { useSignalEffect } from '@preact/signals-react';
 import { NodeProps } from '@xyflow/react';
@@ -16,13 +16,13 @@ import Droppable from '../Droppable';
 import Lego from '../Lego';
 import LegoParent from '../LegoParent';
 // import Node from '../Node/Node';
-import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
+import { useAAModule } from '@/modules/agent-studio/detail_v4/hook/useAAModule';
 import Image from 'next/image';
 import Button from '../Button';
 import Node from '../Node_v2/Node';
 
 import { useAccountAbstractionStore } from '@/modules/blockchains/detail_v3/account-abstraction_v2/store/hook';
-import { useDAServicesHelper } from '@/modules/blockchains/detail_v4/hook/useDAServicesHelper';
+import { useDAServicesHelper } from '@/modules/agent-studio/detail_v4/hook/useDAServicesHelper';
 import { Button as ButtonChakra, Flex } from '@chakra-ui/react';
 import useNodeAction from '../../hooks/useNodeAction';
 import AACustomNotification from './AACustomNotification';

@@ -1,10 +1,10 @@
-import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
+import useTemplate from '@/modules/agent-studio/Buy/hooks/useTemplate';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
-} from '@/modules/blockchains/Buy/signals/useDragSignal';
-import useDappsStore from '@/modules/blockchains/Buy/stores/useDappStore';
-import { chainKeyToDappKey } from '@/modules/blockchains/Buy/utils';
+} from '@/modules/agent-studio/Buy/signals/useDragSignal';
+import useDappsStore from '@/modules/agent-studio/Buy/stores/useDappStore';
+import { chainKeyToDappKey } from '@/modules/agent-studio/Buy/utils';
 import useChatBoxState, { ChatBoxStatus } from '../../chatbox-store';
 import styles from './styles.module.scss';
 

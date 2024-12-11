@@ -1,4 +1,4 @@
-import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
+import { useCaptureStore } from '@/modules/agent-studio/Buy/stores/index_v3';
 import l2ServicesAPI from '@/services/api/l2services';
 import { convertBase64ToFile } from '@/utils/file';
 import html2canvas from 'html2canvas';

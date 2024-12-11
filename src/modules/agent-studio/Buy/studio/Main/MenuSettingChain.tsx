@@ -1,7 +1,7 @@
 'use client';
 
 import MenuEditItem from '@/modules/blockchains/detail_v2/components/MenuEdit/MenuEditItem';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
 import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import { Image, Menu, MenuButton, MenuList } from '@chakra-ui/react';

@@ -6,9 +6,9 @@ import SvgInset from '@/components/SvgInset';
 
 import { adjustBrightness } from '../../utils';
 
-import { iconToolNames } from '@/modules/blockchains/Buy/Buy.data';
-import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
-import { DappType } from '@/modules/blockchains/dapp/types';
+import { iconToolNames } from '@/modules/agent-studio/Buy/Buy.data';
+import { useCaptureStore } from '@/modules/agent-studio/Buy/stores/index_v3';
+import { DappType } from '@/modules/agent-studio/dapp/types';
 import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { DappModel } from '@/types/customize-model';

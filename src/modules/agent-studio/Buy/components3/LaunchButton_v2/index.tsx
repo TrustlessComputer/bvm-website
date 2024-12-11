@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import TopupModal from '@/modules/blockchains/components/TopupModa_V2';
+import TopupModal from '@/modules/agent-studio/components/TopupModa_V2';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import {
   getL2ServicesStateSelector,
@@ -16,10 +16,10 @@ import l2ServicesAPI, {
   IInstallAccountAbstractionByData,
 } from '@/services/api/l2services';
 import BigNumber from 'bignumber.js';
-import { useAccountAbstractionStore } from '@/modules/blockchains/detail_v3/account-abstraction_v2/store/hook';
+import { useAccountAbstractionStore } from '@/modules/agent-studio/detail_v3/account-abstraction_v2/store/hook';
 import toast from 'react-hot-toast';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
-import { useAADetailHelper } from '@/modules/blockchains/detail_v3/account-abstraction_v2/useAADetailHelper';
+import { useAADetailHelper } from '@/modules/agent-studio/detail_v3/account-abstraction_v2/useAADetailHelper';
 import useL2Service from '@/hooks/useL2Service';
 
 const LaunchButton = () => {

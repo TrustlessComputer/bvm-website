@@ -5,8 +5,8 @@ import SvgInset from '@/components/SvgInset';
 
 import { adjustBrightness } from '../../utils';
 
-import { iconToolNames } from '@/modules/blockchains/Buy/Buy.data';
-import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
+import { iconToolNames } from '@/modules/agent-studio/Buy/Buy.data';
+import { useCaptureStore } from '@/modules/agent-studio/Buy/stores/index_v3';
 import { FieldModel } from '@/types/customize-model';
 import { Flex, Image, Tooltip } from '@chakra-ui/react';
 import styles from './styles.module.scss';
@@ -105,11 +105,9 @@ const Lego = (props: Props) => {
     icon ||
     null;
 
-  if(props.infoLego?.title === 'Staking') {
+  if (props.infoLego?.title === 'Staking') {
     console.log('checked', checked);
-
   }
-
 
   return (
     <Flex

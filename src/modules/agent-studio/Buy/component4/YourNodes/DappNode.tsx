@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { useChainStatus } from '@/modules/blockchains/detail_v4/hook/useChainStatus';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import { useChainStatus } from '@/modules/agent-studio/detail_v4/hook/useChainStatus';
+import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
 import { useAppSelector } from '@/stores/hooks';
 import { isInstalledIssueTokenSelector } from '@/stores/states/dapp/selector';
 import { OrderStatus } from '@/stores/states/l2services/types';
@@ -29,7 +29,8 @@ const DappNode = ({ data, id }: NodeProps<DappNodeProps>) => {
     if (!isUpdateFlow) {
       return {
         label: 'IMPORTANT',
-        message: 'This module needs to be configured and completed later after the chain is deployed and the payment is confirmed',
+        message:
+          'This module needs to be configured and completed later after the chain is deployed and the payment is confirmed',
       };
     }
 

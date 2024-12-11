@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import sleep from '@/utils/sleep';
 
 import s from '../styleFont.module.scss';
-import { useDashboard } from '@/modules/blockchains/providers/DashboardProvider';
+import { useDashboard } from '@/modules/agent-studio/providers/DashboardProvider';
 import { useAppDispatch } from '@/stores/hooks';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import CancelOrderModal from '../../../CancelOrderModal';

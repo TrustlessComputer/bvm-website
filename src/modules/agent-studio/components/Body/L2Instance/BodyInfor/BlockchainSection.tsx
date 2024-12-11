@@ -1,14 +1,14 @@
 'use client';
 
-import useOrderMapper from '@/modules/blockchains/hooks/useOrderMapper';
+import useOrderMapper from '@/modules/agent-studio/hooks/useOrderMapper';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import ColumnInfor from './ColumnInfor';
 import s from '../styleFont.module.scss';
-import { convertSecondsToHours } from '@/modules/blockchains/Buy/Buy.helpers';
+import { convertSecondsToHours } from '@/modules/agent-studio/Buy/Buy.helpers';
 import { formatCurrencyV2 } from '@/utils/format';
 import { useMemo } from 'react';
-import { RollupEnum } from '@/modules/blockchains/Buy/Buy.constanst';
+import { RollupEnum } from '@/modules/agent-studio/Buy/Buy.constanst';
 
 type Props = {
   item: OrderItem;

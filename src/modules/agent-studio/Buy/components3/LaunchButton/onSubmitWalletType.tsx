@@ -1,6 +1,6 @@
 import CWalletTypeAPI from '@/services/api/dapp/wallet_type';
-import { FormDappUtil } from '@/modules/blockchains/dapp/utils';
-import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
+import { FormDappUtil } from '@/modules/agent-studio/dapp/utils';
+import { extractedValue } from '@/modules/agent-studio/dapp/hooks/utils';
 
 const onSubmitWalletType = () => {
   const cWalletTypeAPI = new CWalletTypeAPI();
@@ -40,18 +40,18 @@ const onSubmitWalletType = () => {
         formDapp,
         finalFormMappings,
       );
-      const formFinal = finalFormMappings.find(item => !!item);
+      const formFinal = finalFormMappings.find((item) => !!item);
       await cWalletTypeAPI.updateWalletType({
-        wallet_type: formFinal?.wallet_type as any
+        wallet_type: formFinal?.wallet_type as any,
       });
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return {
-    onSubmit
-  }
+    onSubmit,
+  };
 };
 
 export default onSubmitWalletType;

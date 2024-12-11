@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { debounce, isEmpty } from 'lodash';
 import toast from 'react-hot-toast';
 
-import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
+import { useBuy } from '@/modules/agent-studio/providers/Buy.hook';
 import { validateSubDomainAPI } from '@/services/api/l2services';
 import { showError } from '@/components/toast';
 import { FormFields, FormFieldsErrorMessage } from '../../Buy.constanst';
@@ -12,8 +12,8 @@ import { getRandonComputerName } from '../../Buy.helpers';
 import s from './styles.module.scss';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useOrderFormStore } from '../../stores/index_v2';
-import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import { useCaptureStore } from '@/modules/agent-studio/Buy/stores/index_v3';
+import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
 
 type Props = {
   chainNameDefault?: string;

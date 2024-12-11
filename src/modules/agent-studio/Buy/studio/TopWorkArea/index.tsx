@@ -1,9 +1,9 @@
-// import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
+// import s from '@/modules/agent-studio/Buy/styles_v6.module.scss';
 import { formatCurrencyV2 } from '@utils/format';
-import LaunchButton from '@/modules/blockchains/Buy/components3/LaunchButton';
+import LaunchButton from '@/modules/agent-studio/Buy/components3/LaunchButton';
 import React, { ReactElement, useMemo } from 'react';
-import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import useOrderFormStoreV3 from '@/modules/agent-studio/Buy/stores/index_v3';
+import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
 import { EstTimeView } from '../EstTimeView';
 import { Flex, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';

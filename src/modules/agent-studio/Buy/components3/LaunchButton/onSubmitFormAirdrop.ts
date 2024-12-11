@@ -1,5 +1,5 @@
 import { showSuccess } from '@/components/toast';
-import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
+import { extractedValue } from '@/modules/agent-studio/dapp/hooks/utils';
 import CTokenAirdropAPI from '@/services/api/dapp/airdrop';
 import { IBodySetupTask, ITask } from '@/services/api/dapp/airdrop/interface';
 import { useAppSelector } from '@/stores/hooks';
@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 import {
   FormDappUtil,
   getAirdropTaskKey,
-} from '@/modules/blockchains/dapp/utils';
+} from '@/modules/agent-studio/dapp/utils';
 import { IPosition } from '@/services/api/dapp/staking/interface';
 import Papa from 'papaparse';
 import { v4 as uuidv4 } from 'uuid';

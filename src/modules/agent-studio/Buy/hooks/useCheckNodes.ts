@@ -1,11 +1,11 @@
-import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
-import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
+import { mouseDroppedPositionSignal } from '@/modules/agent-studio/Buy/signals/useMouseDroppedPosition';
+import useOrderFormStoreV3 from '@/modules/agent-studio/Buy/stores/index_v3';
 import useFlowStore, {
   AppState,
-} from '@/modules/blockchains/Buy/stores/useFlowStore';
-import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
-import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
-import { useGameModule } from '@/modules/blockchains/detail_v4/hook/useGameModule';
+} from '@/modules/agent-studio/Buy/stores/useFlowStore';
+import { useAAModule } from '@/modules/agent-studio/detail_v4/hook/useAAModule';
+import { useBridgesModule } from '@/modules/agent-studio/detail_v4/hook/useBridgesModule';
+import { useGameModule } from '@/modules/agent-studio/detail_v4/hook/useGameModule';
 import { IModelOption } from '@/types/customize-model';
 import { DappNode } from '@/types/node';
 import handleStatusEdges from '@utils/helpers';

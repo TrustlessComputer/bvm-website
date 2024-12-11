@@ -59,8 +59,6 @@ export const ChainProvider = ({
     [order, chainID, tokenIssueList, dispatch],
   );
 
-  // console.log('ChainContext -- value -- ', value);
-
   return (
     <ChainContext.Provider value={value}>{children}</ChainContext.Provider>
   );

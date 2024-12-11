@@ -4,7 +4,7 @@ import { ChainNodeAsDappNode, NodeNotificationProps } from '@/types/node';
 import { NodeProps } from '@xyflow/react';
 import BridgeRenderer from '../DappRenderer/BridgeRenderer';
 import Node from '../Node/Node';
-import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
+import { useBridgesModule } from '@/modules/agent-studio/detail_v4/hook/useBridgesModule';
 
 const BridgeNode = ({ data, id }: NodeProps<ChainNodeAsDappNode>) => {
   const { statusMapper, getBridgeTypeIconUrl } = useBridgesModule();

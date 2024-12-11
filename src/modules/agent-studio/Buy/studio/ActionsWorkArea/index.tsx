@@ -1,6 +1,6 @@
-import Capture from '@/modules/blockchains/Buy/Capture';
-import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
-import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
+import Capture from '@/modules/agent-studio/Buy/Capture';
+import { useCaptureStore } from '@/modules/agent-studio/Buy/stores/index_v3';
+import s from '@/modules/agent-studio/Buy/styles_v6.module.scss';
 import Image from 'next/image';
 import React, { ReactElement } from 'react';
 import ErrorModal from '../../components3/ErrorModal';

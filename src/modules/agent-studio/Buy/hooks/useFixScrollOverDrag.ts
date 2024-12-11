@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
+import useDragMask from '@/modules/agent-studio/Buy/stores/useDragMask';
 
 export default function useFixScrollOverDrag() {
   const idDragging = useDragMask((state) => state.idDragging);

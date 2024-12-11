@@ -1,9 +1,9 @@
-import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
-import ErrorModal from '@/modules/blockchains/Buy/components3/ErrorModal';
+import s from '@/modules/agent-studio/Buy/styles_v6.module.scss';
+import ErrorModal from '@/modules/agent-studio/Buy/components3/ErrorModal';
 import React from 'react';
-import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
-import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
-import { useErrorMessage } from '@/modules/blockchains/Buy/studio/useErrorMessage';
+import useDragStore from '@/modules/agent-studio/Buy/stores/useDragStore';
+import useTemplate from '@/modules/agent-studio/Buy/hooks/useTemplate';
+import { useErrorMessage } from '@/modules/agent-studio/Buy/studio/useErrorMessage';
 
 export default function ErrorMessage() {
   const { isShowErrorMessage, toggleErrorMessage } = useErrorMessage(

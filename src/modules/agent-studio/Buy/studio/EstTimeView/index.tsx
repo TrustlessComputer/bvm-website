@@ -1,4 +1,4 @@
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
 import { Flex, Image, Text } from '@chakra-ui/react';
 import useFormChain from '../../hooks/useFormChain';
 

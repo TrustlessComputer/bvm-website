@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ChainDraggable from '@/modules/blockchains/Buy/components3/Draggable';
-import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
-import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import ChainDraggable from '@/modules/agent-studio/Buy/components3/Draggable';
+import DroppableV2 from '@/modules/agent-studio/Buy/components3/DroppableV2';
+import LegoV3 from '@/modules/agent-studio/Buy/components3/LegoV3';
+import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
 import { IModelCategory } from '@/types/customize-model';
 import Label from '../../components3/Label';
 import ChainLegoParent from '../../components3/LegoParent';
@@ -12,9 +12,9 @@ import useDragStore from '../../stores/useDragStore';
 import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
 import useOverlappingChainLegoStore from '../../stores/useOverlappingChainLegoStore';
 
-import OptionInputValue from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue';
+import OptionInputValue from '@/modules/agent-studio/Buy/component4/DappRenderer/OptionInputValue';
 import styles from './styles.module.scss';
-import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
+import { useBridgesModule } from '@/modules/agent-studio/detail_v4/hook/useBridgesModule';
 import { Link } from '@chakra-ui/react';
 
 const BridgeRenderer = () => {

@@ -1,4 +1,4 @@
-import { FormDappUtil } from '@/modules/blockchains/dapp/utils';
+import { FormDappUtil } from '@/modules/agent-studio/dapp/utils';
 
 export function extractedValue(
   keys: string[],
@@ -13,7 +13,7 @@ export function extractedValue(
     const value = data[key];
 
     let base = result[getBaseIndex];
-    if(!base) {
+    if (!base) {
       result[getBaseIndex] = {};
       base = result[getBaseIndex];
     }

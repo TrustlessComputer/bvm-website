@@ -1,12 +1,12 @@
-import TOKENABI from '@/modules/blockchains/CreateToken/contract/abis/Token.json';
-import { IBodyCreateToken } from '@/modules/blockchains/CreateToken/contract/interface';
-import { ITokenomics } from '@/modules/blockchains/CreateToken/types';
+import TOKENABI from '@/modules/agent-studio/CreateToken/contract/abis/Token.json';
+import { IBodyCreateToken } from '@/modules/agent-studio/CreateToken/contract/interface';
+import { ITokenomics } from '@/modules/agent-studio/CreateToken/types';
 import {
   getTokenomics,
   getTotalSupply,
-} from '@/modules/blockchains/CreateToken/utils';
-import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
-import { draggedIds2DSignal } from '@/modules/blockchains/dapp/signals/useDragSignal';
+} from '@/modules/agent-studio/CreateToken/utils';
+import { extractedValue } from '@/modules/agent-studio/dapp/hooks/utils';
+import { draggedIds2DSignal } from '@/modules/agent-studio/dapp/signals/useDragSignal';
 import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 import { useAppSelector } from '@/stores/hooks';
 import { requestReload } from '@/stores/states/common/reducer';

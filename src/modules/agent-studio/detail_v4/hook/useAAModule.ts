@@ -6,7 +6,7 @@ import { useAppDispatch } from '@/stores/hooks';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { useAccountAbstractionStore } from '../../detail_v3/account-abstraction_v2/store/hook';
+import { useAccountAbstractionStore } from '@/modules/blockchains/detail_v3/account-abstraction_v2/store/hook';
 import { useChainProvider } from '../provider/ChainProvider.hook';
 import {
   ModuleTypeIcon,

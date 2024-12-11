@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
-import { iconToolNames } from '@/modules/blockchains/Buy/Buy.data';
+import { iconToolNames } from '@/modules/agent-studio/Buy/Buy.data';
 import { IModelOption } from '@/types/customize-model';
 
 import { adjustBrightness } from '../../utils';

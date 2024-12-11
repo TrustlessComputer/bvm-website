@@ -1,6 +1,6 @@
 'use client';
 
-import useOrderMapper from '@/modules/blockchains/hooks/useOrderMapper';
+import useOrderMapper from '@/modules/agent-studio/hooks/useOrderMapper';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import s from '../styleFont.module.scss';

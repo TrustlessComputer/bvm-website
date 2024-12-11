@@ -1,4 +1,4 @@
-import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
+import { extractedValue } from '@/modules/agent-studio/dapp/hooks/utils';
 import CStakingAPI from '@/services/api/dapp/staking';
 import { useAppSelector } from '@/stores/hooks';
 import { requestReload } from '@/stores/states/common/reducer';

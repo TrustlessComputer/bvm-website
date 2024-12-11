@@ -1,6 +1,6 @@
-import { IRetrieveFormsByDappKey } from '@/modules/blockchains/Buy/hooks/useOneForm';
-import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
-import { FormDappUtil } from '@/modules/blockchains/dapp/utils';
+import { IRetrieveFormsByDappKey } from '@/modules/agent-studio/Buy/hooks/useOneForm';
+import { extractedValue } from '@/modules/agent-studio/dapp/hooks/utils';
+import { FormDappUtil } from '@/modules/agent-studio/dapp/utils';
 import CYoloGameAPI from '@/services/api/dapp/yolo';
 import BigNumberJS from 'bignumber.js';
 import { IPosition } from '@/services/api/dapp/staking/interface';
@@ -10,7 +10,13 @@ import CWhitePaperAPI from '@/services/api/dapp/whitePapers';
 const useSubmitWhitePaper = () => {
   const cWhitePaperAPI = new CWhitePaperAPI();
 
-  const onSubmitWhitePaper = async ({ forms, positions }: { forms: IRetrieveFormsByDappKey[][], positions?: Vector2[] }) => {
+  const onSubmitWhitePaper = async ({
+    forms,
+    positions,
+  }: {
+    forms: IRetrieveFormsByDappKey[][];
+    positions?: Vector2[];
+  }) => {
     let index = 0;
 
     for (const form of forms) {
@@ -21,7 +27,8 @@ const useSubmitWhitePaper = () => {
         >[] = [];
         const formDapp = Object.assign({}, ...form);
         const formDappInBase = Object.keys(formDapp).filter(
-          (key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key),
+          (key) =>
+            !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key),
         );
         const formDappInModule = Object.keys(formDapp).filter(
           (key) => !FormDappUtil.isInModule(key),
@@ -47,7 +54,7 @@ const useSubmitWhitePaper = () => {
           formDapp,
           finalFormMappings,
         );
-        const formFinal = finalFormMappings.find(item => !!item);
+        const formFinal = finalFormMappings.find((item) => !!item);
 
         // TODO: JACKIE - update position below
         const position: IPosition = {
@@ -59,18 +66,17 @@ const useSubmitWhitePaper = () => {
 
         await cWhitePaperAPI.createWhitePaper(
           formFinal?.token as unknown as string,
-          {...position}
+          { ...position },
         );
       } catch (error) {
         console.log(error);
       }
     }
-
   };
 
   return {
-    onSubmitWhitePaper
-  }
-}
+    onSubmitWhitePaper,
+  };
+};
 
 export default useSubmitWhitePaper;

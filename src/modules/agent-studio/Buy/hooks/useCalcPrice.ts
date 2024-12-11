@@ -1,5 +1,5 @@
-import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
-import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import useOrderFormStoreV3 from '@/modules/agent-studio/Buy/stores/index_v3';
+import useModelCategoriesStore from '@/modules/agent-studio/Buy/stores/useModelCategoriesStore';
 import { IModelOption } from '@/types/customize-model';
 import React from 'react';
 import { shouldCalcPrice } from '../utils';

@@ -38,7 +38,7 @@ import { useThisDapp } from '../../hooks/useThisDapp';
 
 import styles from './styles.module.scss';
 import Image from 'next/image';
-import BottomButton from '@/modules/blockchains/dapp/components/BottomButton';
+import BottomButton from '@/modules/agent-studio/dapp/components/BottomButton';
 import DateTimeInput from '../DateTimeInput';
 import { DappModel, FieldModel } from '@/types/customize-model';
 import { Box, Text } from '@chakra-ui/react';

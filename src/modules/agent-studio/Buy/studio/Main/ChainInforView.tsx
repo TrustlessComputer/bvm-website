@@ -1,6 +1,6 @@
-import LivingStatus from '@/modules/blockchains/components/Body_v2/L2Instance/LivingStatus';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
-import useOrderMapper from '@/modules/blockchains/hooks/useOrderMapper';
+import LivingStatus from '@/modules/agent-studio/components/Body_v2/L2Instance/LivingStatus';
+import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
+import useOrderMapper from '@/modules/agent-studio/hooks/useOrderMapper';
 import { Flex, Image, Text } from '@chakra-ui/react';
 import React, { ReactElement } from 'react';
 import { useRouter } from 'next/navigation';
@@ -11,7 +11,7 @@ import MenuEdit, {
   MenuEditItemEnum,
   MenuEditItemType,
 } from '@/modules/blockchains/detail_v2/components/MenuEdit';
-import MenuSettingChain from '@/modules/blockchains/Buy/studio/Main/MenuSettingChain';
+import MenuSettingChain from '@/modules/agent-studio/Buy/studio/Main/MenuSettingChain';
 
 const ChainInforView = (): ReactElement => {
   const { order, isUpdateFlow, isOwnerChain } = useChainProvider();

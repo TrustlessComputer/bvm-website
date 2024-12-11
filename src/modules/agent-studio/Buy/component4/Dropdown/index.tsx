@@ -21,7 +21,7 @@ import {
   templateIds2DSignal,
 } from '../../signals/useDragSignal';
 import styles from './styles.module.scss';
-import { iconToolNames } from '@/modules/blockchains/Buy/Buy.data';
+import { iconToolNames } from '@/modules/agent-studio/Buy/Buy.data';
 import useDraggingStore from '../../stores/useDraggingStore';
 
 type Props = {

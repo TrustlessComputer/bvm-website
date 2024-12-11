@@ -9,7 +9,7 @@ import { adjustBrightness } from '../../utils';
 import styles from './styles.module.scss';
 import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
-import { DappType } from '@/modules/blockchains/dapp/types';
+import { DappType } from '@/modules/agent-studio/dapp/types';
 import { DappModel } from '@/types/customize-model';
 import { Text } from '@chakra-ui/react';
 
