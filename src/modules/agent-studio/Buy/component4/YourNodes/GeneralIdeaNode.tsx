@@ -20,16 +20,15 @@ import { useAAModule } from '@/modules/agent-studio/detail_v4/hook/useAAModule';
 import Image from 'next/image';
 import Button from '../Button';
 // import Node from '../Node_v2/Node';
-import Node from '../Node_v3/Node';
+import NodeV3 from '../Node_v3/Node';
 
-import { useAccountAbstractionStore } from '@/modules/blockchains/detail_v3/account-abstraction_v2/store/hook';
 import { useDAServicesHelper } from '@/modules/agent-studio/detail_v4/hook/useDAServicesHelper';
-import { Button as ButtonChakra, Flex } from '@chakra-ui/react';
+import { useAccountAbstractionStore } from '@/modules/blockchains/detail_v3/account-abstraction_v2/store/hook';
 import useNodeAction from '../../hooks/useNodeAction';
 import AACustomNotification from './AACustomNotification';
 import styles from './styles.module.scss';
 
-const AANode = ({ data, id }: NodeProps<DappNodeProps>) => {
+const GeneralIdeaNode = ({ data, id }: NodeProps<DappNodeProps>) => {
   const { dapp } = data;
 
   const {
@@ -43,7 +42,6 @@ const AANode = ({ data, id }: NodeProps<DappNodeProps>) => {
 
   const paymasterAddress = aaInstalledData?.aaPaymasterContract || '';
 
-  const { handleOnClickCreateToken } = useNodeAction();
   const { getAAStatus, isUpdateFlow, isCreateChainFlow } = useChainProvider();
   const { resetAAStore, tokenContractAddress } = useAccountAbstractionStore();
   const { isEmptyIssueTokenList } = useDAServicesHelper();
@@ -122,69 +120,27 @@ const AANode = ({ data, id }: NodeProps<DappNodeProps>) => {
               >
                 <FeeRateInput option={dapp.baseBlock.fields[1]} />
               </Lego>
-
-              {/* {isDone && (
-                <Lego
-                  first={false}
-                  last={false}
-                  titleInLeft
-                  titleInRight={false}
-                  background={adjustBrightness(dapp.color, -10)}
-                  {...dapp.baseBlock.fields[2]}
-                >
-                  <AddressPaymasterInput />
-                </Lego>
-              )} */}
             </LegoParent>
           </Droppable>
         </Draggable>
 
-        {isUpdateFlow && !isCanNotEdit && (
-          <div className={styles.resetButtonWrapper}>
-            <Button
-              className={styles.resetButton}
-              onClick={() => {
-                resetAAStore();
-              }}
-            >
-              RESET{' '}
-              <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
-            </Button>
-          </div>
-        )}
+        <div className={styles.resetButtonWrapper}>
+          <Button
+            className={styles.resetButton}
+            onClick={() => {
+              resetAAStore();
+            }}
+          >
+            RESET{' '}
+            <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
+          </Button>
+        </div>
       </>
     );
   };
 
   const renderContentBox = () => {
-    if (isCreateChainFlow) {
-      return renderDefaultContentBox();
-      // return undefined;
-    } else if (isEmptyIssueTokenList) {
-      return (
-        <Flex justify={'center'} align={'center'}>
-          <ButtonChakra
-            color={'#4185EC'}
-            fontSize={'14px'}
-            alignSelf={'center'}
-            px="12px"
-            py={'4px'}
-            bgColor={'#EEF5FF'}
-            _hover={{
-              cursor: 'pointer',
-              opacity: 0.7,
-            }}
-            onClick={() => {
-              handleOnClickCreateToken();
-            }}
-          >
-            Create Token
-          </ButtonChakra>
-        </Flex>
-      );
-    } else {
-      return renderDefaultContentBox();
-    }
+    return renderDefaultContentBox();
   };
 
   if (typeof dappIndex === 'undefined') {
@@ -192,19 +148,10 @@ const AANode = ({ data, id }: NodeProps<DappNodeProps>) => {
   }
 
   return (
-    <Node
+    <NodeV3
       {...data}
       notification={renderNotification()}
       customNotification={isDone && <AACustomNotification />}
-      overlay={
-        isAAModuleLoading
-          ? {
-              type: 'loading',
-              iconUrl: '/coffee.gif',
-              message: 'Please wait a minute',
-            }
-          : undefined
-      }
       key={JSON.stringify(data)}
       borderColor={aaStatusData?.borderColorStr}
       id={id}
@@ -225,4 +172,4 @@ const AANode = ({ data, id }: NodeProps<DappNodeProps>) => {
   );
 };
 
-export default AANode;
+export default GeneralIdeaNode;

@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -14,6 +18,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "strictFunctionTypes": false,
     "plugins": [
       {
         "name": "next"
@@ -21,23 +26,46 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "~/*": ["./*"],
-      "@/public/*": ["./public/*"],
-      "@layouts/*": ["./src/layouts/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@interactive/*": ["./src/interactive/*"],
-      "@constants/*": ["./src/constants/*"],
-      "@components/*": ["./src/components/*"],
-      "@types/*": ["./src/types/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "~/*": [
+        "./*"
+      ],
+      "@/public/*": [
+        "./public/*"
+      ],
+      "@layouts/*": [
+        "./src/layouts/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
+      "@hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@interactive/*": [
+        "./src/interactive/*"
+      ],
+      "@constants/*": [
+        "./src/constants/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@types/*": [
+        "./src/types/*"
+      ]
     }
   },
-  "include": ["next-env.d.ts",
+  "include": [
+    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
     "node_modules/next/dist/build/webpack/loaders/next-style-loader/runtime/injectStylesIntoLinkTag.d.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

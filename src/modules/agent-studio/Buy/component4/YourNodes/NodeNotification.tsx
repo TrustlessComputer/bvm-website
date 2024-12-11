@@ -1,6 +1,7 @@
 import { NodeNotificationProps } from '@/types/node';
 import React from 'react';
 import styles from './styles.module.scss';
+import ResetButton from '../../component_v5/ResetButton_V2';
 
 const NodeNotification = ({
   label,
@@ -22,7 +23,7 @@ const NodeNotification = ({
           <span> - </span>
         </React.Fragment>
       )}
-
+      <ResetButton />
       {message ??
         'This module must be configured and completed after chain deployment and payment confirmation.'}
     </div>
