@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import ModalVideo from 'react-modal-video';
 import Image from 'next/image';
-import { getModelCategories, getTemplates } from '@/services/customize-model';
+import { getModelCategories, getTemplates } from '@/services/agent-model';
 import BoxOptionV3 from './components3/BoxOptionV3';
 import Draggable from './components3/Draggable';
 import DroppableV2 from './components3/DroppableV2';
