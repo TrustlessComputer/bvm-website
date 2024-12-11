@@ -44,12 +44,7 @@ const ChainRenderer = () => {
         height: '100%',
       }}
     >
-      <LegoV3
-        background={'#FF3A3A'}
-        label="Bitcoin L2 Name"
-        labelInLeft
-        zIndex={45}
-      >
+      <LegoV3 background={'#FF3A3A'} label="Agent" labelInLeft zIndex={45}>
         <ComputerNameInput />
       </LegoV3>
       <LegoV3 background={'#FF7A41'} label="Network" labelInLeft zIndex={44}>

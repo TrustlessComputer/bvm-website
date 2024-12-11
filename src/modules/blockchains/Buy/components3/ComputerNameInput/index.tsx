@@ -97,7 +97,7 @@ const ComputerNameInput = (props: Props) => {
     <div className={`${isCapture ? s.setLine : ''} ${s.wrapper_input}`}>
       <input
         type="text"
-        placeholder="Enter chain name"
+        placeholder="Enter agent name"
         className={`${s.input} `}
         disabled={!!isUpdateFlow}
         value={value}

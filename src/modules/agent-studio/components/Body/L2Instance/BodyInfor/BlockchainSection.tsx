@@ -52,7 +52,7 @@ const BlockchainSection = (props: Props) => {
         color={'#000'}
         className={s.fontSFProDisplay}
       >
-        {'Blockchain'}
+        {'Agent structure'}
       </Text>
 
       <SimpleGrid
