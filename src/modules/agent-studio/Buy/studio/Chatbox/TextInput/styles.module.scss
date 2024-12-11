@@ -1,0 +1,81 @@
+.input {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  position: relative;
+  padding-top: 0px;
+
+  &_heading {
+    font-family: SF Pro Display;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: left;
+    color: black;
+    margin-bottom: 8px;
+  }
+}
+
+.inputWrapper {
+  flex: 1;
+  position: relative;
+}
+
+.inputField {
+  width: 100%;
+  height: 150px;
+  padding: 15px;
+  padding-bottom: 50px;
+  border: 1px solid #dadada;
+  border-radius: 8px;
+  color: #333333;
+  background-color: #ffffff;
+  resize: none;
+  outline: none;
+  box-shadow: none;
+
+  font-family: SF Pro Display;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+}
+
+.buttonWrapper {
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+}
+
+.inputOverlay {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-family: SF Pro Display;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: calc(24 / 16);
+  text-align: left;
+  pointer-events: none;
+  color: #777777;
+
+  strong {
+    color: #fa4e0e;
+    font-weight: initial;
+  }
+}
+
+.poweredBy {
+  font-family: var(--font-SFProDisplay);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: left;
+  color: black;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

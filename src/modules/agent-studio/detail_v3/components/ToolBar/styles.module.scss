@@ -1,0 +1,33 @@
+.container {
+  font-family: var(--font-SFProDisplay);
+  color: #000;
+
+  .font1 {
+    font-family: var(--font-JetBrainsMono) !important;
+  }
+
+  .buttonActive {
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: #fa4e0e;
+    background-color: #fa4e0e;
+    color: #fff;
+
+    :hover {
+      cursor: pointer;
+      opacity: 0.7;
+    }
+  }
+
+  .buttonNotActive {
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: #fa4e0e;
+    background-color: #fcf7f2;
+    color: #fa4e0e;
+    :hover {
+      cursor: pointer;
+      opacity: 0.7;
+    }
+  }
+}

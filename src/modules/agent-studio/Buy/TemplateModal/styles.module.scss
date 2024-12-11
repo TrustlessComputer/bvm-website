@@ -1,0 +1,32 @@
+.modalContent {
+  background-color: #fff !important;
+  max-width: 930px !important;
+  margin: 20px !important;
+  border-radius: 24px !important;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 24px;
+  text-align: center;
+  color: #000;
+  line-height: calc(34 / 24);
+  margin-bottom: 16px;
+}
+
+.wrapperItem {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.optionCustom {
+  color: #4185EC;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: calc(30 / 20);
+  margin-top: 24px;
+  text-decoration: underline;
+  text-align: center;
+  margin-bottom: 28px
+}

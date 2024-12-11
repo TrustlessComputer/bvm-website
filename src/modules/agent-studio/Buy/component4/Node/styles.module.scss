@@ -1,0 +1,145 @@
+.node {
+  min-width: 400px;
+  width: max-content;
+  border-radius: 16px;
+  border: 2px solid;
+
+  * {
+    font-family: var(--font-SFProDisplay);
+  }
+
+  &__mainContent {
+    padding: 20px 25px;
+  }
+}
+
+.nodeHeading {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  border-bottom: 2px solid;
+  padding: 6px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+
+  &__title {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    svg path {
+      fill: var(--textColor);
+    }
+  }
+
+  &__icon {
+    :hover {
+      cursor: pointer;
+      opacity: 0.85;
+    }
+  }
+
+  &__status {
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--statusColor) !important;
+
+    svg path {
+      fill: var(--statusColor);
+    }
+
+    &__circle {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--statusColor);
+    }
+  }
+}
+
+.nodeContent {
+  position: relative;
+  background-color: #fff;
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+  // padding: 20px 40px;
+  padding: 5px;
+}
+
+.nodeOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color: #393939, $alpha: 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+  z-index: 9999;
+}
+
+.handles {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  z-index: 99999;
+  height: 100%;
+  position: absolute;
+  :global {
+    .react-flow__handle-right {
+      //margin-bottom: 10px;
+      //position: absolute !important;
+    }
+  }
+}
+
+.handles.sources {
+  right: 0;
+  top: 0;
+}
+
+.handles.target {
+  left: 0;
+  top: 0;
+}
+
+.handleDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  //background: #777777;
+  position: absolute;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  //border: 1px solid #555555;
+  z-index: 4;
+  :global {
+    .react-flow__handle {
+      position: relative !important;
+    }
+  }
+}
+
+.isFocused {
+  //border-color:  #0c0d13 !important;
+  transition: 2s;
+  box-shadow: 1px 0px 28px 3px rgba(86, 86, 86, 0.7);
+}
+
+@keyframes blurShadow {
+  50% {
+    box-shadow: 0 0 5px 5px #0c0d13 !important;
+  }
+}

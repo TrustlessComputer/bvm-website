@@ -1,0 +1,43 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 15px;
+  background: linear-gradient(
+    360deg,
+    #00789f 0%,
+    #32009b 14.56%,
+    #7500d2 44.15%,
+    #da00de 84.23%,
+    #fedec0 100%
+  );
+  color: white;
+  border: none;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'SF Pro Display', sans-serif;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  position: absolute;
+  bottom: 10px;
+
+  left: 50%;
+  transform: translateX(-50%);
+
+  &:hover {
+    background: linear-gradient(
+      360deg,
+      #005f7f 0%,
+      #26007b 14.56%,
+      #5e00a8 44.15%,
+      #ae00b2 84.23%,
+      #cbb299 100%
+    );
+  }
+
+  svg {
+    margin-left: 8px;
+  }
+}

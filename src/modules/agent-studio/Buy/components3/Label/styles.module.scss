@@ -1,0 +1,14 @@
+.label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  &__text {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: calc(20 / 16);
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    letter-spacing: -0.18px;
+  }
+}

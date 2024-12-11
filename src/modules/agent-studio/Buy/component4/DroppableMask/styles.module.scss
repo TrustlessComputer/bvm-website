@@ -1,0 +1,12 @@
+.wrapperMask {
+  position: absolute;
+  z-index: 99999;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  display: none;
+}
+
+.show {
+  display: block;
+}
