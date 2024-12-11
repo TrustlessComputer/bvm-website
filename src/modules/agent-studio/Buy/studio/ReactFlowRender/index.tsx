@@ -13,10 +13,14 @@ import { isActingSignal } from '../../signals/useFlowStatus';
 import useFlowStore, { useEdges, useNodes } from '../../stores/useFlowStore';
 import { useCategories } from '../../stores/useModelCategoriesStore';
 import s from './styles.module.scss';
+
 import CreateAgentNftEtherNode from '../../component4/YourNodes/CreateAgentNftEtherNode';
+
 import CreateAgentOrdinalsBtcNode from '../../component4/YourNodes/CreateAgentOrdinalsBtcNode';
 import CreateAgentTokensPumpNode from '../../component4/YourNodes/CreateAgentTokensPumpNOde';
+
 import AANode from '../../component4/YourNodes/GeneralIdeaNode/GeneralIdeaNode';
+import NFTNode from '../../component4/YourNodes/NFTNode/NFTNode';
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
@@ -81,7 +85,7 @@ const ReactFlowRenderer = React.memo(() => {
           // V2
           [nodeKey.CHAIN_NODE]: ChainNodeV2,
           [nodeKey.DAPP_NODE]: DappNode,
-          [nodeKey.GENERAL_IDEA_NODE]: AANode,
+          [nodeKey.GENERAL_IDEA_NODE]: NFTNode,
           [nodeKey.NFT_ETHER_NODE]: CreateAgentNftEtherNode,
           [nodeKey.NFT_ORDINAL_BTC_NODE]: CreateAgentOrdinalsBtcNode,
           [nodeKey.TOKENS_PUMP_NODE]: CreateAgentTokensPumpNode,

@@ -1,13 +1,12 @@
 import { Flex, Text, Textarea, Tooltip } from '@chakra-ui/react';
 import InforIcon from '../../../component_v5/icons/InforIcon';
-import { useGeneralIdeaStore } from './useGeneralIdeaStore';
+import { useNFTStore } from './useNFTStore';
 
-type Props = {
-  title?: string;
-};
+type Props = {};
 
-export const GeneralIdeaContent = (props: Props) => {
-  const { setTextArea, textArea } = useGeneralIdeaStore();
+export const PersonalityView = (props: Props) => {
+  const { personalityStr, setPersonalityStr } = useNFTStore();
+
   return (
     <Flex
       minW={'500px'}
@@ -20,11 +19,11 @@ export const GeneralIdeaContent = (props: Props) => {
     >
       <Flex flexDir={'row'} align={'center'} gap="10px" p="4px">
         <Text fontSize={'18px'} fontWeight={500}>
-          {props.title || 'General idea'}
+          {'Personality'}
         </Text>
 
         <Tooltip
-          label="General idea information ....."
+          label="Personality information ....."
           fontSize="12px"
           color={'#000'}
           bgColor={'#fff'}
@@ -35,7 +34,7 @@ export const GeneralIdeaContent = (props: Props) => {
         </Tooltip>
       </Flex>
       <Textarea
-        value={textArea}
+        value={personalityStr}
         minH="150px"
         p="8px 12px"
         borderRadius={'12px'}
@@ -46,12 +45,9 @@ export const GeneralIdeaContent = (props: Props) => {
         _placeholder={{
           color: 'grey',
         }}
-        _disabled={{
-          cursor: 'not-allowed',
-        }}
         onChange={(e: any) => {
           let inputValue = e.target.value;
-          setTextArea(inputValue);
+          setPersonalityStr(inputValue);
         }}
       />
     </Flex>
