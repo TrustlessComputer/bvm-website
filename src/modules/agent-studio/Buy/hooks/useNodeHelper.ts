@@ -19,7 +19,7 @@ import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import { dappKeyToChainKey } from '../utils';
 import {
-  agentInfoAsBrainstorm,
+  createAgentGeneralIdeaAsBrainstorm,
   missionAsBrainstorm,
   gamingAppsAsADapp,
 } from '../mockup_3';
@@ -80,7 +80,7 @@ const useNodeHelper = () => {
 
   const getAccountAbstractionNode = React.useCallback(
     (position: { x: number; y: number }): DappNode => {
-      const dapp = agentInfoAsBrainstorm;
+      const dapp = createAgentGeneralIdeaAsBrainstorm;
 
       return {
         id: getAccountAbstractionNodeId(),

@@ -1,22 +1,22 @@
-import React from 'react';
 import { useSignalEffect } from '@preact/signals-react';
 import cn from 'classnames';
+import React from 'react';
 
-import InfoTooltip from '@components/Form/InfoTooltip';
 import { DappModel, IModelOption } from '@/types/customize-model';
+import InfoTooltip from '@components/Form/InfoTooltip';
 
-import Lego from '../Lego';
-import Draggable from '../Draggable';
+import DescriptionModal from '../../components/DescriptionModal/DescriptionModal';
 import { FieldKeyPrefix } from '../../contants';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
 } from '../../signals/useDragSignal';
-import DescriptionModal from '../../components/DescriptionModal/DescriptionModal';
+import Draggable from '../Draggable';
+import Lego from '../Lego';
 
-import styles from './styles.module.scss';
 import useOneForm from '../../hooks/useOneForm';
 import { formDappSignal } from '../../signals/useFormDappsSignal';
+import styles from './styles.module.scss';
 
 type Props = {
   info: IModelOption & {

@@ -6,17 +6,17 @@ import LegoV3 from '@/modules/agent-studio/Buy/components3/LegoV3';
 import { Field } from '@/modules/agent-studio/Buy/signals/useDragSignal';
 import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
 import { OrderItem } from '@/stores/states/l2services/types';
-import { DappModel, IModelCategory } from '@/types/customize-model';
+import { DappModel } from '@/types/customize-model';
 import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
 import cn from 'classnames';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import Label from '../../components3/Label';
 import ChainLegoParent from '../../components3/LegoParent';
 import useGettingDappLego from '../../hooks/useGettingDappLego';
-import useOrderFormStoreV3, { useCaptureStore } from '../../stores/index_v3';
-import useDragStore from '../../stores/useDragStore';
-import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
-import useOverlappingChainLegoStore from '../../stores/useOverlappingChainLegoStore';
+import { useField, useIsCapture } from '../../stores/index_v3';
+import { useDraggedFields } from '../../stores/useDragStore';
+import { useParsedCategories } from '../../stores/useModelCategoriesStore';
+import { useOverlappingId } from '../../stores/useOverlappingChainLegoStore';
 import s from './styles.module.scss';
 
 export type DataNode = Node<
@@ -37,14 +37,21 @@ export type DataNode = Node<
   'label'
 >;
 
+const mustBeCheckedKeys = [
+  'general_idea',
+  'nft_ether',
+  'ordinal_bitcoin',
+  'tokens_pump_fun',
+];
+
 function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
   useGettingDappLego();
 
-  const { parsedCategories } = useModelCategoriesStore();
-  const { draggedFields } = useDragStore();
-  const { overlappingId } = useOverlappingChainLegoStore();
-  const { field } = useOrderFormStoreV3();
-  const { isCapture } = useCaptureStore();
+  const parsedCategories = useParsedCategories();
+  const draggedFields = useDraggedFields();
+  const overlappingId = useOverlappingId();
+  const field = useField();
+  const isCapture = useIsCapture();
 
   const {
     order,
@@ -189,7 +196,7 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
               if (option.key !== field[item.key].value) return null;
 
               const isUpdatable =
-                option.key !== 'general_idea' && // Must be hard coded
+                mustBeCheckedKeys.includes(item.key) &&
                 selectedCategory?.updatable && //
                 isUpdateFlow;
 

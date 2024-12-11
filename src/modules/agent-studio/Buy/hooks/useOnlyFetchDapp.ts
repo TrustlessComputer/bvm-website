@@ -7,7 +7,7 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 import { orderBy } from 'lodash';
 import { useParams, usePathname } from 'next/navigation';
 import {
-  agentInfoAsBrainstorm,
+  createAgentGeneralIdeaAsBrainstorm,
   missionAsBrainstorm,
   dappMockupData,
   gamingAppsAsADapp,
@@ -88,7 +88,7 @@ const useOnlyFetchDapp = () => {
   }, [configs, tokensAll]);
 
   const fetchDapps = () => {
-    const _dapps = [agentInfoAsBrainstorm, missionAsBrainstorm];
+    const _dapps = [createAgentGeneralIdeaAsBrainstorm, missionAsBrainstorm];
 
     const otherDapps = isUpdateChain
       ? // ? cloneDeep(dappFromAPIMockupData)

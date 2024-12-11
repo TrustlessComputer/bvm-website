@@ -1,25 +1,21 @@
 import CustomEdge from '@/modules/agent-studio/Buy/component4/CustomEdge';
-import CustomNode from '@/modules/agent-studio/Buy/component4/CustomNode';
 import useLineIssueToken from '@/modules/agent-studio/Buy/hooks/useLineIssueToken';
-import useFirstLoadTemplateBoxStore, {
-  useIsFirstLoadTemplateBox,
-} from '@/modules/agent-studio/Buy/stores/useFirstLoadTemplateBoxStore';
+import { useIsFirstLoadTemplateBox } from '@/modules/agent-studio/Buy/stores/useFirstLoadTemplateBoxStore';
 import { signal, useSignalEffect } from '@preact/signals-react';
 import { ConnectionMode, ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
-import DappTemplateNode from '../../component4/CustomNode/DappTemplateNode';
 import AANode from '../../component4/YourNodes/AANode';
-import BridgeNode from '../../component4/YourNodes/BridgeNode';
 import ChainNodeV2 from '../../component4/YourNodes/ChainNodeV2';
 import DappNode from '../../component4/YourNodes/DappNode';
-import GamingAppsNode from '../../component4/YourNodes/GamingAppsNode';
 import { nodeKey } from '../../component4/YourNodes/node.constants';
 import { isActingSignal } from '../../signals/useFlowStatus';
 import useFlowStore, { useEdges, useNodes } from '../../stores/useFlowStore';
 import { useCategories } from '../../stores/useModelCategoriesStore';
 import s from './styles.module.scss';
+import CreateAgentNftEtherNode from '../../component4/YourNodes/CreateAgentNftEtherNode';
+import CreateAgentOrdinalsBtcNode from '../../component4/YourNodes/CreateAgentOrdinalsBtcNode';
+import CreateAgentTokensPumpNode from '../../component4/YourNodes/CreateAgentTokensPumpNOde';
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
@@ -77,16 +73,17 @@ const ReactFlowRenderer = React.memo(() => {
         nodes={nodes}
         nodeTypes={{
           // V1
-          [nodeKey.CUSTOM_BOX]: CustomNode,
+          // [nodeKey.CUSTOM_BOX]: CustomNode,
           // [nodeKey.CHAIN_NODE]: ChainNode,
-          [nodeKey.DAPP_TEMPLATE]: DappTemplateNode,
+          // [nodeKey.DAPP_TEMPLATE]: DappTemplateNode,
 
           // V2
-          [nodeKey.DAPP_NODE]: DappNode,
           [nodeKey.CHAIN_NODE]: ChainNodeV2,
-          [nodeKey.ACCOUNT_ABSTRACTION_NODE]: AANode,
-          [nodeKey.BRIDGE_NODE]: BridgeNode,
-          [nodeKey.GAMING_APPS_NODE]: GamingAppsNode,
+          [nodeKey.DAPP_NODE]: DappNode,
+          [nodeKey.GENERAL_IDEA_NODE]: AANode,
+          [nodeKey.NFT_ETHER_NODE]: CreateAgentNftEtherNode,
+          [nodeKey.NFT_ORDINAL_BTC_NODE]: CreateAgentOrdinalsBtcNode,
+          [nodeKey.TOKENS_PUMP_NODE]: CreateAgentTokensPumpNode,
         }}
         edgeTypes={{
           customEdge: CustomEdge,

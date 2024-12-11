@@ -26,9 +26,10 @@ import {
   OrderStatus,
   WebsiteConfig,
 } from '@/stores/states/l2services/types';
-import { convertBase64ToFile } from '@/utils/file';
+import { IModelCategory } from '@/types/customize-model';
 import { camelCaseKeys } from '@/utils/normalize';
 import L2ServiceAuthStorage from '@/utils/storage/authV3.storage';
+import { isEmpty } from 'lodash';
 import { builderAccountInfo, builderOrderList } from './helper';
 import {
   IExploreItem,
@@ -36,10 +37,6 @@ import {
   IOrderBuyEstimateRespone_V2,
   SubmitFormParams,
 } from './types';
-import { IModelCategory } from '@/types/customize-model';
-import { isEmpty } from 'lodash';
-import { ORDER_MOCKUP_DATA } from './OrderMockupData';
-import { MODEL_CATEGORY_MOCKUP } from './ModelCategoryMockup';
 
 const isInValidAccessToken = () => {
   const accessToken = LocalStorage.getItem(

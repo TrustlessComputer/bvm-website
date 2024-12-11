@@ -467,18 +467,6 @@ export default function useFetchingTemplate() {
       newDraggedIds2D.push([]);
     }
 
-    if (isBridgeInstalled) {
-      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'bridge_apps');
-      newDraggedDappIndexes.push(dappIndex);
-      newDraggedIds2D.push([]);
-    }
-
-    if (isGamingAppsInstalled) {
-      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'gaming_apps');
-      newDraggedDappIndexes.push(dappIndex);
-      newDraggedIds2D.push([]);
-    }
-
     draggedDappIndexesSignal.value = newDraggedDappIndexes;
     draggedIds2DSignal.value = newDraggedIds2D;
     isRenderedInUpdateFlowSignal.value = true;

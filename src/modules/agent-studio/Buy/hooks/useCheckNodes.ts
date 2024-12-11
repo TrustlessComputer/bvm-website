@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 import { removeItemAtIndex } from '../../dapp/utils';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import {
-  agentInfoAsBrainstorm,
+  createAgentGeneralIdeaAsBrainstorm,
   missionAsBrainstorm,
   gamingAppsAsADapp,
 } from '../mockup_3';
@@ -82,7 +82,7 @@ export default function useCheckNodes() {
 
       if (nodeIndex === -1) {
         const rootNode = 'blockchain';
-        const thisDapp = agentInfoAsBrainstorm;
+        const thisDapp = createAgentGeneralIdeaAsBrainstorm;
         let nodesData = nodes;
         const newNodeId = 'general_idea';
         const newNode: DappNode = {

@@ -26,9 +26,12 @@ import handleStatusEdges from '@utils/helpers';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import {
-  agentInfoAsBrainstorm,
+  createAgentGeneralIdeaAsBrainstorm,
   missionAsBrainstorm,
   gamingAppsAsADapp,
+  createAgentNftEtherAsBrainstorm,
+  createAgentNftOrdinalBTCAsBrainstorm,
+  createAgentTokensPumpAsBrainstorm,
 } from '../mockup_3';
 import useDappsStore, { useTemplateFormStore } from '../stores/useDappStore';
 import useDraggedId2DStore from '../stores/useDraggedId2DStore';
@@ -109,15 +112,10 @@ export default function useNodeFlowControl() {
   };
 
   useSignalEffect(() => {
-    const bridgeAppsIndex = dapps.findIndex(
-      (dapp) => dapp.key === 'bridge_apps',
-    );
-    const gamingAppsIndex = dapps.findIndex(
-      (dapp) => dapp.key === 'gaming_apps',
-    );
     const accountAbstractionIndex = dapps.findIndex(
       (dapp) => dapp.key === 'general_idea',
     );
+
     console.log('[useNodeFlowControl]', { nodes });
 
     needReactFlowRenderSignal.value = true;
@@ -132,7 +130,7 @@ export default function useNodeFlowControl() {
     ) {
       if (!nodes.some((node) => node.id === 'general_idea')) {
         const rootNode = 'blockchain';
-        const thisDapp = agentInfoAsBrainstorm;
+        const thisDapp = createAgentGeneralIdeaAsBrainstorm;
         const category = categories?.find((category) =>
           category.options.some(
             (option) => option.key === dappKeyToChainKey(thisDapp.key),
@@ -179,135 +177,6 @@ export default function useNodeFlowControl() {
             label: handleStatusEdges('', lineAAStatus, 'general_idea').icon,
             animated: handleStatusEdges('', lineAAStatus, 'general_idea')
               .animate,
-            markerEnd: {
-              type: MarkerType.Arrow,
-              width: 20,
-              height: 20,
-              strokeWidth: 1,
-              color: '#AAAAAA',
-            },
-            style: {
-              stroke: '#AAAAAA',
-              strokeWidth: 2,
-            },
-          },
-        ]);
-        needReactFlowRenderSignal.value = true;
-      }
-    }
-
-    if (
-      draggedDappIndexesSignal.value.includes(bridgeAppsIndex) &&
-      isBridgeInstalled
-    ) {
-      if (!nodes.some((node) => node.id === 'bridge_apps')) {
-        const rootNode = 'blockchain';
-        const thisDapp = missionAsBrainstorm;
-        let nodesData = nodes;
-        const newNodeId = 'bridge_apps';
-        const newNode: DappNode = {
-          id: newNodeId,
-          type: dappKeyToNodeKey(thisDapp.key),
-          dragHandle: '.drag-handle-area',
-          position: { x: 500, y: 30 },
-          data: {
-            node: 'dapp',
-            title: thisDapp.title,
-            dapp: thisDapp,
-            baseIndex: 0,
-            categoryOption: {} as IModelOption,
-            ids: [],
-            // targetHandles: [`bridge_apps-t-${rootNode}`],
-            targetHandles: [],
-            sourceHandles: [`bridge_apps-t-${rootNode}`],
-            // sourceHandles: [],
-          },
-        };
-
-        setNodes([...nodesData, newNode]);
-        setEdges([
-          ...edges,
-          {
-            // id: `${edges.length + 1}`,
-            id: `${Math.random()}`,
-            source: rootNode,
-            sourceHandle: `${rootNode}-s-bridge_apps`,
-            // target: `${newNodeId}`,
-            target: `bridge_apps`,
-            label: handleStatusEdges('', lineBridgeStatus, 'bridge_apps').icon,
-            animated: handleStatusEdges('', lineBridgeStatus, 'bridge_apps')
-              .animate,
-            targetHandle: `bridge_apps-t-${rootNode}`,
-            selectable: false,
-            selected: false,
-            focusable: false,
-            type: 'customEdge',
-            markerEnd: {
-              type: MarkerType.Arrow,
-              width: 20,
-              height: 20,
-              strokeWidth: 1,
-              color: '#AAAAAA',
-            },
-            style: {
-              stroke: '#AAAAAA',
-              strokeWidth: 2,
-            },
-          },
-        ]);
-        needReactFlowRenderSignal.value = true;
-      }
-    }
-
-    if (
-      draggedDappIndexesSignal.value.includes(gamingAppsIndex) &&
-      isGamingAppsInstalled
-    ) {
-      if (!nodes.some((node) => node.id === 'gaming_apps')) {
-        const rootNode = 'blockchain';
-        const thisDapp = gamingAppsAsADapp;
-        let nodesData = nodes;
-        const newNodeId = 'gaming_apps';
-        const newNode: DappNode = {
-          id: newNodeId,
-          type: dappKeyToNodeKey(thisDapp.key),
-          dragHandle: '.drag-handle-area',
-          position: { x: 1500, y: 30 },
-          data: {
-            node: 'dapp',
-            title: thisDapp.title,
-            dapp: thisDapp,
-            baseIndex: 0,
-            categoryOption: {} as IModelOption,
-            ids: [],
-            // targetHandles: [`gaming_apps-t-${rootNode}`],
-            targetHandles: [],
-            sourceHandles: [`gaming_apps-t-${rootNode}`],
-            // sourceHandles: [],
-          },
-        };
-        setNodes([...nodesData, newNode]);
-        setEdges([
-          ...edges,
-          {
-            // id: `${edges.length + 1}`,
-            id: `${Math.random()}`,
-            source: rootNode,
-            sourceHandle: `${rootNode}-s-gaming_apps`,
-            // target: `${newNodeId}`,
-            target: `gaming_apps`,
-            label: handleStatusEdges('', statusMapper.statusStr, 'gaming_apps')
-              .icon,
-            animated: handleStatusEdges(
-              '',
-              statusMapper.statusStr,
-              'gaming_apps',
-            ).animate,
-            targetHandle: `gaming_apps-t-${rootNode}`,
-            selectable: false,
-            selected: false,
-            focusable: false,
-            type: 'customEdge',
             markerEnd: {
               type: MarkerType.Arrow,
               width: 20,
@@ -395,25 +264,30 @@ export default function useNodeFlowControl() {
       (mouseDroppedPositionSignal.value.y - transformY) / zoomLevel;
 
     switch (thisDapp.key) {
-      case agentInfoAsBrainstorm.key:
+      case createAgentGeneralIdeaAsBrainstorm.key:
         suffix = 'general_idea';
         newNodeId = 'general_idea';
         statusMapping = lineAAStatus;
-        console.log(
-          '[useNodeFlowControl] handleAddBox case agentInfoAsBrainstorm',
-          lineAAStatus,
-        );
         break;
-      case missionAsBrainstorm.key:
-        suffix = 'bridge_apps';
-        newNodeId = 'bridge_apps';
-        statusMapping = lineBridgeStatus;
+
+      case createAgentNftEtherAsBrainstorm.key:
+        suffix = 'nft_ether';
+        newNodeId = 'nft_ether';
+        statusMapping = lineAAStatus;
         break;
-      case gamingAppsAsADapp.key:
-        suffix = 'gaming_apps';
-        newNodeId = 'gaming_apps';
-        statusMapping = 'draft';
+
+      case createAgentNftOrdinalBTCAsBrainstorm.key:
+        suffix = 'ordinal_bitcoin';
+        newNodeId = 'ordinal_bitcoin';
+        statusMapping = lineAAStatus;
         break;
+
+      case createAgentTokensPumpAsBrainstorm.key:
+        suffix = 'tokens_pump_fun';
+        newNodeId = 'tokens_pump_fun';
+        statusMapping = lineAAStatus;
+        break;
+
       default:
         break;
     }
@@ -427,8 +301,11 @@ export default function useNodeFlowControl() {
     const isHandleExists = edges.some(
       (handle) => handle.sourceHandle === `${rootNode}-s-${suffix}`,
     );
+
     let nodesData = nodes;
-    const ignoreKeys = ['bridge_apps', 'gaming_apps'];
+
+    const ignoreKeys: string[] = [];
+
     if (!isHandleExists && !ignoreKeys.includes(suffix)) {
       getHandleNodeBlockChain?.data?.sourceHandles?.push(
         `${rootNode}-s-${suffix}`,
@@ -462,6 +339,7 @@ export default function useNodeFlowControl() {
         // sourceHandles: [],
       },
     };
+
     setNodes([...nodesData, newNode]);
     setEdges([
       ...edges,

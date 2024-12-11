@@ -12,7 +12,12 @@ import { formatCurrencyV2 } from '@utils/format';
 import { compareString } from '@utils/string';
 import React, { memo } from 'react';
 import useDapps from '../../hooks/useDapps';
-import { agentInfoAsBrainstorm } from '../../mockup_3';
+import {
+  createAgentGeneralIdeaAsBrainstorm,
+  createAgentNftEtherAsBrainstorm,
+  createAgentNftOrdinalBTCAsBrainstorm,
+  createAgentTokensPumpAsBrainstorm,
+} from '../../mockup_3';
 import { chainKeyToDappKey, isChainOptionDisabled } from '../../utils';
 import useStudioInfo from '../../hooks/useStudioInfo';
 
@@ -151,44 +156,102 @@ export default memo(function StudioControls() {
           .map((item) => {
             // Special case, need to check manually
             if (item.key === 'create_agent') {
-              const dapp = agentInfoAsBrainstorm;
+              const generalIdeaDapp = createAgentGeneralIdeaAsBrainstorm;
+              const nftEtherDapp = createAgentNftEtherAsBrainstorm;
+              const nftOrdinalBTC = createAgentNftOrdinalBTCAsBrainstorm;
+              const tokensPump = createAgentTokensPumpAsBrainstorm;
 
               return (
-                <BoxOptionV3
-                  key={item.key}
-                  disable={item.disable}
-                  label={item.title}
-                  id={item.key}
-                  isRequired={item.required}
-                  description={{
-                    title: item.title,
-                    content: item.tooltip,
-                  }}
-                  needCheckIcon={false}
-                >
-                  {item.options.map((option, index) => {
-                    return (
-                      <BoxOption
-                        info={{
-                          ...option,
-                          disabled: false,
-                          // item.disable ||
-                          // !item.options[0].selectable ||
-                          // isChainOptionDisabled(field, item, item.options[0]),
-                          title: '',
-                          description: {
-                            title: item.title,
-                            content: item.tooltip,
-                          },
-                        }}
-                        thisDapp={dapp}
-                        key={dapp.key}
-                        dappIndex={0}
-                        className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
-                      ></BoxOption>
-                    );
-                  })}
-                </BoxOptionV3>
+                <>
+                  <BoxOptionV3
+                    key={item.key}
+                    disable={item.disable}
+                    label={item.title}
+                    id={item.key}
+                    isRequired={item.required}
+                    description={{
+                      title: item.title,
+                      content: item.tooltip,
+                    }}
+                    needCheckIcon={false}
+                  >
+                    <BoxOption
+                      info={{
+                        ...item.options[0],
+                        disabled: false,
+                        // item.disable ||
+                        // !item.options[0].selectable ||
+                        // isChainOptionDisabled(field, item, item.options[0]),
+                        title: '',
+                        description: {
+                          title: item.options[0].title,
+                          content: item.options[0].tooltip,
+                        },
+                      }}
+                      thisDapp={generalIdeaDapp}
+                      key={generalIdeaDapp.key}
+                      dappIndex={0}
+                      className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
+                    />
+
+                    <BoxOption
+                      info={{
+                        ...item.options[1],
+                        disabled: false,
+                        // item.disable ||
+                        // !item.options[0].selectable ||
+                        // isChainOptionDisabled(field, item, item.options[0]),
+                        title: '',
+                        description: {
+                          title: item.options[1].title,
+                          content: item.options[1].tooltip,
+                        },
+                      }}
+                      thisDapp={nftEtherDapp}
+                      key={nftEtherDapp.key}
+                      dappIndex={0}
+                      className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
+                    />
+
+                    <BoxOption
+                      info={{
+                        ...item.options[2],
+                        disabled: false,
+                        // item.disable ||
+                        // !item.options[0].selectable ||
+                        // isChainOptionDisabled(field, item, item.options[0]),
+                        title: '',
+                        description: {
+                          title: item.options[2].title,
+                          content: item.options[2].tooltip,
+                        },
+                      }}
+                      thisDapp={tokensPump}
+                      key={tokensPump.key}
+                      dappIndex={0}
+                      className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
+                    />
+
+                    <BoxOption
+                      info={{
+                        ...item.options[3],
+                        disabled: false,
+                        // item.disable ||
+                        // !item.options[0].selectable ||
+                        // isChainOptionDisabled(field, item, item.options[0]),
+                        title: '',
+                        description: {
+                          title: item.options[3].title,
+                          content: item.options[3].tooltip,
+                        },
+                      }}
+                      thisDapp={nftOrdinalBTC}
+                      key={nftOrdinalBTC.key}
+                      dappIndex={0}
+                      className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
+                    />
+                  </BoxOptionV3>
+                </>
               );
             }
 
@@ -262,6 +325,7 @@ export default memo(function StudioControls() {
             return null;
           })}
       </Droppable>
+
       <div className={s.hTrigger}></div>
     </div>
   );

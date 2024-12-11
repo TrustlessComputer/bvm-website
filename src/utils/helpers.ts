@@ -295,12 +295,7 @@ export default function handleStatusEdges(
   status: aa | string,
   idNode: string,
 ) {
-  if (
-    idNode === 'general_idea' ||
-    idNode === 'bridge_apps' ||
-    idNode === 'gaming_apps'
-  ) {
-    console.log('status here', status, idNode);
+  if (idNode === 'general_idea') {
     return handleStatusEdgeByBox(status);
   }
 

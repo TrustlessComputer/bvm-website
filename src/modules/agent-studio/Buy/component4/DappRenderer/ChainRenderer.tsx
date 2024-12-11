@@ -18,6 +18,12 @@ import styles from './styles.module.scss';
 type Props = {};
 
 const hiddenFields = ['network'];
+const mustBeCheckedKeys = [
+  'general_idea',
+  'nft_ether',
+  'ordinal_bitcoin',
+  'tokens_pump_fun',
+];
 
 const ChainRenderer = () => {
   const parsedCategories = useParsedCategories();
@@ -124,7 +130,7 @@ const ChainRenderer = () => {
           if (option.key !== field[item.key].value) return null;
 
           const isUpdatable =
-            option.key !== 'general_idea' && // Must be hard coded
+            !mustBeCheckedKeys.includes(option.key) && // Must be hard coded
             selectedCategory?.updatable && //
             isUpdateFlow;
 
