@@ -23,7 +23,7 @@ import {
   missionAsBrainstorm,
   gamingAppsAsADapp,
 } from '../mockup_3';
-import useStudioInfo from './useStudioInfo';
+import useStudioInfo from '../studio/ActionsWorkArea/useStudioInfo';
 
 const useNodeHelper = () => {
   const setDraggedIds2D = useDraggedId2DStore((state) => state.setDraggedIds2D);

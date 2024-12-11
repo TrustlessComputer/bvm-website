@@ -11,6 +11,9 @@ import {
   missionAsBrainstorm,
   dappMockupData,
   gamingAppsAsADapp,
+  createAgentNftEtherAsBrainstorm,
+  createAgentNftOrdinalBTCAsBrainstorm,
+  createAgentTokensPumpAsBrainstorm,
 } from '../mockup_3';
 import useDappsStore from '../stores/useDappStore';
 import { cloneDeep } from '../utils';
@@ -88,7 +91,12 @@ const useOnlyFetchDapp = () => {
   }, [configs, tokensAll]);
 
   const fetchDapps = () => {
-    const _dapps = [createAgentGeneralIdeaAsBrainstorm, missionAsBrainstorm];
+    const _dapps = [
+      createAgentGeneralIdeaAsBrainstorm,
+      createAgentNftEtherAsBrainstorm,
+      createAgentNftOrdinalBTCAsBrainstorm,
+      createAgentTokensPumpAsBrainstorm,
+    ];
 
     const otherDapps = isUpdateChain
       ? // ? cloneDeep(dappFromAPIMockupData)

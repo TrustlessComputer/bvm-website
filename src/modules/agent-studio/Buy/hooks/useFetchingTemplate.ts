@@ -45,7 +45,7 @@ import { cloneDeep, FormDappUtil } from '../utils';
 import { parseWhitePapers } from '@/modules/agent-studio/dapp/parseUtils/whitePaper';
 import useStudioHelper from './useStudioHelper';
 import useNodeHelper from './useNodeHelper';
-import useStudioInfo from './useStudioInfo';
+import useStudioInfo from '../studio/ActionsWorkArea/useStudioInfo';
 
 export default function useFetchingTemplate() {
   const path = usePathname();

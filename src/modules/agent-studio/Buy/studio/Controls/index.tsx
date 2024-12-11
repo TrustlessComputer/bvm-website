@@ -19,7 +19,7 @@ import {
   createAgentTokensPumpAsBrainstorm,
 } from '../../mockup_3';
 import { chainKeyToDappKey, isChainOptionDisabled } from '../../utils';
-import useStudioInfo from '../../hooks/useStudioInfo';
+import useStudioInfo from '../ActionsWorkArea/useStudioInfo';
 
 const ignoreFields: string[] = [];
 const shouldGenFields: string[] = ['mission'];
@@ -209,26 +209,7 @@ export default memo(function StudioControls() {
                       }}
                       thisDapp={nftEtherDapp}
                       key={nftEtherDapp.key}
-                      dappIndex={0}
-                      className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
-                    />
-
-                    <BoxOption
-                      info={{
-                        ...item.options[2],
-                        disabled: false,
-                        // item.disable ||
-                        // !item.options[0].selectable ||
-                        // isChainOptionDisabled(field, item, item.options[0]),
-                        title: '',
-                        description: {
-                          title: item.options[2].title,
-                          content: item.options[2].tooltip,
-                        },
-                      }}
-                      thisDapp={tokensPump}
-                      key={tokensPump.key}
-                      dappIndex={0}
+                      dappIndex={1}
                       className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
                     />
 
@@ -245,9 +226,28 @@ export default memo(function StudioControls() {
                           content: item.options[3].tooltip,
                         },
                       }}
+                      thisDapp={tokensPump}
+                      key={tokensPump.key}
+                      dappIndex={3}
+                      className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
+                    />
+
+                    <BoxOption
+                      info={{
+                        ...item.options[2],
+                        disabled: false,
+                        // item.disable ||
+                        // !item.options[0].selectable ||
+                        // isChainOptionDisabled(field, item, item.options[0]),
+                        title: '',
+                        description: {
+                          title: item.options[2].title,
+                          content: item.options[2].tooltip,
+                        },
+                      }}
                       thisDapp={nftOrdinalBTC}
                       key={nftOrdinalBTC.key}
-                      dappIndex={0}
+                      dappIndex={2}
                       className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
                     />
                   </BoxOptionV3>

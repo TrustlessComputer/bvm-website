@@ -499,8 +499,12 @@ export default function useHandleDragging() {
     const activeIsASingle = DragUtil.idDraggingIsASingle(activeId);
     const activeIsABaseModule = DragUtil.idDraggingIsABaseModule(activeId);
 
+    console.log('[useHandleDragging] start', over, active);
+
     // Case 0.1: Drag to the block parent
     if (activeFromLeftSide && activeIsAChildOfABlock && overIsABlock) {
+      console.log('[useHandleDragging] Case 0.1');
+
       if (activeOriginalKey !== overOriginalKey) {
         showValidateError('Please drag to the same block!');
         return;
@@ -536,6 +540,8 @@ export default function useHandleDragging() {
 
     // Case 0.2: The child is dragged out of the block
     if (activeIsRightSide && overIsInput && activeIsAChildOfABlock) {
+      console.log('[useHandleDragging] Case 0.2');
+
       const formDapp = cloneDeep(formDappSignal.value);
       const composedFieldKey = `right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${activeFieldKey}-${activeIndex}-${activeBaseIndex}`;
       const formKey = `${activeBaseIndex}-${FieldKeyPrefix.BLOCK}-${activeFieldKey}`;
@@ -589,6 +595,8 @@ export default function useHandleDragging() {
 
     // Case 0.3: Drag to nested children of the module
     if (!overIsABase && overIsABlock && overOriginalKey) {
+      console.log('[useHandleDragging] Case 0.3');
+
       const dappIndexOfOver = draggedDappIndexesSignal.value[overBaseIndex];
 
       if (JSON.stringify(dappIndexOfOver) !== JSON.stringify(dappIndex)) {
@@ -839,6 +847,8 @@ export default function useHandleDragging() {
 
     // Case 1: Drag to the right
     if (overIsOutput || overIsABase) {
+      console.log('[useHandleDragging] Case 1');
+
       // Case 1.1: Output does not have base block yet
       if (noBaseBlockInOutput && !(activeIsABase || activeIsABaseModule)) {
         showValidateError(
@@ -941,6 +951,12 @@ export default function useHandleDragging() {
       // Case 1.6: The lego just dragged is a block/single
       if ((activeIsABlock || activeIsASingle) && overIsABase) {
         const dappIndexOfOver = draggedDappIndexesSignal.value[overBaseIndex];
+
+        console.log(
+          '[useHandleDragging] dappIndexOfOver',
+          dappIndexOfOver,
+          dappIndex,
+        );
 
         if (JSON.stringify(dappIndexOfOver) !== JSON.stringify(dappIndex)) {
           showValidateError('This lego is not belong to this module!');
@@ -1122,6 +1138,8 @@ export default function useHandleDragging() {
 
     // Case 2: Drag to the left
     if (overIsInput) {
+      console.log('[useHandleDragging] Case 2');
+
       if (activeFromLeftSide) {
         return;
       }
