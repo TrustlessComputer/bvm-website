@@ -437,10 +437,8 @@ export const preDataWhitePaper = (
     );
 
     if (_appIndex > -1) {
-      const fieldToken = _sortedDapps[
-        _appIndex
-      ].baseModuleFields?.findIndex((v: BlockModel) =>
-        compareString(v.key, 'token'),
+      const fieldToken = _sortedDapps[_appIndex].baseModuleFields?.findIndex(
+        (v: BlockModel) => compareString(v.key, 'token'),
       );
 
       // @ts-ignore
@@ -458,8 +456,7 @@ export const preDataWhitePaper = (
         }));
 
         // @ts-ignore
-        _sortedDapps[_appIndex].baseModuleFields[fieldToken].fields =
-          options;
+        _sortedDapps[_appIndex].baseModuleFields[fieldToken].fields = options;
       }
     }
   }
@@ -479,8 +476,6 @@ export const getAirdropTaskKey = (task: IAirdropTask) => {
 
 export const chainKeyToDappKey = (key: string) => {
   switch (key) {
-    case 'create_token':
-      return 'token_generation';
     default:
       return key;
   }
@@ -488,8 +483,6 @@ export const chainKeyToDappKey = (key: string) => {
 
 export const dappKeyToChainKey = (key: string) => {
   switch (key) {
-    case 'token_generation':
-      return 'create_token';
     default:
       return key;
   }

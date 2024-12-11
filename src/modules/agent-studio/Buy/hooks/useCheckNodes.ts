@@ -15,7 +15,7 @@ import { removeItemAtIndex } from '../../dapp/utils';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import {
   agentInfoAsBrainstorm,
-  bridgesAsADapp,
+  missionAsBrainstorm,
   gamingAppsAsADapp,
 } from '../mockup_3';
 import {
@@ -178,7 +178,7 @@ export default function useCheckNodes() {
 
       if (nodeIndex === -1) {
         const rootNode = 'blockchain';
-        const thisDapp = bridgesAsADapp;
+        const thisDapp = missionAsBrainstorm;
         let nodesData = nodes;
         const newNodeId = 'bridge_apps';
         const newNode: DappNode = {

@@ -20,7 +20,7 @@ import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import { dappKeyToChainKey } from '../utils';
 import {
   agentInfoAsBrainstorm,
-  bridgesAsADapp,
+  missionAsBrainstorm,
   gamingAppsAsADapp,
 } from '../mockup_3';
 import useStudioInfo from './useStudioInfo';
@@ -109,7 +109,7 @@ const useNodeHelper = () => {
 
   const getBridgeAppsNode = React.useCallback(
     (position: { x: number; y: number }): DappNode => {
-      const dapp = bridgesAsADapp;
+      const dapp = missionAsBrainstorm;
 
       return {
         id: getBridgeAppsNodeId(),

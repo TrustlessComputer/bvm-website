@@ -27,7 +27,7 @@ import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import {
   agentInfoAsBrainstorm,
-  bridgesAsADapp,
+  missionAsBrainstorm,
   gamingAppsAsADapp,
 } from '../mockup_3';
 import useDappsStore, { useTemplateFormStore } from '../stores/useDappStore';
@@ -202,7 +202,7 @@ export default function useNodeFlowControl() {
     ) {
       if (!nodes.some((node) => node.id === 'bridge_apps')) {
         const rootNode = 'blockchain';
-        const thisDapp = bridgesAsADapp;
+        const thisDapp = missionAsBrainstorm;
         let nodesData = nodes;
         const newNodeId = 'bridge_apps';
         const newNode: DappNode = {
@@ -404,7 +404,7 @@ export default function useNodeFlowControl() {
           lineAAStatus,
         );
         break;
-      case bridgesAsADapp.key:
+      case missionAsBrainstorm.key:
         suffix = 'bridge_apps';
         newNodeId = 'bridge_apps';
         statusMapping = lineBridgeStatus;

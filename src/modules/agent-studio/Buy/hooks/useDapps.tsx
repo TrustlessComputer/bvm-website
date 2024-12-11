@@ -72,7 +72,6 @@ const useDapps = () => {
   }, [dapps]);
 
   const handleFieldClick = (dapp: DappModel, field: any) => {
-    console.log('thisDapp, field', dapp, field);
     switch (dapp?.key) {
       case 'white_paper': {
         return;

@@ -63,9 +63,7 @@ const useGettingDappLego = () => {
       }
     }
 
-    const ignoreKeys = ['bridge_apps', 'create_agent', 'gaming_apps'];
-
-    // console.log('[useGettingDappLego] 111', { dappCount, newField });
+    const ignoreKeys = ['create_agent'];
 
     for (const fieldKey in newField) {
       const category = categories?.find((c) => c.key === fieldKey);

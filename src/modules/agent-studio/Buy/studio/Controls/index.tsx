@@ -17,7 +17,7 @@ import { chainKeyToDappKey, isChainOptionDisabled } from '../../utils';
 import useStudioInfo from '../../hooks/useStudioInfo';
 
 const ignoreFields: string[] = [];
-const shouldGenFields: string[] = [];
+const shouldGenFields: string[] = ['mission'];
 const ignoreFieldMapper: Record<string, string[]> = {};
 
 export default memo(function StudioControls() {
@@ -166,29 +166,35 @@ export default memo(function StudioControls() {
                   }}
                   needCheckIcon={false}
                 >
-                  <BoxOption
-                    info={{
-                      ...item.options[0],
-                      disabled: false,
-                      // item.disable ||
-                      // !item.options[0].selectable ||
-                      // isChainOptionDisabled(field, item, item.options[0]),
-                      title: '',
-                      description: {
-                        title: item.title,
-                        content: item.tooltip,
-                      },
-                    }}
-                    thisDapp={dapp}
-                    key={dapp.key}
-                    dappIndex={0}
-                    className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
-                  ></BoxOption>
+                  {item.options.map((option, index) => {
+                    return (
+                      <BoxOption
+                        info={{
+                          ...option,
+                          disabled: false,
+                          // item.disable ||
+                          // !item.options[0].selectable ||
+                          // isChainOptionDisabled(field, item, item.options[0]),
+                          title: '',
+                          description: {
+                            title: item.title,
+                            content: item.tooltip,
+                          },
+                        }}
+                        thisDapp={dapp}
+                        key={dapp.key}
+                        dappIndex={0}
+                        className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
+                      ></BoxOption>
+                    );
+                  })}
                 </BoxOptionV3>
               );
             }
 
             if (shouldGenFields.includes(item.key)) {
+              console.log('[StudioControls] item', item.key);
+
               return (
                 <BoxOptionV3
                   key={item.key}
@@ -215,13 +221,17 @@ export default memo(function StudioControls() {
                     if (ignoreFieldMapper[item.key]?.includes(option.key))
                       return null;
 
-                    // console.log('dapp', dapp);
-
                     const dappIndex = dapps.findIndex(
                       (d) => d.key === chainKeyToDappKey(option.key),
                     );
-
                     if (!dapp) return null;
+
+                    console.log('[StudioControls] dapp', {
+                      dappMapping,
+                      dapp,
+                      dappKey: chainKeyToDappKey(option.key),
+                      itemKey: item.key,
+                    });
 
                     return (
                       <React.Fragment key={dapp.key}>

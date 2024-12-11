@@ -1,24 +1,19 @@
 import React from 'react';
 
+import { DappType } from '@/modules/agent-studio/dapp/types';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { dappSelector } from '@/stores/states/dapp/selector';
+import { orderBy } from 'lodash';
 import { useParams, usePathname } from 'next/navigation';
 import {
   agentInfoAsBrainstorm,
-  bridgesAsADapp,
+  missionAsBrainstorm,
   dappMockupData,
   gamingAppsAsADapp,
 } from '../mockup_3';
 import useDappsStore from '../stores/useDappStore';
-import {
-  cloneDeep,
-  preDataAirdropTask,
-  preDataWhitePaper,
-  preDataYoloGame,
-} from '../utils';
-import { DappType } from '@/modules/agent-studio/dapp/types';
-import { orderBy } from 'lodash';
+import { cloneDeep } from '../utils';
 
 const useOnlyFetchDapp = () => {
   const pathname = usePathname();
@@ -93,7 +88,7 @@ const useOnlyFetchDapp = () => {
   }, [configs, tokensAll]);
 
   const fetchDapps = () => {
-    const _dapps = [agentInfoAsBrainstorm, bridgesAsADapp, gamingAppsAsADapp];
+    const _dapps = [agentInfoAsBrainstorm, missionAsBrainstorm];
 
     const otherDapps = isUpdateChain
       ? // ? cloneDeep(dappFromAPIMockupData)
@@ -103,12 +98,10 @@ const useOnlyFetchDapp = () => {
     _dapps.push(...otherDapps);
 
     let sortedDapps = _dapps.sort((a, b) => a.order - b.order);
-    sortedDapps = preDataAirdropTask(sortedDapps, tokens, airdropTasks);
-    sortedDapps = preDataYoloGame(sortedDapps, tokensAll);
-    sortedDapps = preDataWhitePaper(sortedDapps, tokens);
+
     setDapps(sortedDapps);
+
     console.log('[useOnlyFetchDapp] dapps', sortedDapps);
-    // setDapps(preDataYoloGame(sortedDapps, tokensAll));
   };
 
   React.useEffect(() => {

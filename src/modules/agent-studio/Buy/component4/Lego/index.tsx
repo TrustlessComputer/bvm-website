@@ -55,6 +55,7 @@ type Props = {
     title: string;
     type: string;
   };
+  vertical?: boolean;
 } & Position &
   TitlePosition;
 
@@ -75,6 +76,7 @@ const Lego = (props: Props) => {
     preview,
     fields,
     checked,
+    vertical,
     ...rest
   } = props;
   const { isCapture } = useCaptureStore();
@@ -187,7 +189,10 @@ const Lego = (props: Props) => {
           })}
         </div>
       ) : (
-        <Flex className={styles.lego__inner}>
+        <Flex
+          className={styles.lego__inner}
+          style={{ flexDirection: vertical ? 'column' : 'row' }}
+        >
           {title && titleInLeft ? (
             <div
               className={cn(
