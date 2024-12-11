@@ -10,7 +10,7 @@ import { useComputerNameInputStore } from './ComputerNameInputStore';
 import { useOrderFormStore } from '../../stores/index_v2';
 import s from './styles.module.scss';
 
-const PREFIX = 'My Bitcoin Chain';
+const PREFIX = 'Agent Name';
 
 const ComputerNameInput = () => {
   const { isCapture } = useCaptureStore();
@@ -31,7 +31,7 @@ const ComputerNameInput = () => {
       let errorMsg = undefined;
       if (!text || isEmpty(text)) {
         isValid = false;
-        errorMsg = 'Chain name is required.';
+        errorMsg = 'Name is required.';
       } else {
         try {
           isValid = await validateSubDomainAPI(text);
@@ -62,7 +62,7 @@ const ComputerNameInput = () => {
       if (isComputerNameFocused) {
         computerNameStr = `${computerName}`;
       } else {
-        computerNameStr = `${PREFIX} ${chainID}`;
+        computerNameStr = `${PREFIX} ${chainID || ''}`;
       }
     } else {
       computerNameStr = order?.chainName || '';
@@ -75,7 +75,7 @@ const ComputerNameInput = () => {
     <div className={`${isCapture ? s.setLine : ''} ${s.wrapper_input}`}>
       <input
         type="text"
-        placeholder="Enter chain name"
+        placeholder="Enter agent name"
         className={`${s.input} ${isUpdateFlow ? s.notAllowed : ''}`}
         disabled={!!isUpdateFlow}
         value={computerName}

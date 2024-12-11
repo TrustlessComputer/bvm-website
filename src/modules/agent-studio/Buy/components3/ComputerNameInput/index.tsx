@@ -70,7 +70,7 @@ const ComputerNameInput = (props: Props) => {
   );
 
   React.useEffect(() => {
-    const computerName = 'My Bitcoin Chain ' + getRandonComputerName(isMainnet);
+    const computerName = 'Agent Name ';
 
     setChainName(computerName);
     setComputerNameField({
@@ -97,7 +97,7 @@ const ComputerNameInput = (props: Props) => {
     <div className={`${isCapture ? s.setLine : ''} ${s.wrapper_input}`}>
       <input
         type="text"
-        placeholder="Enter chain name"
+        placeholder="Enter agent name"
         className={`${s.input} `}
         disabled={!!isUpdateFlow}
         value={value}

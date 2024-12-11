@@ -76,7 +76,7 @@ const ChainNodeV2 = ({ data, id }: NodeProps<ChainNodeProps>) => {
         key={JSON.stringify(data)}
         id={id}
         heading={{
-          title: data.title,
+          title: 'Agent structure',
           icon: isUpdateFlow
             ? '/blockchains/customize/ic-infor.svg'
             : undefined,

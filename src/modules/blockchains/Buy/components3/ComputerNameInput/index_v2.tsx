@@ -31,12 +31,12 @@ const ComputerNameInput = () => {
       let errorMsg = undefined;
       if (!text || isEmpty(text)) {
         isValid = false;
-        errorMsg = 'Chain name is required.';
+        errorMsg = 'Name is required.';
       } else {
         try {
           isValid = await validateSubDomainAPI(text);
         } catch (error: any) {
-          errorMsg = error.toString() || 'Chain name is invalid';
+          errorMsg = error.toString() || 'Name is invalid';
         }
       }
 
@@ -75,7 +75,7 @@ const ComputerNameInput = () => {
     <div className={`${isCapture ? s.setLine : ''} ${s.wrapper_input}`}>
       <input
         type="text"
-        placeholder="Enter chain name"
+        placeholder="Enter agent name"
         className={`${s.input} ${isUpdateFlow ? s.notAllowed : ''}`}
         disabled={!!isUpdateFlow}
         value={computerName}

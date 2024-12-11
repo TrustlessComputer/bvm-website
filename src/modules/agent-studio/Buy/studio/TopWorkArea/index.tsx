@@ -76,7 +76,7 @@ export default function TopWorkArea(): ReactElement {
 
   return (
     <Flex flexDir={'row'} align={'center'} gap={'24px'} className={s.container}>
-      <EstTimeView />
+      {/* <EstTimeView />
 
       <Flex flexDir={'column'}>
         <Text fontSize={['18px']} fontWeight={600} color={'#333'}>
@@ -86,7 +86,7 @@ export default function TopWorkArea(): ReactElement {
           ${priceUSDFormated}
           {'/'}day
         </Text>
-      </Flex>
+      </Flex> */}
 
       <LaunchButton isUpdate={!!order} />
     </Flex>
