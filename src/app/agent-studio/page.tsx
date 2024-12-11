@@ -1,6 +1,6 @@
 import MainLayout from '@/layouts/MainLayout';
 
-import Page from '@/modules/agent-studio/customize/index_v4';
+import Page from '@/modules/blockchains/customize/agent-studio';
 import { Metadata } from 'next';
 import { APP_NAME } from '@/config/metadata';
 import { CDN_URL } from '@/config';

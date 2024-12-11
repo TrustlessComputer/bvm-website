@@ -9,7 +9,7 @@ import { parseYoloGames } from '@/modules/blockchains/dapp/parseUtils/yologame';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { IAirdrop } from '@/services/api/dapp/airdrop/interface';
 import { IToken } from '@/services/api/dapp/token_generation/interface';
-import { getModelCategories, getTemplates } from '@/services/customize-model';
+import { getModelCategories, getTemplates } from '@/services/agent-model';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { dappSelector } from '@/stores/states/dapp/selector';

@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import ModalVideo from 'react-modal-video';
 
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import { getModelCategories, getTemplates } from '@/services/customize-model';
+import { getModelCategories, getTemplates } from '@/services/agent-model';
 import { formatCurrencyV2 } from '@/utils/format';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import BoxOptionV3 from './components3/BoxOptionV3';

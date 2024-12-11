@@ -370,7 +370,7 @@ export const getModalCategories = async (
   tcAddress?: string,
 ): Promise<IModelCategory[]> => {
   let data = (await httpClient.get(
-    `/order/available-list-v3?tcAddress=${tcAddress || ''}`,
+    `/agent/available-list?tcAddress=${tcAddress || ''}`,
   )) as IModelCategory[];
 
   return data;

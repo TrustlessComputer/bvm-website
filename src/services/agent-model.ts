@@ -11,11 +11,11 @@ export async function getModelCategories(
     let data;
     if (APP_ENV === 'staging') {
       data = await fetch(
-        `https://l2aas-api.newbitcoincity.com/api/agent/available-list-v3?tcAddress=0x4113ed747047863Ea729f30C1164328D9Cc8CfcF`,
+        `https://l2aas-api.newbitcoincity.com/api/agent/available-list?tcAddress=0x4113ed747047863Ea729f30C1164328D9Cc8CfcF`,
       ).then((res) => res.json());
     } else {
       data = await fetch(
-        `https://l2aas-api.newbitcoincity.com/api/agent/available-list-v3?tcAddress=${
+        `https://l2aas-api.newbitcoincity.com/api/agent/available-list?tcAddress=${
           tcAddress || ''
         }`,
       ).then((res) => res.json());
@@ -31,7 +31,7 @@ export async function getModelCategories(
 export async function getTemplates(): Promise<Array<IModelCategory[]> | null> {
   try {
     const data = await fetch(
-      'https://l2aas-api.newbitcoincity.com/api/agent/available-list-template',
+      'https://l2aas-api.newbitcoincity.com/api/agent/available-list',
     ).then((res) => res.json());
 
     return data.result;
@@ -45,7 +45,7 @@ export async function getTemplates(): Promise<Array<IModelCategory[]> | null> {
 export async function getTemplateV2(): Promise<ITemplate[] | null> {
   try {
     const data = await fetch(
-      'https://l2aas-api.newbitcoincity.com/api/agent/available-list-template-v2',
+      'https://l2aas-api.newbitcoincity.com/api/agent/available-list',
     ).then((res) => res.json());
 
     return data.result;
