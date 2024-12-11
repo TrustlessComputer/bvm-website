@@ -57,13 +57,9 @@ export default function useCheckNodes() {
     //   y: transformedY,
     // };
 
-    if (!getCurrentFieldFromChain('wallet')) {
-      const nodeIndex = nodes.findIndex(
-        (node) => node.id == 'account_abstraction',
-      );
-      const dappIndex = dapps.findIndex(
-        (dapp) => dapp.key === 'account_abstraction',
-      );
+    if (!getCurrentFieldFromChain('create_agent')) {
+      const nodeIndex = nodes.findIndex((node) => node.id == 'general_idea');
+      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'general_idea');
       const dappIndexInSignal = draggedDappIndexesSignal.value.findIndex(
         (i) => i === dappIndex,
       );
@@ -78,12 +74,8 @@ export default function useCheckNodes() {
         removeItemAtIndex(draggedIds2DSignal.value, dappIndexInSignal);
       }
     } else {
-      const nodeIndex = nodes.findIndex(
-        (node) => node.id == 'account_abstraction',
-      );
-      const dappIndex = dapps.findIndex(
-        (dapp) => dapp.key === 'account_abstraction',
-      );
+      const nodeIndex = nodes.findIndex((node) => node.id == 'general_idea');
+      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'general_idea');
       const dappIndexInSignal = draggedDappIndexesSignal.value.findIndex(
         (i) => i === dappIndex,
       );
@@ -92,7 +84,7 @@ export default function useCheckNodes() {
         const rootNode = 'blockchain';
         const thisDapp = accountAbstractionAsADapp;
         let nodesData = nodes;
-        const newNodeId = 'account_abstraction';
+        const newNodeId = 'general_idea';
         const newNode: DappNode = {
           id: newNodeId,
           type: dappKeyToNodeKey(thisDapp.key),
@@ -105,9 +97,9 @@ export default function useCheckNodes() {
             baseIndex: 0,
             categoryOption: {} as IModelOption,
             ids: [],
-            // targetHandles: [`account_abstraction-t-${rootNode}`],
+            // targetHandles: [`general_idea-t-${rootNode}`],
             targetHandles: [],
-            sourceHandles: [`account_abstraction-t-${rootNode}`],
+            sourceHandles: [`general_idea-t-${rootNode}`],
             // sourceHandles: [],
           },
         };
@@ -116,7 +108,7 @@ export default function useCheckNodes() {
           (item) => item.id === rootNode,
         );
         getHandleNodeBlockChain?.data?.sourceHandles?.push(
-          `${rootNode}-s-account_abstraction`,
+          `${rootNode}-s-general_idea`,
         );
 
         nodesData = nodes.map((item) =>
@@ -126,17 +118,15 @@ export default function useCheckNodes() {
         const newEdge = {
           id: `${Math.random()}`,
           source: rootNode,
-          sourceHandle: `${rootNode}-s-account_abstraction`,
-          target: `account_abstraction`,
-          targetHandle: `account_abstraction-t-${rootNode}`,
+          sourceHandle: `${rootNode}-s-general_idea`,
+          target: `general_idea`,
+          targetHandle: `general_idea-t-${rootNode}`,
           type: 'customEdge',
           selectable: false,
           selected: false,
           focusable: false,
-          label: handleStatusEdges('', lineAAStatus, 'account_abstraction')
-            .icon,
-          animated: handleStatusEdges('', lineAAStatus, 'account_abstraction')
-            .animate,
+          label: handleStatusEdges('', lineAAStatus, 'general_idea').icon,
+          animated: handleStatusEdges('', lineAAStatus, 'general_idea').animate,
           markerEnd: {
             type: MarkerType.Arrow,
             width: 20,

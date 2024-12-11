@@ -14,4 +14,7 @@ const useOverlappingChainLegoStore = create<UseOverlappingChainLegoStore>(
   }),
 );
 
+export const useOverlappingId = () =>
+  useOverlappingChainLegoStore((state) => state.overlappingId);
+
 export default useOverlappingChainLegoStore;

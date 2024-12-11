@@ -116,7 +116,7 @@ export default function useNodeFlowControl() {
       (dapp) => dapp.key === 'gaming_apps',
     );
     const accountAbstractionIndex = dapps.findIndex(
-      (dapp) => dapp.key === 'account_abstraction',
+      (dapp) => dapp.key === 'general_idea',
     );
     console.log('[useNodeFlowControl]', { nodes });
 
@@ -130,7 +130,7 @@ export default function useNodeFlowControl() {
       draggedDappIndexesSignal.value.includes(accountAbstractionIndex) &&
       isAAInstalled
     ) {
-      if (!nodes.some((node) => node.id === 'account_abstraction')) {
+      if (!nodes.some((node) => node.id === 'general_idea')) {
         const rootNode = 'blockchain';
         const thisDapp = accountAbstractionAsADapp;
         const category = categories?.find((category) =>
@@ -142,7 +142,7 @@ export default function useNodeFlowControl() {
           (option) => option.key === dappKeyToChainKey(thisDapp.key),
         );
         let nodesData = nodes;
-        const newNodeId = 'account_abstraction';
+        const newNodeId = 'general_idea';
         const newNode: DappNode = {
           id: newNodeId,
           type: dappKeyToNodeKey(thisDapp.key),
@@ -155,9 +155,9 @@ export default function useNodeFlowControl() {
             baseIndex: draggedIds2D.length - 1,
             categoryOption: categoryOption as IModelOption,
             ids: draggedIds2D[draggedIds2D.length - 1],
-            // targetHandles: [`account_abstraction-t-${rootNode}`],
+            // targetHandles: [`general_idea-t-${rootNode}`],
             targetHandles: [],
-            sourceHandles: [`account_abstraction-t-${rootNode}`],
+            sourceHandles: [`general_idea-t-${rootNode}`],
             // sourceHandles: [],
           },
         };
@@ -168,17 +168,16 @@ export default function useNodeFlowControl() {
             // id: `${edges.length + 1}`,
             id: `${Math.random()}`,
             source: rootNode,
-            sourceHandle: `${rootNode}-s-account_abstraction`,
+            sourceHandle: `${rootNode}-s-general_idea`,
             // target: `${newNodeId}`,
-            target: `account_abstraction`,
-            targetHandle: `account_abstraction-t-${rootNode}`,
+            target: `general_idea`,
+            targetHandle: `general_idea-t-${rootNode}`,
             type: 'customEdge',
             selectable: false,
             selected: false,
             focusable: false,
-            label: handleStatusEdges('', lineAAStatus, 'account_abstraction')
-              .icon,
-            animated: handleStatusEdges('', lineAAStatus, 'account_abstraction')
+            label: handleStatusEdges('', lineAAStatus, 'general_idea').icon,
+            animated: handleStatusEdges('', lineAAStatus, 'general_idea')
               .animate,
             markerEnd: {
               type: MarkerType.Arrow,
@@ -398,8 +397,8 @@ export default function useNodeFlowControl() {
 
     switch (thisDapp.key) {
       case accountAbstractionAsADapp.key:
-        suffix = 'account_abstraction';
-        newNodeId = 'account_abstraction';
+        suffix = 'general_idea';
+        newNodeId = 'general_idea';
         statusMapping = lineAAStatus;
         break;
       case bridgesAsADapp.key:

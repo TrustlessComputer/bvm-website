@@ -1,11 +1,11 @@
 import { DappModel, IModelCategory } from '@/types/customize-model';
 import { WalletType } from '@/stores/states/dapp/types';
 
-export const accountAbstractionAsADapp: DappModel = {
+export const agentInfoAsBrainstorm: DappModel = {
   isDefaultDapp: true,
-  id: 'account_abstraction',
-  key: 'account_abstraction',
-  title: 'Account Abstraction',
+  id: 'general_idea',
+  key: 'general_idea',
+  title: 'Agent information',
   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
   order: 1,
   color: '#00c1cd',
@@ -29,8 +29,8 @@ export const accountAbstractionAsADapp: DappModel = {
     },
   ],
   baseBlock: {
-    key: 'account_abstraction_info',
-    title: 'Account Abstraction',
+    key: 'agent_information_info',
+    title: 'Agent information',
     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
     placableAmount: 1,
     section: 'information',
@@ -39,37 +39,15 @@ export const accountAbstractionAsADapp: DappModel = {
     fields: [
       {
         background: '#009aa5',
-        key: 'input_apps_address',
-        title: 'Token contract address',
-        previewTitle: 'Address',
+        key: 'general_idea',
+        title: 'General idea',
+        previewTitle: 'General idea',
         type: 'input',
         icon: '',
         value: '',
         tooltip: '',
         options: [],
-        placeholder: '0x0000000000000000000000',
-      },
-      {
-        background: '#009aa5',
-        key: 'input_apps_fee_rate',
-        title: 'Tokens per gas',
-        type: 'input',
-        icon: '',
-        value: '',
-        tooltip: '',
-        options: [],
-        placeholder: '21,000',
-      },
-      {
-        background: '#009aa5',
-        key: 'input_apps_paymaster_address',
-        title: 'Paymaster contract address',
-        type: 'input',
-        icon: '',
-        value: '',
-        tooltip: '',
-        options: [],
-        placeholder: '21,000',
+        placeholder: 'Happy',
       },
     ],
   },
@@ -1866,14 +1844,14 @@ export const defaultTemplateMockupData: IModelCategory[] = [
     id: '668f8ec088f822fe3ebd3476',
     created_at: '2024-07-11T07:50:24.072Z',
     updated_at: '0001-01-01T00:00:00Z',
-    key: 'wallet',
+    key: 'create_agent',
     title: 'UX',
     required: false,
     tooltip:
       'This module enhances user experience by allowing gas fees to be paid in different cryptocurrencies, eliminating the need to hold a specific one for transaction fees.',
     options: [
       {
-        key: 'account_abstraction',
+        key: 'general_idea',
         title: 'Account Abstraction',
         value: 0,
         valueStr: '',
@@ -3035,14 +3013,14 @@ export const categoriesMockupData: IModelCategory[] = [
     id: '668f8ec088f822fe3ebd3476',
     created_at: '2024-07-11T07:50:24.072Z',
     updated_at: '0001-01-01T00:00:00Z',
-    key: 'wallet',
-    title: 'UX',
+    key: 'create_agent',
+    title: 'Create Agent',
     required: false,
     tooltip:
       'This module enhances user experience by allowing gas fees to be paid in different cryptocurrencies, eliminating the need to hold a specific one for transaction fees.',
     options: [
       {
-        key: 'account_abstraction',
+        key: 'general_idea',
         title: 'Account Abstraction',
         value: 0,
         valueStr: '',

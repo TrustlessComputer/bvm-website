@@ -11,4 +11,7 @@ const useDragStore = create<UseDrag>((set) => ({
     set({ draggedFields: Array.from(new Set(draggedFields)) }),
 }));
 
+export const useDraggedFields = () =>
+  useDragStore((state) => state.draggedFields);
+
 export default useDragStore;

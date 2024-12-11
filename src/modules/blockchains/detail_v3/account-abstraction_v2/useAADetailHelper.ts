@@ -20,7 +20,7 @@ export const useAADetailHelper = () => {
     if (!orderDetail || !orderDetail.dApps || orderDetail.dApps.length < 1) {
     } else {
       const findedAA = orderDetail.dApps.find(
-        (item) => item.appCode === 'account_abstraction',
+        (item) => item.appCode === 'general_idea',
       );
 
       aaData = findedAA;

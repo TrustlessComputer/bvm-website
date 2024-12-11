@@ -462,9 +462,7 @@ export default function useFetchingTemplate() {
     const newDraggedDappIndexes = [];
 
     if (isAAInstalled) {
-      const dappIndex = dapps.findIndex(
-        (dapp) => dapp.key === 'account_abstraction',
-      );
+      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'general_idea');
       newDraggedDappIndexes.push(dappIndex);
       newDraggedIds2D.push([]);
     }

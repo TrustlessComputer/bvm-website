@@ -60,12 +60,12 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
   const aaStatusData = getAAStatus();
 
   const hideNoti = React.useMemo(() => {
-    return data.dapp?.key === 'account_abstraction' && isUpdateFlow;
+    return data.dapp?.key === 'general_idea' && isUpdateFlow;
   }, [isUpdateFlow]);
 
   const styleFactory = useMemo(() => {
     switch (data.dapp?.key) {
-      case 'account_abstraction':
+      case 'general_idea':
         return {
           ...aaStatusData,
         };
@@ -87,7 +87,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
     if (!thisDapp) return <></>;
 
     switch (thisDapp.key) {
-      case 'account_abstraction':
+      case 'general_idea':
         const mainColor = adjustBrightness(thisDapp.color, -10);
         return (
           <Draggable
@@ -542,7 +542,7 @@ function CustomNode({ data, isConnectable }: NodeProps<DataNode>) {
               }}
             >
               {/* TODO: Implement this - 5 */}
-              {aaStatusData && data?.dapp?.key === 'account_abstraction'
+              {aaStatusData && data?.dapp?.key === 'general_idea'
                 ? aaStatusData?.statusStr
                 : renderTitleStatus(data.status)}
             </p>

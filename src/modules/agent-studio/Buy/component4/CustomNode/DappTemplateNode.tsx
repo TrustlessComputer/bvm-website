@@ -61,7 +61,7 @@ function DappTemplateNode({ data, isConnectable }: NodeProps<DataNode>) {
     if (!thisDapp) return <></>;
 
     switch (thisDapp.key) {
-      case 'account_abstraction':
+      case 'general_idea':
         const mainColor = adjustBrightness(thisDapp.color, -10);
         return (
           <Draggable

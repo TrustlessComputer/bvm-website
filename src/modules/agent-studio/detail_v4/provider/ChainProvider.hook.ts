@@ -327,7 +327,7 @@ export const useChainProvider = () => {
   };
 
   const getAAStatus = () => {
-    const result = getDAppStatusByKey('account_abstraction');
+    const result = getDAppStatusByKey('general_idea');
     if (result) {
       return {
         ...result,

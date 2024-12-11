@@ -1,7 +1,7 @@
 import { WalletType } from '@/stores/states/dapp/types';
 
 export interface IReqDapp {
-  orderID: string
+  orderID: string;
 }
 
 export interface IDappConfigs {
@@ -24,10 +24,10 @@ export interface IDappConfigs {
   web3_auth_client_id?: string;
   template: ITemplate;
   wallet_type?: WalletType;
-};
+}
 
 export enum TemplateType {
-  TEMPLATE_1 = "template_1",
+  TEMPLATE_1 = 'template_1',
 }
 
 export interface ITemplate {
@@ -53,11 +53,19 @@ export interface ITemplate1 {
 }
 
 export interface IAppInfo {
-  code: string
-  name: string
-  description: string
-  icon_url: string
-  image_url: string
+  code: string;
+  name: string;
+  description: string;
+  icon_url: string;
+  image_url: string;
 }
 
-export type AppCode = 'create_token' | 'staking' | 'account_abstraction' | 'btc_bridge' | 'eth_bridge' | 'airdrop' | 'yologame' | 'white_paper';
+export type AppCode =
+  | 'create_token'
+  | 'staking'
+  | 'general_idea'
+  | 'btc_bridge'
+  | 'eth_bridge'
+  | 'airdrop'
+  | 'yologame'
+  | 'white_paper';

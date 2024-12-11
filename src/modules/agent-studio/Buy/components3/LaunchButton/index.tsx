@@ -71,8 +71,7 @@ const isExistAA = (dyanmicFormAllData: any[]): boolean => {
   const isExistAAList = dyanmicFormAllData
     .filter((item: any) => !item.isChain)
     .filter(
-      (dapp: any) =>
-        dapp.options[0].key?.toLowerCase() === 'account_abstraction',
+      (dapp: any) => dapp.options[0].key?.toLowerCase() === 'general_idea',
     );
 
   const isExist = isExistAAList && isExistAAList.length > 0;

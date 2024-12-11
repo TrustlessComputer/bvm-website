@@ -79,7 +79,7 @@ const LaunchButton = () => {
     try {
       const params: IInstallAccountAbstractionByData = {
         orderID: orderDetail.orderId,
-        appName: 'account_abstraction',
+        appName: 'general_idea',
         aaPaymasterTokenID: tokenContractAddress,
         aaTokenGas: feeRate
           ? new BigNumber(feeRate || 1).multipliedBy(1e18).toFixed()

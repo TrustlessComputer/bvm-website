@@ -37,7 +37,7 @@ export const useAAModule = () => {
   } = useAccountAbstractionStore();
 
   const aaInstalledData = useMemo(() => {
-    return getDAppInstalledByKey('account_abstraction');
+    return getDAppInstalledByKey('general_idea');
   }, [getDAppInstalledByKey, order]);
 
   const isCanConfigAA = useMemo(() => {
@@ -97,7 +97,7 @@ export const useAAModule = () => {
 
       const params: IInstallAccountAbstractionByData = {
         orderID: orderId,
-        appName: 'account_abstraction',
+        appName: 'general_idea',
         aaPaymasterTokenID: tokenContractAddress,
         aaTokenGas: feeRate
           ? new BigNumber(feeRate || 1).multipliedBy(1e18).toFixed()

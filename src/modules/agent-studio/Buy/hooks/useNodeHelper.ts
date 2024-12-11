@@ -19,7 +19,7 @@ import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import { dappKeyToChainKey } from '../utils';
 import {
-  accountAbstractionAsADapp,
+  agentInfoAsBrainstorm,
   bridgesAsADapp,
   gamingAppsAsADapp,
 } from '../mockup_3';
@@ -48,7 +48,7 @@ const useNodeHelper = () => {
 
   const getChainNodeId = React.useCallback(() => 'blockchain', []);
   const getAccountAbstractionNodeId = React.useCallback(
-    () => 'account_abstraction',
+    () => 'general_idea',
     [],
   );
   const getBridgeAppsNodeId = React.useCallback(() => 'bridge_apps', []);
@@ -61,7 +61,7 @@ const useNodeHelper = () => {
         type: nodeKey.CHAIN_NODE,
         data: {
           node: 'chain',
-          title: 'Blockchain',
+          title: 'Agent structure',
           sourceHandles: isUpdateFlow
             ? [
                 `${getChainNodeId()}-s-${getAccountAbstractionNodeId()}`,
@@ -80,7 +80,7 @@ const useNodeHelper = () => {
 
   const getAccountAbstractionNode = React.useCallback(
     (position: { x: number; y: number }): DappNode => {
-      const dapp = accountAbstractionAsADapp;
+      const dapp = agentInfoAsBrainstorm;
 
       return {
         id: getAccountAbstractionNodeId(),

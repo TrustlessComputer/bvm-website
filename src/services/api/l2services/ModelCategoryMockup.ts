@@ -956,14 +956,14 @@ export const API_RESPONE = {
       id: '668f8ec088f822fe3ebd3476',
       created_at: '2024-07-11T07:50:24.072Z',
       updated_at: '0001-01-01T00:00:00Z',
-      key: 'wallet',
-      title: 'UX',
+      key: 'create_agent',
+      title: 'Create Agent',
       required: false,
       tooltip:
         'This module enhances user experience by allowing gas fees to be paid in different cryptocurrencies, eliminating the need to hold a specific one for transaction fees.',
       options: [
         {
-          key: 'account_abstraction',
+          key: 'general_idea',
           title: 'Account Abstraction',
           value: 0,
           valueStr: '',

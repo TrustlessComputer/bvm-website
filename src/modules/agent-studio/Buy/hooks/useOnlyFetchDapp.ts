@@ -5,7 +5,7 @@ import { commonSelector } from '@/stores/states/common/selector';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { useParams, usePathname } from 'next/navigation';
 import {
-  accountAbstractionAsADapp,
+  agentInfoAsBrainstorm,
   bridgesAsADapp,
   dappMockupData,
   gamingAppsAsADapp,
@@ -93,11 +93,7 @@ const useOnlyFetchDapp = () => {
   }, [configs, tokensAll]);
 
   const fetchDapps = () => {
-    const _dapps = [
-      accountAbstractionAsADapp,
-      bridgesAsADapp,
-      gamingAppsAsADapp,
-    ];
+    const _dapps = [agentInfoAsBrainstorm, bridgesAsADapp, gamingAppsAsADapp];
 
     const otherDapps = isUpdateChain
       ? // ? cloneDeep(dappFromAPIMockupData)

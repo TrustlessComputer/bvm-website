@@ -48,25 +48,22 @@ function useLineIssueToken(): void {
         // AA Node
         // @ts-ignore
         if (
-          node.id === 'account_abstraction' &&
+          node.id === 'general_idea' &&
           issueTokenNode.data?.dapp?.label?.actionID ===
             aaInstalledData?.aaPaymasterTokenID
         ) {
-          dataNode.sourceHandles.push(
-            `account_abstraction-t-${issueTokenNode.id}`,
-          );
+          dataNode.sourceHandles.push(`general_idea-t-${issueTokenNode.id}`);
           issueTokenNode.data.sourceHandles.push(
-            `${issueTokenNode.id}-s-account_abstraction`,
+            `${issueTokenNode.id}-s-general_idea`,
           );
           const issueTokenToAA: Edge = {
             id: `${Math.random()}`,
             source: issueTokenNode.id,
             target: node.id,
-            sourceHandle: `${issueTokenNode.id}-s-account_abstraction`,
-            targetHandle: `account_abstraction-t-${issueTokenNode.id}`,
-            label: handleStatusEdges('', lineAAStatus, 'account_abstraction')
-              .icon,
-            animated: handleStatusEdges('', lineAAStatus, 'account_abstraction')
+            sourceHandle: `${issueTokenNode.id}-s-general_idea`,
+            targetHandle: `general_idea-t-${issueTokenNode.id}`,
+            label: handleStatusEdges('', lineAAStatus, 'general_idea').icon,
+            animated: handleStatusEdges('', lineAAStatus, 'general_idea')
               .animate,
             type: 'customEdge',
             selectable: false,

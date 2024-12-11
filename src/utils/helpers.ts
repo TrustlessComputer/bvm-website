@@ -290,8 +290,16 @@ function handleStatusEdgeByBox(status: any) {
   }
 }
 
-export default function handleStatusEdges(statusDapp: any, status: aa | string, idNode: string) {
-  if (idNode === 'account_abstraction' || idNode === 'bridge_apps' || idNode === 'gaming_apps') {
+export default function handleStatusEdges(
+  statusDapp: any,
+  status: aa | string,
+  idNode: string,
+) {
+  if (
+    idNode === 'general_idea' ||
+    idNode === 'bridge_apps' ||
+    idNode === 'gaming_apps'
+  ) {
     console.log('status here', status, idNode);
     return handleStatusEdgeByBox(status);
   }
@@ -299,4 +307,4 @@ export default function handleStatusEdges(statusDapp: any, status: aa | string, 
   return handleStatusEdgeByBox(statusDapp);
 }
 
-type aa = 'draft' | 'running' | 'down' | 'setting_up' | EAirdropStatus
+type aa = 'draft' | 'running' | 'down' | 'setting_up' | EAirdropStatus;

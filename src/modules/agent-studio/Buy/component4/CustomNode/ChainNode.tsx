@@ -189,7 +189,7 @@ function ChainNode({ data, isConnectable }: NodeProps<DataNode>) {
               if (option.key !== field[item.key].value) return null;
 
               const isUpdatable =
-                option.key !== 'account_abstraction' && // Must be hard coded
+                option.key !== 'general_idea' && // Must be hard coded
                 selectedCategory?.updatable && //
                 isUpdateFlow;
 

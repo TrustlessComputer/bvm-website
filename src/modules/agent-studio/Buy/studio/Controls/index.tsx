@@ -12,15 +12,13 @@ import { formatCurrencyV2 } from '@utils/format';
 import { compareString } from '@utils/string';
 import React, { memo } from 'react';
 import useDapps from '../../hooks/useDapps';
-import { accountAbstractionAsADapp } from '../../mockup_3';
+import { agentInfoAsBrainstorm } from '../../mockup_3';
 import { chainKeyToDappKey, isChainOptionDisabled } from '../../utils';
 import useStudioInfo from '../../hooks/useStudioInfo';
 
-const ignoreFields = ['bridge_apps', 'gaming_apps', 'wallet_type'];
-const shouldGenFields = ['defi_apps', 'degen_apps'];
-const ignoreFieldMapper: Record<string, string[]> = {
-  degen_apps: ['wallet_type'],
-};
+const ignoreFields: string[] = [];
+const shouldGenFields: string[] = [];
+const ignoreFieldMapper: Record<string, string[]> = {};
 
 export default memo(function StudioControls() {
   const parsedCategories = useModelCategoriesStore(
@@ -152,25 +150,8 @@ export default memo(function StudioControls() {
           .filter((item) => !item.isChain)
           .map((item) => {
             // Special case, need to check manually
-            if (item.key === 'wallet') {
-              const dapp = accountAbstractionAsADapp;
-              const dengenCategory = parsedCategories!.find(
-                (cat) => cat.key === 'degen_apps',
-              );
-              const walletTypeOption = dengenCategory?.options.find(
-                (opt) => opt.key === 'wallet_type',
-              );
-              const degenDapp = isUpdateFlow
-                ? dapps?.find((item) =>
-                    compareString(
-                      item.key,
-                      chainKeyToDappKey(walletTypeOption?.key || ''),
-                    ),
-                  )
-                : dappMapping[chainKeyToDappKey(walletTypeOption?.key || '')];
-              const dengenDappIndex = dapps.findIndex(
-                (d) => d.key === chainKeyToDappKey(walletTypeOption?.key || ''),
-              );
+            if (item.key === 'create_agent') {
+              const dapp = agentInfoAsBrainstorm;
 
               return (
                 <BoxOptionV3
@@ -202,27 +183,7 @@ export default memo(function StudioControls() {
                     key={dapp.key}
                     dappIndex={0}
                     className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
-                  >
-                    {walletTypeOption && degenDapp && dengenCategory && (
-                      <BoxOption
-                        info={{
-                          ...walletTypeOption,
-                          title: '',
-                          disabled:
-                            dengenCategory.disable ||
-                            !walletTypeOption.selectable,
-                          description: {
-                            title: walletTypeOption.title,
-                            content: walletTypeOption.tooltip,
-                          },
-                        }}
-                        thisDapp={degenDapp}
-                        key={degenDapp.key}
-                        dappIndex={dengenDappIndex}
-                        className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
-                      />
-                    )}
-                  </BoxOption>
+                  ></BoxOption>
                 </BoxOptionV3>
               );
             }

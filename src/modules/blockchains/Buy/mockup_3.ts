@@ -3,8 +3,8 @@ import { WalletType } from '@/stores/states/dapp/types';
 
 export const accountAbstractionAsADapp: DappModel = {
   isDefaultDapp: true,
-  id: 'account_abstraction',
-  key: 'account_abstraction',
+  id: 'general_idea',
+  key: 'general_idea',
   title: 'Account Abstraction',
   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
   order: 1,
@@ -29,7 +29,7 @@ export const accountAbstractionAsADapp: DappModel = {
     },
   ],
   baseBlock: {
-    key: 'account_abstraction_info',
+    key: 'general_idea_info',
     title: 'Account Abstraction',
     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
     placableAmount: 1,
@@ -1866,14 +1866,14 @@ export const defaultTemplateMockupData: IModelCategory[] = [
     id: '668f8ec088f822fe3ebd3476',
     created_at: '2024-07-11T07:50:24.072Z',
     updated_at: '0001-01-01T00:00:00Z',
-    key: 'wallet',
-    title: 'UX',
+    key: 'create_agent',
+    title: 'Create Agent',
     required: false,
     tooltip:
       'This module enhances user experience by allowing gas fees to be paid in different cryptocurrencies, eliminating the need to hold a specific one for transaction fees.',
     options: [
       {
-        key: 'account_abstraction',
+        key: 'general_idea',
         title: 'Account Abstraction',
         value: 0,
         valueStr: '',
@@ -3035,14 +3035,14 @@ export const categoriesMockupData: IModelCategory[] = [
     id: '668f8ec088f822fe3ebd3476',
     created_at: '2024-07-11T07:50:24.072Z',
     updated_at: '0001-01-01T00:00:00Z',
-    key: 'wallet',
-    title: 'UX',
+    key: 'create_agent',
+    title: 'Create Agent',
     required: false,
     tooltip:
       'This module enhances user experience by allowing gas fees to be paid in different cryptocurrencies, eliminating the need to hold a specific one for transaction fees.',
     options: [
       {
-        key: 'account_abstraction',
+        key: 'general_idea',
         title: 'Account Abstraction',
         value: 0,
         valueStr: '',

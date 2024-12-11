@@ -7,48 +7,63 @@ import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/Chain
 import handleStatusEdges from '@utils/helpers';
 
 function useLineIssueToken(): void {
-  const { nodes, edges, setEdges } = useFlowStore()
+  const { nodes, edges, setEdges } = useFlowStore();
   const params = useParams();
   const isUpdateFlow = React.useMemo(() => !!params.id, [params.id]);
-  const {  aaInstalledData } = useAAModule();
+  const { aaInstalledData } = useAAModule();
   const { getAAStatus } = useChainProvider();
   const { lineAAStatus } = useAAModule();
   function addLineIssueToken() {
-    if(nodes.length === 0) return;
+    if (nodes.length === 0) return;
     const newEdges: Edge[] = [];
-    const nodesWithoutRoot = nodes.filter(node => node.id !== 'blockchain');
+    const nodesWithoutRoot = nodes.filter((node) => node.id !== 'blockchain');
     // @ts-ignore
-    const tokenNodes =  nodesWithoutRoot.filter(node => node.data?.dapp?.key === 'token_generation');
+    const tokenNodes = nodesWithoutRoot.filter(
+      (node) => node.data?.dapp?.key === 'token_generation',
+    );
     // @ts-ignore
-    const dappNodes =  nodesWithoutRoot.filter(node => node.data?.dapp?.key !== "token_generation");
+    const dappNodes = nodesWithoutRoot.filter(
+      (node) => node.data?.dapp?.key !== 'token_generation',
+    );
 
-
-    dappNodes.forEach(node => {
+    dappNodes.forEach((node) => {
       const dataNode = node.data;
       // @ts-ignore
-      const tokenNameOfAirdrop = dataNode?.dapp?.baseBlock?.fields.find((item: any) => item.key == 'reward_token');
+      const tokenNameOfAirdrop = dataNode?.dapp?.baseBlock?.fields.find(
+        (item: any) => item.key == 'reward_token',
+      );
       // @ts-ignore
-      const tokenNameOfYOLO = dataNode?.dapp?.baseBlock?.fields.find((item: any) => item.key == 'settlement_token');
+      const tokenNameOfYOLO = dataNode?.dapp?.baseBlock?.fields.find(
+        (item: any) => item.key == 'settlement_token',
+      );
       // @ts-ignore
       const statusNode = dataNode?.status;
-      tokenNodes.forEach(issueTokenNode => {
+      tokenNodes.forEach((issueTokenNode) => {
         // @ts-ignore
-        const tokenNameOfIssueToken = issueTokenNode.data?.dapp?.baseBlock?.fields.find((item: any) => item.key == 'token_symbol');
+        const tokenNameOfIssueToken =
+          issueTokenNode.data?.dapp?.baseBlock?.fields.find(
+            (item: any) => item.key == 'token_symbol',
+          );
 
         // AA Node
         // @ts-ignore
-        if(node.id === 'account_abstraction' && issueTokenNode.data?.dapp?.label?.actionID === aaInstalledData?.aaPaymasterTokenID) {
-          dataNode.sourceHandles.push(`account_abstraction-t-${issueTokenNode.id}`);
-          issueTokenNode.data.sourceHandles.push(`${issueTokenNode.id}-s-account_abstraction`)
+        if (
+          node.id === 'general_idea' &&
+          issueTokenNode.data?.dapp?.label?.actionID ===
+            aaInstalledData?.aaPaymasterTokenID
+        ) {
+          dataNode.sourceHandles.push(`general_idea-t-${issueTokenNode.id}`);
+          issueTokenNode.data.sourceHandles.push(
+            `${issueTokenNode.id}-s-general_idea`,
+          );
           const issueTokenToAA: Edge = {
             id: `${Math.random()}`,
             source: issueTokenNode.id,
             target: node.id,
-            sourceHandle: `${issueTokenNode.id}-s-account_abstraction`,
-            targetHandle: `account_abstraction-t-${issueTokenNode.id}`,
-            label: handleStatusEdges('', lineAAStatus, 'account_abstraction')
-              .icon,
-            animated: handleStatusEdges('', lineAAStatus, 'account_abstraction')
+            sourceHandle: `${issueTokenNode.id}-s-general_idea`,
+            targetHandle: `general_idea-t-${issueTokenNode.id}`,
+            label: handleStatusEdges('', lineAAStatus, 'general_idea').icon,
+            animated: handleStatusEdges('', lineAAStatus, 'general_idea')
               .animate,
             type: 'customEdge',
             selectable: false,
@@ -65,15 +80,21 @@ function useLineIssueToken(): void {
               stroke: '#FA9984',
               strokeWidth: 2,
             },
-          }
+          };
           newEdges.push(issueTokenToAA);
         }
 
         // Airdrop Node
         // @ts-ignore
-        if(dataNode?.dapp?.id === 'airdrop' && tokenNameOfAirdrop?.options[0].key == tokenNameOfIssueToken?.value && checkStatusNode(statusNode)) {
+        if (
+          dataNode?.dapp?.id === 'airdrop' &&
+          tokenNameOfAirdrop?.options[0].key == tokenNameOfIssueToken?.value &&
+          checkStatusNode(statusNode)
+        ) {
           dataNode.sourceHandles.push(`airdrop-t-${issueTokenNode.id}`);
-          issueTokenNode.data.sourceHandles.push(`${issueTokenNode.id}-s-airdrop`)
+          issueTokenNode.data.sourceHandles.push(
+            `${issueTokenNode.id}-s-airdrop`,
+          );
           const issueTokenToAirdrop: Edge = {
             id: `${Math.random()}`,
             source: issueTokenNode.id,
@@ -103,9 +124,15 @@ function useLineIssueToken(): void {
 
         // Staking Node
         // @ts-ignore
-        if(dataNode?.dapp?.id === 'staking' && tokenNameOfAirdrop?.options[0].key == tokenNameOfIssueToken?.value  && checkStatusNode(statusNode)) {
+        if (
+          dataNode?.dapp?.id === 'staking' &&
+          tokenNameOfAirdrop?.options[0].key == tokenNameOfIssueToken?.value &&
+          checkStatusNode(statusNode)
+        ) {
           dataNode.sourceHandles.push(`staking-t-${issueTokenNode.id}`);
-          issueTokenNode.data.sourceHandles.push(`${issueTokenNode.id}-s-staking`)
+          issueTokenNode.data.sourceHandles.push(
+            `${issueTokenNode.id}-s-staking`,
+          );
           const issueTokenToStaking: Edge = {
             id: `${Math.random()}`,
             source: issueTokenNode.id,
@@ -135,9 +162,15 @@ function useLineIssueToken(): void {
 
         // Yolo Node
         // @ts-ignore
-        if(dataNode?.dapp?.id === 'yologame' && tokenNameOfYOLO?.options[0].key == tokenNameOfIssueToken?.value  && checkStatusNode(statusNode)) {
+        if (
+          dataNode?.dapp?.id === 'yologame' &&
+          tokenNameOfYOLO?.options[0].key == tokenNameOfIssueToken?.value &&
+          checkStatusNode(statusNode)
+        ) {
           dataNode.sourceHandles.push(`yologame-t-${issueTokenNode.id}`);
-          issueTokenNode.data.sourceHandles.push(`${issueTokenNode.id}-s-yologame`)
+          issueTokenNode.data.sourceHandles.push(
+            `${issueTokenNode.id}-s-yologame`,
+          );
           const issueTokenToYolo: Edge = {
             id: `${Math.random()}`,
             source: issueTokenNode.id,
@@ -164,25 +197,21 @@ function useLineIssueToken(): void {
           };
           newEdges.push(issueTokenToYolo);
         }
-      })
-
-    })
+      });
+    });
 
     setEdges([...edges, ...newEdges]);
-
   }
 
   function checkStatusNode(status: string) {
     const statusConnect = ['Processing', 'Running', 'Deployed'];
-    return statusConnect.some(statusApprove => statusApprove === status);
+    return statusConnect.some((statusApprove) => statusApprove === status);
   }
 
   useEffect(() => {
     if (!isUpdateFlow) return;
     addLineIssueToken();
   }, [nodes.length]);
-
 }
-
 
 export default useLineIssueToken;

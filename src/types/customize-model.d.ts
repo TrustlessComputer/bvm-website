@@ -4,7 +4,7 @@ export type DAppKeys =
   | 'blockchain' //hard code FE (only view's purpore)
   | 'create_token'
   | 'staking'
-  | 'account_abstraction'
+  | 'general_idea'
   | 'dex'
   | 'order_book'
   | 'perpetual'
@@ -141,7 +141,16 @@ interface FieldModel {
   icon: string;
   title: string;
   value: string | number;
-  type: 'input' | 'dropdown' | 'extends' | 'group' | 'datetime' | 'list' | 'label_value' | 'button' | '';
+  type:
+    | 'input'
+    | 'dropdown'
+    | 'extends'
+    | 'group'
+    | 'datetime'
+    | 'list'
+    | 'label_value'
+    | 'button'
+    | '';
   tooltip: string;
   options: FieldModel[];
   placeholder?: string;

@@ -48,7 +48,7 @@ const useNodeHelper = () => {
 
   const getChainNodeId = React.useCallback(() => 'blockchain', []);
   const getAccountAbstractionNodeId = React.useCallback(
-    () => 'account_abstraction',
+    () => 'general_idea',
     [],
   );
   const getBridgeAppsNodeId = React.useCallback(() => 'bridge_apps', []);

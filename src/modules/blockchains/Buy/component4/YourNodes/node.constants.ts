@@ -19,7 +19,7 @@ export const dappKeyMapNodeKey: Record<
   string,
   (typeof nodeKey)[keyof typeof nodeKey]
 > = Object.freeze({
-  account_abstraction: nodeKey.ACCOUNT_ABSTRACTION_NODE,
+  general_idea: nodeKey.ACCOUNT_ABSTRACTION_NODE,
   bridge_apps: nodeKey.BRIDGE_NODE,
   gaming_apps: nodeKey.GAMING_APPS_NODE,
   issue_a_token: nodeKey.DAPP_NODE,

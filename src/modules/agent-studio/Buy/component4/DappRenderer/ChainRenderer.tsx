@@ -6,10 +6,10 @@ import LegoV3 from '@/modules/agent-studio/Buy/components3/LegoV3';
 import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
 import Label from '../../components3/Label';
 import ChainLegoParent from '../../components3/LegoParent';
-import useOrderFormStoreV3 from '../../stores/index_v3';
-import useDragStore from '../../stores/useDragStore';
-import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
-import useOverlappingChainLegoStore from '../../stores/useOverlappingChainLegoStore';
+import { useField } from '../../stores/index_v3';
+import { useDraggedFields } from '../../stores/useDragStore';
+import { useParsedCategories } from '../../stores/useModelCategoriesStore';
+import { useOverlappingId } from '../../stores/useOverlappingChainLegoStore';
 
 import OptionInputValue from '@/modules/agent-studio/Buy/component4/DappRenderer/OptionInputValue';
 import NetworkDropdown from '../../components3/NetworkDropdown';
@@ -20,20 +20,11 @@ type Props = {};
 const hiddenFields = ['network'];
 
 const ChainRenderer = () => {
-  const { parsedCategories } = useModelCategoriesStore();
-  const { draggedFields } = useDragStore();
-  const { overlappingId } = useOverlappingChainLegoStore();
-  const { field } = useOrderFormStoreV3();
+  const parsedCategories = useParsedCategories();
+  const draggedFields = useDraggedFields();
+  const overlappingId = useOverlappingId();
+  const field = useField();
   const { isUpdateFlow, selectedCategoryMapping } = useChainProvider();
-
-  // console.log('[ChainRenderer]', {
-  //   parsedCategories,
-  //   draggedFields,
-  //   overlappingId,
-  //   field,
-  //   isUpdateFlow,
-  //   selectedCategoryMapping,
-  // });
 
   return (
     <DroppableV2
@@ -52,10 +43,9 @@ const ChainRenderer = () => {
       >
         <ComputerNameInput />
       </LegoV3>
-      <LegoV3 background={'#FF7A41'} label="Network" labelInLeft zIndex={44}>
-        {/* <ComputerNameInput /> */}
+      {/* <LegoV3 background={'#FF7A41'} label="Network" labelInLeft zIndex={44}>
         <NetworkDropdown />
-      </LegoV3>
+      </LegoV3> */}
 
       {draggedFields.map((key, index) => {
         // if (key === 'bridge_apps') return null;
@@ -139,7 +129,7 @@ const ChainRenderer = () => {
           if (option.key !== field[item.key].value) return null;
 
           const isUpdatable =
-            option.key !== 'account_abstraction' && // Must be hard coded
+            option.key !== 'general_idea' && // Must be hard coded
             selectedCategory?.updatable && //
             isUpdateFlow;
 
