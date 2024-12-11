@@ -5,7 +5,7 @@
 // import toast from 'react-hot-toast';
 // import ModalVideo from 'react-modal-video';
 
-// import { getModelCategories, getTemplates } from '@/services/customize-model';
+// import { getModelCategories, getTemplates } from '@/services/agent-model';
 // import BoxOptionV3 from './components3/BoxOptionV3';
 // import ComputerNameInput from './components3/ComputerNameInput';
 // import Draggable from './components3/Draggable';
