@@ -143,7 +143,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
 
   const titleButton = useMemo(() => {
     if (!loggedIn) {
-      return 'Create';
+      return 'Create Agent';
     }
     // if (needContactUs) {
     //   return 'Launch';
@@ -154,7 +154,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
     if (isUpdateFlow) {
       return 'Update';
     }
-    return 'Create';
+    return 'Create Agent';
   }, [loggedIn, isUpdate, needContactUs, isUpdateFlow]);
 
   useEffect(() => {
