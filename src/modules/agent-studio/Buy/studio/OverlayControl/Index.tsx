@@ -1,10 +1,10 @@
-import Draggable from '@/modules/blockchains/Buy/components3/Draggable';
-import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
-import LegoParent from '@/modules/blockchains/Buy/components3/LegoParent';
-import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
-import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
-import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
-import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import Draggable from '@/modules/agent-studio/Buy/components3/Draggable';
+import DroppableV2 from '@/modules/agent-studio/Buy/components3/DroppableV2';
+import LegoParent from '@/modules/agent-studio/Buy/components3/LegoParent';
+import LegoV3 from '@/modules/agent-studio/Buy/components3/LegoV3';
+import useOrderFormStoreV3 from '@/modules/agent-studio/Buy/stores/index_v3';
+import useDragMask from '@/modules/agent-studio/Buy/stores/useDragMask';
+import useModelCategoriesStore from '@/modules/agent-studio/Buy/stores/useModelCategoriesStore';
 import { DragOverlay } from '@dnd-kit/core';
 
 export default function OverlayControl() {

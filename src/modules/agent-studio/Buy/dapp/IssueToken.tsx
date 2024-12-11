@@ -24,7 +24,7 @@
 // import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 // import ErrorModal from './components3/ErrorModal';
 // import { mockupOptions } from './Buy.data';
-// import Capture from '@/modules/blockchains/Buy/Capture';
+// import Capture from '@/modules/agent-studio/Buy/Capture';
 // import Label from './components3/Label';
 
 // const BuyPage = () => {

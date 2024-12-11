@@ -1,9 +1,8 @@
-import Droppable from '@/modules/blockchains/dapp/components/Droppable';
+import Droppable from '@/modules/agent-studio/dapp/components/Droppable';
 import React, { useState } from 'react';
 import s from './styles.module.scss';
 import { useSignalEffect } from '@preact/signals-react';
-import { blockDraggingSignal } from '@/modules/blockchains/Buy/signals/useDragSignal';
-
+import { blockDraggingSignal } from '@/modules/agent-studio/Buy/signals/useDragSignal';
 
 const DroppableMask = () => {
   const [isShow, setIsShow] = useState(false);

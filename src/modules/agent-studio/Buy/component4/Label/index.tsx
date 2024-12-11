@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-import { iconToolNames } from '@/modules/blockchains/Buy/Buy.data';
+import { iconToolNames } from '@/modules/agent-studio/Buy/Buy.data';
 import styles from './styles.module.scss';
 
 type Props = {

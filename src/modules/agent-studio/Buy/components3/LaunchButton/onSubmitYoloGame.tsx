@@ -1,6 +1,6 @@
-import { IRetrieveFormsByDappKey } from '@/modules/blockchains/Buy/hooks/useOneForm';
-import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
-import { FormDappUtil } from '@/modules/blockchains/dapp/utils';
+import { IRetrieveFormsByDappKey } from '@/modules/agent-studio/Buy/hooks/useOneForm';
+import { extractedValue } from '@/modules/agent-studio/dapp/hooks/utils';
+import { FormDappUtil } from '@/modules/agent-studio/dapp/utils';
 import CYoloGameAPI from '@/services/api/dapp/yolo';
 import BigNumberJS from 'bignumber.js';
 import { IPosition } from '@/services/api/dapp/staking/interface';
@@ -9,7 +9,13 @@ import { v4 as uuidv4 } from 'uuid';
 const useSubmitYoloGame = () => {
   const cYoloGameAPI = new CYoloGameAPI();
 
-  const onSubmitYoloGame = async ({ forms, positions }: { forms: IRetrieveFormsByDappKey[][], positions?: Vector2[] }) => {
+  const onSubmitYoloGame = async ({
+    forms,
+    positions,
+  }: {
+    forms: IRetrieveFormsByDappKey[][];
+    positions?: Vector2[];
+  }) => {
     let index = 0;
     for (const form of forms) {
       try {
@@ -19,7 +25,8 @@ const useSubmitYoloGame = () => {
         >[] = [];
         const formDapp = Object.assign({}, ...form);
         const formDappInBase = Object.keys(formDapp).filter(
-          (key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key),
+          (key) =>
+            !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key),
         );
         const formDappInModule = Object.keys(formDapp).filter(
           (key) => !FormDappUtil.isInModule(key),
@@ -45,7 +52,7 @@ const useSubmitYoloGame = () => {
           formDapp,
           finalFormMappings,
         );
-        const formFinal = finalFormMappings.find(item => !!item);
+        const formFinal = finalFormMappings.find((item) => !!item);
 
         // TODO: JACKIE - update position below
         const position: IPosition = {
@@ -59,20 +66,23 @@ const useSubmitYoloGame = () => {
           settlement_token: formFinal?.settlement_token as unknown as string,
           value_per_entry: formFinal?.value_per_entry as unknown as string,
           round_duration: Number(formFinal?.round_duration),
-          maximum_number_of_participants_per_round: Number(formFinal?.maximum_participants),
-          protocol_fee_ratio: BigNumberJS(formFinal?.protocol_fee_ratio as any).dividedBy(100).toFixed(2),
+          maximum_number_of_participants_per_round: Number(
+            formFinal?.maximum_participants,
+          ),
+          protocol_fee_ratio: BigNumberJS(formFinal?.protocol_fee_ratio as any)
+            .dividedBy(100)
+            .toFixed(2),
           ...position,
         });
       } catch (error) {
         console.log(error);
       }
     }
-
   };
 
   return {
-    onSubmitYoloGame
-  }
-}
+    onSubmitYoloGame,
+  };
+};
 
 export default useSubmitYoloGame;

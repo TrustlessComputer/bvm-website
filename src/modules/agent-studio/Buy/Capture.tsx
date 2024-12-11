@@ -7,7 +7,7 @@ import { convertBase64ToFile } from '@/utils/file';
 import useStudioHelper from './hooks/useStudioHelper';
 import useImageHelper from './hooks/useImageHelper';
 
-import s from '@/modules/blockchains/Buy/styles_v5.module.scss';
+import s from '@/modules/agent-studio/Buy/styles_v5.module.scss';
 import useFlowStore from './stores/useFlowStore';
 import { isActingSignal } from './signals/useFlowStatus';
 import { useSignalEffect } from '@preact/signals-react';

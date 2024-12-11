@@ -1,25 +1,25 @@
-import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
+import useDapps from '@/modules/agent-studio/Buy/hooks/useDapps';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
   restoreLocal,
-} from '@/modules/blockchains/Buy/signals/useDragSignal';
+} from '@/modules/agent-studio/Buy/signals/useDragSignal';
 import {
   cloneDeep,
   dappKeyToChainKey,
   isTwoObjectEqual,
-} from '@/modules/blockchains/Buy/utils';
+} from '@/modules/agent-studio/Buy/utils';
 import { useSignalEffect } from '@preact/signals-react';
 import { MarkerType, useStoreApi } from '@xyflow/react';
 import React, { useEffect } from 'react';
 import useFlowStore, { AppState } from '../stores/useFlowStore';
 
-import { mouseDroppedPositionSignal } from '@/modules/blockchains/Buy/signals/useMouseDroppedPosition';
-import useDraggingStore from '@/modules/blockchains/Buy/stores/useDraggingStore';
-import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
-import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
-import { useBridgesModule } from '@/modules/blockchains/detail_v4/hook/useBridgesModule';
-import { useGameModule } from '@/modules/blockchains/detail_v4/hook/useGameModule';
+import { mouseDroppedPositionSignal } from '@/modules/agent-studio/Buy/signals/useMouseDroppedPosition';
+import useDraggingStore from '@/modules/agent-studio/Buy/stores/useDraggingStore';
+import { needReactFlowRenderSignal } from '@/modules/agent-studio/Buy/studio/ReactFlowRender';
+import { useAAModule } from '@/modules/agent-studio/detail_v4/hook/useAAModule';
+import { useBridgesModule } from '@/modules/agent-studio/detail_v4/hook/useBridgesModule';
+import { useGameModule } from '@/modules/agent-studio/detail_v4/hook/useGameModule';
 import { IModelOption } from '@/types/customize-model';
 import { DappNode } from '@/types/node';
 import handleStatusEdges from '@utils/helpers';

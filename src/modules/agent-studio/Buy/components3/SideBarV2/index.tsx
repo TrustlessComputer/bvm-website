@@ -2,16 +2,13 @@ import React from 'react';
 
 import s from './styles.module.scss';
 import { IModelCategory } from '@/types/customize-model';
-import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
-import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
-
+import useModelCategoriesStore from '@/modules/agent-studio/Buy/stores/useModelCategoriesStore';
+import useDragStore from '@/modules/agent-studio/Buy/stores/useDragStore';
 
 export default function SidebarV2() {
   const [isActive, setIsActive] = React.useState<string>('');
 
-  const {
-    parsedCategories: items,
-  } = useModelCategoriesStore();
+  const { parsedCategories: items } = useModelCategoriesStore();
   return (
     <div className={s.sidebar}>
       <div className={s.inner}>

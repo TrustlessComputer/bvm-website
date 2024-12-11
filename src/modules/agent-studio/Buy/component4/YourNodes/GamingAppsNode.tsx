@@ -4,7 +4,7 @@ import { ChainNodeAsDappNode, NodeNotificationProps } from '@/types/node';
 import { NodeProps } from '@xyflow/react';
 import GamingAppsRenderer from '../DappRenderer/GamingAppsRenderer';
 import Node from '../Node/Node';
-import { useGameModule } from '@/modules/blockchains/detail_v4/hook/useGameModule';
+import { useGameModule } from '@/modules/agent-studio/detail_v4/hook/useGameModule';
 
 const GamingAppsNode = ({ data, id }: NodeProps<ChainNodeAsDappNode>) => {
   const { statusMapper, getGameTypeIconUrl } = useGameModule();

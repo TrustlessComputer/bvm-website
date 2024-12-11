@@ -1,11 +1,11 @@
 // @refresh reset
 
-import useTemplate from '@/modules/blockchains/Buy/hooks/useTemplate';
-import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
-import useStoreFirstLoadTemplateBox from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
-import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
-import { parseWalletType } from '@/modules/blockchains/dapp/parseUtils/wallet-type';
-import { parseYoloGames } from '@/modules/blockchains/dapp/parseUtils/yologame';
+import useTemplate from '@/modules/agent-studio/Buy/hooks/useTemplate';
+import useOrderFormStoreV3 from '@/modules/agent-studio/Buy/stores/index_v3';
+import useStoreFirstLoadTemplateBox from '@/modules/agent-studio/Buy/stores/useFirstLoadTemplateBoxStore';
+import useModelCategoriesStore from '@/modules/agent-studio/Buy/stores/useModelCategoriesStore';
+import { parseWalletType } from '@/modules/agent-studio/dapp/parseUtils/wallet-type';
+import { parseYoloGames } from '@/modules/agent-studio/dapp/parseUtils/yologame';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { IAirdrop } from '@/services/api/dapp/airdrop/interface';
 import { IToken } from '@/services/api/dapp/token_generation/interface';
@@ -42,7 +42,7 @@ import useAvailableListTemplate from '../studio/useAvailableListTemplate';
 import useModelCategory from '../studio/useModelCategory';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
-import { parseWhitePapers } from '@/modules/blockchains/dapp/parseUtils/whitePaper';
+import { parseWhitePapers } from '@/modules/agent-studio/dapp/parseUtils/whitePaper';
 import useStudioHelper from './useStudioHelper';
 import useNodeHelper from './useNodeHelper';
 import useStudioInfo from './useStudioInfo';

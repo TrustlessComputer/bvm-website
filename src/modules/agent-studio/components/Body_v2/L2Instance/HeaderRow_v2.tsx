@@ -3,7 +3,7 @@
 import { Button, Flex, Image, ResponsiveArray, Text } from '@chakra-ui/react';
 import LivingStatus from './LivingStatus';
 import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
-import useOrderMapper from '@/modules/blockchains/hooks/useOrderMapper';
+import useOrderMapper from '@/modules/agent-studio/hooks/useOrderMapper';
 import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 import { useRouter } from 'next/navigation';
 

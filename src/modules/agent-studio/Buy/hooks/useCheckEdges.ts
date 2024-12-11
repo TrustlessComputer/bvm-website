@@ -1,7 +1,7 @@
-import useFlowStore from '@/modules/blockchains/Buy/stores/useFlowStore';
+import useFlowStore from '@/modules/agent-studio/Buy/stores/useFlowStore';
 import React from 'react';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
-import { removeItemAtIndex } from '@/modules/blockchains/dapp/utils';
+import { removeItemAtIndex } from '@/modules/agent-studio/dapp/utils';
 
 const useCheckEdges = () => {
   const edges = useFlowStore((state) => state.edges);
@@ -23,7 +23,6 @@ const useCheckEdges = () => {
   };
 
   React.useEffect(() => {
-
     if (removedNode === null) return;
 
     checkEdges();

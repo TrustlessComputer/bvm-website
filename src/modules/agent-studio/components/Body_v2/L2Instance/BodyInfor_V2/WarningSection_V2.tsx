@@ -5,7 +5,7 @@ import { Flex, Text } from '@chakra-ui/react';
 import { useSearchParams } from 'next/navigation';
 
 import s from '../styleFont.module.scss';
-import { useDashboard } from '@/modules/blockchains/providers/DashboardProvider';
+import { useDashboard } from '@/modules/agent-studio/providers/DashboardProvider';
 import { useAppDispatch } from '@/stores/hooks';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
 

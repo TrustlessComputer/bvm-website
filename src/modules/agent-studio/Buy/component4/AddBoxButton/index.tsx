@@ -1,9 +1,9 @@
-import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
+import useDapps from '@/modules/agent-studio/Buy/hooks/useDapps';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
-} from '@/modules/blockchains/Buy/signals/useDragSignal';
-import { cloneDeep, isTwoObjectEqual } from '@/modules/blockchains/Buy/utils';
+} from '@/modules/agent-studio/Buy/signals/useDragSignal';
+import { cloneDeep, isTwoObjectEqual } from '@/modules/agent-studio/Buy/utils';
 import { useSignalEffect } from '@preact/signals-react';
 import { useReactFlow } from '@xyflow/react';
 import React, { useEffect } from 'react';

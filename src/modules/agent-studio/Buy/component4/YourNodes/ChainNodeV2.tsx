@@ -1,5 +1,5 @@
-import TopupModal from '@/modules/blockchains/components/TopupModal';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
+import TopupModal from '@/modules/agent-studio/components/TopupModal';
+import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';

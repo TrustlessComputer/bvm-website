@@ -1,7 +1,7 @@
 'use client';
 
-import { RollupEnumMap } from '@/modules/blockchains/Buy/Buy.constanst';
-import useOrderMapper from '@/modules/blockchains/hooks/useOrderMapper';
+import { RollupEnumMap } from '@/modules/agent-studio/Buy/Buy.constanst';
+import useOrderMapper from '@/modules/agent-studio/hooks/useOrderMapper';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { formatUnixDateTime } from '@/utils/time';
 import { Flex, Image, SimpleGrid, Text } from '@chakra-ui/react';

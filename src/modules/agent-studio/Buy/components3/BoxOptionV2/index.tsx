@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex } from '@chakra-ui/react';
 
-import DescriptionModal from '@/modules/blockchains/Buy/components/DescriptionModal/DescriptionModal';
+import DescriptionModal from '@/modules/agent-studio/Buy/components/DescriptionModal/DescriptionModal';
 import SvgInset from '@/components/SvgInset';
 
 import s from './styles.module.scss';

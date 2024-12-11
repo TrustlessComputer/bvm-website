@@ -1,10 +1,10 @@
-import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
-import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
-import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
+import useOrderFormStoreV3 from '@/modules/agent-studio/Buy/stores/index_v3';
+import useDragStore from '@/modules/agent-studio/Buy/stores/useDragStore';
+import useModelCategoriesStore from '@/modules/agent-studio/Buy/stores/useModelCategoriesStore';
 import { IModelCategory } from '@/types/customize-model';
 import { useSearchParams } from 'next/navigation';
 import { cloneDeep } from '../utils';
-import { useOptionInputStore } from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
+import { useOptionInputStore } from '@/modules/agent-studio/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,

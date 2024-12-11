@@ -4,7 +4,7 @@ import {
   PRICING_PACKGE,
   PRICING_PACKGE_MAP,
 } from '@/modules/PricingV2/constants';
-import useOrderMapper from '@/modules/blockchains/hooks/useOrderMapper';
+import useOrderMapper from '@/modules/agent-studio/hooks/useOrderMapper';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { Flex, Text } from '@chakra-ui/react';
 import { useMemo } from 'react';

@@ -1,7 +1,7 @@
 import { DappModel } from '@/types/customize-model';
 import { ReactElement } from 'react';
-import AddressInput from '../../detail_v3/account-abstraction_v2/components/AddressInput';
-import FeeRateInput from '../../detail_v3/account-abstraction_v2/components/FeeRateInput';
+// import AddressInput from '../../detail_v3/account-abstraction_v2/components/AddressInput';
+// import FeeRateInput from '../../detail_v3/account-abstraction_v2/components/FeeRateInput';
 import Lego from '../component4/Lego';
 import LegoParent from '../component4/LegoParent';
 import { adjustBrightness } from '../utils';
@@ -18,7 +18,8 @@ const AA = ({ dAppData }: { dAppData: DappModel }): ReactElement => {
         background={adjustBrightness(dAppData.color, -10)}
         {...dAppData.baseBlock.fields[0]}
       >
-        <AddressInput option={dAppData.baseBlock.fields[0]} />
+        {/* <AddressInput option={dAppData.baseBlock.fields[0]} /> */}
+        <div>WTF MAN</div>
       </Lego>
       <Lego
         first={false}
@@ -28,7 +29,8 @@ const AA = ({ dAppData }: { dAppData: DappModel }): ReactElement => {
         background={adjustBrightness(dAppData.color, -10)}
         {...dAppData.baseBlock.fields[1]}
       >
-        <FeeRateInput option={dAppData.baseBlock.fields[1]} />
+        {/* <FeeRateInput option={dAppData.baseBlock.fields[1]} /> */}
+        <div>WTF MAN 2</div>
       </Lego>
     </LegoParent>
   );

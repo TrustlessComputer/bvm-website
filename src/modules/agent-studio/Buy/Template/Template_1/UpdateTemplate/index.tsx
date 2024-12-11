@@ -2,7 +2,7 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import styles from './styles.module.scss';
 import { ITemplate } from '@/services/api/dapp/types';
 import React from 'react';
-import DropFile from '@/modules/blockchains/components/UpdateOrderModal/DropFile';
+import DropFile from '@/modules/agent-studio/components/UpdateOrderModal/DropFile';
 import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 
 interface IProps {
@@ -18,12 +18,12 @@ enum UpdateKey {
   desc = 'desc',
   headings = 'headings',
   backgroundImage = 'backgroundImage',
-  appName = 'appName'
+  appName = 'appName',
 }
 
 interface ITask {
   text: string;
-  type: 'upload-image' | 'input' | 'textarea'
+  type: 'upload-image' | 'input' | 'textarea';
   value?: string | any;
   key: UpdateKey;
 }
@@ -39,45 +39,45 @@ const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
         text: 'Logo',
         type: 'upload-image',
         value: template?.logo,
-        key: UpdateKey.logo
+        key: UpdateKey.logo,
       },
       {
         text: 'App name',
         type: 'input',
         value: template?.appName,
-        key: UpdateKey.appName
+        key: UpdateKey.appName,
       },
       {
         text: 'Heading 1',
         type: 'input',
         value: template?.template_1?.contentText.first,
-        key: UpdateKey.first
+        key: UpdateKey.first,
       },
       {
         text: 'Heading 2',
         type: 'textarea',
         value: template?.template_1?.contentText.headings?.join(','),
-        key: UpdateKey.headings
+        key: UpdateKey.headings,
       },
       {
         text: 'Heading 3',
         type: 'input',
         value: template?.template_1?.contentText.last,
-        key: UpdateKey.last
+        key: UpdateKey.last,
       },
       {
         text: 'Description',
         type: 'textarea',
         value: template?.template_1?.contentText.desc,
-        key: UpdateKey.desc
+        key: UpdateKey.desc,
       },
       {
         text: 'Background Image',
         type: 'upload-image',
         value: template?.backgroundImage,
-        key: UpdateKey.backgroundImage
+        key: UpdateKey.backgroundImage,
       },
-    ]
+    ];
   }, [template]);
 
   const onConvertImage = async (key: UpdateKey, file: File | undefined) => {
@@ -85,12 +85,11 @@ const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
     const url = await api.uploadImage(file);
     onUpdateState({
       ...template,
-      [key]: url
+      [key]: url,
     } as any);
-  }
+  };
 
   const renderItem = (item: ITask) => {
-
     let valueBox = null;
 
     switch (item.type) {
@@ -110,7 +109,8 @@ const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
       case 'input': {
         valueBox = (
           <input
-            className={styles.input} value={item.value}
+            className={styles.input}
+            value={item.value}
             onChange={(e) => onChangeText(item.key, e.target.value)}
           />
         );
@@ -130,13 +130,11 @@ const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
     }
     return (
       <Box key={item.key}>
-        <p className={styles.title}>
-          {item.text}
-        </p>
+        <p className={styles.title}>{item.text}</p>
         {valueBox}
       </Box>
     );
-  }
+  };
 
   const onChangeText = (key: string, value: string) => {
     console.log(key, value);
@@ -147,8 +145,8 @@ const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
       case UpdateKey.appName: {
         _template = {
           ...template,
-          appName: value
-        }
+          appName: value,
+        };
         break;
       }
       case UpdateKey.headings: {
@@ -163,10 +161,10 @@ const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
               headingsColors: headings.map(() => {
                 // return random color for each heading
                 return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-              })
-            }
-          }
-        }
+              }),
+            },
+          },
+        };
         break;
       }
       default:
@@ -176,37 +174,35 @@ const UpdateTemplate = ({ template, onUpdateState, dappURL }: IProps) => {
             ...template?.template_1,
             contentText: {
               ...template?.template_1?.contentText,
-              [key]: value
-            }
-          }
-        }
+              [key]: value,
+            },
+          },
+        };
         break;
     }
 
     onUpdateState(_template);
-  }
+  };
 
   return (
-      <Flex
-        flexDirection='column'
-        gap="12px"
-        border="1px solid #E0E0E0"
-        backgroundColor="white"
-        borderRadius="12px"
-        padding="24px"
-      >
-        <Box>
-          <p className={styles.title}>
-            Dapp link
-          </p>
-          <a href={dappURL} target="_blank" rel="noreferrer">
-            <Text color="blue.500" fontSize="14px">
-              {dappURL}
-            </Text>
-          </a>
-        </Box>
-        {ListTask.map(renderItem)}
-      </Flex>
+    <Flex
+      flexDirection="column"
+      gap="12px"
+      border="1px solid #E0E0E0"
+      backgroundColor="white"
+      borderRadius="12px"
+      padding="24px"
+    >
+      <Box>
+        <p className={styles.title}>Dapp link</p>
+        <a href={dappURL} target="_blank" rel="noreferrer">
+          <Text color="blue.500" fontSize="14px">
+            {dappURL}
+          </Text>
+        </a>
+      </Box>
+      {ListTask.map(renderItem)}
+    </Flex>
   );
 };
 

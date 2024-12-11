@@ -1,13 +1,13 @@
-import Draggable from '@/modules/blockchains/Buy/component4/Draggable';
-import Droppable from '@/modules/blockchains/Buy/component4/Droppable';
-import Lego from '@/modules/blockchains/Buy/component4/Lego';
-import LegoParent from '@/modules/blockchains/Buy/component4/LegoParent';
-import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
-import AA from '@/modules/blockchains/Buy/dapp/AA';
-import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
-import { Field } from '@/modules/blockchains/Buy/signals/useDragSignal';
-import { adjustBrightness, DragUtil } from '@/modules/blockchains/Buy/utils';
-import BottomButton from '@/modules/blockchains/dapp/components/BottomButton';
+import Draggable from '@/modules/agent-studio/Buy/component4/Draggable';
+import Droppable from '@/modules/agent-studio/Buy/component4/Droppable';
+import Lego from '@/modules/agent-studio/Buy/component4/Lego';
+import LegoParent from '@/modules/agent-studio/Buy/component4/LegoParent';
+import { FieldKeyPrefix } from '@/modules/agent-studio/Buy/contants';
+import AA from '@/modules/agent-studio/Buy/dapp/AA';
+import useDapps from '@/modules/agent-studio/Buy/hooks/useDapps';
+import { Field } from '@/modules/agent-studio/Buy/signals/useDragSignal';
+import { adjustBrightness, DragUtil } from '@/modules/agent-studio/Buy/utils';
+import BottomButton from '@/modules/agent-studio/dapp/components/BottomButton';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
 import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
@@ -16,7 +16,7 @@ import React, { memo, ReactElement } from 'react';
 import Label from '../../components3/Label';
 import { useCaptureStore } from '../../stores/index_v3';
 import s from './styles.module.scss';
-import styles from '@/modules/blockchains/Buy/component4/Node_v2/styles.module.scss';
+import styles from '@/modules/agent-studio/Buy/component4/Node_v2/styles.module.scss';
 
 export enum StatusBox {
   DRAFTING = 'Drafting',

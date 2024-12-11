@@ -1,5 +1,5 @@
 import Loading from '@/components/Loading';
-import useFetchDapp from '@/modules/blockchains/dapp/hooks/useFetchDapp';
+import useFetchDapp from '@/modules/agent-studio/dapp/hooks/useFetchDapp';
 import styles from './styles.module.scss';
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
@@ -7,10 +7,10 @@ import { useMemo } from 'react';
 const LoadingOverlay = () => {
   const pathName = usePathname();
   const { loading, loaded } = useFetchDapp();
-  
-  const isStudio = useMemo(()=>{
+
+  const isStudio = useMemo(() => {
     return pathName === '/studio';
-  }, [pathName])
+  }, [pathName]);
 
   if (loading && !isStudio) {
     return (

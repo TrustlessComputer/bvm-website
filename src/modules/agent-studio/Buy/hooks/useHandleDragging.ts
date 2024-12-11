@@ -1,34 +1,34 @@
 'use client';
 
-import { useOptionInputStore } from '@/modules/blockchains/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
-import { isShakeLego } from '@/modules/blockchains/Buy/components3/Draggable';
-import { FieldKeyPrefix } from '@/modules/blockchains/Buy/contants';
-import useDapps from '@/modules/blockchains/Buy/hooks/useDapps';
+import { useOptionInputStore } from '@/modules/agent-studio/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
+import { isShakeLego } from '@/modules/agent-studio/Buy/components3/Draggable';
+import { FieldKeyPrefix } from '@/modules/agent-studio/Buy/contants';
+import useDapps from '@/modules/agent-studio/Buy/hooks/useDapps';
 import {
   blockDraggingSignal,
   draggedDappIndexesSignal,
   draggedIds2DSignal,
   idBlockErrorSignal,
-} from '@/modules/blockchains/Buy/signals/useDragSignal';
-import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
-import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
+} from '@/modules/agent-studio/Buy/signals/useDragSignal';
+import { formDappSignal } from '@/modules/agent-studio/Buy/signals/useFormDappsSignal';
+import useOrderFormStoreV3 from '@/modules/agent-studio/Buy/stores/index_v3';
 import {
   subScribeDropEnd,
   useTemplateFormStore,
-} from '@/modules/blockchains/Buy/stores/useDappStore';
-import useDraggingStore from '@/modules/blockchains/Buy/stores/useDraggingStore';
-import useDragMask from '@/modules/blockchains/Buy/stores/useDragMask';
-import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
-import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
-import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
+} from '@/modules/agent-studio/Buy/stores/useDappStore';
+import useDraggingStore from '@/modules/agent-studio/Buy/stores/useDraggingStore';
+import useDragMask from '@/modules/agent-studio/Buy/stores/useDragMask';
+import useDragStore from '@/modules/agent-studio/Buy/stores/useDragStore';
+import useModelCategoriesStore from '@/modules/agent-studio/Buy/stores/useModelCategoriesStore';
+import { needReactFlowRenderSignal } from '@/modules/agent-studio/Buy/studio/ReactFlowRender';
 import {
   cloneDeep,
   DragUtil,
   FormDappUtil,
   hasValue,
   MouseSensor,
-} from '@/modules/blockchains/Buy/utils';
-import { removeItemAtIndex } from '@/modules/blockchains/dapp/utils';
+} from '@/modules/agent-studio/Buy/utils';
+import { removeItemAtIndex } from '@/modules/agent-studio/dapp/utils';
 import { FieldModel } from '@/types/customize-model';
 import { showValidateError } from '@components/toast';
 import { useSensor, useSensors } from '@dnd-kit/core';

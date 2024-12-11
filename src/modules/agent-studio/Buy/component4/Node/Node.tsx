@@ -1,7 +1,7 @@
 import { Handle, Position } from '@xyflow/react';
 import { useState } from 'react';
 
-import { idNodeSignal } from '@/modules/blockchains/Buy/hooks/useFocusNode';
+import { idNodeSignal } from '@/modules/agent-studio/Buy/hooks/useFocusNode';
 import { NodeProps } from '@/types/node';
 import { useSignalEffect } from '@preact/signals-react';
 import NodeNotification from '../YourNodes/NodeNotification';

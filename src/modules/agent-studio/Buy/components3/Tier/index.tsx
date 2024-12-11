@@ -5,7 +5,7 @@ import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import Image from 'next/image';
-import TemplateModal from '@/modules/blockchains/Buy/TemplateModal';
+import TemplateModal from '@/modules/agent-studio/Buy/TemplateModal';
 
 const Tier = () => {
   const router = useRouter();
@@ -48,16 +48,17 @@ const Tier = () => {
             // }}
             onClick={() => setIsShowModal(true)}
           >
-            <p>Templates
-            </p>
-            <Image src="/icons/ic_chevron_down_blue.svg" alt="arrow-right" width={24} height={24} />
+            <p>Templates</p>
+            <Image
+              src="/icons/ic_chevron_down_blue.svg"
+              alt="arrow-right"
+              width={24}
+              height={24}
+            />
           </div>
         </div>
       </div>
-      <TemplateModal
-        show={isShowModal}
-        onClose={() => setIsShowModal(false)}
-      />
+      <TemplateModal show={isShowModal} onClose={() => setIsShowModal(false)} />
     </>
   );
 };

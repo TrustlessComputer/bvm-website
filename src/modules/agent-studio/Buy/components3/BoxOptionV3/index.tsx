@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 import React, { useMemo } from 'react';
 
-import DescriptionModal from '@/modules/blockchains/Buy/components/DescriptionModal/DescriptionModal';
+import DescriptionModal from '@/modules/agent-studio/Buy/components/DescriptionModal/DescriptionModal';
 
 import s from './styles.module.scss';
 
@@ -98,7 +98,13 @@ const BoxOptionV3 = ({
           </Flex>
         </div>
 
-        <div className={`${s.options} ${(label === 'DeFi' || label === 'Degens') && s.column}`}>{children}</div>
+        <div
+          className={`${s.options} ${
+            (label === 'DeFi' || label === 'Degens') && s.column
+          }`}
+        >
+          {children}
+        </div>
       </div>
 
       {description?.title && (

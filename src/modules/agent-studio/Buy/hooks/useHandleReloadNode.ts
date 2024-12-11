@@ -1,22 +1,22 @@
 import useFlowStore, {
   AppNode,
-} from '@/modules/blockchains/Buy/stores/useFlowStore';
+} from '@/modules/agent-studio/Buy/stores/useFlowStore';
 import LocalStorage from '@/libs/localStorage';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
   restoreLocal,
-} from '@/modules/blockchains/Buy/signals/useDragSignal';
-import { formDappSignal } from '@/modules/blockchains/Buy/signals/useFormDappsSignal';
-import useOrderFormStoreV3 from '@/modules/blockchains/Buy/stores/index_v3';
-import useDragStore from '@/modules/blockchains/Buy/stores/useDragStore';
+} from '@/modules/agent-studio/Buy/signals/useDragSignal';
+import { formDappSignal } from '@/modules/agent-studio/Buy/signals/useFormDappsSignal';
+import useOrderFormStoreV3 from '@/modules/agent-studio/Buy/stores/index_v3';
+import useDragStore from '@/modules/agent-studio/Buy/stores/useDragStore';
 import { STORAGE_KEYS } from '@constants/storage-key';
 import { useSignalEffect } from '@preact/signals-react';
 import { useReactFlow } from '@xyflow/react';
 import { useParams, usePathname, useSearchParams } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react';
-import { needReactFlowRenderSignal } from '@/modules/blockchains/Buy/studio/ReactFlowRender';
-import useFirstLoadTemplateBoxStore from '@/modules/blockchains/Buy/stores/useFirstLoadTemplateBoxStore';
+import { needReactFlowRenderSignal } from '@/modules/agent-studio/Buy/studio/ReactFlowRender';
+import useFirstLoadTemplateBoxStore from '@/modules/agent-studio/Buy/stores/useFirstLoadTemplateBoxStore';
 
 function useHandleReloadNode() {
   const searchParam = useSearchParams();

@@ -1,4 +1,4 @@
-import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
+import { useAAModule } from '@/modules/agent-studio/detail_v4/hook/useAAModule';
 import copy from 'copy-to-clipboard';
 import toast from 'react-hot-toast';
 

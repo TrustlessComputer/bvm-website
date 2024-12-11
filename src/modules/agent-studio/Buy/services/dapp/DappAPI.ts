@@ -1,5 +1,5 @@
 import { API_BASE_URL } from '@/config';
-import { DappType } from '@/modules/blockchains/dapp/types';
+import { DappType } from '@/modules/agent-studio/dapp/types';
 import CDappApiClient from '@/services/api/dapp/dapp.client';
 import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 import { IAppInfo, IDappConfigs, IReqDapp } from '@/services/api/dapp/types';

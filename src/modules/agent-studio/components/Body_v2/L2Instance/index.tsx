@@ -5,7 +5,7 @@ import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { Box, Divider, Flex } from '@chakra-ui/react';
 // import BodyInfor from './BodyInfor';
-import { useDashboard } from '@/modules/blockchains/providers/DashboardProvider';
+import { useDashboard } from '@/modules/agent-studio/providers/DashboardProvider';
 import HeaderRow from './HeaderRow_v2';
 import LegoView from './LegoView';
 

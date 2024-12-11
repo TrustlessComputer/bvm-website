@@ -22,7 +22,7 @@ import { MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import Capture from '@/modules/blockchains/Buy/Capture';
+import Capture from '@/modules/agent-studio/Buy/Capture';
 import Label from './components3/Label';
 import { IModelCategory } from '@/types/customize-model';
 

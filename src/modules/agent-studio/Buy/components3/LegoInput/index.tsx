@@ -5,9 +5,9 @@ import SvgInset from '@/components/SvgInset';
 
 import styles from './styles.module.scss';
 import { hexToHSB, hsbToHex } from '../../utils';
-import useStoreDropDown from '@/modules/blockchains/Buy/stores/useStoreDropdown';
+import useStoreDropDown from '@/modules/agent-studio/Buy/stores/useStoreDropdown';
 import { iconToolNames } from '../../Buy.data';
-import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
+import { useCaptureStore } from '@/modules/agent-studio/Buy/stores/index_v3';
 
 type LegoV3 = {
   background?: string;

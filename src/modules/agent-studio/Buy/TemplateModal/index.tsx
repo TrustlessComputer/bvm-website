@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import s from './styles.module.scss';
 import BaseModal from '@components/BaseModal';
-import Item from '@/modules/blockchains/Buy/TemplateModal/Item';
+import Item from '@/modules/agent-studio/Buy/TemplateModal/Item';
 import Link from 'next/link';
-import { FAKE_DATA_PACKAGE } from '@/modules/blockchains/Buy/TemplateModal/data';
+import { FAKE_DATA_PACKAGE } from '@/modules/agent-studio/Buy/TemplateModal/data';
 import { useSearchParams } from 'next/navigation';
 
 interface IProps {

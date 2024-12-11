@@ -2,13 +2,13 @@ import { uniqBy } from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import useL2Service from '@/hooks/useL2Service';
-import useSubmitStaking from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitStaking';
-import useModelCategoriesStore from '@/modules/blockchains/Buy/stores/useModelCategoriesStore';
-import TopupModal from '@/modules/blockchains/components/TopupModa_V2';
-import { DappType } from '@/modules/blockchains/dapp/types';
-import { useAAModule } from '@/modules/blockchains/detail_v4/hook/useAAModule';
-import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
-import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
+import useSubmitStaking from '@/modules/agent-studio/Buy/components3/LaunchButton/onSubmitStaking';
+import useModelCategoriesStore from '@/modules/agent-studio/Buy/stores/useModelCategoriesStore';
+import TopupModal from '@/modules/agent-studio/components/TopupModa_V2';
+import { DappType } from '@/modules/agent-studio/dapp/types';
+import { useAAModule } from '@/modules/agent-studio/detail_v4/hook/useAAModule';
+import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
+import { useBuy } from '@/modules/agent-studio/providers/Buy.hook';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
@@ -45,11 +45,11 @@ import { formValuesAdapterOptions } from './formValuesAdapterOptions';
 import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
-import useSubmitYoloGame from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitYoloGame';
-import useSubmitWalletType from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitWalletType';
+import useSubmitYoloGame from '@/modules/agent-studio/Buy/components3/LaunchButton/onSubmitYoloGame';
+import useSubmitWalletType from '@/modules/agent-studio/Buy/components3/LaunchButton/onSubmitWalletType';
 import { useComputerNameInputStore } from '../ComputerNameInput/ComputerNameInputStore';
 import BigNumber from 'bignumber.js';
-import useSubmitWhitePaper from '@/modules/blockchains/Buy/components3/LaunchButton/onSubmitWhitePaper';
+import useSubmitWhitePaper from '@/modules/agent-studio/Buy/components3/LaunchButton/onSubmitWhitePaper';
 
 const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
   const inssueTokenDappList = dyanmicFormAllData
