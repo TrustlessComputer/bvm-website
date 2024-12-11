@@ -11,11 +11,12 @@ const ResetButton = (props: IProps) => {
       flexDir={'row'}
       align={'center'}
       gap={'5px'}
-      minW={'90px'}
+      px={'8px'}
+      py={'2px'}
+      minH={['28px']}
       maxW={'max-content'}
-      py={'0px'}
       color={'#555555'}
-      borderRadius={'17px'}
+      borderRadius={'16px'}
       border={'1px solid #000'}
       fontSize={'14px'}
       fontWeight={600}
@@ -24,6 +25,7 @@ const ResetButton = (props: IProps) => {
         opacity: 0.7,
         cursor: 'pointer',
       }}
+      onClick={props.onClick}
     >
       <Text>{props.title || 'Reset'}</Text>
       <svg

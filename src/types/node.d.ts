@@ -10,7 +10,7 @@ type NodeHeadingProps = {
   status?: {
     message: string;
     color?: string;
-    icon?: string;
+    icon?: string | any;
     onClick?: () => void;
   };
   textColor?: string;
@@ -55,7 +55,7 @@ type NodeProps = {
   dapp?: DappModel;
   heading: NodeHeadingProps;
   content: NodeContentProps;
-  notification?: NodeNotificationProps;
+  notification?: NodeNotificationProps | React.ReactNode;
   customNotification?: React.ReactNode;
   overlay?: NodeOverlayProps;
   mainContentStyles?: React.CSSProperties;

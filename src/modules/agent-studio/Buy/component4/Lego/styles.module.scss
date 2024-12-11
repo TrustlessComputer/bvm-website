@@ -19,8 +19,8 @@
 
   svg path {
     stroke-width: 2px;
-    stroke: var(--border-color);
-    fill: var(--background-color);
+    // stroke: var(--border-color);  //WTF
+    // fill: var(--background-color); //WTF
   }
 
   &__piece {

@@ -5,7 +5,7 @@ import { signal, useSignalEffect } from '@preact/signals-react';
 import { ConnectionMode, ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import React, { useState } from 'react';
-import AANode from '../../component4/YourNodes/AANode';
+// import AANode from '../../component4/YourNodes/AANode';
 import ChainNodeV2 from '../../component4/YourNodes/ChainNodeV2';
 import DappNode from '../../component4/YourNodes/DappNode';
 import { nodeKey } from '../../component4/YourNodes/node.constants';
@@ -16,6 +16,7 @@ import s from './styles.module.scss';
 import CreateAgentNftEtherNode from '../../component4/YourNodes/CreateAgentNftEtherNode';
 import CreateAgentOrdinalsBtcNode from '../../component4/YourNodes/CreateAgentOrdinalsBtcNode';
 import CreateAgentTokensPumpNode from '../../component4/YourNodes/CreateAgentTokensPumpNOde';
+import AANode from '../../component4/YourNodes/GeneralIdeaNode/GeneralIdeaNode';
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });

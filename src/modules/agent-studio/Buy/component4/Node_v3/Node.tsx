@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { NodeProps } from '@/types/node';
-import NodeNotification from '../YourNodes/NodeNotification';
+// import NodeNotification from '../YourNodes/NodeNotification';
+import NodeNotification from '../YourNodes/NodeNotification_V2';
 
 import NodeContent from './NodeContent';
 import NodeHeading from './NodeHeading';
@@ -14,13 +15,18 @@ const Node = ({
   content,
   heading,
   notification,
+  notificationV2,
   borderColor = '#FFC700',
   targetHandles,
   sourceHandles,
   customNotification,
-}: NodeProps) => {
+}: NodeProps & {
+  isHideResetBtn?: boolean;
+  isHideInterfactBtn?: boolean;
+  notificationV2?: React.ReactElement;
+}) => {
   const renderDefaultNotfication = () => {
-    return notification && <NodeNotification {...notification} />;
+    return notificationV2;
   };
 
   const renderCustomNotfication = () => {

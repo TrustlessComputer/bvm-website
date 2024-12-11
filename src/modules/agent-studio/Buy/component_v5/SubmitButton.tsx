@@ -1,30 +1,42 @@
-import { Button, ButtonProps } from '@chakra-ui/react';
-import React from 'react';
+import { Flex, FlexProps, Spinner, Text } from '@chakra-ui/react';
 
-interface AppButtonProps extends ButtonProps {}
+interface IProps extends FlexProps {
+  title?: string;
+  isLoading?: boolean;
+}
 
-const SubmitButton = (props: AppButtonProps) => {
+const SubmitButton = (props: IProps) => {
   return (
-    <Button
-      minH={'50px'}
-      fontSize={'16px'}
+    <Flex
+      flexDir={'row'}
+      align={'center'}
+      justify={'center'}
+      gap={'5px'}
+      px={'8px'}
+      py={'2px'}
+      minH={['28px']}
+      minW={'100px'}
+      maxW={'max-content'}
+      color={'#fff'}
+      bgColor={'#4185EC'}
+      borderRadius={'16px'}
+      fontSize={'14px'}
       fontWeight={600}
       textAlign={'center'}
-      bgColor={'#3772ff'}
-      color={'#fff'}
-      borderRadius={'12px'}
+      onClick={props.onClick}
       _hover={{
         opacity: 0.7,
         cursor: 'pointer',
       }}
-      _disabled={{
-        opacity: 1,
-        cursor: 'not-allowed',
-      }}
-      {...(props as any)}
     >
-      {props.children}
-    </Button>
+      {!!props.isLoading ? (
+        <Spinner size="sm" />
+      ) : (
+        <Text fontSize={'14px'} fontWeight={800}>
+          {props.title}
+        </Text>
+      )}
+    </Flex>
   );
 };
 
