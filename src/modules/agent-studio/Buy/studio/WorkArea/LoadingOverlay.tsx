@@ -1,18 +1,18 @@
 import Loading from '@/components/Loading';
-import useFetchDapp from '@/modules/blockchains/dapp/hooks/useFetchDapp';
-import styles from './styles.module.scss';
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
+import { useIsFetchingData } from '../../stores/useFetchDappState';
+import styles from './styles.module.scss';
 
 const LoadingOverlay = () => {
   const pathName = usePathname();
-  const { loading, loaded } = useFetchDapp();
-  
-  const isStudio = useMemo(()=>{
-    return pathName === '/studio';
-  }, [pathName])
+  const isFetchingData = useIsFetchingData();
 
-  if (loading && !isStudio) {
+  const isStudioPage = useMemo(() => {
+    return pathName === '/studio';
+  }, [pathName]);
+
+  if (isFetchingData && !isStudioPage) {
     return (
       <div className={styles.overlay}>
         <Loading />
