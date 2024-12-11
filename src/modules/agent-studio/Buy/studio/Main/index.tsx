@@ -5,37 +5,38 @@ import ExplorePage from '@/modules/agent-studio/Buy/Explore';
 import useDragStore from '@/modules/agent-studio/Buy/stores/useDragStore';
 import StudioControls from '@/modules/agent-studio/Buy/studio/Controls';
 import ErrorMessage from '@/modules/agent-studio/Buy/studio/ErrorMessage';
-import { useErrorMessage } from '@/modules/agent-studio/Buy/studio/useErrorMessage';
-import { useTabs } from '@/modules/agent-studio/Buy/studio/useTabs';
+import useErrorMessageStore, {
+  useErrorMessage,
+} from '@/modules/agent-studio/Buy/studio/useErrorMessage';
 import VideoEducation from '@/modules/agent-studio/Buy/studio/VideoEducation';
 import WorkArea from '@/modules/agent-studio/Buy/studio/WorkArea';
-import s from '@/modules/agent-studio/Buy/styles_v6.module.scss';
+import s from '@/modules/agent-studio/Buy/styles.module.scss';
 import TemplatePage from '@/modules/agent-studio/Buy/Template';
 import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
 import { IModelCategory } from '@/types/customize-model';
 import React, { ReactElement } from 'react';
-import OverlayControl from '../OverlayControl/Index';
 import useStudioHelper from '../../hooks/useStudioHelper';
+import OverlayControl from '../OverlayControl/Index';
+import useTabsStore, {
+  useIsTabCode,
+  useIsTabExplore,
+  useIsTabTemplate,
+} from '../useTabs';
 import ChainInforView from './ChainInforView';
 
 const StudioMain = (): ReactElement => {
   const { isUpdateFlow } = useChainProvider();
   const { cloneHandler } = useStudioHelper();
-  const { toggleErrorMessage } = useErrorMessage((state) => state);
-  const { tabActive, setTab } = useTabs((state) => state);
-  const isTabCode = React.useMemo(() => {
-    return tabActive === TABS.CODE;
-  }, [tabActive]);
-
-  const isTabExplore = React.useMemo(() => {
-    return tabActive === TABS.EXPLORE;
-  }, [tabActive]);
-
-  const isTabTemplate = React.useMemo(() => {
-    return tabActive === TABS.TEMPLATE;
-  }, [tabActive]);
+  const toggleErrorMessage = useErrorMessageStore(
+    (state) => state.toggleErrorMessage,
+  );
 
   const { setDraggedFields } = useDragStore();
+
+  const isTabCode = useIsTabCode();
+  const isTabExplore = useIsTabExplore();
+  const isTabTemplate = useIsTabTemplate();
+  const setTab = useTabsStore((state) => state.setTab);
 
   const cloneItemCallback = (template: IModelCategory[]) => {
     setTab(TABS.CODE);
@@ -61,14 +62,6 @@ const StudioMain = (): ReactElement => {
                   >
                     <p>Studio</p>
                   </div>
-                  {/* <div
-                    className={`${s.top_left_filter} ${
-                      isTabExplore && s.active
-                    }`}
-                    onClick={() => setTab(TABS.EXPLORE)}
-                  >
-                    <p>Bitcoin L2s</p>
-                  </div> */}
                 </>
               )}
             </div>
@@ -84,6 +77,7 @@ const StudioMain = (): ReactElement => {
               </div>
             )}
           </div>
+
           {isTabCode && (
             <>
               <OverlayControl />
@@ -92,9 +86,11 @@ const StudioMain = (): ReactElement => {
             </>
           )}
         </div>
+
         {isTabExplore && <ExplorePage cloneItemCallback={cloneItemCallback} />}
         {isTabTemplate && <TemplatePage />}
       </div>
+
       {isTabCode && (
         <>
           <VideoEducation />

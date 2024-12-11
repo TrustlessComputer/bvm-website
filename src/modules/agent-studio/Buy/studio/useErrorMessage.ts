@@ -1,10 +1,16 @@
-import { create } from 'zustand'
+import { create } from 'zustand';
 
-interface IProp{
-  isShowErrorMessage: boolean,
-  toggleErrorMessage: (b: boolean) => void,
-}
-export const useErrorMessage = create<IProp>((set) => ({
+type Store = {
+  isShowErrorMessage: boolean;
+  toggleErrorMessage: (b: boolean) => void;
+};
+
+const useErrorMessageStore = create<Store>((set) => ({
   isShowErrorMessage: false,
   toggleErrorMessage: (b: boolean) => set(() => ({ isShowErrorMessage: b })),
-}))
+}));
+
+export const useIsShowErrorMessage = () =>
+  useErrorMessageStore((state) => state.isShowErrorMessage);
+
+export default useErrorMessageStore;

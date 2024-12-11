@@ -44,4 +44,20 @@ const useModelCategoriesStore = create<UseModelCategoriesStore>((set) => ({
   setCategoriesTemplates: (categoriesTemplates) => set({ categoriesTemplates }),
 }));
 
+export const useParsedCategories = () => {
+  return useModelCategoriesStore((state) => state.parsedCategories);
+};
+
+export const useCategories = () => {
+  return useModelCategoriesStore((state) => state.categories);
+};
+
+export const useCategoryMapping = () => {
+  return useModelCategoriesStore((state) => state.categoryMapping);
+};
+
+export const useCategoriesTemplates = () => {
+  return useModelCategoriesStore((state) => state.categoriesTemplates);
+};
+
 export default useModelCategoriesStore;

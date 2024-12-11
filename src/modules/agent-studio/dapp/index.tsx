@@ -1,7 +1,7 @@
 'use client';
 
 import RollupsDappPage from './page';
-import useFetchDapp from '@/modules/agent-studio/dapp/hooks/useFetchDapp';
+import useFetchDapp from '@/modules/blockchains/dapp/hooks/useFetchDapp';
 import AppLoading from '@components/AppLoading';
 import React from 'react';
 import { Flex } from '@chakra-ui/react';

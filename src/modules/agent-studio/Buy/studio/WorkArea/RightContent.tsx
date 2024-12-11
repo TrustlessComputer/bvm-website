@@ -1,4 +1,4 @@
-import s from '@/modules/agent-studio/Buy/styles_v6.module.scss';
+import s from '@/modules/agent-studio/Buy/styles.module.scss';
 import ReactFlowRenderer from '@/modules/agent-studio/Buy/studio/ReactFlowRender';
 import DroppableMask from '@/modules/agent-studio/Buy/component4/DroppableMask';
 import React, { ReactElement } from 'react';

@@ -1,15 +1,12 @@
-import s from '@/modules/agent-studio/Buy/styles_v6.module.scss';
 import ErrorModal from '@/modules/agent-studio/Buy/components3/ErrorModal';
-import React from 'react';
-import useDragStore from '@/modules/agent-studio/Buy/stores/useDragStore';
 import useTemplate from '@/modules/agent-studio/Buy/hooks/useTemplate';
-import { useErrorMessage } from '@/modules/agent-studio/Buy/studio/useErrorMessage';
+import useDragStore from '@/modules/agent-studio/Buy/stores/useDragStore';
+import s from '@/modules/agent-studio/Buy/styles.module.scss';
+import useErrorMessageStore from '../useErrorMessage';
 
 export default function ErrorMessage() {
-  const { isShowErrorMessage, toggleErrorMessage } = useErrorMessage(
-    (state) => state,
-  );
-  const { setDraggedFields } = useDragStore();
+  const { isShowErrorMessage, toggleErrorMessage } = useErrorMessageStore();
+  const setDraggedFields = useDragStore((state) => state.setDraggedFields);
   const { initTemplate } = useTemplate();
 
   const resetEdit = () => {

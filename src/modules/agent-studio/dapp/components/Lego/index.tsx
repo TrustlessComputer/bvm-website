@@ -8,7 +8,7 @@ import { adjustBrightness } from '../../utils';
 import styles from './styles.module.scss';
 import { Box, Image, Tooltip } from '@chakra-ui/react';
 import { FieldModel } from '@/types/customize-model';
-import { legoDragging } from '@/modules/agent-studio/dapp/ui-helper/LegoDragging';
+import { legoDragging } from '@/modules/blockchains/dapp/ui-helper/LegoDragging';
 
 type Position =
   | {

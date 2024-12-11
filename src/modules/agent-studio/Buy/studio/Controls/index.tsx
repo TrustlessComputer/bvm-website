@@ -6,7 +6,7 @@ import Label from '@/modules/agent-studio/Buy/components3/Label';
 import LegoV3 from '@/modules/agent-studio/Buy/components3/LegoV3';
 import useOrderFormStoreV3 from '@/modules/agent-studio/Buy/stores/index_v3';
 import useModelCategoriesStore from '@/modules/agent-studio/Buy/stores/useModelCategoriesStore';
-import s from '@/modules/agent-studio/Buy/styles_v6.module.scss';
+import s from '@/modules/agent-studio/Buy/styles.module.scss';
 import Droppable from '@/modules/agent-studio/dapp/components/Droppable';
 import { formatCurrencyV2 } from '@utils/format';
 import { compareString } from '@utils/string';

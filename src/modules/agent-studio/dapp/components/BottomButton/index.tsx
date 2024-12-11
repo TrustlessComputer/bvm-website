@@ -1,6 +1,6 @@
-import Lego from '@/modules/agent-studio/dapp/components/Lego';
-import { adjustBrightness } from '@/modules/agent-studio/dapp/utils';
-import Button from '@/modules/agent-studio/dapp/components/Button';
+import Lego from '@/modules/blockchains/dapp/components/Lego';
+import { adjustBrightness } from '@/modules/blockchains/dapp/utils';
+import Button from '@/modules/blockchains/dapp/components/Button';
 import React, { useState } from 'react';
 import { DappType } from '../../types';
 import TopupModal, { TopUpDappInfor } from '../TopupModal';
@@ -10,7 +10,7 @@ import { compareString } from '@/utils/string';
 import { formatCurrency } from '@/utils/format';
 import { DappModel } from '@/types/customize-model';
 import { Text } from '@chakra-ui/react';
-import WhitePaperModal from '@/modules/agent-studio/dapp/components/WhitePaperModal';
+import WhitePaperModal from '@/modules/blockchains/dapp/components/WhitePaperModal';
 import { IWhitePaper } from '@/services/api/dapp/whitePapers/interface';
 
 interface IProps {
@@ -94,7 +94,7 @@ const BottomButton = (props: IProps) => {
         setTokenInfo((params.dapp?.action as any).tokenInfo);
         setTimeout(() => {
           setIsShowPreview(true);
-        }, 1000);
+        }, 1000)
         break;
       default:
         break;

@@ -1,16 +1,10 @@
+import { useOptionInputStore } from '@/modules/agent-studio/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
 import useOrderFormStoreV3 from '@/modules/agent-studio/Buy/stores/index_v3';
 import useDragStore from '@/modules/agent-studio/Buy/stores/useDragStore';
 import useModelCategoriesStore from '@/modules/agent-studio/Buy/stores/useModelCategoriesStore';
 import { IModelCategory } from '@/types/customize-model';
 import { useSearchParams } from 'next/navigation';
 import { cloneDeep } from '../utils';
-import { useOptionInputStore } from '@/modules/agent-studio/Buy/component4/DappRenderer/OptionInputValue/useOptionInputStore';
-import {
-  draggedDappIndexesSignal,
-  draggedIds2DSignal,
-} from '../signals/useDragSignal';
-import { formDappSignal } from '../signals/useFormDappsSignal';
-import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 
 export default function useTemplate() {
   const searchParams = useSearchParams();
@@ -28,8 +22,6 @@ export default function useTemplate() {
   const field = useOrderFormStoreV3((state) => state.field);
   const setFields = useOrderFormStoreV3((state) => state.setFields);
   const setField = useOrderFormStoreV3((state) => state.setField);
-
-  // console.log('useTemplate -> field', field);
 
   const setTemplate = (template: IModelCategory[]) => {
     if (template.length === 0) {

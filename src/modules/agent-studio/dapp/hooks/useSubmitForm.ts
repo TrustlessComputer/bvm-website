@@ -1,5 +1,5 @@
-import useSubmitFormTokenGeneration from '@/modules/agent-studio/dapp/hooks/useSubmitFormTokenGeneration';
-import { formDappSignal } from '@/modules/agent-studio/dapp/signals/useFormDappsSignal';
+import useSubmitFormTokenGeneration from '@/modules/blockchains/dapp/hooks/useSubmitFormTokenGeneration';
+import { formDappSignal } from '@/modules/blockchains/dapp/signals/useFormDappsSignal';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';

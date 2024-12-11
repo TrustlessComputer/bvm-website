@@ -11,7 +11,7 @@ import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
+import { useChainProvider } from '@/modules/blockchains/detail_v4/provider/ChainProvider.hook';
 
 interface IProps {
   show: boolean;
@@ -20,7 +20,7 @@ interface IProps {
 }
 
 const WhitePaperModal = (props: IProps) => {
-  const { show, onClose, tokenInfo } = props;
+  const { show, onClose, tokenInfo} = props;
   const contentRef = useRef<HTMLDivElement>(null);
   const [isRegenerating, setIsRegenerating] = useState(false);
   const [isDownloadingHtml, setIsDownloadingHtml] = useState(false);
@@ -33,9 +33,7 @@ const WhitePaperModal = (props: IProps) => {
   const needReload = useAppSelector(commonSelector).needReload;
 
   const isAllDisabled = useMemo(() => {
-    return (
-      isRegenerating || isDownloadingHtml || isDownloadingPdf || !isOwnerChain
-    );
+    return isRegenerating || isDownloadingHtml || isDownloadingPdf || !isOwnerChain;
   }, [isRegenerating, isDownloadingHtml, isDownloadingPdf]);
 
   const markdownString = useMemo(() => {
@@ -43,20 +41,18 @@ const WhitePaperModal = (props: IProps) => {
   }, [tokenInfo, whitePaper]);
 
   useEffect(() => {
-    if (tokenInfo?.id) {
+    if(tokenInfo?.id) {
       getWhitePaperDetail();
     }
   }, [tokenInfo?.id, needReload]);
 
   const getWhitePaperDetail = async () => {
-    const res = await cWhitePaperAPI.getWhitePaperDetail(
-      tokenInfo?.id?.toString() as string,
-    );
+    const res = await cWhitePaperAPI.getWhitePaperDetail(tokenInfo?.id?.toString() as string);
     setWhitePaper(res);
-  };
+  }
 
   useEffect(() => {
-    if (whitePaper?.status === 'processing') {
+    if(whitePaper?.status === 'processing') {
       setIsRegenerating(true);
     } else {
       setIsRegenerating(false);
@@ -81,7 +77,7 @@ const WhitePaperModal = (props: IProps) => {
     } finally {
       setIsRegenerating(false);
     }
-  };
+  }
 
   const downloadHtml = async () => {
     try {
@@ -226,42 +222,29 @@ const WhitePaperModal = (props: IProps) => {
         // borderRadius={'10px'}
         p={'20px'}
       >
-        <div
-          ref={contentRef}
-          className={s.whitePaperContent}
-          dangerouslySetInnerHTML={{
-            __html: convertMarkdownToHtml(markdownString),
-          }}
+        <div ref={contentRef} className={s.whitePaperContent}
+          dangerouslySetInnerHTML={{ __html: convertMarkdownToHtml(markdownString) }}
         ></div>
-        {isRegenerating && (
-          <Text textAlign={'center'} color={'#FA4E0E'} mt={4}>
-            White Paper's content is generating. Please wait some minutes!
-          </Text>
-        )}
-        <Flex
-          mt={'24px'}
-          gap={'24px'}
-          alignItems={'center'}
-          justifyContent={'center'}
-        >
+        {
+          isRegenerating && (
+            <Text textAlign={"center"} color={"#FA4E0E"} mt={4}>White Paper's content is generating. Please wait some minutes!</Text>
+          )
+        }
+        <Flex mt={"24px"} gap={"24px"} alignItems={"center"} justifyContent={"center"}>
           <Button
-            bg={'#000 !important'}
+            bg={"#000 !important"}
             borderRadius="100px"
             onClick={regenerateContent}
             isDisabled={isAllDisabled}
             isLoading={isRegenerating}
-          >
-            Regenerate
-          </Button>
+          >Regenerate</Button>
           <Button
-            bg={'#FA4E0E !important'}
+            bg={"#FA4E0E !important"}
             borderRadius="100px"
             onClick={downloadHtml}
             isDisabled={isAllDisabled}
             isLoading={isDownloadingHtml}
-          >
-            Download Html
-          </Button>
+          >Download Html</Button>
           {/*<Button
             bg={"#FA4E0E !important"}
             borderRadius="100px"

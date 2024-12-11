@@ -1,4 +1,4 @@
-import { DappType } from '@/modules/agent-studio/dapp/types';
+import { DappType } from '@/modules/blockchains/dapp/types';
 import {
   IToken,
   ITokenVesting,
@@ -69,7 +69,7 @@ export const parseIssuedToken = (token: IToken) => {
       value: token?.contract_address || '',
       tooltip: '',
       options: [],
-    },
+    }
   ];
 
   result.baseBlock = baseBlock;

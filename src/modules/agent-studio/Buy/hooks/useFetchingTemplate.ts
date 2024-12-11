@@ -2,7 +2,7 @@
 
 import useTemplate from '@/modules/agent-studio/Buy/hooks/useTemplate';
 import useOrderFormStoreV3 from '@/modules/agent-studio/Buy/stores/index_v3';
-import useStoreFirstLoadTemplateBox from '@/modules/agent-studio/Buy/stores/useFirstLoadTemplateBoxStore';
+import useFirstLoadTemplateBoxStore from '@/modules/agent-studio/Buy/stores/useFirstLoadTemplateBoxStore';
 import useModelCategoriesStore from '@/modules/agent-studio/Buy/stores/useModelCategoriesStore';
 import { parseWalletType } from '@/modules/agent-studio/dapp/parseUtils/wallet-type';
 import { parseYoloGames } from '@/modules/agent-studio/dapp/parseUtils/yologame';
@@ -83,7 +83,7 @@ export default function useFetchingTemplate() {
   const modelCategoryList = useModelCategory().modelCategoryList;
 
   const { setUpdated, updated } = useUpdateFlowStore();
-  const { setIsFirstLoadTemplateBox } = useStoreFirstLoadTemplateBox();
+  const { setIsFirstLoadTemplateBox } = useFirstLoadTemplateBoxStore();
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { setTemplate } = useTemplate();
   const { isUpdateFlow } = useStudioInfo();

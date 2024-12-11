@@ -5,7 +5,7 @@ import { BuyProvider } from '../providers/Buy.context';
 // import BuyPage from '../Buy/index_v5';
 import BuyPage from '../Buy';
 // import s from './styles_v2.module.scss';
-import s from './styles_v6.module.scss';
+import s from './styles.module.scss';
 import { ReactFlowProvider } from '@xyflow/react';
 import enhance from './enhance';
 import { ChainProvider } from './provider/ChainProvider';

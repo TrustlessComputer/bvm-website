@@ -1,30 +1,28 @@
-import React from 'react';
-import { getNodesBounds, getViewportForBounds } from '@xyflow/react';
-import { toPng } from 'html-to-image';
 import { useChainProvider } from '@/modules/agent-studio/detail_v4/provider/ChainProvider.hook';
 import { IModelCategory } from '@/types/customize-model';
+import { getNodesBounds, getViewportForBounds } from '@xyflow/react';
+import { toPng } from 'html-to-image';
+import React from 'react';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
 } from '../signals/useDragSignal';
 import { formDappSignal } from '../signals/useFormDappsSignal';
-import useFlowStore from '../stores/useFlowStore';
-import useAvailableListTemplate from '../studio/useAvailableListTemplate';
-import useTemplate from './useTemplate';
+import useFlowStore, { useNodes } from '../stores/useFlowStore';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
-import useStudioInfo from './useStudioInfo';
+import useAvailableListTemplate from '../studio/useAvailableListTemplate';
 import useNodeHelper from './useNodeHelper';
+import useTemplate from './useTemplate';
 
 export default function useStudioHelper() {
   const { templateDefault } = useAvailableListTemplate();
   const { setTemplate } = useTemplate();
   const { order, isAAInstalled } = useChainProvider();
 
-  const nodes = useFlowStore((state) => state.nodes);
+  const nodes = useNodes();
   const setNodes = useFlowStore((state) => state.setNodes);
   const setEdges = useFlowStore((state) => state.setEdges);
 
-  const { isUpdateFlow } = useStudioInfo();
   const { getChainNode } = useNodeHelper();
 
   const defaultChainNode = React.useMemo(() => {

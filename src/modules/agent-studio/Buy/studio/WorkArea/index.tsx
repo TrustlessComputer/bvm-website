@@ -1,7 +1,7 @@
 import ActionsWorkArea from '@/modules/agent-studio/Buy/studio/ActionsWorkArea';
 import TopWorkArea from '@/modules/agent-studio/Buy/studio/TopWorkArea';
 import RightContent from '@/modules/agent-studio/Buy/studio/WorkArea/RightContent';
-import s from '@/modules/agent-studio/Buy/styles_v6.module.scss';
+import s from '@/modules/agent-studio/Buy/styles.module.scss';
 import { useParams } from 'next/navigation';
 import React from 'react';
 import ButtonStartChat from '../ButtonStartChat';

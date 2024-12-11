@@ -39,8 +39,8 @@ import {
 } from './utils';
 
 import { showValidateError } from '@/components/toast';
-import { parseIssuedToken } from '@/modules/agent-studio/dapp/parseUtils/issue-token';
-import { parseDappModel } from '@/modules/agent-studio/utils';
+import { parseIssuedToken } from '@/modules/blockchains/dapp/parseUtils/issue-token';
+import { parseDappModel } from '@/modules/blockchains/utils';
 import { IToken } from '@/services/api/dapp/token_generation/interface';
 import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';

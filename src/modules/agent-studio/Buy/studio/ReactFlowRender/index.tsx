@@ -1,11 +1,13 @@
 import CustomEdge from '@/modules/agent-studio/Buy/component4/CustomEdge';
 import CustomNode from '@/modules/agent-studio/Buy/component4/CustomNode';
-import useHandleReloadNode from '@/modules/agent-studio/Buy/hooks/useHandleReloadNode';
-import useStoreFirstLoadTemplateBox from '@/modules/agent-studio/Buy/stores/useFirstLoadTemplateBoxStore';
+import useLineIssueToken from '@/modules/agent-studio/Buy/hooks/useLineIssueToken';
+import useFirstLoadTemplateBoxStore, {
+  useIsFirstLoadTemplateBox,
+} from '@/modules/agent-studio/Buy/stores/useFirstLoadTemplateBoxStore';
 import { signal, useSignalEffect } from '@preact/signals-react';
 import { ConnectionMode, ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
 import DappTemplateNode from '../../component4/CustomNode/DappTemplateNode';
 import AANode from '../../component4/YourNodes/AANode';
@@ -14,42 +16,33 @@ import ChainNodeV2 from '../../component4/YourNodes/ChainNodeV2';
 import DappNode from '../../component4/YourNodes/DappNode';
 import GamingAppsNode from '../../component4/YourNodes/GamingAppsNode';
 import { nodeKey } from '../../component4/YourNodes/node.constants';
-import { restoreLocal } from '../../signals/useDragSignal';
-import useFlowStore from '../../stores/useFlowStore';
-import useModelCategoriesStore from '../../stores/useModelCategoriesStore';
-import s from './styles.module.scss';
-import useLineIssueToken from '@/modules/agent-studio/Buy/hooks/useLineIssueToken';
 import { isActingSignal } from '../../signals/useFlowStatus';
+import useFlowStore, { useEdges, useNodes } from '../../stores/useFlowStore';
+import { useCategories } from '../../stores/useModelCategoriesStore';
+import s from './styles.module.scss';
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
 
 const ReactFlowRenderer = React.memo(() => {
-  const { nodes, onNodesChange, edges, onEdgesChange } = useFlowStore();
-  const { setRfInstance, onRestore, rfInstance, onSave, haveOldData } =
-    useHandleReloadNode();
-  const { isFirstLoadTemplateBox } = useStoreFirstLoadTemplateBox();
-  const path = usePathname();
-  const { categories } = useModelCategoriesStore();
-  const searchParamm = useSearchParams();
+  const isFirstLoadTemplateBox = useIsFirstLoadTemplateBox();
+
+  const nodes = useNodes();
+  const edges = useEdges();
+  const onNodesChange = useFlowStore((state) => state.onNodesChange);
+  const onEdgesChange = useFlowStore((state) => state.onEdgesChange);
+
+  const categories = useCategories();
+
   useLineIssueToken();
 
   const [currentPosition, setCurrentPosition] = useState(
     currentPositionSignal.value,
   );
   const [count, setCount] = React.useState(0);
-
   const [loaded, setLoaded] = React.useState(false);
-  const [showModal, setShowModal] = React.useState(false);
 
   const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
-
-  console.log('[ReactFlowRenderer]', { nodes, edges });
-
-  // const confirmLoad = () => {
-  //   onRestore();
-  //   setShowModal(false);
-  // };
 
   useSignalEffect(() => {
     if (needReactFlowRenderSignal.value) {
@@ -72,20 +65,10 @@ const ReactFlowRenderer = React.memo(() => {
   };
 
   React.useEffect(() => {
-    if (!isFirstLoadTemplateBox) return;
-    if (loaded) return;
+    if (!isFirstLoadTemplateBox || loaded) return;
 
-    if (categories && categories.length > 0) {
-      if (haveOldData) {
-        onRestore().then(() => {
-          restoreLocal.value = true;
-        });
-      } else {
-        restoreLocal.value = true;
-      }
-      setLoaded(true);
-    }
-  }, [haveOldData, categories, loaded, rfInstance, isFirstLoadTemplateBox]);
+    setLoaded(true);
+  }, [categories, loaded, isFirstLoadTemplateBox]);
 
   return (
     <>
@@ -120,7 +103,6 @@ const ReactFlowRenderer = React.memo(() => {
           handleActing();
         }}
         edgesFocusable={false}
-        onInit={setRfInstance}
         zoomOnDoubleClick={false}
         connectionMode={ConnectionMode.Loose}
         edges={edges}
@@ -128,21 +110,8 @@ const ReactFlowRenderer = React.memo(() => {
         className={s.reactFlow}
         onNodeDragStop={() => {
           if (!isFirstLoadTemplateBox) return;
-          if (path === '/studio') {
-            onSave();
-          }
         }}
       />
-
-      {/*<MModal*/}
-      {/*  title="Do you want to load the last saved flow?"*/}
-      {/*  okText="Load"*/}
-      {/*  closeText="Cancel"*/}
-      {/*  show={showModal}*/}
-      {/*  onHide={() => setShowModal(false)}*/}
-      {/*  onOk={() => confirmLoad()}*/}
-      {/*  className={s.modal}*/}
-      {/*/>*/}
     </>
   );
 });

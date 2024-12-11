@@ -1,5 +1,5 @@
 import { showSuccess } from '@/components/toast';
-import { extractedValue } from '@/modules/agent-studio/dapp/hooks/utils';
+import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
 import CTokenAirdropAPI from '@/services/api/dapp/airdrop';
 import { IBodySetupTask, ITask } from '@/services/api/dapp/airdrop/interface';
 import { useAppSelector } from '@/stores/hooks';

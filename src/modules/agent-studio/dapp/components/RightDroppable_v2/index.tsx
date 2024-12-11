@@ -12,18 +12,13 @@ import { formDappSignal } from '../../signals/useFormDappsSignal';
 import { useThisDapp } from '../../hooks/useThisDapp';
 
 import { DappModel } from '@/types/customize-model';
-import { useChainInfor } from '@/modules/agent-studio/detail_v3/hook/useChainInfor';
+import { useChainInfor } from '@/modules/blockchains/detail_v3/hook/useChainInfor';
 
 import styles from './styles.module.scss';
-import {
-  applyNodeChanges,
-  NodeChange,
-  ReactFlow,
-  ReactFlowProvider,
-} from '@xyflow/react';
+import { applyNodeChanges, NodeChange, ReactFlow, ReactFlowProvider } from '@xyflow/react';
 import CustomNode from 'src/modules/blockchains/Buy/component4/CustomNode';
 import { NodeBase } from '@xyflow/system';
-import { FAKE_DATA_MAPPING } from '@/modules/agent-studio/Buy/data';
+import { FAKE_DATA_MAPPING } from '@/modules/blockchains/Buy/data';
 
 // const initialNodes: NodeBase[] = FAKE_DATA_MAPPING.map((box) => {
 //   return {
@@ -38,6 +33,7 @@ const RightDroppableV2 = () => {
   const [nodes, setNodes] = useState<NodeBase[]>([]);
 
   React.useEffect(() => {
+
     const newData = {
       id: `box-blockchain`,
       data: {
@@ -48,11 +44,12 @@ const RightDroppableV2 = () => {
       },
       type: 'customBox',
       position: { x: 200, y: 200 },
-    };
+    }
 
-    setNodes([newData]);
+    setNodes([newData])
     console.log('newData', newData);
-  }, [chain]);
+  }, [chain])
+
 
   const refContainer = React.useRef<HTMLDivElement>(null);
   const refWrap = React.useRef<HTMLDivElement>(null);
@@ -95,6 +92,7 @@ const RightDroppableV2 = () => {
       <div className={styles.wrapRight_inner} ref={refWrap}>
         <ReactFlowProvider>
           <ReactFlow
+
             nodes={nodes}
             // edges={edges}
             // edgeTypes={{ 'custom-edge': CustomEdge }}
@@ -126,6 +124,7 @@ const RightDroppableV2 = () => {
             </div>
           </Droppable>
         </ReactFlowProvider>
+
       </div>
 
       <div className={styles.resetButton}>

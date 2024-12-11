@@ -1,13 +1,20 @@
 import { create } from 'zustand';
 
-type UseStoreFirstLoadTemplateBox = {
+type UseFirstLoadTemplateBoxStore = {
   isFirstLoadTemplateBox: boolean;
   setIsFirstLoadTemplateBox: (value: boolean) => void;
 };
 
-const useStoreFirstLoadTemplateBox = create<UseStoreFirstLoadTemplateBox>((set) => ({
-  isFirstLoadTemplateBox: false,
-  setIsFirstLoadTemplateBox: (value: boolean) => set({ isFirstLoadTemplateBox: value }),
-}));
+const useFirstLoadTemplateBoxStore = create<UseFirstLoadTemplateBoxStore>(
+  (set) => ({
+    isFirstLoadTemplateBox: false,
+    setIsFirstLoadTemplateBox: (value: boolean) =>
+      set({ isFirstLoadTemplateBox: value }),
+  }),
+);
 
-export default useStoreFirstLoadTemplateBox;
+export const useIsFirstLoadTemplateBox = () => {
+  return useFirstLoadTemplateBoxStore((state) => state.isFirstLoadTemplateBox);
+};
+
+export default useFirstLoadTemplateBoxStore;

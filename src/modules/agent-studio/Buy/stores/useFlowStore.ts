@@ -64,4 +64,12 @@ const useFlowStore = create<AppState>((set, get) => ({
   },
 }));
 
+export const useNodes = () => {
+  return useFlowStore((state) => state.nodes);
+};
+
+export const useEdges = () => {
+  return useFlowStore((state) => state.edges);
+};
+
 export default useFlowStore;

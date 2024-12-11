@@ -1,4 +1,3 @@
-// import s from '@/modules/agent-studio/Buy/styles_v6.module.scss';
 import { formatCurrencyV2 } from '@utils/format';
 import LaunchButton from '@/modules/agent-studio/Buy/components3/LaunchButton';
 import React, { ReactElement, useMemo } from 'react';

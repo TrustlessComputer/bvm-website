@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react';
-import s from './styles.module.scss';
-import Image from 'next/image';
-import { useOnClickOutside } from '@hooks/useOnClickOutside';
-import useOrderFormStoreV3, { useCaptureStore } from '../../stores/index_v3';
-import { iconToolNames } from '../../Buy.data';
 import styles from '@/modules/agent-studio/Buy/components3/LegoV3/styles.module.scss';
 import { IModelOption } from '@/types/customize-model';
+import { useOnClickOutside } from '@hooks/useOnClickOutside';
+import Image from 'next/image';
+import React, { useRef, useState } from 'react';
+import { iconToolNames } from '../../Buy.data';
+import useOrderFormStoreV3, { useCaptureStore } from '../../stores/index_v3';
+import s from './styles.module.scss';
 
 type TDropdown = {
   disabled?: boolean;

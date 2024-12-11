@@ -38,12 +38,6 @@ export default function useAvailableListTemplate() {
     return getTemplateAtIndex(templateIndexDefault) || templateList[0] || [];
   }, [getTemplateAtIndex, templateIndexDefault, templateList]);
 
-  // console.log('[useAvailableListTemplate] --- ', {
-  //   templateIndexDefault,
-  //   templateList,
-  //   templateDefault,
-  // });
-
   return {
     templateList,
     templateIndexDefault,

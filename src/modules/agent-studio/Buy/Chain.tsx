@@ -17,7 +17,7 @@ import LegoV3 from './components3/LegoV3';
 import SidebarV2 from './components3/SideBarV2';
 import useOrderFormStoreV3, { useCaptureStore } from './stores/index_v3';
 import useDragMask from './stores/useDragMask';
-import s from './styles_v5.module.scss';
+import s from './styles.module.scss';
 import { MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
 import ImagePlaceholder from '@components/ImagePlaceholder';

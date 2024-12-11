@@ -1,8 +1,8 @@
 import { useSearchParams } from 'next/navigation';
 import React, { useState } from 'react';
-import useFlowStore from '../stores/useFlowStore';
-import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 import useDappsStore from '../stores/useDappStore';
+import { useNodes } from '../stores/useFlowStore';
+import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 import useNodeHelper from './useNodeHelper';
 
 const useSetDefaultDapp = () => {
@@ -11,7 +11,7 @@ const useSetDefaultDapp = () => {
   const { addDappToNode } = useNodeHelper();
 
   const categories = useModelCategoriesStore((state) => state.categories);
-  const nodes = useFlowStore((state) => state.nodes);
+  const nodes = useNodes();
   const dapps = useDappsStore((state) => state.dapps);
 
   const [loaded, setLoaded] = useState<boolean>(false);
