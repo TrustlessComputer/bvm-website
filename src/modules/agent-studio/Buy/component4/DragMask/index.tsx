@@ -9,7 +9,7 @@ import { blockDraggingSignal } from '../../signals/useDragSignal';
 import useDappsStore from '../../stores/useDappStore';
 
 const DragMask = () => {
-  const { dapps } = useDappsStore();
+  const dapps = useDappsStore((state) => state.dapps);
 
   const [blockDragging, setBlockDragging] = React.useState<
     typeof blockDraggingSignal.value

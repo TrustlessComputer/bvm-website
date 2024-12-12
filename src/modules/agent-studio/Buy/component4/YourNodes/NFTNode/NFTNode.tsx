@@ -1,7 +1,5 @@
 import React from 'react';
 
-// import SelectTokenView from '@/modules/agent-studio/detail_v3/account-abstraction_v2/components/SelectTokenView';
-
 import { DappNode as DappNodeProps } from '@/types/node';
 import { useSignalEffect } from '@preact/signals-react';
 import { NodeProps } from '@xyflow/react';
@@ -11,8 +9,6 @@ import { adjustBrightness } from '../../../utils';
 import Draggable from '../../Draggable';
 import Droppable from '../../Droppable';
 import Lego from '../../Lego';
-// import Node from '../Node/Node';
-// import Node from '../Node_v2/Node';
 import NodeV3 from '../../Node_v3/Node';
 
 import sleep from '@/utils/sleep';
@@ -20,10 +16,10 @@ import ResetButton from '../../../component_v5/ResetButton_V2';
 import SubmitButton from '../../../component_v5/SubmitButton';
 import DraftingIcon from '../../../component_v5/icons/DraftingIcon';
 import NodeNotification_V2 from '../NodeNotification_V2';
-import { useNFTStore } from './useNFTStore';
 import { CollectionView } from './CollectionView';
-import { TokenIdView } from './TokenIdView';
 import { PersonalityView } from './PersonalityView';
+import { TokenIdView } from './TokenIdView';
+import { useNFTStore } from './useNFTStore';
 
 const STATUS = {
   statusCode: 'drafting_modules',
@@ -35,7 +31,7 @@ const STATUS = {
   textDecorationLine: 'none',
 };
 
-const GeneralIdeaNode = ({ data, id }: NodeProps<DappNodeProps>) => {
+const NFTNode = ({ data, id }: NodeProps<DappNodeProps>) => {
   const { dapp } = data;
 
   const {
@@ -212,4 +208,4 @@ const GeneralIdeaNode = ({ data, id }: NodeProps<DappNodeProps>) => {
   );
 };
 
-export default GeneralIdeaNode;
+export default NFTNode;

@@ -1,18 +1,19 @@
 import React from 'react';
 
+import DateTimeInput from '../components/DateTimeInput';
+import Dropdown from '../components/Dropdown';
+import ExtendsInput from '../components/ExtendsInput';
+import Input from '../components/Input';
+import Lego from '../components/Lego';
 import { FieldOption } from '../types';
 import { adjustBrightness } from '../utils';
-import Lego from '../components/Lego';
-import ExtendsInput from '../components/ExtendsInput';
-import Dropdown from '../components/Dropdown';
-import DateTimeInput from '../components/DateTimeInput';
-import Input from '../components/Input';
 
+import useDappsStore from '@/modules/agent-studio/dapp/stores/useDappStore';
 import { BlockModel, FieldModel } from '@/types/customize-model';
-import useDappsStore from '@/modules/blockchains/dapp/stores/useDappStore';
 
 export const useThisDapp = () => {
-  const { dapps, currentIndexDapp } = useDappsStore();
+  const dapps = useDappsStore((state) => state.dapps);
+  const currentIndexDapp = useDappsStore((state) => state.currentIndexDapp);
 
   const thisDapp = React.useMemo(() => {
     return dapps[currentIndexDapp];

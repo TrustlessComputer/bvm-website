@@ -5,24 +5,20 @@ import React from 'react';
 
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 
-import {
-  formDappSignal,
-  formTemplateDappSignal,
-} from '../../signals/useFormDappsSignal';
+import { formDappSignal } from '../../signals/useFormDappsSignal';
 import useDappsStore from '../../stores/useDappStore';
 import { DappType, FieldOption } from '../../types';
 import { adjustBrightness, FormDappUtil } from '../../utils';
 
+import { iconToolNames } from '@/modules/agent-studio/Buy/Buy.data';
 import { FieldModel } from '@/types/customize-model';
 import { compareString } from '@/utils/string';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
-  templateIds2DSignal,
 } from '../../signals/useDragSignal';
-import styles from './styles.module.scss';
-import { iconToolNames } from '@/modules/agent-studio/Buy/Buy.data';
 import useDraggingStore from '../../stores/useDraggingStore';
+import styles from './styles.module.scss';
 
 type Props = {
   onlyLabel?: boolean;
@@ -42,7 +38,7 @@ const Dropdown = ({
   onlyLabel = false,
   ...props
 }: Props) => {
-  const { dapps } = useDappsStore();
+  const dapps = useDappsStore((state) => state.dapps);
   const ref = React.useRef<HTMLDivElement | null>(null);
   const [isOpenDropdown, setIsOpenDropdown] = React.useState<boolean>(false);
   const [currentValue, setCurrentValue] = React.useState<FieldModel | null>(

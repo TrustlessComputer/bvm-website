@@ -1,7 +1,5 @@
 import React from 'react';
 
-// import SelectTokenView from '@/modules/agent-studio/detail_v3/account-abstraction_v2/components/SelectTokenView';
-
 import { DappNode as DappNodeProps } from '@/types/node';
 import { useSignalEffect } from '@preact/signals-react';
 import { NodeProps } from '@xyflow/react';
@@ -11,8 +9,6 @@ import { adjustBrightness } from '../../../utils';
 import Draggable from '../../Draggable';
 import Droppable from '../../Droppable';
 import Lego from '../../Lego';
-// import Node from '../Node/Node';
-// import Node from '../Node_v2/Node';
 import NodeV3 from '../../Node_v3/Node';
 
 import sleep from '@/utils/sleep';

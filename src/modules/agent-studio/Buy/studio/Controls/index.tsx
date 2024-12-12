@@ -42,6 +42,114 @@ export default memo(function StudioControls() {
 
   return (
     <div id={'wrapper-data'} className={s.left_box_inner_content}>
+      <Droppable id="input">
+        {(parsedCategories || [])
+          .filter((item) => !item.isChain)
+          .map((item) => {
+            // Special case, need to check manually
+            if (item.key === 'create_agent') {
+              const generalIdeaDapp = createAgentGeneralIdeaAsBrainstorm;
+              const nftEtherDapp = createAgentNftEtherAsBrainstorm;
+              const nftOrdinalBTC = createAgentNftOrdinalBTCAsBrainstorm;
+              const tokensPump = createAgentTokensPumpAsBrainstorm;
+
+              return (
+                <>
+                  <BoxOptionV3
+                    key={item.key}
+                    disable={item.disable}
+                    label={item.title}
+                    id={item.key}
+                    isRequired={item.required}
+                    description={{
+                      title: item.title,
+                      content: item.tooltip,
+                    }}
+                  >
+                    <BoxOption
+                      info={{
+                        ...item.options[0],
+                        disabled: false,
+                        // item.disable ||
+                        // !item.options[0].selectable ||
+                        // isChainOptionDisabled(field, item, item.options[0]),
+                        title: '',
+                        description: {
+                          title: item.options[0].title,
+                          content: item.options[0].tooltip,
+                        },
+                      }}
+                      thisDapp={generalIdeaDapp}
+                      key={generalIdeaDapp.key}
+                      dappIndex={0}
+                      className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
+                    />
+
+                    <BoxOption
+                      info={{
+                        ...item.options[1],
+                        disabled: false,
+                        // item.disable ||
+                        // !item.options[0].selectable ||
+                        // isChainOptionDisabled(field, item, item.options[0]),
+                        title: '',
+                        description: {
+                          title: item.options[1].title,
+                          content: item.options[1].tooltip,
+                        },
+                      }}
+                      thisDapp={nftEtherDapp}
+                      key={nftEtherDapp.key}
+                      dappIndex={0}
+                      className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
+                    />
+
+                    <BoxOption
+                      info={{
+                        ...item.options[3],
+                        disabled: false,
+                        // item.disable ||
+                        // !item.options[0].selectable ||
+                        // isChainOptionDisabled(field, item, item.options[0]),
+                        title: '',
+                        description: {
+                          title: item.options[3].title,
+                          content: item.options[3].tooltip,
+                        },
+                      }}
+                      thisDapp={tokensPump}
+                      key={tokensPump.key}
+                      dappIndex={0}
+                      className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
+                    />
+
+                    <BoxOption
+                      info={{
+                        ...item.options[2],
+                        disabled: false,
+                        // item.disable ||
+                        // !item.options[0].selectable ||
+                        // isChainOptionDisabled(field, item, item.options[0]),
+                        title: '',
+                        description: {
+                          title: item.options[2].title,
+                          content: item.options[2].tooltip,
+                        },
+                      }}
+                      thisDapp={nftOrdinalBTC}
+                      key={nftOrdinalBTC.key}
+                      dappIndex={0}
+                      className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
+                    />
+                  </BoxOptionV3>
+                </>
+              );
+            }
+
+            return null;
+          })}
+      </Droppable>
+
       <DroppableV2 id="data">
         {(parsedCategories || []).map((item, index) => {
           if (!item.isChain && !ignoreFields.includes(item.key)) return null;
@@ -154,107 +262,6 @@ export default memo(function StudioControls() {
         {(parsedCategories || [])
           .filter((item) => !item.isChain)
           .map((item) => {
-            // Special case, need to check manually
-            if (item.key === 'create_agent') {
-              const generalIdeaDapp = createAgentGeneralIdeaAsBrainstorm;
-              const nftEtherDapp = createAgentNftEtherAsBrainstorm;
-              const nftOrdinalBTC = createAgentNftOrdinalBTCAsBrainstorm;
-              const tokensPump = createAgentTokensPumpAsBrainstorm;
-
-              return (
-                <>
-                  <BoxOptionV3
-                    key={item.key}
-                    disable={item.disable}
-                    label={item.title}
-                    id={item.key}
-                    isRequired={item.required}
-                    description={{
-                      title: item.title,
-                      content: item.tooltip,
-                    }}
-                    needCheckIcon={false}
-                  >
-                    <BoxOption
-                      info={{
-                        ...item.options[0],
-                        disabled: false,
-                        // item.disable ||
-                        // !item.options[0].selectable ||
-                        // isChainOptionDisabled(field, item, item.options[0]),
-                        title: '',
-                        description: {
-                          title: item.options[0].title,
-                          content: item.options[0].tooltip,
-                        },
-                      }}
-                      thisDapp={generalIdeaDapp}
-                      key={generalIdeaDapp.key}
-                      dappIndex={0}
-                      className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
-                    />
-
-                    <BoxOption
-                      info={{
-                        ...item.options[1],
-                        disabled: false,
-                        // item.disable ||
-                        // !item.options[0].selectable ||
-                        // isChainOptionDisabled(field, item, item.options[0]),
-                        title: '',
-                        description: {
-                          title: item.options[1].title,
-                          content: item.options[1].tooltip,
-                        },
-                      }}
-                      thisDapp={nftEtherDapp}
-                      key={nftEtherDapp.key}
-                      dappIndex={1}
-                      className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
-                    />
-
-                    <BoxOption
-                      info={{
-                        ...item.options[3],
-                        disabled: false,
-                        // item.disable ||
-                        // !item.options[0].selectable ||
-                        // isChainOptionDisabled(field, item, item.options[0]),
-                        title: '',
-                        description: {
-                          title: item.options[3].title,
-                          content: item.options[3].tooltip,
-                        },
-                      }}
-                      thisDapp={tokensPump}
-                      key={tokensPump.key}
-                      dappIndex={3}
-                      className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
-                    />
-
-                    <BoxOption
-                      info={{
-                        ...item.options[2],
-                        disabled: false,
-                        // item.disable ||
-                        // !item.options[0].selectable ||
-                        // isChainOptionDisabled(field, item, item.options[0]),
-                        title: '',
-                        description: {
-                          title: item.options[2].title,
-                          content: item.options[2].tooltip,
-                        },
-                      }}
-                      thisDapp={nftOrdinalBTC}
-                      key={nftOrdinalBTC.key}
-                      dappIndex={2}
-                      className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
-                    />
-                  </BoxOptionV3>
-                </>
-              );
-            }
-
             if (shouldGenFields.includes(item.key)) {
               console.log('[StudioControls] item', item.key);
 
@@ -269,7 +276,6 @@ export default memo(function StudioControls() {
                     title: item.title,
                     content: item.tooltip,
                   }}
-                  needCheckIcon={false}
                 >
                   {item.options.map((option, index) => {
                     const dapp = isUpdateFlow
@@ -283,6 +289,12 @@ export default memo(function StudioControls() {
 
                     if (ignoreFieldMapper[item.key]?.includes(option.key))
                       return null;
+
+                    console.log(
+                      '[StudioControls] dappIndex',
+                      dapps,
+                      option.key,
+                    );
 
                     const dappIndex = dapps.findIndex(
                       (d) => d.key === chainKeyToDappKey(option.key),
@@ -301,7 +313,8 @@ export default memo(function StudioControls() {
                         <BoxOption
                           info={{
                             ...option,
-                            disabled: item.disable || !option.selectable,
+                            disabled: false,
+                            title: '',
                             description: {
                               title: option.title,
                               content: option.tooltip,
@@ -310,11 +323,8 @@ export default memo(function StudioControls() {
                           thisDapp={dapp}
                           key={dapp.key}
                           dappIndex={dappIndex}
-                          className={s.dappBoxOption}
-                        >
-                          {/* {option.needInstall &&
-                            renderChainLego(item, option, currentPrice, index)} */}
-                        </BoxOption>
+                          className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
+                        />
                       </React.Fragment>
                     );
                   })}

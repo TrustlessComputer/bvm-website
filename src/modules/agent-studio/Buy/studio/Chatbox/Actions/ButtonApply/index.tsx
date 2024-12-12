@@ -9,7 +9,7 @@ import useChatBoxState, { ChatBoxStatus } from '../../chatbox-store';
 import styles from './styles.module.scss';
 
 const ButtonApply = () => {
-  const { dapps } = useDappsStore();
+  const dapps = useDappsStore((state) => state.dapps);
   const { setTemplate } = useTemplate();
   const { prepareCategoryTemplate, setChatBoxStatus } = useChatBoxState();
 

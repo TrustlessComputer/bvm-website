@@ -1,8 +1,6 @@
 import { useSignalEffect } from '@preact/signals-react';
 import React from 'react';
 import { draggedDappIndexesSignal } from '../signals/useDragSignal';
-import { cloneDeep } from '../utils';
-import useDapps from './useDapps';
 import useDappsStore from '../stores/useDappStore';
 
 const useFormDappToFormChain = () => {

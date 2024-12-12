@@ -1,4 +1,3 @@
-import { mouseDroppedPositionSignal } from '@/modules/agent-studio/Buy/signals/useMouseDroppedPosition';
 import useOrderFormStoreV3 from '@/modules/agent-studio/Buy/stores/index_v3';
 import useFlowStore, {
   AppState,
@@ -15,8 +14,8 @@ import { removeItemAtIndex } from '../../dapp/utils';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import {
   createAgentGeneralIdeaAsBrainstorm,
-  missionAsBrainstorm,
   gamingAppsAsADapp,
+  missionAsBrainstorm,
 } from '../mockup_3';
 import {
   draggedDappIndexesSignal,
@@ -39,7 +38,7 @@ export default function useCheckNodes() {
   const { lineBridgeStatus } = useBridgesModule();
   const { lineAAStatus } = useAAModule();
   const { statusMapper } = useGameModule();
-  const { dapps } = useDappsStore();
+  const dapps = useDappsStore((state) => state.dapps);
   const store = useStoreApi();
 
   const check = () => {

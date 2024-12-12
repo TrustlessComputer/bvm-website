@@ -1,23 +1,22 @@
 import React from 'react';
-import Image from 'next/image';
 
-import Button from '../Button';
-import MModal from '../Modal';
-import useDappsStore from '../../stores/useDappStore';
-import {
-  formDappSignal,
-  formTemplateDappSignal,
-} from '../../signals/useFormDappsSignal';
 import {
   draggedIds2DSignal,
   templateIds2DSignal,
 } from '../../signals/useDragSignal';
+import {
+  formDappSignal,
+  formTemplateDappSignal,
+} from '../../signals/useFormDappsSignal';
+import useDappsStore from '../../stores/useDappStore';
+import Button from '../Button';
+import MModal from '../Modal';
 
-import s from './styles.module.scss';
-import uniqBy from 'lodash/uniqBy';
-import cx from 'clsx';
 import { compareString } from '@utils/string';
+import cx from 'clsx';
+import uniqBy from 'lodash/uniqBy';
 import { useSearchParams } from 'next/navigation';
+import s from './styles.module.scss';
 
 type Props = {};
 
@@ -31,11 +30,11 @@ function getRandomColor() {
 }
 
 const Sidebar = ({}: Props) => {
-  const {
-    dapps: _dapps,
-    setCurrentIndexDapp,
-    currentIndexDapp,
-  } = useDappsStore();
+  const _dapps = useDappsStore((state) => state.dapps);
+  const setCurrentIndexDapp = useDappsStore(
+    (state) => state.setCurrentIndexDapp,
+  );
+  const currentIndexDapp = useDappsStore((state) => state.currentIndexDapp);
 
   const refInited = React.useRef(false);
 

@@ -1,25 +1,19 @@
 import React, { useMemo } from 'react';
 
 import DotPulse from '@/components/DotPulse';
+import sleep from '@/utils/sleep';
 import Lego from '../../../component4/Lego';
 import useNodeHelper from '../../../hooks/useNodeHelper';
+import useStudioHelper from '../../../hooks/useStudioHelper';
 import useTemplate from '../../../hooks/useTemplate';
-import {
-  draggedDappIndexesSignal,
-  draggedIds2DSignal,
-} from '../../../signals/useDragSignal';
+import { draggedDappIndexesSignal } from '../../../signals/useDragSignal';
 import useDappsStore from '../../../stores/useDappStore';
 import useModelCategoriesStore from '../../../stores/useModelCategoriesStore';
 import { chainKeyToDappKey } from '../../../utils';
+import { needReactFlowRenderSignal } from '../../ReactFlowRender';
 import useChatBoxState, { ChatBoxStatus } from '../chatbox-store';
 import { blockLegoResponseToModelCategory } from '../utils/convertApiUtils';
 import styles from './styles.module.scss';
-import useStudioHelper from '../../../hooks/useStudioHelper';
-import { formDappSignal } from '../../../signals/useFormDappsSignal';
-import sleep from '@/utils/sleep';
-import { Edge } from '@xyflow/react';
-import useFlowStore, { AppNode } from '../../../stores/useFlowStore';
-import { needReactFlowRenderSignal } from '../../ReactFlowRender';
 
 function MessageStream({ message }: { message: string }) {
   const { categories } = useModelCategoriesStore();

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Button from '@/modules/agent-studio/Buy/component4/Button';
 import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
 import DateTimeInput from '../component4/DateTimeInput';
 import Dropdown from '../component4/Dropdown';
@@ -10,7 +11,6 @@ import Lego from '../component4/Lego';
 import useDappsStore from '../stores/useDappStore';
 import { FieldOption } from '../types';
 import { adjustBrightness } from '../utils';
-import Button from '@/modules/agent-studio/Buy/component4/Button';
 
 const useDapps = () => {
   const dapps = useDappsStore((state) => state.dapps);

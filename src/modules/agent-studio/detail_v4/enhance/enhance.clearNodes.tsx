@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
-import ErrorModal from '../../Buy/components3/ErrorModal';
-import { ChainDetailComponent, ChainDetailComponentProps } from '../types';
-import s from '../styles.module.scss';
-import { usePathname, useRouter } from 'next/navigation';
-import useFlowStore from '../../Buy/stores/useFlowStore';
 import useDappsStore from '../../Buy/stores/useDappStore';
+import useFlowStore from '../../Buy/stores/useFlowStore';
+import { ChainDetailComponent, ChainDetailComponentProps } from '../types';
 
 import {
   draggedDappIndexesSignal,
@@ -17,7 +14,7 @@ const clearNodeEn =
   (props: ChainDetailComponentProps) => {
     const [isClear, setClear] = useState(false);
     const { setNodes, setEdges } = useFlowStore();
-    const { setDapps } = useDappsStore();
+    const setDapps = useDappsStore((state) => state.setDapps);
 
     const clear = () => {
       setNodes([]);

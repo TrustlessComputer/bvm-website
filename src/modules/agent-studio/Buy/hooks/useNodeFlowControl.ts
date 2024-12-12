@@ -1,4 +1,3 @@
-import useDapps from '@/modules/agent-studio/Buy/hooks/useDapps';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
@@ -27,8 +26,6 @@ import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import {
   createAgentGeneralIdeaAsBrainstorm,
-  missionAsBrainstorm,
-  gamingAppsAsADapp,
   createAgentNftEtherAsBrainstorm,
   createAgentNftOrdinalBTCAsBrainstorm,
   createAgentTokensPumpAsBrainstorm,

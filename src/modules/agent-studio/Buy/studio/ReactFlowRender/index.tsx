@@ -5,24 +5,17 @@ import { signal, useSignalEffect } from '@preact/signals-react';
 import { ConnectionMode, ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import React, { useState } from 'react';
-// import AANode from '../../component4/YourNodes/AANode';
 import ChainNodeV2 from '../../component4/YourNodes/ChainNodeV2';
 import DappNode from '../../component4/YourNodes/DappNode';
+import GeneralIdeaNode from '../../component4/YourNodes/GeneralIdeaNode/GeneralIdeaNode';
+import NFTNode from '../../component4/YourNodes/NFTNode/NFTNode';
 import { nodeKey } from '../../component4/YourNodes/node.constants';
+import OrdinalsNode from '../../component4/YourNodes/OrdinalsNode/OrdinalsNode';
+import TokenNode from '../../component4/YourNodes/TokenNode/TokenNode';
 import { isActingSignal } from '../../signals/useFlowStatus';
 import useFlowStore, { useEdges, useNodes } from '../../stores/useFlowStore';
 import { useCategories } from '../../stores/useModelCategoriesStore';
 import s from './styles.module.scss';
-
-import CreateAgentNftEtherNode from '../../component4/YourNodes/CreateAgentNftEtherNode';
-
-import CreateAgentOrdinalsBtcNode from '../../component4/YourNodes/CreateAgentOrdinalsBtcNode';
-import CreateAgentTokensPumpNode from '../../component4/YourNodes/CreateAgentTokensPumpNOde';
-
-import AANode from '../../component4/YourNodes/GeneralIdeaNode/GeneralIdeaNode';
-import NFTNode from '../../component4/YourNodes/NFTNode/NFTNode';
-import OrdinalsNode from '../../component4/YourNodes/OrdinalsNode/OrdinalsNode';
-import TokenNode from '../../component4/YourNodes/TokenNode/TokenNode';
 
 export const needReactFlowRenderSignal = signal(false);
 const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
@@ -87,10 +80,10 @@ const ReactFlowRenderer = React.memo(() => {
           // V2
           [nodeKey.CHAIN_NODE]: ChainNodeV2,
           [nodeKey.DAPP_NODE]: DappNode,
-          [nodeKey.GENERAL_IDEA_NODE]: TokenNode,
-          [nodeKey.NFT_ETHER_NODE]: CreateAgentNftEtherNode,
-          [nodeKey.NFT_ORDINAL_BTC_NODE]: CreateAgentOrdinalsBtcNode,
-          [nodeKey.TOKENS_PUMP_NODE]: CreateAgentTokensPumpNode,
+          [nodeKey.GENERAL_IDEA_NODE]: GeneralIdeaNode,
+          [nodeKey.NFT_ETHER_NODE]: NFTNode,
+          [nodeKey.NFT_ORDINAL_BTC_NODE]: OrdinalsNode,
+          [nodeKey.TOKENS_PUMP_NODE]: TokenNode,
         }}
         edgeTypes={{
           customEdge: CustomEdge,

@@ -1,12 +1,17 @@
-import React from 'react';
 import { IModelOption } from '@/types/customize-model';
 import { ChainNode, DappNode } from '@/types/node';
 import { MarkerType } from '@xyflow/react';
+import React from 'react';
 import {
   dappKeyToNodeKey,
   nodeKey,
 } from '../component4/YourNodes/node.constants';
 import { FieldKeyPrefix } from '../contants';
+import {
+  createAgentGeneralIdeaAsBrainstorm,
+  gamingAppsAsADapp,
+  missionAsBrainstorm,
+} from '../mockup_3';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
@@ -16,14 +21,9 @@ import useDappsStore from '../stores/useDappStore';
 import useDraggedId2DStore from '../stores/useDraggedId2DStore';
 import useFlowStore, { AppState } from '../stores/useFlowStore';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
+import useStudioInfo from '../studio/ActionsWorkArea/useStudioInfo';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import { dappKeyToChainKey } from '../utils';
-import {
-  createAgentGeneralIdeaAsBrainstorm,
-  missionAsBrainstorm,
-  gamingAppsAsADapp,
-} from '../mockup_3';
-import useStudioInfo from '../studio/ActionsWorkArea/useStudioInfo';
 
 const useNodeHelper = () => {
   const setDraggedIds2D = useDraggedId2DStore((state) => state.setDraggedIds2D);

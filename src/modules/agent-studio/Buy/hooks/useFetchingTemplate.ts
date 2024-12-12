@@ -5,11 +5,12 @@ import useOrderFormStoreV3 from '@/modules/agent-studio/Buy/stores/index_v3';
 import useFirstLoadTemplateBoxStore from '@/modules/agent-studio/Buy/stores/useFirstLoadTemplateBoxStore';
 import useModelCategoriesStore from '@/modules/agent-studio/Buy/stores/useModelCategoriesStore';
 import { parseWalletType } from '@/modules/agent-studio/dapp/parseUtils/wallet-type';
+import { parseWhitePapers } from '@/modules/agent-studio/dapp/parseUtils/whitePaper';
 import { parseYoloGames } from '@/modules/agent-studio/dapp/parseUtils/yologame';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import { getModelCategories, getTemplates } from '@/services/agent-model';
 import { IAirdrop } from '@/services/api/dapp/airdrop/interface';
 import { IToken } from '@/services/api/dapp/token_generation/interface';
-import { getModelCategories, getTemplates } from '@/services/agent-model';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { dappSelector } from '@/stores/states/dapp/selector';
@@ -37,15 +38,13 @@ import {
 import useDappsStore, { useTemplateFormStore } from '../stores/useDappStore';
 import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
 import useUpdateFlowStore from '../stores/useUpdateFlowStore';
+import useStudioInfo from '../studio/ActionsWorkArea/useStudioInfo';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import useAvailableListTemplate from '../studio/useAvailableListTemplate';
 import useModelCategory from '../studio/useModelCategory';
 import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
-import { parseWhitePapers } from '@/modules/agent-studio/dapp/parseUtils/whitePaper';
-import useStudioHelper from './useStudioHelper';
 import useNodeHelper from './useNodeHelper';
-import useStudioInfo from '../studio/ActionsWorkArea/useStudioInfo';
 
 export default function useFetchingTemplate() {
   const path = usePathname();

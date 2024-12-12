@@ -19,7 +19,7 @@ export default function Message({
   afterJSON: string;
   onUpdateScroll: () => void;
 }) {
-  const { dapps } = useDappsStore();
+  const dapps = useDappsStore((state) => state.dapps);
   const { addDappToNode } = useNodeHelper();
 
   const { setChatBoxStatus, isGenerating, prepareCategoryTemplate } =
