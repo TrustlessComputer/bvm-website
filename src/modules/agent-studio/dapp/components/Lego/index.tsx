@@ -48,6 +48,7 @@ type Props = {
   children?: React.ReactNode;
   preview?: boolean;
   fields?: FieldModel[];
+  vertical?: boolean;
 } & Position &
   TitlePosition;
 
@@ -66,6 +67,7 @@ const Lego = (props: Props) => {
     children,
     preview,
     fields,
+    vertical,
     ...rest
   } = props;
 
@@ -156,6 +158,37 @@ const Lego = (props: Props) => {
               </div>
             );
           })}
+        </div>
+      ) : vertical ? (
+        <div className={cn(styles.lego__inner, styles.lego__inner__vertical)}>
+          <div>
+            {title && titleInLeft ? (
+              <div
+                className={cn(
+                  styles.lego__inner__label,
+                  styles.lego__inner__label__left,
+                )}
+              >
+                {icon && (
+                  <Image src={icon} width="20px" height="20px" alt="icon" />
+                )}
+                <p>{title}</p>
+              </div>
+            ) : null}
+
+            {tooltip && (
+              <Tooltip label={tooltip}>
+                <Image
+                  width="18px"
+                  height="18px"
+                  alt="tooltip"
+                  src={'/icons/ic-tooltip.svg'}
+                />
+              </Tooltip>
+            )}
+          </div>
+
+          {children && <div className={styles.children}>{children}</div>}
         </div>
       ) : (
         <div className={styles.lego__inner}>

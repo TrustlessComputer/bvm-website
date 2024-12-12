@@ -11,6 +11,7 @@ import Lego from '../component4/Lego';
 import useDappsStore from '../stores/useDappStore';
 import { FieldOption } from '../types';
 import { adjustBrightness } from '../utils';
+import TextArea from '../../dapp/components/TextArea';
 
 const useDapps = () => {
   const dapps = useDappsStore((state) => state.dapps);
@@ -88,7 +89,28 @@ const useDapps = () => {
     ) => {
       const _zIndex = zIndex + 1;
 
-      if (field.type === 'input') {
+      if (field.type === 'textarea') {
+        return (
+          <Lego
+            {...field}
+            key={fieldKey}
+            first={false}
+            last={false}
+            titleInLeft={true}
+            titleInRight={false}
+            zIndex={_zIndex}
+            vertical
+          >
+            <TextArea
+              {...field}
+              {...fieldOpt}
+              name={fieldKey}
+              key={fieldKey}
+              dappKey={thisDapp.key}
+            />
+          </Lego>
+        );
+      } else if (field.type === 'input') {
         return (
           <Lego
             first={false}
@@ -217,7 +239,17 @@ const useDapps = () => {
       { key: fieldKey, ...field }: FieldModel,
       fieldOpt: FieldOption,
     ) => {
-      if (field.type === 'input') {
+      if (field.type === 'textarea') {
+        return (
+          <TextArea
+            {...field}
+            {...fieldOpt}
+            name={fieldKey}
+            key={fieldKey}
+            dappKey={thisDapp.key}
+          />
+        );
+      } else if (field.type === 'input') {
         return (
           <Input
             {...field}
@@ -282,7 +314,29 @@ const useDapps = () => {
     ) => {
       const _zIndex = zIndex + 1;
 
-      if (field.type === 'input') {
+      if (field.type === 'textarea') {
+        return (
+          <Lego
+            {...field}
+            key={fieldKey}
+            first={false}
+            last={false}
+            titleInLeft={true}
+            titleInRight={false}
+            zIndex={_zIndex}
+            vertical
+          >
+            <TextArea
+              {...field}
+              {...fieldOpt}
+              name={fieldKey}
+              key={fieldKey}
+              dappKey={thisDapp.key}
+              onlyLabel
+            />
+          </Lego>
+        );
+      } else if (field.type === 'input') {
         return (
           <Lego
             first={false}
@@ -440,7 +494,18 @@ const useDapps = () => {
       { key: fieldKey, ...field }: FieldModel,
       fieldOpt: FieldOption,
     ) => {
-      if (field.type === 'input') {
+      if (field.type === 'textarea') {
+        return (
+          <TextArea
+            {...field}
+            {...fieldOpt}
+            name={fieldKey}
+            key={fieldKey}
+            dappKey={thisDapp.key}
+            onlyLabel
+          />
+        );
+      } else if (field.type === 'input') {
         return (
           <Input
             {...field}

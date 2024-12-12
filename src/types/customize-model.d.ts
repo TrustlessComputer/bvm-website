@@ -150,6 +150,7 @@ interface FieldModel {
     | 'list'
     | 'label_value'
     | 'button'
+    | 'textarea'
     | '';
   tooltip: string;
   options: FieldModel[];

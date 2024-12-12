@@ -191,7 +191,10 @@ const Lego = (props: Props) => {
       ) : (
         <Flex
           className={styles.lego__inner}
-          style={{ flexDirection: vertical ? 'column' : 'row' }}
+          style={{
+            flexDirection: vertical ? 'column' : 'row',
+            alignItems: vertical ? 'flex-start' : 'center',
+          }}
         >
           {title && titleInLeft ? (
             <div

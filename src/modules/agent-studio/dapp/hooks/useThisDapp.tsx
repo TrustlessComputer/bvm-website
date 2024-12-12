@@ -10,6 +10,7 @@ import { adjustBrightness } from '../utils';
 
 import useDappsStore from '@/modules/agent-studio/dapp/stores/useDappStore';
 import { BlockModel, FieldModel } from '@/types/customize-model';
+import TextArea from '../components/TextArea';
 
 export const useThisDapp = () => {
   const dapps = useDappsStore((state) => state.dapps);
@@ -65,6 +66,28 @@ export const useThisDapp = () => {
       fieldOpt: FieldOption,
       zIndex: number,
     ) => {
+      if (field.type === 'textarea') {
+        return (
+          <Lego
+            {...field}
+            key={fieldKey}
+            first={false}
+            last={false}
+            titleInLeft={true}
+            titleInRight={false}
+            zIndex={zIndex}
+            vertical
+          >
+            <TextArea
+              {...field}
+              {...fieldOpt}
+              name={fieldKey}
+              key={fieldKey}
+              dappKey={thisDapp.key}
+            />
+          </Lego>
+        );
+      }
       if (field.type === 'input') {
         return (
           <Lego
@@ -158,12 +181,25 @@ export const useThisDapp = () => {
           </Lego>
         );
       }
+
+      return 'Missing field type';
     },
     [thisDapp],
   );
 
   const getInputWithoutLego = React.useCallback(
     ({ key: fieldKey, ...field }: FieldModel, fieldOpt: FieldOption) => {
+      if (field.type === 'textarea') {
+        return (
+          <TextArea
+            {...field}
+            {...fieldOpt}
+            dappKey={thisDapp.key}
+            name={fieldKey}
+            key={fieldKey}
+          />
+        );
+      }
       if (field.type === 'input') {
         return (
           <Input
@@ -215,6 +251,8 @@ export const useThisDapp = () => {
           />
         );
       }
+
+      return 'Missing field type';
     },
     [thisDapp],
   );

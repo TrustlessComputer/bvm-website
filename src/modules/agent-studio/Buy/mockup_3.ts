@@ -269,7 +269,7 @@ export const missionAsBrainstorm: DappModel = {
           background: '#855AFF',
           key: 'description',
           title: 'Description',
-          type: 'input',
+          type: 'textarea',
           icon: '',
           value: 'Happy',
           tooltip: '',
@@ -419,7 +419,7 @@ export const dappMockupData: DappModel[] = [
         {
           key: 'description',
           title: 'Description',
-          type: 'input',
+          type: 'textarea',
           icon: '',
           value: 'Happy',
           tooltip: '',
@@ -528,7 +528,7 @@ export const dappMockupData: DappModel[] = [
         {
           key: 'description',
           title: 'Description',
-          type: 'input',
+          type: 'textarea',
           icon: '',
           value: 'Happy',
           tooltip: '',
@@ -637,7 +637,7 @@ export const dappMockupData: DappModel[] = [
         {
           key: 'description',
           title: 'Description',
-          type: 'input',
+          type: 'textarea',
           icon: '',
           value: 'Happy',
           tooltip: '',
@@ -746,7 +746,7 @@ export const dappMockupData: DappModel[] = [
         {
           key: 'description',
           title: 'Description',
-          type: 'input',
+          type: 'textarea',
           icon: '',
           value: 'Happy',
           tooltip: '',
@@ -855,7 +855,7 @@ export const dappMockupData: DappModel[] = [
         {
           key: 'description',
           title: 'Description',
-          type: 'input',
+          type: 'textarea',
           icon: '',
           value: 'Happy',
           tooltip: '',
