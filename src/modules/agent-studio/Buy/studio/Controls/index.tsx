@@ -20,6 +20,7 @@ import {
 } from '../../mockup_3';
 import { chainKeyToDappKey, isChainOptionDisabled } from '../../utils';
 import useStudioInfo from '../ActionsWorkArea/useStudioInfo';
+import useFormChain, { useIsFormHasSocial } from '../../hooks/useFormChain';
 
 const ignoreFields: string[] = [];
 const shouldGenFields: string[] = ['mission'];
@@ -30,6 +31,7 @@ export default memo(function StudioControls() {
     (state) => state.parsedCategories,
   );
   const field = useOrderFormStoreV3((state) => state.field);
+  const isFormHasSocial = useIsFormHasSocial();
 
   const { dapps, dappMapping } = useDapps();
 
@@ -268,7 +270,9 @@ export default memo(function StudioControls() {
               return (
                 <BoxOptionV3
                   key={item.key}
-                  disable={item.disable}
+                  disable={
+                    item.disable || (item.key === 'mission' && !isFormHasSocial)
+                  }
                   label={item.title}
                   id={item.key}
                   isRequired={item.required}

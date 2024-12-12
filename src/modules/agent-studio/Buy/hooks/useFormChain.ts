@@ -5,10 +5,10 @@ import useOrderFormStoreV3 from '../stores/index_v3';
 import useModelCategoriesStore from '../stores/useModelCategoriesStore';
 import { chainKeyToDappKey } from '../utils';
 import useFormDappToFormChain from './useFormDappToFormChain';
+import { useMemo } from 'react';
 
 const useFormChain = () => {
   const categories = useModelCategoriesStore((state) => state.categories);
-
   const field = useOrderFormStoreV3((state) => state.field);
 
   const { dappCount } = useFormDappToFormChain();
@@ -122,6 +122,15 @@ const useFormChain = () => {
     getDynamicForm,
     getCurrentFieldFromChain,
   };
+};
+
+export const useIsFormHasSocial = () => {
+  const { getDynamicForm } = useFormChain();
+  const { dynamicForm } = getDynamicForm();
+
+  return useMemo(() => {
+    return dynamicForm.some((field) => field.key === 'social');
+  }, [dynamicForm]);
 };
 
 export default useFormChain;
