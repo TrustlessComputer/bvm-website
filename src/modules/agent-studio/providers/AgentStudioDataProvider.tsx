@@ -24,7 +24,7 @@ export const AgentStudioDataProvider: React.FC<PropsWithChildren> = ({
     let dataList: IModelCategory[] = [];
     try {
       const data = await fetch(
-        `https://l2aas-api.newbitcoincity.com/api/order/available-list-v3`,
+        `https://l2aas-api.newbitcoincity.com/api/agent/available-list`,
       ).then((res) => res.json());
       dataList = data.result || [];
     } catch (error) {
@@ -66,6 +66,8 @@ export const AgentStudioDataProvider: React.FC<PropsWithChildren> = ({
     modelCategoryList,
     templateList,
   };
+
+  console.log('FUCK ', values);
 
   return (
     <AgentStudioDataContext.Provider value={values}>
