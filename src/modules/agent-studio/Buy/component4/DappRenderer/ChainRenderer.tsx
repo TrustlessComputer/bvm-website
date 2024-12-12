@@ -1,5 +1,6 @@
 // import ComputerNameInput from '@/modules/agent-studio/Buy/components3/ComputerNameInput';
-import ComputerNameInput from '@/modules/agent-studio/Buy/components3/ComputerNameInput/index_v2';
+// import ComputerNameInput from '@/modules/agent-studio/Buy/components3/ComputerNameInput/index_v2';
+import AgentNameInput from '@/modules/agent-studio/Buy/components3/AgentNameInput';
 import ChainDraggable from '@/modules/agent-studio/Buy/components3/Draggable';
 import DroppableV2 from '@/modules/agent-studio/Buy/components3/DroppableV2';
 import LegoV3 from '@/modules/agent-studio/Buy/components3/LegoV3';
@@ -12,7 +13,6 @@ import { useParsedCategories } from '../../stores/useModelCategoriesStore';
 import { useOverlappingId } from '../../stores/useOverlappingChainLegoStore';
 
 import OptionInputValue from '@/modules/agent-studio/Buy/component4/DappRenderer/OptionInputValue';
-import NetworkDropdown from '../../components3/NetworkDropdown';
 import styles from './styles.module.scss';
 
 type Props = {};
@@ -42,11 +42,8 @@ const ChainRenderer = () => {
       }}
     >
       <LegoV3 background={'#FF3A3A'} label="Agent" labelInLeft zIndex={45}>
-        <ComputerNameInput />
+        <AgentNameInput />
       </LegoV3>
-      {/* <LegoV3 background={'#FF7A41'} label="Network" labelInLeft zIndex={44}>
-        <NetworkDropdown />
-      </LegoV3> */}
 
       {draggedFields.map((key, index) => {
         // if (key === 'bridge_apps') return null;
