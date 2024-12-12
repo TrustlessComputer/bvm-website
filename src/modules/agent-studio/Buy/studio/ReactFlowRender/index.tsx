@@ -19,7 +19,8 @@ import CreateAgentNftEtherNode from '../../component4/YourNodes/CreateAgentNftEt
 import CreateAgentOrdinalsBtcNode from '../../component4/YourNodes/CreateAgentOrdinalsBtcNode';
 import CreateAgentTokensPumpNode from '../../component4/YourNodes/CreateAgentTokensPumpNOde';
 
-import AANode from '../../component4/YourNodes/GeneralIdeaNode/GeneralIdeaNode';
+import MissionNode from '../../component4/YourNodes/MissionNode/MissionNode';
+import GeneralIdeaNode from '../../component4/YourNodes/GeneralIdeaNode/GeneralIdeaNode';
 import NFTNode from '../../component4/YourNodes/NFTNode/NFTNode';
 import OrdinalsNode from '../../component4/YourNodes/OrdinalsNode/OrdinalsNode';
 import TokenNode from '../../component4/YourNodes/TokenNode/TokenNode';
@@ -87,7 +88,7 @@ const ReactFlowRenderer = React.memo(() => {
           // V2
           [nodeKey.CHAIN_NODE]: ChainNodeV2,
           [nodeKey.DAPP_NODE]: DappNode,
-          [nodeKey.GENERAL_IDEA_NODE]: TokenNode,
+          [nodeKey.GENERAL_IDEA_NODE]: GeneralIdeaNode,
           [nodeKey.NFT_ETHER_NODE]: CreateAgentNftEtherNode,
           [nodeKey.NFT_ORDINAL_BTC_NODE]: CreateAgentOrdinalsBtcNode,
           [nodeKey.TOKENS_PUMP_NODE]: CreateAgentTokensPumpNode,
