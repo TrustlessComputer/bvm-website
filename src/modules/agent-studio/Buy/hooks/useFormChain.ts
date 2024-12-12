@@ -100,8 +100,6 @@ const useFormChain = () => {
       field.options = uniqBy(field.options, 'key');
     });
 
-    console.log('[useFormChain] getDynamicForm', dynamicForm);
-
     return {
       dynamicForm,
       allOptionKeyDragged,

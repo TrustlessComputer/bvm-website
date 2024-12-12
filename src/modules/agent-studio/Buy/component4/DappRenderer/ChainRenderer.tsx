@@ -90,6 +90,18 @@ const ChainRenderer = () => {
                     labelInRight={!!item.confuseTitle || !!item.confuseIcon}
                     icon={item.confuseIcon}
                     zIndex={item.options.length - opIdx}
+                    status={
+                      item.key === 'social'
+                        ? {
+                            label: 'Connect',
+                            backgroundColor: 'transparent',
+                            textColor: 'blue',
+                            callBack: () => {
+                              console.log('Connect TO DO');
+                            },
+                          }
+                        : undefined
+                    }
                   >
                     <Label icon={option.icon} title={option.title} />
                   </LegoV3>
@@ -153,18 +165,7 @@ const ChainRenderer = () => {
               <DroppableV2 id={item.key + '-right'}>
                 <LegoV3
                   // TODO: @Tony
-                  // status={() => {
-                  //   if (option.key === 'nft_ether') {
-                  //     return {
-                  //       label: 'Update',
-                  //       backgroundColor: '#FF3A3A',
-                  //       textColor: '#fff',
-                  //       callBack: () => {
-                  //         console.log('Update');
-                  //       },
-                  //     };
-                  //   }
-                  // }}
+
                   updatable={isUpdatable}
                   allowShuffle
                   background={item.color}
