@@ -8,6 +8,7 @@ import '@xyflow/react/dist/style.css';
 import React, { useState } from 'react';
 import ChainNodeV2 from '../../component4/YourNodes/ChainNodeV2';
 import DappNode from '../../component4/YourNodes/DappNode';
+import MissionNode from '../../component4/YourNodes/MissionNode/MissionNode';
 import GeneralIdeaNode from '../../component4/YourNodes/GeneralIdeaNode/GeneralIdeaNode';
 import NFTNode from '../../component4/YourNodes/NFTNode/NFTNode';
 import { nodeKey } from '../../component4/YourNodes/node.constants';
@@ -94,7 +95,8 @@ const ReactFlowRenderer = React.memo(() => {
 
           // V2
           [nodeKey.CHAIN_NODE]: ChainNodeV2,
-          [nodeKey.DAPP_NODE]: DappNode,
+          // [nodeKey.DAPP_NODE]: DappNode,
+          [nodeKey.DAPP_NODE]: MissionNode,
           [nodeKey.GENERAL_IDEA_NODE]: GeneralIdeaNode,
           [nodeKey.NFT_ETHER_NODE]: NFTNode,
           [nodeKey.NFT_ORDINAL_BTC_NODE]: OrdinalsNode,

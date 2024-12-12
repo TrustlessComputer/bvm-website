@@ -22,7 +22,7 @@ export default function WorkArea() {
         <LoadingOverlay />
         <RightContent />
         <ActionsWorkArea />
-        {!isUpdateFlow && <ButtonStartChat />}
+        {/* {!isUpdateFlow && <ButtonStartChat />} */}
       </div>
     </div>
   );

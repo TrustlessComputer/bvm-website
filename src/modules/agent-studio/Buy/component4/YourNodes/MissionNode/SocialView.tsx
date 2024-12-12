@@ -1,23 +1,24 @@
-import {
-  Flex,
-  Tooltip,
-  Text,
-  Input,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Button,
-  Select,
-} from '@chakra-ui/react';
+import { Flex, Select, Text, Tooltip } from '@chakra-ui/react';
+import { useMemo } from 'react';
+import DropdownIcon from '../../../component_v5/icons/DropdownIcon';
 import InforIcon from '../../../component_v5/icons/InforIcon';
+import useFormChain from '../../../hooks/useFormChain';
 import { useMissionStore } from './useMissionStore';
-import { ChevronDownIcon } from '@chakra-ui/icons';
 
 type Props = {};
 
 export const SocialView = (props: Props) => {
   const { socialList, setSocialSelected, socialSelected } = useMissionStore();
+
+  const { getCurrentFieldFromChain } = useFormChain();
+
+  const socialData = getCurrentFieldFromChain('social');
+
+  const optionList = socialData?.options || [];
+
+  const isMultiChoice = useMemo(() => {
+    return optionList && optionList.length > 1;
+  }, [optionList]);
 
   return (
     <Flex
@@ -46,46 +47,23 @@ export const SocialView = (props: Props) => {
       </Tooltip>
 
       <Select
+        minW={'140px'}
         gap={'10px'}
         bg="#fff"
         borderRadius={'16px'}
         color="#000000"
         textColor={'#000'}
-        h="30px"
+        h="26px"
+        icon={isMultiChoice ? <DropdownIcon /> : undefined}
       >
-        {socialList.map((social: any) => {
+        {optionList.map((option: any) => {
           return (
-            <option color="#000" value={social}>
-              {social}
+            <option color="#000" value={option.title}>
+              {option.title}
             </option>
           );
         })}
       </Select>
-
-      {/* <Menu>
-        <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-          Actions
-        </MenuButton>
-        <MenuList
-          zIndex={9999}
-          sx={{
-            zIndex: '99999 !important',
-          }}
-        >
-          {socialList.map((social: any) => {
-            return (
-              <MenuItem
-                zIndex={9999}
-                sx={{
-                  zIndex: '99999 !important',
-                }}
-              >
-                {social}
-              </MenuItem>
-            );
-          })}
-        </MenuList>
-      </Menu> */}
     </Flex>
   );
 };
