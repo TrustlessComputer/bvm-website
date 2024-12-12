@@ -54,13 +54,11 @@ export default function useNodeFlowControl() {
 
   const store = useStoreApi();
   const { lineAAStatus } = useAAModule();
-  const { lineBridgeStatus } = useBridgesModule();
-  const { statusMapper } = useGameModule();
+
   const {
     transform: [transformX, transformY, zoomLevel],
   } = store.getState();
-  const { isAAInstalled, isBridgeInstalled, isGamingAppsInstalled } =
-    useChainProvider();
+  const { isAAInstalled } = useChainProvider();
 
   const [dragState, setDragState] = React.useState<{
     oneD: [number];
@@ -109,6 +107,8 @@ export default function useNodeFlowControl() {
   };
 
   useSignalEffect(() => {
+    const draggedDappIndexesValue = draggedDappIndexesSignal.value;
+
     const accountAbstractionIndex = dapps.findIndex(
       (dapp) => dapp.key === 'general_idea',
     );
@@ -117,12 +117,16 @@ export default function useNodeFlowControl() {
 
     needReactFlowRenderSignal.value = true;
 
-    if (!restoreLocal.value) return;
+    // if (!restoreLocal.value) return;
 
-    needReactFlowRenderSignal.value = true;
+    // console.log('[useNodeFlowControl] restoreLocal.value', {
+    //   restoreLocal: restoreLocal.value,
+    // });
+
+    // needReactFlowRenderSignal.value = true;
 
     if (
-      draggedDappIndexesSignal.value.includes(accountAbstractionIndex) &&
+      draggedDappIndexesValue.includes(accountAbstractionIndex) &&
       isAAInstalled
     ) {
       if (!nodes.some((node) => node.id === 'general_idea')) {
@@ -192,6 +196,10 @@ export default function useNodeFlowControl() {
     }
 
     if (draggedIds2DSignal.value.length === draggedIds2D.length) {
+      console.log('[useNodeFlowControl] draggedIds2DSignal.value', {
+        draggedIds2DSignal: draggedIds2DSignal.value,
+        draggedIds2D,
+      });
       for (let i = 0; i < draggedIds2DSignal.value.length; i++) {
         if (!isTwoObjectEqual(draggedIds2DSignal.value[i], draggedIds2D[i])) {
           setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
@@ -229,6 +237,8 @@ export default function useNodeFlowControl() {
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
 
+    console.log('[useNodeFlowControl] thisDapp', { thisDapp });
+
     if (!thisDapp) {
       needReactFlowRenderSignal.value = true;
       resetDragState();
@@ -244,6 +254,8 @@ export default function useNodeFlowControl() {
     const categoryOption = category?.options.find(
       (option) => option.key === dappKeyToChainKey(thisDapp.key),
     );
+
+    console.log('[useNodeFlowControl] categoryOption', { categoryOption });
 
     if (!categoryOption && !thisDapp.isDefaultDapp) {
       needReactFlowRenderSignal.value = true;

@@ -1,6 +1,7 @@
 import CustomEdge from '@/modules/agent-studio/Buy/component4/CustomEdge';
 import useLineIssueToken from '@/modules/agent-studio/Buy/hooks/useLineIssueToken';
 import { useIsFirstLoadTemplateBox } from '@/modules/agent-studio/Buy/stores/useFirstLoadTemplateBoxStore';
+import { restoreLocal } from '@/modules/blockchains/Buy/signals/useDragSignal';
 import { signal, useSignalEffect } from '@preact/signals-react';
 import { ConnectionMode, ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
@@ -12,6 +13,7 @@ import NFTNode from '../../component4/YourNodes/NFTNode/NFTNode';
 import { nodeKey } from '../../component4/YourNodes/node.constants';
 import OrdinalsNode from '../../component4/YourNodes/OrdinalsNode/OrdinalsNode';
 import TokenNode from '../../component4/YourNodes/TokenNode/TokenNode';
+import useHandleReloadNode from '../../hooks/useHandleReloadNode';
 import { isActingSignal } from '../../signals/useFlowStatus';
 import useFlowStore, { useEdges, useNodes } from '../../stores/useFlowStore';
 import { useCategories } from '../../stores/useModelCategoriesStore';
@@ -22,6 +24,9 @@ const currentPositionSignal = signal({ x: 0, y: 0, zoom: 1 });
 
 const ReactFlowRenderer = React.memo(() => {
   const isFirstLoadTemplateBox = useIsFirstLoadTemplateBox();
+
+  const { setRfInstance, onRestore, rfInstance, onSave, haveOldData } =
+    useHandleReloadNode();
 
   const nodes = useNodes();
   const edges = useEdges();
@@ -61,10 +66,20 @@ const ReactFlowRenderer = React.memo(() => {
   };
 
   React.useEffect(() => {
-    if (!isFirstLoadTemplateBox || loaded) return;
+    if (!isFirstLoadTemplateBox) return;
+    if (loaded) return;
 
-    setLoaded(true);
-  }, [categories, loaded, isFirstLoadTemplateBox]);
+    if (categories && categories.length > 0) {
+      if (haveOldData) {
+        onRestore().then(() => {
+          restoreLocal.value = true;
+        });
+      } else {
+        restoreLocal.value = true;
+      }
+      setLoaded(true);
+    }
+  }, [haveOldData, categories, loaded, rfInstance, isFirstLoadTemplateBox]);
 
   return (
     <>
@@ -94,6 +109,7 @@ const ReactFlowRenderer = React.memo(() => {
           currentPositionSignal.value = viewState;
           handleActing();
         }}
+        onInit={setRfInstance}
         onEdgesChange={onEdgesChange}
         onNodesChange={(changes) => {
           onNodesChange(changes);

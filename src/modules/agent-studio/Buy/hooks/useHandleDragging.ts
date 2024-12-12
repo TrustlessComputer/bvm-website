@@ -458,7 +458,7 @@ export default function useHandleDragging() {
     const dappIndex = active.data.current?.dappIndex;
     const thisDapp = dapps[dappIndex];
     const activeId = active.id.toString();
-    const overId = over.id.toString();
+    const overId = (over?.id || '').toString();
 
     let draggedIds2D = cloneDeep(draggedIds2DSignal.value);
     const noBaseBlockInOutput = draggedIds2D.length === 0;
@@ -472,11 +472,11 @@ export default function useHandleDragging() {
     // const canPlaceMoreBase = draggedIds2D.length === 0;
 
     const overIsInput =
-      over.id === 'input' || (over.id.split('-')[1] || '') === 'droppable';
+      over?.id === 'input' || (over?.id.split('-')[1] || '') === 'droppable';
     const overIsOutput =
-      over.id === 'output' ||
-      // (over.id.split('-')[2] || '') === 'droppable' ||
-      over.id === 'final-droppable';
+      over?.id === 'output' ||
+      // (over?.id.split('-')[2] || '') === 'droppable' ||
+      over?.id === 'final-droppable';
     const overIsABase = DragUtil.idDraggingIsABase(overId);
     const overBaseIndex = Number(DragUtil.getBaseIndex(overId));
     const overIsABlock = DragUtil.idDraggingIsABlock(overId);
@@ -883,6 +883,10 @@ export default function useHandleDragging() {
 
       // Case 1.4: The lego just dragged is a base block
       if (activeIsABase) {
+        console.log('[useHandleDragging] Case 1.4', {
+          dappIndex,
+        });
+
         draggedIds2DSignal.value = [...draggedIds2D, []];
         draggedDappIndexesSignal.value = [
           ...draggedDappIndexesSignal.value,
