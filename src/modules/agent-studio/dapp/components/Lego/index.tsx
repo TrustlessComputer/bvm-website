@@ -94,6 +94,7 @@ const Lego = (props: Props) => {
       className={cn(styles.lego, {
         [styles.lego__disabled]: disabled,
         [styles.lego__preview]: preview,
+        [styles.lego__full]: vertical,
       })}
       style={{
         // @ts-ignore

@@ -121,6 +121,7 @@ const Lego = (props: Props) => {
         // @ts-ignore
         '--background-color': background,
         '--border-color': adjustBrightness(background, -20),
+        width: vertical ? '100%' : 'max-content',
       }}
       ref={legoRef}
     >

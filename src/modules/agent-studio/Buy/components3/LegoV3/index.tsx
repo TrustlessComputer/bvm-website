@@ -29,6 +29,7 @@ type LegoV3 = {
     label: string;
     backgroundColor: string;
     textColor: string;
+    callBack?: () => void;
   };
 
   suffixView?: React.ReactNode;
@@ -207,6 +208,7 @@ function LegoV3({
               backgroundColor: status.backgroundColor,
               color: status.textColor,
             }}
+            onClick={status.callBack}
           >
             {status.label}
           </div>

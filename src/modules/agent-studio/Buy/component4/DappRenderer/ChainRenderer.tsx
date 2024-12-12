@@ -152,6 +152,19 @@ const ChainRenderer = () => {
             >
               <DroppableV2 id={item.key + '-right'}>
                 <LegoV3
+                  // TODO: @Tony
+                  // status={() => {
+                  //   if (option.key === 'nft_ether') {
+                  //     return {
+                  //       label: 'Update',
+                  //       backgroundColor: '#FF3A3A',
+                  //       textColor: '#fff',
+                  //       callBack: () => {
+                  //         console.log('Update');
+                  //       },
+                  //     };
+                  //   }
+                  // }}
                   updatable={isUpdatable}
                   allowShuffle
                   background={item.color}
