@@ -1,12 +1,13 @@
 import MainLayout from '@/layouts/MainLayout';
-import Page from '@/modules/blockchains/customize/index_v4';
+// import Page from '@/modules/agent-studio/customize/index_v4';
 import { APP_NAME, IMAGE_SHARING } from '@/config/metadata';
 // import { decodeBase64 } from '@utils/helpers';
 import { getPictureSharing } from '@/services/customize-model';
 
 export async function generateMetadata({ params }: any) {
   // const pictureUrl = decodeBase64(params.pictureUrl);
-  const pictureUrl = await getPictureSharing(params.pictureUrl) || IMAGE_SHARING;
+  const pictureUrl =
+    (await getPictureSharing(params.pictureUrl)) || IMAGE_SHARING;
 
   return {
     openGraph: {
@@ -46,7 +47,8 @@ const CustomizePage = () => {
       hideFooter={true}
       bodyColor={'#f3f1e8'}
     >
-      <Page />
+      {/* <Page /> */}
+      <></>
     </MainLayout>
   );
 };

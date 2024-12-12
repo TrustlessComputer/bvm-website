@@ -26,6 +26,7 @@ import { SocialView } from './SocialView';
 import { TimeView } from './TimeView';
 import { useMissionStore } from './useMissionStore';
 import useFormChain from '../../../hooks/useFormChain';
+import { useAgentStudioDataProvider } from '@/modules/agent-studio/providers/AgentStudioDataProvider.hook';
 
 const STATUS = {
   statusCode: 'drafting_modules',
@@ -39,7 +40,6 @@ const STATUS = {
 
 const MissionNode = ({ data, id }: NodeProps<DappNodeProps>) => {
   const { dapp } = data;
-
   const { stepper, setStepper, setLoading, isLoading, resetData } =
     useMissionStore();
 
@@ -95,7 +95,7 @@ const MissionNode = ({ data, id }: NodeProps<DappNodeProps>) => {
               titleInRight={false}
               zIndex={1}
               background={adjustBrightness(dapp.color, 0)}
-              {...dapp.baseBlock.fields[0]}
+              {...dapp.baseBlock.fields[1]}
             >
               <ModelView />
             </Lego>
@@ -105,9 +105,9 @@ const MissionNode = ({ data, id }: NodeProps<DappNodeProps>) => {
               last={false}
               titleInLeft={false}
               titleInRight={false}
-              zIndex={7}
+              zIndex={2}
               background={adjustBrightness(dapp.color, 0)}
-              {...dapp.baseBlock.fields[0]}
+              {...dapp.baseBlock.fields[2]}
             >
               <TimeView />
             </Lego>
@@ -117,9 +117,9 @@ const MissionNode = ({ data, id }: NodeProps<DappNodeProps>) => {
               last={false}
               titleInLeft={false}
               titleInRight={false}
-              zIndex={4}
+              zIndex={3}
               background={adjustBrightness(dapp.color, 0)}
-              {...dapp.baseBlock.fields[0]}
+              {...dapp.baseBlock.fields[3]}
             >
               <PersonalityView />
             </Lego>
