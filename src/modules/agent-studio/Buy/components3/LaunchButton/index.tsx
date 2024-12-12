@@ -662,15 +662,15 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
           isDisabledBtn ? s.disabled : undefined
         }`}
         onClick={() => {
-          if (!loggedIn) {
-            login();
-            return;
-          }
-          if (isUpdate) {
-            onUpdateHandler();
-          } else {
-            onLaunchHandler();
-          }
+          // if (!loggedIn) {
+          //   login();
+          //   return;
+          // }
+          // if (isUpdate) {
+          //   onUpdateHandler();
+          // } else {
+          //   onLaunchHandler();
+          // }
         }}
       >
         <div className={s.inner}>

@@ -25,6 +25,7 @@ import { PersonalityView } from './PersonalityView';
 import { SocialView } from './SocialView';
 import { TimeView } from './TimeView';
 import { useMissionStore } from './useMissionStore';
+import useFormChain from '../../../hooks/useFormChain';
 
 const STATUS = {
   statusCode: 'drafting_modules',
@@ -41,10 +42,6 @@ const MissionNode = ({ data, id }: NodeProps<DappNodeProps>) => {
 
   const { stepper, setStepper, setLoading, isLoading, resetData } =
     useMissionStore();
-
-  const MissionStore = useMissionStore();
-
-  console.log('MissionStore --- ', MissionStore);
 
   const [draggedDappIndexes, setDraggedDappIndexes] = React.useState<number[]>(
     [],
@@ -83,9 +80,9 @@ const MissionNode = ({ data, id }: NodeProps<DappNodeProps>) => {
             <Lego
               first={false}
               last={false}
-              titleInLeft
+              titleInLeft={false}
               titleInRight={false}
-              zIndex={1}
+              zIndex={0}
               background={adjustBrightness(dapp.color, 0)}
               {...dapp.baseBlock.fields[0]}
             >
@@ -94,7 +91,7 @@ const MissionNode = ({ data, id }: NodeProps<DappNodeProps>) => {
             <Lego
               first={false}
               last={false}
-              titleInLeft
+              titleInLeft={false}
               titleInRight={false}
               zIndex={1}
               background={adjustBrightness(dapp.color, 0)}
@@ -106,9 +103,9 @@ const MissionNode = ({ data, id }: NodeProps<DappNodeProps>) => {
             <Lego
               first={false}
               last={false}
-              titleInLeft
+              titleInLeft={false}
               titleInRight={false}
-              zIndex={1}
+              zIndex={7}
               background={adjustBrightness(dapp.color, 0)}
               {...dapp.baseBlock.fields[0]}
             >
@@ -118,9 +115,9 @@ const MissionNode = ({ data, id }: NodeProps<DappNodeProps>) => {
             <Lego
               first={false}
               last={false}
-              titleInLeft
+              titleInLeft={false}
               titleInRight={false}
-              zIndex={1}
+              zIndex={4}
               background={adjustBrightness(dapp.color, 0)}
               {...dapp.baseBlock.fields[0]}
             >

@@ -207,6 +207,9 @@ function LegoV3({
             style={{
               backgroundColor: status.backgroundColor,
               color: status.textColor,
+              textDecoration: 'underline',
+              fontSize: '13px',
+              cursor: 'pointer',
             }}
             onClick={status.callBack}
           >

@@ -281,6 +281,10 @@
   background: #97f095;
   color: #000000;
   border-radius: 99999px;
+  :hover {
+    cursor: pointer !important;
+    opacity: 0.7;
+  }
 }
 
 .suffixViewContainer {

@@ -34,13 +34,13 @@ const GeneralIdeaNode = ({ data, id }: NodeProps<DappNodeProps>) => {
 
   const { stepper, setStepper, setLoading, isLoading, setTextArea, resetData } =
     useGeneralIdeaStore();
-  const adada = useGeneralIdeaStore();
-  console.log('GeneralIdeaNode --- ', {
-    stepper,
-    setStepper,
-    setLoading,
-    isLoading,
-  });
+  // const adada = useGeneralIdeaStore();
+  // console.log('GeneralIdeaNode --- ', {
+  //   stepper,
+  //   setStepper,
+  //   setLoading,
+  //   isLoading,
+  // });
   const [draggedDappIndexes, setDraggedDappIndexes] = React.useState<number[]>(
     [],
   );
@@ -117,6 +117,8 @@ const GeneralIdeaNode = ({ data, id }: NodeProps<DappNodeProps>) => {
 
           await sleep(5);
 
+          setTextArea('Calm down, mate! ^_^');
+
           // Turn off Loading
           setLoading(false);
 
@@ -145,7 +147,11 @@ const GeneralIdeaNode = ({ data, id }: NodeProps<DappNodeProps>) => {
       {...data}
       notificationV2={
         <NodeNotification_V2
-          resetButton={<ResetButton onClick={resetOnClickHandler} />}
+          resetButton={
+            stepper === 1 ? undefined : (
+              <ResetButton onClick={resetOnClickHandler} />
+            )
+          }
           submitButton={
             <SubmitButton
               isLoading={isLoading}

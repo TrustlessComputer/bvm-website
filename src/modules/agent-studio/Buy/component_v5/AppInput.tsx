@@ -1,11 +1,4 @@
-import {
-  Flex,
-  FlexProps,
-  Spinner,
-  Text,
-  Input,
-  InputProps,
-} from '@chakra-ui/react';
+import { Input, InputProps } from '@chakra-ui/react';
 
 interface IProps extends InputProps {}
 
