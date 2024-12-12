@@ -1,21 +1,18 @@
 import useOrderFormStoreV3 from '@/modules/agent-studio/Buy/stores/index_v3';
-import useFlowStore, {
-  AppState,
-} from '@/modules/agent-studio/Buy/stores/useFlowStore';
+import useFlowStore from '@/modules/agent-studio/Buy/stores/useFlowStore';
 import { useAAModule } from '@/modules/agent-studio/detail_v4/hook/useAAModule';
-import { useBridgesModule } from '@/modules/agent-studio/detail_v4/hook/useBridgesModule';
-import { useGameModule } from '@/modules/agent-studio/detail_v4/hook/useGameModule';
-import { IModelOption } from '@/types/customize-model';
+import { DappModel, IModelOption } from '@/types/customize-model';
 import { DappNode } from '@/types/node';
 import handleStatusEdges from '@utils/helpers';
-import { MarkerType, useStoreApi } from '@xyflow/react';
+import { MarkerType } from '@xyflow/react';
 import { useEffect } from 'react';
 import { removeItemAtIndex } from '../../dapp/utils';
 import { dappKeyToNodeKey } from '../component4/YourNodes/node.constants';
 import {
   createAgentGeneralIdeaAsBrainstorm,
-  gamingAppsAsADapp,
-  missionAsBrainstorm,
+  createAgentNftEtherAsBrainstorm,
+  createAgentNftOrdinalBTCAsBrainstorm,
+  createAgentTokensPumpAsBrainstorm,
 } from '../mockup_3';
 import {
   draggedDappIndexesSignal,
@@ -25,6 +22,7 @@ import useDappsStore from '../stores/useDappStore';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import { cloneDeep } from '../utils';
 import useFormChain from './useFormChain';
+import useNodeHelper from './useNodeHelper';
 
 export default function useCheckNodes() {
   const field = useOrderFormStoreV3((state) => state.field);
@@ -33,13 +31,68 @@ export default function useCheckNodes() {
   const setNodes = useFlowStore((state) => state.setNodes);
   const edges = useFlowStore((state) => state.edges);
   const setEdges = useFlowStore((state) => state.setEdges);
+  const {
+    getCreateAgentGeneralIdeaNodeId,
+    getCreateAgentOrdinalsBitcoinNodeId,
+    getCreateAgentTokensPumpNodeId,
+    getCreateAgentNftEtherNodeId,
+  } = useNodeHelper();
 
-  const { getCurrentFieldFromChain } = useFormChain();
-  const { lineBridgeStatus } = useBridgesModule();
+  const { checkOptionInFieldDragged, getDynamicForm } = useFormChain();
   const { lineAAStatus } = useAAModule();
-  const { statusMapper } = useGameModule();
   const dapps = useDappsStore((state) => state.dapps);
-  const store = useStoreApi();
+
+  const getNodeById = (id: string, dapp: DappModel) => {
+    const rootNode = 'blockchain';
+    const thisDapp = dapp;
+    const newNodeId = id;
+    const newNode: DappNode = {
+      id: newNodeId,
+      type: dappKeyToNodeKey(thisDapp.key),
+      dragHandle: '.drag-handle-area',
+      position: { x: 950, y: 30 },
+      data: {
+        node: 'dapp',
+        title: thisDapp.title,
+        dapp: thisDapp,
+        baseIndex: 0,
+        categoryOption: {} as IModelOption,
+        ids: [],
+        targetHandles: [],
+        sourceHandles: [`${id}-s-${rootNode}`],
+      },
+    };
+
+    const getHandleNodeBlockChain = nodes.find((item) => item.id === rootNode);
+    getHandleNodeBlockChain?.data?.sourceHandles?.push(`${rootNode}-s-${id}`);
+
+    const newEdge = {
+      id: `${Math.random()}`,
+      source: rootNode,
+      sourceHandle: `${rootNode}-s-${id}`,
+      target: id,
+      targetHandle: `${id}-t-${rootNode}`,
+      type: 'customEdge',
+      selectable: false,
+      selected: false,
+      focusable: false,
+      label: handleStatusEdges('', lineAAStatus, id).icon,
+      animated: handleStatusEdges('', lineAAStatus, id).animate,
+      markerEnd: {
+        type: MarkerType.Arrow,
+        width: 20,
+        height: 20,
+        strokeWidth: 1,
+        color: '#AAAAAA',
+      },
+      style: {
+        stroke: '#AAAAAA',
+        strokeWidth: 2,
+      },
+    };
+
+    return { newNode, newEdge };
+  };
 
   const check = () => {
     const newNodes = [...nodes];
@@ -47,322 +100,281 @@ export default function useCheckNodes() {
     const newDraggedDappIndexes = cloneDeep(draggedDappIndexesSignal.value);
     const newDraggedIds2D = cloneDeep(draggedIds2DSignal.value);
     let somethingChanged = false;
-    // const transformedX =
-    //   (mouseDroppedPositionSignal.value.x - transformX) / zoomLevel;
-    // const transformedY =
-    //   (mouseDroppedPositionSignal.value.y - transformY) / zoomLevel;
-    // const positionTo = {
-    //   x: transformedX,
-    //   y: transformedY,
-    // };
 
-    if (!getCurrentFieldFromChain('create_agent')) {
-      const nodeIndex = nodes.findIndex((node) => node.id == 'general_idea');
-      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'general_idea');
-      const dappIndexInSignal = draggedDappIndexesSignal.value.findIndex(
-        (i) => i === dappIndex,
-      );
-
-      if (nodeIndex != -1) {
-        nodes.splice(nodeIndex, 1);
-        setNodes(removeItemAtIndex(nodes, nodeIndex));
-      }
-
-      if (dappIndexInSignal !== -1) {
-        removeItemAtIndex(draggedDappIndexesSignal.value, dappIndexInSignal);
-        removeItemAtIndex(draggedIds2DSignal.value, dappIndexInSignal);
-      }
-    } else {
-      const nodeIndex = nodes.findIndex((node) => node.id == 'general_idea');
-      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'general_idea');
-      const dappIndexInSignal = draggedDappIndexesSignal.value.findIndex(
-        (i) => i === dappIndex,
-      );
-
-      if (nodeIndex === -1) {
-        const rootNode = 'blockchain';
-        const thisDapp = createAgentGeneralIdeaAsBrainstorm;
-        let nodesData = nodes;
-        const newNodeId = 'general_idea';
-        const newNode: DappNode = {
-          id: newNodeId,
-          type: dappKeyToNodeKey(thisDapp.key),
-          dragHandle: '.drag-handle-area',
-          position: { x: 950, y: 30 },
-          data: {
-            node: 'dapp',
-            title: thisDapp.title,
-            dapp: thisDapp,
-            baseIndex: 0,
-            categoryOption: {} as IModelOption,
-            ids: [],
-            // targetHandles: [`general_idea-t-${rootNode}`],
-            targetHandles: [],
-            sourceHandles: [`general_idea-t-${rootNode}`],
-            // sourceHandles: [],
-          },
-        };
-
-        const getHandleNodeBlockChain = nodes.find(
-          (item) => item.id === rootNode,
-        );
-        getHandleNodeBlockChain?.data?.sourceHandles?.push(
-          `${rootNode}-s-general_idea`,
-        );
-
-        nodesData = nodes.map((item) =>
-          item.id === rootNode ? getHandleNodeBlockChain : item,
-        ) as AppState['nodes'];
-
-        const newEdge = {
-          id: `${Math.random()}`,
-          source: rootNode,
-          sourceHandle: `${rootNode}-s-general_idea`,
-          target: `general_idea`,
-          targetHandle: `general_idea-t-${rootNode}`,
-          type: 'customEdge',
-          selectable: false,
-          selected: false,
-          focusable: false,
-          label: handleStatusEdges('', lineAAStatus, 'general_idea').icon,
-          animated: handleStatusEdges('', lineAAStatus, 'general_idea').animate,
-          markerEnd: {
-            type: MarkerType.Arrow,
-            width: 20,
-            height: 20,
-            strokeWidth: 1,
-            color: '#AAAAAA',
-          },
-          style: {
-            stroke: '#AAAAAA',
-            strokeWidth: 2,
-          },
-        };
-
-        needReactFlowRenderSignal.value = true;
-        newNodes.push(newNode);
-        newEdges.push(newEdge);
-        somethingChanged = true;
-      }
-
-      if (dappIndexInSignal === -1) {
-        newDraggedDappIndexes.push(dappIndex);
-        newDraggedIds2D.push([]);
-        somethingChanged = true;
-      }
-    }
-
-    if (!getCurrentFieldFromChain('bridge_apps')) {
-      const nodeIndex = nodes.findIndex((node) => node.id == 'bridge_apps');
-      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'bridge_apps');
-      const dappIndexInSignal = draggedDappIndexesSignal.value.findIndex(
-        (i) => i === dappIndex,
-      );
-
-      if (nodeIndex != -1) {
-        nodes.splice(nodeIndex, 1);
-        setNodes(removeItemAtIndex(nodes, nodeIndex));
-      }
-
-      if (dappIndexInSignal !== -1) {
-        removeItemAtIndex(draggedDappIndexesSignal.value, dappIndexInSignal);
-        removeItemAtIndex(draggedIds2DSignal.value, dappIndexInSignal);
-      }
-    } else {
-      const nodeIndex = nodes.findIndex((node) => node.id == 'bridge_apps');
-      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'bridge_apps');
-      const dappIndexInSignal = draggedDappIndexesSignal.value.findIndex(
-        (i) => i === dappIndex,
-      );
-
-      if (nodeIndex === -1) {
-        const rootNode = 'blockchain';
-        const thisDapp = missionAsBrainstorm;
-        let nodesData = nodes;
-        const newNodeId = 'bridge_apps';
-        const newNode: DappNode = {
-          id: newNodeId,
-          type: dappKeyToNodeKey(thisDapp.key),
-          dragHandle: '.drag-handle-area',
-          position: { x: 500, y: 30 },
-          data: {
-            node: 'dapp',
-            title: thisDapp.title,
-            dapp: thisDapp,
-            baseIndex: 0,
-            categoryOption: {} as IModelOption,
-            ids: [],
-            // targetHandles: [`bridge_apps-t-${rootNode}`],
-            targetHandles: [],
-            sourceHandles: [`bridge_apps-t-${rootNode}`],
-            // sourceHandles: [],
-          },
-        };
-
-        const getHandleNodeBlockChain = nodes.find(
-          (item) => item.id === rootNode,
-        );
-        getHandleNodeBlockChain?.data?.sourceHandles?.push(
-          `${rootNode}-s-bridge_apps`,
-        );
-
-        nodesData = nodes.map((item) =>
-          item.id === rootNode ? getHandleNodeBlockChain : item,
-        ) as AppState['nodes'];
-
-        const newEdge = {
-          id: `${Math.random()}`,
-          source: rootNode,
-          sourceHandle: `${rootNode}-s-bridge_apps`,
-          target: `bridge_apps`,
-          targetHandle: `bridge_apps-t-${rootNode}`,
-          type: 'customEdge',
-          label: handleStatusEdges('', lineBridgeStatus, 'bridge_apps').icon,
-          animated: handleStatusEdges('', lineBridgeStatus, 'bridge_apps')
-            .animate,
-          selectable: false,
-          selected: false,
-          focusable: false,
-          markerEnd: {
-            type: MarkerType.Arrow,
-            width: 20,
-            height: 20,
-            strokeWidth: 1,
-            color: '#AAAAAA',
-          },
-          style: {
-            stroke: '#AAAAAA',
-            strokeWidth: 2,
-          },
-        };
-
-        needReactFlowRenderSignal.value = true;
-        newNodes.push(newNode);
-        newEdges.push(newEdge);
-        somethingChanged = true;
-      }
-
-      if (dappIndexInSignal === -1) {
-        newDraggedDappIndexes.push(dappIndex);
-        newDraggedIds2D.push([]);
-        somethingChanged = true;
-      }
-    }
-
-    if (!getCurrentFieldFromChain('gaming_apps')) {
-      const nodeIndex = nodes.findIndex((node) => node.id == 'gaming_apps');
-      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'gaming_apps');
-      const dappIndexInSignal = draggedDappIndexesSignal.value.findIndex(
-        (i) => i === dappIndex,
-      );
-
-      if (nodeIndex != -1) {
-        console.log('[useCheckNodes] case 3');
-
-        nodes.splice(nodeIndex, 1);
-        setNodes(removeItemAtIndex(nodes, nodeIndex));
-      }
-
-      if (dappIndexInSignal !== -1) {
-        removeItemAtIndex(draggedDappIndexesSignal.value, dappIndexInSignal);
-        removeItemAtIndex(draggedIds2DSignal.value, dappIndexInSignal);
-      }
-    } else {
-      const nodeIndex = nodes.findIndex((node) => node.id == 'gaming_apps');
-      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'gaming_apps');
-      const dappIndexInSignal = draggedDappIndexesSignal.value.findIndex(
-        (i) => i === dappIndex,
-      );
-
-      if (nodeIndex === -1) {
-        const rootNode = 'blockchain';
-        const thisDapp = gamingAppsAsADapp;
-        let nodesData = nodes;
-        const newNodeId = 'gaming_apps';
-        const newNode: DappNode = {
-          id: newNodeId,
-          type: dappKeyToNodeKey(thisDapp.key),
-          dragHandle: '.drag-handle-area',
-          position: { x: 1500, y: 30 },
-          data: {
-            node: 'dapp',
-            title: thisDapp.title,
-            dapp: thisDapp,
-            baseIndex: 0,
-            categoryOption: {} as IModelOption,
-            ids: [],
-            // targetHandles: [`gaming_apps-t-${rootNode}`],
-            targetHandles: [],
-            sourceHandles: [`gaming_apps-t-${rootNode}`],
-            // sourceHandles: [],
-          },
-        };
-
-        const getHandleNodeBlockChain = nodes.find(
-          (item) => item.id === rootNode,
-        );
-        getHandleNodeBlockChain?.data?.sourceHandles?.push(
-          `${rootNode}-s-gaming_apps`,
-        );
-
-        nodesData = nodes.map((item) =>
-          item.id === rootNode ? getHandleNodeBlockChain : item,
-        ) as AppState['nodes'];
-
-        const newEdge = {
-          id: `${Math.random()}`,
-          source: rootNode,
-          sourceHandle: `${rootNode}-s-gaming_apps`,
-          target: `gaming_apps`,
-          targetHandle: `gaming_apps-t-${rootNode}`,
-          type: 'customEdge',
-          label: handleStatusEdges('', statusMapper.statusStr, 'gaming_apps')
-            .icon,
-          animated: handleStatusEdges('', statusMapper.statusStr, 'gaming_apps')
-            .animate,
-          selectable: false,
-          selected: false,
-          focusable: false,
-          markerEnd: {
-            type: MarkerType.Arrow,
-            width: 20,
-            height: 20,
-            strokeWidth: 1,
-            color: '#AAAAAA',
-          },
-          style: {
-            stroke: '#AAAAAA',
-            strokeWidth: 2,
-          },
-        };
-
-        needReactFlowRenderSignal.value = true;
-        newNodes.push(newNode);
-        newEdges.push(newEdge);
-        somethingChanged = true;
-      }
-
-      if (dappIndexInSignal === -1) {
-        newDraggedDappIndexes.push(dappIndex);
-        newDraggedIds2D.push([]);
-        somethingChanged = true;
-      }
-    }
-
-    console.log('[useCheckNodes] useEffect[field]', {
-      newNodes,
-      newEdges,
-      field,
-      newDraggedDappIndexes,
-      newDraggedIds2D,
-      somethingChanged,
+    console.log('[useCheckNodes] Case check', {
+      dynamicForm: getDynamicForm(),
     });
+
+    const createAgentGeneralIdeaNodeIndex = nodes.findIndex(
+      (node) => node.id === getCreateAgentGeneralIdeaNodeId(),
+    );
+    const createAgentGeneralIdeaDappIndex = dapps.findIndex(
+      (dapp) => dapp.key === getCreateAgentGeneralIdeaNodeId(),
+    );
+    const createAgentGeneralIdeaDappIndexInSignal =
+      draggedDappIndexesSignal.value.findIndex(
+        (i) => i === createAgentGeneralIdeaDappIndex,
+      );
+    const isCreateAgentGeneralIdeaInForm = checkOptionInFieldDragged(
+      getCreateAgentGeneralIdeaNodeId(),
+    );
+    const isCreateAgentGeneralIdeaInUI = !!nodes.find(
+      (node) => node.id === getCreateAgentGeneralIdeaNodeId(),
+    );
+    const isCreateAgentGeneralIdeaInSignal =
+      draggedDappIndexesSignal.value.includes(createAgentGeneralIdeaDappIndex);
+
+    const createAgentOrdinalsBitcoinNodeIndex = nodes.findIndex(
+      (node) => node.id === getCreateAgentOrdinalsBitcoinNodeId(),
+    );
+    const createAgentOrdinalsBitcoinDappIndex = dapps.findIndex(
+      (dapp) => dapp.key === getCreateAgentOrdinalsBitcoinNodeId(),
+    );
+    const createAgentOrdinalsBitcoinDappIndexInSignal =
+      draggedDappIndexesSignal.value.findIndex(
+        (i) => i === createAgentOrdinalsBitcoinDappIndex,
+      );
+    const isCreateAgentOrdinalsBitcoinInForm = checkOptionInFieldDragged(
+      getCreateAgentOrdinalsBitcoinNodeId(),
+    );
+    const isCreateAgentOrdinalsBitcoinInUI = !!nodes.find(
+      (node) => node.id === getCreateAgentOrdinalsBitcoinNodeId(),
+    );
+    const isCreateAgentOrdinalsBitcoinInSignal =
+      draggedDappIndexesSignal.value.includes(
+        createAgentOrdinalsBitcoinDappIndex,
+      );
+
+    const createAgentTokensPumpNodeIndex = nodes.findIndex(
+      (node) => node.id === getCreateAgentTokensPumpNodeId(),
+    );
+    const createAgentTokensPumpDappIndex = dapps.findIndex(
+      (dapp) => dapp.key === getCreateAgentTokensPumpNodeId(),
+    );
+    const createAgentTokensPumpDappIndexInSignal =
+      draggedDappIndexesSignal.value.findIndex(
+        (i) => i === createAgentTokensPumpDappIndex,
+      );
+    const isCreateAgentTokensPumpInForm = checkOptionInFieldDragged(
+      getCreateAgentTokensPumpNodeId(),
+    );
+    const isCreateAgentTokensPumpInUI = !!nodes.find(
+      (node) => node.id === getCreateAgentTokensPumpNodeId(),
+    );
+    const isCreateAgentTokensPumpInSignal =
+      draggedDappIndexesSignal.value.includes(createAgentTokensPumpDappIndex);
+
+    const createAgentNftEtherNodeIndex = nodes.findIndex(
+      (node) => node.id === getCreateAgentNftEtherNodeId(),
+    );
+    const createAgentNftEtherDappIndex = dapps.findIndex(
+      (dapp) => dapp.key === getCreateAgentNftEtherNodeId(),
+    );
+    const createAgentNftEtherDappIndexInSignal =
+      draggedDappIndexesSignal.value.findIndex(
+        (i) => i === createAgentNftEtherDappIndex,
+      );
+    const isCreateAgentNftEtherInForm = checkOptionInFieldDragged(
+      getCreateAgentNftEtherNodeId(),
+    );
+    const isCreateAgentNftEtherInUI = !!nodes.find(
+      (node) => node.id === getCreateAgentNftEtherNodeId(),
+    );
+    const isCreateAgentNftEtherInSignal =
+      draggedDappIndexesSignal.value.includes(createAgentNftEtherDappIndex);
+
+    if (!isCreateAgentGeneralIdeaInForm) {
+      if (isCreateAgentGeneralIdeaInUI) {
+        console.log('[useCheckNodes] Case remove create_agent from UI');
+        nodes.splice(createAgentGeneralIdeaNodeIndex, 1);
+        setNodes(removeItemAtIndex(nodes, createAgentGeneralIdeaNodeIndex));
+      }
+
+      if (isCreateAgentGeneralIdeaInSignal) {
+        console.log('[useCheckNodes] Case remove create_agent from signal');
+        removeItemAtIndex(
+          draggedDappIndexesSignal.value,
+          createAgentGeneralIdeaDappIndexInSignal,
+        );
+        removeItemAtIndex(
+          draggedIds2DSignal.value,
+          createAgentGeneralIdeaDappIndexInSignal,
+        );
+      }
+    } else {
+      if (
+        isCreateAgentTokensPumpInSignal ||
+        isCreateAgentOrdinalsBitcoinInSignal ||
+        isCreateAgentNftEtherInSignal
+      )
+        return;
+
+      // if (!isCreateAgentGeneralIdeaInUI) {
+      //   console.log('[useCheckNodes] Case add create_agent to UI');
+      //   const { newNode, newEdge } = getNodeById(
+      //     getCreateAgentGeneralIdeaNodeId(),
+      //     createAgentGeneralIdeaAsBrainstorm,
+      //   );
+
+      //   needReactFlowRenderSignal.value = true;
+      //   newNodes.push(newNode);
+      //   newEdges.push(newEdge);
+      //   somethingChanged = true;
+      // }
+
+      if (!isCreateAgentGeneralIdeaInSignal) {
+        console.log('[useCheckNodes] Case add create_agent to signal');
+        newDraggedDappIndexes.push(createAgentGeneralIdeaDappIndex);
+        newDraggedIds2D.push([]);
+        somethingChanged = true;
+      }
+    }
+
+    if (!isCreateAgentOrdinalsBitcoinInForm) {
+      if (isCreateAgentOrdinalsBitcoinInUI) {
+        console.log('[useCheckNodes] Case remove ordinals_bitcoin from UI');
+        nodes.splice(createAgentOrdinalsBitcoinNodeIndex, 1);
+        setNodes(removeItemAtIndex(nodes, createAgentOrdinalsBitcoinNodeIndex));
+      }
+
+      if (isCreateAgentOrdinalsBitcoinInSignal) {
+        console.log('[useCheckNodes] Case remove ordinals_bitcoin from signal');
+        removeItemAtIndex(
+          draggedDappIndexesSignal.value,
+          createAgentOrdinalsBitcoinDappIndexInSignal,
+        );
+        removeItemAtIndex(
+          draggedIds2DSignal.value,
+          createAgentOrdinalsBitcoinDappIndexInSignal,
+        );
+      }
+    } else {
+      if (
+        isCreateAgentTokensPumpInSignal ||
+        isCreateAgentGeneralIdeaInSignal ||
+        isCreateAgentNftEtherInSignal
+      )
+        return;
+
+      // if (!isCreateAgentOrdinalsBitcoinInUI) {
+      //   console.log('[useCheckNodes] Case add ordinals_bitcoin to UI');
+      //   const { newNode, newEdge } = getNodeById(
+      //     getCreateAgentOrdinalsBitcoinNodeId(),
+      //     createAgentNftOrdinalBTCAsBrainstorm,
+      //   );
+
+      //   needReactFlowRenderSignal.value = true;
+      //   newNodes.push(newNode);
+      //   newEdges.push(newEdge);
+      //   somethingChanged = true;
+      // }
+
+      if (!isCreateAgentOrdinalsBitcoinInSignal) {
+        console.log('[useCheckNodes] Case add ordinals_bitcoin to signal');
+        newDraggedDappIndexes.push(createAgentOrdinalsBitcoinDappIndex);
+        newDraggedIds2D.push([]);
+        somethingChanged = true;
+      }
+    }
+
+    if (!isCreateAgentTokensPumpInForm) {
+      if (isCreateAgentTokensPumpInUI) {
+        console.log('[useCheckNodes] Case remove tokens_pump from UI');
+        nodes.splice(createAgentTokensPumpNodeIndex, 1);
+        setNodes(removeItemAtIndex(nodes, createAgentTokensPumpNodeIndex));
+      }
+
+      if (isCreateAgentTokensPumpInSignal) {
+        console.log('[useCheckNodes] Case remove tokens_pump from signal');
+        removeItemAtIndex(
+          draggedDappIndexesSignal.value,
+          createAgentTokensPumpDappIndexInSignal,
+        );
+        removeItemAtIndex(
+          draggedIds2DSignal.value,
+          createAgentTokensPumpDappIndexInSignal,
+        );
+      }
+    } else {
+      if (
+        isCreateAgentGeneralIdeaInSignal ||
+        isCreateAgentOrdinalsBitcoinInSignal ||
+        isCreateAgentNftEtherInSignal
+      )
+        return;
+
+      // if (!isCreateAgentTokensPumpInUI) {
+      //   console.log('[useCheckNodes] Case add tokens_pump to UI');
+      //   const { newNode, newEdge } = getNodeById(
+      //     getCreateAgentTokensPumpNodeId(),
+      //     createAgentTokensPumpAsBrainstorm,
+      //   );
+
+      //   needReactFlowRenderSignal.value = true;
+      //   newNodes.push(newNode);
+      //   newEdges.push(newEdge);
+      //   somethingChanged = true;
+      // }
+
+      if (!isCreateAgentTokensPumpInSignal) {
+        console.log('[useCheckNodes] Case add tokens_pump to signal');
+        newDraggedDappIndexes.push(createAgentTokensPumpDappIndex);
+        newDraggedIds2D.push([]);
+        somethingChanged = true;
+      }
+    }
+
+    if (!isCreateAgentNftEtherInForm) {
+      if (isCreateAgentNftEtherInUI) {
+        console.log('[useCheckNodes] Case remove nft_ether from UI');
+        nodes.splice(createAgentNftEtherNodeIndex, 1);
+        setNodes(removeItemAtIndex(nodes, createAgentNftEtherNodeIndex));
+      }
+
+      if (isCreateAgentNftEtherInSignal) {
+        console.log('[useCheckNodes] Case remove nft_ether from signal');
+        removeItemAtIndex(
+          draggedDappIndexesSignal.value,
+          createAgentNftEtherDappIndexInSignal,
+        );
+        removeItemAtIndex(
+          draggedIds2DSignal.value,
+          createAgentNftEtherDappIndexInSignal,
+        );
+      }
+    } else {
+      if (
+        isCreateAgentGeneralIdeaInSignal ||
+        isCreateAgentOrdinalsBitcoinInSignal ||
+        isCreateAgentTokensPumpInSignal
+      )
+        return;
+
+      // if (!isCreateAgentNftEtherInUI) {
+      //   console.log('[useCheckNodes] Case add nft_ether to UI');
+      //   const { newNode, newEdge } = getNodeById(
+      //     getCreateAgentNftEtherNodeId(),
+      //     createAgentNftEtherAsBrainstorm,
+      //   );
+
+      //   needReactFlowRenderSignal.value = true;
+      //   newNodes.push(newNode);
+      //   newEdges.push(newEdge);
+      //   somethingChanged = true;
+      // }
+
+      if (!isCreateAgentNftEtherInSignal) {
+        console.log('[useCheckNodes] Case add nft_ether to signal');
+        newDraggedDappIndexes.push(createAgentNftEtherDappIndex);
+        newDraggedIds2D.push([]);
+        somethingChanged = true;
+      }
+    }
 
     if (somethingChanged) {
       needReactFlowRenderSignal.value = true;
       draggedDappIndexesSignal.value = newDraggedDappIndexes;
       draggedIds2DSignal.value = newDraggedIds2D;
-      console.log('[useCheckNodes] case 4');
       setNodes(newNodes);
       setEdges(newEdges);
     }

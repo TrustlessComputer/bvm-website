@@ -13,6 +13,7 @@ import { Edge } from '@xyflow/react';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
+import { useAgentStudioDataProvider } from '../../providers/AgentStudioDataProvider.hook';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
@@ -28,10 +29,8 @@ import useUpdateFlowStore from '../stores/useUpdateFlowStore';
 import useStudioInfo from '../studio/ActionsWorkArea/useStudioInfo';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import useAvailableListTemplate from '../studio/useAvailableListTemplate';
-import useModelCategory from '../studio/useModelCategory';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useNodeHelper from './useNodeHelper';
-import { useAgentStudioDataProvider } from '../../providers/AgentStudioDataProvider.hook';
 
 export default function useFetchingTemplate() {
   const { modelCategoryList, templateList } = useAgentStudioDataProvider();
@@ -75,9 +74,8 @@ export default function useFetchingTemplate() {
   const { l2ServiceUserAddress } = useWeb3Auth();
   const { setTemplate } = useTemplate();
   const { isUpdateFlow } = useStudioInfo();
-  const { getChainNode, getChainNodeId } = useNodeHelper();
-  const { order, isAAInstalled, isBridgeInstalled, isGamingAppsInstalled } =
-    useChainProvider();
+  const { getChainNode } = useNodeHelper();
+  const { order, isAAInstalled } = useChainProvider();
   const { templateDefault } = useAvailableListTemplate();
   const { counterFetchedDapp } = useAppSelector(commonSelector);
 

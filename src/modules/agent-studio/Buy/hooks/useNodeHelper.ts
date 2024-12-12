@@ -7,11 +7,7 @@ import {
   nodeKey,
 } from '../component4/YourNodes/node.constants';
 import { FieldKeyPrefix } from '../contants';
-import {
-  createAgentGeneralIdeaAsBrainstorm,
-  gamingAppsAsADapp,
-  missionAsBrainstorm,
-} from '../mockup_3';
+import { createAgentGeneralIdeaAsBrainstorm } from '../mockup_3';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
@@ -47,12 +43,22 @@ const useNodeHelper = () => {
   }) => `${target}-s-${source}`;
 
   const getChainNodeId = React.useCallback(() => 'blockchain', []);
-  const getAccountAbstractionNodeId = React.useCallback(
+  const getCreateAgentGeneralIdeaNodeId = React.useCallback(
     () => 'general_idea',
     [],
   );
-  const getBridgeAppsNodeId = React.useCallback(() => 'bridge_apps', []);
-  const getGamingAppsNodeId = React.useCallback(() => 'gaming_apps', []);
+  const getCreateAgentNftEtherNodeId = React.useCallback(
+    () => 'nft_ether',
+    [],
+  );
+  const getCreateAgentOrdinalsBitcoinNodeId = React.useCallback(
+    () => 'ordinals_bitcoin',
+    [],
+  );
+  const getCreateAgentTokensPumpNodeId = React.useCallback(
+    () => 'tokens_pump_fun',
+    [],
+  );
 
   const getChainNode = React.useCallback(
     (position: { x: number; y: number }): ChainNode => {
@@ -63,11 +69,7 @@ const useNodeHelper = () => {
           node: 'chain',
           title: 'Agent structure',
           sourceHandles: isUpdateFlow
-            ? [
-                `${getChainNodeId()}-s-${getAccountAbstractionNodeId()}`,
-                `${getChainNodeId()}-s-${getBridgeAppsNodeId()}`,
-                `${getChainNodeId()}-s-${getGamingAppsNodeId()}`,
-              ]
+            ? [`${getChainNodeId()}-s-${getCreateAgentGeneralIdeaNodeId()}`]
             : [],
           targetHandles: [],
         },
@@ -78,12 +80,12 @@ const useNodeHelper = () => {
     [],
   );
 
-  const getAccountAbstractionNode = React.useCallback(
+  const getCreateAgentGeneralIdeaNode = React.useCallback(
     (position: { x: number; y: number }): DappNode => {
       const dapp = createAgentGeneralIdeaAsBrainstorm;
 
       return {
-        id: getAccountAbstractionNodeId(),
+        id: getCreateAgentGeneralIdeaNodeId(),
         type: dappKeyToNodeKey(dapp.key),
         dragHandle: '.drag-handle-area',
         position,
@@ -98,7 +100,7 @@ const useNodeHelper = () => {
           sourceHandles: [
             getSourceHandle({
               source: getChainNodeId(),
-              target: getAccountAbstractionNodeId(),
+              target: getCreateAgentGeneralIdeaNodeId(),
             }),
           ],
         },
@@ -107,63 +109,7 @@ const useNodeHelper = () => {
     [],
   );
 
-  const getBridgeAppsNode = React.useCallback(
-    (position: { x: number; y: number }): DappNode => {
-      const dapp = missionAsBrainstorm;
 
-      return {
-        id: getBridgeAppsNodeId(),
-        type: dappKeyToNodeKey(dapp.key),
-        dragHandle: '.drag-handle-area',
-        position,
-        data: {
-          node: 'dapp',
-          title: dapp.title,
-          dapp,
-          baseIndex: 0,
-          categoryOption: {} as IModelOption,
-          ids: [],
-          targetHandles: [],
-          sourceHandles: [
-            getSourceHandle({
-              source: getChainNodeId(),
-              target: getBridgeAppsNodeId(),
-            }),
-          ],
-        },
-      };
-    },
-    [],
-  );
-
-  const getGamingAppsNode = React.useCallback(
-    (position: { x: number; y: number }): DappNode => {
-      const dapp = gamingAppsAsADapp;
-
-      return {
-        id: getGamingAppsNodeId(),
-        type: dappKeyToNodeKey(dapp.key),
-        dragHandle: '.drag-handle-area',
-        position,
-        data: {
-          node: 'dapp',
-          title: dapp.title,
-          dapp,
-          baseIndex: 0,
-          categoryOption: {} as IModelOption,
-          ids: [],
-          targetHandles: [],
-          sourceHandles: [
-            getSourceHandle({
-              source: getChainNodeId(),
-              target: getGamingAppsNodeId(),
-            }),
-          ],
-        },
-      };
-    },
-    [],
-  );
 
   const addDappToNode = (dappIndex: number, position = { x: 600, y: 30 }) => {
     const { x, y } = position;
@@ -280,14 +226,18 @@ const useNodeHelper = () => {
 
   return {
     addDappToNode,
-    getChainNode,
-    getAccountAbstractionNode,
-    getBridgeAppsNode,
-    getGamingAppsNode,
+
     getChainNodeId,
-    getAccountAbstractionNodeId,
-    getBridgeAppsNodeId,
-    getGamingAppsNodeId,
+    getChainNode,
+
+    getCreateAgentGeneralIdeaNode,
+    getCreateAgentGeneralIdeaNodeId,
+
+    getCreateAgentNftEtherNodeId,
+
+    getCreateAgentOrdinalsBitcoinNodeId,
+
+    getCreateAgentTokensPumpNodeId,
   };
 };
 

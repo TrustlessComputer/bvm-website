@@ -12,7 +12,11 @@ import { formatCurrencyV2 } from '@utils/format';
 import { compareString } from '@utils/string';
 import React, { memo } from 'react';
 import useDapps from '../../hooks/useDapps';
-import { useIsFormHasSocial } from '../../hooks/useFormChain';
+import {
+  useCreateAgentField,
+  useIsFormHasCreateAgentField,
+  useIsFormHasSocialField,
+} from '../../hooks/useFormChain';
 import {
   createAgentGeneralIdeaAsBrainstorm,
   createAgentNftEtherAsBrainstorm,
@@ -32,7 +36,7 @@ export default memo(function StudioControls() {
     (state) => state.parsedCategories,
   );
   const field = useOrderFormStoreV3((state) => state.field);
-  const isFormHasSocial = useIsFormHasSocial();
+  const isFormHasSocial = useIsFormHasSocialField();
 
   const { dapps, dappMapping } = useDapps();
 
@@ -44,6 +48,9 @@ export default memo(function StudioControls() {
   );
 
   const [selectedAgent, setSelectedAgent] = React.useState(-1);
+
+  const isFormHasCreateAgentField = useIsFormHasCreateAgentField();
+  const createAgentField = useCreateAgentField();
 
   useSignalEffect(() => {});
 
@@ -76,7 +83,7 @@ export default memo(function StudioControls() {
                     <BoxOption
                       info={{
                         ...item.options[0],
-                        disabled: false,
+                        disabled: isFormHasCreateAgentField,
                         title: '',
                         description: {
                           title: item.options[0].title,
@@ -92,7 +99,7 @@ export default memo(function StudioControls() {
                     <BoxOption
                       info={{
                         ...item.options[1],
-                        disabled: false,
+                        disabled: isFormHasCreateAgentField,
                         title: '',
                         description: {
                           title: item.options[1].title,
@@ -108,7 +115,7 @@ export default memo(function StudioControls() {
                     <BoxOption
                       info={{
                         ...item.options[3],
-                        disabled: false,
+                        disabled: isFormHasCreateAgentField,
                         title: '',
                         description: {
                           title: item.options[3].title,
@@ -124,7 +131,7 @@ export default memo(function StudioControls() {
                     <BoxOption
                       info={{
                         ...item.options[2],
-                        disabled: false,
+                        disabled: isFormHasCreateAgentField,
                         title: '',
                         description: {
                           title: item.options[2].title,
@@ -258,8 +265,6 @@ export default memo(function StudioControls() {
           .filter((item) => !item.isChain)
           .map((item) => {
             if (shouldGenFields.includes(item.key)) {
-              console.log('[StudioControls] item', item.key);
-
               return (
                 <BoxOptionV3
                   key={item.key}
@@ -287,23 +292,10 @@ export default memo(function StudioControls() {
                     if (ignoreFieldMapper[item.key]?.includes(option.key))
                       return null;
 
-                    console.log(
-                      '[StudioControls] dappIndex',
-                      dapps,
-                      option.key,
-                    );
-
                     const dappIndex = dapps.findIndex(
                       (d) => d.key === chainKeyToDappKey(option.key),
                     );
                     if (!dapp) return null;
-
-                    console.log('[StudioControls] dapp', {
-                      dappMapping,
-                      dapp,
-                      dappKey: chainKeyToDappKey(option.key),
-                      itemKey: item.key,
-                    });
 
                     return (
                       <React.Fragment key={dapp.key}>

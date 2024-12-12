@@ -281,45 +281,6 @@ export const missionAsBrainstorm: DappModel = {
   ],
 };
 
-export const gamingAppsAsADapp: DappModel = {
-  isDefaultDapp: true,
-  id: 'gaming_apps',
-  key: 'gaming_apps',
-  title: 'Gaming Apps',
-  icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
-  order: 1,
-  color: '#FFB800',
-  color_border: '#FFB800',
-  created_at: '2021-09-14T09:00:00.000Z',
-  updated_at: '2021-09-14T09:00:00.000Z',
-  tooltip: '',
-  label: {
-    title: '',
-    color: '',
-    background: '',
-    status: '',
-  },
-  sections: [
-    {
-      key: 'modules',
-      icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
-      title: '',
-      tooltip: '',
-      required: false,
-    },
-  ],
-  baseBlock: {
-    key: 'gaming_apps_info',
-    title: 'Game Apps',
-    icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
-    placableAmount: 1,
-    section: 'missions',
-    preview: false,
-    background: '#FFB800',
-    fields: [],
-  },
-};
-
 export const dappMockupData: DappModel[] = [
   // Post
   {

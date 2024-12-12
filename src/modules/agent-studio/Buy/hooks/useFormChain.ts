@@ -116,18 +116,43 @@ const useFormChain = () => {
     return dynamicForm.find((field) => field.key === key);
   };
 
+  const checkOptionInFieldDragged = (key: string) => {
+    const { allOptionKeyDragged } = getDynamicForm();
+
+    return allOptionKeyDragged.includes(key);
+  };
+
   return {
     getDynamicForm,
     getCurrentFieldFromChain,
+    checkOptionInFieldDragged,
   };
 };
 
-export const useIsFormHasSocial = () => {
+export const useIsFormHasSocialField = () => {
   const { getDynamicForm } = useFormChain();
   const { dynamicForm } = getDynamicForm();
 
   return useMemo(() => {
     return dynamicForm.some((field) => field.key === 'social');
+  }, [dynamicForm]);
+};
+
+export const useIsFormHasCreateAgentField = () => {
+  const { getDynamicForm } = useFormChain();
+  const { dynamicForm } = getDynamicForm();
+
+  return useMemo(() => {
+    return dynamicForm.some((field) => field.key === 'create_agent');
+  }, [dynamicForm]);
+};
+
+export const useCreateAgentField = () => {
+  const { getDynamicForm } = useFormChain();
+  const { dynamicForm } = getDynamicForm();
+
+  return useMemo(() => {
+    return dynamicForm.find((field) => field.key === 'create_agent');
   }, [dynamicForm]);
 };
 

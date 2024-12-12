@@ -141,48 +141,18 @@ export default function useHandleDragging() {
     // const selectedCategory = selectedCategoryMapping?.[activeKey];
     const category = categoryMapping?.[activeKey];
     const totalTemplateDapps = templateDapps.length;
-    const ignoreKeys = ['bridge_apps', 'gaming_apps'];
+    const ignoreKeys: string[] = [];
 
     if (!rightDragging && !overIsFinalDroppable && overSuffix1 !== 'right') {
       if (isMultiChoice) {
         const currentValues = (field[activeKey].value || []) as string[];
         const isCurrentEmpty = currentValues.length === 0;
         const newValue = [...currentValues, active.data.current.value];
-        const bridgeAppsIndex = dapps.findIndex(
-          (dapp) => dapp.key === 'bridge_apps',
-        );
-        const gamingAppsIndex = dapps.findIndex(
-          (dapp) => dapp.key === 'gaming_apps',
-        );
 
         if (currentValues.includes(active.data.current.value)) return;
 
         setField(activeKey, newValue, true);
         isCurrentEmpty && setDraggedFields([...draggedFields, activeKey]);
-
-        if (
-          activeKey === 'bridge_apps' &&
-          !draggedDappIndexesSignal.value.includes(bridgeAppsIndex) &&
-          !activeIsParent
-        ) {
-          draggedDappIndexesSignal.value = [
-            ...draggedDappIndexesSignal.value,
-            bridgeAppsIndex,
-          ];
-          draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
-        }
-
-        if (
-          activeKey === 'gaming_apps' &&
-          !draggedDappIndexesSignal.value.includes(gamingAppsIndex) &&
-          !activeIsParent
-        ) {
-          draggedDappIndexesSignal.value = [
-            ...draggedDappIndexesSignal.value,
-            gamingAppsIndex,
-          ];
-          draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
-        }
 
         return;
       }
@@ -286,53 +256,11 @@ export default function useHandleDragging() {
     ) {
       const currentValues = (field[activeKey].value || []) as string[];
       currentValues.forEach((optionKey) => {
-        // setValueOptionInputStore(optionKey, '');
         deleteValueOptionInputStore(optionKey);
       });
-      const bridgeAppsIndex = dapps.findIndex(
-        (dapp) => dapp.key === 'bridge_apps',
-      );
-      const gamingAppsIndex = dapps.findIndex(
-        (dapp) => dapp.key === 'gaming_apps',
-      );
 
       setField(activeKey, [], false);
       setDraggedFields(draggedFields.filter((field) => field !== activeKey));
-
-      if (activeKey === 'bridge_apps') {
-        const index = draggedDappIndexesSignal.value.indexOf(bridgeAppsIndex);
-
-        if (index !== -1) {
-          draggedDappIndexesSignal.value = removeItemAtIndex(
-            draggedDappIndexesSignal.value,
-            index,
-          );
-          draggedIds2DSignal.value = removeItemAtIndex(
-            draggedIds2DSignal.value,
-            index,
-          );
-        }
-
-        setRemovedNode(nodes[index + 1 + totalTemplateDapps]);
-        setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
-      }
-
-      if (activeKey === 'gaming_apps') {
-        const index = draggedDappIndexesSignal.value.indexOf(gamingAppsIndex);
-
-        if (index !== -1) {
-          draggedDappIndexesSignal.value = removeItemAtIndex(
-            draggedDappIndexesSignal.value,
-            index,
-          );
-          draggedIds2DSignal.value = removeItemAtIndex(
-            draggedIds2DSignal.value,
-            index,
-          );
-        }
-        setRemovedNode(nodes[index + 1 + totalTemplateDapps]);
-        setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
-      }
 
       return;
     }
@@ -346,41 +274,11 @@ export default function useHandleDragging() {
       const currentValues = (field[activeKey].value || []) as string[];
       const isCurrentEmpty = currentValues.length === 0;
       const newValue = [...currentValues, active.data.current.value];
-      const bridgeAppsIndex = dapps.findIndex(
-        (dapp) => dapp.key === 'bridge_apps',
-      );
-      const gamingAppsIndex = dapps.findIndex(
-        (dapp) => dapp.key === 'gaming_apps',
-      );
 
       if (currentValues.includes(active.data.current.value)) return;
 
       setField(activeKey, newValue, true);
       isCurrentEmpty && setDraggedFields([...draggedFields, activeKey]);
-
-      if (
-        activeKey === 'bridge_apps' &&
-        !draggedDappIndexesSignal.value.includes(bridgeAppsIndex) &&
-        !activeIsParent
-      ) {
-        draggedDappIndexesSignal.value = [
-          ...draggedDappIndexesSignal.value,
-          bridgeAppsIndex,
-        ];
-        draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
-      }
-
-      if (
-        activeKey === 'gaming_apps' &&
-        !draggedDappIndexesSignal.value.includes(gamingAppsIndex) &&
-        !activeIsParent
-      ) {
-        draggedDappIndexesSignal.value = [
-          ...draggedDappIndexesSignal.value,
-          gamingAppsIndex,
-        ];
-        draggedIds2DSignal.value = [...draggedIds2DSignal.value, []];
-      }
     } else {
       const currentValues = (field[activeKey].value || []) as string[];
       const newValue = currentValues.filter(
@@ -399,47 +297,7 @@ export default function useHandleDragging() {
 
       setField(activeKey, newValue, !isEmpty);
       if (isEmpty) {
-        const bridgeAppsIndex = dapps.findIndex(
-          (dapp) => dapp.key === 'bridge_apps',
-        );
-        const gamingAppsIndex = dapps.findIndex(
-          (dapp) => dapp.key === 'gaming_apps',
-        );
         setDraggedFields(draggedFields.filter((field) => field !== activeKey));
-
-        if (activeKey === 'bridge_apps') {
-          const index = draggedDappIndexesSignal.value.indexOf(bridgeAppsIndex);
-
-          if (index !== -1) {
-            draggedDappIndexesSignal.value = removeItemAtIndex(
-              draggedDappIndexesSignal.value,
-              index,
-            );
-            draggedIds2DSignal.value = removeItemAtIndex(
-              draggedIds2DSignal.value,
-              index,
-            );
-            setRemovedNode(nodes[index + 1 + totalTemplateDapps]);
-            setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
-          }
-        }
-
-        if (activeKey === 'gaming_apps') {
-          const index = draggedDappIndexesSignal.value.indexOf(gamingAppsIndex);
-
-          if (index !== -1) {
-            draggedDappIndexesSignal.value = removeItemAtIndex(
-              draggedDappIndexesSignal.value,
-              index,
-            );
-            draggedIds2DSignal.value = removeItemAtIndex(
-              draggedIds2DSignal.value,
-              index,
-            );
-            setRemovedNode(nodes[index + 1 + totalTemplateDapps]);
-            setNodes(removeItemAtIndex(nodes, index + 1 + totalTemplateDapps));
-          }
-        }
       }
     }
   };
@@ -503,7 +361,7 @@ export default function useHandleDragging() {
 
     // Case 0.1: Drag to the block parent
     if (activeFromLeftSide && activeIsAChildOfABlock && overIsABlock) {
-      console.log('[useHandleDragging] Case 0.1');
+      console.log('[useHandleDragging] Case drag to the block parent');
 
       if (activeOriginalKey !== overOriginalKey) {
         showValidateError('Please drag to the same block!');
@@ -540,7 +398,7 @@ export default function useHandleDragging() {
 
     // Case 0.2: The child is dragged out of the block
     if (activeIsRightSide && overIsInput && activeIsAChildOfABlock) {
-      console.log('[useHandleDragging] Case 0.2');
+      console.log('[useHandleDragging] Case drag the child out of the block');
 
       const formDapp = cloneDeep(formDappSignal.value);
       const composedFieldKey = `right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${activeFieldKey}-${activeIndex}-${activeBaseIndex}`;
@@ -595,7 +453,9 @@ export default function useHandleDragging() {
 
     // Case 0.3: Drag to nested children of the module
     if (!overIsABase && overIsABlock && overOriginalKey) {
-      console.log('[useHandleDragging] Case 0.3');
+      console.log(
+        '[useHandleDragging] Case drag to the nested children of the module',
+      );
 
       const dappIndexOfOver = draggedDappIndexesSignal.value[overBaseIndex];
 
@@ -608,6 +468,10 @@ export default function useHandleDragging() {
 
       // Case 0.3.1: The lego just dragged is a type module
       if (activeIsAModule) {
+        console.log(
+          '[useHandleDragging] Case the lego just dragged is a type module',
+        );
+
         const totalPlaced = draggedIds2D[overBaseIndex].filter((item) =>
           item.name.startsWith(
             `right-${FieldKeyPrefix.MODULE}-${activeOriginalKey}`,
@@ -633,6 +497,10 @@ export default function useHandleDragging() {
         }
 
         if (isMultiple) {
+          console.log(
+            '[useHandleDragging] Case the lego just dragged is a type module and is multiple',
+          );
+
           const draggedFieldIndex = draggedIds2D[overBaseIndex].findIndex(
             (item) => item.name === composedFieldKey,
           );
@@ -659,6 +527,10 @@ export default function useHandleDragging() {
               },
             ];
           } else {
+            console.log(
+              '[useHandleDragging] Case the lego just dragged is a type module and is not multiple',
+            );
+
             const formKey = `${overBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-${draggedFieldIndex}`;
             const alreadyExist = (draggedField.value as string[]).find(
               (value) => value === active.data.current?.value,
@@ -722,6 +594,10 @@ export default function useHandleDragging() {
 
       // Case 0.3.2: The lego just dragged is a type block
       if (activeIsABlock) {
+        console.log(
+          '[useHandleDragging] Case the lego just dragged is a type block',
+        );
+
         const totalPlaced = activeIsABlock
           ? draggedIds2D[overBaseIndex].filter((item) =>
               item.name.startsWith(
@@ -779,20 +655,25 @@ export default function useHandleDragging() {
 
       // Case 0.3.3: The lego just dragged is a type base block
       if (activeIsABase) {
+        console.log(
+          '[useHandleDragging] Case the lego just dragged is a type base block',
+        );
+
         draggedIds2DSignal.value = [...draggedIds2D, []];
         draggedDappIndexesSignal.value = [
           ...draggedDappIndexesSignal.value,
           dappIndex,
         ];
-        // mouseDroppedPositionSignal.value = {
-        //   ...mousePositionRef.current,
-        // };
 
         return;
       }
 
       // Case 0.3.4: The lego just dragged is a type base module
       if (activeIsABaseModule) {
+        console.log(
+          '[useHandleDragging] Case the lego just dragged is a type base module',
+        );
+
         const totalPlaced = draggedDappIndexesSignal.value.filter(
           (index) => index === dappIndex,
         ).length;
@@ -827,9 +708,6 @@ export default function useHandleDragging() {
           FieldKeyPrefix.BASE_MODULE
         }-${activeOriginalKey}-0-0`;
 
-        // mouseDroppedPositionSignal.value = {
-        //   ...mousePositionRef.current,
-        // };
         formDappSignal.value = {
           ...formDappSignal.value,
           [formKey]: active.data.current?.value,
@@ -847,7 +725,7 @@ export default function useHandleDragging() {
 
     // Case 1: Drag to the right
     if (overIsOutput || overIsABase) {
-      console.log('[useHandleDragging] Case 1');
+      console.log('[useHandleDragging] Case drag to the right');
 
       // Case 1.1: Output does not have base block yet
       if (noBaseBlockInOutput && !(activeIsABase || activeIsABaseModule)) {
@@ -878,35 +756,41 @@ export default function useHandleDragging() {
 
       // Case 1.3: The lego just dragged already in the output
       if (activeFromRightSide) {
+        console.log(
+          '[useHandleDragging] Case the lego just dragged already in the output',
+        );
         return;
       }
 
       // Case 1.4: The lego just dragged is a base block
       if (activeIsABase) {
-        console.log('[useHandleDragging] Case 1.4', {
-          dappIndex,
-        });
+        console.log(
+          '[useHandleDragging] Case the lego just dragged is a base block',
+        );
 
         draggedIds2DSignal.value = [...draggedIds2D, []];
         draggedDappIndexesSignal.value = [
           ...draggedDappIndexesSignal.value,
           dappIndex,
         ];
-        // mouseDroppedPositionSignal.value = {
-        //   ...mousePositionRef.current,
-        // };
 
         return;
       }
 
       // Case 1.5: The lego just dragged is a base module
       if (activeIsABaseModule) {
+        console.log(
+          '[useHandleDragging] Case the lego just dragged is a base module',
+        );
+
         const totalPlaced = draggedDappIndexesSignal.value.filter(
           (index) => index === dappIndex,
         ).length;
-        // prettier-ignore
-        const canPlaceMoreBaseModule = baseModuleFieldMapping[dappIndex][activeOriginalKey].placableAmount === -1 ||
-          totalPlaced < baseModuleFieldMapping[dappIndex][activeOriginalKey].placableAmount;
+        const canPlaceMoreBaseModule =
+          baseModuleFieldMapping[dappIndex][activeOriginalKey]
+            .placableAmount === -1 ||
+          totalPlaced <
+            baseModuleFieldMapping[dappIndex][activeOriginalKey].placableAmount;
         const composedFieldKey =
           'right-' + FieldKeyPrefix.BASE_MODULE + '-' + activeOriginalKey;
 
@@ -935,9 +819,6 @@ export default function useHandleDragging() {
           FieldKeyPrefix.BASE_MODULE
         }-${activeOriginalKey}-0-0`;
 
-        // mouseDroppedPositionSignal.value = {
-        //   ...mousePositionRef.current,
-        // };
         formDappSignal.value = {
           ...formDappSignal.value,
           [formKey]: active.data.current?.value,

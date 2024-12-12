@@ -58,7 +58,6 @@ export default function useNodeFlowControl() {
   const {
     transform: [transformX, transformY, zoomLevel],
   } = store.getState();
-  const { isAAInstalled } = useChainProvider();
 
   const [dragState, setDragState] = React.useState<{
     oneD: [number];
@@ -102,7 +101,6 @@ export default function useNodeFlowControl() {
       setNodes(newNodes);
       resetDragState();
     } else if (!dragState.twoD.every((v) => v === -1)) {
-      // handleAddBox();
     }
   };
 
@@ -112,8 +110,6 @@ export default function useNodeFlowControl() {
     const accountAbstractionIndex = dapps.findIndex(
       (dapp) => dapp.key === 'general_idea',
     );
-
-    console.log('[useNodeFlowControl]', { nodes });
 
     needReactFlowRenderSignal.value = true;
 
@@ -125,81 +121,78 @@ export default function useNodeFlowControl() {
 
     // needReactFlowRenderSignal.value = true;
 
-    if (
-      draggedDappIndexesValue.includes(accountAbstractionIndex) &&
-      isAAInstalled
-    ) {
-      if (!nodes.some((node) => node.id === 'general_idea')) {
-        const rootNode = 'blockchain';
-        const thisDapp = createAgentGeneralIdeaAsBrainstorm;
-        const category = categories?.find((category) =>
-          category.options.some(
-            (option) => option.key === dappKeyToChainKey(thisDapp.key),
-          ),
-        );
-        const categoryOption = category?.options.find(
-          (option) => option.key === dappKeyToChainKey(thisDapp.key),
-        );
-        let nodesData = nodes;
-        const newNodeId = 'general_idea';
-        const newNode: DappNode = {
-          id: newNodeId,
-          type: dappKeyToNodeKey(thisDapp.key),
-          dragHandle: '.drag-handle-area',
-          position: { x: 950, y: 30 },
-          data: {
-            node: 'dapp',
-            title: thisDapp.title,
-            dapp: thisDapp,
-            baseIndex: draggedIds2D.length - 1,
-            categoryOption: categoryOption as IModelOption,
-            ids: draggedIds2D[draggedIds2D.length - 1],
-            // targetHandles: [`general_idea-t-${rootNode}`],
-            targetHandles: [],
-            sourceHandles: [`general_idea-t-${rootNode}`],
-            // sourceHandles: [],
-          },
-        };
-        setNodes([...nodesData, newNode]);
-        setEdges([
-          ...edges,
-          {
-            // id: `${edges.length + 1}`,
-            id: `${Math.random()}`,
-            source: rootNode,
-            sourceHandle: `${rootNode}-s-general_idea`,
-            // target: `${newNodeId}`,
-            target: `general_idea`,
-            targetHandle: `general_idea-t-${rootNode}`,
-            type: 'customEdge',
-            selectable: false,
-            selected: false,
-            focusable: false,
-            label: handleStatusEdges('', lineAAStatus, 'general_idea').icon,
-            animated: handleStatusEdges('', lineAAStatus, 'general_idea')
-              .animate,
-            markerEnd: {
-              type: MarkerType.Arrow,
-              width: 20,
-              height: 20,
-              strokeWidth: 1,
-              color: '#AAAAAA',
-            },
-            style: {
-              stroke: '#AAAAAA',
-              strokeWidth: 2,
-            },
-          },
-        ]);
-        needReactFlowRenderSignal.value = true;
-      }
-    }
+    // if (
+    //   draggedDappIndexesValue.includes(accountAbstractionIndex) &&
+    //   isAAInstalled
+    // ) {
+    //   if (!nodes.some((node) => node.id === 'general_idea')) {
+    //     const rootNode = 'blockchain';
+    //     const thisDapp = createAgentGeneralIdeaAsBrainstorm;
+    //     const category = categories?.find((category) =>
+    //       category.options.some(
+    //         (option) => option.key === dappKeyToChainKey(thisDapp.key),
+    //       ),
+    //     );
+    //     const categoryOption = category?.options.find(
+    //       (option) => option.key === dappKeyToChainKey(thisDapp.key),
+    //     );
+    //     let nodesData = nodes;
+    //     const newNodeId = 'general_idea';
+    //     const newNode: DappNode = {
+    //       id: newNodeId,
+    //       type: dappKeyToNodeKey(thisDapp.key),
+    //       dragHandle: '.drag-handle-area',
+    //       position: { x: 950, y: 30 },
+    //       data: {
+    //         node: 'dapp',
+    //         title: thisDapp.title,
+    //         dapp: thisDapp,
+    //         baseIndex: draggedIds2D.length - 1,
+    //         categoryOption: categoryOption as IModelOption,
+    //         ids: draggedIds2D[draggedIds2D.length - 1],
+    //         // targetHandles: [`general_idea-t-${rootNode}`],
+    //         targetHandles: [],
+    //         sourceHandles: [`general_idea-t-${rootNode}`],
+    //         // sourceHandles: [],
+    //       },
+    //     };
+    //     setNodes([...nodesData, newNode]);
+    //     setEdges([
+    //       ...edges,
+    //       {
+    //         // id: `${edges.length + 1}`,
+    //         id: `${Math.random()}`,
+    //         source: rootNode,
+    //         sourceHandle: `${rootNode}-s-general_idea`,
+    //         // target: `${newNodeId}`,
+    //         target: `general_idea`,
+    //         targetHandle: `general_idea-t-${rootNode}`,
+    //         type: 'customEdge',
+    //         selectable: false,
+    //         selected: false,
+    //         focusable: false,
+    //         label: handleStatusEdges('', lineAAStatus, 'general_idea').icon,
+    //         animated: handleStatusEdges('', lineAAStatus, 'general_idea')
+    //           .animate,
+    //         markerEnd: {
+    //           type: MarkerType.Arrow,
+    //           width: 20,
+    //           height: 20,
+    //           strokeWidth: 1,
+    //           color: '#AAAAAA',
+    //         },
+    //         style: {
+    //           stroke: '#AAAAAA',
+    //           strokeWidth: 2,
+    //         },
+    //       },
+    //     ]);
+    //     needReactFlowRenderSignal.value = true;
+    //   }
+    // }
 
     if (draggedIds2DSignal.value.length === draggedIds2D.length) {
-      console.log('[useNodeFlowControl] draggedIds2DSignal.value', {
-        draggedIds2DSignal: draggedIds2DSignal.value,
-        draggedIds2D,
-      });
+      console.log('[useNodeFlowControl] Case update');
       for (let i = 0; i < draggedIds2DSignal.value.length; i++) {
         if (!isTwoObjectEqual(draggedIds2DSignal.value[i], draggedIds2D[i])) {
           setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
@@ -216,6 +209,7 @@ export default function useNodeFlowControl() {
       draggedIds2DSignal.value.length > draggedIds2D.length &&
       isDragging
     ) {
+      console.log('[useNodeFlowControl] Case add box');
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
       setDragState({
         oneD: [-1],
@@ -225,6 +219,7 @@ export default function useNodeFlowControl() {
       });
       setIsDragging(false);
     } else {
+      console.log('[useNodeFlowControl] Case update');
       setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
     }
   });
@@ -237,9 +232,10 @@ export default function useNodeFlowControl() {
     const dappIndex = draggedDappIndexesSignal.value[draggedIds2D.length - 1];
     const thisDapp = dapps[dappIndex];
 
-    console.log('[useNodeFlowControl] thisDapp', { thisDapp });
+    console.log('[useNodeFlowControl] start add box', { thisDapp });
 
     if (!thisDapp) {
+      console.log('[useNodeFlowControl] end add box Case not found dapp');
       needReactFlowRenderSignal.value = true;
       resetDragState();
       return;
@@ -254,8 +250,6 @@ export default function useNodeFlowControl() {
     const categoryOption = category?.options.find(
       (option) => option.key === dappKeyToChainKey(thisDapp.key),
     );
-
-    console.log('[useNodeFlowControl] categoryOption', { categoryOption });
 
     if (!categoryOption && !thisDapp.isDefaultDapp) {
       needReactFlowRenderSignal.value = true;
@@ -327,6 +321,7 @@ export default function useNodeFlowControl() {
     if (nodes.some((node) => node.id === newNodeId)) {
       needReactFlowRenderSignal.value = true;
       resetDragState();
+      console.log('[useNodeFlowControl] end add box Case duplicate');
       return;
     }
 
@@ -378,11 +373,12 @@ export default function useNodeFlowControl() {
         },
       },
     ]);
+
     needReactFlowRenderSignal.value = true;
     resetDragState();
+
+    console.log('[useNodeFlowControl] end add box');
   };
 
-  return {
-    handleAddBox,
-  };
+  return null;
 }

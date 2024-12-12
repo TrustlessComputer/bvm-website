@@ -356,17 +356,7 @@ export const useChainProvider = () => {
   };
 
   const isAAInstalled = useMemo(
-    () => !!order?.selectedOptions?.some((opt) => opt.key === 'wallet'),
-    [order?.selectedOptions],
-  );
-
-  const isGamingAppsInstalled = useMemo(
-    () => !!order?.selectedOptions?.some((opt) => opt.key === 'gaming_apps'),
-    [order?.selectedOptions],
-  );
-
-  const isBridgeInstalled = useMemo(
-    () => !!order?.selectedOptions?.some((opt) => opt.key === 'bridge_apps'),
+    () => !!order?.selectedOptions?.some((opt) => opt.key === 'create_agent'),
     [order?.selectedOptions],
   );
 
@@ -382,8 +372,6 @@ export const useChainProvider = () => {
     isBlockChainReady,
     selectedCategoryMapping,
     isAAInstalled,
-    isGamingAppsInstalled,
-    isBridgeInstalled,
     isOwnerChain,
     isInsufficientBalance,
     textCTA,

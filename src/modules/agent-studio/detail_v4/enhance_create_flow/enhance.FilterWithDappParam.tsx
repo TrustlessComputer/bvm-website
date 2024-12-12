@@ -19,8 +19,6 @@ const enhanceFilterWithDappParam =
     const dappParam = searchParams.get('dapp');
     const templateParam = searchParams.get('template') || '-1';
 
-    console.log('[enhanceFilterWithDappParam] dappParam', dappParam);
-
     const [isInitFinish, setInitFinish] = useState(false);
 
     useEffect(() => {

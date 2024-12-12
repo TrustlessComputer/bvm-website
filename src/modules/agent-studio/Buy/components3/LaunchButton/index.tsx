@@ -3,6 +3,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import useL2Service from '@/hooks/useL2Service';
 import useSubmitStaking from '@/modules/agent-studio/Buy/components3/LaunchButton/onSubmitStaking';
+import useSubmitWalletType from '@/modules/agent-studio/Buy/components3/LaunchButton/onSubmitWalletType';
+import useSubmitWhitePaper from '@/modules/agent-studio/Buy/components3/LaunchButton/onSubmitWhitePaper';
+import useSubmitYoloGame from '@/modules/agent-studio/Buy/components3/LaunchButton/onSubmitYoloGame';
 import useModelCategoriesStore from '@/modules/agent-studio/Buy/stores/useModelCategoriesStore';
 import TopupModal from '@/modules/agent-studio/components/TopupModa_V2';
 import { DappType } from '@/modules/agent-studio/dapp/types';
@@ -26,6 +29,7 @@ import { getErrorMessage } from '@/utils/errorV2';
 import { formatCurrencyV2 } from '@/utils/format';
 import sleep from '@/utils/sleep';
 import { Image, Spinner, Text, useDisclosure } from '@chakra-ui/react';
+import BigNumber from 'bignumber.js';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { getChainIDRandom } from '../../Buy.helpers';
@@ -39,33 +43,13 @@ import useOrderFormStoreV3 from '../../stores/index_v3';
 import useFlowStore from '../../stores/useFlowStore';
 import useUpdateFlowStore from '../../stores/useUpdateFlowStore';
 import { chainKeyToDappKey } from '../../utils';
+import { useComputerNameInputStore } from '../ComputerNameInput/ComputerNameInputStore';
 import ErrorModal from '../ErrorModal';
 import { formValuesAdapter } from './FormValuesAdapter';
 import { formValuesAdapterOptions } from './formValuesAdapterOptions';
 import useSubmitFormAirdrop from './onSubmitFormAirdrop';
 import s from './styles.module.scss';
 import useSubmitFormTokenGeneration from './useSubmitFormTokenGeneration';
-import useSubmitYoloGame from '@/modules/agent-studio/Buy/components3/LaunchButton/onSubmitYoloGame';
-import useSubmitWalletType from '@/modules/agent-studio/Buy/components3/LaunchButton/onSubmitWalletType';
-import { useComputerNameInputStore } from '../ComputerNameInput/ComputerNameInputStore';
-import BigNumber from 'bignumber.js';
-import useSubmitWhitePaper from '@/modules/agent-studio/Buy/components3/LaunchButton/onSubmitWhitePaper';
-
-const isExistIssueTokenDApp = (dyanmicFormAllData: any[]): boolean => {
-  const inssueTokenDappList = dyanmicFormAllData
-    .filter((item: any) => !item.isChain)
-    .filter(
-      (dapp: any) => dapp.options[0].key?.toLowerCase() === 'create_token',
-    );
-
-  const isExistIssueTokenDApp =
-    inssueTokenDappList && inssueTokenDappList.length > 0;
-
-  console.log('inssueTokenDappList ----- ', inssueTokenDappList);
-  console.log('isExistIssueTokenDApp ----- ', isExistIssueTokenDApp);
-
-  return isExistIssueTokenDApp;
-};
 
 const isExistAA = (dyanmicFormAllData: any[]): boolean => {
   const isExistAAList = dyanmicFormAllData
@@ -218,7 +202,7 @@ const LaunchButton = ({ isUpdate }: { isUpdate?: boolean }) => {
         optionMapping: {},
       };
 
-    const ignoreFields = ['bridge_apps', 'gaming_apps'];
+    const ignoreFields: string[] = [];
     const dynamicForm = [];
     const optionMapping: Record<string, IModelOption> = {};
     const allOptionKeyDragged: string[] = [];

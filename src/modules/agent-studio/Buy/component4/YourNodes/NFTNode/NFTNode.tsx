@@ -43,7 +43,7 @@ const NFTNode = ({ data, id }: NodeProps<DappNodeProps>) => {
     setPersonalityStr,
   } = useNFTStore();
   const nFTStore = useNFTStore();
-  console.log('nFTStore --- ', nFTStore);
+  // console.log('nFTStore --- ', nFTStore);
 
   const [draggedDappIndexes, setDraggedDappIndexes] = React.useState<number[]>(
     [],
