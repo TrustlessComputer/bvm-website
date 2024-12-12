@@ -67,6 +67,8 @@ export const AgentStudioDataProvider: React.FC<PropsWithChildren> = ({
     templateList,
   };
 
+  console.log('FUCK ', values);
+
   return (
     <AgentStudioDataContext.Provider value={values}>
       {children}
