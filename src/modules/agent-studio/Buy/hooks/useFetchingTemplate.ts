@@ -4,31 +4,18 @@ import useTemplate from '@/modules/agent-studio/Buy/hooks/useTemplate';
 import useOrderFormStoreV3 from '@/modules/agent-studio/Buy/stores/index_v3';
 import useFirstLoadTemplateBoxStore from '@/modules/agent-studio/Buy/stores/useFirstLoadTemplateBoxStore';
 import useModelCategoriesStore from '@/modules/agent-studio/Buy/stores/useModelCategoriesStore';
-import { parseWalletType } from '@/modules/agent-studio/dapp/parseUtils/wallet-type';
-import { parseWhitePapers } from '@/modules/agent-studio/dapp/parseUtils/whitePaper';
-import { parseYoloGames } from '@/modules/agent-studio/dapp/parseUtils/yologame';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { getModelCategories, getTemplates } from '@/services/agent-model';
-import { IAirdrop } from '@/services/api/dapp/airdrop/interface';
-import { IToken } from '@/services/api/dapp/token_generation/interface';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import { dappSelector } from '@/stores/states/dapp/selector';
-import { BlockModel, DappModel, IModelCategory } from '@/types/customize-model';
-import { compareString } from '@/utils/string';
-import handleStatusEdges from '@utils/helpers';
-import { Edge, MarkerType } from '@xyflow/react';
+import { BlockModel, IModelCategory } from '@/types/customize-model';
+import { Edge } from '@xyflow/react';
 import { usePathname } from 'next/navigation';
 import React from 'react';
-import { parseAirdrop } from '../../dapp/parseUtils/airdrop';
-import { parseIssuedToken } from '../../dapp/parseUtils/issue-token';
-import { parseStakingPools } from '../../dapp/parseUtils/staking';
 import { useChainProvider } from '../../detail_v4/provider/ChainProvider.hook';
-import { parseDappModel } from '../../utils';
 import {
   draggedDappIndexesSignal,
   draggedIds2DSignal,
-  isRenderedInUpdateFlowSignal,
   templateIds2DSignal,
 } from '../signals/useDragSignal';
 import {
@@ -36,17 +23,19 @@ import {
   formTemplateDappSignal,
 } from '../signals/useFormDappsSignal';
 import useDappsStore, { useTemplateFormStore } from '../stores/useDappStore';
-import useFlowStore, { AppNode, AppState } from '../stores/useFlowStore';
+import useFlowStore, { AppNode } from '../stores/useFlowStore';
 import useUpdateFlowStore from '../stores/useUpdateFlowStore';
 import useStudioInfo from '../studio/ActionsWorkArea/useStudioInfo';
 import { needReactFlowRenderSignal } from '../studio/ReactFlowRender';
 import useAvailableListTemplate from '../studio/useAvailableListTemplate';
 import useModelCategory from '../studio/useModelCategory';
-import { DappType } from '../types';
 import { cloneDeep, FormDappUtil } from '../utils';
 import useNodeHelper from './useNodeHelper';
+import { useAgentStudioDataProvider } from '../../providers/AgentStudioDataProvider.hook';
 
 export default function useFetchingTemplate() {
+  const { modelCategoryList, templateList } = useAgentStudioDataProvider();
+
   const path = usePathname();
 
   const dapps = useDappsStore((state) => state.dapps);
@@ -79,7 +68,7 @@ export default function useFetchingTemplate() {
   const field = useOrderFormStoreV3((state) => state.field);
   const setFields = useOrderFormStoreV3((state) => state.setFields);
 
-  const modelCategoryList = useModelCategory().modelCategoryList;
+  // const modelCategoryList = useModelCategory().modelCategoryList;
 
   const { setUpdated, updated } = useUpdateFlowStore();
   const { setIsFirstLoadTemplateBox } = useFirstLoadTemplateBoxStore();
@@ -89,11 +78,8 @@ export default function useFetchingTemplate() {
   const { getChainNode, getChainNodeId } = useNodeHelper();
   const { order, isAAInstalled, isBridgeInstalled, isGamingAppsInstalled } =
     useChainProvider();
-  const { templateList, templateDefault } = useAvailableListTemplate();
+  const { templateDefault } = useAvailableListTemplate();
   const { counterFetchedDapp } = useAppSelector(commonSelector);
-  const dappState = useAppSelector(dappSelector);
-  const { tokens, airdrops, stakingPools, yoloGames, walletType, whitePapers } =
-    dappState;
 
   const [needSetDataTemplateToBox, setNeedSetDataTemplateToBox] =
     React.useState(false);
@@ -128,7 +114,8 @@ export default function useFetchingTemplate() {
       getModelCategories(l2ServiceUserAddress),
       getTemplates(),
     ]);
-    const sortedCategories = [...modelCategoryList];
+
+    const sortedCategories: IModelCategory[] = [...modelCategoryList];
 
     sortedCategories.forEach((_field) => {
       newFields[_field.key] = {
@@ -223,104 +210,98 @@ export default function useFetchingTemplate() {
       };
     });
 
-    const setDappKeys = new Set(templateDapps.map((dapp) => dapp.key));
-    const allDappKeys = Array.from(setDappKeys);
-    const xOffsetCount = allDappKeys.reduce((acc, key) => {
-      acc[key] = 1;
-      return acc;
-    }, {} as Record<string, number>);
-    const getHandleNodeBlockChain = newNodes.find(
-      (item) => item.id === getChainNodeId(),
-    );
+    // const setDappKeys = new Set(templateDapps.map((dapp) => dapp.key));
+    // const allDappKeys = Array.from(setDappKeys);
+    // const xOffsetCount = allDappKeys.reduce((acc, key) => {
+    //   acc[key] = 1;
+    //   return acc;
+    // }, {} as Record<string, number>);
+    // const getHandleNodeBlockChain = newNodes.find(
+    //   (item) => item.id === getChainNodeId(),
+    // );
 
     let nodesData = nodes;
     let edgeData: Edge[] = [];
 
-    const _newNodes: any[] = draggedIds2D.map((ids, index) => {
-      const dappKey = templateDapps[index].key;
-      const statusDapp = templateDapps[index].label?.status || '';
-      const titleStatusDapp = templateDapps[index].label?.title || '';
+    // const _newNodes: any[] = draggedIds2D.map((ids, index) => {
+    // const dappKey = templateDapps[index].key;
+    // const statusDapp = templateDapps[index].label?.status || '';
+    // const titleStatusDapp = templateDapps[index].label?.title || '';
 
-      const thisNode = [
-        ...tokens,
-        ...airdrops,
-        ...stakingPools,
-        ...yoloGames,
-        ...whitePapers,
-      ][index];
-      const defaultPositionX =
-        50 * (xOffsetCount[dappKey] - 1) + 500 * xOffsetCount[dappKey]++;
-      const defaultPositionY = 30 + 500 * (allDappKeys.indexOf(dappKey) + 1);
-      // const xOffset = thisNode?.position_x ?? defaultPositionX;
-      const xOffset = defaultPositionX;
-      // const yOffset = thisNode?.position_y ?? defaultPositionY;
-      const yOffset = defaultPositionY;
-      const idNode = index.toString();
-      const isHandleExists = getHandleNodeBlockChain?.data?.sourceHandles?.some(
-        (handle) =>
-          handle === `${getChainNodeId()}-s-${templateDapps[index].title}`,
-      );
+    // const thisNode = [][index];
+    // const defaultPositionX =
+    //   50 * (xOffsetCount[dappKey] - 1) + 500 * xOffsetCount[dappKey]++;
+    // const defaultPositionY = 30 + 500 * (allDappKeys.indexOf(dappKey) + 1);
+    // // const xOffset = thisNode?.position_x ?? defaultPositionX;
+    // const xOffset = defaultPositionX;
+    // // const yOffset = thisNode?.position_y ?? defaultPositionY;
+    // const yOffset = defaultPositionY;
+    // const idNode = index.toString();
+    // const isHandleExists = getHandleNodeBlockChain?.data?.sourceHandles?.some(
+    //   (handle) =>
+    //     handle === `${getChainNodeId()}-s-${templateDapps[index].title}`,
+    // );
 
-      if (!isHandleExists) {
-        getHandleNodeBlockChain?.data?.sourceHandles?.push(
-          `${getChainNodeId()}-s-${templateDapps[index].title}`,
-        );
+    // if (!isHandleExists) {
+    //   getHandleNodeBlockChain?.data?.sourceHandles?.push(
+    //     `${getChainNodeId()}-s-${templateDapps[index].title}`,
+    //   );
 
-        nodesData = newNodes.map((item) =>
-          item.id === getChainNodeId() ? getHandleNodeBlockChain : item,
-        ) as AppState['nodes'];
-      }
+    //   nodesData = newNodes.map((item) =>
+    //     item.id === getChainNodeId() ? getHandleNodeBlockChain : item,
+    //   ) as AppState['nodes'];
+    // }
 
-      edgeData.push({
-        id: `${Math.random()}`,
-        source: getChainNodeId(),
-        sourceHandle: `${getChainNodeId()}-s-${templateDapps[index].title}`,
-        target: `${idNode}`,
-        targetHandle: `${idNode}-t-${getChainNodeId()}`,
-        type: 'customEdge',
-        label: handleStatusEdges(statusDapp, 'running', idNode).icon,
-        animated: handleStatusEdges(statusDapp, 'running', idNode).animate,
-        selectable: false,
-        selected: false,
-        focusable: false,
-        markerEnd: {
-          type: MarkerType.Arrow,
-          width: 20,
-          height: 20,
-          strokeWidth: 1,
-          color: '#AAAAAA',
-        },
-        style: {
-          stroke: '#AAAAAA',
-          strokeWidth: 2,
-        },
-      });
+    // edgeData.push({
+    //   id: `${Math.random()}`,
+    //   source: getChainNodeId(),
+    //   sourceHandle: `${getChainNodeId()}-s-${templateDapps[index].title}`,
+    //   target: `${idNode}`,
+    //   targetHandle: `${idNode}-t-${getChainNodeId()}`,
+    //   type: 'customEdge',
+    //   label: handleStatusEdges(statusDapp, 'running', idNode).icon,
+    //   animated: handleStatusEdges(statusDapp, 'running', idNode).animate,
+    //   selectable: false,
+    //   selected: false,
+    //   focusable: false,
+    //   markerEnd: {
+    //     type: MarkerType.Arrow,
+    //     width: 20,
+    //     height: 20,
+    //     strokeWidth: 1,
+    //     color: '#AAAAAA',
+    //   },
+    //   style: {
+    //     stroke: '#AAAAAA',
+    //     strokeWidth: 2,
+    //   },
+    // });
 
-      return {
-        id: idNode,
-        type: 'dappTemplate',
-        dragHandle: '.drag-handle-area',
-        data: {
-          node: 'template',
-          label: templateDapps[index].title,
-          status: titleStatusDapp,
-          isChain: false,
-          dapp: templateDapps[index],
-          ids,
-          baseIndex: index,
-          // targetHandles: [`${idNode}-t-${getChainNodeId()}`],
-          targetHandles: [],
-          sourceHandles: [`${idNode}-t-${getChainNodeId()}`],
-          // sourceHandles: [],
-          itemId: thisNode?.id,
-          positionId: thisNode?.position_id,
-        },
-        position: { x: xOffset, y: yOffset },
-      };
-    });
+    // return {
+    //   id: idNode,
+    //   type: 'dappTemplate',
+    //   dragHandle: '.drag-handle-area',
+    //   data: {
+    //     node: 'template',
+    //     label: templateDapps[index].title,
+    //     status: titleStatusDapp,
+    //     isChain: false,
+    //     dapp: templateDapps[index],
+    //     ids,
+    //     baseIndex: index,
+    //     // targetHandles: [`${idNode}-t-${getChainNodeId()}`],
+    //     targetHandles: [],
+    //     sourceHandles: [`${idNode}-t-${getChainNodeId()}`],
+    //     // sourceHandles: [],
+    //     itemId: thisNode?.id,
+    //     positionId: thisNode?.position_id,
+    //   },
+    //   position: { x: xOffset, y: yOffset },
+    // };
+    // });
 
     const map: any = {};
-    for (const element of [...newNodes, ...nodesData, ..._newNodes]) {
+    for (const element of [...newNodes, ...nodesData]) {
       map[element.id] = element;
     }
     const newArray = Object.values(map) as AppNode[];
@@ -341,114 +322,7 @@ export default function useFetchingTemplate() {
 
   const parseDappApiToDappModel = async () => {
     console.log('PARSE DAPP API TO DAPP MODEL');
-
-    let startIndex = 0;
-
-    const parsedTokensData = parseTokensData(tokens);
-    const parsedTokensForm = parseDappModel({
-      key: DappType.token_generation,
-      model: parsedTokensData,
-      startIndex: startIndex,
-    });
-
-    startIndex += parsedTokensData.length;
-    const parsedAirdropsData = await parseAirdropsData(airdrops, tokens);
-    const parsedAirdropsForm = parseDappModel({
-      key: DappType.airdrop,
-      model: parsedAirdropsData,
-      startIndex: startIndex,
-    });
-
-    startIndex += parsedAirdropsData.length;
-    const parsedStakingPoolsData = parseStakingPools(stakingPools);
-    const parsedStakingPoolsForm = parseDappModel({
-      key: DappType.staking,
-      model: parsedStakingPoolsData,
-      startIndex: startIndex,
-    });
-
-    startIndex += parsedStakingPoolsData.length;
-    const parsedYoloGameData = parseYoloGames(yoloGames);
-    const parsedYoloGameForm = parseDappModel({
-      key: DappType.yologame,
-      model: parsedYoloGameData,
-      startIndex: startIndex,
-    });
-
-    startIndex += yoloGames.length;
-    const parsedWalletData = walletType ? parseWalletType(walletType) : [];
-    const parsedWalletForm = walletType
-      ? parseDappModel({
-          key: DappType.walletType,
-          model: parsedWalletData,
-          startIndex: startIndex,
-        })
-      : {};
-
-    startIndex += parsedYoloGameData.length;
-    const parsedWhitePaperData = parseWhitePapers(whitePapers);
-    const parsedWhitePaperForm = parseDappModel({
-      key: DappType.white_paper,
-      model: parsedWhitePaperData,
-      startIndex: startIndex,
-    });
-
-    console.log('[useFetchingTemplate] parsedTokensData', {
-      tokens,
-      airdrops,
-      stakingPools,
-      parsedWalletData,
-      yoloGames,
-      whitePapers,
-    });
-
-    setTemplateDapps([
-      ...parsedTokensData,
-      ...parsedAirdropsData,
-      ...parsedStakingPoolsData,
-      ...parsedYoloGameData,
-      ...parsedWalletData,
-      ...parsedWhitePaperData,
-    ]);
-    setTemplateForm({
-      ...parsedTokensForm.fieldValue,
-      ...parsedAirdropsForm.fieldValue,
-      ...parsedStakingPoolsForm.fieldValue,
-      ...parsedYoloGameForm.fieldValue,
-      ...((parsedWalletForm as any)?.fieldValue || {}),
-      ...parsedWhitePaperForm.fieldValue,
-    } as any);
-
     setNeedSetDataTemplateToBox(true);
-  };
-
-  const parseTokensData = (tokens: IToken[]) => {
-    const result: DappModel[] = [];
-
-    for (const token of tokens) {
-      const t = parseIssuedToken(token);
-      result.push(t);
-    }
-
-    return result;
-  };
-
-  const parseAirdropsData = async (
-    _airdrops: IAirdrop[],
-    _tokens: IToken[],
-  ) => {
-    const result: DappModel[] = [];
-
-    for (const airdrop of _airdrops) {
-      const _token = tokens.find((v: IToken) =>
-        compareString(v.contract_address, airdrop.token_address),
-      );
-
-      const t = await parseAirdrop(airdrop, _token as IToken);
-      result.push(t);
-    }
-
-    return result;
   };
 
   const checkAndAddAA = () => {
@@ -465,22 +339,6 @@ export default function useFetchingTemplate() {
       newDraggedDappIndexes.push(dappIndex);
       newDraggedIds2D.push([]);
     }
-
-    if (isBridgeInstalled) {
-      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'bridge_apps');
-      newDraggedDappIndexes.push(dappIndex);
-      newDraggedIds2D.push([]);
-    }
-
-    if (isGamingAppsInstalled) {
-      const dappIndex = dapps.findIndex((dapp) => dapp.key === 'gaming_apps');
-      newDraggedDappIndexes.push(dappIndex);
-      newDraggedIds2D.push([]);
-    }
-
-    draggedDappIndexesSignal.value = newDraggedDappIndexes;
-    draggedIds2DSignal.value = newDraggedIds2D;
-    isRenderedInUpdateFlowSignal.value = true;
 
     setNeedCheckAndAddAA(false);
   };

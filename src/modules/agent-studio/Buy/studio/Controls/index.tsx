@@ -12,6 +12,7 @@ import { formatCurrencyV2 } from '@utils/format';
 import { compareString } from '@utils/string';
 import React, { memo } from 'react';
 import useDapps from '../../hooks/useDapps';
+import { useIsFormHasSocial } from '../../hooks/useFormChain';
 import {
   createAgentGeneralIdeaAsBrainstorm,
   createAgentNftEtherAsBrainstorm,
@@ -20,7 +21,7 @@ import {
 } from '../../mockup_3';
 import { chainKeyToDappKey, isChainOptionDisabled } from '../../utils';
 import useStudioInfo from '../ActionsWorkArea/useStudioInfo';
-import useFormChain, { useIsFormHasSocial } from '../../hooks/useFormChain';
+import { useSignalEffect } from '@preact/signals-react';
 
 const ignoreFields: string[] = [];
 const shouldGenFields: string[] = ['mission'];
@@ -41,6 +42,10 @@ export default memo(function StudioControls() {
     () => field['network']?.value as string,
     [field['network']?.value],
   );
+
+  const [selectedAgent, setSelectedAgent] = React.useState(-1);
+
+  useSignalEffect(() => {});
 
   return (
     <div id={'wrapper-data'} className={s.left_box_inner_content}>
@@ -72,9 +77,6 @@ export default memo(function StudioControls() {
                       info={{
                         ...item.options[0],
                         disabled: false,
-                        // item.disable ||
-                        // !item.options[0].selectable ||
-                        // isChainOptionDisabled(field, item, item.options[0]),
                         title: '',
                         description: {
                           title: item.options[0].title,
@@ -91,9 +93,6 @@ export default memo(function StudioControls() {
                       info={{
                         ...item.options[1],
                         disabled: false,
-                        // item.disable ||
-                        // !item.options[0].selectable ||
-                        // isChainOptionDisabled(field, item, item.options[0]),
                         title: '',
                         description: {
                           title: item.options[1].title,
@@ -102,7 +101,7 @@ export default memo(function StudioControls() {
                       }}
                       thisDapp={nftEtherDapp}
                       key={nftEtherDapp.key}
-                      dappIndex={0}
+                      dappIndex={1}
                       className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
                     />
 
@@ -110,9 +109,6 @@ export default memo(function StudioControls() {
                       info={{
                         ...item.options[3],
                         disabled: false,
-                        // item.disable ||
-                        // !item.options[0].selectable ||
-                        // isChainOptionDisabled(field, item, item.options[0]),
                         title: '',
                         description: {
                           title: item.options[3].title,
@@ -121,7 +117,7 @@ export default memo(function StudioControls() {
                       }}
                       thisDapp={tokensPump}
                       key={tokensPump.key}
-                      dappIndex={0}
+                      dappIndex={3}
                       className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
                     />
 
@@ -129,9 +125,6 @@ export default memo(function StudioControls() {
                       info={{
                         ...item.options[2],
                         disabled: false,
-                        // item.disable ||
-                        // !item.options[0].selectable ||
-                        // isChainOptionDisabled(field, item, item.options[0]),
                         title: '',
                         description: {
                           title: item.options[2].title,
@@ -140,7 +133,7 @@ export default memo(function StudioControls() {
                       }}
                       thisDapp={nftOrdinalBTC}
                       key={nftOrdinalBTC.key}
-                      dappIndex={0}
+                      dappIndex={2}
                       className={`${s.dappBoxOption} ${s.dappBoxOption_wallet}`}
                     />
                   </BoxOptionV3>

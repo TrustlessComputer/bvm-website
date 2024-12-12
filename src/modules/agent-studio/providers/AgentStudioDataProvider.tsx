@@ -1,8 +1,8 @@
-import { IModelCategory, ITemplate } from '@/types/customize-model';
+import { IModelCategory } from '@/types/customize-model';
 import { PropsWithChildren, createContext, useEffect, useState } from 'react';
 
 export interface IAgentStudioDataContext {
-  templateList: ITemplate[];
+  templateList: IModelCategory[][];
   modelCategoryList: IModelCategory[];
 }
 
@@ -15,7 +15,7 @@ export const AgentStudioDataProvider: React.FC<PropsWithChildren> = ({
   children,
 }: PropsWithChildren): React.ReactElement => {
   const [isFetching, setFetching] = useState(false);
-  const [templateList, setTemplateList] = useState<ITemplate[]>([]);
+  const [templateList, setTemplateList] = useState<IModelCategory[][]>([]);
   const [modelCategoryList, setModelCategoryList] = useState<IModelCategory[]>(
     [],
   );
@@ -24,7 +24,7 @@ export const AgentStudioDataProvider: React.FC<PropsWithChildren> = ({
     let dataList: IModelCategory[] = [];
     try {
       const data = await fetch(
-        `https://l2aas-api.newbitcoincity.com/api/order/available-list-v3`,
+        `https://l2aas-api.newbitcoincity.com/api/agent/available-list`,
       ).then((res) => res.json());
       dataList = data.result || [];
     } catch (error) {
@@ -36,7 +36,7 @@ export const AgentStudioDataProvider: React.FC<PropsWithChildren> = ({
   };
 
   const fetchTemplateList = async () => {
-    let dataList: ITemplate[] = [];
+    let dataList: IModelCategory[][] = [];
     try {
       const data = await fetch(
         'https://l2aas-api.newbitcoincity.com/api/agent/available-list-template',

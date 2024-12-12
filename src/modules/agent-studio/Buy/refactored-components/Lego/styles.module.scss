@@ -1,0 +1,73 @@
+.lego {
+  position: relative;
+  border-radius: 4px;
+  padding: 5px;
+  display: flex;
+  min-width: 60px;
+  width: max-content;
+  flex-wrap: nowrap;
+  align-items: center;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+
+  * {
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+    line-height: calc(28 / 16);
+  }
+
+  svg path {
+    stroke-width: 2px;
+    // stroke: var(--border-color);  //WTF
+    // fill: var(--background-color); //WTF
+  }
+
+  &_piece {
+    position: absolute;
+    left: 11px;
+
+    &__top {
+      top: -1.5px;
+      svg path {
+        fill: #ffffff !important;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 2.4px);
+        height: 1px;
+        background-color: #ffffff;
+        border-radius: 99999px;
+      }
+    }
+
+    &__bottom {
+      bottom: 0;
+      transform: translateY(calc(100%));
+      z-index: 2;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%) translateY(-0.5px);
+        width: calc(100% - 2px);
+        height: 1px;
+        background-color: var(--background-color);
+        border-radius: 99999px;
+      }
+    }
+  }
+
+  &__disabled {
+    opacity: 0.4;
+    pointer-events: none !important;
+    cursor: not-allowed !important;
+  }
+}
