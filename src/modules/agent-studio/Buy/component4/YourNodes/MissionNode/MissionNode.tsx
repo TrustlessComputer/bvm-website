@@ -1,5 +1,7 @@
 import React from 'react';
 
+// import SelectTokenView from '@/modules/agent-studio/detail_v3/account-abstraction_v2/components/SelectTokenView';
+
 import { DappNode as DappNodeProps } from '@/types/node';
 import { useSignalEffect } from '@preact/signals-react';
 import { NodeProps } from '@xyflow/react';
@@ -9,6 +11,8 @@ import { adjustBrightness } from '../../../utils';
 import Draggable from '../../Draggable';
 import Droppable from '../../Droppable';
 import Lego from '../../Lego';
+// import Node from '../Node/Node';
+// import Node from '../Node_v2/Node';
 import NodeV3 from '../../Node_v3/Node';
 
 import sleep from '@/utils/sleep';
@@ -16,8 +20,11 @@ import ResetButton from '../../../component_v5/ResetButton_V2';
 import SubmitButton from '../../../component_v5/SubmitButton';
 import DraftingIcon from '../../../component_v5/icons/DraftingIcon';
 import NodeNotification_V2 from '../NodeNotification_V2';
-import { GeneralIdeaContent } from './GeneralIdeaNode_Content';
-import { useGeneralIdeaStore } from './useGeneralIdeaStore';
+import { ModelView } from './ModelView';
+import { PersonalityView } from './PersonalityView';
+import { SocialView } from './SocialView';
+import { TimeView } from './TimeView';
+import { useMissionStore } from './useMissionStore';
 
 const STATUS = {
   statusCode: 'drafting_modules',
@@ -29,18 +36,16 @@ const STATUS = {
   textDecorationLine: 'none',
 };
 
-const GeneralIdeaNode = ({ data, id }: NodeProps<DappNodeProps>) => {
+const MissionNode = ({ data, id }: NodeProps<DappNodeProps>) => {
   const { dapp } = data;
 
-  const { stepper, setStepper, setLoading, isLoading, setTextArea, resetData } =
-    useGeneralIdeaStore();
-  const adada = useGeneralIdeaStore();
-  console.log('GeneralIdeaNode --- ', {
-    stepper,
-    setStepper,
-    setLoading,
-    isLoading,
-  });
+  const { stepper, setStepper, setLoading, isLoading, resetData } =
+    useMissionStore();
+
+  const MissionStore = useMissionStore();
+
+  console.log('MissionStore --- ', MissionStore);
+
   const [draggedDappIndexes, setDraggedDappIndexes] = React.useState<number[]>(
     [],
   );
@@ -81,13 +86,45 @@ const GeneralIdeaNode = ({ data, id }: NodeProps<DappNodeProps>) => {
               titleInLeft
               titleInRight={false}
               zIndex={1}
-              vertical
               background={adjustBrightness(dapp.color, 0)}
               {...dapp.baseBlock.fields[0]}
             >
-              <GeneralIdeaContent
-                title={stepper === 1 ? 'Generate idea' : 'Personality'}
-              />
+              <SocialView />
+            </Lego>
+            <Lego
+              first={false}
+              last={false}
+              titleInLeft
+              titleInRight={false}
+              zIndex={1}
+              background={adjustBrightness(dapp.color, 0)}
+              {...dapp.baseBlock.fields[0]}
+            >
+              <ModelView />
+            </Lego>
+
+            <Lego
+              first={false}
+              last={false}
+              titleInLeft
+              titleInRight={false}
+              zIndex={1}
+              background={adjustBrightness(dapp.color, 0)}
+              {...dapp.baseBlock.fields[0]}
+            >
+              <TimeView />
+            </Lego>
+
+            <Lego
+              first={false}
+              last={false}
+              titleInLeft
+              titleInRight={false}
+              zIndex={1}
+              background={adjustBrightness(dapp.color, 0)}
+              {...dapp.baseBlock.fields[0]}
+            >
+              <PersonalityView />
             </Lego>
           </Droppable>
         </Draggable>
@@ -111,9 +148,8 @@ const GeneralIdeaNode = ({ data, id }: NodeProps<DappNodeProps>) => {
 
           // TO DO
 
-          // Author [Trinh senpai]
-          // const result: string = await call API get abc...xyz
-          // setTextArea(result)
+          // Author [?????]
+          // const result: string = await call API validate
 
           await sleep(5);
 
@@ -124,10 +160,30 @@ const GeneralIdeaNode = ({ data, id }: NodeProps<DappNodeProps>) => {
           setStepper(2);
         }
         break;
+      case 2:
+        {
+          setLoading(true);
+
+          // TO DO
+
+          // Author [?????]
+          // const result: string = await call API get personality
+          // setPersonalityStr(result)
+
+          await sleep(5);
+
+          // Turn off Loading
+          setLoading(false);
+
+          //Next Step 2
+          setStepper(3);
+        }
+        break;
 
       case 2:
         {
           //TO DO
+          // Author [?????]
           //Show Popup AI Chat?
         }
         break;
@@ -145,13 +201,19 @@ const GeneralIdeaNode = ({ data, id }: NodeProps<DappNodeProps>) => {
       {...data}
       notificationV2={
         <NodeNotification_V2
-          resetButton={<ResetButton onClick={resetOnClickHandler} />}
+          resetButton={
+            stepper === 2 ? (
+              <ResetButton onClick={resetOnClickHandler} />
+            ) : undefined
+          }
           submitButton={
             <SubmitButton
               isLoading={isLoading}
               onClick={isLoading ? undefined : submitOnClickHandler}
               title={
-                stepper === 1 ? 'Generate personality' : 'Interact with Agent'
+                stepper === 1 || stepper === 2
+                  ? 'Generate personality'
+                  : 'Interact with Agent'
               }
             />
           }
@@ -161,7 +223,7 @@ const GeneralIdeaNode = ({ data, id }: NodeProps<DappNodeProps>) => {
       borderColor={STATUS?.borderColorStr}
       id={id}
       heading={{
-        title: data.title,
+        title: 'Missoin: Post', //TO DO
         status: {
           message: 'Drafting Modules',
           color: STATUS?.statusColorStr,
@@ -177,4 +239,4 @@ const GeneralIdeaNode = ({ data, id }: NodeProps<DappNodeProps>) => {
   );
 };
 
-export default GeneralIdeaNode;
+export default MissionNode;
