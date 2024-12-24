@@ -20,8 +20,8 @@ export default function HeroContent() {
         <div className={s.heroContent_inner}>
           <Chars classNames={s.heroContent_inner_heading} delayEnter={6}>
             <h1 className={s.heroContent_heading}>
-              Powerful, fast, and cost-effective Bitcoin L2s anyone can set up
-              by drag ’n drop.
+              {`Powerful, fast, and cost-effective Bitcoin L2s anyone can set up
+              by drag’n drop.`}
             </h1>
           </Chars>
           <div className={s.heroContent_content}>
@@ -64,7 +64,7 @@ export default function HeroContent() {
               </span>
             </div>
           </Fade> */}
-          <Fade delay={6.8}>
+          <Fade delayEnter={6.8}>
             <div className={s.btnVideo}>
               <a
                 href={'#'}
@@ -85,7 +85,7 @@ export default function HeroContent() {
           </Fade>
         </div>
       </div>
-      <Fade delayEnter={7}>
+      <Fade delayEnter={8}>
         <ScrollDown />
       </Fade>
       <ModalVideo

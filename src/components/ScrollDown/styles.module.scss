@@ -44,7 +44,6 @@ $wheel_size: $border_width * 2;
 
 .scroll_msg_container {
   position: absolute;
-  bottom: 40px;
   left: 50%;
 
   width: $mouse_width + $border_width;
@@ -54,6 +53,12 @@ $wheel_size: $border_width * 2;
 
   -webkit-mask-image: linear-gradient(black, transparent);
   mask-image: linear-gradient(black, transparent);
+
+  bottom: 24px;
+
+  @include min-tablet {
+    bottom: 40px;
+  }
 }
 .scroll_msg_inner {
   width: $mouse_width;

@@ -8,6 +8,7 @@
   background: url('/landing/images/hero-bg-allow.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  overflow: hidden;
 
   &:not(.isFooter) {
     padding: 20px 0;
