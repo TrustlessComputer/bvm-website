@@ -1,12 +1,10 @@
 'use client';
-import s from './styles.module.scss';
 import ItemHero from '@/modules/landing/Componets/Hero/ItemHero';
-import React, { useState } from 'react';
+import s from './styles.module.scss';
 
-import '@splidejs/react-splide/css/core';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/react-splide/css/core';
 import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
-import Fade from '@/interactive/Fade';
 
 const DATA_HERO = [
   {
@@ -69,55 +67,55 @@ export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
   return (
     <div className={`${s.heroLabel}`}>
       {/* <Fade delayEnter={delay}> */}
-        <div className={s.content}>
-          <div className={`${s.inner} heroLabel_inner`}>
-            <div
-              className={`${s.heroLabel_listHero} ${
-                isMobile && s.heroLabel_listHero__mobile
-              }`}
+      <div className={s.content}>
+        <div className={`${s.inner} heroLabel_inner`}>
+          <div
+            className={`${s.heroLabel_listHero} ${
+              isMobile && s.heroLabel_listHero__mobile
+            }`}
+          >
+            <Splide
+              aria-label="My Favorite Images"
+              extensions={{ AutoScroll }}
+              options={{
+                type: 'loop',
+                drag: 'free',
+                focus: 'center',
+                pagination: false,
+                arrows: false,
+                gap: 48,
+                perPage: 12,
+                perMove: 1,
+                autoScroll: {
+                  speed: 1,
+                },
+                breakpoints: {
+                  1500: {
+                    perPage: 8,
+                    gap: 40,
+                  },
+                  1024: {
+                    perPage: 5,
+                    gap: 30,
+                  },
+                  768: {
+                    perPage: 4,
+                    gap: 20,
+                  },
+                },
+              }}
             >
-              <Splide
-                aria-label="My Favorite Images"
-                extensions={{ AutoScroll }}
-                options={{
-                  type: 'loop',
-                  drag: 'free',
-                  focus: 'center',
-                  pagination: false,
-                  arrows: false,
-                  gap: 48,
-                  perPage: 12,
-                  perMove: 1,
-                  autoScroll: {
-                    speed: 2,
-                  },
-                  breakpoints: {
-                    1500: {
-                      perPage: 8,
-                      gap: 40,
-                    },
-                    1024: {
-                      perPage: 5,
-                      gap: 30,
-                    },
-                    768: {
-                      perPage: 4,
-                      gap: 20,
-                    },
-                  },
-                }}
-              >
-                {DATA_HERO.map((item, index) => {
-                  return (
-                    <SplideSlide key={index}>
-                      <ItemHero delay={delay + index / 10} data={item} />
-                    </SplideSlide>
-                  );
-                })}
-              </Splide>
-            </div>
+              {DATA_HERO.map((item, index) => {
+                return (
+                  <SplideSlide key={index}>
+                    <ItemHero delay={delay + index / 10} data={item} />
+                  </SplideSlide>
+                );
+              })}
+            </Splide>
           </div>
         </div>
+      </div>
       {/* </Fade> */}
     </div>
   );

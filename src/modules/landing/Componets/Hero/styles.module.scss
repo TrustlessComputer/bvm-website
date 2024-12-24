@@ -1,14 +1,15 @@
 .hero {
   width: 100%;
   position: relative;
+  --he: calc(100svh - 60px);
 
   @include is-pc {
     overflow: hidden;
-    height: 100svh;
+    height: var(--he);
   }
 
   &_wrap {
-    height: 100svh;
+    height: var(--he);
     width: 100%;
     position: relative;
     overflow: hidden;
@@ -33,9 +34,6 @@
       display: block;
     }
   }
-
-
-
 }
 
 .hero_wrap__mobile {
@@ -114,8 +112,6 @@
   z-index: 999;
   bottom: 13%;
 
-
-
   span {
     position: absolute;
     top: 0;
@@ -150,7 +146,7 @@
       content: '';
       width: 44px;
       height: 44px;
-      box-shadow: 0 0 0 0 rgba(255, 255, 255, .1);
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.1);
       border-radius: 100%;
       opacity: 0;
       -webkit-animation: sdb03 3s infinite;
@@ -169,7 +165,7 @@
     }
 
     60% {
-      box-shadow: 0 0 0 60px rgba(255, 255, 255, .1);
+      box-shadow: 0 0 0 60px rgba(255, 255, 255, 0.1);
       opacity: 0;
     }
 
@@ -188,7 +184,7 @@
     }
 
     60% {
-      box-shadow: 0 0 0 60px rgba(255, 255, 255, .1);
+      box-shadow: 0 0 0 60px rgba(255, 255, 255, 0.1);
       opacity: 0;
     }
 
@@ -196,8 +192,6 @@
       opacity: 0;
     }
   }
-
-
 }
 
 .mouse_scroll::after {

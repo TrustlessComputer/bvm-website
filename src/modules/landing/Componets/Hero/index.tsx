@@ -1,11 +1,8 @@
-import s from './styles.module.scss';
 import BgHero from '@/modules/landing/Componets/Hero/Bg';
-import HeroLabel from '@/modules/landing/Componets/Hero/HeroLabel';
 import HeroContent from '@/modules/landing/Componets/Hero/Content';
-import React from 'react';
-import Banner from './Banner';
-import Fade from '@/interactive/Fade';
+import HeroLabel from '@/modules/landing/Componets/Hero/HeroLabel';
 import useAnimationStore from '@/stores/useAnimationStore';
+import s from './styles.module.scss';
 
 export default function Hero() {
   const { isPlaying } = useAnimationStore();

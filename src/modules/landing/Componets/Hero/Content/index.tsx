@@ -1,12 +1,13 @@
-import Lines from '@/interactive/Lines';
-import s from './styles.module.scss';
+import ScrollDown from '@/components/ScrollDown';
 import Chars from '@/interactive/Chars';
 import Fade from '@/interactive/Fade';
-import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
-import ModalVideo from 'react-modal-video';
+import Lines from '@/interactive/Lines';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { VIDEO_HERO_MAIN } from '@constants/common';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import ModalVideo from 'react-modal-video';
+import s from './styles.module.scss';
 
 export default function HeroContent() {
   const router = useRouter();
@@ -83,13 +84,10 @@ export default function HeroContent() {
             </div>
           </Fade>
         </div>
-        <Fade delayEnter={7}>
-          <section className={s.mouse_scroll}>
-            <span></span>
-          </section>
-        </Fade>
       </div>
-
+      <Fade delayEnter={7}>
+        <ScrollDown />
+      </Fade>
       <ModalVideo
         channel="custom"
         url={VIDEO_HERO_MAIN}
