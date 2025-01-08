@@ -1,20 +1,15 @@
 'use client';
 
+import Loader from '@/modules/builder-landing/Loader';
+import HeaderPoints from '@/modules/staking/components/HeaderPoints';
+import StakeRole from '@/modules/staking/components/StakeRole';
+import TeamPoints from '@/modules/staking/components/TeamPoints';
+import useFetchStakingData from '@/modules/staking/hooks/useFetchStakingData';
 import { useAppSelector } from '@/stores/hooks';
 import { stakeUserSelector } from '@/stores/states/stakingV2/selector';
-import MainLayout from '@layouts/MainLayout';
-import Loader from '@/modules/builder-landing/Loader';
-import React from 'react';
-import styles from './styles.module.scss';
-import useFetchStakingData from '@/modules/staking/hooks/useFetchStakingData';
-import HeaderPoints from '@/modules/staking/components/HeaderPoints';
-import TeamPoints from '@/modules/staking/components/TeamPoints';
-import StakeRole from '@/modules/staking/components/StakeRole';
-import MiningBox from '@/modules/staking/components/MiningBox';
-import AirdropBox from '@/modules/staking/components/AirdropBox';
-import CurrentLaunchpad from '@/modules/staking/components/CurrentLaunchpad';
-import EternalSeeds from '@/modules/staking/components/EternalSeeds';
 import { Box } from '@chakra-ui/react';
+import MainLayout from '@layouts/MainLayout';
+import styles from './styles.module.scss';
 
 const StakingUser = () => {
   useFetchStakingData();
@@ -34,7 +29,7 @@ const StakingUser = () => {
       <Box className={`${styles.container} containerV3`}>
         <HeaderPoints />
         {stakeUser?.isHaveTeam ? <TeamPoints /> : <StakeRole />}
-        <MiningBox />
+        {/* <MiningBox /> */}
         {/* <AirdropBox /> */}
         {/* <CurrentLaunchpad /> */}
         {/* <EternalSeeds /> */}

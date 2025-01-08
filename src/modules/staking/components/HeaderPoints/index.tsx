@@ -1,3 +1,25 @@
+import NumberScale from '@/components/NumberScale';
+import { CDN_URL_ICONS } from '@/config';
+import { MIN_DECIMAL } from '@/constants/constants';
+import STAKE_TOKEN from '@/contract/stakeV2/configs';
+import CStakeV2 from '@/contract/stakeV2/stakeV2.class';
+import { STAKE_MAX_DECIMAL } from '@/modules/shard/topMiners/constant';
+import StakeHistoryModal from '@/modules/staking/components/HistoryModal';
+import UnStakeConfirmModal from '@/modules/staking/components/UnStakeConfirmModal';
+import UnStakeModal from '@/modules/staking/components/UnStakeModal';
+import {
+  NakaConnectContext,
+  STAKING_URL,
+} from '@/Providers/NakaConnectProvider';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { requestReload } from '@/stores/states/common/reducer';
+import {
+  historySelector,
+  isFetchedStakeUserSelector,
+  stakeUserSelector,
+} from '@/stores/states/stakingV2/selector';
+import { nakaAddressSelector } from '@/stores/states/user/selector';
+import { formatAmountToClient, formatCurrency } from '@/utils/format';
 import {
   Box,
   Button,
@@ -9,39 +31,17 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import React, { useContext } from 'react';
-import styles from './styles.module.scss';
-import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import CStakeV2 from '@/contract/stakeV2/stakeV2.class';
-import { formatAmountToClient, formatCurrency } from '@/utils/format';
-import { MIN_DECIMAL, MULTIPLE_POINT_SYMBOL } from '@/constants/constants';
-import Image from 'next/image';
-import { isMobile } from 'react-device-detect';
-import StakeHistoryModal from '@/modules/staking/components/HistoryModal';
-import BigNumberJS from 'bignumber.js';
-import NumberScale from '@/components/NumberScale';
-import { useAppDispatch, useAppSelector } from '@/stores/hooks';
-import { nakaAddressSelector } from '@/stores/states/user/selector';
-import {
-  historySelector,
-  isFetchedStakeUserSelector,
-  stakeUserSelector,
-} from '@/stores/states/stakingV2/selector';
-import { STAKE_MAX_DECIMAL } from '@/modules/shard/topMiners/constant';
-import { requestReload } from '@/stores/states/common/reducer';
-import { isAmount } from '@utils/number';
-import { sleep } from '@toruslabs/base-controllers';
 import TOKEN_ADDRESS from '@constants/token';
-import { CDN_URL_ICONS } from '@/config';
-import {
-  NakaConnectContext,
-  STAKING_URL,
-} from '@/Providers/NakaConnectProvider';
-import STAKE_TOKEN from '@/contract/stakeV2/configs';
-import toast from 'react-hot-toast';
-import UnStakeModal from '@/modules/staking/components/UnStakeModal';
-import UnStakeConfirmModal from '@/modules/staking/components/UnStakeConfirmModal';
 import useNakaAuthen from '@hooks/useRequestNakaAccount';
+import { sleep } from '@toruslabs/base-controllers';
+import { isAmount } from '@utils/number';
+import BigNumberJS from 'bignumber.js';
+import Image from 'next/image';
+import React, { useContext } from 'react';
+import { isMobile } from 'react-device-detect';
+import toast from 'react-hot-toast';
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
+import styles from './styles.module.scss';
 
 const TOKEN_ICON_SIZE = isMobile ? 18 : 28;
 const LOGO_SIZE = isMobile ? 48 : 68;
@@ -121,15 +121,15 @@ const HeaderPoints = () => {
   const isLoadingReward = !isFetched || isLoading;
 
   const isHasReward = React.useMemo(() => {
-    return new BigNumberJS(formatAmountToClient(stakeUser?.rewardAmount || 0)).gt(
-      0.00001,
-    );
-  }, [stakeUser?.rewardAmount])
+    return new BigNumberJS(
+      formatAmountToClient(stakeUser?.rewardAmount || 0),
+    ).gt(0.00001);
+  }, [stakeUser?.rewardAmount]);
 
   const isDisableReward = React.useMemo(() => {
-    return isLoadingReward ||
-      !isAmount(stakeUser?.rewardAmount || 0) ||
-      !isHasReward
+    return (
+      isLoadingReward || !isAmount(stakeUser?.rewardAmount || 0) || !isHasReward
+    );
   }, [isLoadingReward, stakeUser?.rewardAmount, isHasReward]);
 
   const cStake = new CStakeV2();
@@ -144,7 +144,7 @@ const HeaderPoints = () => {
         target: 'popup',
         to: STAKE_TOKEN.BVM.stBVM || '',
         functionType: 'Claim Reward',
-        chainType: "NAKA"
+        chainType: 'NAKA',
       });
       dispatch(requestReload());
       await sleep(2);
@@ -204,7 +204,8 @@ const HeaderPoints = () => {
               </p>
               <Popover trigger={'click'} isLazy placement="bottom-start">
                 <PopoverTrigger>
-                  {isAuthen && (!!histories.length || stakeUser?.isStaked || isHasReward) ? (
+                  {isAuthen &&
+                  (!!histories.length || stakeUser?.isStaked || isHasReward) ? (
                     <Image
                       src="/icons/staking/menu-dots.svg"
                       height={20}
@@ -278,7 +279,7 @@ const HeaderPoints = () => {
                   10000,
                 )} BVM`,
               )}
-              {renderItem(
+              {/* {renderItem(
                 'Mined',
                 '/icons/staking/gem-icon.png',
                 <p>
@@ -293,8 +294,8 @@ const HeaderPoints = () => {
                   {MULTIPLE_POINT_SYMBOL}
                 </p>,
                 TOKEN_ICON_SIZE - 10,
-              )}
-              {renderItem(
+              )} */}
+              {/* {renderItem(
                 'Mining',
                 '/icons/staking/gem-icon.png',
                 <p style={{ color: '#6FFE43', fontSize: '20px' }}>
@@ -309,7 +310,7 @@ const HeaderPoints = () => {
                   />
                 </p>,
                 TOKEN_ICON_SIZE - 10,
-              )}
+              )} */}
 
               {renderItem(
                 'Interest earned',
