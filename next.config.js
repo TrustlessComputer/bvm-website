@@ -90,6 +90,11 @@ const nextConfig = {
         destination: '/heartbeats',
         permanent: false,
       },
+        {
+        source: '/shard',
+        destination: '/bvm',
+        permanent: false,
+      },
       // {
       //   source: '/launchpad',
       //   destination: `/`,
