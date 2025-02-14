@@ -33,4 +33,19 @@ const formatAddressCenter = (address: string, length = 4): string => {
     : address;
 };
 
-export { getAvatarName, compareString, formatAddressCenter };
+const removeTrailingZeroes = (amountString: string) => {
+  let formattedString = amountString;
+  while (
+    formattedString.length > 0 &&
+    ((formattedString.includes('.') &&
+        formattedString[formattedString.length - 1] === '0') ||
+      formattedString[formattedString.length - 1] === '.')
+    ) {
+    formattedString = formattedString.slice(0, formattedString.length - 1);
+  }
+
+  return formattedString;
+};
+
+
+export { getAvatarName, compareString, formatAddressCenter, removeTrailingZeroes };

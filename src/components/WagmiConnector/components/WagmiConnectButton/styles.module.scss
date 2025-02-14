@@ -1,0 +1,13 @@
+.Item {
+  border-radius: 8px !important;
+  padding: 12px 18px !important;
+  background: #000 !important;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  p {
+    color: white !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+  }
+}

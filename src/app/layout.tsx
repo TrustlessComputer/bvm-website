@@ -19,6 +19,8 @@ import ModalManager from '@/components/ModalManage';
 import { ContactUsProvider } from '@/Providers/ContactUsProvider';
 import { NakaConnectProvider } from '@/Providers/NakaConnectProvider';
 import { Web3AuthProvider } from '@/Providers/Web3Auth_vs2/Web3AuthProvider';
+import WagmiConfigProvider from '@components/WagmiConnector/WagmiConfigProvider';
+import WagmiProvider from '@components/WagmiConnector/WagmiProvider';
 
 export const metadata: Metadata = MetadataConfig;
 export const viewport: Viewport = ViewportConfig;
@@ -62,19 +64,23 @@ export default function RootLayout({
           <ChakraProvider theme={chakraThemes}>
             <ChakraFontsFace />
             <Web3AuthProvider>
-              <UserProvider>
-                <XVerseProvider>
-                  <UnisatProvider>
-                    <NakaConnectProvider>
-                      <ContactUsProvider>
-                        <ModalManager />
-                        {children}
-                      </ContactUsProvider>
-                    </NakaConnectProvider>
-                    <ToastOverlay />
-                  </UnisatProvider>
-                </XVerseProvider>
-              </UserProvider>
+              <WagmiConfigProvider>
+                <WagmiProvider>
+                  <UserProvider>
+                    <XVerseProvider>
+                      <UnisatProvider>
+                        <NakaConnectProvider>
+                          <ContactUsProvider>
+                            <ModalManager />
+                            {children}
+                          </ContactUsProvider>
+                        </NakaConnectProvider>
+                        <ToastOverlay />
+                      </UnisatProvider>
+                    </XVerseProvider>
+                  </UserProvider>
+                </WagmiProvider>
+              </WagmiConfigProvider>
             </Web3AuthProvider>
           </ChakraProvider>
         </StoreProvider>
