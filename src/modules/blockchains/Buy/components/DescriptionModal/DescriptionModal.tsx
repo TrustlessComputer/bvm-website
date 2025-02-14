@@ -32,7 +32,7 @@ const DescriptionModal = forwardRef((props: IProps, ref: any) => {
             {title}
           </Text>
         )}
-        {content &&  <div className={s.content} dangerouslySetInnerHTML={{ __html: content }} />}
+        {content &&  <div className={s.content} dangerouslySetInnerHTML={{ __html: content as any }} />}
       </Flex>
     </BaseModal>
   );
