@@ -144,7 +144,7 @@ const QRCodeBox = (props: IQRCodeBoxAutoEstimate) => {
         <div className={s.wrap_qr}>
           <QRCodeGenerator
             bgColor="#FFFFFF"
-            size={180}
+            size={220}
             value={depositQRCode?.depositAddress || ''}
           />
         </div>
