@@ -97,6 +97,8 @@ export const WagmiProvider = ({ children }: PropsWithChildren) => {
     return connectors[0];
   };
 
+
+
   const nativeAmountFormated = React.useMemo(() => {
     let amount = (nativeAmount?.data?.formatted || '0') as string;
     amount = new BigNumberJS(
@@ -239,7 +241,7 @@ export const WagmiProvider = ({ children }: PropsWithChildren) => {
       onSendTransaction,
       nativeAmountFormated,
       address,
-      latestAddress,
+      latestAddress: address || latestAddress,
       isConnected,
       onDisconnect,
       chainId,
