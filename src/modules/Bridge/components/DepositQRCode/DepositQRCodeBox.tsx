@@ -2,15 +2,15 @@ import SvgInset from '@/components/SvgInset';
 import { showSuccess } from '@/components/toast';
 import { formatAmountToClient, formatCurrencyV2 } from '@/utils/format';
 import { removeTrailingZeroes } from '@/utils/string';
-import { Flex, Text } from '@chakra-ui/react';
+import { Center, Flex, Text } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
 import copy from 'copy-to-clipboard';
 import { memo, useMemo } from 'react';
 import s from './styles.module.scss';
 import QRCodeGenerator from '@components/QRCodeGenerator';
 import { BridgeToken, IDepositQRCode } from '@/modules/Bridge/types';
-import SkeletonPayment from '@components/Skeleton';
 import { useWagmiContext } from '@components/WagmiConnector/WagmiProvider';
+import Loading from '@components/Loading';
 
 const CDN_URL_ICONS = 'https://cdn.nakaswap.org' + '/naka/icons';
 
@@ -121,7 +121,7 @@ const QRCodeBox = (props: IQRCodeBoxAutoEstimate) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
-  if (loading || !depositQRCode?.depositAddress) return <SkeletonPayment />;
+  if (loading || !depositQRCode?.depositAddress) return <Center><Loading /></Center>;
 
   return (
     <Flex direction="column">
