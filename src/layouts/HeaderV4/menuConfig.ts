@@ -73,7 +73,12 @@ export const NAV_ITEMS: Array<NavItem> = [
     isNewWindow: false,
     isHide: false,
   },
-
+  {
+    label: 'Bridge XRP',
+    href: '/bridge',
+    isNewWindow: false,
+    isHide: false,
+  },
   // {
   //   label: 'Open Source',
   //   href: '/open-source',
@@ -178,6 +183,12 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   {
     label: 'Get BVM',
     href: '/bvm',
+    isNewWindow: false,
+    isHide: false,
+  },
+  {
+    label: 'Bridge XRP',
+    href: '/bridge',
     isNewWindow: false,
     isHide: false,
   },
