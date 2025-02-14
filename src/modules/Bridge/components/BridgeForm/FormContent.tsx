@@ -103,7 +103,9 @@ const FormContent = () => {
         {toToken?.tokenType !== TokenType.EVM && <Recipient />}
         <InformationBox />
         <SubmitButton loadingBalance={loading} />
-        <DepositQRCodeModal isOpen={isShow} onClose={onClose} />
+        {isShow && (
+          <DepositQRCodeModal isOpen={isShow} onClose={onClose} />
+        )}
       </Flex>
     </Flex>
   );
