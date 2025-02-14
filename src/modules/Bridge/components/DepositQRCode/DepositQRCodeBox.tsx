@@ -80,7 +80,7 @@ const QRCodeBox = (props: IQRCodeBoxAutoEstimate) => {
           {renderRow({
             key: 'Min. deposit:',
             value: `${formatCurrencyV2({
-              amount: formatAmountToClient(depositQRCode?.minDepositAmount),
+              amount: formatAmountToClient(new BigNumber(depositQRCode?.minDepositAmount || '0').toString()),
             })} ${tokenSymbol}`,
           })}
           <Flex
