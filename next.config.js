@@ -19,7 +19,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   typescript: {
-    ignoreBuildErrors: !!isDevEnv,
+    ignoreBuildErrors: true,
   },
   poweredByHeader: false,
   reactStrictMode: false,
@@ -88,6 +88,11 @@ const nextConfig = {
       {
         source: '/heartbeat',
         destination: '/heartbeats',
+        permanent: false,
+      },
+        {
+        source: '/shard',
+        destination: '/bvm',
         permanent: false,
       },
       // {

@@ -3,7 +3,7 @@ import { CDN_URL, CDN_URL_IMAGES_NBC } from '@/config';
 import { CHAIN_DATA, DAPPS_DATA } from '@/modules/ExploreModule/data';
 import { Research } from '@/modules/Lab/data';
 import { BLOGS } from '@/modules/landingV3/Componets/Section_7/constant';
-import { Flex } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 
 export const ETERNAL_TITLE = 'Eternals';
 
@@ -44,9 +44,11 @@ export const STEP_1_SECTION = {
   id: 'step-1',
   tag: '',
   title: (
-    <Flex alignItems={'center'} flexWrap={'wrap'}>
-      <p className={'gradient_text'}>AI on Bitcoin. </p>{' '}
-      <p>The world’s first onchain AIs on Bitcoin.</p>
+    <Flex alignItems={'center'} flexWrap={'wrap'} gap="8px">
+      <p>AI on Bitcoin. </p>{' '}
+      <Text color="#5B5B5B !important" fontWeight="500">
+        Engage with the world’s first onchain AIs.
+      </Text>
     </Flex>
   ),
   desc: <></>,
@@ -66,8 +68,8 @@ export const STEP_1_SECTION = {
     // },
     {
       title: ETERNAL_TITLE,
-      description: 'Unstoppable AI agents',
-      homeImage: '/landing-v7/home-eternal-1.png',
+      description: 'Unstoppable onchain AI agents.',
+      homeImage: '/landing-v7/home-eternal-2.png',
       // bgColor: 'linear-gradient(180deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
       link: {
         url: ETERNAL_URL,
@@ -77,9 +79,9 @@ export const STEP_1_SECTION = {
       // tags: ['$39/day'],
     },
     {
-      title: 'Decentralized Llama 3.1 405B ',
-      description: 'Deployed on its own ZK rollups',
-      homeImage: '/landing-v7/home-llama-1.png',
+      title: 'Onchain Llama 3.1 405B ',
+      description: 'Chat for free. Permissionless.',
+      homeImage: '/landing-v7/home-llama-3.png',
       link: {
         url: 'https://eternalai.org/agi',
         target: '_blank',
@@ -100,9 +102,9 @@ export const STEP_1_SECTION = {
     //   tags: ['From $499/month'],
     // },
     {
-      title: 'Decentralized FLUX.1 [dev]',
-      description: 'Deployed on its own ZK rollups',
-      homeImage: '/landing-v7/home-flux-1.png',
+      title: 'Onchain FLUX.1 [dev]',
+      description: 'Image generation for free. Censorship-resistant.',
+      homeImage: '/landing-v7/home-flux-2.png',
 
       link: {
         url: 'https://eternalai.org/imagine',
@@ -112,8 +114,8 @@ export const STEP_1_SECTION = {
     },
     {
       title: 'Perceptrons',
-      description: 'The first on-chain neural networks',
-      homeImage: '/landing-v7/home-perp-1.png',
+      description: 'The first onchain neural networks.',
+      homeImage: '/landing-v7/home-perp-3.png',
 
       // bgColor:
       //   'linear-gradient(227deg, #FF8D97 -7.83%, #FF6366 21.47%, #E40004 69.37%, #FFDEDE 118.41%)',
@@ -157,26 +159,28 @@ export const STEP_2_SECTION = {
   id: 'step-2',
   tag: '',
   title: (
-    <Flex alignItems={'center'}>
-      <p className="gradient_text">DeFi on Bitcoin.</p>
-      <p> Make DeFi on Bitcoin permissionless to everyone.</p>
+    <Flex alignItems={'center'} flexWrap={'wrap'} gap="8px">
+      <p>DeFi on Bitcoin.</p>
+      <Text color="#5B5B5B !important" fontWeight="500">
+        Enjoy trading spot and futures markets permissionlessly.
+      </Text>
     </Flex>
   ),
   // desc: 'Get up and running instantly with pre-installed apps or easily add new ones from BVM Studio. Simply drag, drop, and enhance engagement, TVL, and more—no coding required.',
   item: [
     {
-      title: 'Rune Dex',
-      description: 'Buy & sell Bitcoin permisionlessly',
-      homeImage: '/explore/dapp-runedex2.png',
+      title: 'Rune DEX',
+      description: 'Buy & sell Bitcoin permisionlessly.',
+      homeImage: '/landing-v7/home-rundex-2.png',
       link: {
         url: 'https://runechain.com/',
         target: '_blank',
       },
     },
     {
-      title: 'NAKA Dex',
-      description: 'Trade Bitcoin futures',
-      homeImage: '/landing-v7/home-naka-1.png',
+      title: 'NAKA DEX',
+      description: 'Trade Bitcoin futures permisionlessly.',
+      homeImage: '/landing-v7/home-naka-3.png',
       link: {
         url: 'https://nakachain.xyz/perpetual',
         target: '_blank',
@@ -189,9 +193,12 @@ export const GAME_SECTION = {
   id: 'games',
   tag: 'Games. ',
   title: (
-    <Flex alignItems={'center'}>
-      <p className="gradient_text">Games on Bitcoin.</p>
-      <p> Make DeFi on Bitcoin permissionless to everyone.</p>
+    <Flex alignItems={'center'} flexWrap={'wrap'} gap="8px">
+      <p>Games on Bitcoin.</p>
+      <Text color="#5B5B5B !important" fontWeight="500">
+        {' '}
+        Have a blast with your friends.
+      </Text>
     </Flex>
   ),
   // title: 'Play incredibly fun games, fully on-chain.',
@@ -199,8 +206,8 @@ export const GAME_SECTION = {
     {
       title: 'Bitcoin Wars',
       description:
-        'The first fully on-chain game built on a ZK Rollup on Bitcoin',
-      homeImage: `/landing-v7/home-bitcoinwar-1.png`,
+        'The first fully onchain game built on a ZK Rollup on Bitcoin.',
+      homeImage: `/landing-v7/home-bitcoinwar-5.png`,
       link: {
         url: '/bitcoin-wars',
         target: '_blank',
@@ -209,9 +216,9 @@ export const GAME_SECTION = {
     },
 
     {
-      title: 'Bitcoin ARCADE (Coming Soon)',
+      title: 'Bitcoin ARCADE',
       description: 'Endless fun with onchain Bitcoin games.',
-      homeImage: `/landing-v7/home-arcade-1.png`,
+      homeImage: `/landing-v7/home-arcade-3.png`,
       link: {
         url: '',
         target: '_blank',
@@ -225,17 +232,20 @@ export const TOOLS_SECTION = {
   id: 'tools',
   tag: 'Tools. ',
   title: (
-    <Flex alignItems={'center'}>
-      <p className="gradient_text">Developer tools on Bitcoin.</p>
-      <p> Unlock Bitcoin's potential beyond currency.</p>
+    <Flex alignItems={'center'} flexWrap={'wrap'} gap="8px">
+      <p>Developer tools on Bitcoin.</p>
+      <Text color="#5B5B5B !important" fontWeight="500">
+        {' '}
+        Unlock Bitcoin's potential beyond currency.
+      </Text>
     </Flex>
   ),
   // title: 'Play incredibly fun games, fully on-chain.',
   item: [
     {
       title: 'BVM Studio',
-      description: 'Customize your blockchain with drag-and-drop',
-      homeImage: `/landing-v7/home-studio-1.png`,
+      description: 'Customize your blockchain with drag-and-drop.',
+      homeImage: `/landing-v7/home-studio-2.png`,
       link: {
         url: '/studio',
         target: '_blank',
@@ -244,9 +254,9 @@ export const TOOLS_SECTION = {
     },
 
     {
-      title: 'Heartbeat',
-      description: 'Insights into Bitcoin chains',
-      homeImage: `/landing-v7/home-heartbeats-3.png`,
+      title: 'Heartbeats',
+      description: 'Insights into Bitcoin chains.',
+      homeImage: `/landing-v7/home-heartbeats-4.png`,
       link: {
         url: '/heartbeats',
         target: '_blank',
@@ -260,17 +270,20 @@ export const ART_SECTION = {
   id: 'art',
   tag: 'Art. ',
   title: (
-    <Flex alignItems={'center'}>
-      <p className="gradient_text">Art on Bitcoin.</p>
-      <p> Experience fully onchain generative art on Bitcoin.</p>
+    <Flex alignItems={'center'} flexWrap={'wrap'} gap="8px">
+      <p>Art on Bitcoin.</p>
+      <Text color="#5B5B5B !important" fontWeight="500">
+        {' '}
+        Experience fully onchain generative art on Bitcoin.
+      </Text>
     </Flex>
   ),
   // title: 'Play incredibly fun games, fully on-chain.',
   item: [
     {
       title: 'Perceptrons',
-      description: 'The first on-chain neural networks',
-      homeImage: `/landing-v7/home-perp-1.png`,
+      description: 'The first on-chain neural networks.',
+      homeImage: `/landing-v7/home-perp-3.png`,
       link: {
         url: 'https://eternalai.org/perceptrons',
         target: '_blank',
@@ -280,8 +293,8 @@ export const ART_SECTION = {
 
     {
       title: 'Timechain',
-      description: 'The first long-form gen art collection',
-      homeImage: `/landing-v7/home-timechain-1.png`,
+      description: 'The first long-form gen art collection.',
+      homeImage: `/landing-v7/home-timechain-5.png`,
 
       link: {
         url: 'https://generative.xyz/generative/1000001',
@@ -296,17 +309,19 @@ export const SOCIALFI_SECTION = {
   id: 'socialfi',
   tag: 'Socialfi. ',
   title: (
-    <Flex alignItems={'center'}>
-      <p className="gradient_text">SoFi on Bitcoin.</p>
-      <p> A new way to interact with humans and AIs on Bitcoin.</p>
+    <Flex alignItems={'center'} flexWrap={'wrap'} gap="8px">
+      <p>SoFi on Bitcoin.</p>
+      <Text color="#5B5B5B !important" fontWeight="500">
+        A new way to interact with humans and AIs on Bitcoin.
+      </Text>
     </Flex>
   ),
   // title: 'Play incredibly fun games, fully on-chain.',
   item: [
     {
       title: 'Alpha',
-      description: 'The first social app on Bitcoin. ',
-      homeImage: `/landing-v7/home-alpha-1.png`,
+      description: 'The first social app on Bitcoin.',
+      homeImage: `/landing-v7/home-alpha-2.png`,
 
       link: {
         url: 'https://alpha.wtf/',
@@ -315,9 +330,9 @@ export const SOCIALFI_SECTION = {
     },
 
     {
-      title: 'X AI AGENTS',
-      description: 'Fully on-chain. Fully autonomous.',
-      homeImage: `/landing-v7/home-eternal-1.png`,
+      title: 'AI Agents as a Service',
+      description: 'Fully onchain. Fully autonomous.',
+      homeImage: `/landing-v7/home-eternal-2.png`,
 
       link: {
         url: ETERNAL_URL,

@@ -17,6 +17,10 @@
 
     }
 
+    &.games {
+        width: 440px;
+    }
+
     &:not(.popular) {
         // margin-top: 40px;
         // margin-bottom: 18px;
@@ -46,24 +50,25 @@
         width: 100%;
 
         .title {
-            color: #C08600;
-            font-family: "SF Pro Display";
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 500;
-            line-height: 120%;
-            /* 16.8px */
-            text-transform: uppercase;
-
-        }
-
-        .desc {
             color: #000;
             font-family: "SF Pro Display";
             font-size: 28px;
             font-style: normal;
-            font-weight: 700;
+            font-weight: 600;
             line-height: 140%;
+            margin-bottom: 4px;
+            /* 39.2px */
+
+        }
+
+        .desc {
+            color: #5B5B5B;
+            font-family: "SF Pro Display";
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 140%;
+            /* 28px */
             /* 39.2px */
 
             &.game_desc {
@@ -87,6 +92,7 @@
                 font-style: normal;
                 font-weight: 500;
                 line-height: 120%;
+                letter-spacing: -1.8px;
                 /* 21px */
                 // border-radius: 100px;
                 // background: rgba(255, 255, 255, 0.30);

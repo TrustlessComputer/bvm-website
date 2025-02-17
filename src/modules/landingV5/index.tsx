@@ -22,41 +22,21 @@ const LandingV5 = (props: Props) => {
   return (
     <div className={s.landing}>
       <Box>
-        <Box
-          // ml={{ base: '20px', '2xl': 'calc((100vw - 1440px) / 2)' }}
-          mt={'80px'}
-        >
+        <Box mt={'80px'}>
           <BuildItem stagger={0} iconUrl="/landing-v5/ic-bvm.svg">
             <Box
               className={cn(s.introduction)}
-              mx={{ base: '20px', '2xl': 'calc((100vw - 1440px) / 2)' }}
-
-              // mx="auto"
-              // ml={{ base: '0px', '2xl': 'calc((100vw - 1440px) / 2)' }}
-              // ml={{ base: '20px', '2xl': 'calc((100vw - 1440px) / 2)' }}
-
-              // pr="20px"
+              mx={{ base: '20px', '2xl': 'calc((100vw - 1460px) / 2)' }}
             >
               <Box flex="1">
                 <div className={s.introduction_title}>
                   Experience Bitcoin like never before.
                 </div>
-                {/* <div className={s.introduction_desc}>
-                  Bitcoin Virtual Machine (BVM) is Bitcoin’s most comprehensive
-                  development platform, offering builders over 30 products and
-                  services for building on Bitcoin. From scaling technologies
-                  like ZK rollups and Data Availability layers to emerging
-                  technologies like L1 metaprotocols and GPU-accelerated VMs,
-                  BVM equips you with the tools to push the boundaries of what's
-                  possible on Bitcoin.
-                  {/* <br />
-                  <br /> Let’s build. */}
-                {/* </div> */}
               </Box>
               <Box className={s.introduction_desc}>
                 Ethereum’s heyday is over. Powered by BVM, Bitcoin is the new
                 home for decentralized applications. Enter a whole new world
-                where finance, gaming, social networks, and AI coverge on the
+                where finance, gaming, social networks, and AI converge on the
                 biggest blockchain.{' '}
               </Box>
             </Box>

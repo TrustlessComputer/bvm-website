@@ -8,6 +8,7 @@ import Lines from '@/interactive/Lines';
 
 type TSectionBottom = {
   title: string;
+  desc?: string;
   link?: string;
   data?: {
     left: string;
@@ -46,6 +47,11 @@ export default function SectionBottom({
         >
           <Chars delay={delay}>{data.title}</Chars>
         </h6>
+        {!!data.desc && (
+          <Chars delay={delay}>
+            <p className={s.sectionBottom_title_sub}>{data.desc}</p>
+          </Chars>
+        )}
         <Chars delay={delay}>
           <p className={s.sectionBottom_title_sub}>
             {!data?.link && !isLaunch && 'Coming soon'}

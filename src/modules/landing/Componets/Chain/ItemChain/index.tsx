@@ -11,6 +11,7 @@ type TItemChain = {
   title: string;
   stud: number;
   link?: string;
+  desc?: string;
   data?:
     | {
         left: string;

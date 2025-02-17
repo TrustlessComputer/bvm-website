@@ -3,11 +3,10 @@ import { apiClient } from '@/services/index';
 import { formatCurrency } from '@/utils/format';
 import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useHover, useLayer, useMousePositionAsTrigger } from 'react-laag';
 import { PieChart } from 'react-minimal-pie-chart';
 import s from './Tokens.module.scss';
-import ImagePlaceholder from '@components/ImagePlaceholder';
 
 function makeTooltipContent(entry: any) {
   return `${entry.value}% in ${entry.title}`;
@@ -152,7 +151,7 @@ const Tokens = () => {
                             )}{' '}
                             BVM
                           </p>
-                          <p>
+                          {/* <p>
                             <span style={{ color: '#6C6F93' }}>
                               Total shard
                             </span>{' '}
@@ -164,7 +163,7 @@ const Tokens = () => {
                               true,
                             )}{' '}
                             SHARD
-                          </p>
+                          </p> */}
                         </Flex>
                       }
                     >

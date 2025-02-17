@@ -30,15 +30,16 @@ $text-max-width: 85ch;
 
         .title {
             color: rgba(255, 255, 255, 0.60);
-            font-family: "JetBrains Mono";
-            font-size: 36px;
+            font-family: "SF Pro Display";
+            font-size: 28px;
             font-style: normal;
             font-weight: 700;
             line-height: normal;
 
             p {
                 // max-width: 37ch;
-                color: #000;
+                color: #2E2E2E;
+                // letter-spacing: -1.8px;
             }
 
         }

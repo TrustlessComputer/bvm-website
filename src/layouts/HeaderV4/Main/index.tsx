@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import s from './style.module.scss';
-import { Flex, IconButton, useDisclosure } from '@chakra-ui/react';
+import { Flex, IconButton, Text, useDisclosure } from '@chakra-ui/react';
 import useWindowSize from '@/hooks/useWindowSize';
 import DrawerMobileMenu from '@/layouts/HeaderV4/components/DrawerMenu';
 import { NAV_ITEMS_LEFT, NAV_ITEMS_RIGHT } from '../menuConfig';
@@ -38,6 +38,13 @@ TMainHeader): ReactElement => {
       style={{ backgroundColor: backgroundColor }}
     >
       <div className={`${s.inner} containerV3`}>
+        <div
+          className={`${s.logo}  ${colorLogo === 'black' ? s.logo_black : ''}`}
+          onClick={() => router.push('/')}
+        >
+          <IconLogo />
+        </div>
+
         <div className={s.left}>
           {isDesktop && (
             <div className={s.menu}>
@@ -69,7 +76,8 @@ TMainHeader): ReactElement => {
                     className={'menu-item'}
                     target={item.isNewWindow ? '_blank' : '_self'}
                   >
-                    <p
+                    <Text
+                      color={color}
                       className={`${s.itemLabel} ${
                         isActiveDark && s.activeDark
                       } 
@@ -77,18 +85,12 @@ TMainHeader): ReactElement => {
                     `}
                     >
                       {item.label}
-                    </p>
+                    </Text>
                   </Link>
                 );
               })}
             </div>
           )}
-        </div>
-        <div
-          className={`${s.logo}  ${colorLogo === 'black' ? s.logo_black : ''}`}
-          onClick={() => router.push('/')}
-        >
-          <IconLogo />
         </div>
 
         {isDesktop ? (
@@ -126,7 +128,8 @@ TMainHeader): ReactElement => {
                     className={'menu-item'}
                     target={item.isNewWindow ? '_blank' : '_self'}
                   >
-                    <p
+                    <Text
+                      color={color}
                       className={`${s.itemLabel} ${
                         isActiveDark && s.activeDark
                       } 
@@ -134,7 +137,7 @@ TMainHeader): ReactElement => {
                     `}
                     >
                       {item.label}
-                    </p>
+                    </Text>
                   </Link>
                 );
               })}

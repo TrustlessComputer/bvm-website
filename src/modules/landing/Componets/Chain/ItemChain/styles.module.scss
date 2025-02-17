@@ -2,6 +2,9 @@
   flex: 1;
   flex-shrink: 0;
   cursor: pointer;
+  max-width: 450px;
+  min-width: 300px;
+  flex: 1;
 
   &_inner {
     display: flex;
@@ -9,6 +12,7 @@
     padding: 5px 6px;
     background-color: #fff;
     height: 100%;
+    align-self: stretch;
   }
 
   @include is-mobile {
@@ -44,13 +48,16 @@
   width: 100%;
   gap: unset;
 }
+
 .itemLaunch:first-child {
   grid-column: span 2;
   grid-column-start: 1;
 }
+
 .itemLaunch:nth-child(3n) {
   grid-column: span 2;
   grid-column-start: 2;
+
   @include is-tablet {
     grid-column-start: 1;
   }

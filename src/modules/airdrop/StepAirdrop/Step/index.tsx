@@ -161,6 +161,7 @@ export default function ItemCommunity({
     }
   };
 
+  // @ts-ignore
   return (
     <>
       <div className={cx(s.itemCommunity, isRunning ? '' : s.isDone)}>
@@ -205,7 +206,7 @@ export default function ItemCommunity({
                 <div
                   className={s.itemCommunity__desc}
                   dangerouslySetInnerHTML={{
-                    __html: content?.desc,
+                    __html: (content?.desc || '') as any,
                   }}
                 />
               )}

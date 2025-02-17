@@ -9,7 +9,7 @@ interface IButtonWrapper extends PropsWithChildren {
   buttonType?: "positive" | "negative";
 }
 
-const ButtonWrapper: React.FC<IButtonWrapper> = ({
+const ButtonWrapper2: React.FC<IButtonWrapper> = ({
   children,
   className,
   style,
@@ -30,4 +30,4 @@ const ButtonWrapper: React.FC<IButtonWrapper> = ({
   );
 };
 
-export default ButtonWrapper;
+export default ButtonWrapper2;

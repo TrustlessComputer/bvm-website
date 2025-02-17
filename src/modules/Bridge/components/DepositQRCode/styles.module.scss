@@ -1,0 +1,115 @@
+
+
+.wrap_qr {
+  background-color: white;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.tooltipWrap {
+  width: 300px !important;
+  border: none;
+  :global {
+    margin: 0;
+    padding: 0;
+
+    .chakra-popover__body {
+      border: none;
+      background: #ffffff !important;
+      background-color: #ffffff !important;
+    }
+  }
+
+  .tooltipTitle {
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+    text-transform: uppercase;
+    margin-bottom: 13px;
+    color: #000000;
+  }
+
+  .tooltipContent {
+    font-size: 14px;
+    font-weight: 400;
+    text-align: left;
+    color: #000000;
+  }
+}
+
+.container {
+  justify-content: center;
+  align-items: center;
+  .title {
+    color: black;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 19.6px */
+    letter-spacing: 0.28px;
+    text-align: center;
+    span {
+      color: var(--green-blur);
+      font-weight: 700;
+    }
+  }
+  .addressBox {
+    line-break: anywhere;
+    margin-top: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 82, 255, 0.20);
+    background: rgba(0, 82, 255, 0.05);
+
+    width: 100%;
+    display: flex;
+    padding: 16px;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+
+    color: black;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%; /* 19.6px */
+    letter-spacing: 0.28px;
+
+    &_iconCopy{
+      cursor: pointer;
+      path {
+        fill: var(--green-blur);
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .wrap_qr {
+    background-color: white;
+    padding: 24px;
+    border-radius: 12px;
+    margin-top: 20px;
+  }
+}
+
+.modalManualHeader {
+  p {
+    color: black;
+  }
+}
+
+.modalContent {
+  background-color: #F3F5F7 !important;
+  max-width: 400px !important;
+
+  :global {
+    .chakra-modal__body {
+      // padding-left: rem(24) !important;
+      // padding-right: rem(24) !important;
+      // padding-bottom: rem(24) !important;
+    }
+  }
+}
+

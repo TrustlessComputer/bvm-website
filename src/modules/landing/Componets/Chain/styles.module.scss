@@ -1,34 +1,44 @@
 .listChains {
-  display: grid;
-  gap: 36px;
+  display: flex;
+  gap: 2%;
   overflow: hidden;
   justify-content: center;
+  flex-wrap: wrap;
 
-  @include is-mobile {
-    width: 100%;
-    padding: 0 20px;
-    gap: 8px;
-    grid-template-columns: repeat(1, 1fr);
-  }
+  // @include is-mobile {
+  //   width: 100%;
+  //   padding: 0 20px;
+  //   gap: 8px;
+  //   // grid-template-columns: repeat(1, 1fr);
+  // }
 
-  @include is-tablet {
-    gap: 0;
-    grid-template-columns: repeat(3, 1fr);
-  }
+  // @include is-tablet {
+  //   gap: 0;
+  //   grid-template-columns: repeat(1, 1fr);
+  // }
 
-  @include is-pc {
-    gap: 10px;
-    grid-template-columns: repeat(3, 1fr);
-  }
+  // @include is-pc {
+  //   gap: 10px;
+  //   grid-template-columns: repeat(2, 1fr);
+  // }
 
-  @include is-pc-wide{
-    grid-template-columns: repeat(5, 1fr);
-  }
+  // @include is-pc-wide {
+  //   grid-template-columns: repeat(4, 1fr);
+  // }
 }
 
 .chain {
   background: #f6f6f6;
   overflow: hidden;
+
+
+
+  .lego_heading_description {
+    color: #000;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
   &_case {
     color: #000;
@@ -45,6 +55,7 @@
       padding-top: 24px;
       padding-bottom: 40px;
     }
+
     @include is-tablet {
       padding-top: 24px;
       padding-bottom: 40px;

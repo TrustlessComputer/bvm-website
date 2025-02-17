@@ -10,29 +10,70 @@ import chain_5 from 'public/landing/images/chain_5.png';
 import chain_6 from 'public/landing/images/chain_6.png';
 import Chars from '@/interactive/Chars';
 import Fade from '@/interactive/Fade';
-import { Button, HStack } from '@chakra-ui/react';
+import { Button, HStack, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import useWindowSize from '@/hooks/useWindowSize';
 import HeroLabel from '../Hero/HeroLabel';
 import Cursor from '@/modules/landing/Componets/Chain/Cursor';
 import HeadingSection from '../HeadingSection';
+import HeadingText from '../HeadingText';
+import HeadingTextV2 from '../HeadingTextV2';
+import ContentSection from '../ContentSection';
+import Lines from '@/interactive/Lines';
 
 const DATA_CHAINS = [
+  // {
+  //   img: chain_1,
+  //   title: 'Alpha Chain',
+  //   subTitle: '',
+  //   stud: 1,
+  //   link: 'https://alpha.wtf',
+  //   data: [
+  //     {
+  //       left: 'Currency',
+  //       right: 'BVM',
+  //       icon: '/landing/svg/lego_icon_flat.svg',
+  //     },
+  //     {
+  //       left: 'Use Case',
+  //       right: 'SocialFi',
+  //       icon: '/landing/svg/lego_icon_rect.svg',
+  //     },
+  //     {
+  //       left: 'Rollups',
+  //       right: 'Optimistic, Sovereign',
+  //       icon: '/landing/svg/lego_icon_rollup.svg',
+  //     },
+  //     {
+  //       left: 'Data Validity',
+  //       right: 'Bitcoin Ordinals',
+  //       icon: '/landing/svg/lego_icon_cube.svg',
+  //     },
+  //     {
+  //       left: 'Data Availability',
+  //       right: 'Polygon',
+  //       icon: '/landing/svg/lego_icon_cube.svg',
+  //     },
+  //   ],
+
+  //   bgTop: '35CCA6',
+  //   bgBottom: '007659',
+  // },
   {
-    img: chain_1,
-    title: 'Alpha Chain',
-    subTitle: '',
+    img: chain_4,
+    title: 'Eternal AI',
+    desc: 'A Bitcoin Layer 2 powering unstoppable AI.',
     stud: 1,
-    link: 'https://alpha.wtf',
+    link: 'https://eternalai.org/',
     data: [
       {
         left: 'Currency',
-        right: 'BVM',
+        right: 'EAI',
         icon: '/landing/svg/lego_icon_flat.svg',
       },
       {
         left: 'Use Case',
-        right: 'SocialFi',
+        right: 'Crypto x AI',
         icon: '/landing/svg/lego_icon_rect.svg',
       },
       {
@@ -47,17 +88,17 @@ const DATA_CHAINS = [
       },
       {
         left: 'Data Availability',
-        right: 'Polygon',
+        right: 'NearDA',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
     ],
-
-    bgTop: '35CCA6',
-    bgBottom: '007659',
+    bgTop: 'FF9999',
+    bgBottom: 'B74D4D',
   },
   {
     img: chain_2,
     title: 'Naka Chain',
+    desc: 'A Bitcoin Layer 2 optimized for DeFi with extremely low gas fees.',
     stud: 2,
     link: 'https://nakachain.xyz/',
     data: [
@@ -93,12 +134,13 @@ const DATA_CHAINS = [
   {
     img: chain_3,
     title: 'Arcade Chain',
+    desc: 'A Bitcoin Layer 2 tailored for gaming with 2-second block times.',
     stud: 3,
     link: 'https://bitcoinarcade.xyz/',
     data: [
       {
         left: 'Currency',
-        right: 'GAME',
+        right: 'BVM',
         icon: '/landing/svg/lego_icon_flat.svg',
       },
       {
@@ -108,82 +150,12 @@ const DATA_CHAINS = [
       },
       {
         left: 'Rollups',
-        right: 'Optimistic, Sovereign',
+        right: 'ZK, Sovereign',
         icon: '/landing/svg/lego_icon_rollup.svg',
       },
       {
         left: 'Data Validity',
         right: 'Bitcoin Ordinals',
-        icon: '/landing/svg/lego_icon_cube.svg',
-      },
-      {
-        left: 'Data Availability',
-        right: 'EigenDA',
-        icon: '/landing/svg/lego_icon_cube.svg',
-      },
-    ],
-    bgTop: '4DBDE0',
-    bgBottom: '0074BB',
-  },
-  {
-    img: chain_4,
-    title: 'Eternal AI',
-    stud: 1,
-    link: 'https://eternalai.org/',
-    data: [
-      {
-        left: 'Currency',
-        right: 'AI',
-        icon: '/landing/svg/lego_icon_flat.svg',
-      },
-      {
-        left: 'Use Case',
-        right: 'Crypto x AI',
-        icon: '/landing/svg/lego_icon_rect.svg',
-      },
-      {
-        left: 'Rollups',
-        right: 'Optimistic, Sovereign',
-        icon: '/landing/svg/lego_icon_rollup.svg',
-      },
-      {
-        left: 'Data Validity',
-        right: 'Bitcoin Ordinals',
-        icon: '/landing/svg/lego_icon_cube.svg',
-      },
-      {
-        left: 'Data Availability',
-        right: 'NearDA',
-        icon: '/landing/svg/lego_icon_cube.svg',
-      },
-    ],
-    bgTop: 'FF9999',
-    bgBottom: 'B74D4D',
-  },
-  {
-    img: chain_5,
-    title: 'Swamps',
-    stud: 1,
-    link: 'https://stampchain.io/',
-    data: [
-      {
-        left: 'Currency',
-        right: 'SWP',
-        icon: '/landing/svg/lego_icon_flat.svg',
-      },
-      {
-        left: 'Use Case',
-        right: 'SRC-20 trading',
-        icon: '/landing/svg/lego_icon_rect.svg',
-      },
-      {
-        left: 'Rollups',
-        right: 'Optimistic, Sovereign',
-        icon: '/landing/svg/lego_icon_rollup.svg',
-      },
-      {
-        left: 'Data Validity',
-        right: 'Bitcoin Stamps',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
       {
@@ -192,9 +164,45 @@ const DATA_CHAINS = [
         icon: '/landing/svg/lego_icon_cube.svg',
       },
     ],
-    bgTop: 'F0B9FE',
-    bgBottom: 'A459A6',
+    bgTop: '4DBDE0',
+    bgBottom: '0074BB',
   },
+
+  // {
+  //   img: chain_5,
+  //   title: 'Swamps',
+  //   stud: 1,
+  //   link: 'https://stampchain.io/',
+  //   data: [
+  //     {
+  //       left: 'Currency',
+  //       right: 'SWP',
+  //       icon: '/landing/svg/lego_icon_flat.svg',
+  //     },
+  //     {
+  //       left: 'Use Case',
+  //       right: 'SRC-20 trading',
+  //       icon: '/landing/svg/lego_icon_rect.svg',
+  //     },
+  //     {
+  //       left: 'Rollups',
+  //       right: 'Optimistic, Sovereign',
+  //       icon: '/landing/svg/lego_icon_rollup.svg',
+  //     },
+  //     {
+  //       left: 'Data Validity',
+  //       right: 'Bitcoin Stamps',
+  //       icon: '/landing/svg/lego_icon_cube.svg',
+  //     },
+  //     {
+  //       left: 'Data Availability',
+  //       right: 'Polygon',
+  //       icon: '/landing/svg/lego_icon_cube.svg',
+  //     },
+  //   ],
+  //   bgTop: 'F0B9FE',
+  //   bgBottom: 'A459A6',
+  // },
   // {
   //   img: chain_6,
   //   title: 'Your chain',
@@ -217,15 +225,27 @@ export default function Chain() {
       <div className={s.chain}>
         <div className="container">
           <section className={s.chain_inner}>
-            <p className={s.chain_case}>
-              <Fade delayEnter={1.8}>THE GROWING BVM ECOSYSTEM</Fade>
-            </p>
-            <HeadingSection className={s.chain_heading}>
-              <Chars delayEnter={2}>
-                Say hello to the first <b>modular Bitcoin L2 blockchains</b>{' '}
-                powered by BVM.
+            <Text className={s.chain_case}>
+              <Fade delayEnter={1.8}>Bitcoin, reimagined</Fade>
+            </Text>
+            <HeadingSection className={s.lego_heading_title}>
+              <Chars>
+                Bitcoin as a <b>network of blockchains.</b>
               </Chars>
             </HeadingSection>
+
+            <ContentSection className={s.lego_heading_description}>
+              <Lines delay={0.2}>
+                Enter a whole new world where finance, gaming, social networks,
+                and AI converge on the biggest blockchain. Bitcoin L2s are
+                powerful, fast, and cost-effective ZK rollups powered by BVM,
+                each unlocking new use cases and possibilities on the Bitcoin
+                network that were not possible before BVM.
+              </Lines>
+            </ContentSection>
+
+            {/* </HeadingTextV2> */}
+
             <Fade delay={0.6} delayEnter={2.2}>
               <HStack
                 justify={'center'}
@@ -253,10 +273,10 @@ export default function Chain() {
                   }}
                   className={s.chain_btn}
                   onClick={() => {
-                    router.push('/rollups/customize');
+                    router.push('/experience');
                   }}
                 >
-                  {`Build your ZK-powered Blockchain`}
+                  {`Experience Bitcoin like never before`}
                 </Button>
               </HStack>
             </Fade>

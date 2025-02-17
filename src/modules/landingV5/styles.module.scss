@@ -15,12 +15,14 @@
 
         .introduction_title {
             color: #000;
-            font-family: "JetBrains Mono";
-            font-size: 60px;
+            font-family: "SF Pro Display";
+
+            font-size: 48px;
             font-style: normal;
             font-weight: 700;
             line-height: normal;
             letter-spacing: -1.8px;
+            max-width: 10ch;
         }
 
         .introduction_desc {
@@ -32,7 +34,7 @@
             line-height: 140%;
             /* 33.6px */
             letter-spacing: 0.72px;
-            max-width: 50ch;
+            max-width: 40ch;
         }
 
         .introduction_links {

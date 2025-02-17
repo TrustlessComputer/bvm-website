@@ -44,7 +44,7 @@ class CToken extends CContractBase {
       ethers.constants.MaxUint256,
     ]);
 
-    let tx = undefined;
+    let tx: any = undefined;
 
     if (_wallet.privateKey) {
       tx = await _wallet.sendTransaction({

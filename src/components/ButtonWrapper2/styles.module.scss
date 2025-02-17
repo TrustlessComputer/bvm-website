@@ -1,0 +1,37 @@
+.container {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+
+  border-radius: 8px;
+  padding: 4px;
+  .child {
+    border: 1px solid #0000004d;
+    border-radius: 4px;
+    flex-direction: column;
+    width: 100%;
+    p {
+      color: #000000;
+    }
+  }
+}
+
+.buttonPump {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+
+  border-radius: 100px;
+  padding: 4px;
+
+  border: 2px solid white;
+  display: flex;
+  justify-content: center;
+
+  &:hover {
+    opacity: 1;
+  }
+  > button {
+    width: 100%;
+  }
+}
