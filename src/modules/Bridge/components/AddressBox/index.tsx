@@ -7,9 +7,10 @@ import React from 'react';
 import { ReactSVG } from 'react-svg';
 import copy from 'copy-to-clipboard';
 import { toast } from 'react-hot-toast';
+import { CHAIN_ID } from '@components/WagmiConnector/config';
 
 const AddressBox = () => {
-  const { latestAddress } = useWagmiContext();
+  const { latestAddress, onSwitchChain } = useWagmiContext();
 
   const onCopy = () => {
     copy(latestAddress || "");
@@ -19,14 +20,32 @@ const AddressBox = () => {
 
   if (!latestAddress) return <></>
   return (
-    <Flex className={s.address} gap={'4px'}>
-      <Text mr={'2px'}>Address</Text>
-      <Jazzicon diameter={20} seed={jsNumberForAddress(latestAddress)} />
-      <Text>{formatLongAddress(latestAddress)}</Text>
-      <ReactSVG
-        onClick={onCopy}
-        src="/icons/ic-copy-3.svg"
-      />
+    <Flex
+      alignItems="center"
+      justifyContent="space-between"
+      marginBottom="20px"
+    >
+      <Flex className={s.address} gap={'4px'}>
+        <Text mr={'2px'}>Address</Text>
+        <Jazzicon diameter={20} seed={jsNumberForAddress(latestAddress)} />
+        <Text>{formatLongAddress(latestAddress)}</Text>
+        <ReactSVG
+          onClick={onCopy}
+          src="/icons/ic-copy-3.svg"
+        />
+      </Flex>
+      <Text
+        color="#FA4E0E"
+        fontSize="14px"
+        fontWeight="500"
+        cursor="pointer"
+        textDecoration="underline"
+        onClick={() => {
+          onSwitchChain(CHAIN_ID.TC_RIPPLE);
+        }}
+      >
+        Add RVM to Metamask
+      </Text>
     </Flex>
   )
 }
