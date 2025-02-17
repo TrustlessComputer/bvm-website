@@ -5,7 +5,7 @@ import { useFormikContext } from 'formik';
 import { IFormValues, TokenType } from '@/modules/Bridge/types';
 // import { useAppSelector } from '@stores/hooks';
 // import { commonSelector } from '@stores/states/common/selector';
-// import CBridgeContract from '@/contract/Bridge';
+import CBridgeContract from '@/contract/Bridge';
 import { useWagmiContext } from '@components/WagmiConnector/WagmiProvider';
 // import useERC20Balance from '@components/ERC20Balance/useERC20Balance';
 // import BigNumberJS from 'bignumber.js';
@@ -19,17 +19,22 @@ import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import DepositQRCodeModal from '@/modules/Bridge/components/DepositQRCode/DepositQRCodeModal';
 import useToggleDeposit from '@/modules/Bridge/components/DepositQRCode/useToggleDeposit';
+import { compareString } from '@utils/string';
+import { CHAIN_ID } from '@components/WagmiConnector/config';
+import useERC20Balance from '@hooks/useERC20BalanceVer2';
+import BigNumberJS from 'bignumber.js';
 
 const FormContent = () => {
   const formik = useFormikContext();
   const needReload = useAppSelector(commonSelector)?.needReload;
-  // const bridgeContract = new CBridgeContract();
+  const bridgeContract = new CBridgeContract();
   const { latestAddress } = useWagmiContext();
   const { isShow, onClose } = useToggleDeposit();
   const {
     fromToken,
     toNetwork,
-    toToken
+    toToken,
+    isQRCode
   } = formik.values as IFormValues;
 
   const getIsNeedApprove = async () => {
@@ -39,12 +44,11 @@ const FormContent = () => {
         return;
       }
 
-      const isNeedApprove = false;
-      // const isNeedApprove = await bridgeContract.isNeedApprove({
-      //   token_address: fromToken.address,
-      //   spender_address: fromToken.bridgeContractAddress,
-      //   chain: fromToken.network.name,
-      // });
+      const isNeedApprove = await bridgeContract.isNeedApprove({
+        token_address: fromToken.address,
+        spender_address: fromToken.bridgeContractAddress,
+        chainID: fromToken.chainId,
+      });
 
       formik.setFieldValue('isNeedApprove', isNeedApprove);
     } catch (error) {
@@ -56,28 +60,28 @@ const FormContent = () => {
     getIsNeedApprove();
   }, [fromToken?.address, needReload, latestAddress, toNetwork.name]);
 
-
   useEffect(() => {
     if (toToken.tokenType === TokenType.EVM) {
       formik.setFieldValue('recipient', '');
     }
   }, [toToken.tokenType]);
 
-  // const { loading } = useERC20Balance({
-  //   token: {
-  //     address: fromToken?.address,
-  //   } as any,
-  //   onBalanceChange: (_amount) =>
-  //     formik.setFieldValue(
-  //       'balance',
-  //       new BigNumberJS(
-  //         new BigNumberJS(_amount || '0').toFixed(4, BigNumberJS.ROUND_FLOOR),
-  //       ).toString(),
-  //     ),
-  //   chain: fromToken.network.name,
-  // });
+  useEffect(() => {
+    formik.setFieldValue('isQRCode', compareString(fromToken?.chainId, CHAIN_ID.RIPPLE));
+  }, [fromToken?.chainId, toToken.chainId]);
 
-  const loading = false;
+  const { loading } = useERC20Balance({
+    tokenAddress: fromToken?.address,
+    onBalanceChange: (_amount) =>
+      formik.setFieldValue(
+        'balance',
+        new BigNumberJS(
+          new BigNumberJS(_amount || '0').toFixed(4, BigNumberJS.ROUND_FLOOR),
+        ).toString(),
+      ),
+    chainId: fromToken?.chainId,
+    walletAddress: latestAddress,
+  });
 
   return (
     <Flex
@@ -99,8 +103,12 @@ const FormContent = () => {
       <Flex className={s.formContent}>
         <AddressBox />
         <NetworkRow />
-        {/*<InputAmount />*/}
-        {toToken?.tokenType !== TokenType.EVM && <Recipient />}
+        {!isQRCode && (
+          <>
+            <InputAmount />
+            <Recipient />
+          </>
+        )}
         <InformationBox />
         <SubmitButton loadingBalance={loading} />
         {isShow && (

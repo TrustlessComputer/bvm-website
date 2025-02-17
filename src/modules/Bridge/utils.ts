@@ -1,5 +1,6 @@
 import { BridgeNetwork, BridgeToken } from '@/modules/Bridge/types';
 import { CHAIN_TYPE } from '@constants/chains';
+import { decodeAccountID } from 'ripple-address-codec';
 
 interface IEstimate {
   fromToken: BridgeToken;
@@ -23,7 +24,7 @@ const estimateBridge = (values: IEstimate) => {
     minAmount = 5;
     processingTime = '6 hours';
   } else {
-    minAmount = 0.5;
+    minAmount = 0.004;
     processingTime = '6 hours';
   }
 
@@ -33,6 +34,16 @@ const estimateBridge = (values: IEstimate) => {
   }
 }
 
+const isRippleAddress = (address: string) => {
+  try {
+    decodeAccountID(address);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
 export {
-  estimateBridge
+  estimateBridge,
+  isRippleAddress
 }

@@ -133,6 +133,7 @@
     "remark-gfm": "^4.0.0",
     "remark-math": "^6.0.0",
     "resolve-url-loader": "^5.0.0",
+    "ripple-address-codec": "^5.0.0",
     "sanitize-html": "^2.11.0",
     "sass": "^1.69.5",
     "sats-connect": "^1.1.2",

@@ -21,18 +21,22 @@ const SubmitButton = React.memo((props: IProps) => {
     fromToken,
     isNeedApprove,
     fromAmount,
+    isQRCode
   } = values as IFormValues;
 
   const [switchingNetwork, setSwitchingNetwork] = React.useState(false);
 
   const isDisabled = useMemo(() => {
-    // return isSubmitting || !Boolean(fromAmount) || Boolean(loadingBalance);
-    return isSubmitting || Boolean(loadingBalance);
-  }, [fromAmount, isSubmitting, loadingBalance]);
+    return (isSubmitting || !Boolean(fromAmount) || Boolean(loadingBalance)) && !isQRCode;
+    // return isSubmitting || Boolean(loadingBalance);
+  }, [isSubmitting, loadingBalance, fromAmount, isQRCode]);
 
   const btnLabel = useMemo(() => {
-    return isNeedApprove ? 'Approve and Bridge' : 'Deposit';
-  }, [isNeedApprove]);
+    if (isQRCode) {
+      return 'Bridge';
+    }
+    return isNeedApprove ? 'Approve and Bridge' : 'Bridge';
+  }, [isNeedApprove, isQRCode]);
 
   const isNeedSwitchChain = useMemo(() => {
     return !compareString(fromToken?.network.chainId, chainId) && !compareString(fromToken?.network.chainId, CHAIN_ID.RIPPLE);

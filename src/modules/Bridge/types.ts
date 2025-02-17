@@ -44,10 +44,13 @@ export interface IFormValues {
   fromAmount: string;
   toAmount: string;
   recipient?: string;
+
+  isQRCode?: boolean;
 }
 
 
 export type NetworkType = 'from' | 'to';
+
 export enum TokenType {
   EVM = 'EVM',
   SOLANA = 'SOLANA',

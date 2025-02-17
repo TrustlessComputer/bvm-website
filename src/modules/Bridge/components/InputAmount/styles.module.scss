@@ -6,10 +6,19 @@
   margin-top: 20px;
   width: 100%;
 
+  *:focus {
+    outline: none;
+  }
+
   input {
     margin-top: 12px;
     color: #000;
     font-weight: 500;
     font-size: 24px;
+    background-color: transparent;
+    // placeholder color
+    &::placeholder {
+      color: #a0aec0;
+    }
   }
 }

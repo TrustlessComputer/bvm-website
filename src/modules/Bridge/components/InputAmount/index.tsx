@@ -36,7 +36,7 @@ const InputAmount = () => {
         </Text>
       </Flex>
       <input
-        placeholder={'0.0 EAI'}
+        placeholder={`0.0 ${fromToken?.symbol}`}
         type={'number'}
         value={fromAmount as unknown as string}
         onChange={(e) => {

@@ -2,6 +2,7 @@ import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 import { IFormValues } from '@/modules/Bridge/types';
 import { useFormikContext } from 'formik';
+import styles from './styles.module.scss';
 
 const Recipient: React.FC = () => {
 
@@ -11,7 +12,7 @@ const Recipient: React.FC = () => {
   } = values as IFormValues;
 
   return (
-    <Flex flexDirection="column" gap="8px" mt="20px">
+    <Flex className={styles.container}>
       <Text
         color="rgba(101, 119, 134, 1)"
         fontSize="14px"
@@ -22,7 +23,6 @@ const Recipient: React.FC = () => {
       <input
         placeholder="Enter an address"
         type="text"
-        autoFocus={true}
         style={{
           width: '100%',
           height: '52px',
@@ -32,6 +32,7 @@ const Recipient: React.FC = () => {
           fontSize: '14px',
           fontWeight: '400',
           color: 'black',
+          backgroundColor: 'transparent'
         }}
         value={recipient as unknown as string}
         onChange={(e) => {

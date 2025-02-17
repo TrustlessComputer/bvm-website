@@ -159,7 +159,7 @@ const QRCodeBox = (props: IQRCodeBoxAutoEstimate) => {
             onSwitchChain(toToken.chainId)
           }}
         >
-          Add RVM network to your Metamask
+          Add {toToken?.network.displayName} network to your Metamask
         </Text>
       </Flex>
     </Flex>

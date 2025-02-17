@@ -75,10 +75,10 @@ export const configWagmiChains = [
   eternal,
   apeChain,
   tcRipple,
-] as any;
+] as Chain[];
 
 export const wagmiConfig = createConfig({
-  chains: configWagmiChains,
+  chains: configWagmiChains as any,
   transports: {
     [base.id]: http(),
     [arbitrum.id]: http(),

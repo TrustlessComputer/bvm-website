@@ -9,6 +9,8 @@ export enum CHAIN_TYPE {
   BSC = 'bsc',
   ZKSYNC = 'zksync',
   APE = 'ape',
-  TC_RIPPLE = 'tcRipple',
+  TC_RIPPLE = 'tc_ripple',
   RIPPLE = 'ripple',
 }
+
+export type ChainID = string | number;
