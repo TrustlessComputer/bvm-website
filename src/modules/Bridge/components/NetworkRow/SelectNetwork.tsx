@@ -27,7 +27,7 @@ const SelectNetwork = (props: SelectNetworkProps) => {
   const { networks, oppositionToken } = useChooseNetwork({ type });
 
   const title = React.useMemo(() => {
-    return type === 'from' ? 'From' : 'To';
+    return type === 'from' ? 'From Network' : 'To Network';
   }, [type]);
 
   const isSelectable = React.useMemo(() => !!networks?.length, [networks?.length]);

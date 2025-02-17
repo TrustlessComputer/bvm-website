@@ -152,15 +152,15 @@ const QRCodeBox = (props: IQRCodeBoxAutoEstimate) => {
       <Flex flexDirection="column" mt="20px" gap="4px">
         {renderRow({ key: 'Waiting time:', value: `~ ${estWaitingTime}` })}
         {renderNetworkFee()}
-        <Text
-          color="black" fontSize="13px" fontWeight="500" mt="12px" textAlign="center"
-          cursor="pointer"
-          onClick={() => {
-            onSwitchChain(toToken.chainId)
-          }}
-        >
-          Add {toToken?.network.displayName} network to your Metamask
-        </Text>
+        {/*<Text*/}
+        {/*  color="black" fontSize="13px" fontWeight="500" mt="12px" textAlign="center"*/}
+        {/*  cursor="pointer"*/}
+        {/*  onClick={() => {*/}
+        {/*    onSwitchChain(toToken.chainId)*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  Add {toToken?.network.displayName} network to your Metamask*/}
+        {/*</Text>*/}
       </Flex>
     </Flex>
   );
