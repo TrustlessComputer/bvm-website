@@ -22,10 +22,10 @@ const estimateBridge = (values: IEstimate) => {
 
   if (isSolana || isArbitrum) {
     minAmount = 5;
-    processingTime = '6 hours';
+    processingTime = "2 minutes";
   } else {
     minAmount = 0.004;
-    processingTime = '6 hours';
+    processingTime = "2 minutes";
   }
 
   return {
