@@ -70,7 +70,7 @@ const BridgeForm = () => {
         return
       }
 
-      const receiver = values.toToken.tokenType === TokenType.SOLANA ? values.recipient : address;
+      const receiver = values.recipient;
       if (!receiver) {
         showError({
           message: 'Please input receiver address.'
@@ -92,10 +92,11 @@ const BridgeForm = () => {
         })
         showSuccess({
           message: `Place bridge successfully.`,
-          url: getExplorer({
-            hash: hash as string,
-            network: values.fromToken.network.name as any,
-          }) as any,
+          url: `https://explorer.rvm.bvm.network/tx/${hash}`
+          // url: getExplorer({
+          //   hash: hash as string,
+          //   network: values.fromToken.network.name as any,
+          // }) as any,
         });
       }
 
