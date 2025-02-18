@@ -92,6 +92,7 @@ const BridgeForm = () => {
         })
         showSuccess({
           message: `Place bridge successfully.`,
+          url: `https://explorer.rvm.bvm.network/tx/${hash}`
           // url: getExplorer({
           //   hash: hash as string,
           //   network: values.fromToken.network.name as any,
