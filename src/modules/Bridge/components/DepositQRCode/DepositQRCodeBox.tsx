@@ -2,7 +2,7 @@ import SvgInset from '@/components/SvgInset';
 import { showSuccess } from '@/components/toast';
 import { formatAmountToClient, formatCurrencyV2 } from '@/utils/format';
 import { removeTrailingZeroes } from '@/utils/string';
-import { Center, Flex, Text } from '@chakra-ui/react';
+import { Center, Flex, Image, Text } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
 import copy from 'copy-to-clipboard';
 import { memo, useMemo } from 'react';
@@ -131,9 +131,10 @@ const QRCodeBox = (props: IQRCodeBoxAutoEstimate) => {
           <Flex width="100%">
             <p className={s.address}>{depositQRCode?.depositAddress || ''} </p>
           </Flex>
-          <SvgInset
-            size={24}
-            svgUrl={`/icons/ic-copy-3.svg`}
+          <Image
+            w="24px"
+            h="24px"
+            src={`/icons/ic-copy-3.svg`}
             className={s.addressBox_iconCopy}
             onClick={() => onClickCopy(depositQRCode?.depositAddress || '')}
           />
