@@ -70,17 +70,16 @@ const BridgeForm = () => {
         return
       }
 
-      const receiver = values.recipient;
-      if (!receiver) {
-        showError({
-          message: 'Please input receiver address.'
-        });
-        return;
-      }
-
       if (values.isQRCode) {
         onOpen();
       } else {
+        const receiver = values.recipient;
+        if (!receiver) {
+          showError({
+            message: 'Please input receiver address.'
+          });
+          return;
+        }
         const hash = await bridgeContract.onBridgeToken({
           tokenAddress: values.fromToken.address,
           bridgeAddress: values.fromToken.bridgeContractAddress,
