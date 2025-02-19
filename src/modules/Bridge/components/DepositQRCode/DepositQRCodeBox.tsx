@@ -133,7 +133,7 @@ const QRCodeBox = (props: IQRCodeBoxAutoEstimate) => {
           </Flex>
           <SvgInset
             size={24}
-            svgUrl={`/icons/ic-copy.svg`}
+            svgUrl={`/icons/ic-copy-3.svg`}
             className={s.addressBox_iconCopy}
             onClick={() => onClickCopy(depositQRCode?.depositAddress || '')}
           />
