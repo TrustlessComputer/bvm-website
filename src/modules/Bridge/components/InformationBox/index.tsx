@@ -24,7 +24,7 @@ const InformationBox = () => {
             Estimated processing time: ~{processingTime}
           </Text>
           <Text fontSize={'12px'} fontWeight={'400'} color={'#657786'}>
-            Note: The bridge takes about 6 hours to process for security reasons. Thanks for your patience!
+            Note: The bridge takes about 2 minutes to process for security reasons. Thanks for your patience!
           </Text>
           <Text fontSize={'12px'} fontWeight={'400'} color={'#657786'}>
             Ensure your wallet has enough {fromToken?.network?.nativeCurrency?.symbol} for gas fees to complete the
