@@ -30,12 +30,8 @@ const FormContent = () => {
   const bridgeContract = new CBridgeContract();
   const { latestAddress } = useWagmiContext();
   const { isShow, onClose } = useToggleDeposit();
-  const {
-    fromToken,
-    toNetwork,
-    toToken,
-    isQRCode
-  } = formik.values as IFormValues;
+  const { fromToken, fromNetwork, toNetwork, toToken, isQRCode } =
+    formik.values as IFormValues;
 
   const getIsNeedApprove = async () => {
     try {
@@ -59,16 +55,6 @@ const FormContent = () => {
   useEffect(() => {
     getIsNeedApprove();
   }, [fromToken?.address, needReload, latestAddress, toNetwork.name]);
-
-  useEffect(() => {
-    if (toToken.tokenType === TokenType.EVM) {
-      formik.setFieldValue('recipient', '');
-    }
-  }, [toToken.tokenType]);
-
-  useEffect(() => {
-    formik.setFieldValue('isQRCode', compareString(fromToken?.chainId, CHAIN_ID.RIPPLE));
-  }, [fromToken?.chainId, toToken.chainId]);
 
   const { loading } = useERC20Balance({
     tokenAddress: fromToken?.address,
@@ -98,7 +84,7 @@ const FormContent = () => {
         maxW={'598px'}
         mb={'32px'}
       >
-        Bridge XRP
+        Bridges 12345
       </Text>
       <Flex className={s.formContent}>
         <AddressBox />
@@ -111,9 +97,7 @@ const FormContent = () => {
         )}
         <InformationBox />
         <SubmitButton loadingBalance={loading} />
-        {isShow && (
-          <DepositQRCodeModal isOpen={isShow} onClose={onClose} />
-        )}
+        {isShow && <DepositQRCodeModal isOpen={isShow} onClose={onClose} />}
       </Flex>
     </Flex>
   );

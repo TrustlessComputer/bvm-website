@@ -35,7 +35,7 @@ type Transaction = {
 
 type GetAccessTokenParams = {
   address: string;
-}
+};
 
 type SignMessageRequest = {
   message: string;
@@ -97,8 +97,6 @@ export const WagmiProvider = ({ children }: PropsWithChildren) => {
     return connectors[0];
   };
 
-
-
   const nativeAmountFormated = React.useMemo(() => {
     let amount = (nativeAmount?.data?.formatted || '0') as string;
     amount = new BigNumberJS(
@@ -109,8 +107,6 @@ export const WagmiProvider = ({ children }: PropsWithChildren) => {
     }
     return amount;
   }, [nativeAmount?.data]);
-
-
 
   const onConnect = async (chainId = ARBITRUM_CHAIN_ID) => {
     const connector = getConnector();
@@ -131,31 +127,40 @@ export const WagmiProvider = ({ children }: PropsWithChildren) => {
     if (!compareString(chainId, requestChainId)) {
       const connector = getConnector();
       try {
-        const data = await switchChainAsync({ connector, chainId: requestChainId });
-                console.log('===switchChainAsyncSuccess', data)
-
+        const data = await switchChainAsync({
+          connector,
+          chainId: requestChainId,
+        });
+        console.log('===switchChainAsyncSuccess', data);
       } catch (error) {
-        console.log('===switchChainAsyncError', error)
+        console.log('===switchChainAsyncError', error);
         // If the chain is not available, prompt to add it to MetaMask
         if ((error as any).code === 4902) {
           try {
-            alert('SwitchERROR')
-            const requestChain = configWagmiChains.find((chain: any) => compareString(chain.id, requestChainId))
+            // alert('SwitchERROR');
+            const requestChain = configWagmiChains.find((chain: any) =>
+              compareString(chain.id, requestChainId),
+            );
             if (requestChain)
-            await (window.ethereum as any)?.request({
-              method: 'wallet_addEthereumChain',
-              params: [
-                {
-                  chainId: `0x${requestChain.id.toString(16)}`, // Chain ID in hex format
-                  chainName: requestChain.name,
-                  nativeCurrency: requestChain.nativeCurrency,
-                  rpcUrls: requestChain.rpcUrls.default.http,
-                  blockExplorerUrls: [requestChain.blockExplorers.default.url],
-                },
-              ],
-            });
+              await (window.ethereum as any)?.request({
+                method: 'wallet_addEthereumChain',
+                params: [
+                  {
+                    chainId: `0x${requestChain.id.toString(16)}`, // Chain ID in hex format
+                    chainName: requestChain.name,
+                    nativeCurrency: requestChain.nativeCurrency,
+                    rpcUrls: requestChain.rpcUrls.default.http,
+                    blockExplorerUrls: [
+                      requestChain.blockExplorers.default.url,
+                    ],
+                  },
+                ],
+              });
           } catch (addError) {
-            console.error('Failed to add the custom chain to MetaMask:', addError);
+            console.error(
+              'Failed to add the custom chain to MetaMask:',
+              addError,
+            );
           }
         } else {
           console.error('Failed to switch to the custom chain:', error);
@@ -247,7 +252,14 @@ export const WagmiProvider = ({ children }: PropsWithChildren) => {
       chainId,
       onSignMessage,
     };
-  }, [isPending, nativeAmountFormated, address, isConnected, latestAddress, chainId]);
+  }, [
+    isPending,
+    nativeAmountFormated,
+    address,
+    isConnected,
+    latestAddress,
+    chainId,
+  ]);
 
   useAccountEffect({
     onConnect(data) {

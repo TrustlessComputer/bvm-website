@@ -11,7 +11,10 @@ type DropdownMenuType = {
   onSelect: (network: BridgeNetwork) => void;
 };
 
-const DropDownMenu = ({ networks, onSelect }: DropdownMenuType): ReactElement => {
+const DropDownMenu = ({
+  networks,
+  onSelect,
+}: DropdownMenuType): ReactElement => {
   return (
     <motion.ul
       className={cs(s.dropMenu_list)}
@@ -27,17 +30,24 @@ const DropDownMenu = ({ networks, onSelect }: DropdownMenuType): ReactElement =>
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            onSelect(network)
+            onSelect(network);
           }}
         >
           <Image
             src={network.logoURI}
             width={28}
             height={28}
-            style={{  borderRadius: '50%' }}
+            style={{ borderRadius: '50%' }}
             alt="logo-image"
           />
-          <Text fontSize={'16px'} fontWeight={'400'}>
+          <Text
+            fontSize={'16px'}
+            fontWeight={'400'}
+            color={'black'}
+            _hover={{
+              bgColor: 'transparent',
+            }}
+          >
             {network.displayName}
           </Text>
         </li>

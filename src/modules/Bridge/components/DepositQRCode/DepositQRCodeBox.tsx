@@ -37,11 +37,7 @@ const QRCodeBox = (props: IQRCodeBoxAutoEstimate) => {
   const tokenSymbol = fromToken?.symbol?.toUpperCase();
 
   const estWaitingTime = useMemo(() => {
-    // return estimateBridgeTime({
-    //   fromToken: fromToken,
-    //   toToken: toToken,
-    // });
-    return "2 minutes";
+    return '2 minutes';
   }, [fromToken, toToken]);
 
   const renderSendDescription = () => {
@@ -76,13 +72,19 @@ const QRCodeBox = (props: IQRCodeBoxAutoEstimate) => {
             value: `~ ${paymentFeeFormatted} ${tokenSymbol}`,
           })}
           {!!depositQRCode?.minDepositAmount &&
-            depositQRCode?.minDepositAmount !== '0'}
-          {renderRow({
-            key: 'Min. deposit:',
-            value: `${formatCurrencyV2({
-              amount: formatAmountToClient(new BigNumber(depositQRCode?.minDepositAmount || '0').toString()),
-            })} ${tokenSymbol}`,
-          })}
+          new BigNumber(depositQRCode?.minDepositAmount).gt('0')
+            ? renderRow({
+                key: 'Min. deposit:',
+                value: `${formatCurrencyV2({
+                  amount: formatAmountToClient(
+                    new BigNumber(
+                      depositQRCode?.minDepositAmount || '0',
+                    ).toString(),
+                  ),
+                })} ${tokenSymbol}`,
+              })
+            : null}
+
           <Flex
             direction="row"
             alignItems="center"
@@ -111,17 +113,26 @@ const QRCodeBox = (props: IQRCodeBoxAutoEstimate) => {
   const renderRow = (params: { key: string; value: string }) => {
     return (
       <Flex justifyContent="space-between" alignItems="center">
-        <Text color="black" opacity={0.8}>{params.key}</Text>
-        <Text textAlign="end" color="black">{params.value}</Text>
+        <Text color="black" opacity={0.8}>
+          {params.key}
+        </Text>
+        <Text textAlign="end" color="black">
+          {params.value}
+        </Text>
       </Flex>
     );
   };
 
   const upperFirst = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
-  }
+  };
 
-  if (loading || !depositQRCode?.depositAddress) return <Center><Loading /></Center>;
+  if (loading || !depositQRCode?.depositAddress)
+    return (
+      <Center>
+        <Loading />
+      </Center>
+    );
 
   return (
     <Flex direction="column">

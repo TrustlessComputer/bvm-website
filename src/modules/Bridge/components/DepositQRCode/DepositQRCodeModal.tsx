@@ -1,5 +1,9 @@
 import React from 'react';
-import { BridgeToken, IDepositQRCode, IFormValues } from '@/modules/Bridge/types';
+import {
+  BridgeToken,
+  IDepositQRCode,
+  IFormValues,
+} from '@/modules/Bridge/types';
 import DepositQRCodeBox from '@/modules/Bridge/components/DepositQRCode/DepositQRCodeBox';
 import { useFormikContext } from 'formik';
 import axios from 'axios';
@@ -12,7 +16,6 @@ type IProps = {
   onClose: () => void;
   disableClose?: boolean;
 };
-
 
 const DepositQRCodeModal = React.memo((props: IProps) => {
   const { isOpen, onClose } = props;
@@ -27,21 +30,25 @@ const DepositQRCodeModal = React.memo((props: IProps) => {
   const getDepositQRCode = async () => {
     setLoading(true);
     try {
-      const deposit = (await axios.post('https://ripple-bridges-api.trustless.computer/api/generate-deposit-address', {
-        tcAddress: latestAddress,
-        tcTokenID: toToken.address,
-        toChainID: Number(toToken.network.chainId),
-        fromChainID: Number(fromToken.network.chainId),
-      }))?.data?.data as IDepositQRCode;
+      const deposit = (
+        await axios.post(
+          'https://l2aas-bridges-api.newbitcoincity.com/api/generate-deposit-address',
+          {
+            tcAddress: latestAddress,
+            tcTokenID: toToken.address,
+            toChainID: Number(toToken.network.chainId),
+            fromChainID: Number(fromToken.network.chainId),
+          },
+        )
+      )?.data?.data as IDepositQRCode;
 
       setDepositQRCode(deposit);
-
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   React.useEffect(() => {
     getDepositQRCode();
@@ -51,7 +58,7 @@ const DepositQRCodeModal = React.memo((props: IProps) => {
     <BaseModal
       isShow={isOpen}
       onHide={onClose}
-      title="Deposit XRP"
+      title={`Deposit ${fromToken.name}`}
       theme="light"
       icCloseUrl="/icons/ic_close_modal_black.svg"
       headerClassName={s.modalManualHeader}
@@ -67,7 +74,4 @@ const DepositQRCodeModal = React.memo((props: IProps) => {
   );
 });
 
-
 export default DepositQRCodeModal;
-
-

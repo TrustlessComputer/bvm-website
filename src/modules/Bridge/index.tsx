@@ -6,9 +6,7 @@ import BridgeForm from '@/modules/Bridge/components/BridgeForm';
 
 const BridgeModule = () => {
   return (
-    <Flex
-      className={s.container}
-    >
+    <Flex className={s.container}>
       <BridgeForm />
     </Flex>
   );

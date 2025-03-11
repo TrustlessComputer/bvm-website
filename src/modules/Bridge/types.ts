@@ -8,7 +8,7 @@ export interface BridgeNetwork {
   displayName: string;
   nativeCurrency: {
     symbol: string;
-  }
+  };
 }
 
 export interface BridgeToken {
@@ -24,20 +24,19 @@ export interface BridgeToken {
   tokenType: TokenType;
   tokenAddress: {
     [key: string]: string;
-  },
+  };
   bridgeAddress: {
     [key: string]: string;
-  }
+  };
 }
-
 
 export interface IFormValues {
   fromToken: BridgeToken;
-  toToken: BridgeToken;
+  toToken?: BridgeToken;
   isNeedApprove: boolean;
 
   fromNetwork: BridgeNetwork;
-  toNetwork: BridgeNetwork;
+  toNetwork?: BridgeNetwork;
 
   balance?: string;
 
@@ -48,13 +47,13 @@ export interface IFormValues {
   isQRCode?: boolean;
 }
 
-
 export type NetworkType = 'from' | 'to';
 
 export enum TokenType {
   EVM = 'EVM',
   SOLANA = 'SOLANA',
   RIPPLE = 'RIPPLE',
+  DOGE = 'DOGE',
 }
 
 export interface IDepositQRCode {

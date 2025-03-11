@@ -17,17 +17,16 @@ const SubmitButton = React.memo((props: IProps) => {
   const { loadingBalance } = props;
   const { onConnect, isConnected, onSwitchChain, chainId } = useWagmiContext();
   const { values, isSubmitting } = useFormikContext();
-  const {
-    fromToken,
-    isNeedApprove,
-    fromAmount,
-    isQRCode
-  } = values as IFormValues;
+  const { fromToken, isNeedApprove, fromAmount, isQRCode } =
+    values as IFormValues;
 
   const [switchingNetwork, setSwitchingNetwork] = React.useState(false);
 
   const isDisabled = useMemo(() => {
-    return (isSubmitting || !Boolean(fromAmount) || Boolean(loadingBalance)) && !isQRCode;
+    return (
+      (isSubmitting || !Boolean(fromAmount) || Boolean(loadingBalance)) &&
+      !isQRCode
+    );
     // return isSubmitting || Boolean(loadingBalance);
   }, [isSubmitting, loadingBalance, fromAmount, isQRCode]);
 
@@ -39,8 +38,14 @@ const SubmitButton = React.memo((props: IProps) => {
   }, [isNeedApprove, isQRCode]);
 
   const isNeedSwitchChain = useMemo(() => {
-    return !compareString(fromToken?.network.chainId, chainId) && !compareString(fromToken?.network.chainId, CHAIN_ID.RIPPLE);
-  }, [fromToken?.network.chainId, chainId]);
+    if (isQRCode) {
+      return false;
+    }
+    return (
+      !compareString(fromToken?.network.chainId, chainId) &&
+      !compareString(fromToken?.network.chainId, CHAIN_ID.RIPPLE)
+    );
+  }, [isQRCode, fromToken?.network.chainId, chainId]);
 
   const renderButton = () => {
     let comp: React.ReactNode | null = null;
@@ -54,7 +59,7 @@ const SubmitButton = React.memo((props: IProps) => {
         >
           Connect metamask
         </Button>
-      )
+      );
     } else {
       if (isNeedSwitchChain) {
         comp = (
@@ -65,15 +70,14 @@ const SubmitButton = React.memo((props: IProps) => {
             loadingText={'Switching network'}
             onClick={() => {
               setSwitchingNetwork(true);
-              onSwitchChain(fromToken.chainId)
-                .finally(() => {
-                  setSwitchingNetwork(false);
-                });
+              onSwitchChain(fromToken.chainId).finally(() => {
+                setSwitchingNetwork(false);
+              });
             }}
           >
             Switch network
           </Button>
-        )
+        );
       } else {
         comp = (
           <Button
@@ -84,12 +88,12 @@ const SubmitButton = React.memo((props: IProps) => {
           >
             {btnLabel}
           </Button>
-        )
+        );
       }
     }
 
     return comp;
-  }
+  };
 
   return (
     <ButtonWrapper2

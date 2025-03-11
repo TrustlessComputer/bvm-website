@@ -10,7 +10,10 @@ interface IProps {
 
 const useBridgeStore = create<IProps, any>((set, get) => ({
   tokens: ConfigTokens,
-  networks: uniqBy(ConfigTokens.map((token) => token.network), 'name'),
+  networks: uniqBy(
+    ConfigTokens.map((token) => token.network),
+    'name',
+  ),
 }));
 
 export default useBridgeStore;
