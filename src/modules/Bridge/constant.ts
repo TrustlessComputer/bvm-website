@@ -6,8 +6,7 @@ export const DOGE_NETWORK: BridgeNetwork = {
   name: CHAIN_TYPE.DOGE,
   chainId: CHAIN_ID.DOGE,
   explorerUrl: '',
-  logoURI:
-    'https://www.shareicon.net/data/512x512/2015/09/14/101012_doge_512x512.png',
+  logoURI: 'https://s2.coinmarketcap.com/static/img/coins/64x64/74.png',
   displayName: 'Doge',
   nativeCurrency: {
     symbol: 'DOGE',
@@ -18,7 +17,7 @@ export const TC_DOGE_NETWORK: BridgeNetwork = {
   name: CHAIN_TYPE.TC_DOGE,
   chainId: CHAIN_ID.TC_DOGE_CHAIN_ID,
   explorerUrl: 'https://explorer.tc-doge.trustless.computer',
-  logoURI: 'https://upload.wikimedia.org/wikipedia/vi/d/d0/Dogecoin_Logo.png', // TO DO 1
+  logoURI: 'https://storage.googleapis.com/bvm-network/dvm/dvm-logo.png', // TO DO 1
   displayName: 'DVM',
   nativeCurrency: {
     symbol: 'DOGE',
@@ -76,7 +75,7 @@ export const DOGE_DOGECOIN: BridgeToken = {
   address: DOGE_ADDRESS.DOGE.token,
   decimals: 18,
   chainId: CHAIN_ID.DOGE,
-  logoURI: 'https://upload.wikimedia.org/wikipedia/vi/d/d0/Dogecoin_Logo.png',
+  logoURI: 'https://s2.coinmarketcap.com/static/img/coins/64x64/74.png',
   tokenType: TokenType.DOGE,
   network: DOGE_NETWORK,
   bridgeContractAddress: DOGE_ADDRESS.DOGE.bridge,
@@ -95,7 +94,7 @@ export const DOGE_TC_DOGECOIN: BridgeToken = {
   address: DOGE_ADDRESS.TC_DOGE.token,
   decimals: 18,
   chainId: CHAIN_ID.TC_DOGE_CHAIN_ID,
-  logoURI: 'https://upload.wikimedia.org/wikipedia/vi/d/d0/Dogecoin_Logo.png', // TO DO 1
+  logoURI: 'https://storage.googleapis.com/bvm-network/dvm/dvm-logo.png', // TO DO 1
   tokenType: TokenType.EVM,
   network: TC_DOGE_NETWORK,
   bridgeContractAddress: DOGE_ADDRESS.TC_DOGE.bridge,

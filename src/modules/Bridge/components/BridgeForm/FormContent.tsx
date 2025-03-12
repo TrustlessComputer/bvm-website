@@ -84,7 +84,7 @@ const FormContent = () => {
         maxW={'598px'}
         mb={'32px'}
       >
-        Bridges 12345
+        Bridges
       </Text>
       <Flex className={s.formContent}>
         <AddressBox />
