@@ -3,7 +3,7 @@ import s from './styles.module.scss';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { formatLongAddress } from '@utils/format';
 import { useWagmiContext } from '@components/WagmiConnector/WagmiProvider';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { ReactSVG } from 'react-svg';
 import copy from 'copy-to-clipboard';
 import { toast } from 'react-hot-toast';
@@ -22,23 +22,31 @@ const AddressBox = () => {
     toast.success(' Copied');
   };
 
+  const isShowAddChain = useMemo(() => {
+    if (
+      fromToken.chainId === CHAIN_ID.TC_RIPPLE ||
+      fromToken.chainId === CHAIN_ID.TC_DOGE_CHAIN_ID
+    ) {
+      return true;
+    }
+    return false;
+  }, [fromToken]);
+
   if (!latestAddress) return <></>;
-  if (
-    fromToken.chainId === CHAIN_ID.TC_RIPPLE ||
-    fromToken.chainId === CHAIN_ID.TC_DOGE_CHAIN_ID
-  )
-    return (
-      <Flex
-        alignItems="center"
-        justifyContent="space-between"
-        marginBottom="20px"
-      >
-        <Flex className={s.address} gap={'4px'}>
-          <Text mr={'2px'}>Address</Text>
-          <Jazzicon diameter={20} seed={jsNumberForAddress(latestAddress)} />
-          <Text>{formatLongAddress(latestAddress)}</Text>
-          <ReactSVG onClick={onCopy} src="/icons/ic-copy-3.svg" />
-        </Flex>
+
+  return (
+    <Flex
+      alignItems="center"
+      justifyContent="space-between"
+      marginBottom="20px"
+    >
+      <Flex className={s.address} gap={'4px'}>
+        <Text mr={'2px'}>Address</Text>
+        <Jazzicon diameter={20} seed={jsNumberForAddress(latestAddress)} />
+        <Text>{formatLongAddress(latestAddress)}</Text>
+        <ReactSVG onClick={onCopy} src="/icons/ic-copy-3.svg" />
+      </Flex>
+      {isShowAddChain && (
         <Text
           color="#FA4E0E"
           fontSize="14px"
@@ -52,9 +60,9 @@ const AddressBox = () => {
         >
           {`Add ${fromToken.symbol} to Metamask`}
         </Text>
-      </Flex>
-    );
-  return null;
+      )}
+    </Flex>
+  );
 };
 
 export default AddressBox;
