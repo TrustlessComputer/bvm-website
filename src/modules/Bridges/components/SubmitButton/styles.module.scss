@@ -1,0 +1,33 @@
+.btnSubmit {
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  opacity: 1 !important;
+  background-color: rgba(0, 0, 0, 1) !important;
+  color: white !important;
+
+  &.disabled {
+    cursor: default;
+    background-color: rgba(0, 0, 0, 0.7) !important;
+  }
+
+  button {
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent !important;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+    opacity: 1 !important;
+    &:hover {
+      background-color: transparent !important;
+      opacity: 1 !important;
+    }
+    &:disabled {
+      cursor: default;
+      color: #9b9b9b;
+    }
+  }
+}

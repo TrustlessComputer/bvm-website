@@ -21,8 +21,12 @@ export const BSC_CHAIN_ID = bsc.id;
 export const ETERNAL_CHAIN_ID = 43338;
 export const ZKSYNC_CHAIN_ID = zksync.id;
 export const APE_CHAIN_ID = apeChain.id;
-export const TC_RIPPLE_CHAIN_ID = 62268;
+
 export const RIPPLE_CHAIN_ID = 4444444;
+export const TC_RIPPLE_CHAIN_ID = 62268; //L2
+
+export const DOGE_CHAIN_ID = 33334;
+export const TC_DOGE_CHAIN_ID = 64468; //L2
 
 export const CHAIN_ID = {
   ARBITRUM: ARBITRUM_CHAIN_ID,
@@ -34,8 +38,12 @@ export const CHAIN_ID = {
   ETERNAL: ETERNAL_CHAIN_ID,
   ZKSYNC: ZKSYNC_CHAIN_ID,
   APE: APE_CHAIN_ID,
+
   TC_RIPPLE: TC_RIPPLE_CHAIN_ID,
   RIPPLE: RIPPLE_CHAIN_ID,
+
+  DOGE: DOGE_CHAIN_ID,
+  TC_DOGE_CHAIN_ID: TC_DOGE_CHAIN_ID,
 };
 
 export const eternal = {
@@ -64,7 +72,24 @@ export const tcRipple = {
   blockExplorers: {
     default: { name: 'Explorer', url: 'https://explorer.rvm.bvm.network' },
   },
-}
+};
+
+export const tcDoge = {
+  id: CHAIN_ID.TC_DOGE_CHAIN_ID,
+  name: 'DVM',
+  network: 'DVM',
+  nativeCurrency: { name: 'Doge', symbol: 'DOGE', decimals: 18 },
+  rpcUrls: {
+    default: { http: ['https://tc-doge.trustless.computer'] },
+    public: { http: ['https://tc-doge.trustless.computer'] },
+  },
+  blockExplorers: {
+    default: {
+      name: 'Explorer',
+      url: 'https://explorer.tc-doge.trustless.computer',
+    },
+  },
+};
 
 export const configWagmiChains = [
   base,
@@ -75,6 +100,7 @@ export const configWagmiChains = [
   eternal,
   apeChain,
   tcRipple,
+  tcDoge,
 ] as Chain[];
 
 export const wagmiConfig = createConfig({
@@ -90,6 +116,7 @@ export const wagmiConfig = createConfig({
     [zksync.id]: http(),
     [apeChain.id]: http(),
     [tcRipple.id]: http(),
+    [tcDoge.id]: http(),
   },
   connectors: [
     // injected(),

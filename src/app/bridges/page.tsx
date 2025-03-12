@@ -1,6 +1,6 @@
 'use client';
 import MainLayout from '@/layouts/MainLayout';
-import BridgeModule from '@/modules/Bridge';
+import BridgeModule from '@/modules/Bridges';
 
 const Page = () => {
   return (

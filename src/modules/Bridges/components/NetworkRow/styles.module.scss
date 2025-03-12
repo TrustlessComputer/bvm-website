@@ -1,0 +1,37 @@
+.dropMenu_list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 3px;
+  list-style: none;
+  background-color: rgba(248, 249, 250, 1);
+  opacity: 0.9;
+  border: 1px solid #e5e7eb;
+  padding: 8px;
+  z-index: 999;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 5px;
+  :hover {
+    opacity: 1;
+    background-color: rgba(139, 139, 139, 0.482);
+  }
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px;
+}
+
+.menusAction {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  //width: 200px;
+}

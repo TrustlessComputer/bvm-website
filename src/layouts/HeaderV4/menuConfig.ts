@@ -74,7 +74,7 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'Bridge XRP',
+    label: 'Bridges',
     href: '/bridge',
     isNewWindow: false,
     isHide: false,
