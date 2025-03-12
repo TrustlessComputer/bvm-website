@@ -1,0 +1,12 @@
+.formContent {
+  background-color: #ffffff;
+  border-radius: 24px;
+  padding: 24px;
+  width: 100%;
+  max-width: 600px;
+  flex-direction: column;
+  min-width: 600px;
+  @include is-mobile {
+    min-width: unset;
+  }
+}

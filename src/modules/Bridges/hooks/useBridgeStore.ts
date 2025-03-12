@@ -1,6 +1,6 @@
 import create from 'zustand';
-import { BridgeNetwork, BridgeToken } from '@/modules/Bridge/types';
-import { ConfigTokens } from '@/modules/Bridge/constant';
+import { BridgeNetwork, BridgeToken } from '@/modules/Bridges/types';
+import { ConfigTokens } from '@/modules/Bridges/constant';
 import uniqBy from 'lodash.uniqby';
 
 interface IProps {
@@ -10,7 +10,10 @@ interface IProps {
 
 const useBridgeStore = create<IProps, any>((set, get) => ({
   tokens: ConfigTokens,
-  networks: uniqBy(ConfigTokens.map((token) => token.network), 'name'),
+  networks: uniqBy(
+    ConfigTokens.map((token) => token.network),
+    'name',
+  ),
 }));
 
 export default useBridgeStore;

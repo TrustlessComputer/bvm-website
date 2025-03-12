@@ -2,23 +2,23 @@ import { Flex, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { useEffect } from 'react';
 import { useFormikContext } from 'formik';
-import { IFormValues, TokenType } from '@/modules/Bridge/types';
+import { IFormValues, TokenType } from '@/modules/Bridges/types';
 // import { useAppSelector } from '@stores/hooks';
 // import { commonSelector } from '@stores/states/common/selector';
 import CBridgeContract from '@/contract/Bridge';
 import { useWagmiContext } from '@components/WagmiConnector/WagmiProvider';
 // import useERC20Balance from '@components/ERC20Balance/useERC20Balance';
 // import BigNumberJS from 'bignumber.js';
-import AddressBox from '@/modules/Bridge/components/AddressBox';
-import InputAmount from '@/modules/Bridge/components/InputAmount';
-import InformationBox from '@/modules/Bridge/components/InformationBox';
-import SubmitButton from '@/modules/Bridge/components/SubmitButton';
-import NetworkRow from 'src/modules/Bridge/components/NetworkRow';
-import Recipient from '@/modules/Bridge/components/Recipient';
+import AddressBox from '@/modules/Bridges/components/AddressBox';
+import InputAmount from '@/modules/Bridges/components/InputAmount';
+import InformationBox from '@/modules/Bridges/components/InformationBox';
+import SubmitButton from '@/modules/Bridges/components/SubmitButton';
+import NetworkRow from 'src/modules/Bridges/components/NetworkRow';
+import Recipient from '@/modules/Bridges/components/Recipient';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import DepositQRCodeModal from '@/modules/Bridge/components/DepositQRCode/DepositQRCodeModal';
-import useToggleDeposit from '@/modules/Bridge/components/DepositQRCode/useToggleDeposit';
+import DepositQRCodeModal from '@/modules/Bridges/components/DepositQRCode/DepositQRCodeModal';
+import useToggleDeposit from '@/modules/Bridges/components/DepositQRCode/useToggleDeposit';
 import { compareString } from '@utils/string';
 import { CHAIN_ID } from '@components/WagmiConnector/config';
 import useERC20Balance from '@hooks/useERC20BalanceVer2';
@@ -30,12 +30,8 @@ const FormContent = () => {
   const bridgeContract = new CBridgeContract();
   const { latestAddress } = useWagmiContext();
   const { isShow, onClose } = useToggleDeposit();
-  const {
-    fromToken,
-    toNetwork,
-    toToken,
-    isQRCode
-  } = formik.values as IFormValues;
+  const { fromToken, fromNetwork, toNetwork, toToken, isQRCode } =
+    formik.values as IFormValues;
 
   const getIsNeedApprove = async () => {
     try {
@@ -59,16 +55,6 @@ const FormContent = () => {
   useEffect(() => {
     getIsNeedApprove();
   }, [fromToken?.address, needReload, latestAddress, toNetwork.name]);
-
-  useEffect(() => {
-    if (toToken.tokenType === TokenType.EVM) {
-      formik.setFieldValue('recipient', '');
-    }
-  }, [toToken.tokenType]);
-
-  useEffect(() => {
-    formik.setFieldValue('isQRCode', compareString(fromToken?.chainId, CHAIN_ID.RIPPLE));
-  }, [fromToken?.chainId, toToken.chainId]);
 
   const { loading } = useERC20Balance({
     tokenAddress: fromToken?.address,
@@ -98,7 +84,7 @@ const FormContent = () => {
         maxW={'598px'}
         mb={'32px'}
       >
-        Bridge XRP
+        Bridges
       </Text>
       <Flex className={s.formContent}>
         <AddressBox />
@@ -111,9 +97,7 @@ const FormContent = () => {
         )}
         <InformationBox />
         <SubmitButton loadingBalance={loading} />
-        {isShow && (
-          <DepositQRCodeModal isOpen={isShow} onClose={onClose} />
-        )}
+        {isShow && <DepositQRCodeModal isOpen={isShow} onClose={onClose} />}
       </Flex>
     </Flex>
   );

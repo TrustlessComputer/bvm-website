@@ -1,9 +1,9 @@
-import { IFormValues, TokenType } from '@/modules/Bridge/types';
+import { IFormValues, TokenType } from '@/modules/Bridges/types';
 import { useFormikContext } from 'formik';
 import { useEffect } from 'react';
 import { useWagmiContext } from '@components/WagmiConnector/WagmiProvider';
 import { CHAIN_TYPE } from '@/constants/chains';
-import useToggleDeposit from '@/modules/Bridge/components/DepositQRCode/useToggleDeposit';
+import useToggleDeposit from '@/modules/Bridges/components/DepositQRCode/useToggleDeposit';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import useERC20Balance from '@hooks/useERC20BalanceVer2';

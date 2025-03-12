@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 20px;
+
+  input {
+    color: #000;
+    font-weight: 500;
+    font-size: 24px;
+    background-color: transparent;
+    &::placeholder {
+      color: #a0aec0;
+    }
+  }
+}

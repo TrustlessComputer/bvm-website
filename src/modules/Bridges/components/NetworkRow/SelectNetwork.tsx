@@ -1,12 +1,12 @@
 import { Flex, Text, Image } from '@chakra-ui/react';
-import { BridgeNetwork } from '@/modules/Bridge/types';
+import { BridgeNetwork } from '@/modules/Bridges/types';
 import React, { useRef, useState } from 'react';
-import useChooseNetwork from '@/modules/Bridge/hooks/useChooseNetwork';
-import DropDownMenu from '@/modules/Bridge/components/NetworkRow/DropdownMenu';
+import useChooseNetwork from '@/modules/Bridges/hooks/useChooseNetwork';
+import DropDownMenu from '@/modules/Bridges/components/NetworkRow/DropdownMenu';
 import cs from 'classnames';
 import s from './styles.module.scss';
 import { motion } from 'framer-motion';
-import useBridgeStore from '@/modules/Bridge/hooks/useBridgeStore';
+import useBridgeStore from '@/modules/Bridges/hooks/useBridgeStore';
 import { useFormikContext } from 'formik';
 import { useOnClickOutside } from '@hooks/useOnClickOutside';
 
@@ -19,10 +19,8 @@ const SelectNetwork = (props: SelectNetworkProps) => {
   const { network, type } = props;
 
   const [isShowMenu, setIsShowMenu] = useState(false);
-  const formik = useFormikContext();
-
+  const { setFieldValue } = useFormikContext();
   const targetRef = useRef<HTMLDivElement>(null);
-  const { tokens } = useBridgeStore();
 
   const { networks, oppositionToken } = useChooseNetwork({ type });
 
@@ -30,18 +28,23 @@ const SelectNetwork = (props: SelectNetworkProps) => {
     return type === 'from' ? 'From Network' : 'To Network';
   }, [type]);
 
-  const isSelectable = React.useMemo(() => !!networks?.length, [networks?.length]);
-
+  const isSelectable = React.useMemo(
+    () => !!networks?.length,
+    [networks?.length],
+  );
 
   const onSelectNetwork = (_network: BridgeNetwork) => {
     setIsShowMenu(false);
-    const token = tokens.find((token) => token.network.name === _network.name);
-    const isBridgeable = oppositionToken?.bridgeAddress?.[_network.name];
-    if (!!token && isBridgeable) {
-      formik.setFieldValue(type === 'from' ? 'fromToken' : 'toToken', token);
-      formik.setFieldValue(type === 'from' ? 'fromNetwork' : 'toNetwork', _network);
-    }
-  }
+    setFieldValue(type === 'from' ? 'fromNetwork' : 'toNetwork', _network);
+
+    // setIsShowMenu(false);
+    // const token = tokens.find((token) => token.network.name === _network.name);
+    // const isBridgeable = oppositionToken?.bridgeAddress?.[_network.name];
+    // if (!!token && isBridgeable) {
+    //   formik.setFieldValue(type === 'from' ? 'fromToken' : 'toToken', token);
+    //   formik.setFieldValue(type === 'from' ? 'fromNetwork' : 'toNetwork', _network);
+    // }
+  };
 
   useOnClickOutside(targetRef, () => {
     setIsShowMenu(false);
@@ -70,11 +73,7 @@ const SelectNetwork = (props: SelectNetworkProps) => {
         position="relative"
         className={cs(s.menusAction)}
       >
-        <Flex
-          gap="8px"
-          alignItems="center"
-          width="100%"
-        >
+        <Flex gap="8px" alignItems="center" width="100%">
           <Image
             src={network.logoURI}
             w={'28px'}
@@ -103,10 +102,7 @@ const SelectNetwork = (props: SelectNetworkProps) => {
           )}
         </Flex>
         {isSelectable && isShowMenu && (
-          <DropDownMenu
-            networks={networks}
-            onSelect={onSelectNetwork}
-          />
+          <DropDownMenu networks={networks} onSelect={onSelectNetwork} />
         )}
       </Flex>
     </Flex>

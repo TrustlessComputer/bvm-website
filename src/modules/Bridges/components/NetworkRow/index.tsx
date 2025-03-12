@@ -1,44 +1,33 @@
 import SelectNetwork from './SelectNetwork';
 import { Grid } from '@chakra-ui/react';
 import { useFormikContext } from 'formik';
-import { IFormValues } from '@/modules/Bridge/types';
+import { IFormValues } from '@/modules/Bridges/types';
 import React from 'react';
 import { motion } from 'framer-motion';
 
 const NetworkRow = () => {
-  const { values, setValues } = useFormikContext();
-  const {
-    fromNetwork,
-    toNetwork,
-    fromToken,
-    toToken,
-  } = values as IFormValues;
+  const { values, setValues, setFieldValue } = useFormikContext();
+  const { fromNetwork, toNetwork, fromToken, toToken } = values as IFormValues;
 
   const [isRotate, setIsRotate] = React.useState(false);
 
-  const canRotate = React.useMemo(() => {
-    return Object.keys(fromToken.bridgeAddress || {}).includes(toNetwork.name) &&
-      Object.keys(toToken.bridgeAddress || {}).includes(fromNetwork.name);
-  }, [fromNetwork, toNetwork, fromToken, toToken]);
+  const canRotate = true;
 
   const onRotate = () => {
-    if (!canRotate) return;
-    setValues((values: IFormValues) => ({
-      ...values,
-      fromNetwork: toNetwork,
-      toNetwork: fromNetwork,
-      fromToken: toToken,
-      toToken: fromToken,
-    }))
-    setIsRotate(!isRotate)
-  }
+    // setValues((values: IFormValues) => ({
+    //   ...values,
+    //   fromNetwork: toNetwork,
+    //   toNetwork: fromNetwork,
+    //   fromToken: undefined,
+    //   toToken: undefined,
+    // }));
+    setFieldValue('fromNetwork', toNetwork);
+    setIsRotate(!isRotate);
+  };
 
   return (
     <Grid w={'100%'} gridTemplateColumns={'1fr 32px 1fr'} gap={'12px'}>
-      <SelectNetwork
-        type="from"
-        network={fromNetwork}
-      />
+      <SelectNetwork type="from" network={fromNetwork} />
       <motion.img
         style={{
           cursor: `${canRotate ? 'pointer' : 'not-allowed'}`,
@@ -55,12 +44,9 @@ const NetworkRow = () => {
         }}
         onClick={onRotate}
       />
-      <SelectNetwork
-        type="to"
-        network={toNetwork}
-      />
+      <SelectNetwork type="to" network={toNetwork} />
     </Grid>
-)
-}
+  );
+};
 
 export default NetworkRow;
