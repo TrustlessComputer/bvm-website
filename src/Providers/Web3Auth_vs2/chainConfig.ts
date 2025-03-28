@@ -10,7 +10,7 @@ export const CHAIN_CONFIG = {
     displayName: 'Ethereum Mainnet',
     chainNamespace: CHAIN_NAMESPACES.EIP155,
     chainId: '0x1',
-    rpcTarget: `https://rpc.ankr.com/eth`,
+    rpcTarget: `https://ethereum-rpc.publicnode.com`,
     blockExplorerUrl: 'https://etherscan.io/',
     ticker: 'ETH',
     tickerName: 'Ethereum',
