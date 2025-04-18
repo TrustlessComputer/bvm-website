@@ -114,7 +114,7 @@ const BLOGS = [
     desc: `The newly launched Bitcoin City, unveiled just last week, provides a place for game enthusiasts to engage in casual games, board games, and strategic challenges, all of which run on BTC, both on web and mobile devices. Alongside this, the platform showcases NFT auctions and features its very own marketplace.`,
     logo: 'gamestarter',
     imageUrl: `${CDN_URL_BLOGS}/14.png`,
-    link: 'https://gamestarter.com/blog/the-new-bitcoin-city',
+    link: 'https://gamestarter.com/blog/bricks-to-bitcoins-the-new-bitcoin-city',
     linkTarget: '_blank',
   },
   {
