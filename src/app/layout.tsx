@@ -44,6 +44,11 @@ export default function RootLayout({
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-YYP2P7BNWB"
         ></Script>
+        <Script
+          src="https://cdn.jsdelivr.net/pyodide/v0.24.0/full/pyodide.js"
+          strategy="beforeInteractive" // Ensures it's loaded before rendering
+          onLoad={() => console.log("Pyodide Loaded")}
+        />
         <Script>
           {`window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
