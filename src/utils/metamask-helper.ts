@@ -28,7 +28,7 @@ export const sendMetamaskDeeplink = (
   },
 ) => {
   if (!tokenInfor) {
-    throw Error('Token informatino is invalid');
+    throw Error('Token information is invalid');
   }
 
   let value;

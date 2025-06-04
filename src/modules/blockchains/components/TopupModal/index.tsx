@@ -229,7 +229,7 @@ const TopupModal = (props: IProps) => {
             }}
             onClick={() => {
               copy(paymentAddress);
-              toast.success('Copied successully!');
+              toast.success('Copied successfully!');
             }}
           />
         </Flex>
